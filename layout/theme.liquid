@@ -97,6 +97,7 @@
     {%- endif -%}
 
     {%- render 'js-variables' -%}
+    {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="template-{{ request.page_type }}{% if request.design_mode %} shopify-design-mode{% endif %}"
@@ -155,7 +156,6 @@
     {%- endif -%}
     
     {% render 'js-utilities' %}
-    {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'mylab-cart.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>
