@@ -680,6 +680,14 @@
             {%- endif -%}
           {%- when 'description' -%}
             <div class="product__description rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
+          {%- when 'volume_pricing' -%}
+            {{ 'ml-volume-pricing.css' | asset_url | stylesheet_tag }}
+            <div class="ml-volume-table-wrapper" data-ml-volume-pricing {{ block.shopify_attributes }}>
+              <noscript>
+                <p class="ml-volume-note">Activez JavaScript pour voir les tarifs dégressifs.</p>
+              </noscript>
+            </div>
+            <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
           {%- when 'custom_liquid' -%}
             <div class="custom__liquid custom__liquid-{{ section.id }}" id="custom__liquid-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
           {%- when 'collapsible_description' -%}
@@ -1885,6 +1893,11 @@
     {
       "type": "description",
       "name": "t:sections.main-product.blocks.description.name",
+      "limit": 1
+    },
+    {
+      "type": "volume_pricing",
+      "name": "Tarifs dégressifs",
       "limit": 1
     },
     {

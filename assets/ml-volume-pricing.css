@@ -1,0 +1,96 @@
+/* ============================================================
+   ML Volume Pricing Table — Tarifs dégressifs MyLab
+   ============================================================ */
+
+.ml-volume-table-wrapper {
+  margin: 1.6rem 0;
+}
+
+.ml-volume-table-wrapper .ml-volume-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #111;
+  margin-bottom: 1.2rem;
+}
+
+.ml-volume-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.ml-volume-table th,
+.ml-volume-table td {
+  padding: 0.8rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.ml-volume-table thead th {
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #555;
+  background: #fafafa;
+  border-bottom: 2px solid #ddd;
+}
+
+.ml-volume-table tbody tr:hover {
+  background: #f8f8f8;
+}
+
+.ml-volume-table tbody td:first-child {
+  font-weight: 600;
+  text-align: left;
+  color: #111;
+}
+
+.ml-volume-table .ml-price-best {
+  color: #fff;
+  background: #111;
+  border-radius: 50px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+  font-size: 1.2rem;
+}
+
+.ml-volume-table .ml-savings {
+  display: block;
+  font-size: 1.1rem;
+  color: #2e7d32;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.ml-volume-note {
+  font-size: 1.2rem;
+  color: #999;
+  margin-top: 0.8rem;
+  line-height: 1.5;
+}
+
+/* Ligne active / sélectionnée */
+.ml-volume-table tbody tr.ml-row-active {
+  background: #f0f7ff;
+}
+
+.ml-volume-table tbody tr.ml-row-active td:first-child {
+  border-left: 3px solid #111;
+}
+
+/* Responsive */
+@media screen and (max-width: 749px) {
+  .ml-volume-table {
+    font-size: 1.2rem;
+  }
+
+  .ml-volume-table th,
+  .ml-volume-table td {
+    padding: 0.6rem 0.5rem;
+  }
+}
