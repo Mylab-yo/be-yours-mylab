@@ -557,20 +557,20 @@ body.ml-drawer-open { overflow: hidden; }
    ============================================================ */
 
 /* --- Anti-flash : masquer les éléments natifs dès que l'override est actif --- */
-mini-cart.ml-active .product-content dd,
-mini-cart.ml-active .product-content dl,
-mini-cart.ml-active .product-content .cart-item__discounted-prices {
+#mini-cart.ml-active .product-content dd,
+#mini-cart.ml-active .product-content dl,
+#mini-cart.ml-active .product-content .cart-item__discounted-prices {
   display: none !important;
 }
-mini-cart.ml-active .product-quantity dt {
+#mini-cart.ml-active .product-quantity dt {
   display: none !important;
 }
-mini-cart.ml-active .cart-item__error {
+#mini-cart.ml-active .cart-item__error {
   display: none !important;
 }
 
 /* --- Prix ligne (aligné à droite, style Typology) --- */
-mini-cart.ml-active .product-quantity {
+#mini-cart.ml-active .product-quantity {
   display: flex;
   align-items: center;
   justify-content: space-between;
