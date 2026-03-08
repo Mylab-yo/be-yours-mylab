@@ -321,6 +321,9 @@
     })).then(function () {
       log('All products fetched, applying overrides');
       applyOverrides(miniCart, items);
+      // Reconnecter l'observer sous-total (l'élément a pu être recréé par innerHTML)
+      subtotalObserver = null;
+      setupSubtotalObserver();
     });
   }
 
@@ -390,32 +393,53 @@
       if (errEl) errEl.style.display = 'none';
     });
 
-    // Sous-total HT — override + retry pour contrer les re-renders Be Yours
+    // Sous-total HT
     if (hasOverride) {
-      var htSubtotalHtml = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
-
-      function setSubtotal() {
-        var els = document.querySelectorAll('#mini-cart-subtotal');
-        log('Subtotal elements found:', els.length, '→', formatMoney(newSubtotal));
-        els.forEach(function (el) { el.innerHTML = htSubtotalHtml; });
-
-        // Aussi cibler le .subtotal .value dans le mini-cart (fallback)
-        var fallbacks = document.querySelectorAll('#mini-cart .subtotal .value.price, #cart .subtotal .value.price');
-        fallbacks.forEach(function (el) {
-          if (el.id !== 'mini-cart-subtotal') {
-            el.innerHTML = htSubtotalHtml;
-          }
-        });
-      }
-
-      setSubtotal();
-      // Retry : Be Yours peut réécrire le sous-total après notre override
-      setTimeout(setSubtotal, 600);
-      setTimeout(setSubtotal, 1200);
+      lastHtSubtotal = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
+      writeSubtotal();
     }
 
     // Libérer le flag après stabilisation DOM
     setTimeout(function () { isApplying = false; }, 300);
+  }
+
+  /* -------------------------------------------------------
+     SOUS-TOTAL PERSISTENT — Observer dédié
+     Stocke le dernier sous-total HT et le réapplique
+     instantanément si Be Yours le réécrit.
+     ------------------------------------------------------- */
+  var lastHtSubtotal = null;
+  var subtotalObserver = null;
+  var isWritingSubtotal = false;
+
+  function writeSubtotal() {
+    if (!lastHtSubtotal) return;
+    isWritingSubtotal = true;
+    document.querySelectorAll('#mini-cart-subtotal').forEach(function (el) {
+      el.innerHTML = lastHtSubtotal;
+    });
+    // Fallback : .subtotal .value.price
+    document.querySelectorAll('#mini-cart .subtotal .value.price, #cart .subtotal .value.price').forEach(function (el) {
+      if (el.id !== 'mini-cart-subtotal') el.innerHTML = lastHtSubtotal;
+    });
+    log('Subtotal written:', lastHtSubtotal.replace(/<[^>]+>/g, ''));
+    // Petit délai pour laisser le MutationObserver ignorer notre propre écriture
+    setTimeout(function () { isWritingSubtotal = false; }, 50);
+  }
+
+  function setupSubtotalObserver() {
+    if (subtotalObserver) return; // déjà en place
+    var el = document.getElementById('mini-cart-subtotal');
+    if (!el) return;
+
+    subtotalObserver = new MutationObserver(function () {
+      if (isWritingSubtotal || !lastHtSubtotal) return;
+      // Be Yours a réécrit le sous-total → on le corrige immédiatement
+      log('Subtotal observer: Be Yours overwrote subtotal, re-applying HT');
+      writeSubtotal();
+    });
+    subtotalObserver.observe(el, { childList: true, characterData: true, subtree: true });
+    log('Subtotal MutationObserver started');
   }
 
   /* -------------------------------------------------------
@@ -563,6 +587,7 @@
     setupObserver();
     patchMiniCart();
     listenEvents();
+    setupSubtotalObserver();
 
     // Override initial au cas où le cart est déjà chargé
     setTimeout(overrideMiniCartPrices, 1500);
