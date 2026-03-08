@@ -188,22 +188,18 @@
 
   /* -------------------------------------------------------
      OVERRIDE DES PRIX DANS LE MINI-CART BE YOURS
-     On lit les <li> du mini-cart, fetch les produits,
-     puis remplace le contenu des <price-money> et du subtotal.
+     Style Typology : prix aligné à droite sur la ligne quantité
      ------------------------------------------------------- */
-  var overrideRunning = false;
+  var observer = null;
+  var debounceTimer = null;
+  var isApplying = false;
 
   function overrideMiniCartPrices() {
-    var miniCart = document.querySelector('mini-cart');
+    var miniCart = document.getElementById('mini-cart');
     if (!miniCart) return;
 
-    // Trouver tous les items du panier
     var items = miniCart.querySelectorAll('cart-items li[data-handle]');
     if (!items.length) return;
-
-    // Éviter les exécutions multiples simultanées
-    if (overrideRunning) return;
-    overrideRunning = true;
 
     // Collecter les handles uniques
     var handles = [];
@@ -212,144 +208,140 @@
       if (handle && handles.indexOf(handle) === -1) handles.push(handle);
     });
 
-    // Fetch tous les produits
-    var promises = handles.map(function (handle) {
-      return getProductData(handle).catch(function () { return null; });
-    });
-
-    Promise.all(promises).then(function () {
-      var newSubtotal = 0;
-      var hasOverride = false;
-
-      items.forEach(function (li) {
-        var handle = li.dataset.handle;
-        var quantity = parseInt(li.dataset.quantity) || 1;
-        var product = productCache[handle];
-
-        if (!product) return;
-
-        var tierKey = detectTierKey(product.tags, product.title);
-        if (!tierKey) return;
-
-        var unitPrice = getUnitPrice(tierKey, quantity);
-        if (!unitPrice) return;
-
-        hasOverride = true;
-        var lineTotal = unitPrice * quantity;
-        newSubtotal += lineTotal;
-
-        // 1. Masquer les prix natifs Be Yours (sous le titre)
-        li.querySelectorAll('.product-content dd, .product-content .cart-item__discounted-prices').forEach(function (el) {
-          el.style.display = 'none';
-        });
-
-        // 2. Injecter le prix aligné à droite dans la zone quantité (style Typology)
-        var qtyRow = li.querySelector('.product-quantity');
-        if (qtyRow) {
-          // Appliquer un flex row sur le conteneur quantité
-          qtyRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;';
-
-          var mlPrice = qtyRow.querySelector('.ml-cart-line-price');
-          if (!mlPrice) {
-            mlPrice = document.createElement('div');
-            mlPrice.className = 'ml-cart-line-price';
-            qtyRow.appendChild(mlPrice);
-          }
-          mlPrice.innerHTML =
-            '<span class="ml-cart-line-price__amount">' + formatMoney(lineTotal) + '</span>' +
-            '<span class="ml-cart-line-price__ht">HT</span>';
-        }
-
-        // 3. Ajouter le détail unitaire sous la ligne quantité
-        var descEl = li.querySelector('.product-description');
-        if (descEl) {
-          var mlDetail = descEl.querySelector('.ml-cart-line-detail');
-          if (!mlDetail) {
-            mlDetail = document.createElement('div');
-            mlDetail.className = 'ml-cart-line-detail';
-            descEl.appendChild(mlDetail);
-          }
-          mlDetail.textContent = quantity + ' × ' + formatMoney(unitPrice) + ' HT';
-        }
-      });
-
-      // Remplacer le sous-total
-      if (hasOverride) {
-        var subtotalEls = document.querySelectorAll('#mini-cart-subtotal');
-        subtotalEls.forEach(function (subtotalEl) {
-          subtotalEl.innerHTML = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
-        });
-      }
-
-      overrideRunning = false;
-    }).catch(function () {
-      overrideRunning = false;
+    // Fetch tous les produits puis appliquer les prix
+    Promise.all(handles.map(function (h) {
+      return getProductData(h).catch(function () { return null; });
+    })).then(function () {
+      applyPriceOverrides(miniCart, items);
     });
   }
 
+  function applyPriceOverrides(miniCart, items) {
+    // Désactiver l'observer pendant nos modifications DOM
+    if (observer) observer.disconnect();
+    isApplying = true;
+
+    var newSubtotal = 0;
+    var hasOverride = false;
+
+    items.forEach(function (li) {
+      var handle = li.dataset.handle;
+      var quantity = parseInt(li.dataset.quantity) || 1;
+      var product = productCache[handle];
+
+      if (!product) return;
+
+      var tierKey = detectTierKey(product.tags, product.title);
+      if (!tierKey) return;
+
+      var unitPrice = getUnitPrice(tierKey, quantity);
+      if (!unitPrice) return;
+
+      hasOverride = true;
+      var lineTotal = unitPrice * quantity;
+      newSubtotal += lineTotal;
+
+      // 1. Masquer les prix natifs Be Yours (sous le titre)
+      li.querySelectorAll('.product-content dd, .product-content dl').forEach(function (el) {
+        el.style.display = 'none';
+      });
+
+      // 2. Injecter le prix sur la ligne quantité, aligné à droite (style Typology)
+      var qtyRow = li.querySelector('.product-quantity');
+      if (qtyRow) {
+        qtyRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;';
+
+        var mlPrice = qtyRow.querySelector('.ml-cart-line-price');
+        if (!mlPrice) {
+          mlPrice = document.createElement('div');
+          mlPrice.className = 'ml-cart-line-price';
+          qtyRow.appendChild(mlPrice);
+        }
+        mlPrice.innerHTML =
+          '<span class="ml-cart-line-price__amount">' + formatMoney(lineTotal) + '</span>' +
+          '<span class="ml-cart-line-price__ht">HT</span>';
+      }
+
+      // 3. Détail unitaire discret sous la zone quantité
+      var descEl = li.querySelector('.product-description');
+      if (descEl) {
+        var mlDetail = descEl.querySelector('.ml-cart-line-detail');
+        if (!mlDetail) {
+          mlDetail = document.createElement('div');
+          mlDetail.className = 'ml-cart-line-detail';
+          descEl.appendChild(mlDetail);
+        }
+        mlDetail.textContent = quantity + ' \u00d7 ' + formatMoney(unitPrice) + ' HT';
+      }
+    });
+
+    // Sous-total HT
+    if (hasOverride) {
+      miniCart.querySelectorAll('#mini-cart-subtotal').forEach(function (el) {
+        el.innerHTML = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
+      });
+    }
+
+    // Réactiver l'observer après un court délai (laisser le DOM se stabiliser)
+    setTimeout(function () {
+      isApplying = false;
+      startObserver();
+    }, 200);
+  }
+
   /* -------------------------------------------------------
-     OBSERVER LE MINI-CART POUR RE-OVERRIDE APRÈS CHAQUE RENDER
-     Be Yours remplace le innerHTML du mini-cart à chaque update.
-     On observe les mutations pour réappliquer nos prix.
+     OBSERVER — avec debounce et protection contre les boucles
      ------------------------------------------------------- */
-  function setupMiniCartObserver() {
-    var miniCart = document.querySelector('mini-cart');
+  function startObserver() {
+    var miniCart = document.getElementById('mini-cart');
     if (!miniCart) return;
 
-    var observer = new MutationObserver(function () {
-      // Petit délai pour laisser Be Yours finir le render
-      setTimeout(overrideMiniCartPrices, 100);
+    if (observer) observer.disconnect();
+
+    observer = new MutationObserver(function () {
+      // Ignorer les mutations causées par nos propres modifications
+      if (isApplying) return;
+
+      // Debounce : attendre que Be Yours ait fini de rendre
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(overrideMiniCartPrices, 300);
     });
 
     observer.observe(miniCart, { childList: true, subtree: true });
-
-    // Override initial aussi
-    setTimeout(overrideMiniCartPrices, 500);
   }
 
   /* -------------------------------------------------------
      OUVRIR LE MINI-CART BE YOURS (pour notre CTA custom)
+     On utilise le mécanisme natif de Be Yours : CartDrawer.openMenuDrawer()
      ------------------------------------------------------- */
   function openBeYoursCart() {
-    // Méthode 1 : Ouvrir le <details> du cart-drawer
-    var details = document.querySelector('cart-drawer > details');
-    if (details) {
-      details.open = true;
-      // Be Yours charge le contenu lazily via fetch
-      var miniCart = details.querySelector('mini-cart');
-      if (miniCart && miniCart.dataset.url) {
-        fetch(miniCart.dataset.url)
-          .then(function (r) { return r.text(); })
-          .then(function (html) {
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(html, 'text/html');
-            var newContent = doc.querySelector('.mini-cart__inner');
-            var inner = miniCart.querySelector('.mini-cart__inner');
-            if (newContent && inner) {
-              inner.innerHTML = newContent.innerHTML;
-            } else if (newContent) {
-              miniCart.innerHTML = '<div class="mini-cart__inner">' + newContent.innerHTML + '</div>';
-            }
-            // Les prix seront overridés par le MutationObserver
-          });
-      }
+    var drawer = document.querySelector('cart-drawer');
+    if (!drawer) return;
+
+    // Utiliser la méthode native de Be Yours
+    if (typeof drawer.openMenuDrawer === 'function') {
+      drawer.openMenuDrawer();
       return;
     }
 
-    // Fallback : click sur le summary du cart
-    var summary = document.querySelector('cart-drawer > details > summary');
-    if (summary) summary.click();
+    // Fallback : ouvrir le <details> manuellement
+    var details = drawer.querySelector('details');
+    if (details) {
+      details.setAttribute('open', '');
+      // Déclencher l'événement pour que Be Yours charge le contenu
+      details.querySelector('summary').click();
+    }
   }
 
   /* -------------------------------------------------------
      REFRESH APRÈS AJOUT AU PANIER (appelé par mylab-product.js)
-     Fetch le mini-cart section HTML et injecte dans Be Yours
      ------------------------------------------------------- */
   function refreshCartAndOpen() {
-    // Mettre à jour les bulles compteur
+    // Récupérer le cart pour mettre à jour le compteur
     fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
       .then(function (r) { return r.json(); })
       .then(function (cart) {
+        // Mettre à jour les bulles compteur (Be Yours utilise ces sélecteurs)
         document.querySelectorAll('.cart-count-bubble span[aria-hidden="true"]').forEach(function (el) {
           el.textContent = cart.item_count;
         });
@@ -358,15 +350,45 @@
         });
       });
 
-    // Ouvrir et rafraîchir le mini-cart Be Yours
+    // Forcer le rechargement du contenu du mini-cart via la section rendering API
+    var miniCart = document.getElementById('mini-cart');
+    if (miniCart) {
+      var url = miniCart.dataset.url || '/?section_id=mini-cart';
+      fetch(url)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, 'text/html');
+          var newHTML = doc.querySelector('.shopify-section');
+          if (newHTML) {
+            miniCart.innerHTML = newHTML.innerHTML;
+          }
+          // L'observer va détecter le changement et appliquer les prix
+        });
+    }
+
+    // Ouvrir le drawer
     openBeYoursCart();
+  }
+
+  /* -------------------------------------------------------
+     ÉCOUTER L'ÉVÉNEMENT NATIF Be Yours cart:refresh
+     ------------------------------------------------------- */
+  function listenCartEvents() {
+    // Be Yours dispatche 'cartdrawer:opened' quand le contenu est chargé
+    document.addEventListener('cartdrawer:opened', function () {
+      setTimeout(overrideMiniCartPrices, 200);
+    });
   }
 
   /* -------------------------------------------------------
      INIT
      ------------------------------------------------------- */
   function init() {
-    setupMiniCartObserver();
+    startObserver();
+    listenCartEvents();
+
+    // Override initial (si le cart est déjà chargé)
+    setTimeout(overrideMiniCartPrices, 1000);
 
     // Exposer globalement
     window.MylabCart = {
