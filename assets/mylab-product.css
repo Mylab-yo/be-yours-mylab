@@ -662,12 +662,37 @@ body.ml-drawer-open { overflow: hidden; }
   color: #111;
 }
 
-/* --- Sous-total HT footer --- */
-#mini-cart-subtotal .ml-cart-ht-label {
+/* --- Sous-total HT footer (mini-cart + cart page) --- */
+#mini-cart-subtotal .ml-cart-ht-label,
+.totals__subtotal-value .ml-cart-ht-label,
+.ml-cart-page-price .ml-cart-ht-label {
   font-size: 1.1rem;
   font-weight: 600;
   color: #999;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-left: 4px;
+}
+
+/* ============================================================
+   PAGE PANIER (/cart) — Override prix HT MyLab
+   ============================================================ */
+
+.ml-cart-page-qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ml-cart-page-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* Aligner le dropdown dans la cellule tableau */
+td.cart-item__quantity .ml-cart-page-qty {
+  margin-top: 8px;
 }

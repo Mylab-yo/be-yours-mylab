@@ -579,6 +579,185 @@
   }
 
   /* -------------------------------------------------------
+     PAGE PANIER COMPLÈTE (/cart)
+     Même logique que le mini-cart mais sur la structure table.
+     ------------------------------------------------------- */
+  var isCartPage = window.location.pathname === '/cart';
+  var lastCartPageSubtotal = null;
+  var cartPageSubtotalObs = null;
+  var isWritingCartSubtotal = false;
+
+  function overrideCartPage() {
+    var container = document.getElementById('main-cart-items');
+    if (!container) return;
+
+    var rows = container.querySelectorAll('tr.cart-item');
+    log('[CartPage] Found', rows.length, 'cart items');
+    if (!rows.length) return;
+
+    // Collecter les handles depuis les liens produit
+    var handles = [];
+    rows.forEach(function (tr) {
+      var link = tr.querySelector('a.cart-item__name');
+      if (link) {
+        var match = link.getAttribute('href').match(/\/products\/([^?#]+)/);
+        if (match) {
+          var h = match[1];
+          if (handles.indexOf(h) === -1) handles.push(h);
+        }
+      }
+    });
+
+    Promise.all(handles.map(function (h) {
+      return getProductData(h).catch(function () { return null; });
+    })).then(function () {
+      applyCartPageOverrides(container, rows);
+    });
+  }
+
+  function applyCartPageOverrides(container, rows) {
+    var newSubtotal = 0;
+    var hasOverride = false;
+
+    rows.forEach(function (tr) {
+      var link = tr.querySelector('a.cart-item__name');
+      if (!link) return;
+      var match = link.getAttribute('href').match(/\/products\/([^?#]+)/);
+      if (!match) return;
+      var handle = match[1];
+      var product = productCache[handle];
+      if (!product) return;
+
+      var tierKey = detectTierKey(product.tags, product.title);
+      if (!tierKey) return;
+
+      var qtyInput = tr.querySelector('input.quantity__input');
+      if (!qtyInput) return;
+      var quantity = parseInt(qtyInput.value) || 1;
+      var lineIndex = qtyInput.dataset.index;
+      var variantId = qtyInput.dataset.quantityVariantId;
+
+      var unitPrice = getUnitPrice(tierKey, quantity);
+      if (!unitPrice) return;
+
+      hasOverride = true;
+      var lineTotal = unitPrice * quantity;
+      newSubtotal += lineTotal;
+
+      // --- Remplacer le +/- par un dropdown ---
+      var qtyCell = tr.querySelector('td.cart-item__quantity');
+      if (qtyCell && !qtyCell.querySelector('.ml-qty-select')) {
+        var tiers = TIERS[tierKey];
+
+        // Masquer le contenu natif du td
+        var qtyPopover = qtyCell.querySelector('quantity-popover');
+        if (qtyPopover) qtyPopover.style.display = 'none';
+
+        // Créer le wrapper dropdown
+        var wrapper = document.createElement('div');
+        wrapper.className = 'ml-cart-page-qty';
+
+        var select = document.createElement('select');
+        select.className = 'ml-qty-select';
+        select.name = 'updates[]';
+        select.dataset.index = lineIndex;
+        if (variantId) select.dataset.quantityVariantId = variantId;
+
+        tiers.forEach(function (tier) {
+          var opt = document.createElement('option');
+          opt.value = tier.qty;
+          opt.textContent = tier.qty + ' u. \u2014 ' + formatMoney(tier.price) + '/u';
+          if (tier.qty === quantity) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        // Si qty hors palier
+        var matched = tiers.some(function (t) { return t.qty === quantity; });
+        if (!matched && quantity > 0) {
+          var extra = document.createElement('option');
+          extra.value = quantity;
+          extra.textContent = quantity + ' u.';
+          extra.selected = true;
+          select.insertBefore(extra, select.firstChild);
+        }
+
+        select.addEventListener('change', function () {
+          var cartItems = tr.closest('cart-items');
+          if (cartItems && typeof cartItems.updateQuantity === 'function') {
+            cartItems.updateQuantity(lineIndex, parseInt(select.value));
+          }
+        });
+
+        wrapper.appendChild(select);
+        qtyCell.appendChild(wrapper);
+      }
+
+      // --- Override prix unitaire (colonne PRIX, desktop) ---
+      var priceCell = tr.querySelector('td.cart-item__prices');
+      if (priceCell) {
+        priceCell.innerHTML = '<span class="ml-cart-page-price">' + formatMoney(unitPrice) + ' <span class="ml-cart-ht-label">HT</span></span>';
+      }
+
+      // --- Override prix unitaire (mobile) ---
+      var mobilePriceCell = tr.querySelector('td.medium-hide');
+      if (mobilePriceCell) {
+        mobilePriceCell.innerHTML = '<span class="ml-cart-page-price">' + formatMoney(unitPrice) + ' <span class="ml-cart-ht-label">HT</span></span>';
+      }
+
+      // --- Override total ligne (colonne TOTAL, desktop) ---
+      var totalWrapper = tr.querySelector('td:last-child .cart-item__price-wrapper.medium-up');
+      if (totalWrapper) {
+        totalWrapper.innerHTML = '<span class="ml-cart-page-price">' + formatMoney(lineTotal) + ' <span class="ml-cart-ht-label">HT</span></span>';
+      }
+    });
+
+    // Sous-total HT page panier
+    if (hasOverride) {
+      lastCartPageSubtotal = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
+      writeCartPageSubtotal();
+      setupCartPageSubtotalObserver();
+    }
+  }
+
+  function writeCartPageSubtotal() {
+    if (!lastCartPageSubtotal) return;
+    isWritingCartSubtotal = true;
+    document.querySelectorAll('.totals__subtotal-value').forEach(function (el) {
+      el.innerHTML = lastCartPageSubtotal;
+    });
+    setTimeout(function () { isWritingCartSubtotal = false; }, 50);
+  }
+
+  function setupCartPageSubtotalObserver() {
+    if (cartPageSubtotalObs) return;
+    var el = document.querySelector('.totals__subtotal-value');
+    if (!el) return;
+    cartPageSubtotalObs = new MutationObserver(function () {
+      if (isWritingCartSubtotal || !lastCartPageSubtotal) return;
+      writeCartPageSubtotal();
+    });
+    cartPageSubtotalObs.observe(el, { childList: true, characterData: true, subtree: true });
+  }
+
+  function setupCartPageObserver() {
+    var target = document.getElementById('main-cart-items');
+    if (!target) return;
+    var timer = null;
+    new MutationObserver(function (mutations) {
+      var dominated = mutations.some(function (m) {
+        return m.type === 'childList' && m.addedNodes.length > 2;
+      });
+      if (!dominated) return;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        log('[CartPage] MutationObserver triggered');
+        cartPageSubtotalObs = null;
+        overrideCartPage();
+      }, 400);
+    }).observe(target, { childList: true, subtree: true });
+  }
+
+  /* -------------------------------------------------------
      INIT
      ------------------------------------------------------- */
   function init() {
@@ -591,6 +770,13 @@
 
     // Override initial au cas où le cart est déjà chargé
     setTimeout(overrideMiniCartPrices, 1500);
+
+    // Page panier complète
+    if (isCartPage) {
+      log('[CartPage] Detected /cart page');
+      setupCartPageObserver();
+      setTimeout(overrideCartPage, 500);
+    }
 
     window.MylabCart = {
       open: refreshCartAndOpen,
