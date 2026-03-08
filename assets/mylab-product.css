@@ -1,0 +1,317 @@
+/* ============================================================
+   MyLab — Fiche produit B2B (Be Yours)
+   Contenance + Paliers + Prix + CTA
+   ============================================================ */
+
+:root {
+  --ml-white: #FFFFFF;
+  --ml-off: #F5F4F2;
+  --ml-black: #111111;
+  --ml-mid: #555555;
+  --ml-light: #AAAAAA;
+  --ml-muted: #888888;
+  --ml-line: #E5E5E5;
+  --ml-green: #2D4A2D;
+}
+
+/* ============================================================
+   OPTION LABEL (eyebrow style)
+   ============================================================ */
+
+.ml-option-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ml-muted);
+  margin-bottom: 10px;
+}
+
+.ml-option-group {
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   CONTENANCE BUTTONS — pill style
+   ============================================================ */
+
+.ml-contenance-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.ml-contenance-btn {
+  padding: 9px 22px;
+  border: 1px solid var(--ml-line);
+  background: transparent;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 50px;
+  color: var(--ml-mid);
+  transition: all 0.15s;
+  text-decoration: none;
+  display: inline-block;
+}
+.ml-contenance-btn:hover {
+  border-color: var(--ml-black);
+  color: var(--ml-black);
+}
+.ml-contenance-btn.is-active {
+  border-color: var(--ml-black);
+  background: var(--ml-black);
+  color: var(--ml-white);
+}
+
+/* ============================================================
+   PALIER BUTTONS
+   ============================================================ */
+
+#ml-qty-btns {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.ml-qty-btn {
+  position: relative;
+  padding: 12px 6px;
+  border: 1px solid var(--ml-line);
+  background: var(--ml-white);
+  cursor: pointer;
+  border-radius: 1.2rem;
+  text-align: center;
+  transition: all 0.15s;
+}
+.ml-qty-btn:hover { border-color: var(--ml-black); }
+.ml-qty-btn.is-active {
+  border-color: var(--ml-black);
+  background: var(--ml-black);
+}
+.ml-qty-btn.is-active .ml-qty-btn__num,
+.ml-qty-btn.is-active .ml-qty-btn__label { color: var(--ml-white); }
+
+.ml-qty-btn__num {
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--ml-black);
+  line-height: 1;
+}
+.ml-qty-btn__label {
+  display: block;
+  font-size: 1.0rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ml-muted);
+  margin-top: 3px;
+}
+.ml-qty-btn__badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  background: var(--ml-green);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 50px;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+
+.ml-pricing-card {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 8px 0 20px;
+}
+
+.ml-pricing-card__top {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ml-price-total {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ml-price-amount {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--ml-black);
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+.ml-price-amount.is-updating { opacity: 0.4; }
+
+.ml-price-currency {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ml-black);
+}
+
+.ml-price-tax {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ml-muted);
+}
+
+.ml-price-unit {
+  font-size: 1.3rem;
+  color: var(--ml-mid);
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ml-line);
+  margin-bottom: 12px;
+}
+
+.ml-price-savings {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.2rem;
+  color: var(--ml-green);
+  margin-bottom: 16px;
+}
+.ml-price-savings.is-visible { display: flex; }
+
+/* ============================================================
+   CTA — pill style
+   ============================================================ */
+
+.ml-cta { margin-bottom: 0; }
+
+.ml-btn-cart {
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--ml-black);
+  color: var(--ml-white);
+  border: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+  margin-bottom: 0;
+}
+.ml-btn-cart:hover { background: #333; }
+.ml-btn-cart.is-loading { opacity: 0.6; cursor: wait; }
+.ml-btn-cart.is-success { background: var(--ml-green); }
+.ml-btn-cart.is-error { background: #8B1A1A; }
+
+.ml-btn-cart__pill {
+  font-size: 1.1rem;
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+
+/* ============================================================
+   PALIER TABLE
+   ============================================================ */
+
+.ml-palier-wrap {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ml-line);
+}
+
+.ml-palier-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.3rem;
+}
+
+.ml-palier-table th {
+  text-align: left;
+  padding: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ml-muted);
+  border-bottom: 1px solid var(--ml-line);
+}
+
+.ml-palier-table td {
+  padding: 9px 0;
+  color: var(--ml-mid);
+  border-bottom: 1px solid var(--ml-line);
+}
+
+.ml-palier-table tr:last-child td { border-bottom: none; }
+.ml-palier-table tr.is-active td { color: var(--ml-black); font-weight: 500; }
+
+.ml-discount-badge {
+  display: inline-block;
+  background: var(--ml-off);
+  color: var(--ml-green);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 50px;
+}
+.ml-no-discount { color: var(--ml-light); }
+
+/* ============================================================
+   TRUST BADGES
+   ============================================================ */
+
+.ml-trust {
+  display: flex;
+  border-top: 1px solid var(--ml-line);
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.ml-trust__item {
+  flex: 1;
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.1rem;
+  color: var(--ml-mid);
+  border-right: 1px solid var(--ml-line);
+}
+.ml-trust__item:last-child { border-right: none; padding-left: 12px; }
+.ml-trust__item:not(:first-child) { padding-left: 12px; }
+.ml-trust__item svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.4; }
+
+/* ============================================================
+   RESPONSIVE MOBILE
+   ============================================================ */
+
+@media (max-width: 749px) {
+  #ml-qty-btns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ml-price-amount {
+    font-size: 3.6rem;
+  }
+
+  .ml-trust {
+    flex-wrap: wrap;
+  }
+
+  .ml-trust__item {
+    flex: 1 1 45%;
+    border-right: none;
+    padding-left: 0 !important;
+    border-bottom: 1px solid var(--ml-line);
+  }
+}

@@ -688,6 +688,132 @@
               </noscript>
             </div>
             <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
+          {%- when 'mylab_pricing' -%}
+            {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+            <div data-mylab-pricing {{ block.shopify_attributes }}>
+
+              {%- comment -%} ====== SÉLECTEUR CONTENANCE ====== {%- endcomment -%}
+              {%- assign h200  = product.metafields.custom.contenance_200ml.value -%}
+              {%- assign h500  = product.metafields.custom.contenance_500ml.value -%}
+              {%- assign h1000 = product.metafields.custom.contenance_1000ml.value -%}
+              {%- if h200 != blank or h500 != blank or h1000 != blank -%}
+              <div class="ml-option-group">
+                <div class="ml-option-label">Contenance</div>
+                <div class="ml-contenance-btns" role="group" aria-label="Sélectionner la contenance">
+                  {%- if h200 != blank -%}
+                    {%- assign p200 = all_products[h200] -%}
+                    {%- if p200.id != blank -%}
+                      {%- if p200.handle contains '50-ml' or p200.handle contains 'en-50-ml' -%}
+                        {%- assign label200 = '50ml' -%}
+                      {%- else -%}
+                        {%- assign label200 = '200ml' -%}
+                      {%- endif -%}
+                      <a href="{{ p200.url }}"
+                         class="ml-contenance-btn {% if h200 == product.handle %}is-active{% endif %}"
+                         data-contenance="{{ label200 }}"
+                         data-variant-id="{{ p200.variants.first.id }}"
+                         data-price="{{ p200.variants.first.price }}"
+                         {% if h200 == product.handle %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
+                        {{ label200 }}
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                  {%- if h500 != blank -%}
+                    {%- assign p500 = all_products[h500] -%}
+                    {%- if p500.id != blank -%}
+                      <a href="{{ p500.url }}"
+                         class="ml-contenance-btn {% if h500 == product.handle %}is-active{% endif %}"
+                         data-contenance="500ml"
+                         data-variant-id="{{ p500.variants.first.id }}"
+                         data-price="{{ p500.variants.first.price }}"
+                         {% if h500 == product.handle %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
+                        500ml
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                  {%- if h1000 != blank -%}
+                    {%- assign p1000 = all_products[h1000] -%}
+                    {%- if p1000.id != blank -%}
+                      <a href="{{ p1000.url }}"
+                         class="ml-contenance-btn {% if h1000 == product.handle %}is-active{% endif %}"
+                         data-contenance="1000ml"
+                         data-variant-id="{{ p1000.variants.first.id }}"
+                         data-price="{{ p1000.variants.first.price }}"
+                         {% if h1000 == product.handle %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
+                        1000ml
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- endif -%}
+
+              {%- comment -%} ====== PALIERS QUANTITÉ ====== {%- endcomment -%}
+              <div class="ml-option-group">
+                <div class="ml-option-label">Quantité — Sélectionnez un palier</div>
+                <div class="ml-qty-btns" id="ml-qty-btns" role="group" aria-label="Sélectionner la quantité"></div>
+              </div>
+
+              {%- comment -%} ====== AFFICHAGE PRIX ====== {%- endcomment -%}
+              <div class="ml-pricing-card">
+                <div class="ml-pricing-card__top">
+                  <div class="ml-price-total">
+                    <span class="ml-price-amount" id="ml-price-total">—</span>
+                    <span class="ml-price-currency">€</span>
+                    <span class="ml-price-tax">HT</span>
+                  </div>
+                  <div class="ml-price-unit">
+                    soit <span id="ml-price-unit">—</span> / unité HT
+                  </div>
+                </div>
+                <div class="ml-price-savings" id="ml-price-savings">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <circle cx="7" cy="7" r="7" fill="#4A7C59"/>
+                    <path d="M4 7l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span id="ml-savings-text"></span>
+                </div>
+              </div>
+
+              {%- comment -%} ====== CTA ====== {%- endcomment -%}
+              <div class="ml-cta">
+                <button class="ml-btn-cart" id="ml-btn-cart"
+                        data-variant-id="{{ product.variants.first.id }}"
+                        aria-label="Ajouter au panier">
+                  <span class="ml-btn-cart__text">Ajouter au panier</span>
+                  <span class="ml-btn-cart__pill" id="ml-cart-pill">—</span>
+                </button>
+              </div>
+
+              {%- comment -%} ====== TRUST BADGES ====== {%- endcomment -%}
+              <div class="ml-trust">
+                <div class="ml-trust__item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <span>Livraison 24–48h</span>
+                </div>
+                <div class="ml-trust__item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+                  <span>Paiement sécurisé</span>
+                </div>
+                <div class="ml-trust__item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>
+                  <span>Stock disponible</span>
+                </div>
+              </div>
+
+              {%- comment -%} ====== TABLE RÉCAP PALIERS ====== {%- endcomment -%}
+              <div class="ml-palier-wrap">
+                <table class="ml-palier-table" id="ml-palier-table">
+                  <thead>
+                    <tr><th>Palier</th><th>Prix / unité HT</th><th>Remise</th></tr>
+                  </thead>
+                  <tbody id="ml-palier-body"></tbody>
+                </table>
+              </div>
+
+              <noscript><p style="font-size:1.2rem;color:#999;margin-top:12px;">Activez JavaScript pour voir les tarifs dégressifs.</p></noscript>
+            </div>
+            <script src="{{ 'mylab-product.js' | asset_url }}" defer="defer"></script>
           {%- when 'custom_liquid' -%}
             <div class="custom__liquid custom__liquid-{{ section.id }}" id="custom__liquid-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
           {%- when 'collapsible_description' -%}
@@ -1897,7 +2023,12 @@
     },
     {
       "type": "volume_pricing",
-      "name": "Tarifs dégressifs",
+      "name": "Tarifs dégressifs (table)",
+      "limit": 1
+    },
+    {
+      "type": "mylab_pricing",
+      "name": "MyLab — Tarifs & Panier",
       "limit": 1
     },
     {
