@@ -337,8 +337,10 @@
       var textEl = btn.querySelector('.ml-btn-cart__text');
       if (textEl) textEl.textContent = 'Ajouté !';
 
-      // Mettre à jour le panier Be Yours
-      refreshBeYoursCart();
+      // Ouvrir le panier MyLab custom
+      if (window.MylabCart && window.MylabCart.open) {
+        window.MylabCart.open();
+      }
 
       setTimeout(function () {
         btn.classList.remove('is-success');
@@ -353,32 +355,6 @@
       btn.classList.add('is-error');
       setTimeout(function () { btn.classList.remove('is-error'); }, 2000);
     });
-  }
-
-  function refreshBeYoursCart() {
-    fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-      .then(function (r) { return r.json(); })
-      .then(function (cart) {
-        // Mettre à jour les bulles compteur
-        document.querySelectorAll('.cart-count-bubble span[aria-hidden="true"]').forEach(function (el) {
-          el.textContent = cart.item_count;
-        });
-        document.querySelectorAll('.cart-count-bubble').forEach(function (el) {
-          el.style.display = cart.item_count > 0 ? '' : 'none';
-        });
-
-        // Essayer d'ouvrir le mini-cart Be Yours
-        var miniCart = document.querySelector('mini-cart');
-        if (miniCart && typeof miniCart.open === 'function') {
-          miniCart.open();
-        } else {
-          var cartDrawer = document.querySelector('cart-drawer');
-          if (cartDrawer && typeof cartDrawer.open === 'function') {
-            cartDrawer.open();
-          }
-        }
-      })
-      .catch(function () {});
   }
 
   /* -------------------------------------------------------
