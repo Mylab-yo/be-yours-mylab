@@ -155,6 +155,7 @@
     {%- endif -%}
     
     {% render 'js-utilities' %}
+    {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'mylab-cart.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

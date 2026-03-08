@@ -238,39 +238,47 @@
         var lineTotal = unitPrice * quantity;
         newSubtotal += lineTotal;
 
-        // Remplacer le prix unitaire affiché
-        var priceMoneyEls = li.querySelectorAll('price-money bdi');
-        if (priceMoneyEls.length > 0) {
-          // Le premier est le prix unitaire (ou prix barré + prix sale)
-          // On remplace le dernier <price-money> visible (le prix effectif)
-          var lastPrice = priceMoneyEls[priceMoneyEls.length - 1];
-          lastPrice.textContent = formatMoney(unitPrice) + ' HT';
+        // 1. Masquer les prix natifs Be Yours (sous le titre)
+        li.querySelectorAll('.product-content dd, .product-content .cart-item__discounted-prices').forEach(function (el) {
+          el.style.display = 'none';
+        });
+
+        // 2. Injecter le prix aligné à droite dans la zone quantité (style Typology)
+        var qtyRow = li.querySelector('.product-quantity');
+        if (qtyRow) {
+          // Appliquer un flex row sur le conteneur quantité
+          qtyRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;';
+
+          var mlPrice = qtyRow.querySelector('.ml-cart-line-price');
+          if (!mlPrice) {
+            mlPrice = document.createElement('div');
+            mlPrice.className = 'ml-cart-line-price';
+            qtyRow.appendChild(mlPrice);
+          }
+          mlPrice.innerHTML =
+            '<span class="ml-cart-line-price__amount">' + formatMoney(lineTotal) + '</span>' +
+            '<span class="ml-cart-line-price__ht">HT</span>';
         }
 
-        // Si prix barré (sale), masquer l'ancien prix barré
-        var strikeEl = li.querySelector('.price--on-sale s');
-        if (strikeEl) strikeEl.style.display = 'none';
-
-        // Ajouter info quantité × prix si pas déjà fait
-        var descEl = li.querySelector('.product-description .product-content');
-        if (descEl && !descEl.querySelector('.ml-cart-line-info')) {
-          var infoEl = document.createElement('div');
-          infoEl.className = 'ml-cart-line-info';
-          infoEl.style.cssText = 'font-size:1.2rem;color:#888;margin-top:2px;';
-          infoEl.textContent = quantity + ' × ' + formatMoney(unitPrice) + ' HT = ' + formatMoney(lineTotal) + ' HT';
-          descEl.appendChild(infoEl);
-        } else if (descEl) {
-          var existing = descEl.querySelector('.ml-cart-line-info');
-          if (existing) existing.textContent = quantity + ' × ' + formatMoney(unitPrice) + ' HT = ' + formatMoney(lineTotal) + ' HT';
+        // 3. Ajouter le détail unitaire sous la ligne quantité
+        var descEl = li.querySelector('.product-description');
+        if (descEl) {
+          var mlDetail = descEl.querySelector('.ml-cart-line-detail');
+          if (!mlDetail) {
+            mlDetail = document.createElement('div');
+            mlDetail.className = 'ml-cart-line-detail';
+            descEl.appendChild(mlDetail);
+          }
+          mlDetail.textContent = quantity + ' × ' + formatMoney(unitPrice) + ' HT';
         }
       });
 
       // Remplacer le sous-total
       if (hasOverride) {
-        var subtotalEl = document.getElementById('mini-cart-subtotal');
-        if (subtotalEl) {
-          subtotalEl.textContent = formatMoney(newSubtotal) + ' HT';
-        }
+        var subtotalEls = document.querySelectorAll('#mini-cart-subtotal');
+        subtotalEls.forEach(function (subtotalEl) {
+          subtotalEl.innerHTML = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
+        });
       }
 
       overrideRunning = false;

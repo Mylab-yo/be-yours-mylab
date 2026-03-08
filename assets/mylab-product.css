@@ -549,3 +549,48 @@ body.ml-drawer-open { overflow: hidden; }
   transition: color 0.2s;
 }
 .ml-btn-cart-page:hover { color: var(--ml-black); }
+
+/* ============================================================
+   MINI-CART — Override prix HT (style Typology)
+   ============================================================ */
+
+.ml-cart-line-price {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  flex-shrink: 0;
+  margin-left: auto;
+  text-align: right;
+}
+
+.ml-cart-line-price__amount {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ml-black, #111);
+  letter-spacing: -0.01em;
+}
+
+.ml-cart-line-price__ht {
+  font-size: 1.0rem;
+  font-weight: 500;
+  color: var(--ml-muted, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ml-cart-line-detail {
+  font-size: 1.15rem;
+  color: var(--ml-muted, #888);
+  margin-top: 2px;
+  letter-spacing: 0.01em;
+}
+
+/* Sous-total HT dans le footer */
+#mini-cart-subtotal .ml-cart-ht-label {
+  font-size: 1.0rem;
+  font-weight: 500;
+  color: var(--ml-muted, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 3px;
+}
