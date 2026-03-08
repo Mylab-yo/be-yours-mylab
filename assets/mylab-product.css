@@ -576,11 +576,19 @@ mini-cart.ml-active .product-quantity {
 
 .ml-cart-line-price {
   display: flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: flex-end;
   gap: 4px;
   flex-shrink: 0;
   margin-left: auto;
   text-align: right;
+}
+
+.ml-cart-line-price__row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  justify-content: flex-end;
 }
 
 .ml-cart-line-price__amount {

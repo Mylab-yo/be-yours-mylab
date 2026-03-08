@@ -254,26 +254,34 @@
 
     wrapper.appendChild(select);
 
-    // Lien Supprimer
-    var removeLink = document.createElement('a');
-    removeLink.className = 'ml-qty-remove';
-    removeLink.textContent = 'Supprimer';
-    removeLink.href = '#';
-    removeLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      var cartItems = li.closest('cart-items');
-      if (cartItems && typeof cartItems.updateQuantity === 'function') {
-        cartItems.updateQuantity(removeIndex, 0);
-      }
-    });
-    wrapper.appendChild(removeLink);
-
-    // Insérer le wrapper
+    // Insérer le wrapper (juste le dropdown, sans Supprimer)
     var priceEl = qtyRow.querySelector('.ml-cart-line-price');
     if (priceEl) {
       qtyRow.insertBefore(wrapper, priceEl);
     } else {
       qtyRow.appendChild(wrapper);
+    }
+
+    // Lien Supprimer — placé dans le bloc prix (à droite, sous le total)
+    var rightBlock = qtyRow.querySelector('.ml-cart-line-price');
+    if (!rightBlock) {
+      rightBlock = document.createElement('div');
+      rightBlock.className = 'ml-cart-line-price';
+      qtyRow.appendChild(rightBlock);
+    }
+    if (!rightBlock.querySelector('.ml-qty-remove')) {
+      var removeLink = document.createElement('a');
+      removeLink.className = 'ml-qty-remove';
+      removeLink.textContent = 'Supprimer';
+      removeLink.href = '#';
+      removeLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        var cartItems = li.closest('cart-items');
+        if (cartItems && typeof cartItems.updateQuantity === 'function') {
+          cartItems.updateQuantity(removeIndex, 0);
+        }
+      });
+      rightBlock.appendChild(removeLink);
     }
 
     log('Dropdown injected for', tierKey, 'qty=', currentQty);
@@ -355,14 +363,21 @@
       if (qtyRow) {
         replaceQtyWithDropdown(li, qtyRow, tierKey, quantity);
 
-        // Prix aligné à droite
+        // Prix aligné à droite (colonne : montant + Supprimer)
         var mlPrice = qtyRow.querySelector('.ml-cart-line-price');
         if (!mlPrice) {
           mlPrice = document.createElement('div');
           mlPrice.className = 'ml-cart-line-price';
           qtyRow.appendChild(mlPrice);
         }
-        mlPrice.innerHTML =
+        // Mettre le montant dans un sous-conteneur pour ne pas écraser le lien Supprimer
+        var amountRow = mlPrice.querySelector('.ml-cart-line-price__row');
+        if (!amountRow) {
+          amountRow = document.createElement('div');
+          amountRow.className = 'ml-cart-line-price__row';
+          mlPrice.insertBefore(amountRow, mlPrice.firstChild);
+        }
+        amountRow.innerHTML =
           '<span class="ml-cart-line-price__amount">' + formatMoney(lineTotal) + '</span>' +
           '<span class="ml-cart-line-price__ht">HT</span>';
       } else {
