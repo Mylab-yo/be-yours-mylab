@@ -390,12 +390,28 @@
       if (errEl) errEl.style.display = 'none';
     });
 
-    // Sous-total HT
+    // Sous-total HT — override + retry pour contrer les re-renders Be Yours
     if (hasOverride) {
-      document.querySelectorAll('#mini-cart-subtotal').forEach(function (el) {
-        el.innerHTML = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
-      });
-      log('Subtotal overridden:', formatMoney(newSubtotal));
+      var htSubtotalHtml = formatMoney(newSubtotal) + ' <span class="ml-cart-ht-label">HT</span>';
+
+      function setSubtotal() {
+        var els = document.querySelectorAll('#mini-cart-subtotal');
+        log('Subtotal elements found:', els.length, '→', formatMoney(newSubtotal));
+        els.forEach(function (el) { el.innerHTML = htSubtotalHtml; });
+
+        // Aussi cibler le .subtotal .value dans le mini-cart (fallback)
+        var fallbacks = document.querySelectorAll('#mini-cart .subtotal .value.price, #cart .subtotal .value.price');
+        fallbacks.forEach(function (el) {
+          if (el.id !== 'mini-cart-subtotal') {
+            el.innerHTML = htSubtotalHtml;
+          }
+        });
+      }
+
+      setSubtotal();
+      // Retry : Be Yours peut réécrire le sous-total après notre override
+      setTimeout(setSubtotal, 600);
+      setTimeout(setSubtotal, 1200);
     }
 
     // Libérer le flag après stabilisation DOM
