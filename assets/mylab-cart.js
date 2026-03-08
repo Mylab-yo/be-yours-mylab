@@ -10,7 +10,8 @@
 
 (function () {
 
-  var DEBUG = false;
+  var DEBUG = true;
+  console.log('[MyLab Cart] v2025-03-08b loaded');
   function log() {
     if (DEBUG) console.log.apply(console, ['[MyLab Cart]'].concat(Array.prototype.slice.call(arguments)));
   }
