@@ -187,6 +187,88 @@
   }
 
   /* -------------------------------------------------------
+     DROPDOWN PALIER — remplace le +/- natif par un <select>
+     Le <cart-items> de Be Yours écoute les events 'change'
+     et appelle updateQuantity(index, value) automatiquement.
+     ------------------------------------------------------- */
+  function replaceQtyWithDropdown(li, qtyRow, tierKey, currentQty) {
+    // Ne pas remplacer si déjà fait
+    if (qtyRow.querySelector('.ml-qty-select')) return;
+
+    var tiers = TIERS[tierKey];
+    if (!tiers) return;
+
+    // Récupérer l'index de la ligne (utilisé par Be Yours pour le cart/change)
+    var nativeInput = li.querySelector('quantity-input input.quantity__input');
+    if (!nativeInput) return;
+    var lineIndex = nativeInput.dataset.index;
+    var variantId = nativeInput.dataset.quantityVariantId;
+
+    // Récupérer le lien de suppression
+    var removeBtn = li.querySelector('cart-remove-button a');
+    var removeHref = removeBtn ? removeBtn.getAttribute('href') : null;
+    var removeIndex = li.querySelector('cart-remove-button') ? li.querySelector('cart-remove-button').dataset.index : lineIndex;
+
+    // Masquer le bloc natif quantité (quantity-popover entier)
+    var nativeQtyBlock = qtyRow.querySelector('dt');
+    if (nativeQtyBlock) nativeQtyBlock.style.display = 'none';
+
+    // Créer le conteneur dropdown + supprimer
+    var wrapper = document.createElement('div');
+    wrapper.className = 'ml-qty-wrapper';
+
+    // Construire le <select>
+    var select = document.createElement('select');
+    select.className = 'ml-qty-select';
+    select.name = 'updates[]';
+    select.dataset.index = lineIndex;
+    if (variantId) select.dataset.quantityVariantId = variantId;
+
+    tiers.forEach(function (tier) {
+      var opt = document.createElement('option');
+      opt.value = tier.qty;
+      opt.textContent = tier.qty + ' u. \u2014 ' + formatMoney(tier.price) + '/u';
+      if (tier.qty === currentQty) opt.selected = true;
+      select.appendChild(opt);
+    });
+
+    // Si la quantité actuelle ne correspond à aucun palier, ajouter comme option
+    var qtyMatchesTier = tiers.some(function (t) { return t.qty === currentQty; });
+    if (!qtyMatchesTier && currentQty > 0) {
+      var extraOpt = document.createElement('option');
+      extraOpt.value = currentQty;
+      extraOpt.textContent = currentQty + ' u.';
+      extraOpt.selected = true;
+      select.insertBefore(extraOpt, select.firstChild);
+    }
+
+    wrapper.appendChild(select);
+
+    // Lien "Supprimer"
+    var removeLink = document.createElement('a');
+    removeLink.className = 'ml-qty-remove';
+    removeLink.textContent = 'Supprimer';
+    removeLink.href = removeHref || '#';
+    removeLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Utiliser le mécanisme natif Be Yours
+      var cartItems = li.closest('cart-items');
+      if (cartItems && typeof cartItems.updateQuantity === 'function') {
+        cartItems.updateQuantity(removeIndex, 0);
+      }
+    });
+    wrapper.appendChild(removeLink);
+
+    // Insérer avant le prix (ou au début)
+    var priceEl = qtyRow.querySelector('.ml-cart-line-price');
+    if (priceEl) {
+      qtyRow.insertBefore(wrapper, priceEl);
+    } else {
+      qtyRow.appendChild(wrapper);
+    }
+  }
+
+  /* -------------------------------------------------------
      OVERRIDE DES PRIX DANS LE MINI-CART BE YOURS
      Style Typology : prix aligné à droite sur la ligne quantité
      ------------------------------------------------------- */
@@ -246,11 +328,14 @@
         el.style.display = 'none';
       });
 
-      // 2. Injecter le prix sur la ligne quantité, aligné à droite (style Typology)
+      // 2. Remplacer le +/- par un dropdown palier (style Typology)
       var qtyRow = li.querySelector('.product-quantity');
       if (qtyRow) {
         qtyRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;';
 
+        replaceQtyWithDropdown(li, qtyRow, tierKey, quantity);
+
+        // 3. Injecter le prix aligné à droite
         var mlPrice = qtyRow.querySelector('.ml-cart-line-price');
         if (!mlPrice) {
           mlPrice = document.createElement('div');
@@ -262,7 +347,7 @@
           '<span class="ml-cart-line-price__ht">HT</span>';
       }
 
-      // 3. Détail unitaire discret sous la zone quantité
+      // 4. Détail unitaire discret sous la zone quantité
       var descEl = li.querySelector('.product-description');
       if (descEl) {
         var mlDetail = descEl.querySelector('.ml-cart-line-detail');
