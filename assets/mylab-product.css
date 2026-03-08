@@ -551,93 +551,121 @@ body.ml-drawer-open { overflow: hidden; }
 .ml-btn-cart-page:hover { color: var(--ml-black); }
 
 /* ============================================================
-   MINI-CART — Override prix HT (style Typology)
+   MINI-CART — Override prix HT MyLab
+   La classe .ml-active sur <mini-cart> masque les éléments natifs
+   via CSS pur → pas de flash pendant les re-renders AJAX.
    ============================================================ */
+
+/* --- Anti-flash : masquer les éléments natifs dès que l'override est actif --- */
+mini-cart.ml-active .product-content dd,
+mini-cart.ml-active .product-content dl,
+mini-cart.ml-active .product-content .cart-item__discounted-prices {
+  display: none !important;
+}
+mini-cart.ml-active .product-quantity dt {
+  display: none !important;
+}
+
+/* --- Prix ligne (aligné à droite, style Typology) --- */
+mini-cart.ml-active .product-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .ml-cart-line-price {
   display: flex;
   align-items: baseline;
-  gap: 3px;
+  gap: 4px;
   flex-shrink: 0;
   margin-left: auto;
   text-align: right;
 }
 
 .ml-cart-line-price__amount {
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--ml-black, #111);
-  letter-spacing: -0.01em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.02em;
 }
 
 .ml-cart-line-price__ht {
   font-size: 1.0rem;
-  font-weight: 500;
-  color: var(--ml-muted, #888);
+  font-weight: 600;
+  color: #999;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
 
+/* --- Détail unitaire --- */
 .ml-cart-line-detail {
   font-size: 1.15rem;
-  color: var(--ml-muted, #888);
-  margin-top: 2px;
+  color: #999;
+  margin-top: 4px;
+  padding-top: 4px;
   letter-spacing: 0.01em;
 }
 
-/* Dropdown palier (style Typology) */
+/* --- Dropdown palier --- */
 .ml-qty-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
 .ml-qty-select {
   appearance: none;
   -webkit-appearance: none;
-  background: var(--ml-white, #fff);
-  border: 1px solid var(--ml-line, #E5E5E5);
-  border-radius: 6px;
-  padding: 6px 28px 6px 10px;
-  font-size: 1.2rem;
+  background: #fff;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 30px 8px 12px;
+  font-size: 1.25rem;
   font-weight: 500;
-  color: var(--ml-black, #111);
+  color: #111;
   cursor: pointer;
-  min-width: 60px;
+  min-width: 70px;
+  font-family: inherit;
+  line-height: 1.3;
   background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 8px center;
-  transition: border-color 0.15s;
+  background-position: right 10px center;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.ml-qty-select:hover,
+.ml-qty-select:hover {
+  border-color: #111;
+}
 .ml-qty-select:focus {
-  border-color: var(--ml-black, #111);
+  border-color: #111;
+  box-shadow: 0 0 0 1px #111;
   outline: none;
 }
 
 .ml-qty-remove {
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--ml-muted, #888);
+  color: #aaa;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  transition: color 0.15s;
+  transition: color 0.2s;
   white-space: nowrap;
 }
 .ml-qty-remove:hover {
-  color: var(--ml-black, #111);
+  color: #111;
 }
 
-/* Sous-total HT dans le footer */
+/* --- Sous-total HT footer --- */
 #mini-cart-subtotal .ml-cart-ht-label {
-  font-size: 1.0rem;
-  font-weight: 500;
-  color: var(--ml-muted, #888);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #999;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 3px;
+  letter-spacing: 0.06em;
+  margin-left: 4px;
 }

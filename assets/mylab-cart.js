@@ -10,7 +10,7 @@
 
 (function () {
 
-  var DEBUG = true;
+  var DEBUG = false;
   function log() {
     if (DEBUG) console.log.apply(console, ['[MyLab Cart]'].concat(Array.prototype.slice.call(arguments)));
   }
@@ -318,6 +318,11 @@
   function applyOverrides(miniCart, items) {
     isApplying = true;
 
+    // Ajouter la classe .ml-active sur <mini-cart> dès le premier override.
+    // Elle persiste même quand Be Yours remplace le innerHTML,
+    // ce qui masque les éléments natifs via CSS (pas de flash).
+    miniCart.classList.add('ml-active');
+
     var newSubtotal = 0;
     var hasOverride = false;
 
@@ -342,16 +347,12 @@
       var lineTotal = unitPrice * quantity;
       newSubtotal += lineTotal;
 
-      // 1. Masquer les prix natifs (sous le titre)
-      li.querySelectorAll('.product-content dd, .product-content dl, .product-content .cart-item__discounted-prices').forEach(function (el) {
-        el.style.display = 'none';
-      });
+      // Les éléments natifs sont déjà masqués par CSS (.ml-active)
+      // On injecte juste nos éléments custom
 
-      // 2. Remplacer le +/- par un dropdown + injecter prix
+      // Remplacer le +/- par un dropdown + injecter prix
       var qtyRow = li.querySelector('.product-quantity');
       if (qtyRow) {
-        qtyRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;width:100%;';
-
         replaceQtyWithDropdown(li, qtyRow, tierKey, quantity);
 
         // Prix aligné à droite
@@ -368,7 +369,7 @@
         log('No .product-quantity found in li');
       }
 
-      // 3. Détail unitaire
+      // Détail unitaire
       var descEl = li.querySelector('.product-description');
       if (descEl) {
         var mlDetail = descEl.querySelector('.ml-cart-line-detail');
