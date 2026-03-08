@@ -1,0 +1,21 @@
+.product-recommendations {
+  display: block;
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .product-recommendations .product-grid:not(.slider) .flex-grid__item:nth-child(4) {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .product-recommendations .flex-grid--3-col-tablet > .flex-grid__item {
+    max-width: calc(33.33% - var(--grid-horizontal-spacing) * 2 / 3);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .product-recommendations .flex-grid--4-col-desktop > .flex-grid__item {
+    max-width: calc(25% - var(--grid-horizontal-spacing) * 3 / 4);
+  }
+}

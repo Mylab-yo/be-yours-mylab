@@ -1,0 +1,363 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --color-highlight: {{ section.settings.colors_highlight.red }}, {{ section.settings.colors_highlight.green }}, {{ section.settings.colors_highlight.blue }};
+  }
+{%- endstyle -%}
+{{ 'section-timeline.css' | asset_url | stylesheet_tag }}
+
+<script type="module">
+  import "timeline-component";
+</script>
+
+<section id="Timeline-{{ section.id }}" class="timeline-section" data-section-id="{{ section.id }}">
+  <timeline-component 
+    data-height="{{ section.settings.section_height }}"
+    data-animation-speed="{{ section.settings.animation_speed }}"
+    data-show-dots="{{ section.settings.show_timeline_dots }}"
+    data-timeline-bg="{{ section.settings.timeline_background_color }}"
+    data-content-bg="{{ section.settings.content_background_color }}"
+    data-accent-color="{{ section.settings.accent_color }}"
+    data-date-color="{{ section.settings.date_color }}"
+    data-text-color="{{ section.settings.text_color }}"
+    data-date-size="{{ section.settings.date_size }}"
+    data-text-size="{{ section.settings.text_size }}"
+    data-enable-padding="{{ section.settings.enable_image_padding }}"
+  >
+    <div class="timeline-container">
+      {%- comment -%} Left Panel - Timeline {%- endcomment %}
+      <div class="timeline-panel">
+        {% if section.settings.show_timeline_dots %}
+          <div class="timeline-bar">
+            <div class="timeline-dot"></div>
+          </div>
+        {% endif %}
+        
+        <div class="timeline-content">
+          {% for block in section.blocks %}
+            <div class="timeline-item" data-slide="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              {% if block.settings.date != blank %}
+                <div class="timeline-date {{ section.settings.date_size }}">
+                  {%- render 'highlight-text', 
+                    hl_input: block.settings.date, 
+                    hl_style: block.settings.highlight_style,
+                    hl_enable: block.settings.enable_highlight,
+                    hl_animateWrap: true -%}
+                </div>
+              {% endif %}
+              {% if block.settings.text != blank %}
+                <div class="timeline-text {{ section.settings.text_size }}">
+                  {%- render 'highlight-text', 
+                    hl_input: block.settings.text, 
+                    hl_style: block.settings.highlight_style,
+                    hl_enable: block.settings.enable_highlight,
+                    hl_animateWrap: true -%}
+                  {% if block.settings.source_link != blank and block.settings.source_text != blank %}
+                    <a href="{{ block.settings.source_link }}" class="source-link" target="_blank" rel="noopener">
+                      ({{ block.settings.source_text }})
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      {%- comment -%} Right Panel - Content {%- endcomment -%}
+      <div class="content-panel">
+        {% for block in section.blocks %}
+          <div class="slide" data-slide="{{ forloop.index0 }}">
+            {% if block.settings.image != blank %}
+              {% assign image_alt = block.settings.image_alt | default: block.settings.text %}
+              {%- assign widths = '375, 750, 1100, 1500, 1780, 2000, 3000, 3840' -%}
+              {%- capture sizes -%}
+                (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                (min-width: 750px) calc((100vw - 10rem) / 2), calc((100vw - 3rem) / 2)
+              {%- endcapture -%}
+              {{ block.settings.image | image_url: width: 3840 | image_tag: loading: 'lazy', alt: image_alt, sizes: sizes, widths: widths, is: 'lazy-image' }}
+            {% else %}
+              <div class="slide-placeholder">
+                {{ 'image' | placeholder_svg_tag: 'placeholder' }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </timeline-component>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.timeline.name",
+  "tag": "section",
+  "class": "section section-timeline",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "t:sections.timeline.settings.section_height.label",
+      "options": [
+        {
+          "value": "400",
+          "label": "t:sections.timeline.settings.section_height.options__1.label"
+        },
+        {
+          "value": "500",
+          "label": "t:sections.timeline.settings.section_height.options__2.label"
+        },
+        {
+          "value": "600",
+          "label": "t:sections.timeline.settings.section_height.options__3.label"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "min": 300,
+      "max": 1200,
+      "step": 100,
+      "unit": "ms",
+      "label": "t:sections.timeline.settings.animation_speed.label",
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timeline_dots",
+      "label": "t:sections.timeline.settings.show_timeline_dots.label",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "timeline_background_color",
+      "label": "t:sections.timeline.settings.timeline_background_color.label",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "content_background_color",
+      "label": "t:sections.timeline.settings.content_background_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "t:sections.timeline.settings.accent_color.label",
+      "default": "#ff6b35"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "t:sections.timeline.settings.date_color.label",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:sections.timeline.settings.text_color.label",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "colors_highlight",
+      "label": "t:sections.all.colors.colors_highlight.label",
+      "default": "#ffb503"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.timeline.settings.typography.header"
+    },
+    {
+      "type": "select",
+      "id": "date_size",
+      "options": [
+        {
+          "value": "typeset",
+          "label": "t:sections.timeline.settings.date_size.options__1.label"
+        },
+        {
+          "value": "typeset2",
+          "label": "t:sections.timeline.settings.date_size.options__2.label"
+        },
+        {
+          "value": "typeset3",
+          "label": "t:sections.timeline.settings.date_size.options__3.label"
+        }
+      ],
+      "default": "typeset2",
+      "label": "t:sections.timeline.settings.date_size.label"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "options": [
+        {
+          "value": "typeset",
+          "label": "t:sections.all.text_size.options__1.label"
+        },
+        {
+          "value": "typeset2",
+          "label": "t:sections.all.text_size.options__2.label"
+        },
+        {
+          "value": "typeset3",
+          "label": "t:sections.all.text_size.options__3.label"
+        }
+      ],
+      "default": "typeset2",
+      "label": "t:sections.all.text_size.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.timeline.settings.image.header"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_padding",
+      "label": "t:sections.timeline.settings.enable_image_padding.label",
+      "info": "t:sections.timeline.settings.enable_image_padding.info",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timeline_item",
+      "name": "t:sections.timeline.blocks.timeline_item.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "date",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.date.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.text.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.image_alt.label",
+          "info": "t:sections.timeline.blocks.timeline_item.settings.image_alt.info"
+        },
+        {
+          "type": "url",
+          "id": "source_link",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.source_link.label"
+        },
+        {
+          "type": "text",
+          "id": "source_text",
+          "label": "t:sections.timeline.blocks.timeline_item.settings.source_text.label",
+          "default": "source",
+          "placeholder": "source"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.all.highlight.header.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_highlight",
+          "label": "t:sections.all.highlight.enable.label",
+          "info": "t:sections.all.highlight.enable.info",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "highlight_style",
+          "options": [
+            {
+              "value": "marker",
+              "label": "t:sections.all.highlight.style.options__1.label"
+            },
+            {
+              "value": "circle",
+              "label": "t:sections.all.highlight.style.options__2.label"
+            },
+            {
+              "value": "underline",
+              "label": "t:sections.all.highlight.style.options__3.label"
+            },
+            {
+              "value": "bold-underline",
+              "label": "t:sections.all.highlight.style.options__4.label"
+            },
+            {
+              "value": "modern-underline",
+              "label": "t:sections.all.highlight.style.options__5.label"
+            },
+            {
+              "value": "sketch-underline",
+              "label": "t:sections.all.highlight.style.options__6.label"
+            },
+            {
+              "value": "squiggle",
+              "label": "t:sections.all.highlight.style.options__7.label"
+            },
+            {
+              "value": "heavy-squiggle",
+              "label": "t:sections.all.highlight.style.options__8.label"
+            },
+            {
+              "value": "solid-color",
+              "label": "t:sections.all.highlight.style.options__9.label"
+            }
+          ],
+          "default": "marker",
+          "label": "t:sections.all.highlight.style.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.timeline.presets.name",
+      "blocks": [
+        {
+          "type": "timeline_item",
+          "settings": {
+            "date": "FEB 14, 2022",
+            "text": "<p>Company launches innovative product line with groundbreaking features.</p>",
+            "source_text": "source"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "date": "MAR 15, 2023",
+            "text": "<p>First major product update with enhanced customization options.</p>",
+            "source_text": "source"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "date": "JUN 22, 2024",
+            "text": "<p>Expansion to international markets.</p>",
+            "source_text": "source"
+          }
+        },
+        {
+          "type": "timeline_item",
+          "settings": {
+            "date": "DEC 05, 2025",
+            "text": "<p>One million units sold milestone achieved worldwide.</p>",
+            "source_text": "source"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

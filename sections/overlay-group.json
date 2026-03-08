@@ -1,0 +1,249 @@
+{
+  "name": "t:sections.overlay-group.name",
+  "type": "custom.overlay",
+  "sections": {
+    "popup": {
+      "type": "popup",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "First timer?",
+            "subheading_size": "h5",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sign up today and take <em>20%</em> off your first purchase</p>",
+            "text_size": "typeset3",
+            "secondary_color": false,
+            "enable_highlight": true,
+            "highlight_style": "circle"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "text": "<p>Subscribe to our newsletter and be the first to hear about our new arrivals, special promotions and online exclusives.</p>",
+            "button_style_secondary": false,
+            "button_full_width": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "social_media": {
+          "type": "social_media",
+          "settings": {
+            "mobile_disabled": false
+          }
+        },
+        "floating": {
+          "type": "floating",
+          "settings": {
+            "subheading": "Get 20% off",
+            "show_social_media": "all",
+            "text_box_position": "left",
+            "colors_text": "#1a1b18",
+            "mobile_disabled": true,
+            "mobile_hide_social_media": true,
+            "mobile_social_heading": "Follow us"
+          }
+        }
+      },
+      "block_order": [
+        "subheading",
+        "text",
+        "newsletter",
+        "social_media",
+        "floating"
+      ],
+      "settings": {
+        "mode": "enabled",
+        "only_homepage": false,
+        "only_visitor": true,
+        "return_url": "",
+        "delay": 7,
+        "expiry": 30,
+        "width": 760,
+        "padding": 40,
+        "text_alignment": "center",
+        "text_box_position": "center",
+        "image": "",
+        "image_position": "left",
+        "colors_button_label": "#212326",
+        "colors_button_background": "#faeaa1",
+        "colors_text": "#1a1b18",
+        "colors_border": "#d2d5d9",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_shadow": "#a8e8e2",
+        "colors_highlight": "#ffb503"
+      }
+    },
+    "cookie-banner": {
+      "type": "cookie-banner",
+      "blocks": {
+        "cookie-banner-0": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We use cookies and similar technologies to provide the best experience on our website. <a href=\"/en-us/policies/privacy-policy\">Privacy Policy</a></p>",
+            "text_size": "typeset",
+            "secondary_color": false
+          }
+        },
+        "cookie-banner-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Accept",
+            "button_label_2": "No"
+          }
+        }
+      },
+      "block_order": [
+        "cookie-banner-0",
+        "cookie-banner-1"
+      ],
+      "settings": {
+        "mode": "enabled",
+        "delay": 2,
+        "text_alignment": "left",
+        "text_box_position": "bottom",
+        "colors_button_label": "#212326",
+        "colors_button_background": "#faeaa1",
+        "colors_text": "#1a1b18",
+        "colors_border": "#d2d5d9",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_shadow": "#a8e8e2"
+      }
+    },
+    "age-verifier": {
+      "type": "age-verifier",
+      "blocks": {
+        "age-verifier-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Confirm your age",
+            "heading_size": "h2",
+            "heading_tag": "p"
+          }
+        },
+        "age-verifier-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Are you 18 years old or older?</p>",
+            "text_size": "typeset2",
+            "secondary_color": false
+          }
+        },
+        "age-verifier-2": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Yes I am",
+            "button_label_2": "No I'm not",
+            "button_link_2": "https://www.google.com/"
+          }
+        }
+      },
+      "block_order": [
+        "age-verifier-0",
+        "age-verifier-1",
+        "age-verifier-2"
+      ],
+      "disabled": true,
+      "settings": {
+        "mode": "testing",
+        "expiry": 30,
+        "width": 820,
+        "padding": 40,
+        "text_alignment": "center",
+        "image": "",
+        "image_position": "right",
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#1a1b18",
+        "colors_border": "#d2d5d9",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_shadow": "#a8e8e2",
+        "colors_overlay": "#212326",
+        "colors_overlay_opacity": 80,
+        "background_image": "",
+        "blur_image": true
+      }
+    },
+    "mobile-dock": {
+      "type": "mobile-dock",
+      "blocks": {
+        "57541ee6-c9d3-477c-86f4-2b3582130707": {
+          "type": "home",
+          "settings": {
+            "custom_icon": "",
+            "title": "Home"
+          }
+        },
+        "7a552114-546b-4247-859b-9ab65c9fa063": {
+          "type": "menu",
+          "settings": {
+            "custom_icon": "",
+            "title": "Menu"
+          }
+        },
+        "259c3423-bbe3-4e68-b6cb-11e0dc41c7db": {
+          "type": "search",
+          "settings": {
+            "custom_icon": "",
+            "title": "Search"
+          }
+        },
+        "beb5c9ff-f053-44ee-b751-014e0dfada5f": {
+          "type": "link",
+          "settings": {
+            "custom_icon": "",
+            "title": "Shop",
+            "link": ""
+          }
+        },
+        "82c83630-f6e3-4097-8ff5-72336e5e7325": {
+          "type": "cart",
+          "settings": {
+            "custom_icon": "",
+            "title": "Cart"
+          }
+        },
+        "b8a718b1-bf7e-485b-bf4c-e4f1820c99fd": {
+          "type": "account",
+          "settings": {
+            "custom_icon": "",
+            "title": "Account"
+          }
+        }
+      },
+      "block_order": [
+        "57541ee6-c9d3-477c-86f4-2b3582130707",
+        "7a552114-546b-4247-859b-9ab65c9fa063",
+        "259c3423-bbe3-4e68-b6cb-11e0dc41c7db",
+        "beb5c9ff-f053-44ee-b751-014e0dfada5f",
+        "82c83630-f6e3-4097-8ff5-72336e5e7325",
+        "b8a718b1-bf7e-485b-bf4c-e4f1820c99fd"
+      ],
+      "settings": {
+        "use_custom_colors": false,
+        "colors_text": "#1a1b18",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "padding_top": 12,
+        "padding_bottom": 6
+      }
+    }
+  },
+  "order": [
+    "popup",
+    "cookie-banner",
+    "age-verifier",
+    "mobile-dock"
+  ]
+}

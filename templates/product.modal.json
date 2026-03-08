@@ -1,0 +1,159 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product-modal",
+      "blocks": {
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": "medium",
+            "show_badges": true
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "show_variant_labels": true,
+            "picker_type": "button",
+            "swatch_type": "round",
+            "size_chart": ""
+          }
+        },
+        "countdown": {
+          "type": "countdown",
+          "settings": {
+            "heading": "Hurry up ! Sale end in:",
+            "number_size": "compact",
+            "colors_heading": "#da3f3f",
+            "colors_text": "#da3f3f",
+            "colors_background": "#ffeeee"
+          }
+        },
+        "9358989f-f305-46ec-bcd0-4db1d040c7a4": {
+          "type": "description",
+          "settings": {}
+        },
+        "f6cfab2f-71e0-4b88-9ee8-aee9c13e47e9": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "What's inside",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible_tab-1": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Key Ingredients",
+            "content": "",
+            "page": ""
+          }
+        },
+        "e1febee8-3e6b-4440-b1dd-77e7e61a35e4": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "How to use",
+            "content": "",
+            "page": ""
+          }
+        },
+        "65cd79a6-490b-48b6-a8cb-19642ae0ceb9": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "heading": "Ingredients",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible_tab-0": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "plane",
+            "heading": "Shipping information",
+            "content": "<p>- No EU import duties.<br/>- Ships within 1-2 business days.<br/>- Ships in our fully recyclable and biodegradable signature boxes.</p>",
+            "page": ""
+          }
+        },
+        "read_more": {
+          "type": "read_more",
+          "settings": {
+            "show_icon": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": false,
+            "show_dynamic_checkout": true
+          }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+            "inventory_threshold": 20,
+            "show_inventory_transfer": true,
+            "color_scheme": "accent-3"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "subtitle",
+        "title",
+        "rating",
+        "price",
+        "variant_picker",
+        "countdown",
+        "9358989f-f305-46ec-bcd0-4db1d040c7a4",
+        "f6cfab2f-71e0-4b88-9ee8-aee9c13e47e9",
+        "collapsible_tab-1",
+        "e1febee8-3e6b-4440-b1dd-77e7e61a35e4",
+        "65cd79a6-490b-48b6-a8cb-19642ae0ceb9",
+        "collapsible_tab-0",
+        "read_more",
+        "buy_buttons",
+        "inventory_status",
+        "share"
+      ],
+      "settings": {
+        "hide_variants": true,
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "enable_image_fill": true,
+        "mobile_image_ratio": "adapt_first"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

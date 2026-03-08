@@ -1,0 +1,405 @@
+/* Timeline Section Styles */
+
+/* CSS Custom Properties for dynamic theming */
+timeline-component {
+  --timeline-accent-color: #ff6b35;
+  --timeline-animation-speed: 800ms;
+  --timeline-bg-color: #1a1a1a;
+  --timeline-content-bg-color: #fff;
+  --timeline-text-color: #fff;
+  --timeline-date-color: #ccc;
+  --timeline-border-radius: 8px;
+  --timeline-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  --timeline-dot-size: 18px;
+  --timeline-bar-width: 3px;
+  --timeline-transition: all var(--timeline-animation-speed) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Timeline Section with Scroll Snap */
+.timeline-section {
+  height: 500vh; /* Default height, overridden by component */
+  scroll-snap-type: y mandatory;
+  position: relative;
+  isolation: isolate;
+  scroll-behavior: smooth;
+}
+
+.timeline-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  background: var(--timeline-content-bg-color);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.04);
+  scroll-snap-align: start;
+  overflow: hidden;
+}
+
+/* Left Panel - Timeline */
+.timeline-panel {
+  width: 50%;
+  background-color: var(--timeline-bg-color);
+  color: var(--timeline-text-color);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem;
+  z-index: 1;
+}
+
+.timeline-bar {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: var(--timeline-bar-width);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 10%,
+    rgba(255, 255, 255, 0.4) 20%,
+    rgba(255, 255, 255, 0.4) 80%,
+    transparent 90%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  will-change: transform;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  transition: var(--timeline-transition);
+  z-index: 10;
+  opacity: 0;
+  will-change: transform, opacity, background-color;
+  display: block !important; /* Override base.css div:empty { display: none; } */
+}
+
+.timeline-dot.active {
+  background-color: var(--timeline-accent-color);
+  box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+  opacity: 1;
+  transform: translateX(-50%) translateY(-50%) scale(1.1);
+}
+
+.timeline-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.timeline-item {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: var(--timeline-transition);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  will-change: transform, opacity;
+}
+
+.timeline-item.active {
+  opacity: 1;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--timeline-date-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  width: 45%;
+  text-align: right;
+  padding-right: 2rem;
+  font-family: var(--font-heading-family, inherit);
+}
+
+.timeline-text {
+  line-height: 1.4;
+  color: var(--timeline-text-color);
+  width: 45%;
+  text-align: left;
+  padding-left: 2rem;
+  font-family: var(--font-body-family, inherit);
+}
+
+.source-link {
+  color: var(--timeline-accent-color);
+  text-decoration: underline;
+  font-size: 1.6rem;
+  transition: color 0.2s ease;
+}
+
+.source-link:hover {
+  color: color-mix(in srgb, var(--timeline-accent-color) 80%, #fff 20%);
+  text-decoration: none;
+}
+
+.source-link:focus {
+  outline: 2px solid var(--timeline-accent-color);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Right Panel - Content */
+.content-panel {
+  width: 50%;
+  background-color: var(--timeline-content-bg-color);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: var(--timeline-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  will-change: transform, opacity;
+}
+
+/* No padding when setting is disabled */
+timeline-component[data-enable-padding="false"] .slide {
+  padding: 0;
+}
+
+timeline-component[data-enable-padding="false"] .slide img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: cover;
+  border-radius: var(--timeline-border-radius);
+  box-shadow: var(--timeline-shadow);
+  transition: transform 0.3s ease;
+  transform: scale(1.02);
+}
+
+.slide-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #6b7280;
+  gap: 1rem;
+  width: 80%;
+}
+
+.slide-placeholder svg {
+  opacity: 0.5;
+}
+
+.slide-placeholder p {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+/* Loading states and performance optimizations */
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    var(--timeline-bg-color) 50%, 
+    var(--timeline-content-bg-color) 50%);
+  z-index: -1;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .timeline-section {
+    scroll-snap-type: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .timeline-bar {
+    background: linear-gradient(to bottom, transparent 0%, transparent 10%, #fff 20%, #fff 80%, transparent 90%, transparent 100%);
+  }
+  
+  .timeline-dot {
+    border: 2px solid #fff;
+  }
+  
+  .timeline-dot.active {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 990px) {
+  .timeline-panel {
+    padding: 3rem;
+  }
+  
+  .timeline-date {
+    font-size: 2.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .timeline-text {
+    font-size: 2rem;
+    padding-left: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  timeline-component {
+    --timeline-dot-size: 16px;
+    --timeline-bar-width: 4px;
+  }
+
+  .timeline-container {
+    flex-direction: column;
+  }
+  
+  .timeline-panel,
+  .content-panel {
+    width: 100%;
+    height: 50vh;
+  }
+  
+  .timeline-panel {
+    padding: 2rem;
+  }
+
+  .timeline-content {
+    padding-left: 2rem;
+  }
+  
+  .timeline-item {
+    width: 90%;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .timeline-date,
+  .timeline-text {
+    width: 80%;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .timeline-bar {
+    left: 4rem;
+    top: 2rem;
+    bottom: 2rem;
+  }
+  
+  .slide {
+    padding: 1rem;
+  }
+  
+  .slide img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  /* No padding and hover effects on mobile */
+  timeline-component[data-enable-padding="false"] .slide {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .timeline-panel {
+    padding: 1.5rem;
+  }
+  
+  .source-link {
+    font-size: 1.8rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .timeline-section {
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+  
+  .timeline-container {
+    position: static;
+    height: auto;
+    flex-direction: column;
+    page-break-inside: avoid;
+  }
+  
+  .timeline-panel,
+  .content-panel {
+    width: 100%;
+    height: auto;
+  }
+  
+  .timeline-item,
+  .slide {
+    position: static;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .timeline-dot {
+    display: none;
+  }
+  
+  .slide img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Animation performance optimizations */
+.timeline-item,
+.slide,
+.timeline-dot {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}

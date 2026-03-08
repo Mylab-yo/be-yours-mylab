@@ -1,0 +1,177 @@
+{%- style -%}
+  nav.content-scrollspy__menu:empty {
+    display: none;
+  }
+
+  .content-scrollspy-{{ section.id }}.content-scrollspy{
+    --scrollspy-bg: {{ section.settings.background_color }};
+    --scrollspy-text: {{ section.settings.text_color }};
+    --scrollspy-active: {{ section.settings.active_color }};
+    --scrollspy-border: {{ section.settings.border_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__menu {
+    background: {{ section.settings.background_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item {
+    color: {{ section.settings.text_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item:hover,
+  .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item.active {
+    color: {{ section.settings.active_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item:hover {
+      color: {{ section.settings.text_color }};
+    }
+    .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item.active {
+      {%- assign text_active_color = section.settings.active_color -%}
+      {%- assign asif_contrast_black = text_active_color | color_contrast: '#000000' -%}
+      {%- assign asif_contrast_white = text_active_color | color_contrast: '#ffffff' -%}
+      {%- if asif_contrast_black > asif_contrast_white -%}
+        {%- assign chosen_text_active_color = '#000000' -%}
+      {%- else -%}
+        {%- assign chosen_text_active_color = '#ffffff' -%}
+      {%- endif -%}
+      color: {{ chosen_text_active_color }};
+    }
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__menu-item.active {
+    border-bottom-color: {{ section.settings.active_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section {
+    background: {{ section.settings.background_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section-heading {
+    color: {{ section.settings.text_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section-heading::after {
+    background: {{ section.settings.active_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section-content {
+    color: {{ section.settings.text_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section-content h3 {
+    color: {{ section.settings.text_color }};
+  }
+  
+  .content-scrollspy-{{ section.id }} .content-scrollspy__section-content li::before {
+    color: {{ section.settings.active_color }};
+  }
+{%- endstyle -%}
+
+{{ 'section-content-scrollspy.css' | asset_url | stylesheet_tag }}
+
+<content-scrollspy class="content-scrollspy-{{ section.id }} content-scrollspy page-width section--padding"
+     data-enable-animations="{{ section.settings.enable_animations }}"
+     data-animation-threshold="{{ section.settings.animation_threshold }}"
+     data-heading-selector="{{ section.settings.heading_selector }}"
+     data-hide-on-scroll-up="{{ section.settings.hide_on_scroll_up }}"
+     data-content-scope="#MainContent"
+     data-show-scroll-indicator="{{ section.settings.show_scroll_indicator }}">
+  {%- if section.settings.show_scroll_indicator -%}
+    <div class="content-scrollspy__scroll-indicator">&nbsp;</div>
+  {%- endif -%}
+  
+  <!-- ScrollSpy Navigation Menu -->
+  <nav class="content-scrollspy__menu" data-scrollspy-menu></nav>
+</content-scrollspy>
+
+<script src="{{ 'content-scrollspy.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "t:sections.content_scrollspy.name",
+  "tag": "section",
+  "class": "section scrollspy-wrapper",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.content_scrollspy.settings.layout.header"
+    },
+    {
+      "type": "text",
+      "id": "heading_selector",
+      "default": "h1, h2",
+      "label": "t:sections.content_scrollspy.settings.heading_selector.label",
+      "info": "t:sections.content_scrollspy.settings.heading_selector.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.colors.header.content"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "t:sections.content_scrollspy.settings.background_color.label"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#333333",
+      "label": "t:sections.content_scrollspy.settings.text_color.label"
+    },
+    {
+      "type": "color",
+      "id": "active_color",
+      "default": "#f7c948",
+      "label": "t:sections.content_scrollspy.settings.active_color.label"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "default": "#e5e5e5",
+      "label": "t:sections.content_scrollspy.settings.border_color.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.content_scrollspy.settings.animation.header"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "default": true,
+      "label": "t:sections.content_scrollspy.settings.enable_animations.label"
+    },
+    {
+      "type": "range",
+      "id": "animation_threshold",
+      "min": 0.1,
+      "max": 1.0,
+      "step": 0.1,
+      "default": 0.6,
+      "label": "t:sections.content_scrollspy.settings.animation_threshold.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll_up",
+      "default": false,
+      "label": "t:sections.content_scrollspy.settings.hide_on_scroll_up.label",
+      "info": "t:sections.content_scrollspy.settings.hide_on_scroll_up.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "default": false,
+      "label": "t:sections.content_scrollspy.settings.show_scroll_indicator.label",
+      "info": "t:sections.content_scrollspy.settings.show_scroll_indicator.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.content_scrollspy.presets.name"
+    }
+  ]
+}
+{% endschema %} 

@@ -1,0 +1,110 @@
+{%- comment -%}
+  Announcement Countdown Block
+  - block: The countdown block settings
+  - position: 'top' or 'bottom'
+{%- endcomment -%}
+
+{%- if block.settings.date != blank -%}
+  <div 
+    class="announcement-countdown announcement-countdown--{{ position }}{% if block.settings.display_style == 'compact' %} announcement-countdown--compact{% endif %}"
+    data-countdown-date="{{ block.settings.date | escape }}"
+    data-expired="false"
+    {{ block.shopify_attributes }}
+  >
+    {%- if block.settings.link != blank -%}
+      <a class="announcement-countdown__link" href="{{ block.settings.link }}">
+    {%- endif -%}
+
+    {%- if block.settings.text != blank -%}
+      <span class="announcement-countdown__text">{{ block.settings.text }}</span>
+    {%- endif -%}
+
+    <div class="announcement-countdown__timer">
+      <span class="announcement-countdown__unit">
+        <span class="announcement-countdown__number" data-days>00</span>
+        {%- if block.settings.display_style == 'full' -%}
+          <span class="announcement-countdown__label">{{ 'general.date.d' | t }}</span>
+        {%- endif -%}
+      </span>
+      <span class="announcement-countdown__separator">:</span>
+      <span class="announcement-countdown__unit">
+        <span class="announcement-countdown__number" data-hours>00</span>
+        {%- if block.settings.display_style == 'full' -%}
+          <span class="announcement-countdown__label">{{ 'general.date.hour' | t }}</span>
+        {%- endif -%}
+      </span>
+      <span class="announcement-countdown__separator">:</span>
+      <span class="announcement-countdown__unit">
+        <span class="announcement-countdown__number" data-minutes>00</span>
+        {%- if block.settings.display_style == 'full' -%}
+          <span class="announcement-countdown__label">{{ 'general.date.minute' | t }}</span>
+        {%- endif -%}
+      </span>
+      <span class="announcement-countdown__separator">:</span>
+      <span class="announcement-countdown__unit">
+        <span class="announcement-countdown__number" data-seconds>00</span>
+        {%- if block.settings.display_style == 'full' -%}
+          <span class="announcement-countdown__label">{{ 'general.date.second' | t }}</span>
+        {%- endif -%}
+      </span>
+    </div>
+
+    {%- if block.settings.expired_message != blank -%}
+      <span class="announcement-countdown__message">{{ block.settings.expired_message }}</span>
+    {%- endif -%}
+
+    {%- if block.settings.link != blank -%}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <script>
+    (function() {
+      const container = document.querySelector('[data-countdown-date="{{ block.settings.date | escape }}"]');
+      if (!container) return;
+
+      const dateStr = container.dataset.countdownDate;
+      let targetDate;
+      
+      if (dateStr.includes('T')) {
+        targetDate = new Date(dateStr);
+      } else {
+        const parts = dateStr.split('-');
+        if (parts.length === 3) {
+          targetDate = new Date(parts[2], parts[0] - 1, parts[1]);
+        }
+      }
+
+      if (isNaN(targetDate)) return;
+
+      const daysEl = container.querySelector('[data-days]');
+      const hoursEl = container.querySelector('[data-hours]');
+      const minutesEl = container.querySelector('[data-minutes]');
+      const secondsEl = container.querySelector('[data-seconds]');
+
+      function updateCountdown() {
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          container.dataset.expired = 'true';
+          clearInterval(intervalId);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+      }
+
+      updateCountdown();
+      const intervalId = setInterval(updateCountdown, 1000);
+    })();
+  </script>
+{%- endif -%}

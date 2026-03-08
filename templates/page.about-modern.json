@@ -1,0 +1,521 @@
+{
+  "sections": {
+    "image-banner": {
+      "type": "image-banner",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We believe beauty begins with care. Our skincare essentials—creams, serums, and lotions—are crafted to nourish deeply, protect fiercely, and bring out your natural glow.</p>",
+            "text_size": "typeset3",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Radiance Rooted in <em>Nature</em>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "squiggle"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "heading"
+      ],
+      "settings": {
+        "image": "",
+        "image_position": "center center",
+        "text_box_position": "center",
+        "text_alignment": "left",
+        "image_ratio": "100vh",
+        "show_text_box": false,
+        "full_width": true,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "100vh",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 20,
+        "colors_highlight": "#ffb503",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "narrow": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich-text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Our Mission",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We’re more than a beauty brand—we’re a movement toward <em>mindful</em> skincare. Powered by clean ingredients and backed by skin science, we’re here to help you feel confident in your skin.</p>",
+            "text_size": "typeset3",
+            "secondary_color": false,
+            "enable_highlight": true,
+            "highlight_style": "modern-underline"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "left",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "rich-text-2": {
+      "type": "rich-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every formula we create is a celebration of <em>self-love</em>, <em>resilience</em>, and the quiet strength of daily rituals.</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": true,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "text"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "left",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#ffb503",
+        "gradient_background": "",
+        "padding_top": 16,
+        "padding_bottom": 36
+      }
+    },
+    "images-with-text-0": {
+      "type": "images-with-text",
+      "blocks": {
+        "images-with-text-0-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Crafted with Care",
+            "heading_size": "h2",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "images-with-text-0-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Each product begins with a purpose: hydration, repair, renewal, and glow. From farm-grown botanicals to lab-tested actives, our process is rooted in quality at every layer.</p>",
+            "text_size": "typeset",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "images-with-text-0-0",
+        "images-with-text-0-1"
+      ],
+      "settings": {
+        "image": "",
+        "image_2": "",
+        "image_3": "",
+        "image_4": "",
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "full_width": false,
+        "show_divider": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image-with-text-overlay-0": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "image-with-text-overlay-0-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "<em>Glow</em>. Every Day.",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "marker"
+          }
+        },
+        "image-with-text-overlay-0-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Skincare that simplifies your routine and amplifies your confidence.</p>",
+            "text_size": "typeset2",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "image-with-text-overlay-0-0",
+        "image-with-text-overlay-0-1"
+      ],
+      "settings": {
+        "image": "",
+        "image_position": "center center",
+        "text_box_position": "flex-start",
+        "text_alignment": "left",
+        "image_ratio": "650px",
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_text_box_position": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "video_url": "",
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_overlay": "#f3f3f3",
+        "colors_overlay_opacity": 48,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "image-with-text-overlay-1": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "image-with-text-overlay-1-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Real Skin. <em>Real</em> Results.",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "marker"
+          }
+        },
+        "image-with-text-overlay-1-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>\"Loved by <em>thousands</em>, made for you.\"</p>",
+            "text_size": "typeset2",
+            "secondary_color": true,
+            "enable_highlight": true,
+            "highlight_style": "heavy-squiggle"
+          }
+        }
+      },
+      "block_order": [
+        "image-with-text-overlay-1-0",
+        "image-with-text-overlay-1-1"
+      ],
+      "settings": {
+        "image": "",
+        "image_position": "center center",
+        "text_box_position": "flex-end",
+        "text_alignment": "left",
+        "image_ratio": "650px",
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_text_box_position": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "video_url": "",
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1b18",
+        "colors_text": "#212326",
+        "colors_overlay": "#ffffff",
+        "colors_overlay_opacity": 48,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "multicolumn-0": {
+          "type": "column",
+          "settings": {
+            "background_color": "#d2d5d9",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "image": "",
+            "title": "Thoughtfully Formulated",
+            "title_size": "h3",
+            "text": "<p>Skincare should be more than just a routine—it should be a ritual you trust. That’s why each of our products is developed through careful research and testing. We collaborate with skincare chemists and dermatologists to select active ingredients that not only deliver results but also support long-term skin health. No harsh chemicals, no shortcuts—just clean, conscious formulations your skin will love.</p>",
+            "show_popup": true,
+            "popup_image": "",
+            "popup_image_position": "left",
+            "justify_text": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "multicolumn-1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f7eedd",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "image": "",
+            "title": "Small Batch Production",
+            "title_size": "h3",
+            "text": "<p>In a world of mass production, we chose a different path. Our small-batch manufacturing approach allows us to closely monitor the quality of every product that leaves our facility. This hands-on process ensures each bottle of cream or serum is fresh, potent, and crafted to perfection—never sitting on a shelf for months before reaching you. It’s our way of making sure you receive only the best, every time.</p>",
+            "show_popup": true,
+            "popup_image": "",
+            "popup_image_position": "bottom",
+            "justify_text": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "column_b9kEzy": {
+          "type": "column",
+          "settings": {
+            "background_color": "#faeaa1",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "image": "",
+            "title": "Loved by Many",
+            "title_size": "h3",
+            "text": "<p>Our story is written by those who use our products every day. From glowing customer reviews to heartfelt messages, we’re constantly inspired by how our skincare has impacted lives. Whether it’s calming sensitive skin, restoring radiance, or simply making someone feel beautiful in their own skin—our mission is brought to life through the community that believes in us.</p>",
+            "show_popup": true,
+            "popup_image": "",
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "column_P9jayL": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffdfdf",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "image": "",
+            "title": "Sustainable Beauty",
+            "title_size": "h3",
+            "text": "<p>We’re committed to creating beauty that’s kind to the Earth. That means using recyclable materials, reducing plastic wherever possible, and partnering with responsible suppliers who share our values. Sustainability isn’t a trend—it’s a responsibility. And we’re proud to do our part in protecting the planet while helping you care for your skin.</p>",
+            "show_popup": true,
+            "popup_image": "",
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "multicolumn-0",
+        "multicolumn-1",
+        "column_b9kEzy",
+        "column_P9jayL"
+      ],
+      "settings": {
+        "image_ratio": "square",
+        "image_position": "center center",
+        "text_alignment": "left",
+        "show_divider": false,
+        "image_width": "full",
+        "columns_desktop": 4,
+        "open_in_new_tab": false,
+        "heading": "",
+        "heading_size": "h2",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "mobile_text_alignment": "left",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "card_border_radius": 10,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "image-banner-1": {
+      "type": "image-banner",
+      "blocks": {
+        "image-banner-1-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Powered by Nature, Backed by <em>Science</em>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "squiggle"
+          }
+        },
+        "image-banner-1-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We fuse time-honored plant wisdom with modern dermatological research to deliver skincare that’s gentle, effective, and transformative.</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "image-banner-1-0",
+        "image-banner-1-1"
+      ],
+      "settings": {
+        "image": "",
+        "image_2": "",
+        "image_position": "center center",
+        "text_box_position": "center",
+        "text_alignment": "center",
+        "image_ratio": "100vh",
+        "show_text_box": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "stack_images_on_mobile": false,
+        "show_text_below": true,
+        "colors_button_label": "#1a1b18",
+        "colors_button_background": "#ffffff",
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 16,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "images-with-text-1": {
+      "type": "images-with-text",
+      "blocks": {
+        "images-with-text-1-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Join the Skincare Revolution",
+            "heading_size": "h2",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "images-with-text-1-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We’re redefining beauty with every bottle. Join a community that values transparency, sustainability, and radiant skin at every age.</p>",
+            "text_size": "typeset",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "images-with-text-1-0",
+        "images-with-text-1-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "full_width": false,
+        "show_divider": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "image-banner",
+    "main",
+    "rich-text",
+    "rich-text-2",
+    "images-with-text-0",
+    "image-with-text-overlay-0",
+    "image-with-text-overlay-1",
+    "multicolumn",
+    "image-banner-1",
+    "images-with-text-1"
+  ]
+}

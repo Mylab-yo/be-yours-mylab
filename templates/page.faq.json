@@ -1,0 +1,191 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "narrow": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image-banner": {
+      "type": "image-banner",
+      "blocks": {
+        "image-banner-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "FAQ",
+            "heading_size": "h0"
+          }
+        },
+        "image-banner-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Answers to Your Questions</p>",
+            "text_size": "typeset2",
+            "secondary_color": false
+          }
+        }
+      },
+      "block_order": [
+        "image-banner-0",
+        "image-banner-1"
+      ],
+      "settings": {
+        "image": "",
+        "image_position": "center center",
+        "text_box_position": "bottom-center",
+        "text_alignment": "center",
+        "image_ratio": "550px",
+        "show_text_box": false,
+        "full_width": true,
+        "show_divider": false,
+        "mobile_text_alignment": "center",
+        "mobile_image_ratio": "400px",
+        "stack_images_on_mobile": false,
+        "show_text_below": false,
+        "colors_text": "#ffffff",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 28,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "question-0": {
+          "type": "question",
+          "settings": {
+            "title": "Is there talc in any of your products?",
+            "text": "<p>The minerals that are used to produce talc can contain asbestos, which is why there are legitimate concerns about its potential effect on our health. The talc used in our ENZYME CLEANSER, BABY BUM CREAM and tinted CLARIFYING SPOT TREATMENTS is NOT made of minerals that contain asbestos and thus is not carcinogenic and completely safe. The talc we use is periodically and consistently reviewed by independent laboratories.</p>"
+          }
+        },
+        "question-1": {
+          "type": "question",
+          "settings": {
+            "title": "Do you test on animals?",
+            "text": "<p>Our products and ingredients are not and will never be tested on animals, under any circumstances. We have foregone registering or selling our products inside China because of their animal-testing requirements.</p>"
+          }
+        },
+        "question-2": {
+          "type": "question",
+          "settings": {
+            "title": "Can I recycle my packaging?",
+            "text": "<p>Yes. And the packaging for our serums and drops is made of glass – which is particularly recyclable and can be used for a long time.<br/><br/>We as a company have a strong environmental ethos that we are acting on, including an already executed dramatic reduction in packaging materials, a shift from plastic to glass as a raw material and to other sustainable ingredients. This shift has begun and will continue. We are exploring eliminating the outer wrapping packaging and soft touch varnish from our products and we are changing from plastic jars to glass jars, and making our packaging (and therefore product size on the shelf) smaller.<br/><br/>All of our paper used for packaging is FSC certified, which means it comes from forests that are responsibly managed, socially beneficial, environmentally conscious, and economically viable.</p>"
+          }
+        },
+        "question-3": {
+          "type": "question",
+          "settings": {
+            "title": "What is the shelf life of my product?",
+            "text": "<p>All beauty products need to be used by a certain period. This is known as the 'period after opening' and can be easily identified by the PAO symbol. The symbol can be recognised as the shape of an opened jar, and will have a number inside; 9M will indicate 9 months, 12M is 12 months, and 36M is 36 months. Once opened the product should be used in this period, as after this time the quality of the product will deteriorate.</p>"
+          }
+        },
+        "question-4": {
+          "type": "question",
+          "settings": {
+            "title": "Are Dr. Sturm’s products hypoallergenic?",
+            "text": "<p>The full Dr. Barbara Sturm collection is hypoallergenic, or formulated to ensure minimum instance of allergic reactions. However, if you have noticed sensitivity reactions in the past following the use of cosmetic products, you can carry out a test. Simply apply a coin-sized amount of the product (taking it from a tester) to the inside of your forearm and leave it on, ideally for a whole day. If the area becomes red or has any type of reaction, then the product probably contains a raw material that is not tolerated. If there is no reaction, then you can use the product confidently.</p>"
+          }
+        },
+        "question-5": {
+          "type": "question",
+          "settings": {
+            "title": "Can I use Dr. Sturm products if I have sensitive skin?",
+            "text": "<p>Absolutely. All of our products are especially designed for sensitive skin and should be gentle enough to be tolerated by even the most sensitive skin types since Dr. Barbara Sturm avoids any superfluous and aggressive ingredients that can cause rather than combat inflammation and irritated skin.<br/><br/>However, everyone's skin is unique and skin can negatively react to any ingredient. For example, some people may find they are sensitive to natural ingredients such as essential oils or fruit extracts, and for this reason we display the full product ingredients within the product page of our website to enable customers to make an informed choice before purchase. Even the most 'gentle' ingredients can cause a reaction in certain people's skin so we recommend patch testing a small amount of the product on the inside skin of the wrist area to ascertain its compatibility.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "question-0",
+        "question-1",
+        "question-2",
+        "question-3",
+        "question-4",
+        "question-5"
+      ],
+      "settings": {
+        "narrow": true,
+        "secondary_background": false,
+        "show_divider": false,
+        "heading": "",
+        "heading_size": "h2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich-text-0": {
+      "type": "rich-text",
+      "blocks": {
+        "rich-text-0-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Can't find what you're looking for?",
+            "heading_size": "h2"
+          }
+        },
+        "rich-text-0-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Send us an email to tell us what's up and someone from our Customer Service team will get back to you as soon as possible. Be sure to include your order number (if you have one).<br/><br/>Please email us at <a href=\"mailto:info@yourstore.com\" title=\"info@yourstore.com\">info@yourstore.com</a></p>",
+            "text_size": "typeset",
+            "secondary_color": false
+          }
+        }
+      },
+      "block_order": [
+        "rich-text-0-0",
+        "rich-text-0-1"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "narrow": true,
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich-text-1": {
+      "type": "rich-text",
+      "blocks": {
+        "rich-text-1-0": {
+          "type": "heading",
+          "settings": {
+            "heading": "Other inquiries? Let's chat.",
+            "heading_size": "h2"
+          }
+        },
+        "rich-text-1-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Please email us at <a href=\"mailto:info@yourstore.com\" title=\"shop@yourstore.com\">shop@yourstore.com</a></p>",
+            "text_size": "typeset",
+            "secondary_color": false
+          }
+        }
+      },
+      "block_order": [
+        "rich-text-1-0",
+        "rich-text-1-1"
+      ],
+      "settings": {
+        "text_alignment": "left",
+        "mobile_text_alignment": "left",
+        "narrow": true,
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image-banner",
+    "faq",
+    "rich-text-0",
+    "rich-text-1"
+  ]
+}

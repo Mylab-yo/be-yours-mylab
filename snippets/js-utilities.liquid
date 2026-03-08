@@ -1,0 +1,45 @@
+<script>
+  window.__utilityCssUrl = "{{ 'utilities.css' | asset_url }}";
+</script>
+<script>
+  (function () {
+    var loaded = false;
+    function needUtilities(root) {
+      return !!(root || document).querySelector('[data-utility-require]');
+    }
+    function loadUtilitiesCss() {
+      if (loaded || !window.__utilityCssUrl) return;
+      loaded = true;
+      var link = document.createElement('link');
+      link.id = 'utilities-css';
+      link.rel = 'stylesheet';
+      link.href = window.__utilityCssUrl;
+      document.head.appendChild(link);
+    }
+
+    if (needUtilities(document)) loadUtilitiesCss();
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        if (needUtilities(document)) loadUtilitiesCss();
+      });
+    }
+
+    var observer = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var m = mutations[i];
+        if (m.type !== 'childList') continue;
+        for (var j = 0; j < m.addedNodes.length; j++) {
+          var n = m.addedNodes[j];
+          if (!n || n.nodeType !== 1) continue;
+          if ((n.hasAttribute && n.hasAttribute('data-utility-require')) || (n.querySelector && n.querySelector('[data-utility-require]'))) {
+            loadUtilitiesCss();
+            observer.disconnect();
+            return;
+          }
+        }
+      }
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
