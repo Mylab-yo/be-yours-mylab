@@ -384,17 +384,9 @@
         log('No .product-quantity found in li');
       }
 
-      // Détail unitaire
-      var descEl = li.querySelector('.product-description');
-      if (descEl) {
-        var mlDetail = descEl.querySelector('.ml-cart-line-detail');
-        if (!mlDetail) {
-          mlDetail = document.createElement('div');
-          mlDetail.className = 'ml-cart-line-detail';
-          descEl.appendChild(mlDetail);
-        }
-        mlDetail.textContent = quantity + ' \u00d7 ' + formatMoney(unitPrice) + ' HT';
-      }
+      // Masquer le message d'erreur quantité natif Be Yours
+      var errEl = li.querySelector('.cart-item__error');
+      if (errEl) errEl.style.display = 'none';
     });
 
     // Sous-total HT
