@@ -154,57 +154,62 @@
 
   /* -------------------------------------------------------
      DÉTECTION DU TYPE DE GRILLE
-     Utilise les tags du produit pour matcher une grille.
-     Tags attendus : "type:shampoing", "format:200ml", "gamme:dejaunisseur", etc.
+     Utilise les tags Shopify réels du produit.
+     Tags utilisés sur mylab-shop-3 :
+       Type : "shampoing", "masque", "creme", "serum", "huile", "cire"
+       Format : "200ml", "400ml", "500ml", "1000ml", "50ml"
+       Gamme : "Les Nourrissants", "dejaunisseur", "coloristeur", etc.
+       Spécial : "homme", "spray", "herborist"
      ------------------------------------------------------- */
   function detectTierKey(productData) {
     var tags = (productData.tags || []).map(function (t) { return t.toLowerCase().trim(); });
-    var productType = (productData.type || '').toLowerCase();
+    var title = (productData.title || '').toLowerCase();
+    var allTags = tags.join(' ');
 
-    // Extraire type et format depuis les tags
-    var type = '';
+    // --- Détecter le FORMAT depuis les tags puis le titre ---
     var format = '';
-    var gamme = '';
-
     tags.forEach(function (tag) {
-      if (tag.startsWith('ml-type:')) type = tag.replace('ml-type:', '').trim();
-      if (tag.startsWith('ml-format:')) format = tag.replace('ml-format:', '').replace('ml', '').trim();
-      if (tag.startsWith('ml-gamme:')) gamme = tag.replace('ml-gamme:', '').trim();
+      if (tag === '1000ml' || tag === '1l') format = '1000';
+      else if (tag === '500ml' && !format) format = '500';
+      else if (tag === '400ml' && !format) format = '400';
+      else if (tag === '200ml' && !format) format = '200';
+      else if (tag === '50ml' && !format) format = '50';
     });
-
-    // Fallback : détecter depuis le titre du produit
-    if (!type) {
-      var title = (productData.title || '').toLowerCase();
-      if (title.includes('shampoing') || title.includes('shampooing')) type = 'shampoing';
-      else if (title.includes('masque') && title.includes('spray')) type = 'spray_reparateur';
-      else if (title.includes('masque')) type = 'masque';
-      else if (title.includes('crème') || title.includes('creme')) type = 'creme';
-      else if (title.includes('sérum') || title.includes('serum')) type = 'serum';
-      else if (title.includes('huile') || title.includes('bain miraculeux')) type = 'huile';
-      else if (title.includes('cire')) type = 'cire';
-    }
-
     if (!format) {
-      var title2 = (productData.title || '').toLowerCase();
-      if (title2.includes('1000') || title2.includes('1l')) format = '1000';
-      else if (title2.includes('500')) format = '500';
-      else if (title2.includes('400')) format = '400';
-      else if (title2.includes('200')) format = '200';
-      else if (title2.includes('50')) format = '50';
+      if (title.includes('1000') || title.includes('1l')) format = '1000';
+      else if (title.includes('500')) format = '500';
+      else if (title.includes('400')) format = '400';
+      else if (title.includes('200')) format = '200';
+      else if (title.includes('50ml')) format = '50';
     }
 
-    if (!gamme) {
-      var title3 = (productData.title || '').toLowerCase();
-      var allTags = tags.join(' ');
-      if (title3.includes('déjauniss') || title3.includes('dejauniss') || title3.includes('colorist') || allTags.includes('dejauniss') || allTags.includes('colorist')) {
-        gamme = 'dejaunisseur';
-      }
-      if (title3.includes('herborist') || allTags.includes('homme')) {
-        gamme = 'homme';
-      }
+    // --- Détecter le TYPE depuis les tags puis le titre ---
+    var type = '';
+    if (allTags.includes('shampoing') || title.includes('shampoing') || title.includes('shampooing')) {
+      type = 'shampoing';
+    } else if ((allTags.includes('spray') || title.includes('spray')) && (allTags.includes('masque') || title.includes('masque'))) {
+      type = 'spray_reparateur';
+    } else if (allTags.includes('masque') || title.includes('masque')) {
+      type = 'masque';
+    } else if (allTags.includes('creme') || allTags.includes('crème') || title.includes('crème') || title.includes('creme')) {
+      type = 'creme';
+    } else if (allTags.includes('serum') || allTags.includes('sérum') || title.includes('sérum') || title.includes('serum')) {
+      type = 'serum';
+    } else if (allTags.includes('huile') || title.includes('huile') || title.includes('bain miraculeux')) {
+      type = 'huile';
+    } else if (allTags.includes('cire') || title.includes('cire')) {
+      type = 'cire';
     }
 
-    // Construire la clé
+    // --- Détecter la GAMME spéciale ---
+    var gamme = '';
+    if (allTags.includes('dejauniss') || allTags.includes('colorist') || title.includes('déjauniss') || title.includes('dejauniss') || title.includes('colorist')) {
+      gamme = 'dejaunisseur';
+    } else if (allTags.includes('homme') || allTags.includes('herborist') || title.includes('herborist')) {
+      gamme = 'homme';
+    }
+
+    // --- Construire la clé et matcher ---
     if (gamme === 'dejaunisseur') {
       var key = 'dejaunisseur_' + type + '_' + format;
       if (TIERS[key]) return key;
@@ -221,6 +226,12 @@
 
     var baseKey = type + '_' + format;
     if (TIERS[baseKey]) return baseKey;
+
+    // Dernier fallback : essayer sans format pour les 50ml
+    if (!format && (type === 'serum' || type === 'huile' || type === 'cire')) {
+      var key3 = type + '_50';
+      if (TIERS[key3]) return key3;
+    }
 
     return null;
   }
