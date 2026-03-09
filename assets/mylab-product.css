@@ -754,6 +754,18 @@ body.ml-drawer-open { overflow: hidden; }
   border-bottom-color: var(--ml-line, #E5E5E5);
 }
 
+/* --- Bandeau actions (remarque/livraison/bon) : fix overflow mobile --- */
+.mini-cart__actions {
+  margin-inline-start: -2rem;
+  margin-inline-end: -2rem;
+}
+@media screen and (min-width: 750px) {
+  .mini-cart__actions {
+    margin-inline-start: -3rem;
+    margin-inline-end: -3rem;
+  }
+}
+
 /* ============================================================
    PAGE PANIER (/cart) — Style MyLab
    ============================================================ */
