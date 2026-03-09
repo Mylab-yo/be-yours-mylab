@@ -743,10 +743,16 @@ body.ml-drawer-open { overflow: hidden; }
 /* --- Actions drawer (remarque, livraison, bon de réduction) --- */
 .mini-cart__action summary > span {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   color: var(--ml-mid, #555);
+}
+@media screen and (min-width: 750px) {
+  .mini-cart__action summary > span {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 /* --- Séparateur --- */
