@@ -19,8 +19,32 @@
     endfor
   endif
 
-  if logo_position == 'center-split' and section.settings.menu != blank
-    assign link_count_half = section.settings.menu.links.size | times: 1.0 | divided_by: 2 | round
+  comment
+    Menu PRO/public — swap menu based on customer tags (dossier-valide / pro)
+  endcomment
+  assign is_pro_customer = false
+  if customer
+    if customer.tags contains 'dossier-valide' or customer.tags contains 'pro'
+      assign is_pro_customer = true
+    endif
+  endif
+
+  if is_pro_customer and section.settings.menu_pro != blank
+    assign active_menu = section.settings.menu_pro
+  else
+    assign active_menu = section.settings.menu
+  endif
+
+  if is_pro_customer and section.settings.menu_mobile_pro != blank
+    assign active_menu_mobile = section.settings.menu_mobile_pro
+  elsif section.settings.menu_mobile != blank
+    assign active_menu_mobile = section.settings.menu_mobile
+  else
+    assign active_menu_mobile = active_menu
+  endif
+
+  if logo_position == 'center-split' and active_menu != blank
+    assign link_count_half = active_menu.links.size | times: 1.0 | divided_by: 2 | round
   endif
 
   assign enable_dropdown_menu = section.settings.enable_dropdown_menu
@@ -301,14 +325,12 @@
       {%- endif -%}"
     >
       {%- liquid
-        if section.settings.menu_mobile != blank
-          render 'header-drawer', main_menu: section.settings.menu_mobile, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
-        elsif section.settings.menu != blank
-          render 'header-drawer', main_menu: section.settings.menu, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
+        if active_menu_mobile != blank
+          render 'header-drawer', main_menu: active_menu_mobile, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
         endif
       -%}
 
-      {%- if logo_position == 'top-center' or logo_position == 'top-left' and enable_sticky_header and section.settings.menu != blank -%}
+      {%- if logo_position == 'top-center' or logo_position == 'top-left' and enable_sticky_header and active_menu != blank -%}
         <header-menu-toggle>
           <div class="header__icon header__icon--menu focus-inset" aria-label="{{ 'sections.header.menu' | t }}">
             <span class="header__icon header__icon--summary">
@@ -350,8 +372,8 @@
     </div>
 
     {%- liquid
-      if section.settings.menu != blank and logo_position == 'center-split'
-        render 'desktop-menu', menu: section.settings.menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, limit: link_count_half, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
+      if active_menu != blank and logo_position == 'center-split'
+        render 'desktop-menu', menu: active_menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, limit: link_count_half, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
       endif
     -%}
 
@@ -425,11 +447,11 @@
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank
+      if active_menu != blank
         if logo_position == 'center-split'
-          render 'desktop-menu', menu: section.settings.menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, offset: link_count_half, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
+          render 'desktop-menu', menu: active_menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, offset: link_count_half, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
         else
-          render 'desktop-menu', menu: section.settings.menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
+          render 'desktop-menu', menu: active_menu, enable_dropdown_menu: enable_dropdown_menu, blocks: section.blocks, enable_highlight: section.settings.enable_highlight, highlight_labels: highlight_labels, highlight_style: section.settings.highlight_style
         endif
       endif
     -%}
@@ -854,6 +876,20 @@
       "id": "menu_mobile",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "Menu PRO (adhérents)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_pro",
+      "label": "Menu desktop (clients pro)"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_mobile_pro",
+      "label": "Menu mobile (clients pro)"
     },
     {
       "type": "checkbox",
