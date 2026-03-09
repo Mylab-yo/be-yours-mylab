@@ -445,7 +445,20 @@
           <countdown-timer class="countdown countdown--compact" data-date="{{ card_product.metafields.theme.countdown.value | escape }}" data-compact="true"></countdown-timer>
         {%- endif -%}
   
-        {%- if show_quick_buy -%}
+        {%- liquid
+          comment
+            Masquer le quick-buy pour les produits MyLab à paliers (non-testeurs)
+            afin d'empêcher l'ajout à l'unité depuis les miniatures.
+          endcomment
+          assign ml_card_tags = card_product.tags | join: ' ' | downcase
+          assign ml_card_is_tier = false
+          if ml_card_tags contains '200ml' or ml_card_tags contains '500ml' or ml_card_tags contains '400ml' or ml_card_tags contains '1000ml' or ml_card_tags contains '50ml'
+            unless ml_card_tags contains 'testeur' or ml_card_tags contains 'découverte' or ml_card_tags contains 'decouverte'
+              assign ml_card_is_tier = true
+            endunless
+          endif
+        -%}
+        {%- if show_quick_buy and ml_card_is_tier == false -%}
           {%- if card_product.variants.size == 1 -%}
             <add-to-cart class="{{ button_class }}" data-variant-id="{{ card_product.selected_or_first_available_variant.id }}">
               {%- liquid

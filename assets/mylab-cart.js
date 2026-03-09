@@ -30,51 +30,12 @@
   });
 
   /* -------------------------------------------------------
-     OUVRIR LE CART DRAWER (Be Yours natif)
-     ------------------------------------------------------- */
-  function openBeYoursCart() {
-    var drawer = document.querySelector('cart-drawer');
-    if (!drawer) return;
-    if (typeof drawer.openMenuDrawer === 'function') {
-      drawer.openMenuDrawer();
-      return;
-    }
-    var summary = drawer.querySelector('details > summary');
-    if (summary) summary.click();
-  }
-
-  /* -------------------------------------------------------
      REFRESH APRÈS AJOUT (appelé par mylab-product.js)
+     Utilise l'event cart:refresh écouté par CartDrawer (global.js)
+     qui gère le fetch des sections, la MAJ du DOM et l'ouverture.
      ------------------------------------------------------- */
   function refreshCartAndOpen() {
-    // Mettre à jour le badge
-    fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-      .then(function (r) { return r.json(); })
-      .then(function (cart) {
-        document.querySelectorAll('.cart-count-bubble span[aria-hidden="true"]').forEach(function (el) {
-          el.textContent = cart.item_count;
-        });
-        document.querySelectorAll('.cart-count-bubble').forEach(function (el) {
-          el.style.display = cart.item_count > 0 ? '' : 'none';
-        });
-      });
-
-    // Recharger le contenu du mini-cart via section rendering
-    var miniCart = document.getElementById('mini-cart');
-    if (miniCart) {
-      var sectionId = miniCart.closest('.shopify-section')?.id?.replace('shopify-section-', '') || 'mini-cart';
-      fetch('/?section_id=' + sectionId)
-        .then(function (r) { return r.text(); })
-        .then(function (html) {
-          var doc = new DOMParser().parseFromString(html, 'text/html');
-          var section = doc.querySelector('.shopify-section');
-          if (section) {
-            miniCart.closest('.shopify-section').innerHTML = section.innerHTML;
-          }
-        });
-    }
-
-    openBeYoursCart();
+    document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: true } }));
   }
 
   /* -------------------------------------------------------
@@ -84,19 +45,7 @@
     open: refreshCartAndOpen,
     refresh: function () {
       // Recharger le mini-cart sans ouvrir
-      var miniCart = document.getElementById('mini-cart');
-      if (miniCart) {
-        var sectionId = miniCart.closest('.shopify-section')?.id?.replace('shopify-section-', '') || 'mini-cart';
-        fetch('/?section_id=' + sectionId)
-          .then(function (r) { return r.text(); })
-          .then(function (html) {
-            var doc = new DOMParser().parseFromString(html, 'text/html');
-            var section = doc.querySelector('.shopify-section');
-            if (section) {
-              miniCart.closest('.shopify-section').innerHTML = section.innerHTML;
-            }
-          });
-      }
+      document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: false } }));
     }
   };
 

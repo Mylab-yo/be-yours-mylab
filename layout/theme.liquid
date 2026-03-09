@@ -100,7 +100,7 @@
     {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
   </head>
 
-  <body class="template-{{ request.page_type }}{% if request.design_mode %} shopify-design-mode{% endif %}"
+  <body class="template-{{ request.page_type }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}"
     {%- if settings.image_zoom_effect_enabled %} data-animate-image{% endif -%}
     {%- if settings.image_loading_bar_enabled %} data-lazy-image{% endif -%}
     {%- if settings.heading_capitalize %} data-heading-capitalize{% endif -%}

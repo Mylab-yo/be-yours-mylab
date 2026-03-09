@@ -886,3 +886,15 @@ td.cart-item__quantity .ml-qty-select {
   font-size: 1.15rem;
   color: var(--ml-muted, #888);
 }
+
+/* ============================================================
+   BOUTIQUE PAGES — Grille produits plus compacte
+   Force 5 colonnes desktop sur les pages boutique-pro / testeurs
+   ============================================================ */
+@media screen and (min-width: 990px) {
+  .template-boutique-pro .product-grid.flex-grid--rigid .flex-grid__item,
+  .template-boutique-testeurs .product-grid.flex-grid--rigid .flex-grid__item {
+    width: calc(20% - var(--grid-horizontal-spacing) * 4 / 5);
+    max-width: calc(20% - var(--grid-horizontal-spacing) * 4 / 5);
+  }
+}

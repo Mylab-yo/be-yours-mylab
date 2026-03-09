@@ -361,6 +361,12 @@
               endif
               assign ml_lc = ml_uc | times: item.quantity
               assign ml_ht_subtotal = ml_ht_subtotal | plus: ml_lc
+            else
+              comment
+                Testeurs / produits sans palier : ajouter le prix Shopify au sous-total HT
+              endcomment
+              assign ml_lc = item.final_price | times: item.quantity
+              assign ml_ht_subtotal = ml_ht_subtotal | plus: ml_lc
             endif
           -%}
           <li data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
