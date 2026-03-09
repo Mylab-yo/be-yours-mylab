@@ -89,6 +89,8 @@ if (!customElements.get('product-form')) {
               quickAddModal.hide(true);
             } else {
               this.cart.renderContents(response);
+              // Fallback: dispatch cart:refresh to trigger CartDrawer update + open
+              document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: true } }));
             }
           })
           .catch((e) => {
