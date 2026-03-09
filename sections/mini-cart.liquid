@@ -252,9 +252,111 @@
 
       <cart-items>
         {%- assign animate_count = animate_count | plus: 1 -%}
+        {%- assign ml_ht_subtotal = 0 -%}
         <ul class="mini-cart__navigation" data-animate data-animate-delay-{{ animate_count }}>
           {%- for item in cart.items -%}
-          <li data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
+          {%- liquid
+            comment
+              ── ML TIER DETECTION ──
+            endcomment
+            assign ml_tier_data = ''
+            assign ml_tg = item.product.tags | join: ' ' | downcase
+            assign ml_tl = item.product.title | downcase
+            assign ml_f = ''
+            if ml_tg contains '1000ml' or ml_tg contains '1l' or ml_tl contains '1000'
+              assign ml_f = '1000'
+            elsif ml_tg contains '500ml' or ml_tl contains '500'
+              assign ml_f = '500'
+            elsif ml_tg contains '400ml' or ml_tl contains '400'
+              assign ml_f = '400'
+            elsif ml_tg contains '200ml' or ml_tl contains '200'
+              assign ml_f = '200'
+            elsif ml_tg contains '50ml' or ml_tl contains '50ml'
+              assign ml_f = '50'
+            endif
+            assign ml_t = ''
+            if ml_tg contains 'shampoing' or ml_tl contains 'shampoing'
+              assign ml_t = 'shampoing'
+            elsif ml_tl contains 'spray' and ml_tl contains 'masque'
+              assign ml_t = 'spray_reparateur'
+            elsif ml_tg contains 'masque' or ml_tl contains 'masque'
+              assign ml_t = 'masque'
+            elsif ml_tg contains 'creme' or ml_tg contains 'crème' or ml_tl contains 'crème'
+              assign ml_t = 'creme'
+            elsif ml_tg contains 'serum' or ml_tg contains 'sérum' or ml_tl contains 'sérum'
+              assign ml_t = 'serum'
+            elsif ml_tg contains 'huile' or ml_tl contains 'huile' or ml_tl contains 'bain miraculeux'
+              assign ml_t = 'huile'
+            elsif ml_tg contains 'cire' or ml_tl contains 'cire'
+              assign ml_t = 'cire'
+            endif
+            assign ml_g = ''
+            if ml_tg contains 'dejauniss' or ml_tg contains 'colorist' or ml_tl contains 'colorist'
+              assign ml_g = 'dejaunisseur'
+            elsif ml_tg contains 'homme' or ml_tg contains 'herborist' or ml_tl contains 'herborist'
+              assign ml_g = 'homme'
+            endif
+            if ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '200'
+              assign ml_tier_data = '6:750,12:710,24:675,48:600,96:540'
+            elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '200'
+              assign ml_tier_data = '6:960,12:910,24:860,48:765,96:690'
+            elsif ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '1000'
+              assign ml_tier_data = '1:2890,3:2745,6:2450,12:2160'
+            elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '1000'
+              assign ml_tier_data = '1:3490,3:3315,6:2965,12:2615'
+            elsif ml_g == 'homme' and ml_t == 'masque' and ml_f == '500'
+              assign ml_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+            elsif ml_t == 'spray_reparateur'
+              assign ml_tier_data = '6:990,12:940,24:890,48:790,96:710'
+            elsif ml_t == 'shampoing' and ml_f == '200'
+              assign ml_tier_data = '6:700,12:665,24:630,48:560,96:500'
+            elsif ml_t == 'shampoing' and ml_f == '500'
+              assign ml_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+            elsif ml_t == 'shampoing' and ml_f == '1000'
+              assign ml_tier_data = '1:2490,3:2365,6:2100,12:1865'
+            elsif ml_t == 'masque' and ml_f == '200'
+              assign ml_tier_data = '6:950,12:900,24:855,48:760,96:680'
+            elsif ml_t == 'masque' and ml_f == '400'
+              assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+            elsif ml_t == 'masque' and ml_f == '1000'
+              assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+            elsif ml_t == 'creme' and ml_f == '200'
+              assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+            elsif ml_t == 'creme' and ml_f == '400'
+              assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+            elsif ml_t == 'creme' and ml_f == '1000'
+              assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+            elsif ml_t == 'serum'
+              assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+            elsif ml_t == 'huile'
+              assign ml_tier_data = '6:950,12:900,24:850,48:760,96:680'
+            elsif ml_t == 'cire'
+              assign ml_tier_data = '6:690,12:660,24:630,48:600'
+            endif
+            comment
+              ── CALCUL PRIX HT ──
+            endcomment
+            assign ml_uc = 0
+            assign ml_lc = 0
+            if ml_tier_data != ''
+              assign ml_arr = ml_tier_data | split: ','
+              for tier_item in ml_arr
+                assign tp = tier_item | split: ':'
+                assign tq = tp[0] | plus: 0
+                assign tc = tp[1] | plus: 0
+                if item.quantity >= tq
+                  assign ml_uc = tc
+                endif
+              endfor
+              if ml_uc == 0
+                assign ft = ml_arr[0] | split: ':'
+                assign ml_uc = ft[1] | plus: 0
+              endif
+              assign ml_lc = ml_uc | times: item.quantity
+              assign ml_ht_subtotal = ml_ht_subtotal | plus: ml_lc
+            endif
+          -%}
+          <li data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
             <div class="product-container{% unless item.image %} no-image{% endunless %}">
               {% if item.image %}
                 <div>
@@ -277,7 +379,11 @@
               <div class="product-description">
                 <div class="product-content">
                   <a href="{{ item.url }}" class="link product-title">{{ item.product.title }}</a>
-                  {%- if item.original_price != item.final_price -%}
+                  {%- if ml_tier_data != '' -%}
+                    {%- assign ml_le = ml_lc | divided_by: 100 -%}
+                    {%- assign ml_lr = ml_lc | modulo: 100 -%}
+                    <dd class="price">{{ ml_le }},{%- if ml_lr < 10 -%}0{%- endif -%}{{ ml_lr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em;letter-spacing:0.05em">HT</small></dd>
+                  {%- elsif item.original_price != item.final_price -%}
                     <dl class="cart-item__discounted-prices">
                       <dt class="visually-hidden">
                         {{ 'products.product.price.regular_price' | t }}
@@ -372,7 +478,30 @@
                 -%}
                 <div class="product-quantity">
                   <dt class="cart-item__quantity{% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}">
-                    {%- if gift_wrap_id == nil or item.id != gift_wrap_id -%}
+                    {%- if ml_tier_data != '' -%}
+                      {%- comment -%} ── ML TIER SELECT ── {%- endcomment -%}
+                      <div class="cart-item__quantity-wrapper">
+                        <div class="select" style="width:auto;min-width:0">
+                          <select class="select__select ml-qty-select"
+                            name="updates[]"
+                            data-index="{{ item.index | plus: 1 }}"
+                            data-quantity-variant-id="{{ item.variant.id }}"
+                            id="Quantity-{{ item.index | plus: 1 }}"
+                            style="height:3.6rem;padding-inline-start:1.2rem;padding-inline-end:3rem;font-size:1.2rem;width:auto"
+                          >
+                            {%- render 'ml-tier-options', ml_tier_data: ml_tier_data, ml_current_qty: item.quantity -%}
+                          </select>
+                          {% render 'icon', icon: 'caret' %}
+                        </div>
+                        {%- render 'loading-spinner' -%}
+                        <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                          <a href="{{ item.url_to_remove }}" class="delete-product" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}" data-no-instant>
+                            {% render 'icon', icon: 'remove' %}
+                          </a>
+                        </cart-remove-button>
+                      </div>
+                    {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
+                      {%- comment -%} ── NATIVE QUANTITY ── {%- endcomment -%}
                       <quantity-popover>
                         <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                           <div class="quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}">
@@ -747,7 +876,15 @@
       {%- unless settings.disable_view_cart -%}
         <div class="subtotal">
           <div class="label h3">{{ 'sections.cart.subtotal' | t }}</div>
-          <div class="value price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</div>
+          <div class="value price" id="mini-cart-subtotal">
+            {%- if ml_ht_subtotal > 0 -%}
+              {%- assign ml_se = ml_ht_subtotal | divided_by: 100 -%}
+              {%- assign ml_sr = ml_ht_subtotal | modulo: 100 -%}
+              {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em;letter-spacing:0.05em">HT</small>
+            {%- else -%}
+              {{ cart.total_price | money_with_currency }}
+            {%- endif -%}
+          </div>
         </div>
       {%- endunless -%}
 

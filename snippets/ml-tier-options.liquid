@@ -1,0 +1,25 @@
+{% comment %}
+  ML Tier Select Options
+  Renders <option> elements for a tier dropdown.
+
+  Required variables (passed via render):
+    - ml_tier_data: string "6:700,12:665,24:630,48:560,96:500"
+    - ml_current_qty: integer (current cart quantity)
+{% endcomment %}
+
+{%- assign ml_opts = ml_tier_data | split: ',' -%}
+{%- assign ml_qty_matched = false -%}
+{%- for opt in ml_opts -%}
+  {%- assign parts = opt | split: ':' -%}
+  {%- assign oq = parts[0] | plus: 0 -%}
+  {%- assign oc = parts[1] | plus: 0 -%}
+  {%- assign oe = oc | divided_by: 100 -%}
+  {%- assign or_ = oc | modulo: 100 -%}
+  {%- if oq == ml_current_qty -%}{%- assign ml_qty_matched = true -%}{%- endif -%}
+  <option value="{{ oq }}"{% if oq == ml_current_qty %} selected{% endif %}>
+    {{- oq }} u. &mdash; {{ oe }},{%- if or_ < 10 -%}0{%- endif -%}{{ or_ }}&nbsp;&euro;/u
+  </option>
+{%- endfor -%}
+{%- unless ml_qty_matched -%}
+  <option value="{{ ml_current_qty }}" selected>{{ ml_current_qty }} u.</option>
+{%- endunless -%}
