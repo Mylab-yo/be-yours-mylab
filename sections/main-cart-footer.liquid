@@ -236,7 +236,7 @@
                   {%- if ml_ht_subtotal_footer > 0 -%}
                     {%- assign ml_se = ml_ht_subtotal_footer | divided_by: 100 -%}
                     {%- assign ml_sr = ml_ht_subtotal_footer | modulo: 100 -%}
-                    {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em;letter-spacing:0.05em">HT</small>
+                    {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
                   {%- else -%}
                     {{ cart.total_price | money_with_currency }}
                   {%- endif -%}

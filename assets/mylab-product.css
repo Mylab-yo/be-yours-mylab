@@ -549,3 +549,283 @@ body.ml-drawer-open { overflow: hidden; }
   transition: color 0.2s;
 }
 .ml-btn-cart-page:hover { color: var(--ml-black); }
+
+/* ============================================================
+   MINI-CART DRAWER — Style MyLab
+   ============================================================ */
+
+/* --- Titre "VOTRE PANIER" --- */
+.cart-drawer .mini-cart__header .title {
+  font-family: 'DM Sans', var(--font-heading-family), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ml-muted, #888);
+}
+
+/* --- Barre livraison gratuite --- */
+.cart-drawer .free-shipping__text {
+  font-size: 1.2rem;
+  color: var(--ml-mid, #555);
+}
+
+/* --- Nom produit dans le drawer --- */
+.mini-cart__navigation .product-content .link.product-title {
+  font-family: 'DM Sans', var(--font-heading-family), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ml-black, #111);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  line-height: 1.35;
+}
+
+/* --- Prix ligne HT --- */
+.mini-cart__navigation .product-content .price {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ml-black, #111);
+  white-space: nowrap;
+}
+
+/* --- Label HT uniforme --- */
+.ml-ht-label,
+.cart-drawer small[style*="uppercase"],
+.cart-item__price-wrapper small[style*="uppercase"],
+.totals__subtotal-value small[style*="uppercase"],
+#mini-cart-subtotal small[style*="uppercase"] {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: var(--ml-muted, #888) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* --- Select dropdown palier (drawer + cart page) --- */
+.ml-select-wrapper {
+  width: auto;
+  min-width: 0;
+}
+
+.ml-qty-select {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--ml-black, #111);
+  letter-spacing: 0.02em;
+  border-color: var(--ml-line, #E5E5E5);
+  border-radius: 4px;
+  background-color: var(--ml-white, #fff);
+  cursor: pointer;
+  transition: border-color 0.2s;
+  height: 3.6rem;
+  padding-inline-start: 1.2rem;
+  padding-inline-end: 3rem;
+  width: auto;
+}
+.ml-qty-select:hover,
+.ml-qty-select:focus {
+  border-color: var(--ml-black, #111);
+  outline: none;
+}
+
+/* --- Icône supprimer --- */
+.mini-cart__navigation .delete-product {
+  color: var(--ml-light, #aaa);
+  transition: color 0.2s;
+}
+.mini-cart__navigation .delete-product:hover {
+  color: var(--ml-black, #111);
+}
+
+/* --- Options produit (variantes) --- */
+.mini-cart__navigation .product-option {
+  font-size: 1.15rem;
+  color: var(--ml-muted, #888);
+}
+
+/* --- Zone sous-total --- */
+.cart-drawer .mini-cart__footer .subtotal .label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ml-muted, #888);
+}
+
+.cart-drawer .mini-cart__footer .subtotal .value.price,
+.cart-drawer #mini-cart-subtotal {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ml-black, #111);
+}
+
+/* --- Taxes note --- */
+.cart-drawer .taxes-discounts .tax-note {
+  font-size: 1.1rem;
+  color: var(--ml-muted, #888);
+}
+
+/* --- Bouton PAIEMENT (primary) --- */
+.cart-drawer .mini-cart__footer .button-container .button:first-child {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: var(--ml-black, #111);
+  color: var(--ml-white, #fff);
+  border: 2px solid var(--ml-black, #111);
+  border-radius: 50px;
+  min-height: 4.8rem;
+  transition: background-color 0.25s, color 0.25s;
+}
+.cart-drawer .mini-cart__footer .button-container .button:first-child:hover {
+  background-color: transparent;
+  color: var(--ml-black, #111);
+}
+
+/* --- Bouton VOIR LE PANIER (secondary) --- */
+.cart-drawer .mini-cart__footer .button-container .button.button--secondary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: var(--ml-black, #111);
+  border: 2px solid var(--ml-black, #111);
+  border-radius: 50px;
+  min-height: 4.8rem;
+  transition: background-color 0.25s, color 0.25s;
+}
+.cart-drawer .mini-cart__footer .button-container .button.button--secondary:hover {
+  background-color: var(--ml-black, #111);
+  color: var(--ml-white, #fff);
+}
+
+/* --- Actions drawer (remarque, livraison, bon de réduction) --- */
+.mini-cart__action summary > span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ml-mid, #555);
+}
+
+/* --- Séparateur --- */
+.mini-cart__border {
+  border-bottom-color: var(--ml-line, #E5E5E5);
+}
+
+/* ============================================================
+   PAGE PANIER (/cart) — Style MyLab
+   ============================================================ */
+
+/* --- Titre page "Panier" --- */
+.cart__title.title--primary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+  font-weight: 700;
+  color: var(--ml-black, #111);
+  letter-spacing: 0.02em;
+}
+
+/* --- En-têtes colonnes tableau --- */
+.cart-items th.caption-with-letter-spacing {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ml-muted, #888);
+}
+
+/* --- Nom produit dans le tableau --- */
+.cart-item__name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ml-black, #111);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.cart-item__name:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Prix dans le tableau (unitaire + total ligne) --- */
+.cart-item__prices .price,
+.cart-item__totals .price {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  color: var(--ml-black, #111);
+}
+
+/* --- Select dropdown dans le tableau --- */
+td.cart-item__quantity .select {
+  min-width: 0;
+}
+td.cart-item__quantity .ml-qty-select {
+  height: 4rem;
+  padding-inline-start: 1.4rem;
+  padding-inline-end: 3.2rem;
+  font-size: 1.25rem;
+}
+
+/* --- Sous-total page panier --- */
+.totals .totals__subtotal {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ml-muted, #888);
+}
+
+.totals .totals__subtotal-value {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ml-black, #111);
+}
+
+/* --- Bouton checkout page panier --- */
+.cart__checkout-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: var(--ml-black, #111) !important;
+  color: var(--ml-white, #fff) !important;
+  border: 2px solid var(--ml-black, #111) !important;
+  border-radius: 50px !important;
+  min-height: 5rem;
+  transition: background-color 0.25s, color 0.25s;
+}
+.cart__checkout-button:hover {
+  background-color: transparent !important;
+  color: var(--ml-black, #111) !important;
+}
+
+/* --- Lien Supprimer tableau --- */
+.cart-item__totals cart-remove-button .button--tertiary {
+  color: var(--ml-light, #aaa);
+  transition: color 0.2s;
+}
+.cart-item__totals cart-remove-button .button--tertiary:hover {
+  color: var(--ml-black, #111);
+}
+
+/* --- Note taxes --- */
+.tax-note.caption-large {
+  font-size: 1.15rem;
+  color: var(--ml-muted, #888);
+}

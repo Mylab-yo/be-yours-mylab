@@ -382,7 +382,7 @@
                   {%- if ml_tier_data != '' -%}
                     {%- assign ml_le = ml_lc | divided_by: 100 -%}
                     {%- assign ml_lr = ml_lc | modulo: 100 -%}
-                    <dd class="price">{{ ml_le }},{%- if ml_lr < 10 -%}0{%- endif -%}{{ ml_lr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em;letter-spacing:0.05em">HT</small></dd>
+                    <dd class="price">{{ ml_le }},{%- if ml_lr < 10 -%}0{%- endif -%}{{ ml_lr }}&nbsp;&euro; <small class="ml-ht-label">HT</small></dd>
                   {%- elsif item.original_price != item.final_price -%}
                     <dl class="cart-item__discounted-prices">
                       <dt class="visually-hidden">
@@ -481,13 +481,12 @@
                     {%- if ml_tier_data != '' -%}
                       {%- comment -%} ── ML TIER SELECT ── {%- endcomment -%}
                       <div class="cart-item__quantity-wrapper">
-                        <div class="select" style="width:auto;min-width:0">
+                        <div class="select ml-select-wrapper">
                           <select class="select__select ml-qty-select"
                             name="updates[]"
                             data-index="{{ item.index | plus: 1 }}"
                             data-quantity-variant-id="{{ item.variant.id }}"
                             id="Quantity-{{ item.index | plus: 1 }}"
-                            style="height:3.6rem;padding-inline-start:1.2rem;padding-inline-end:3rem;font-size:1.2rem;width:auto"
                           >
                             {%- render 'ml-tier-options', ml_tier_data: ml_tier_data, ml_current_qty: item.quantity -%}
                           </select>
@@ -880,7 +879,7 @@
             {%- if ml_ht_subtotal > 0 -%}
               {%- assign ml_se = ml_ht_subtotal | divided_by: 100 -%}
               {%- assign ml_sr = ml_ht_subtotal | modulo: 100 -%}
-              {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em;letter-spacing:0.05em">HT</small>
+              {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
             {%- else -%}
               {{ cart.total_price | money_with_currency }}
             {%- endif -%}

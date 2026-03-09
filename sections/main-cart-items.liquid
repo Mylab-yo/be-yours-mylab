@@ -242,7 +242,7 @@
                     {%- if ml_tier_data != '' -%}
                       {%- assign ml_ue = ml_uc | divided_by: 100 -%}
                       {%- assign ml_ur = ml_uc | modulo: 100 -%}
-                      <span class="price price--end">{{ ml_ue }},{%- if ml_ur < 10 -%}0{%- endif -%}{{ ml_ur }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em">HT</small></span>
+                      <span class="price price--end">{{ ml_ue }},{%- if ml_ur < 10 -%}0{%- endif -%}{{ ml_ur }}&nbsp;&euro; <small class="ml-ht-label">HT</small></span>
                     {%- else -%}
                       <div class="cart-item__price-wrapper">
                         {%- if item.original_price != item.final_price -%}
@@ -513,7 +513,7 @@
                       {%- if ml_tier_data != '' -%}
                         {%- assign ml_le = ml_lc | divided_by: 100 -%}
                         {%- assign ml_lr = ml_lc | modulo: 100 -%}
-                        <span class="price price--end">{{ ml_le }},{%- if ml_lr < 10 -%}0{%- endif -%}{{ ml_lr }}&nbsp;&euro; <small style="color:rgba(var(--color-foreground),0.5);font-weight:400;text-transform:uppercase;font-size:0.85em">HT</small></span>
+                        <span class="price price--end">{{ ml_le }},{%- if ml_lr < 10 -%}0{%- endif -%}{{ ml_lr }}&nbsp;&euro; <small class="ml-ht-label">HT</small></span>
                       {%- elsif item.original_line_price != item.final_line_price -%}
                         <dl class="cart-item__discounted-prices">
                           <dt class="visually-hidden">
