@@ -764,6 +764,7 @@ body.ml-drawer-open { overflow: hidden; }
 .mini-cart__actions {
   margin-inline-start: -2rem;
   margin-inline-end: -2rem;
+  padding-inline: 0.5rem;
 }
 @media screen and (min-width: 750px) {
   .mini-cart__actions {
