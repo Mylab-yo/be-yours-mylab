@@ -569,6 +569,33 @@
 </header-wrapper>
 {%- endif -%}
 
+<!-- Menu PRO/public : anti-cache — recharge le header si le statut client a changé -->
+<script data-ml-menu-pro="{{ is_pro_customer }}">
+  (function(){
+    var script   = document.currentScript;
+    var rendered = script.dataset.mlMenuPro === 'true';
+    // Seulement si le menu pro est affiché, vérifier que le client est toujours connecté
+    if (!rendered) return;
+    // Fetch léger vers /account.json — redirige 302 si déconnecté
+    fetch('/account', { method: 'HEAD', redirect: 'manual' })
+      .then(function(r) {
+        // opaqueredirect = redirigé vers /account/login = déconnecté
+        if (r.type === 'opaqueredirect' || r.status === 302) {
+          // Recharger la section header pour afficher le menu public
+          var sectionId = script.closest('.shopify-section').id.replace('shopify-section-', '');
+          fetch('/?section_id=' + sectionId, { cache: 'no-store' })
+            .then(function(resp) { return resp.text(); })
+            .then(function(html) {
+              var doc = new DOMParser().parseFromString(html, 'text/html');
+              var fresh = doc.querySelector('.shopify-section');
+              if (fresh) script.closest('.shopify-section').innerHTML = fresh.innerHTML;
+            });
+        }
+      })
+      .catch(function() {});
+  })();
+</script>
+
 {% javascript %}
   class HeaderWrapper extends HTMLElement {
     constructor() {
