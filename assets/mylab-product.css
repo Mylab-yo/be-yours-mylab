@@ -581,27 +581,41 @@ body.ml-drawer-open { overflow: hidden; }
   line-height: 1.35;
 }
 
-/* --- Prix ligne HT --- */
-.mini-cart__navigation .product-content .price {
+/* --- Prix ligne HT (drawer) --- */
+.mini-cart__navigation .product-content dd.price {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--ml-black, #111);
   white-space: nowrap;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+/* --- Prix HT (cart page) --- */
+.cart-item__prices .price .ml-ht-label,
+.cart-item__totals .price .ml-ht-label {
+  font-size: 0.85rem !important;
+}
+
+/* --- Prix + HT alignement dans product-content --- */
+.mini-cart__navigation .product-content {
+  align-items: flex-start;
 }
 
 /* --- Label HT uniforme --- */
-.ml-ht-label,
-.cart-drawer small[style*="uppercase"],
-.cart-item__price-wrapper small[style*="uppercase"],
-.totals__subtotal-value small[style*="uppercase"],
-#mini-cart-subtotal small[style*="uppercase"] {
-  font-family: 'DM Sans', sans-serif;
+.ml-ht-label {
+  font-family: 'DM Sans', sans-serif !important;
   font-size: 1rem !important;
   font-weight: 600 !important;
   color: var(--ml-muted, #888) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
+  vertical-align: baseline !important;
+  position: relative !important;
+  top: 0 !important;
+  line-height: inherit !important;
+  margin-inline-start: 0.3rem;
 }
 
 /* --- Select dropdown palier (drawer + cart page) --- */
@@ -632,13 +646,24 @@ body.ml-drawer-open { overflow: hidden; }
   outline: none;
 }
 
-/* --- Icône supprimer --- */
-.mini-cart__navigation .delete-product {
+/* --- Icône supprimer (drawer) --- */
+.cart-drawer .mini-cart__navigation .delete-product,
+.cart-drawer .mini-cart__navigation cart-remove-button a {
   color: var(--ml-light, #aaa);
   transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.mini-cart__navigation .delete-product:hover {
+.cart-drawer .mini-cart__navigation .delete-product:hover,
+.cart-drawer .mini-cart__navigation cart-remove-button a:hover {
   color: var(--ml-black, #111);
+}
+.cart-drawer .mini-cart__navigation .delete-product .icon,
+.cart-drawer .mini-cart__navigation cart-remove-button .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: inherit;
 }
 
 /* --- Options produit (variantes) --- */
@@ -663,6 +688,12 @@ body.ml-drawer-open { overflow: hidden; }
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--ml-black, #111);
+  align-items: baseline;
+}
+
+/* Sous-total dans le footer drawer quand disable_view_cart */
+.cart-drawer .button-container #mini-cart-subtotal {
+  align-items: baseline;
 }
 
 /* --- Taxes note --- */
@@ -816,12 +847,19 @@ td.cart-item__quantity .ml-qty-select {
 }
 
 /* --- Lien Supprimer tableau --- */
+.cart-item__totals cart-remove-button a,
 .cart-item__totals cart-remove-button .button--tertiary {
   color: var(--ml-light, #aaa);
   transition: color 0.2s;
 }
+.cart-item__totals cart-remove-button a:hover,
 .cart-item__totals cart-remove-button .button--tertiary:hover {
   color: var(--ml-black, #111);
+}
+.cart-item__totals cart-remove-button .icon {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: inherit;
 }
 
 /* --- Note taxes --- */
