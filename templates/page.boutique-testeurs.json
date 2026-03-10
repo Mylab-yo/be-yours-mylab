@@ -15,7 +15,7 @@
         "products_to_show": 12,
         "show_view_all": false,
         "show_divider": false,
-        "heading": "Shampoings neutres",
+        "heading": "Shampoings",
         "heading_size": "h1",
         "heading_alignment": "left",
         "heading_tag": "h2",
@@ -69,7 +69,7 @@
         "products_to_show": 12,
         "show_view_all": false,
         "show_divider": true,
-        "heading": "Masques neutres",
+        "heading": "Masques",
         "heading_size": "h1",
         "heading_alignment": "left",
         "heading_tag": "h2",
@@ -228,12 +228,12 @@
   "order": [
     "main",
     "shampoings-neutres-testeurs",
-    "shampoings-repigmentants-testeurs",
-    "masques-neutres-testeurs",
-    "masques-repigmentants-testeurs",
     "cremes-coiffage-testeurs",
-    "gamme-homme-testeurs",
+    "masques-neutres-testeurs",
     "produits-finition-testeurs",
+    "shampoings-repigmentants-testeurs",
+    "masques-repigmentants-testeurs",
+    "gamme-homme-testeurs",
     "coffrets-decouverte"
   ]
 }
