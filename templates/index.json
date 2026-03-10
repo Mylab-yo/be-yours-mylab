@@ -748,13 +748,67 @@
       }
     },
     "temoignages_video": {
-      "type": "custom-liquid",
+      "type": "rich-text",
+      "blocks": {
+        "tv_sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ILS NOUS FONT CONFIANCE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "tv_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Les témoignages de nos <strong>clients<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "tv_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "tv_button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Découvrir les interviews →",
+            "button_link": "shopify:\/\/pages\/temoignages",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["tv_sub", "tv_heading", "tv_text", "tv_button"],
       "settings": {
-        "custom_liquid": "<div style=\"text-align:center;max-width:900px;margin:0 auto;\">\n  <p style=\"font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:#c5a467;margin-bottom:.5rem;font-weight:600;\">ILS NOUS FONT CONFIANCE</p>\n  <h2 style=\"font-size:2.2rem;font-family:'Cormorant Garamond',serif;margin:0 0 1rem;\">Les témoignages de nos <strong>clients<\/strong></h2>\n  <p style=\"font-size:1.05rem;line-height:1.7;color:#555;margin-bottom:2rem;\">Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.</p>\n  <a href=\"/pages/temoignages\" style=\"display:inline-block;padding:.85rem 2rem;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:50px;font-size:.95rem;font-weight:500;\">Découvrir les interviews →</a>\n</div>",
-        "full_width": false,
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
         "show_divider": false,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "cta_final": {
