@@ -71,7 +71,7 @@
         "colors_text": "#ffffff",
         "colors_background": "rgba(0,0,0,0)",
         "colors_overlay": "#000000",
-        "colors_overlay_opacity": 30,
+        "colors_overlay_opacity": 28,
         "colors_navigation_text": "#ffffff",
         "colors_navigation_background": "#ffffff",
         "colors_highlight": "#c5a467",
