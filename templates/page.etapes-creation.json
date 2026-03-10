@@ -19,14 +19,14 @@
           }
         },
         "button": {
-          "type": "buttons",
+          "type": "button",
           "settings": {
-            "button_label_1": "D\u00e9couvrir la boutique",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "Nous contacter",
-            "button_link_2": "shopify:\/\/pages\/contact",
-            "button_style_secondary_2": true
+            "button_label": "D\u00e9couvrir la boutique",
+            "button_link": "shopify:\/\/collections\/all",
+            "button_style_secondary": false,
+            "button_alt_label": "Nous contacter",
+            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_style_secondary": true
           }
         }
       },
