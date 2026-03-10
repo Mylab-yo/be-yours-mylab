@@ -218,60 +218,60 @@
     "guarantees_section": {
       "type": "guarantees",
       "blocks": {
+        "g_labo": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "flask",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Laboratoire marque blanche",
+            "title_size": "h4",
+            "text": "<p>Formules éthiques et responsables, alliant performance et respect de l'environnement.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
         "g_france": {
           "type": "guarantee",
           "settings": {
             "icon": "globe",
             "icon_size": "medium",
             "custom_icon": "",
-            "title": "Made in France",
+            "title": "Formules françaises",
             "title_size": "h4",
-            "text": "<p>Toutes nos formules sont créées, conçues et fabriquées en France.<\/p>",
+            "text": "<p>Nos produits sont conçus avec soin en France, dans le respect des normes les plus exigeantes.<\/p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "g_vegan": {
+        "g_experience": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "25 ans d'expérience",
+            "title_size": "h4",
+            "text": "<p>Nos experts mettent leur savoir-faire à disposition pour créer une marque à la hauteur de vos attentes.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_naturel": {
           "type": "guarantee",
           "settings": {
             "icon": "leaf",
             "icon_size": "medium",
             "custom_icon": "",
-            "title": "100% Vegan",
+            "title": "96% d'origine naturelle",
             "title_size": "h4",
-            "text": "<p>Formules vegan, sans sulfates, sans silicones et sans parabènes.<\/p>",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "g_accompagnement": {
-          "type": "guarantee",
-          "settings": {
-            "icon": "heart",
-            "icon_size": "medium",
-            "custom_icon": "",
-            "title": "Accompagnement",
-            "title_size": "h4",
-            "text": "<p>De l'essai à la commercialisation, nous vous guidons à chaque étape.<\/p>",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "g_minimum": {
-          "type": "guarantee",
-          "settings": {
-            "icon": "package",
-            "icon_size": "medium",
-            "custom_icon": "",
-            "title": "Dès 6 unités",
-            "title_size": "h4",
-            "text": "<p>Commandez à partir de 6 unités par référence. Idéal pour démarrer.<\/p>",
+            "text": "<p>Sans parabène, sans sulfate, sans silicone et non testés sur les animaux.<\/p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         }
       },
-      "block_order": ["g_france", "g_vegan", "g_accompagnement", "g_minimum"],
+      "block_order": ["g_labo", "g_france", "g_experience", "g_naturel"],
       "settings": {
         "layout": "default",
         "column_alignment": "center",
@@ -674,6 +674,89 @@
         "highlight_style": "solid-color"
       }
     },
+    "rdv_section": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ÉCHANGEONS SUR VOTRE PROJET",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Prenez <em>rendez-vous<\/em> avec un conseiller",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous avez des questions avant de vous lancer dans la création de votre marque de cosmétiques capillaires ? Prenez rendez-vous avec l'un de nos conseillers pour un échange de 15 minutes sur votre projet.<\/p><p><strong>04 85 69 33 47<\/strong><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Prendre un RDV",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Appeler maintenant",
+            "button_alt_link": "",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "temoignages_video": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"text-align:center;max-width:900px;margin:0 auto;\">\n  <p style=\"font-size:.85rem;text-transform:uppercase;letter-spacing:2px;color:#c5a467;margin-bottom:.5rem;font-weight:600;\">ILS NOUS FONT CONFIANCE</p>\n  <h2 style=\"font-size:2.2rem;font-family:'Cormorant Garamond',serif;margin:0 0 1rem;\">Les témoignages de nos <strong>clients<\/strong></h2>\n  <p style=\"font-size:1.05rem;line-height:1.7;color:#555;margin-bottom:2rem;\">Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.</p>\n  <a href=\"/pages/temoignages\" style=\"display:inline-block;padding:.85rem 2rem;background:#1a1a1a;color:#fff;text-decoration:none;border-radius:50px;font-size:.95rem;font-weight:500;\">Découvrir les interviews →</a>\n</div>",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "cta_final": {
       "type": "rich-text",
       "blocks": {
@@ -789,7 +872,9 @@
     "brand_story",
     "etapes_timeline",
     "etiquettes_section",
+    "rdv_section",
     "testimonials_section",
+    "temoignages_video",
     "cta_final",
     "newsletter_section"
   ]
