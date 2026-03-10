@@ -54,6 +54,8 @@
 
 {%- style -%}
   #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 100;
     --section-padding-top: {{ section.settings.padding_top }}px;
     --section-padding-bottom: {{ section.settings.padding_bottom }}px;
     --image-logo-height: {{ section.settings.mobile_logo_height }}px;
