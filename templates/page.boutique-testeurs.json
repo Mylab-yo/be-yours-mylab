@@ -62,6 +62,33 @@
         "padding_bottom": 36
       }
     },
+    "masques-neutres-testeurs": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "masques-neutres-testeurs",
+        "products_to_show": 12,
+        "show_view_all": false,
+        "show_divider": true,
+        "heading": "Masques neutres",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": false,
+        "enable_countdown": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "masques-repigmentants-testeurs": {
       "type": "featured-collection",
       "settings": {
@@ -70,6 +97,33 @@
         "show_view_all": false,
         "show_divider": true,
         "heading": "Masques repigmentants",
+        "heading_size": "h1",
+        "heading_alignment": "left",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": false,
+        "enable_countdown": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "cremes-coiffage-testeurs": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "cremes-de-coiffage-testeurs",
+        "products_to_show": 12,
+        "show_view_all": false,
+        "show_divider": true,
+        "heading": "Crèmes de coiffage sans rinçage",
         "heading_size": "h1",
         "heading_alignment": "left",
         "heading_tag": "h2",
@@ -175,7 +229,9 @@
     "main",
     "shampoings-neutres-testeurs",
     "shampoings-repigmentants-testeurs",
+    "masques-neutres-testeurs",
     "masques-repigmentants-testeurs",
+    "cremes-coiffage-testeurs",
     "gamme-homme-testeurs",
     "produits-finition-testeurs",
     "coffrets-decouverte"
