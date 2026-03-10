@@ -660,7 +660,7 @@
       "block_order": ["t_1", "t_2", "t_3", "t_4"],
       "settings": {
         "autorotate": true,
-        "autorotate_speed": 6,
+        "autorotate_speed": 7,
         "hide_images": true,
         "show_divider": false,
         "heading": "Ce que disent nos <strong>clients<\/strong>",
