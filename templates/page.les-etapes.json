@@ -1,0 +1,798 @@
+{
+  "sections": {
+    "banner": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Les étapes pour créer votre <em>marque capillaire<\/em>",
+            "heading_size": "h0",
+            "heading_tag": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Confiez dès aujourd'hui votre projet à des experts de la coiffure. MY.LAB simplifie la création de marque capillaire en quelques étapes clés.<\/p>",
+            "text_size": "typeset2"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Consultez notre FAQ",
+            "button_alt_link": "shopify:\/\/pages\/faq-my-lab",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["heading", "text", "button"],
+      "settings": {
+        "image_height": "medium",
+        "desktop_text_position": "center",
+        "show_text_box": true,
+        "mobile_text_position": "center",
+        "colors_overlay_opacity": 40,
+        "colors_overlay": "#000000",
+        "colors_text": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_button_label": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "CRÉEZ VOTRE MARQUE EN 3 ÉTAPES",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "De l'essai à la <strong>commercialisation<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>La plateforme MY.LAB, fondée par des coiffeurs pour les professionnels du secteur, simplifie la création de marque capillaire. Le processus se déploie en quelques étapes clés permettant aux entrepreneurs de lancer leur gamme personnalisée.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "step_1": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 01 — FACULTATIVE",
+            "text": "<p><strong>Testez les produits<\/strong><\/p><p>Découvrez les shampoings, masques et crèmes disponibles en testeurs de 200 ml. Essayez nos formules avant de vous engager et trouvez celles qui correspondent à votre projet de marque.<\/p>",
+            "source_text": "Commander les testeurs",
+            "source_link": "shopify:\/\/pages\/boutique-testeurs"
+          }
+        },
+        "step_2": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 02 — OBLIGATOIRE",
+            "text": "<p><strong>Dossier cosmétologique<\/strong><\/p><p>Notre équipe administrative enregistre votre compte client, dépose votre marque sur le Portail de Notification des Produits Cosmétiques (CPNP), et crée vos codes-barres. Cette étape permet de mettre en conformité la commercialisation de votre marque.<\/p><p><strong>Tarif : 389 €<\/strong><\/p>",
+            "source_text": ""
+          }
+        },
+        "step_3": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 03 — COMMANDEZ",
+            "text": "<p><strong>La boutique professionnelle<\/strong><\/p><p>Une fois votre dossier cosmétologique validé et payé, vous accédez à la boutique pour constituer votre gamme à partir de <strong>6 unités par référence<\/strong>. Sélectionnez vos formules, choisissez la contenance et les quantités, et commandez en quelques clics.<\/p>",
+            "source_text": ""
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"],
+      "settings": {
+        "section_height": "500",
+        "animation_speed": 800,
+        "show_timeline_dots": true,
+        "timeline_background_color": "#1a1a1a",
+        "content_background_color": "#f5f0eb",
+        "accent_color": "#c5a467",
+        "date_color": "#c5a467",
+        "text_color": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "date_size": "typeset2",
+        "text_size": "typeset2",
+        "enable_image_padding": false
+      }
+    },
+    "coffret_section": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ÉTAPE 01 — DÉTAILS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le coffret <em>découverte<\/em>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Testez nos formules avec le coffret découverte comprenant des testeurs 200 ml. Le configurateur de design vous permet de visualiser le produit personnalisé avec votre logo — impression en noir uniquement.<\/p><p><strong>À partir de 206,10 € HT<\/strong><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Commander le coffret",
+            "button_link": "shopify:\/\/pages\/boutique-testeurs",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "services_creatifs": {
+      "type": "multicolumn",
+      "blocks": {
+        "svc_logo": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "Création de logo",
+            "title_size": "h3",
+            "text": "<p>Un logo professionnel conçu sur mesure pour refléter l'identité de votre marque capillaire.<\/p><p><strong>Sur devis<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false
+          }
+        },
+        "svc_light": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "Branding light",
+            "title_size": "h3",
+            "text": "<p>Un kit d'identité visuelle essentiel pour démarrer : logo, palette de couleurs et typographies adaptées à votre positionnement.<\/p><p><strong>Sur devis<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": true
+          }
+        },
+        "svc_premium": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "Branding premium",
+            "title_size": "h3",
+            "text": "<p>Une identité visuelle complète et sur mesure : logo, charte graphique, étiquettes, packaging et supports de communication.<\/p><p><strong>Sur devis<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["svc_logo", "svc_light", "svc_premium"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "Services <strong>créatifs<\/strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "dossier_section": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ÉTAPE 02 — DÉTAILS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le dossier <em>cosmétologique<\/em>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Étape obligatoire pour commercialiser votre marque. Notre équipe administrative se charge de :<\/p><p>• Enregistrement de votre compte client<br>• Dépôt de votre marque au <strong>CPNP<\/strong> (Portail de Notification des Produits Cosmétiques)<br>• Création de vos <strong>codes-barres<\/strong><br>• Mise en conformité complète de votre marque<\/p><p><strong>Tarif : 389 € HT<\/strong><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "etiquettes_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PERSONNALISATION",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "3 options pour votre <strong>étiquette<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Créez l'identité visuelle de votre marque avec l'option qui vous correspond.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "etiquettes_options": {
+      "type": "multicolumn",
+      "blocks": {
+        "option_1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "01 — Design MY.LAB",
+            "title_size": "h3",
+            "text": "<p>Une impression en noir uniquement de votre logo. Sans possibilité de changer l'emplacement des éléments, textes, pictogrammes…<\/p><p><strong>SANS FRAIS SUPPLÉMENTAIRES<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "option_2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Les modèles",
+            "title_size": "h3",
+            "text": "<p>Choisissez votre modèle d'étiquette parmi plusieurs possibilités et personnalisez-le avec vos couleurs et votre logo.<\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": true
+          }
+        },
+        "option_3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "03 — Soyez unique",
+            "title_size": "h3",
+            "text": "<p>Nous créons sur mesure votre étiquette personnalisée. Contactez-nous pour un premier échange et donnez vie à votre vision.<\/p>",
+            "show_popup": false,
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["option_1", "option_2", "option_3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "boutique_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ÉTAPE 03 — DÉTAILS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "La boutique en <strong>3 clics<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Une fois votre dossier cosmétologique validé et payé, vous accédez à la boutique professionnelle.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "boutique_steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "b_step_1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#333333",
+            "title": "1. Marque validée",
+            "title_size": "h3",
+            "text": "<p>Une fois le dossier cosmétologique validé et payé, vous aurez accès à l'onglet « LA BOUTIQUE » vous permettant de constituer votre gamme à partir de <strong>6 unités par référence<\/strong>.<\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "b_step_2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#333333",
+            "title": "2. Sélectionnez",
+            "title_size": "h3",
+            "text": "<p>Vous y trouverez toutes les formules MY.LAB présentées sous forme de produits individuels. Choisissez la contenance ainsi que les quantités souhaitées grâce au menu déroulant.<\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "b_step_3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#333333",
+            "title": "3. Commandez",
+            "title_size": "h3",
+            "text": "<p>La boutique a été conçue dans le but de passer commande en <strong>autonomie et en quelques clics<\/strong>. Simple, rapide et efficace.<\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["b_step_1", "b_step_2", "b_step_3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 20,
+        "padding_bottom": 40,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "gammes_section": {
+      "type": "guarantees",
+      "blocks": {
+        "g_1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "flask",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Shampoings",
+            "title_size": "h4",
+            "text": "<p>Des formules nettoyantes douces, sans sulfates ni silicones.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Après-shampoings",
+            "title_size": "h4",
+            "text": "<p>Des soins démêlants et nourrissants pour compléter le rituel.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "heart",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Masques",
+            "title_size": "h4",
+            "text": "<p>Traitements intensifs pour réparer, hydrater et sublimer.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Crèmes de coiffage",
+            "title_size": "h4",
+            "text": "<p>Soins sans rinçage pour une mise en forme professionnelle.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Produits de finition",
+            "title_size": "h4",
+            "text": "<p>Sprays, sérums et huiles pour un finish parfait.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "recycle",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Repigmentants",
+            "title_size": "h4",
+            "text": "<p>Shampoings et masques repigmentants pour raviver les couleurs.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_7": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "lock",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Gamme homme",
+            "title_size": "h4",
+            "text": "<p>Des formules dédiées au soin capillaire masculin.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["g_1", "g_2", "g_3", "g_4", "g_5", "g_6", "g_7"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 4,
+        "heading": "<strong>7 gammes<\/strong> capillaires complètes",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À VOUS LANCER ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Lancez-vous dans <strong>l'aventure<\/strong> !",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Contactez l'un de nos conseillers ou commandez directement le coffret découverte pour tester nos formules capillaires professionnelles.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Essayer les produits",
+            "button_alt_link": "shopify:\/\/pages\/boutique-testeurs",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "intro",
+    "timeline",
+    "coffret_section",
+    "services_creatifs",
+    "dossier_section",
+    "etiquettes_titre",
+    "etiquettes_options",
+    "boutique_titre",
+    "boutique_steps",
+    "gammes_section",
+    "cta_final"
+  ]
+}
