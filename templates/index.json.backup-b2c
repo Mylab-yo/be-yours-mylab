@@ -1,0 +1,935 @@
+{
+  "sections": {
+    "slideshow_hero": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_main": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
+            "image_mobile": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
+            "image_position": "center center",
+            "text_box_position": "middle-left",
+            "subheading": "COSMÉTIQUES CAPILLAIRES B2B",
+            "subheading_size": "h5",
+            "heading": "Créez votre <strong>propre marque<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h1",
+            "text": "Déposez votre logo et commandez vos futurs produits capillaires en quelques clics.",
+            "text_size": "typeset2",
+            "button_label": "Découvrir la boutique",
+            "button_link": "shopify:\/\/collections\/all",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "Les étapes de création",
+            "button_alt_link": "shopify:\/\/pages\/etapes-creation",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
+        },
+        "slide_formules": {
+          "type": "image",
+          "settings": {
+            "image_position": "center center",
+            "text_box_position": "middle-center",
+            "subheading": "FORMULES PROFESSIONNELLES",
+            "subheading_size": "h5",
+            "heading": "Des soins <strong>sur mesure<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "text": "Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.",
+            "text_size": "typeset2",
+            "button_label": "Voir les formules",
+            "button_link": "shopify:\/\/collections\/all",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
+        }
+      },
+      "block_order": ["slide_main", "slide_formules"],
+      "settings": {
+        "slideshow_type": "legacy",
+        "text_alignment": "left",
+        "image_ratio": "100vh",
+        "autorotate": true,
+        "autorotate_speed": 7,
+        "full_width": true,
+        "image_behavior": "none",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "600px",
+        "show_text_below": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#ffffff",
+        "colors_background": "rgba(0,0,0,0)",
+        "colors_overlay": "#000000",
+        "colors_overlay_opacity": 28,
+        "colors_navigation_text": "#ffffff",
+        "colors_navigation_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "scrolling_values": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "val_1": {
+          "type": "announcement",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "VEGAN",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "val_2": {
+          "type": "announcement",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "SANS SULFATES",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "val_3": {
+          "type": "announcement",
+          "settings": {
+            "icon": "recycle",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "SANS PARABÈNES",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "val_4": {
+          "type": "announcement",
+          "settings": {
+            "icon": "heart",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "SANS SILICONES",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "val_5": {
+          "type": "announcement",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "FABRIQUÉ EN FRANCE",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "val_6": {
+          "type": "announcement",
+          "settings": {
+            "icon": "lock",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "CONFORME CPNP",
+            "text_size": 16,
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["val_1", "val_2", "val_3", "val_4", "val_5", "val_6"],
+      "settings": {
+        "direction": "left",
+        "speed": 1.2,
+        "show_divider": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "intro_text": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "BIENVENUE CHEZ MY.LAB",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Votre marque capillaire <strong>clé en main<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>MY.LAB vous accompagne dans la création de votre propre marque de cosmétiques capillaires. Nos formules sont <strong>créées, conçues et fabriquées en France<\/strong> — vegan, sans sulfates, sans silicones, sans parabènes ni ingrédients controversés.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "guarantees_section": {
+      "type": "guarantees",
+      "blocks": {
+        "g_labo": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "flask",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Laboratoire marque blanche",
+            "title_size": "h4",
+            "text": "<p>Formules éthiques et responsables, alliant performance et respect de l'environnement.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_france": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Formules françaises",
+            "title_size": "h4",
+            "text": "<p>Nos produits sont conçus avec soin en France, dans le respect des normes les plus exigeantes.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_experience": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "25 ans d'expérience",
+            "title_size": "h4",
+            "text": "<p>Nos experts mettent leur savoir-faire à disposition pour créer une marque à la hauteur de vos attentes.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "g_naturel": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "96% d'origine naturelle",
+            "title_size": "h4",
+            "text": "<p>Sans parabène, sans sulfate, sans silicone et non testés sur les animaux.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["g_labo", "g_france", "g_experience", "g_naturel"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 4,
+        "heading": "Pourquoi choisir <strong>MY.LAB<\/strong> ?",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "best_sellers": {
+      "type": "tabbed-featured-collections",
+      "blocks": {
+        "col_best": {
+          "type": "collection",
+          "settings": {
+            "tab_label": "NOS BEST SELLERS",
+            "collection": "best-sellers"
+          }
+        }
+      },
+      "block_order": ["col_best"],
+      "settings": {
+        "products_to_show": 4,
+        "horizontal_scroll": false,
+        "show_view_all": true,
+        "show_divider": false,
+        "enable_drag": false,
+        "heading": "Nos <strong>formules<\/strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": false,
+        "enable_countdown": false,
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "dual_scroll_products": {
+      "type": "dual-scroll",
+      "blocks": {
+        "slide_shampooing": {
+          "type": "slide",
+          "settings": {
+            "title": "Shampooings",
+            "heading_size": "h1",
+            "description": "<p>Des formules nettoyantes douces et efficaces, adaptées à chaque type de cheveu. Sans sulfates, sans silicones — vos cheveux retrouvent leur éclat naturel.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker",
+            "highlight_color": "#c5a467",
+            "button_label": "Découvrir",
+            "button_size": "medium",
+            "button_link": "shopify:\/\/collections\/all",
+            "image": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
+            "media_background_color": "#f5f0eb"
+          }
+        },
+        "slide_apres": {
+          "type": "slide",
+          "settings": {
+            "title": "Après-shampooings",
+            "heading_size": "h1",
+            "description": "<p>Des soins démêlants et nourrissants qui complètent le rituel capillaire. Texture légère, résultat professionnel.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker",
+            "highlight_color": "#c5a467",
+            "button_label": "Découvrir",
+            "button_size": "medium",
+            "button_link": "shopify:\/\/collections\/all",
+            "media_background_color": "#1a1a1a"
+          }
+        },
+        "slide_masques": {
+          "type": "slide",
+          "settings": {
+            "title": "Masques & Soins",
+            "heading_size": "h1",
+            "description": "<p>Des traitements intensifs pour réparer, hydrater et sublimer. Idéals pour offrir à vos clients des résultats salon.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker",
+            "highlight_color": "#c5a467",
+            "button_label": "Découvrir",
+            "button_size": "medium",
+            "button_link": "shopify:\/\/collections\/all",
+            "media_background_color": "#c5a467"
+          }
+        }
+      },
+      "block_order": ["slide_shampooing", "slide_apres", "slide_masques"],
+      "settings": {
+        "heading": "Nos <em>gammes<\/em> capillaires",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "enable_highlight": true,
+        "highlight_style": "solid-color",
+        "narrow": true,
+        "padding_top": 40,
+        "padding_bottom": 0,
+        "heading_color": "#1a1a1a",
+        "text_color": "#f3f3f3",
+        "description_color": "#d2d5d9",
+        "panel_background_color": "#1a1a1a",
+        "border_color": "#1a1a1a",
+        "button_background_color": "#c5a467",
+        "button_text_color": "#ffffff",
+        "highlight_color": "#c5a467",
+        "transition_type": "scroll",
+        "media_rotation": 0,
+        "media_scale": 82,
+        "enable_media_shadow": false
+      }
+    },
+    "brand_story": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "NOTRE HISTOIRE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le laboratoire <em>MY.LAB<\/em>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>MY.LAB est né de la volonté de rendre la création de marques capillaires accessible à tous les entrepreneurs. Notre laboratoire français formule des soins professionnels avec des ingrédients sélectionnés pour leur efficacité et leur respect du cheveu et du cuir chevelu.<\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "En savoir plus",
+            "button_link": "shopify:\/\/pages\/etapes-creation",
+            "button_style_secondary": false,
+            "button_alt_label": "Nous contacter",
+            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "etapes_timeline": {
+      "type": "timeline",
+      "blocks": {
+        "step_1": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 01",
+            "text": "<p><strong>Essayez nos produits<\/strong><\/p><p>Découvrez et testez nos formules capillaires via la boutique en ligne. Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.<\/p>",
+            "source_text": "Voir la boutique",
+            "source_link": "shopify:\/\/collections\/all"
+          }
+        },
+        "step_2": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 02",
+            "text": "<p><strong>Dossier cosmétologique<\/strong><\/p><p>Notre équipe enregistre votre compte, dépose votre marque sur le CPNP et crée vos codes-barres pour une mise en conformité totale.<\/p>",
+            "source_text": ""
+          }
+        },
+        "step_3": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 03",
+            "text": "<p><strong>Personnalisez votre étiquette<\/strong><\/p><p>3 options : le design MY.LAB gratuit, nos modèles personnalisables, ou une création sur mesure unique à votre image.<\/p>",
+            "source_text": ""
+          }
+        },
+        "step_4": {
+          "type": "timeline_item",
+          "settings": {
+            "date": "ÉTAPE 04",
+            "text": "<p><strong>Commandez en autonomie<\/strong><\/p><p>Accédez à la boutique professionnelle et constituez votre gamme à partir de 6 unités par référence. Simple, rapide et efficace.<\/p>",
+            "source_text": ""
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "step_4"],
+      "settings": {
+        "section_height": "500",
+        "animation_speed": 800,
+        "show_timeline_dots": true,
+        "timeline_background_color": "#1a1a1a",
+        "content_background_color": "#f5f0eb",
+        "accent_color": "#c5a467",
+        "date_color": "#c5a467",
+        "text_color": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "date_size": "typeset2",
+        "text_size": "typeset2",
+        "enable_image_padding": false
+      }
+    },
+    "etiquettes_section": {
+      "type": "multicolumn",
+      "blocks": {
+        "opt_1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "01 — Design MY.LAB",
+            "title_size": "h3",
+            "text": "<p>Impression en noir de votre logo sur notre modèle standard.<\/p><p><strong>SANS FRAIS SUPPLÉMENTAIRES<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        },
+        "opt_2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Les modèles",
+            "title_size": "h3",
+            "text": "<p>Choisissez parmi nos modèles d'étiquette et personnalisez-les avec vos couleurs et votre logo.<\/p>",
+            "show_popup": false,
+            "button_label": "",
+            "button_link": "",
+            "button_style_secondary": true
+          }
+        },
+        "opt_3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "03 — Soyez unique",
+            "title_size": "h3",
+            "text": "<p>Création sur mesure de votre étiquette personnalisée. Donnez vie à votre vision.<\/p>",
+            "show_popup": false,
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["opt_1", "opt_2", "opt_3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "Personnalisez votre <strong>étiquette<\/strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "testimonials_section": {
+      "type": "testimonials",
+      "blocks": {
+        "t_1": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>\"MY.LAB m'a permis de lancer ma marque capillaire en quelques semaines. L'accompagnement est top et les formules sont exceptionnelles. Mes clientes adorent !\"<\/p>",
+            "author": "Sophie M. — Fondatrice de marque",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "t_2": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>\"Les produits sont d'une qualité professionnelle remarquable. Le fait de pouvoir commander dès 6 unités m'a permis de tester le marché sans prendre de risque.\"<\/p>",
+            "author": "Marc D. — Entrepreneur coiffure",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "t_3": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>\"Le processus est simple et bien encadré. Du dossier réglementaire à la personnalisation des étiquettes, tout est fluide. Je recommande vivement.\"<\/p>",
+            "author": "Aminata K. — Créatrice de gamme capillaire",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "t_4": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>\"J'ai été impressionné par la qualité des shampoings repigmentants. Mes clients voient la différence dès la première utilisation.\"<\/p>",
+            "author": "Thomas R. — Salon de coiffure",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["t_1", "t_2", "t_3", "t_4"],
+      "settings": {
+        "autorotate": true,
+        "autorotate_speed": 7,
+        "hide_images": true,
+        "show_divider": false,
+        "heading": "Ce que disent nos <strong>clients<\/strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "rdv_section": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ÉCHANGEONS SUR VOTRE PROJET",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Prenez <em>rendez-vous<\/em> avec un conseiller",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous avez des questions avant de vous lancer dans la création de votre marque de cosmétiques capillaires ? Prenez rendez-vous avec l'un de nos conseillers pour un échange de 15 minutes sur votre projet.<\/p><p><strong>04 85 69 33 47<\/strong><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Prendre un RDV",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Appeler maintenant",
+            "button_alt_link": "",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "temoignages_video": {
+      "type": "rich-text",
+      "blocks": {
+        "tv_sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ILS NOUS FONT CONFIANCE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "tv_heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Les témoignages de nos <strong>clients<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "tv_text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "tv_button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Découvrir les interviews →",
+            "button_link": "shopify:\/\/pages\/temoignages",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["tv_sub", "tv_heading", "tv_text", "tv_button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À VOUS LANCER ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Lancez-vous dans <strong>l'aventure<\/strong> !",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Contactez l'un de nos conseillers ou commandez directement le coffret découverte pour tester nos formules capillaires professionnelles.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Découvrir la boutique",
+            "button_alt_link": "shopify:\/\/collections\/all",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "newsletter_section": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Restez informé",
+            "heading_tag": "h2",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "paragraph": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph": "<p>Inscrivez-vous à notre newsletter pour recevoir nos actualités, nouveautés et conseils pour développer votre marque capillaire.<\/p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "email": {
+          "type": "email_form",
+          "settings": {}
+        }
+      },
+      "block_order": ["heading", "paragraph", "email"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "full_width": false,
+        "show_divider": false,
+        "colors_text": "#1a1a1a",
+        "colors_border": "#c5a467",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "slideshow_hero",
+    "scrolling_values",
+    "intro_text",
+    "guarantees_section",
+    "best_sellers",
+    "dual_scroll_products",
+    "brand_story",
+    "etapes_timeline",
+    "etiquettes_section",
+    "rdv_section",
+    "testimonials_section",
+    "temoignages_video",
+    "cta_final",
+    "newsletter_section"
+  ]
+}
