@@ -8,28 +8,33 @@
     padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
   }
   .ml-realisations-hero__subheading {
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: {{ section.settings.accent_color }};
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-realisations-hero__heading {
-    font-size: 2.2rem;
+    font-size: 3rem;
     font-family: 'Cormorant Garamond', serif;
-    margin: 0 0 1rem;
+    font-weight: 400;
+    margin: 0 0 1.2rem;
     color: {{ section.settings.text_color }};
+    line-height: 1.2;
   }
   .ml-realisations-hero__heading strong,
   .ml-realisations-hero__heading em {
     color: {{ section.settings.accent_color }};
+    font-style: italic;
   }
   .ml-realisations-hero__text {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     color: {{ section.settings.text_color }};
     opacity: 0.7;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-realisations-grid {
     max-width: 1200px;
@@ -68,26 +73,29 @@
     padding: 1rem 0;
   }
   .ml-realisation__number {
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: {{ section.settings.accent_color }};
     font-weight: 600;
     margin-bottom: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-realisation__name {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-family: 'Cormorant Garamond', serif;
     font-weight: 700;
     color: {{ section.settings.text_color }};
     margin: 0 0 1rem;
+    line-height: 1.2;
   }
   .ml-realisation__description {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: {{ section.settings.text_color }};
     opacity: 0.7;
     margin-bottom: 1.5rem;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-realisation__tags {
     display: flex;
@@ -96,12 +104,13 @@
   }
   .ml-realisation__tag {
     display: inline-block;
-    padding: 0.3rem 0.8rem;
+    padding: 0.35rem 0.9rem;
     background: {{ section.settings.tag_bg }};
     color: {{ section.settings.text_color }};
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
   }
   @media screen and (max-width: 749px) {
     .ml-realisation {
@@ -115,7 +124,7 @@
       font-size: 1.6rem;
     }
     .ml-realisation__name {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
     .ml-realisations-grid {
       gap: 3rem;

@@ -8,22 +8,26 @@
     padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
   }
   .ml-etiquettes-hero__subheading {
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     color: {{ section.settings.accent_color }};
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-etiquettes-hero__heading {
-    font-size: 2.2rem;
+    font-size: 3rem;
     font-family: 'Cormorant Garamond', serif;
-    margin: 0 0 1.5rem;
+    font-weight: 400;
+    margin: 0 0 2rem;
     color: {{ section.settings.text_color }};
+    line-height: 1.2;
   }
   .ml-etiquettes-hero__heading strong,
   .ml-etiquettes-hero__heading em {
     color: {{ section.settings.accent_color }};
+    font-style: italic;
   }
   .ml-etiquettes-info {
     display: flex;
@@ -35,29 +39,32 @@
   .ml-etiquettes-info__card {
     background: {{ section.settings.card_bg }};
     border-radius: 12px;
-    padding: 1.5rem 2rem;
+    padding: 2rem 2.5rem;
     text-align: center;
     flex: 1;
-    min-width: 220px;
-    max-width: 320px;
+    min-width: 240px;
+    max-width: 340px;
   }
   .ml-etiquettes-info__price {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     font-weight: 700;
     color: {{ section.settings.accent_color }};
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
     font-family: 'Cormorant Garamond', serif;
   }
   .ml-etiquettes-info__label {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: {{ section.settings.text_color }};
     opacity: 0.7;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.5;
   }
   .ml-etiquettes-hero__note {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: {{ section.settings.text_color }};
     opacity: 0.6;
     font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
   }
   .ml-etiquettes-grid {
     display: grid;
@@ -104,7 +111,7 @@
     opacity: 1;
   }
   .ml-etiquette-card__name {
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: {{ section.settings.text_color }};
     margin: 0;
@@ -118,7 +125,7 @@
       padding: 1rem 1rem 3rem;
     }
     .ml-etiquettes-hero__heading {
-      font-size: 1.6rem;
+      font-size: 2rem;
     }
     .ml-etiquettes-info {
       flex-direction: column;
