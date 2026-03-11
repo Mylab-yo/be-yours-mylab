@@ -1,0 +1,233 @@
+{%- style -%}
+  .ml-perso-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+    overflow: hidden;
+    background: {{ section.settings.bg_color }};
+  }
+  .ml-perso-hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+    width: 100%;
+  }
+  .ml-perso-hero__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .ml-perso-hero__eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+  }
+  .ml-perso-hero__heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(3rem, 4.5vw, 4.8rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+  .ml-perso-hero__description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: {{ section.settings.muted_color }};
+    max-width: 480px;
+  }
+  .ml-perso-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.bg_color }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid {{ section.settings.text_color }};
+    border-radius: 50px;
+    transition: all 0.25s;
+    align-self: flex-start;
+  }
+  .ml-perso-hero__cta:hover {
+    background: transparent;
+    color: {{ section.settings.text_color }};
+  }
+  .ml-perso-hero__visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ml-perso-hero__image {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    border-radius: 2rem;
+    object-fit: cover;
+  }
+  .ml-perso-hero__badge {
+    position: absolute;
+    bottom: -1rem;
+    right: -1rem;
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.bg_color }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  @media screen and (max-width: 749px) {
+    .ml-perso-hero {
+      min-height: auto;
+    }
+    .ml-perso-hero__inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding: 4rem 1.5rem;
+    }
+    .ml-perso-hero__visual {
+      order: -1;
+    }
+    .ml-perso-hero__image {
+      max-width: 100%;
+    }
+    .ml-perso-hero__heading {
+      font-size: clamp(2.4rem, 6vw, 3.2rem);
+    }
+    .ml-perso-hero__description {
+      font-size: 1.4rem;
+    }
+    .ml-perso-hero__cta {
+      align-self: stretch;
+      text-align: center;
+    }
+  }
+{%- endstyle -%}
+
+<section class="ml-perso-hero">
+  <div class="ml-perso-hero__inner">
+    <div class="ml-perso-hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="ml-perso-hero__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h1 class="ml-perso-hero__heading">{{ section.settings.heading }}</h1>
+      {%- if section.settings.description != blank -%}
+        <p class="ml-perso-hero__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_label != blank -%}
+        <a href="{{ section.settings.cta_link }}" class="ml-perso-hero__cta">
+          {{ section.settings.cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="ml-perso-hero__visual">
+      {%- if section.settings.image != blank -%}
+        <img
+          class="ml-perso-hero__image"
+          src="{{ section.settings.image | image_url: width: 1040 }}"
+          alt="{{ section.settings.heading | strip_html | escape }}"
+          width="520"
+          height="auto"
+          loading="eager"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'ml-perso-hero__image' }}
+      {%- endif -%}
+      {%- if section.settings.badge_text != blank -%}
+        <span class="ml-perso-hero__badge">{{ section.settings.badge_text }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Perso — Hero",
+  "tag": "section",
+  "class": "ml-perso-hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sur-titre",
+      "default": "PERSONNALISATION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Créez l'étiquette de vos produits cosmétiques"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Choisissez un modèle, personnalisez-le avec votre marque et commandez vos produits étiquetés en quelques clics."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texte du bouton",
+      "default": "Commencer"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge (optionnel)",
+      "default": "Your Brand Here"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Couleur de fond",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur texte secondaire",
+      "default": "#555555"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perso — Hero"
+    }
+  ]
+}
+{% endschema %}

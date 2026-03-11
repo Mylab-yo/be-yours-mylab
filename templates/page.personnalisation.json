@@ -1,0 +1,126 @@
+{
+  "sections": {
+    "hero": {
+      "type": "ml-perso-hero",
+      "settings": {
+        "eyebrow": "PERSONNALISATION",
+        "heading": "Créez l'étiquette de vos produits cosmétiques",
+        "description": "Choisissez un modèle, personnalisez-le avec votre marque et commandez vos produits étiquetés en quelques clics.",
+        "cta_label": "Commencer",
+        "cta_link": "#ml-zakeke-container",
+        "badge_text": "Your Brand Here",
+        "bg_color": "#FFFFFF",
+        "text_color": "#111111",
+        "muted_color": "#555555"
+      }
+    },
+    "steps": {
+      "type": "ml-perso-steps",
+      "settings": {
+        "heading": "Du choix à la commande en quelques clics",
+        "subheading": "Personnalisez vos produits cosmétiques avec votre propre identité de marque.",
+        "bg_color": "#FFFFFF",
+        "text_color": "#111111",
+        "muted_color": "#555555",
+        "card_bg": "#F5F4F2",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Choisissez votre style",
+            "description": "Parcourez nos modèles d'étiquettes et sélectionnez celui qui correspond à votre marque."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Personnalisez",
+            "description": "Ajoutez votre logo, vos textes et vos couleurs directement sur le flacon en 3D."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Commandez",
+            "description": "Validez votre design et recevez vos produits étiquetés à votre image."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"]
+    },
+    "configurator": {
+      "type": "ml-perso-configurator",
+      "settings": {
+        "eyebrow": "CONFIGURATEUR 3D",
+        "heading": "Designez votre étiquette",
+        "description": "Visualisez votre produit en temps réel et personnalisez chaque détail de votre étiquette.",
+        "zakeke_html": "",
+        "embed_height": 600,
+        "placeholder_title": "Configurateur 3D",
+        "placeholder_desc": "Le configurateur 3D interactif arrive bientôt. Vous pourrez visualiser votre flacon avec votre étiquette personnalisée en temps réel.",
+        "placeholder_cta_label": "Nous contacter",
+        "bg_color": "#FFFFFF",
+        "text_color": "#111111",
+        "muted_color": "#555555",
+        "embed_bg": "#F5F4F2",
+        "padding_top": 20,
+        "padding_bottom": 80
+      }
+    },
+    "features": {
+      "type": "ml-perso-features",
+      "settings": {
+        "heading": "Pourquoi personnaliser avec MyLab ?",
+        "bg_color": "#F5F4F2",
+        "text_color": "#111111",
+        "muted_color": "#555555",
+        "card_bg": "#FFFFFF",
+        "card_border": "#E5E5E5",
+        "padding_top": 80,
+        "padding_bottom": 80
+      },
+      "blocks": {
+        "feat_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "palette",
+            "title": "Design sur mesure",
+            "description": "Personnalisez chaque détail de votre étiquette : logo, typographie, couleurs et textes réglementaires."
+          }
+        },
+        "feat_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "certificate",
+            "title": "Conforme CPNP",
+            "description": "Toutes nos étiquettes respectent la réglementation cosmétique européenne. Mentions INCI incluses."
+          }
+        },
+        "feat_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "sparkles",
+            "title": "Visualisation 3D",
+            "description": "Prévisualisez votre produit fini en temps réel avant de passer commande."
+          }
+        },
+        "feat_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Livraison rapide",
+            "description": "Vos produits étiquetés sont expédiés sous 48h après validation de votre design."
+          }
+        }
+      },
+      "block_order": ["feat_1", "feat_2", "feat_3", "feat_4"]
+    }
+  },
+  "order": ["hero", "steps", "configurator", "features"]
+}

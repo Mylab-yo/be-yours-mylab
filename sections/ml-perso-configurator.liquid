@@ -1,0 +1,285 @@
+{%- style -%}
+  .ml-perso-config {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+  }
+  .ml-perso-config__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .ml-perso-config__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .ml-perso-config__eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: {{ section.settings.muted_color }};
+    margin-bottom: 0.8rem;
+  }
+  .ml-perso-config__heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 0.8rem;
+  }
+  .ml-perso-config__desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.4rem;
+    color: {{ section.settings.muted_color }};
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Configurator embed zone */
+  .ml-perso-config__embed {
+    width: 100%;
+    min-height: {{ section.settings.embed_height }}px;
+    background: {{ section.settings.embed_bg }};
+    border: 1px solid #E5E5E5;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* Placeholder state (before Zakeke) */
+  .ml-perso-config__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .ml-perso-config__placeholder-icon {
+    width: 80px;
+    height: 80px;
+    background: {{ section.settings.text_color }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ml-perso-config__placeholder-icon svg {
+    width: 36px;
+    height: 36px;
+    color: {{ section.settings.bg_color }};
+  }
+  .ml-perso-config__placeholder-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+  .ml-perso-config__placeholder-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.3rem;
+    color: {{ section.settings.muted_color }};
+    max-width: 480px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .ml-perso-config__placeholder-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 32px;
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.bg_color }};
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid {{ section.settings.text_color }};
+    transition: all 0.25s;
+  }
+  .ml-perso-config__placeholder-cta:hover {
+    background: transparent;
+    color: {{ section.settings.text_color }};
+  }
+
+  /* Zakeke iframe (when active) */
+  .ml-perso-config__embed iframe {
+    width: 100%;
+    height: 100%;
+    min-height: {{ section.settings.embed_height }}px;
+    border: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ml-perso-config {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    .ml-perso-config__embed {
+      min-height: 400px;
+      border-radius: 1.2rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="ml-perso-config">
+  <div class="ml-perso-config__inner">
+    {%- if section.settings.heading != blank -%}
+      <div class="ml-perso-config__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="ml-perso-config__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        <h2 class="ml-perso-config__heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p class="ml-perso-config__desc">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="ml-perso-config__embed" id="ml-zakeke-container">
+      {%- if section.settings.zakeke_html != blank -%}
+        {{ section.settings.zakeke_html }}
+      {%- else -%}
+        <!-- Placeholder: will be replaced by Zakeke 3D configurator -->
+        <div class="ml-perso-config__placeholder">
+          <div class="ml-perso-config__placeholder-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+            </svg>
+          </div>
+          <h3 class="ml-perso-config__placeholder-title">{{ section.settings.placeholder_title }}</h3>
+          <p class="ml-perso-config__placeholder-desc">{{ section.settings.placeholder_desc }}</p>
+          {%- if section.settings.placeholder_cta_label != blank -%}
+            <a href="{{ section.settings.placeholder_cta_link }}" class="ml-perso-config__placeholder-cta">
+              {{ section.settings.placeholder_cta_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Perso — Configurateur",
+  "tag": "section",
+  "class": "ml-perso-config-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sur-titre",
+      "default": "CONFIGURATEUR 3D"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Designez votre étiquette"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Visualisez votre produit en temps réel et personnalisez chaque détail de votre étiquette."
+    },
+    {
+      "type": "html",
+      "id": "zakeke_html",
+      "label": "Code Zakeke (HTML/embed)",
+      "info": "Collez ici le code d'intégration Zakeke. Laissez vide pour afficher le placeholder."
+    },
+    {
+      "type": "range",
+      "id": "embed_height",
+      "label": "Hauteur du configurateur",
+      "min": 400,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "text",
+      "id": "placeholder_title",
+      "label": "Titre placeholder",
+      "default": "Configurateur 3D"
+    },
+    {
+      "type": "textarea",
+      "id": "placeholder_desc",
+      "label": "Description placeholder",
+      "default": "Le configurateur 3D interactif arrive bientôt. Vous pourrez visualiser votre flacon avec votre étiquette personnalisée en temps réel."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_cta_label",
+      "label": "Bouton placeholder",
+      "default": "Nous contacter"
+    },
+    {
+      "type": "url",
+      "id": "placeholder_cta_link",
+      "label": "Lien bouton placeholder"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur texte secondaire",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "embed_bg",
+      "label": "Fond du configurateur",
+      "default": "#F5F4F2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perso — Configurateur"
+    }
+  ]
+}
+{% endschema %}

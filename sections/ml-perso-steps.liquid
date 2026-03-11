@@ -1,0 +1,271 @@
+{%- style -%}
+  .ml-perso-steps {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 2rem {{ section.settings.padding_bottom }}px;
+  }
+  .ml-perso-steps__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ml-perso-steps__heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 0.8rem;
+    letter-spacing: -0.01em;
+  }
+  .ml-perso-steps__subheading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.4rem;
+    color: {{ section.settings.muted_color }};
+    margin: 0 auto 4rem;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  .ml-perso-steps__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+  .ml-perso-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .ml-perso-step__visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: {{ section.settings.card_bg }};
+    border-radius: 1.6rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ml-perso-step__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ml-perso-step__number {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.bg_color }};
+    border: 1px solid #E5E5E5;
+    border-radius: 50%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+  }
+  .ml-perso-step__placeholder {
+    width: 60%;
+    height: 60%;
+    opacity: 0.15;
+  }
+  .ml-perso-step__title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+  .ml-perso-step__desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.3rem;
+    color: {{ section.settings.muted_color }};
+    line-height: 1.6;
+    margin: 0;
+    max-width: 320px;
+  }
+  @media screen and (max-width: 749px) {
+    .ml-perso-steps {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    .ml-perso-steps__grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .ml-perso-step__visual {
+      aspect-ratio: 16 / 10;
+    }
+  }
+{%- endstyle -%}
+
+<div class="ml-perso-steps">
+  <div class="ml-perso-steps__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="ml-perso-steps__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="ml-perso-steps__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    <div class="ml-perso-steps__grid">
+      {%- for block in section.blocks -%}
+        <div class="ml-perso-step" {{ block.shopify_attributes }}>
+          <div class="ml-perso-step__visual">
+            <span class="ml-perso-step__number">{{ block.settings.number }}</span>
+            {%- if block.settings.image != blank -%}
+              <img
+                class="ml-perso-step__image"
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="{{ block.settings.title | escape }}"
+                width="400"
+                height="300"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'ml-perso-step__placeholder' }}
+            {%- endif -%}
+          </div>
+          <h3 class="ml-perso-step__title">{{ block.settings.title }}</h3>
+          {%- if block.settings.description != blank -%}
+            <p class="ml-perso-step__desc">{{ block.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Perso — Etapes",
+  "tag": "section",
+  "class": "ml-perso-steps-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Du choix à la commande en quelques clics"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "Personnalisez vos produits cosmétiques avec votre propre identité de marque."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Fond",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Couleur texte secondaire",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Fond des visuels",
+      "default": "#F5F4F2"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Etape",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Numéro",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Choisissez votre style"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Parcourez nos modèles d'étiquettes et sélectionnez celui qui correspond à votre marque."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Perso — Etapes",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Choisissez votre style",
+            "description": "Parcourez nos modèles d'étiquettes et sélectionnez celui qui correspond à votre marque."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Personnalisez",
+            "description": "Ajoutez votre logo, vos textes et vos couleurs directement sur le flacon en 3D."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Commandez",
+            "description": "Validez votre design et recevez vos produits étiquetés à votre image."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
