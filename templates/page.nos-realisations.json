@@ -1,0 +1,118 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-nos-realisations",
+      "blocks": {
+        "r_01": {
+          "type": "realisation",
+          "settings": {
+            "number": "PROJET 01",
+            "name": "Gloriel",
+            "description": "<p>MY.LAB a conçu sept gammes de produits capillaires répondant aux besoins spécifiques de chaque type de cheveux : secs, colorés, bouclés, frisés, sans volume. Disponibles en format 200 mL et 500 mL. Garantis cruelty-free, sans sulfates, sans silicone et sans parabens. En moyenne à 95 % d'ingrédients d'origine naturelle.<\/p>",
+            "image": "shopify:\/\/shop_images\/LL9aFzY0.jpg",
+            "tags": "7 gammes, Cruelty-free, 200 mL, 500 mL, 95% naturel"
+          }
+        },
+        "r_02": {
+          "type": "realisation",
+          "settings": {
+            "number": "PROJET 02",
+            "name": "Bonhomme Paris",
+            "description": "<p>Une marque masculine forte portée par des formules MY.LAB de qualité professionnelle. Sept gammes capillaires conçues pour répondre aux besoins spécifiques des cheveux masculins. Disponibles en 200 mL et 500 mL, garantis cruelty-free, sans sulfates, sans silicone et sans parabens.<\/p>",
+            "image": "shopify:\/\/shop_images\/PHOTO_BONHOMME.jpg",
+            "tags": "Gamme homme, 7 gammes, Cruelty-free, 200 mL, 500 mL"
+          }
+        },
+        "r_03": {
+          "type": "realisation",
+          "settings": {
+            "number": "PROJET 03",
+            "name": "Rfactory",
+            "description": "<p>Sept gammes de produits capillaires professionnels avec une identité visuelle unique. Répondant aux besoins de chaque type de cheveux : secs, colorés, bouclés, frisés, sans volume. Disponibles en 200 mL et 500 mL, cruelty-free et à 95 % d'ingrédients d'origine naturelle.<\/p>",
+            "image": "shopify:\/\/shop_images\/proposition-5-RFACTORY-scaled.jpg",
+            "tags": "7 gammes, Étiquette sur mesure, 200 mL, 500 mL, 95% naturel"
+          }
+        }
+      },
+      "block_order": ["r_01", "r_02", "r_03"],
+      "settings": {
+        "subheading": "NOS RÉALISATIONS",
+        "heading": "<p>Des marques créées avec <em>MY.LAB<\/em><\/p>",
+        "description": "Trouvez l'inspiration pour créer votre marque. Découvrez les projets réalisés par nos clients.",
+        "accent_color": "#c5a467",
+        "text_color": "#1a1a1a",
+        "tag_bg": "#f5f0eb",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "VOTRE MARQUE EST LA PROCHAINE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Créez votre marque <strong>capillaire<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rejoignez nos clients et lancez votre propre gamme de cosmétiques capillaires professionnels avec MY.LAB.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Les étapes de création",
+            "button_alt_link": "shopify:\/\/pages\/les-etapes-de-creation-de-marque",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cta"
+  ]
+}

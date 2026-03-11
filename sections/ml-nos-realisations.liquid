@@ -1,0 +1,276 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .ml-realisations-hero {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+  }
+  .ml-realisations-hero__subheading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  .ml-realisations-hero__heading {
+    font-size: 2.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    margin: 0 0 1rem;
+    color: {{ section.settings.text_color }};
+  }
+  .ml-realisations-hero__heading strong,
+  .ml-realisations-hero__heading em {
+    color: {{ section.settings.accent_color }};
+  }
+  .ml-realisations-hero__text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+  }
+  .ml-realisations-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .ml-realisation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .ml-realisation:nth-child(even) {
+    direction: rtl;
+  }
+  .ml-realisation:nth-child(even) > * {
+    direction: ltr;
+  }
+  .ml-realisation__image-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .ml-realisation__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .ml-realisation:hover .ml-realisation__image {
+    transform: scale(1.03);
+  }
+  .ml-realisation__content {
+    padding: 1rem 0;
+  }
+  .ml-realisation__number {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: {{ section.settings.accent_color }};
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .ml-realisation__name {
+    font-size: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 1rem;
+  }
+  .ml-realisation__description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+  .ml-realisation__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .ml-realisation__tag {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: {{ section.settings.tag_bg }};
+    color: {{ section.settings.text_color }};
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  @media screen and (max-width: 749px) {
+    .ml-realisation {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .ml-realisation:nth-child(even) {
+      direction: ltr;
+    }
+    .ml-realisations-hero__heading {
+      font-size: 1.6rem;
+    }
+    .ml-realisation__name {
+      font-size: 1.4rem;
+    }
+    .ml-realisations-grid {
+      gap: 3rem;
+      padding: 0 1rem 3rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="ml-realisations-hero">
+  <p class="ml-realisations-hero__subheading">{{ section.settings.subheading }}</p>
+  <h1 class="ml-realisations-hero__heading">{{ section.settings.heading }}</h1>
+  <p class="ml-realisations-hero__text">{{ section.settings.description }}</p>
+</div>
+
+<div class="ml-realisations-grid">
+  {%- for block in section.blocks -%}
+    <div class="ml-realisation" {{ block.shopify_attributes }}>
+      <div class="ml-realisation__image-wrap">
+        {%- if block.settings.image != blank -%}
+          <img
+            class="ml-realisation__image"
+            src="{{ block.settings.image | image_url: width: 800 }}"
+            alt="{{ block.settings.name | escape }}"
+            width="800"
+            height="600"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'ml-realisation__image' }}
+        {%- endif -%}
+      </div>
+      <div class="ml-realisation__content">
+        <p class="ml-realisation__number">{{ block.settings.number }}</p>
+        <h2 class="ml-realisation__name">{{ block.settings.name }}</h2>
+        <div class="ml-realisation__description">{{ block.settings.description }}</div>
+        {%- if block.settings.tags != blank -%}
+          <div class="ml-realisation__tags">
+            {%- assign tag_list = block.settings.tags | split: ',' -%}
+            {%- for tag in tag_list -%}
+              <span class="ml-realisation__tag">{{ tag | strip }}</span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Nos réalisations",
+  "tag": "section",
+  "class": "ml-nos-realisations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sous-titre",
+      "default": "NOS RÉALISATIONS"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Titre",
+      "default": "<p>Des marques créées avec <em>MY.LAB</em></p>"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Trouvez l'inspiration pour créer votre marque. Découvrez les projets réalisés par nos clients."
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Couleur accent",
+      "default": "#c5a467"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Couleur texte",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "tag_bg",
+      "label": "Fond des tags",
+      "default": "#f5f0eb"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "realisation",
+      "name": "Réalisation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Numéro",
+          "default": "PROJET 01"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom de la marque",
+          "default": "Nom de la marque"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Description du projet et de la marque créée avec MY.LAB.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "tags",
+          "label": "Tags (séparés par des virgules)",
+          "default": "Shampoings, Masques, 200 mL, 500 mL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nos réalisations",
+      "blocks": [
+        { "type": "realisation", "settings": { "number": "PROJET 01", "name": "Marque exemple" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
