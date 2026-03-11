@@ -62,42 +62,59 @@
   .ml-etiquettes-grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
   }
   .ml-etiquette-card {
-    background: {{ section.settings.card_bg }};
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    transition: transform 0.3s ease;
   }
   .ml-etiquette-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+  .ml-etiquette-card__image-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 1rem;
   }
   .ml-etiquette-card__image {
     width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: cover;
+    height: auto;
     display: block;
+    object-fit: contain;
+    transition: opacity 0.4s ease;
   }
-  .ml-etiquette-card__info {
-    padding: 1rem 1.2rem 1.2rem;
-    text-align: center;
+  .ml-etiquette-card__image--hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ml-etiquette-card:hover .ml-etiquette-card__image--primary {
+    opacity: 0;
+  }
+  .ml-etiquette-card:hover .ml-etiquette-card__image--hover {
+    opacity: 1;
   }
   .ml-etiquette-card__name {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: {{ section.settings.text_color }};
     margin: 0;
     font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 0.5px;
   }
   @media screen and (max-width: 749px) {
     .ml-etiquettes-grid {
       grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-      gap: 1rem;
+      gap: 1.5rem;
       padding: 1rem 1rem 3rem;
     }
     .ml-etiquettes-hero__heading {
@@ -106,6 +123,9 @@
     .ml-etiquettes-info {
       flex-direction: column;
       align-items: center;
+    }
+    .ml-etiquette-card__image-wrap {
+      max-width: 200px;
     }
   }
 {%- endstyle -%}
@@ -131,21 +151,40 @@
 <div class="ml-etiquettes-grid">
   {%- for block in section.blocks -%}
     <div class="ml-etiquette-card" {{ block.shopify_attributes }}>
-      {%- if block.settings.image != blank -%}
-        <img
-          class="ml-etiquette-card__image"
-          src="{{ block.settings.image | image_url: width: 600 }}"
-          alt="{{ block.settings.name | escape }}"
-          width="600"
-          height="800"
-          loading="lazy"
-        >
-      {%- else -%}
-        {{ 'image' | placeholder_svg_tag: 'ml-etiquette-card__image' }}
-      {%- endif -%}
-      <div class="ml-etiquette-card__info">
-        <h3 class="ml-etiquette-card__name">{{ block.settings.name }}</h3>
+      <div class="ml-etiquette-card__image-wrap">
+        {%- if block.settings.image != blank -%}
+          {%- if block.settings.image_hover != blank -%}
+            <img
+              class="ml-etiquette-card__image ml-etiquette-card__image--primary"
+              src="{{ block.settings.image | image_url: width: 500 }}"
+              alt="{{ block.settings.name | escape }}"
+              width="500"
+              height="auto"
+              loading="lazy"
+            >
+            <img
+              class="ml-etiquette-card__image ml-etiquette-card__image--hover"
+              src="{{ block.settings.image_hover | image_url: width: 500 }}"
+              alt="{{ block.settings.name | escape }} — variante"
+              width="500"
+              height="auto"
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              class="ml-etiquette-card__image"
+              src="{{ block.settings.image | image_url: width: 500 }}"
+              alt="{{ block.settings.name | escape }}"
+              width="500"
+              height="auto"
+              loading="lazy"
+            >
+          {%- endif -%}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'ml-etiquette-card__image' }}
+        {%- endif -%}
       </div>
+      <h3 class="ml-etiquette-card__name">{{ block.settings.name }}</h3>
     </div>
   {%- endfor -%}
 </div>
@@ -270,7 +309,12 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image principale"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_hover",
+          "label": "Image au survol (optionnelle)"
         }
       ]
     }
