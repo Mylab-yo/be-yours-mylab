@@ -1,0 +1,171 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-modeles-etiquettes",
+      "blocks": {
+        "m_01": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Black and Yellow",
+            "image": "shopify:\/\/shop_images\/black-panter.png"
+          }
+        },
+        "m_02": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Green Floral",
+            "image": "shopify:\/\/shop_images\/Green-floral.png"
+          }
+        },
+        "m_03": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Aquarel",
+            "image": "shopify:\/\/shop_images\/V2-encre.png"
+          }
+        },
+        "m_04": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Finesse",
+            "image": "shopify:\/\/shop_images\/finesse-2.png"
+          }
+        },
+        "m_05": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Zebra",
+            "image": "shopify:\/\/shop_images\/zebra.png"
+          }
+        },
+        "m_06": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Golden Line",
+            "image": "shopify:\/\/shop_images\/OR.png"
+          }
+        },
+        "m_07": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Prestige",
+            "image": "shopify:\/\/shop_images\/noir-orange.png"
+          }
+        },
+        "m_08": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Oliver",
+            "image": "shopify:\/\/shop_images\/V1_FEUILLE.png"
+          }
+        },
+        "m_09": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Fresh",
+            "image": "shopify:\/\/shop_images\/FRESH-1.png"
+          }
+        },
+        "m_10": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Number",
+            "image": "shopify:\/\/shop_images\/NUMBER.png"
+          }
+        },
+        "m_11": {
+          "type": "etiquette",
+          "settings": {
+            "name": "Azul",
+            "image": "shopify:\/\/shop_images\/AZUL.png"
+          }
+        }
+      },
+      "block_order": ["m_01", "m_02", "m_03", "m_04", "m_05", "m_06", "m_07", "m_08", "m_09", "m_10", "m_11"],
+      "settings": {
+        "subheading": "PERSONNALISATION",
+        "heading": "<p>Personnalisez les étiquettes de vos <em>produits cosmétiques<\/em><\/p>",
+        "price_etiquette": "99 €",
+        "price_etiquette_label": "par modèle — valable pour toutes les références",
+        "price_impression": "250 € \/ an",
+        "price_impression_label": "forfait impression interne illimité",
+        "note": "Toutes les étiquettes ont des couleurs variables selon la gamme.",
+        "columns_desktop": 3,
+        "columns_mobile": "2",
+        "accent_color": "#c5a467",
+        "text_color": "#1a1a1a",
+        "card_bg": "#f5f0eb",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "cta": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ENVIE D'UNE ÉTIQUETTE UNIQUE ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Créez votre étiquette <strong>sur mesure<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aucun modèle ne vous correspond ? Notre équipe crée une étiquette entièrement personnalisée à votre image. Contactez-nous pour en discuter.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Nous contacter",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir les étapes de création",
+            "button_alt_link": "shopify:\/\/pages\/les-etapes-de-creation-de-marque",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cta"
+  ]
+}
