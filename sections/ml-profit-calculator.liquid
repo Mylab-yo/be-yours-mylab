@@ -647,11 +647,28 @@
       {%- comment -%} Résultats {%- endcomment -%}
       <div class="ml-calc__results" id="ml-calc-results-{{ section.id }}"></div>
 
-      {%- comment -%} Bouton {%- endcomment -%}
-      <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="ml-calc__cta" id="ml-calc-cta-{{ section.id }}">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        {{ section.settings.cta_label | default: 'Commander maintenant' }}
-      </a>
+      {%- comment -%} Bouton — visible uniquement pour les clients tagués "pro" ou "dossier-valide" {%- endcomment -%}
+      {%- assign is_pro = false -%}
+      {%- if customer -%}
+        {%- for tag in customer.tags -%}
+          {%- assign tag_lower = tag | downcase -%}
+          {%- if tag_lower == 'pro' or tag_lower == 'dossier-valide' -%}
+            {%- assign is_pro = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- if is_pro -%}
+        <a href="{{ section.settings.cta_link | default: '/collections/all' }}" class="ml-calc__cta" id="ml-calc-cta-{{ section.id }}">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ section.settings.cta_label | default: 'Commander maintenant' }}
+        </a>
+      {%- else -%}
+        <a href="{{ section.settings.cta_link_guest | default: '/pages/contact' }}" class="ml-calc__cta" id="ml-calc-cta-{{ section.id }}" style="background:#555;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {{ section.settings.cta_label_guest | default: 'Obtenir mon dossier cosmétologique' }}
+        </a>
+      {%- endif -%}
 
       {%- if section.settings.footnote != blank -%}
         <p class="ml-calc__footnote">{{ section.settings.footnote }}</p>
@@ -894,6 +911,21 @@
       "type": "url",
       "id": "cta_link",
       "label": "Lien du bouton"
+    },
+    {
+      "type": "header",
+      "content": "Bouton non-pro (visiteurs sans dossier)"
+    },
+    {
+      "type": "text",
+      "id": "cta_label_guest",
+      "label": "Texte du bouton (visiteurs)",
+      "default": "Obtenir mon dossier cosmétologique"
+    },
+    {
+      "type": "url",
+      "id": "cta_link_guest",
+      "label": "Lien du bouton (visiteurs)"
     },
     {
       "type": "text",
