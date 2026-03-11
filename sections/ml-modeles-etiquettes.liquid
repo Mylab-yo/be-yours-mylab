@@ -8,26 +8,28 @@
     padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
   }
   .ml-etiquettes-hero__subheading {
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 0.12em;
     color: {{ section.settings.accent_color }};
     margin-bottom: 0.8rem;
     font-weight: 600;
     font-family: 'DM Sans', sans-serif;
   }
   .ml-etiquettes-hero__heading {
-    font-size: 3rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
+    font-size: clamp(2.4rem, 3.5vw, 3.6rem);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
     margin: 0 0 2rem;
     color: {{ section.settings.text_color }};
-    line-height: 1.2;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
   }
   .ml-etiquettes-hero__heading strong,
   .ml-etiquettes-hero__heading em {
     color: {{ section.settings.accent_color }};
-    font-style: italic;
+    font-style: normal;
+    font-weight: 700;
   }
   .ml-etiquettes-info {
     display: flex;
@@ -38,7 +40,8 @@
   }
   .ml-etiquettes-info__card {
     background: {{ section.settings.card_bg }};
-    border-radius: 12px;
+    border: 1px solid #E5E5E5;
+    border-radius: 1.2rem;
     padding: 2rem 2.5rem;
     text-align: center;
     flex: 1;
@@ -48,23 +51,24 @@
   .ml-etiquettes-info__price {
     font-size: 2.4rem;
     font-weight: 700;
-    color: {{ section.settings.accent_color }};
+    color: {{ section.settings.text_color }};
     margin-bottom: 0.4rem;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'DM Sans', sans-serif;
   }
   .ml-etiquettes-info__label {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: {{ section.settings.text_color }};
-    opacity: 0.7;
+    opacity: 0.6;
     font-family: 'DM Sans', sans-serif;
     line-height: 1.5;
   }
   .ml-etiquettes-hero__note {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
     color: {{ section.settings.text_color }};
-    opacity: 0.6;
-    font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
+    opacity: 0.5;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
   }
   .ml-etiquettes-grid {
     display: grid;
@@ -111,12 +115,12 @@
     opacity: 1;
   }
   .ml-etiquette-card__name {
-    font-size: 1.8rem;
-    font-weight: 700;
+    font-size: 1.4rem;
+    font-weight: 600;
     color: {{ section.settings.text_color }};
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 0.5px;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
   }
   @media screen and (max-width: 749px) {
     .ml-etiquettes-grid {
@@ -267,19 +271,19 @@
       "type": "color",
       "id": "accent_color",
       "label": "Couleur accent",
-      "default": "#c5a467"
+      "default": "#888888"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Couleur texte",
-      "default": "#1a1a1a"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "card_bg",
       "label": "Fond des cartes",
-      "default": "#f5f0eb"
+      "default": "#F5F4F2"
     },
     {
       "type": "range",
