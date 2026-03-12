@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bon de livraison — {{ order.name }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: #111111;
+      background: #ffffff;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 794px;
+      margin: 0 auto;
+      padding: 36px 40px 40px;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 24px;
+      border-bottom: 1.5px solid #111111;
+      margin-bottom: 28px;
+    }
+
+    .header__logo {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .header__logo img {
+      height: 80px;
+      width: auto;
+      display: block;
+    }
+
+    .header__meta {
+      text-align: right;
+    }
+
+    .header__doc-type {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: italic;
+      color: #111111;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .header__order-number {
+      font-size: 11px;
+      font-weight: 600;
+      color: #111111;
+      letter-spacing: 0.06em;
+    }
+
+    .header__date {
+      font-size: 10px;
+      color: #888888;
+      margin-top: 2px;
+    }
+
+    /* ── ADDRESSES ── */
+    .addresses {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid #E5E5E5;
+    }
+
+    .address-block__label {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 8px;
+    }
+
+    .address-block__name {
+      font-size: 12px;
+      font-weight: 600;
+      color: #111111;
+      margin-bottom: 3px;
+    }
+
+    .address-block p {
+      font-size: 10px;
+      color: #555555;
+      line-height: 1.6;
+    }
+
+    /* ── ORDER INFO BAR ── */
+    .order-info {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      background: #F5F4F2;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .order-info__item {
+      flex: 1;
+      padding: 12px 16px;
+      border-right: 1px solid #E5E5E5;
+    }
+
+    .order-info__item:last-child {
+      border-right: none;
+    }
+
+    .order-info__label {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 4px;
+    }
+
+    .order-info__value {
+      font-size: 11px;
+      font-weight: 500;
+      color: #111111;
+    }
+
+    /* ── ITEMS TABLE ── */
+    .items-section__title {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      border-bottom: 1.5px solid #111111;
+    }
+
+    thead th {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888888;
+      padding: 0 8px 8px;
+      text-align: left;
+    }
+
+    thead th:last-child,
+    thead th.align-right {
+      text-align: right;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #E5E5E5;
+    }
+
+    tbody tr:last-child {
+      border-bottom: 1.5px solid #111111;
+    }
+
+    tbody td {
+      padding: 10px 8px;
+      vertical-align: top;
+    }
+
+    .item__name {
+      font-size: 11px;
+      font-weight: 500;
+      color: #111111;
+      margin-bottom: 2px;
+    }
+
+    .item__variant {
+      font-size: 9px;
+      color: #888888;
+    }
+
+    .item__sku {
+      font-size: 9px;
+      color: #888888;
+      margin-top: 1px;
+    }
+
+    .item__qty {
+      font-size: 11px;
+      font-weight: 600;
+      color: #111111;
+      text-align: center;
+    }
+
+    .item__price {
+      font-size: 11px;
+      color: #555555;
+      text-align: right;
+    }
+
+    .item__total {
+      font-size: 11px;
+      font-weight: 600;
+      color: #111111;
+      text-align: right;
+    }
+
+    /* ── TOTALS ── */
+    .totals {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+      margin-bottom: 28px;
+    }
+
+    .totals__table {
+      width: 240px;
+    }
+
+    .totals__row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid #E5E5E5;
+    }
+
+    .totals__row:last-child {
+      border-bottom: none;
+      border-top: 1.5px solid #111111;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    .totals__label {
+      font-size: 10px;
+      color: #555555;
+    }
+
+    .totals__value {
+      font-size: 10px;
+      font-weight: 500;
+      color: #111111;
+    }
+
+    .totals__row--total .totals__label,
+    .totals__row--total .totals__value {
+      font-size: 12px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    /* ── NOTES ── */
+    .notes {
+      background: #F5F4F2;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 28px;
+    }
+
+    .notes__label {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #888888;
+      margin-bottom: 6px;
+    }
+
+    .notes__text {
+      font-size: 10px;
+      color: #555555;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      border-top: 1px solid #E5E5E5;
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer__contact p {
+      font-size: 9px;
+      color: #888888;
+      line-height: 1.6;
+    }
+
+    .footer__message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      font-style: italic;
+      color: #888888;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { font-size: 10px; }
+      .page { padding: 20px 24px; }
+      @page { margin: 10mm; size: A4; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header__logo">
+      <img src="{{ 'Logo-rond-noir-transparent.png' | asset_url }}" alt="{{ shop.name }}">
+    </div>
+    <div class="header__meta">
+      <div class="header__doc-type">Bon de livraison</div>
+      <div class="header__order-number">Commande {{ order.name }}</div>
+      <div class="header__date">{{ order.created_at | date: "%d/%m/%Y" }}</div>
+    </div>
+  </header>
+
+  <!-- ADDRESSES -->
+  <div class="addresses">
+
+    <div class="address-block">
+      <div class="address-block__label">Expéditeur</div>
+      <div class="address-block__name">{{ shop.name }}</div>
+      <p>
+        {{ shop.address.address1 }}<br>
+        {% if shop.address.address2 != blank %}{{ shop.address.address2 }}<br>{% endif %}
+        {{ shop.address.zip }} {{ shop.address.city }}<br>
+        {{ shop.address.country }}<br>
+        contact@mylab-shop.com
+      </p>
+    </div>
+
+    <div class="address-block">
+      <div class="address-block__label">Livré à</div>
+      <div class="address-block__name">{{ order.shipping_address.name }}</div>
+      <p>
+        {% if order.shipping_address.company != blank %}{{ order.shipping_address.company }}<br>{% endif %}
+        {{ order.shipping_address.address1 }}<br>
+        {% if order.shipping_address.address2 != blank %}{{ order.shipping_address.address2 }}<br>{% endif %}
+        {{ order.shipping_address.zip }} {{ order.shipping_address.city }}<br>
+        {{ order.shipping_address.country }}
+      </p>
+    </div>
+
+    <div class="address-block">
+      <div class="address-block__label">Facturé à</div>
+      <div class="address-block__name">{{ order.billing_address.name }}</div>
+      <p>
+        {% if order.billing_address.company != blank %}{{ order.billing_address.company }}<br>{% endif %}
+        {{ order.billing_address.address1 }}<br>
+        {% if order.billing_address.address2 != blank %}{{ order.billing_address.address2 }}<br>{% endif %}
+        {{ order.billing_address.zip }} {{ order.billing_address.city }}<br>
+        {{ order.billing_address.country }}
+      </p>
+    </div>
+
+  </div>
+
+  <!-- ORDER INFO BAR -->
+  <div class="order-info">
+    <div class="order-info__item">
+      <div class="order-info__label">N° commande</div>
+      <div class="order-info__value">{{ order.name }}</div>
+    </div>
+    <div class="order-info__item">
+      <div class="order-info__label">Date</div>
+      <div class="order-info__value">{{ order.created_at | date: "%d %B %Y" }}</div>
+    </div>
+    <div class="order-info__item">
+      <div class="order-info__label">Mode de paiement</div>
+      <div class="order-info__value">{{ order.payment_terms.name | default: order.gateway | capitalize }}</div>
+    </div>
+    <div class="order-info__item">
+      <div class="order-info__label">Livraison</div>
+      <div class="order-info__value">
+        {% for shipping_line in order.shipping_lines %}
+          {{ shipping_line.title }}{% unless forloop.last %}, {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    {% if order.fulfillments.size > 0 %}
+    <div class="order-info__item">
+      <div class="order-info__label">Suivi</div>
+      <div class="order-info__value">
+        {% for fulfillment in order.fulfillments %}
+          {% if fulfillment.tracking_number %}{{ fulfillment.tracking_number }}{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- ITEMS -->
+  <div class="items-section">
+    <div class="items-section__title">Articles commandés</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 44%">Produit</th>
+          <th style="width: 18%">Référence (SKU)</th>
+          <th style="width: 10%; text-align: center">Qté</th>
+          <th style="width: 14%" class="align-right">Prix unit. HT</th>
+          <th style="width: 14%" class="align-right">Total HT</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for line_item in order.line_items %}
+        <tr>
+          <td>
+            <div class="item__name">{{ line_item.title }}</div>
+            {% if line_item.variant_title != blank and line_item.variant_title != 'Default Title' %}
+              <div class="item__variant">{{ line_item.variant_title }}</div>
+            {% endif %}
+          </td>
+          <td>
+            <div class="item__sku">{{ line_item.sku | default: '—' }}</div>
+          </td>
+          <td>
+            <div class="item__qty">{{ line_item.quantity }}</div>
+          </td>
+          <td>
+            <div class="item__price">{{ line_item.price | money_without_currency }} €</div>
+          </td>
+          <td>
+            <div class="item__total">{{ line_item.final_line_price | money_without_currency }} €</div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TOTALS -->
+  <div class="totals">
+    <div class="totals__table">
+      <div class="totals__row">
+        <span class="totals__label">Sous-total HT</span>
+        <span class="totals__value">{{ order.subtotal_price | money_without_currency }} €</span>
+      </div>
+      {% for discount_application in order.discount_applications %}
+      <div class="totals__row">
+        <span class="totals__label">Remise ({{ discount_application.title }})</span>
+        <span class="totals__value">− {{ discount_application.total_allocated_amount | money_without_currency }} €</span>
+      </div>
+      {% endfor %}
+      <div class="totals__row">
+        <span class="totals__label">Frais de livraison</span>
+        <span class="totals__value">
+          {% if order.shipping_price == 0 %}Offerts{% else %}{{ order.shipping_price | money_without_currency }} €{% endif %}
+        </span>
+      </div>
+      {% for tax_line in order.tax_lines %}
+      <div class="totals__row">
+        <span class="totals__label">TVA {{ tax_line.rate | times: 100 | round }}%</span>
+        <span class="totals__value">{{ tax_line.price | money_without_currency }} €</span>
+      </div>
+      {% endfor %}
+      <div class="totals__row totals__row--total">
+        <span class="totals__label">Total TTC</span>
+        <span class="totals__value">{{ order.total_price | money_without_currency }} €</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  {% if order.note != blank %}
+  <div class="notes">
+    <div class="notes__label">Notes de commande</div>
+    <div class="notes__text">{{ order.note }}</div>
+  </div>
+  {% endif %}
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__contact">
+      <p>
+        {{ shop.name }} — contact@mylab-shop.com<br>
+        {% if shop.phone %}{{ shop.phone }} — {% endif %}
+        {{ shop.address.address1 }}, {{ shop.address.zip }} {{ shop.address.city }}
+      </p>
+    </div>
+    <div class="footer__message">Merci pour votre confiance.</div>
+  </footer>
+
+</div>
+</body>
+</html>
