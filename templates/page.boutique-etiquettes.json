@@ -11,13 +11,15 @@
     "etiquettes": {
       "type": "ml-collection-filterable",
       "blocks": {
-        "f1": { "type": "filter", "settings": { "tag": "shampoings", "label": "Shampoings" } },
-        "f2": { "type": "filter", "settings": { "tag": "masques", "label": "Masques" } },
-        "f3": { "type": "filter", "settings": { "tag": "pigments", "label": "Pigments" } },
-        "f4": { "type": "filter", "settings": { "tag": "soins", "label": "Soins" } },
-        "f5": { "type": "filter", "settings": { "tag": "coiffage", "label": "Coiffage" } }
+        "f1": { "type": "filter", "settings": { "tag": "shampoing", "label": "Shampoings" } },
+        "f2": { "type": "filter", "settings": { "tag": "masque", "label": "Masques" } },
+        "f3": { "type": "filter", "settings": { "tag": "crème", "label": "Crèmes" } },
+        "f4": { "type": "filter", "settings": { "tag": "huile", "label": "Huiles" } },
+        "f5": { "type": "filter", "settings": { "tag": "sérum", "label": "Sérums" } },
+        "f6": { "type": "filter", "settings": { "tag": "finition", "label": "Finition" } },
+        "f7": { "type": "filter", "settings": { "tag": "homme", "label": "Homme" } }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5"],
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7"],
       "settings": {
         "collection": "modeles-detiquettes",
         "products_to_show": 20,
