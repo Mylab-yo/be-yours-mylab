@@ -15,7 +15,7 @@
         "products_to_show": 12,
         "show_view_all": false,
         "show_divider": false,
-        "heading": "Modèles d'étiquettes",
+        "heading": "",
         "heading_size": "h1",
         "heading_alignment": "center",
         "heading_tag": "h2",
