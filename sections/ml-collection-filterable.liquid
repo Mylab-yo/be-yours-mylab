@@ -1,10 +1,8 @@
-{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-grid.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .ml-filterable {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
   /* ── FILTER BAR ── */
@@ -39,17 +37,9 @@
     color: #fff;
   }
 
-  /* ── PRODUCT GRID ── */
-  .ml-filterable-grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    gap: 2rem;
-  }
-  .ml-filterable-grid__item {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-  .ml-filterable-grid__item--hidden {
-    display: none;
+  /* ── HIDE FILTERED ITEMS ── */
+  .ml-filterable-hidden {
+    display: none !important;
   }
   .ml-filterable__empty {
     text-align: center;
@@ -57,18 +47,14 @@
     color: #888;
     font-family: 'DM Sans', sans-serif;
     font-size: 1.3rem;
-    grid-column: 1 / -1;
     display: none;
+    width: 100%;
   }
   .ml-filterable__empty--visible {
     display: block;
   }
 
   @media screen and (max-width: 749px) {
-    .ml-filterable-grid {
-      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-      gap: 1.2rem;
-    }
     .ml-filter-bar {
       gap: 0.5rem;
     }
@@ -91,47 +77,50 @@
     {%- endif -%}
   {%- endfor -%}
 
-  <div class="ml-filterable" id="ml-filterable-{{ section.id }}">
+  <div class="section--padding ml-filterable" id="ml-filterable-{{ section.id }}">
+    <div class="page-width">
 
-    {%- if filter_tags != '' -%}
-      <div class="ml-filter-bar">
-        <button class="ml-filter-btn ml-filter-btn--active" data-filter="all">Tout</button>
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'filter' and block.settings.tag != blank -%}
-            <button class="ml-filter-btn" data-filter="{{ block.settings.tag | handleize }}" {{ block.shopify_attributes }}>
-              {{ block.settings.label | default: block.settings.tag }}
-            </button>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-
-    <div class="ml-filterable-grid">
-      {%- for product in collection.products limit: section.settings.products_to_show -%}
-        {%- if section.settings.hide_multivariant and product.variants.size > 1 -%}
-          {%- continue -%}
-        {%- endif -%}
-        {%- capture product_tags_handleized -%}
-          {%- for tag in product.tags -%}{{ tag | handleize }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
-        {%- endcapture -%}
-        <div class="ml-filterable-grid__item" data-tags="{{ product_tags_handleized }}">
-          {% render 'card-product',
-            card_product: product,
-            card_collection: collection,
-            media_size: section.settings.image_ratio,
-            show_secondary_image: section.settings.show_secondary_image,
-            show_vendor: false,
-            show_rating: false,
-            show_quick_buy: section.settings.show_quick_buy,
-            enable_quick_view: section.settings.enable_quick_view,
-            enable_color_swatches: false,
-            enable_countdown: false,
-            enable_image_fill: section.settings.enable_image_fill,
-            section_id: section.id
-          %}
+      {%- if filter_tags != '' -%}
+        <div class="ml-filter-bar">
+          <button class="ml-filter-btn ml-filter-btn--active" data-filter="all">Tout</button>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'filter' and block.settings.tag != blank -%}
+              <button class="ml-filter-btn" data-filter="{{ block.settings.tag | handleize }}" {{ block.shopify_attributes }}>
+                {{ block.settings.label | default: block.settings.tag }}
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
-      {%- endfor -%}
-      <div class="ml-filterable__empty">Aucun modèle dans cette catégorie.</div>
+      {%- endif -%}
+
+      <ul class="product-grid flex-grid flex-grid--rigid{% if section.settings.columns_mobile == '1' %} flex-grid--1-col-mobile{% endif %} flex-grid--2-col flex-grid--2-col-tablet flex-grid--{{ section.settings.columns_desktop }}-col-desktop" role="list">
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {%- if section.settings.hide_multivariant and product.variants.size > 1 -%}
+            {%- continue -%}
+          {%- endif -%}
+          {%- capture product_tags_handleized -%}
+            {%- for tag in product.tags -%}{{ tag | handleize }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
+          {%- endcapture -%}
+          <li class="flex-grid__item" data-tags="{{ product_tags_handleized }}">
+            {% render 'card-product',
+              card_product: product,
+              card_collection: collection,
+              media_size: section.settings.image_ratio,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: false,
+              show_rating: false,
+              show_quick_buy: section.settings.show_quick_buy,
+              enable_quick_view: section.settings.enable_quick_view,
+              enable_color_swatches: false,
+              enable_countdown: false,
+              enable_image_fill: section.settings.enable_image_fill,
+              section_id: section.id
+            %}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="ml-filterable__empty">Aucun produit dans cette catégorie.</div>
+
     </div>
   </div>
 
@@ -141,7 +130,7 @@
       if (!container) return;
 
       var buttons = container.querySelectorAll('.ml-filter-btn');
-      var items = container.querySelectorAll('.ml-filterable-grid__item');
+      var items = container.querySelectorAll('.flex-grid__item[data-tags]');
       var emptyMsg = container.querySelector('.ml-filterable__empty');
 
       buttons.forEach(function(btn) {
@@ -154,15 +143,15 @@
           var visibleCount = 0;
           items.forEach(function(item) {
             if (filter === 'all') {
-              item.classList.remove('ml-filterable-grid__item--hidden');
+              item.classList.remove('ml-filterable-hidden');
               visibleCount++;
             } else {
               var tags = item.getAttribute('data-tags').split(',');
               if (tags.indexOf(filter) !== -1) {
-                item.classList.remove('ml-filterable-grid__item--hidden');
+                item.classList.remove('ml-filterable-hidden');
                 visibleCount++;
               } else {
-                item.classList.add('ml-filterable-grid__item--hidden');
+                item.classList.add('ml-filterable-hidden');
               }
             }
           });
