@@ -108,6 +108,9 @@
 
     <div class="ml-filterable-grid">
       {%- for product in collection.products limit: section.settings.products_to_show -%}
+        {%- if section.settings.hide_multivariant and product.variants.size > 1 -%}
+          {%- continue -%}
+        {%- endif -%}
         {%- capture product_tags_handleized -%}
           {%- for tag in product.tags -%}{{ tag | handleize }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
         {%- endcapture -%}
@@ -252,6 +255,13 @@
       "id": "enable_quick_view",
       "label": "Aperçu rapide",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_multivariant",
+      "label": "Masquer produits avec variants",
+      "info": "Cache les produits ayant plus d'un variant (ex: produits pro avec contenances)",
+      "default": false
     },
     {
       "type": "range",

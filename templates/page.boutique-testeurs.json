@@ -80,6 +80,7 @@
         "show_secondary_image": true,
         "show_quick_buy": true,
         "enable_quick_view": true,
+        "hide_multivariant": true,
         "padding_top": 0,
         "padding_bottom": 72
       }
