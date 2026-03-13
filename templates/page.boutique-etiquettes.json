@@ -11,7 +11,7 @@
     "etiquettes": {
       "type": "featured-collection",
       "settings": {
-        "collection": "etiquettes",
+        "collection": "modeles-d-etiquettes",
         "products_to_show": 12,
         "show_view_all": false,
         "show_divider": false,
