@@ -1,0 +1,308 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .ml-filterable {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+  }
+
+  /* ── FILTER BAR ── */
+  .ml-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .ml-filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 1.4rem;
+    border: 1.5px solid #E5E5E5;
+    border-radius: 50px;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .ml-filter-btn:hover {
+    border-color: #111;
+    color: #111;
+  }
+  .ml-filter-btn--active {
+    background: #111;
+    border-color: #111;
+    color: #fff;
+  }
+
+  /* ── PRODUCT GRID ── */
+  .ml-filterable-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
+    gap: 2rem;
+  }
+  .ml-filterable-grid__item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .ml-filterable-grid__item--hidden {
+    display: none;
+  }
+  .ml-filterable__empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #888;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.3rem;
+    grid-column: 1 / -1;
+    display: none;
+  }
+  .ml-filterable__empty--visible {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ml-filterable-grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
+      gap: 1.2rem;
+    }
+    .ml-filter-bar {
+      gap: 0.5rem;
+    }
+    .ml-filter-btn {
+      font-size: 1.1rem;
+      padding: 0.45rem 1rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign collection = collections[section.settings.collection] -%}
+{%- if collection != blank -%}
+
+  {%- comment -%} Build unique tag list from filter settings {%- endcomment -%}
+  {%- assign filter_tags = '' -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'filter' and block.settings.tag != blank -%}
+      {%- if filter_tags != '' -%}{%- assign filter_tags = filter_tags | append: ',' -%}{%- endif -%}
+      {%- assign filter_tags = filter_tags | append: block.settings.tag -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="ml-filterable" id="ml-filterable-{{ section.id }}">
+
+    {%- if filter_tags != '' -%}
+      <div class="ml-filter-bar">
+        <button class="ml-filter-btn ml-filter-btn--active" data-filter="all">Tout</button>
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'filter' and block.settings.tag != blank -%}
+            <button class="ml-filter-btn" data-filter="{{ block.settings.tag | handleize }}" {{ block.shopify_attributes }}>
+              {{ block.settings.label | default: block.settings.tag }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <div class="ml-filterable-grid">
+      {%- for product in collection.products limit: section.settings.products_to_show -%}
+        {%- capture product_tags_handleized -%}
+          {%- for tag in product.tags -%}{{ tag | handleize }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
+        {%- endcapture -%}
+        <div class="ml-filterable-grid__item" data-tags="{{ product_tags_handleized }}">
+          {% render 'card-product',
+            card_product: product,
+            card_collection: collection,
+            media_size: section.settings.image_ratio,
+            show_secondary_image: section.settings.show_secondary_image,
+            show_vendor: false,
+            show_rating: false,
+            show_quick_buy: section.settings.show_quick_buy,
+            enable_quick_view: section.settings.enable_quick_view,
+            enable_color_swatches: false,
+            enable_countdown: false,
+            enable_image_fill: section.settings.enable_image_fill,
+            section_id: section.id
+          %}
+        </div>
+      {%- endfor -%}
+      <div class="ml-filterable__empty">Aucun modèle dans cette catégorie.</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var container = document.getElementById('ml-filterable-{{ section.id }}');
+      if (!container) return;
+
+      var buttons = container.querySelectorAll('.ml-filter-btn');
+      var items = container.querySelectorAll('.ml-filterable-grid__item');
+      var emptyMsg = container.querySelector('.ml-filterable__empty');
+
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var filter = btn.getAttribute('data-filter');
+
+          buttons.forEach(function(b) { b.classList.remove('ml-filter-btn--active'); });
+          btn.classList.add('ml-filter-btn--active');
+
+          var visibleCount = 0;
+          items.forEach(function(item) {
+            if (filter === 'all') {
+              item.classList.remove('ml-filterable-grid__item--hidden');
+              visibleCount++;
+            } else {
+              var tags = item.getAttribute('data-tags').split(',');
+              if (tags.indexOf(filter) !== -1) {
+                item.classList.remove('ml-filterable-grid__item--hidden');
+                visibleCount++;
+              } else {
+                item.classList.add('ml-filterable-grid__item--hidden');
+              }
+            }
+          });
+
+          if (emptyMsg) {
+            emptyMsg.classList.toggle('ml-filterable__empty--visible', visibleCount === 0);
+          }
+        });
+      });
+    })();
+  </script>
+
+{%- else -%}
+  <div class="ml-filterable" style="text-align:center;padding:3rem;color:#888;">
+    <p>Sélectionnez une collection dans les paramètres de la section.</p>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Collection filtrable",
+  "tag": "section",
+  "class": "ml-collection-filterable",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Produits à afficher",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colonnes bureau",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Colonnes mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Format image",
+      "options": [
+        { "value": "square", "label": "Carré" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Paysage" },
+        { "value": "adapt", "label": "Adapter à l'image" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_fill",
+      "label": "Remplir l'image",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Image au survol",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_buy",
+      "label": "Bouton Achat rapide",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_view",
+      "label": "Aperçu rapide",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter",
+      "name": "Filtre",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag produit",
+          "info": "Le tag exact du produit Shopify (ex: shampoings)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé affiché",
+          "info": "Le texte du bouton filtre (ex: Shampoings)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection filtrable",
+      "blocks": [
+        { "type": "filter", "settings": { "tag": "shampoings", "label": "Shampoings" } },
+        { "type": "filter", "settings": { "tag": "masques", "label": "Masques" } },
+        { "type": "filter", "settings": { "tag": "pigments", "label": "Pigments" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
