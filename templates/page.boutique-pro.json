@@ -8,232 +8,85 @@
         "padding_bottom": 0
       }
     },
-    "shampoings-neutres": {
-      "type": "featured-collection",
+    "boutique": {
+      "type": "ml-collection-filterable",
+      "blocks": {
+        "f1": {
+          "type": "filter",
+          "settings": {
+            "tag": "shampoing",
+            "label": "Shampoings"
+          }
+        },
+        "f2": {
+          "type": "filter",
+          "settings": {
+            "tag": "masque",
+            "label": "Masques"
+          }
+        },
+        "f3": {
+          "type": "filter",
+          "settings": {
+            "tag": "crème",
+            "label": "Crèmes"
+          }
+        },
+        "f4": {
+          "type": "filter",
+          "settings": {
+            "tag": "huile",
+            "label": "Huiles"
+          }
+        },
+        "f5": {
+          "type": "filter",
+          "settings": {
+            "tag": "sérum",
+            "label": "Sérums"
+          }
+        },
+        "f6": {
+          "type": "filter",
+          "settings": {
+            "tag": "finition",
+            "label": "Finition"
+          }
+        },
+        "f7": {
+          "type": "filter",
+          "settings": {
+            "tag": "homme",
+            "label": "Homme"
+          }
+        },
+        "f8": {
+          "type": "filter",
+          "settings": {
+            "tag": "coiffant",
+            "label": "Coiffants"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
       "settings": {
-        "collection": "shampoings-neutres",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": false,
-        "heading": "Shampoings neutres",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
+        "collection": "boutique-adherents",
+        "products_to_show": 50,
+        "columns_desktop": 4,
         "columns_mobile": "2",
-        "swipe_on_mobile": false,
         "image_ratio": "portrait",
-        "image_position": "center center",
         "enable_image_fill": true,
         "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
         "show_quick_buy": false,
         "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "shampoings-repigmentants": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "shampoings-repigmentants",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Shampoings repigmentants",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "masques-neutres": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "masques-neutres",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Masques neutres",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "masques-repigmentants": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "masques-repigmentants",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Masques repigmentants",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "cremes-coiffage": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "cremes-des-coiffage-sans-rincage",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Crèmes de coiffage sans rinçage",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "produits-finition": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "produits-de-finition",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Produits de finition",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "gamme-homme": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "gamme-homme",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Gamme Homme",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "coiffants": {
-      "type": "featured-collection",
-      "settings": {
-        "collection": "coiffants",
-        "products_to_show": 12,
-        "show_view_all": true,
-        "show_divider": true,
-        "heading": "Coiffants",
-        "heading_size": "h1",
-        "heading_alignment": "left",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_buy": false,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 36,
+        "hide_multivariant": false,
+        "padding_top": 0,
         "padding_bottom": 72
       }
     }
   },
   "order": [
     "main",
-    "shampoings-neutres",
-    "shampoings-repigmentants",
-    "masques-neutres",
-    "masques-repigmentants",
-    "cremes-coiffage",
-    "produits-finition",
-    "gamme-homme",
-    "coiffants"
+    "boutique"
   ]
 }
