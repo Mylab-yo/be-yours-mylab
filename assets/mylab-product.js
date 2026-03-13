@@ -387,19 +387,11 @@
       .then(function (product) {
         var tierKey = detectTierKey(product);
         if (!tierKey || !TIERS[tierKey]) {
-          // Pas de paliers volume : masquer les éléments de tarification
-          // mais garder le bouton Ajouter au panier visible
+          // Pas de paliers volume : masquer le bloc MyLab, afficher le formulaire natif
           var wrapper = document.querySelector('[data-mylab-pricing]');
-          if (wrapper) {
-            // Masquer contenance, paliers quantité, carte prix
-            var toHide = wrapper.querySelectorAll('.ml-option-group, .ml-pricing-card, .ml-price-savings');
-            toHide.forEach(function(el) { el.style.display = 'none'; });
-            // Afficher le prix Shopify dans le pill du bouton
-            var pill = document.getElementById('ml-cart-pill');
-            if (pill && product.price) {
-              pill.textContent = (product.price / 100).toFixed(2).replace('.', ',') + ' €';
-            }
-          }
+          if (wrapper) wrapper.style.display = 'none';
+          var fallback = document.querySelector('[data-mylab-fallback]');
+          if (fallback) fallback.style.display = '';
           return;
         }
 

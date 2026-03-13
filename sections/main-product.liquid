@@ -786,7 +786,7 @@
               </div>
 
               {%- comment -%} ====== TRUST BADGES ====== {%- endcomment -%}
-              <div class="ml-trust">
+              <div class="ml-trust" data-ml-trust>
                 <div class="ml-trust__item">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   <span>Livraison 24–48h</span>
@@ -813,6 +813,12 @@
 
               <noscript><p style="font-size:1.2rem;color:#999;margin-top:12px;">Activez JavaScript pour voir les tarifs dégressifs.</p></noscript>
             </div>
+
+            {%- comment -%} ====== FORMULAIRE NATIF (fallback pour produits sans paliers) ====== {%- endcomment -%}
+            <div data-mylab-fallback style="display:none;">
+              {% render 'buy-buttons', block: block, product: product, section_id: section.id, product_form_id: product_form_id, show_pickup_availability: true %}
+            </div>
+
             <script src="{{ 'mylab-product.js' | asset_url }}" defer="defer"></script>
           {%- when 'custom_liquid' -%}
             <div class="custom__liquid custom__liquid-{{ section.id }}" id="custom__liquid-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
