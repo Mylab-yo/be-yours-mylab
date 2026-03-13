@@ -1,3 +1,7 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 {%- style -%}
   .ml-footer {
     --ml-footer-bg: {{ section.settings.bg_color }};
@@ -9,7 +13,9 @@
 
     background: var(--ml-footer-bg);
     color: var(--ml-footer-text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.6;
     padding: 60px 0 0;
   }
 
@@ -87,7 +93,7 @@
 
   /* ── LINK COLUMNS ── */
   .ml-footer__col-heading {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--ml-footer-heading);
