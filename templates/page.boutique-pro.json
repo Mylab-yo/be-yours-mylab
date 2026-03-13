@@ -60,15 +60,8 @@
             "label": "Homme"
           }
         },
-        "f8": {
-          "type": "filter",
-          "settings": {
-            "tag": "coiffant",
-            "label": "Coiffants"
-          }
-        }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8"],
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7"],
       "settings": {
         "collection": "boutique-adherents",
         "products_to_show": 50,
