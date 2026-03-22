@@ -694,9 +694,10 @@
 
               {%- comment -%} ====== SÉLECTEUR CONTENANCE ====== {%- endcomment -%}
               {%- assign h200  = product.metafields.custom.contenance_200ml.value -%}
+              {%- assign h400  = product.metafields.custom.contenance_400ml.value -%}
               {%- assign h500  = product.metafields.custom.contenance_500ml.value -%}
               {%- assign h1000 = product.metafields.custom.contenance_1000ml.value -%}
-              {%- if h200 != blank or h500 != blank or h1000 != blank -%}
+              {%- if h200 != blank or h400 != blank or h500 != blank or h1000 != blank -%}
               <div class="ml-option-group">
                 <div class="ml-option-label">Contenance</div>
                 <div class="ml-contenance-btns" role="group" aria-label="Sélectionner la contenance">
@@ -715,6 +716,19 @@
                          data-price="{{ p200.variants.first.price }}"
                          {% if h200 == product.handle %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
                         {{ label200 }}
+                      </a>
+                    {%- endif -%}
+                  {%- endif -%}
+                  {%- if h400 != blank -%}
+                    {%- assign p400 = all_products[h400] -%}
+                    {%- if p400.id != blank -%}
+                      <a href="{{ p400.url }}"
+                         class="ml-contenance-btn {% if h400 == product.handle %}is-active{% endif %}"
+                         data-contenance="400ml"
+                         data-variant-id="{{ p400.variants.first.id }}"
+                         data-price="{{ p400.variants.first.price }}"
+                         {% if h400 == product.handle %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>
+                        400ml
                       </a>
                     {%- endif -%}
                   {%- endif -%}
