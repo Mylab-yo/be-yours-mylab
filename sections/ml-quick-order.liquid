@@ -314,6 +314,7 @@
     {%- comment -%} ── TABLEAU COMMANDE EXPRESS ── {%- endcomment -%}
     {%- assign collection = collections[section.settings.collection] -%}
 
+    {% paginate collection.products by 250 %}
     <div class="ml-qo__table-wrap">
       <table class="ml-qo__table" id="ml-qo-table">
         <thead>
@@ -491,6 +492,7 @@
         </tbody>
       </table>
     </div>
+    {% endpaginate %}
 
     <div class="ml-qo__footer">
       <div>
