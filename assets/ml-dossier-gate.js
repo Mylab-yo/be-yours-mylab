@@ -70,18 +70,7 @@
           });
         }
 
-        /* Plus aucun produit pro → retirer le dossier automatiquement */
-        if (!hasProProduct && hasDossier && dossierKey) {
-          isGateAction = true;
-          return fetch('/cart/change.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: dossierKey, quantity: 0 })
-          }).then(function () {
-            isGateAction = false;
-            document.dispatchEvent(new CustomEvent('cart:refresh'));
-          });
-        }
+        /* Le dossier peut être acheté seul — pas d'auto-retrait */
       })
       .catch(function (err) {
         console.error('MylabDossierGate:', err);
