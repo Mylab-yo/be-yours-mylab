@@ -459,19 +459,21 @@
                 {%- liquid
                   comment
                     Build candidate handles for 500ml and 1000ml
+                    Coloristeur/dejaunisseur n'ont PAS de 500ml — seulement 200ml et 1000ml
                   endcomment
                   assign h500 = product.metafields.custom.contenance_500ml.value
                   assign h1000 = product.metafields.custom.contenance_1000ml.value
+                  assign is_coloristeur_handle = false
+                  assign phandle = product.handle
+                  if phandle contains 'coloristeur-' or phandle contains 'dejaunisseur-'
+                    assign is_coloristeur_handle = true
+                  endif
 
                   comment
-                    If no metafield for 1000ml, try to construct handle automatically
+                    If no metafield for 1000ml, construct handle automatically
                   endcomment
                   if h1000 == blank
-                    assign phandle = product.handle
-                    if phandle contains 'coloristeur-' or phandle contains 'dejaunisseur-'
-                      comment
-                        Coloristeur/dejaunisseur pattern: shampoing-coloristeur-cuivre -> shampoing-1000ml-coloristeur-cuivre
-                      endcomment
+                    if is_coloristeur_handle
                       assign handle_parts = phandle | split: '-'
                       assign h1000_auto = handle_parts[0] | append: '-1000ml'
                       for i in (1..10)
@@ -481,20 +483,20 @@
                       endfor
                       assign h1000 = h1000_auto
                     else
-                      comment
-                        Neutral pattern: shampoing-nourrissant -> shampoing-nourrissant-1000-ml
-                      endcomment
                       assign h1000 = phandle | append: '-1000-ml'
                     endif
                   endif
 
-                  if h500 == blank
-                    assign h500 = product.handle | append: '-500ml'
+                  comment
+                    500ml uniquement pour les neutres (pas coloristeur/dejaunisseur)
+                  endcomment
+                  if h500 == blank and is_coloristeur_handle == false
+                    assign h500 = phandle | append: '-500ml'
                   endif
                 -%}
 
                 {%- comment -%} ── Render 500ml ── {%- endcomment -%}
-                {%- if h500 != product.handle -%}
+                {%- if h500 != blank and h500 != product.handle -%}
                   {%- assign h500_check = '|' | append: h500 | append: '|' -%}
                   {%- unless rendered_handles contains h500_check -%}
                     {%- assign lp = all_products[h500] -%}
