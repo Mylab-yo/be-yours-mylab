@@ -141,6 +141,11 @@
     color: #888;
     margin: 0 0 1.6rem;
   }
+  .ml-cat__field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
   .ml-cat__field {
     margin-bottom: 1.2rem;
   }
@@ -344,18 +349,33 @@
         <input type="hidden" name="contact[tags]" value="catalogue-request">
         <input type="hidden" name="contact[Formulaire]" value="Demande de catalogue">
 
-        <div class="ml-cat__field">
-          <label class="ml-cat__label" for="{{ form_id }}-name">Nom complet <span>*</span></label>
-          <input
-            class="ml-cat__input"
-            type="text"
-            id="{{ form_id }}-name"
-            name="contact[Nom]"
-            autocomplete="name"
-            required
-            placeholder="Jean Dupont"
-            value="{% if customer %}{{ customer.name }}{% endif %}"
-          >
+        <div class="ml-cat__field-row">
+          <div class="ml-cat__field">
+            <label class="ml-cat__label" for="{{ form_id }}-firstname">Prénom <span>*</span></label>
+            <input
+              class="ml-cat__input"
+              type="text"
+              id="{{ form_id }}-firstname"
+              name="contact[Prenom]"
+              autocomplete="given-name"
+              required
+              placeholder="Jean"
+              value="{% if customer %}{{ customer.first_name }}{% endif %}"
+            >
+          </div>
+          <div class="ml-cat__field">
+            <label class="ml-cat__label" for="{{ form_id }}-lastname">Nom <span>*</span></label>
+            <input
+              class="ml-cat__input"
+              type="text"
+              id="{{ form_id }}-lastname"
+              name="contact[Nom]"
+              autocomplete="family-name"
+              required
+              placeholder="Dupont"
+              value="{% if customer %}{{ customer.last_name }}{% endif %}"
+            >
+          </div>
         </div>
 
         <div class="ml-cat__field">
@@ -471,6 +491,7 @@
           n8nForm.style.display = 'none';
 
           var fields = {
+            prenom: shopifyForm.querySelector('[name="contact[Prenom]"]'),
             nom: shopifyForm.querySelector('[name="contact[Nom]"]'),
             email: shopifyForm.querySelector('[name="contact[email]"]'),
             telephone: shopifyForm.querySelector('[name="contact[Telephone]"]'),
