@@ -98,6 +98,28 @@
 
     {%- render 'js-variables' -%}
     {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} ML Dossier Gate — config pour auto-ajout du dossier cosmétologique {%- endcomment -%}
+    {%- assign ml_is_dossier_valide = false -%}
+    {%- if customer -%}
+      {%- if customer.tags contains 'dossier-valide' or customer.tags contains 'pro' -%}
+        {%- assign ml_is_dossier_valide = true -%}
+      {%- endif -%}
+    {%- endif -%}
+    <script>
+      window.MylabDossierGate = {
+        isProCustomer: {{ ml_is_dossier_valide | json }},
+        dossierHandle: 'creation-du-dossier-cosmetologique',
+        proHandles: {
+          {%- assign ml_pro_col = collections['boutique-adherents'] -%}
+          {%- if ml_pro_col -%}
+            {%- for p in ml_pro_col.products -%}
+              {{ p.handle | json }}: true{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          {%- endif -%}
+        }
+      };
+    </script>
   </head>
 
   <body class="template-{{ request.page_type }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}"
@@ -157,5 +179,6 @@
     
     {% render 'js-utilities' %}
     <script src="{{ 'mylab-cart.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'ml-dossier-gate.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

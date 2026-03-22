@@ -1,0 +1,119 @@
+/**
+ * ML Dossier Gate — Auto-ajout du dossier cosmétologique
+ *
+ * Quand un client non-taggé "dossier-valide" ajoute un produit de la
+ * collection boutique-adherents au panier, le dossier cosmétologique
+ * est automatiquement ajouté. Il ne peut pas être retiré tant qu'un
+ * produit pro reste dans le panier.
+ *
+ * Config attendue dans window.MylabDossierGate (injectée par Liquid) :
+ *   isProCustomer  : bool
+ *   dossierHandle  : string
+ *   proHandles     : { [handle]: true }
+ */
+(function () {
+  'use strict';
+
+  var config = window.MylabDossierGate;
+  if (!config || config.isProCustomer) return;
+
+  var dossierVariantId = null;
+  var isProcessing = false;
+  var isGateAction = false;
+
+  /* ── Charger le variant ID du dossier ── */
+  function loadDossierVariant() {
+    return fetch('/products/' + config.dossierHandle + '.js')
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (product) {
+        dossierVariantId = product.variants[0].id;
+      });
+  }
+
+  /* ── Vérifier le panier et agir ── */
+  function checkCart() {
+    if (isProcessing || !dossierVariantId) return;
+    isProcessing = true;
+
+    fetch('/cart.js')
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        var hasProProduct = false;
+        var hasDossier = false;
+        var dossierKey = null;
+
+        cart.items.forEach(function (item) {
+          if (config.proHandles[item.handle]) {
+            hasProProduct = true;
+          }
+          if (item.handle === config.dossierHandle) {
+            hasDossier = true;
+            dossierKey = item.key;
+          }
+        });
+
+        /* Produit pro dans le panier mais pas de dossier → ajouter */
+        if (hasProProduct && !hasDossier) {
+          isGateAction = true;
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              items: [{ id: dossierVariantId, quantity: 1 }]
+            })
+          }).then(function () {
+            isGateAction = false;
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
+          });
+        }
+
+        /* Plus aucun produit pro → retirer le dossier automatiquement */
+        if (!hasProProduct && hasDossier && dossierKey) {
+          isGateAction = true;
+          return fetch('/cart/change.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: dossierKey, quantity: 0 })
+          }).then(function () {
+            isGateAction = false;
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
+          });
+        }
+      })
+      .catch(function (err) {
+        console.error('MylabDossierGate:', err);
+      })
+      .finally(function () {
+        isProcessing = false;
+        isGateAction = false;
+      });
+  }
+
+  /* ── Intercepter les modifications panier ── */
+  var originalFetch = window.fetch;
+  window.fetch = function () {
+    var url = arguments[0];
+    if (
+      !isGateAction &&
+      typeof url === 'string' &&
+      (url.indexOf('/cart/add') !== -1 ||
+       url.indexOf('/cart/change') !== -1 ||
+       url.indexOf('/cart/update') !== -1)
+    ) {
+      var args = arguments;
+      return originalFetch.apply(this, args).then(function (response) {
+        setTimeout(checkCart, 400);
+        return response;
+      });
+    }
+    return originalFetch.apply(this, arguments);
+  };
+
+  /* ── Init ── */
+  loadDossierVariant().then(function () {
+    checkCart();
+  });
+})();

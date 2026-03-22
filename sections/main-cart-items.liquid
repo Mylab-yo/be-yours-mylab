@@ -57,6 +57,26 @@
               </tr>
             </thead>
             {%- assign ml_ht_subtotal_page = 0 -%}
+
+            {%- comment -%} ── ML DOSSIER GATE — pré-scan du panier ── {%- endcomment -%}
+            {%- assign ml_page_has_pro = false -%}
+            {%- assign ml_page_is_dossier_valide = false -%}
+            {%- if customer -%}
+              {%- if customer.tags contains 'dossier-valide' or customer.tags contains 'pro' -%}
+                {%- assign ml_page_is_dossier_valide = true -%}
+              {%- endif -%}
+            {%- endif -%}
+            {%- unless ml_page_is_dossier_valide -%}
+              {%- for item in cart.items -%}
+                {%- for col in item.product.collections -%}
+                  {%- if col.handle == 'boutique-adherents' -%}
+                    {%- assign ml_page_has_pro = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endfor -%}
+            {%- endunless -%}
+
             <tbody>
               {%- for item in cart.items -%}
                 {%- liquid
@@ -538,7 +558,17 @@
                       {%- endif -%}
                     </div>
 
-                    {%- if gift_wrap_id == nil or item.id != gift_wrap_id -%}
+                    {%- assign ml_page_is_dossier_item = false -%}
+                    {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_page_has_pro and ml_page_is_dossier_valide == false -%}
+                      {%- assign ml_page_is_dossier_item = true -%}
+                    {%- endif -%}
+
+                    {%- if ml_page_is_dossier_item -%}
+                      <div style="font-size:1.2rem;color:#888;line-height:1.4;margin-top:6px;padding:8px 10px;background:#f8f8f8;border-radius:4px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                        Requis pour votre première commande professionnelle.
+                      </div>
+                    {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
                       <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                         <a href="{{ item.url_to_remove }}" class="button button--tertiary" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
                           {% render 'icon', icon: 'remove' %}

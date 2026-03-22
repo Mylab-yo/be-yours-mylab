@@ -253,6 +253,30 @@
       <cart-items>
         {%- assign animate_count = animate_count | plus: 1 -%}
         {%- assign ml_ht_subtotal = 0 -%}
+
+        {%- comment -%} ── ML DOSSIER GATE — pré-scan du panier ── {%- endcomment -%}
+        {%- assign ml_cart_has_pro = false -%}
+        {%- assign ml_cart_has_dossier = false -%}
+        {%- assign ml_is_dossier_valide = false -%}
+        {%- if customer -%}
+          {%- if customer.tags contains 'dossier-valide' or customer.tags contains 'pro' -%}
+            {%- assign ml_is_dossier_valide = true -%}
+          {%- endif -%}
+        {%- endif -%}
+        {%- unless ml_is_dossier_valide -%}
+          {%- for item in cart.items -%}
+            {%- for col in item.product.collections -%}
+              {%- if col.handle == 'boutique-adherents' -%}
+                {%- assign ml_cart_has_pro = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if item.product.handle == 'creation-du-dossier-cosmetologique' -%}
+              {%- assign ml_cart_has_dossier = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endunless -%}
+
         <ul class="mini-cart__navigation" data-animate data-animate-delay-{{ animate_count }}>
           {%- for item in cart.items -%}
           {%- liquid
@@ -506,14 +530,35 @@
                           {% render 'icon', icon: 'caret' %}
                         </div>
                         {%- render 'loading-spinner' -%}
-                        <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                          <a href="{{ item.url_to_remove }}" class="delete-product" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}" data-no-instant>
-                            {% render 'icon', icon: 'remove' %}
-                          </a>
-                        </cart-remove-button>
+                        {%- assign ml_is_dossier_item = false -%}
+                        {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_cart_has_pro and ml_is_dossier_valide == false -%}
+                          {%- assign ml_is_dossier_item = true -%}
+                        {%- endif -%}
+                        {%- unless ml_is_dossier_item -%}
+                          <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                            <a href="{{ item.url_to_remove }}" class="delete-product" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}" data-no-instant>
+                              {% render 'icon', icon: 'remove' %}
+                            </a>
+                          </cart-remove-button>
+                        {%- endunless -%}
                       </div>
                     {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
                       {%- comment -%} ── NATIVE QUANTITY ── {%- endcomment -%}
+                      {%- assign ml_is_dossier_native = false -%}
+                      {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_cart_has_pro and ml_is_dossier_valide == false -%}
+                        {%- assign ml_is_dossier_native = true -%}
+                      {%- endif -%}
+
+                      {%- if ml_is_dossier_native -%}
+                        {%- comment -%} ── DOSSIER GATE : quantité fixe, pas de suppression ── {%- endcomment -%}
+                        <div class="cart-item__quantity-wrapper">
+                          <span style="font-size:1.2rem;color:#888;font-style:italic;">Requis</span>
+                        </div>
+                        <div class="ml-dossier-gate-msg" style="font-size:1.1rem;color:#888;line-height:1.4;margin-top:6px;padding:6px 8px;background:#f8f8f8;border-radius:4px;">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                          Ajouté automatiquement pour votre première commande pro.
+                        </div>
+                      {%- else -%}
                       <quantity-popover>
                         <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                           <div class="quantity-popover-container{% if has_qty_rules or has_vol_pricing %} quantity-popover-container--hover{% endif %}">
@@ -554,6 +599,8 @@
                             </a>
                           </cart-remove-button>
                         </div>
+                      {%- endif -%}
+                        {%- unless ml_is_dossier_native -%}
                         {%- if has_qty_rules or has_vol_pricing -%}
                           <button
                             type="button"
@@ -636,6 +683,7 @@
                           </div>
                         {%- endif -%}
                       </quantity-popover>
+                      {%- endunless -%}
                     {%- else -%}
                       <gift-quantity class="quantity"
                         cart-items-size="{{ cart.items.size }}"

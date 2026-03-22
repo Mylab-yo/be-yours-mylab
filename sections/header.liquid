@@ -20,22 +20,15 @@
   endif
 
   comment
-    Menu PRO/public — swap menu based on customer tags (dossier-valide / pro)
+    Menu PRO visible pour tous — le dossier gate gère l'accès via le panier
   endcomment
-  assign is_pro_customer = false
-  if customer
-    if customer.tags contains 'dossier-valide' or customer.tags contains 'pro'
-      assign is_pro_customer = true
-    endif
-  endif
-
-  if is_pro_customer and section.settings.menu_pro != blank
+  if section.settings.menu_pro != blank
     assign active_menu = section.settings.menu_pro
   else
     assign active_menu = section.settings.menu
   endif
 
-  if is_pro_customer and section.settings.menu_mobile_pro != blank
+  if section.settings.menu_mobile_pro != blank
     assign active_menu_mobile = section.settings.menu_mobile_pro
   elsif section.settings.menu_mobile != blank
     assign active_menu_mobile = section.settings.menu_mobile
