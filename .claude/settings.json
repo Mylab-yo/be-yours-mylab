@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/montage-bonhomme-v4_ygCa9teq.mp4\")",
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/reel-mylab-interview2_MiP9420u.mp4\")",
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/itw-minh_DbGJg6mw.mp4\")",
+      "Bash(curl -sI \"https://mylab-shop-3.myshopify.com/cdn/shop/videos/montage-bonhomme-v4_ygCa9teq.mp4\")",
+      "Bash(curl -sI \"https://mylab-shop-3.myshopify.com/cdn/shop/videos/reel-mylab-interview2_MiP9420u.mp4\")",
+      "Bash(curl -sI \"https://mylab-shop-3.myshopify.com/cdn/shop/videos/itw-minh_DbGJg6mw.mp4\")",
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/montage-bonhomme-v4.mp4\")",
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/reel-mylab-interview2.mp4\")",
+      "Bash(curl -sI \"https://www.mylab-shop.com/wp-content/uploads/2023/07/itw-minh.mp4\")"
+    ]
+  }
+}
