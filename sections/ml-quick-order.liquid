@@ -344,9 +344,11 @@
             {%- assign gamme_has_products = false -%}
 
             {%- for product in collection.products -%}
-              {%- comment -%} Skip if already rendered via a contenance link {%- endcomment -%}
+              {%- comment -%} Skip if already rendered or if testeur {%- endcomment -%}
               {%- assign handle_check = '|' | append: product.handle | append: '|' -%}
               {%- if rendered_handles contains handle_check -%}{%- continue -%}{%- endif -%}
+              {%- assign skip_tags = product.tags | join: ' ' | downcase -%}
+              {%- if skip_tags contains 'testeur' or skip_tags contains 'decouverte' or skip_tags contains 'découverte' -%}{%- continue -%}{%- endif -%}
 
               {%- comment -%} ── Detect tier for this product (inline) ── {%- endcomment -%}
               {%- liquid
