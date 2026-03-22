@@ -148,6 +148,8 @@
   search-modal,
   .header__icon--search {
     display: none !important;
+    visibility: hidden;
+    pointer-events: none;
   }
 </style>
 
@@ -352,9 +354,9 @@
 
       {%- if language_selector == blank and country_selector == blank -%}
         {%- if logo_position == 'top-center' or logo_position == 'center-split' -%}
-          <search-modal>
+          <search-modal aria-hidden="true" tabindex="-1">
             <details>
-              <summary class="header__icon header__icon--summary header__icon--search focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
+              <summary class="header__icon header__icon--summary header__icon--search focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}" tabindex="-1">
                 <span>
                   <svg class="icon icon-search modal__toggle-open" aria-hidden="true" focusable="false">
                     <use href="#icon-search"></use>
@@ -471,9 +473,9 @@
         endif
       -%}
 
-      <search-modal>
+      <search-modal aria-hidden="true" tabindex="-1">
         <details>
-          <summary class="header__icon header__icon--summary header__icon--search focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}">
+          <summary class="header__icon header__icon--summary header__icon--search focus-inset modal__toggle" aria-haspopup="dialog" aria-label="{{ 'general.search.search' | t }}" tabindex="-1">
             <span>
               <svg class="icon icon-search modal__toggle-open" aria-hidden="true" focusable="false">
                 <use href="#icon-search"></use>
