@@ -1,0 +1,201 @@
+{
+  "_doc": "Source de vérité unique — contenances liées + paliers de prix. Clé = handle du produit 200ml dans la collection.",
+
+  "shampoing-nourrissant": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-nourrissant", "500": "shampoing-nourrissant-500ml", "1000": "shampoing-nourrissant-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-boucles": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-boucles", "500": "shampoing-boucles-500ml", "1000": "shampoing-boucles-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-lissant": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-lissant", "500": "shampoing-lissant-500ml", "1000": "shampoing-lissant-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-ha-repulpe": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-ha-repulpe", "500": "shampoing-ha-repulpe-500ml", "1000": "shampoing-ha-repulpe-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-volume": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-volume", "500": "shampoing-volume-500ml", "1000": "shampoing-volume-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-purifiant": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-purifiant", "500": "shampoing-purifiant-500ml", "1000": "shampoing-purifiant-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-protecteur-de-couleur": {
+    "type": "shampoing", "prefix": "", "gamme": "Shampoings",
+    "sizes": { "200": "shampoing-protecteur-de-couleur", "500": "shampoing-protecteur-de-couleur-500ml", "1000": "shampoing-protecteur-de-couleur-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+  "shampoing-gel-douche": {
+    "type": "shampoing", "prefix": "homme", "gamme": "Gamme Homme",
+    "sizes": { "200": "shampoing-gel-douche", "500": "shampoing-gel-douche-500ml", "1000": "shampoing-gel-douche-1000ml" },
+    "tiers": { "200": "6:700,12:665,24:630,48:560,96:500", "500": "6:1490,12:1340,24:1265,48:1190,96:1065", "1000": "1:2490,3:2365,6:2100,12:1865" }
+  },
+
+  "masque-nourrissant": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-nourrissant", "400": "masque-nourrissant-400ml", "1000": "masque-nourrissant-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+  "masque-boucles": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-boucles", "400": "masque-boucles-400ml", "1000": "masque-boucles-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+  "masque-lissant": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-lissant", "400": "masque-lissant-400ml", "1000": "masque-lissant-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+  "masque-ha-repulpe": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-ha-repulpe", "400": "masque-ha-repulpe-400ml", "1000": "masque-ha-repulpe-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+  "masque-volume": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-volume", "400": "masque-volume-400ml", "1000": "masque-volume-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+  "masque-protecteur-de-couleur": {
+    "type": "masque", "prefix": "", "gamme": "Masques capillaires",
+    "sizes": { "200": "masque-protecteur-de-couleur", "400": "masque-protecteur-de-couleur-400ml", "1000": "masque-protecteur-de-couleur-1000ml" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680", "400": "6:1690,12:1590,24:1520,48:1350,96:1210", "1000": "1:3290,3:3125,6:2790,12:2465" }
+  },
+
+  "creme-boucles": {
+    "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
+    "sizes": { "200": "creme-boucles", "500": "creme-boucles-500ml" },
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610", "500": "6:1490,12:1340,24:1265,48:1190,96:1065" }
+  },
+  "creme-ha-repulpe": {
+    "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
+    "sizes": { "200": "creme-ha-repulpe" },
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610" }
+  },
+  "creme-lissante": {
+    "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
+    "sizes": { "200": "creme-lissante" },
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610" }
+  },
+  "creme-nourrissante": {
+    "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
+    "sizes": { "200": "creme-nourrissante" },
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610" }
+  },
+  "creme-volume": {
+    "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
+    "sizes": { "200": "creme-volume" },
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610" }
+  },
+  "masque-reparateur-sans-rincage": {
+    "type": "spray_reparateur", "prefix": "", "gamme": "Sprays réparateurs",
+    "sizes": { "200": "masque-reparateur-sans-rincage" },
+    "tiers": { "200": "6:990,12:940,24:890,48:790,96:710" }
+  },
+  "spray-texturisant": {
+    "type": "spray_reparateur", "prefix": "", "gamme": "Sprays réparateurs",
+    "sizes": { "200": "spray-texturisant" },
+    "tiers": { "200": "6:990,12:940,24:890,48:790,96:710" }
+  },
+
+  "serum-finition-ultime": {
+    "type": "serum", "prefix": "", "gamme": "Sérums",
+    "sizes": { "50": "serum-finition-ultime" },
+    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
+  },
+  "serum-barbe": {
+    "type": "serum", "prefix": "homme", "gamme": "Gamme Homme",
+    "sizes": { "50": "serum-barbe" },
+    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
+  },
+
+  "bain-miraculeux": {
+    "type": "huile", "prefix": "", "gamme": "Huiles",
+    "sizes": { "50": "bain-miraculeux" },
+    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
+  },
+  "huile-a-barbe": {
+    "type": "huile", "prefix": "homme", "gamme": "Gamme Homme",
+    "sizes": { "50": "huile-a-barbe" },
+    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
+  },
+
+  "masque-intense": {
+    "type": "masque", "prefix": "homme", "gamme": "Gamme Homme",
+    "sizes": { "200": "masque-intense" },
+    "tiers": { "200": "6:950,12:900,24:855,48:760,96:680" }
+  },
+
+  "shampoing-coloristeur-blond-soleil": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-coloristeur-blond-soleil", "1000": "shampoing-1000ml-coloristeur-blond-soleil" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+  "shampoing-coloristeur-blond-vanille": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-coloristeur-blond-vanille", "1000": "shampoing-1000ml-coloristeur-blond-vanille" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+  "shampoing-coloristeur-chocolat": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-coloristeur-chocolat", "1000": "shampoing-1000ml-coloristeur-chocolat" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+  "shampoing-coloristeur-cuivre": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-coloristeur-cuivre", "1000": "shampoing-1000ml-coloristeur-cuivre" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+  "shampoing-coloristeur-marron-noisette": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-coloristeur-marron-noisette", "1000": "shampoing-1000ml-coloristeur-marron-noisette" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+  "shampoing-dejaunisseur-platine": {
+    "type": "shampoing", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "shampoing-dejaunisseur-platine", "1000": "shampoing-1000ml-dejaunisseur-platine" },
+    "tiers": { "200": "6:750,12:710,24:675,48:600,96:540", "1000": "1:2890,3:2745,6:2450,12:2160" }
+  },
+
+  "masque-coloristeur-blond-soleil": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-coloristeur-blond-soleil", "1000": "masque-1000ml-coloristeur-blond-soleil" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  },
+  "masque-coloristeur-blond-vanille": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-coloristeur-blond-vanille", "1000": "masque-1000ml-coloristeur-blond-vanille" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  },
+  "masque-coloristeur-chocolat": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-coloristeur-chocolat", "1000": "masque-1000ml-coloristeur-chocolat" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  },
+  "masque-coloristeur-cuivre": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-coloristeur-cuivre", "1000": "masque-1000ml-coloristeur-cuivre" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  },
+  "masque-coloristeur-marron-noisette": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-coloristeur-marron-noisette", "1000": "masque-1000ml-coloristeur-marron-noisette" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  },
+  "masque-dejaunisseur-platine": {
+    "type": "masque", "prefix": "dejaunisseur", "gamme": "Gamme Déjaunisseur / Coloristeur",
+    "sizes": { "200": "masque-dejaunisseur-platine", "1000": "masque-1000ml-dejaunisseur-platine" },
+    "tiers": { "200": "6:960,12:910,24:860,48:765,96:690", "1000": "1:3490,3:3315,6:2965,12:2615" }
+  }
+}

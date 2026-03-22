@@ -596,64 +596,7 @@
           });
         });
 
-        /* ── CHARGEMENT DES CONTENANCES LIÉES VIA JS ── */
-        /* Map explicite : handle 200ml -> [{handle, size}] */
-        var LINKED = {
-          /* ── Crèmes ── */
-          'creme-boucles': [{h:'creme-boucles-500ml',s:'500'}],
-          /* ── Masques neutres (400ml + 1000ml) ── */
-          'masque-boucles': [{h:'masque-boucles-400ml',s:'400'},{h:'masque-boucles-1000ml',s:'1000'}],
-          'masque-ha-repulpe': [{h:'masque-ha-repulpe-400ml',s:'400'},{h:'masque-ha-repulpe-1000ml',s:'1000'}],
-          'masque-lissant': [{h:'masque-lissant-400ml',s:'400'},{h:'masque-lissant-1000ml',s:'1000'}],
-          'masque-nourrissant': [{h:'masque-nourrissant-400ml',s:'400'},{h:'masque-nourrissant-1000ml',s:'1000'}],
-          'masque-protecteur-de-couleur': [{h:'masque-protecteur-de-couleur-400ml',s:'400'},{h:'masque-protecteur-de-couleur-1000ml',s:'1000'}],
-          'masque-volume': [{h:'masque-volume-400ml',s:'400'},{h:'masque-volume-1000ml',s:'1000'}],
-          /* ── Shampoings neutres (500ml + 1000ml) ── */
-          'shampoing-gel-douche': [{h:'shampoing-gel-douche-500ml',s:'500'},{h:'shampoing-gel-douche-1000ml',s:'1000'}],
-          'shampoing-boucles': [{h:'shampoing-boucles-500ml',s:'500'},{h:'shampoing-boucles-1000ml',s:'1000'}],
-          'shampoing-ha-repulpe': [{h:'shampoing-ha-repulpe-500ml',s:'500'},{h:'shampoing-ha-repulpe-1000ml',s:'1000'}],
-          'shampoing-lissant': [{h:'shampoing-lissant-500ml',s:'500'},{h:'shampoing-lissant-1000ml',s:'1000'}],
-          'shampoing-nourrissant': [{h:'shampoing-nourrissant-500ml',s:'500'},{h:'shampoing-nourrissant-1000ml',s:'1000'}],
-          'shampoing-protecteur-de-couleur': [{h:'shampoing-protecteur-de-couleur-500ml',s:'500'},{h:'shampoing-protecteur-de-couleur-1000ml',s:'1000'}],
-          'shampoing-purifiant': [{h:'shampoing-purifiant-500ml',s:'500'},{h:'shampoing-purifiant-1000ml',s:'1000'}],
-          'shampoing-volume': [{h:'shampoing-volume-500ml',s:'500'},{h:'shampoing-volume-1000ml',s:'1000'}],
-          /* ── Coloristeur shampoings 1000ml ── */
-          'shampoing-coloristeur-blond-soleil': [{h:'shampoing-1000ml-coloristeur-blond-soleil',s:'1000'}],
-          'shampoing-coloristeur-blond-vanille': [{h:'shampoing-1000ml-coloristeur-blond-vanille',s:'1000'}],
-          'shampoing-coloristeur-chocolat': [{h:'shampoing-1000ml-coloristeur-chocolat',s:'1000'}],
-          'shampoing-coloristeur-cuivre': [{h:'shampoing-1000ml-coloristeur-cuivre',s:'1000'}],
-          'shampoing-coloristeur-marron-noisette': [{h:'shampoing-1000ml-coloristeur-marron-noisette',s:'1000'}],
-          /* ── Coloristeur masques 1000ml ── */
-          'masque-coloristeur-blond-soleil': [{h:'masque-1000ml-coloristeur-blond-soleil',s:'1000'}],
-          'masque-coloristeur-blond-vanille': [{h:'masque-1000ml-coloristeur-blond-vanille',s:'1000'}],
-          'masque-coloristeur-chocolat': [{h:'masque-1000ml-coloristeur-chocolat',s:'1000'}],
-          'masque-coloristeur-cuivre': [{h:'masque-1000ml-coloristeur-cuivre',s:'1000'}],
-          'masque-coloristeur-marron-noisette': [{h:'masque-1000ml-coloristeur-marron-noisette',s:'1000'}],
-          /* ── Déjaunisseur 1000ml ── */
-          'shampoing-dejaunisseur-platine': [{h:'shampoing-1000ml-dejaunisseur-platine',s:'1000'}],
-          'masque-dejaunisseur-platine': [{h:'masque-1000ml-dejaunisseur-platine',s:'1000'}]
-        };
-
-        var TIER_MAP = {
-          'dejaunisseur_shampoing_500': '6:1490,12:1340,24:1265,48:1190,96:1065',
-          'dejaunisseur_shampoing_1000': '1:2890,3:2745,6:2450,12:2160',
-          'dejaunisseur_masque_1000': '1:3490,3:3315,6:2965,12:2615',
-          'homme_masque_500': '6:1990,12:1790,24:1690,48:1590,96:1430',
-          'shampoing_500': '6:1490,12:1340,24:1265,48:1190,96:1065',
-          'shampoing_1000': '1:2490,3:2365,6:2100,12:1865',
-          'masque_1000': '1:3290,3:3125,6:2790,12:2465',
-          'creme_500': '6:1490,12:1340,24:1265,48:1190,96:1065',
-          'creme_1000': '1:3290,3:3125,6:2790,12:2465'
-        };
-
-        function getTierData(prefix, type, size) {
-          if (prefix) {
-            var key = prefix + '_' + type + '_' + size;
-            if (TIER_MAP[key]) return TIER_MAP[key];
-          }
-          return TIER_MAP[type + '_' + size] || '';
-        }
-
+        /* ── CHARGEMENT DES CONTENANCES LIÉES DEPUIS ml-product-map.json ── */
         function buildRow(product, tierData, sizeLabel) {
           var imgSrc = product.images && product.images[0] ? product.images[0] : '';
           if (imgSrc) imgSrc = imgSrc.replace(/\.([^.]+)$/, '_100x100.$1');
@@ -674,28 +617,43 @@
             + '</tr>';
         }
 
-        /* Pour chaque placeholder, charger les contenances liées */
-        table.querySelectorAll('.ml-qo__linked-placeholder').forEach(function (ph) {
-          var parentHandle = ph.dataset.parentHandle;
-          var linked = LINKED[parentHandle];
-          if (!linked || !linked.length) { ph.remove(); return; }
+        /* Charger le JSON centralisé et injecter les contenances liées */
+        fetch('{{ "ml-product-map.json" | asset_url }}')
+          .then(function (r) { return r.json(); })
+          .then(function (map) {
+            var placeholders = table.querySelectorAll('.ml-qo__linked-placeholder');
+            placeholders.forEach(function (ph) {
+              var parentHandle = ph.dataset.parentHandle;
+              var entry = map[parentHandle];
+              if (!entry || !entry.sizes || !entry.tiers) { ph.remove(); return; }
 
-          var type = ph.dataset.type;
-          var prefix = ph.dataset.prefix;
+              /* Trouver les tailles liées (hors taille du produit 200ml dans la collection) */
+              var baseSizeHandle = entry.sizes[Object.keys(entry.sizes)[0]];
+              var linked = [];
+              Object.keys(entry.sizes).forEach(function (size) {
+                var h = entry.sizes[size];
+                if (h !== parentHandle && entry.tiers[size]) {
+                  linked.push({ handle: h, size: size, tierData: entry.tiers[size] });
+                }
+              });
 
-          linked.forEach(function (entry) {
-            fetch('/products/' + entry.h + '.js')
-              .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-              .then(function (product) {
-                var tierData = getTierData(prefix, type, entry.s);
-                if (!tierData) return;
-                ph.insertAdjacentHTML('beforebegin', buildRow(product, tierData, entry.s));
-              })
-              .catch(function () {});
+              if (!linked.length) { ph.remove(); return; }
+
+              var fetches = linked.map(function (l) {
+                return fetch('/products/' + l.handle + '.js')
+                  .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+                  .then(function (product) {
+                    ph.insertAdjacentHTML('beforebegin', buildRow(product, l.tierData, l.size));
+                  })
+                  .catch(function () {});
+              });
+
+              Promise.all(fetches).then(function () { ph.remove(); });
+            });
+          })
+          .catch(function (err) {
+            console.error('ML Quick Order: impossible de charger le product map', err);
           });
-
-          setTimeout(function () { ph.remove(); }, 3000);
-        });
       })();
     </script>
   {%- endunless -%}

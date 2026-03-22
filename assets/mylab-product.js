@@ -10,172 +10,63 @@
   /* -------------------------------------------------------
      GRILLES TARIFAIRES (centimes HT, prix unitaire)
      ------------------------------------------------------- */
-  var TIERS = {
-    /* ---- SHAMPOINGS ---- */
-    shampoing_200: [
-      { qty: 6, price: 700 }, { qty: 12, price: 665 },
-      { qty: 24, price: 630 }, { qty: 48, price: 560 }, { qty: 96, price: 500 }
-    ],
-    shampoing_500: [
-      { qty: 6, price: 1490 }, { qty: 12, price: 1340 },
-      { qty: 24, price: 1265 }, { qty: 48, price: 1190 }, { qty: 96, price: 1065 }
-    ],
-    shampoing_1000: [
-      { qty: 1, price: 2490 }, { qty: 3, price: 2365 },
-      { qty: 6, price: 2100 }, { qty: 12, price: 1865 }
-    ],
-
-    /* ---- MASQUES ---- */
-    masque_200: [
-      { qty: 6, price: 950 }, { qty: 12, price: 900 },
-      { qty: 24, price: 855 }, { qty: 48, price: 760 }, { qty: 96, price: 680 }
-    ],
-    masque_400: [
-      { qty: 6, price: 1690 }, { qty: 12, price: 1590 },
-      { qty: 24, price: 1520 }, { qty: 48, price: 1350 }, { qty: 96, price: 1210 }
-    ],
-    masque_1000: [
-      { qty: 1, price: 3290 }, { qty: 3, price: 3125 },
-      { qty: 6, price: 2790 }, { qty: 12, price: 2465 }
-    ],
-
-    /* ---- CRÈMES SANS RINÇAGE ---- */
-    creme_200: [
-      { qty: 6, price: 850 }, { qty: 12, price: 805 },
-      { qty: 24, price: 765 }, { qty: 48, price: 680 }, { qty: 96, price: 610 }
-    ],
-    creme_400: [
-      { qty: 6, price: 1690 }, { qty: 12, price: 1590 },
-      { qty: 24, price: 1520 }, { qty: 48, price: 1350 }, { qty: 96, price: 1210 }
-    ],
-    creme_1000: [
-      { qty: 1, price: 3290 }, { qty: 3, price: 3125 },
-      { qty: 6, price: 2790 }, { qty: 12, price: 2465 }
-    ],
-
-    /* ---- DÉJAUNISSEUR / COLORISTEUR ---- */
-    dejaunisseur_shampoing_200: [
-      { qty: 6, price: 750 }, { qty: 12, price: 710 },
-      { qty: 24, price: 675 }, { qty: 48, price: 600 }, { qty: 96, price: 540 }
-    ],
-    dejaunisseur_masque_200: [
-      { qty: 6, price: 960 }, { qty: 12, price: 910 },
-      { qty: 24, price: 860 }, { qty: 48, price: 765 }, { qty: 96, price: 690 }
-    ],
-    dejaunisseur_shampoing_1000: [
-      { qty: 1, price: 2890 }, { qty: 3, price: 2745 },
-      { qty: 6, price: 2450 }, { qty: 12, price: 2160 }
-    ],
-    dejaunisseur_masque_1000: [
-      { qty: 1, price: 3490 }, { qty: 3, price: 3315 },
-      { qty: 6, price: 2965 }, { qty: 12, price: 2615 }
-    ],
-
-    /* ---- MASQUE RÉPARATEUR SPRAY ---- */
-    spray_reparateur_200: [
-      { qty: 6, price: 990 }, { qty: 12, price: 940 },
-      { qty: 24, price: 890 }, { qty: 48, price: 790 }, { qty: 96, price: 710 }
-    ],
-
-    /* ---- SÉRUM 50ml ---- */
-    serum_50: [
-      { qty: 6, price: 850 }, { qty: 12, price: 805 },
-      { qty: 24, price: 765 }, { qty: 48, price: 680 }, { qty: 96, price: 610 }
-    ],
-
-    /* ---- HUILE 50ml ---- */
-    huile_50: [
-      { qty: 6, price: 950 }, { qty: 12, price: 900 },
-      { qty: 24, price: 850 }, { qty: 48, price: 760 }, { qty: 96, price: 680 }
-    ],
-
-    /* ---- CIRES 50ml ---- */
-    cire_50: [
-      { qty: 6, price: 690 }, { qty: 12, price: 660 },
-      { qty: 24, price: 630 }, { qty: 48, price: 600 }
-    ],
-
-    /* ---- HOMME : MASQUE INTENSE 500ml ---- */
-    homme_masque_500: [
-      { qty: 6, price: 1990 }, { qty: 12, price: 1790 },
-      { qty: 24, price: 1690 }, { qty: 48, price: 1590 }, { qty: 96, price: 1430 }
-    ]
-  };
-
   /* -------------------------------------------------------
-     DÉTECTION DU TYPE DE GRILLE (tags + titre)
+     PRODUCT MAP — source de vérité unique
+     Chargé depuis assets/ml-product-map.json
      ------------------------------------------------------- */
-  function detectTierKey(productData) {
-    var tags = (productData.tags || []).map(function (t) { return t.toLowerCase().trim(); });
-    var title = (productData.title || '').toLowerCase();
-    var allTags = tags.join(' ');
+  var PRODUCT_MAP = null;
 
-    // Format
-    var format = '';
-    tags.forEach(function (tag) {
-      if (tag === '1000ml' || tag === '1l') format = '1000';
-      else if (tag === '500ml' && !format) format = '500';
-      else if (tag === '400ml' && !format) format = '400';
-      else if (tag === '200ml' && !format) format = '200';
-      else if (tag === '50ml' && !format) format = '50';
+  function loadProductMap() {
+    if (PRODUCT_MAP) return Promise.resolve(PRODUCT_MAP);
+    var url = document.querySelector('[data-ml-product-map-url]');
+    var mapUrl = url ? url.dataset.mlProductMapUrl : '/assets/ml-product-map.json';
+    return fetch(mapUrl)
+      .then(function (r) { return r.json(); })
+      .then(function (data) { PRODUCT_MAP = data; return data; });
+  }
+
+  function parseTierString(str) {
+    if (!str) return [];
+    return str.split(',').map(function (t) {
+      var p = t.split(':');
+      return { qty: parseInt(p[0], 10), price: parseInt(p[1], 10) };
     });
-    if (!format) {
-      if (title.includes('1000') || title.includes('1l')) format = '1000';
-      else if (title.includes('500')) format = '500';
-      else if (title.includes('400')) format = '400';
-      else if (title.includes('200')) format = '200';
-      else if (title.includes('50ml')) format = '50';
-    }
+  }
 
-    // Type
-    var type = '';
-    if (allTags.includes('shampoing') || title.includes('shampoing') || title.includes('shampooing')) {
-      type = 'shampoing';
-    } else if ((allTags.includes('spray') || title.includes('spray')) && (allTags.includes('masque') || title.includes('masque'))) {
-      type = 'spray_reparateur';
-    } else if (allTags.includes('masque') || title.includes('masque')) {
-      type = 'masque';
-    } else if (allTags.includes('creme') || allTags.includes('crème') || title.includes('crème') || title.includes('creme')) {
-      type = 'creme';
-    } else if (allTags.includes('serum') || allTags.includes('sérum') || title.includes('sérum') || title.includes('serum')) {
-      type = 'serum';
-    } else if (allTags.includes('huile') || title.includes('huile') || title.includes('bain miraculeux')) {
-      type = 'huile';
-    } else if (allTags.includes('cire') || title.includes('cire')) {
-      type = 'cire';
+  function findProductEntry(handle, map) {
+    /* Cherche directement par handle (clé = handle 200ml) */
+    if (map[handle]) return { entry: map[handle], size: null };
+    /* Cherche dans les sizes de chaque entrée */
+    var keys = Object.keys(map);
+    for (var i = 0; i < keys.length; i++) {
+      var entry = map[keys[i]];
+      var sizes = entry.sizes || {};
+      var sizeKeys = Object.keys(sizes);
+      for (var s = 0; s < sizeKeys.length; s++) {
+        if (sizes[sizeKeys[s]] === handle) {
+          return { entry: entry, size: sizeKeys[s] };
+        }
+      }
     }
-
-    // Gamme spéciale
-    var gamme = '';
-    if (allTags.includes('dejauniss') || allTags.includes('colorist') || title.includes('déjauniss') || title.includes('dejauniss') || title.includes('colorist')) {
-      gamme = 'dejaunisseur';
-    } else if (allTags.includes('homme') || allTags.includes('herborist') || title.includes('herborist')) {
-      gamme = 'homme';
-    }
-
-    // Construire la clé
-    if (gamme === 'dejaunisseur') {
-      var key = 'dejaunisseur_' + type + '_' + format;
-      if (TIERS[key]) return key;
-    }
-    if (gamme === 'homme') {
-      var key2 = 'homme_' + type + '_' + format;
-      if (TIERS[key2]) return key2;
-    }
-    if (type === 'spray_reparateur') {
-      return 'spray_reparateur_200';
-    }
-
-    var baseKey = type + '_' + format;
-    if (TIERS[baseKey]) return baseKey;
-
-    // Fallback 50ml
-    if (!format && (type === 'serum' || type === 'huile' || type === 'cire')) {
-      var key3 = type + '_50';
-      if (TIERS[key3]) return key3;
-    }
-
     return null;
+  }
+
+  function detectTiers(handle, map) {
+    var found = findProductEntry(handle, map);
+    if (!found) return null;
+    var entry = found.entry;
+    var size = found.size;
+    /* Si on a trouvé par la clé directe, déterminer la taille du produit courant */
+    if (!size) {
+      var sizeKeys = Object.keys(entry.sizes || {});
+      for (var i = 0; i < sizeKeys.length; i++) {
+        if (entry.sizes[sizeKeys[i]] === handle) { size = sizeKeys[i]; break; }
+      }
+      if (!size && sizeKeys.length > 0) size = sizeKeys[0];
+    }
+    var tierStr = entry.tiers ? entry.tiers[size] : null;
+    if (!tierStr) return null;
+    return parseTierString(tierStr);
   }
 
   /* -------------------------------------------------------
@@ -382,11 +273,16 @@
       cartBtn.addEventListener('click', handleAddToCart);
     }
 
-    fetch('/products/' + handle + '.js')
-      .then(function (r) { return r.json(); })
-      .then(function (product) {
-        var tierKey = detectTierKey(product);
-        if (!tierKey || !TIERS[tierKey]) {
+    Promise.all([
+      loadProductMap(),
+      fetch('/products/' + handle + '.js').then(function (r) { return r.json(); })
+    ])
+      .then(function (results) {
+        var map = results[0];
+        var product = results[1];
+        var tiers = detectTiers(handle, map);
+
+        if (!tiers || !tiers.length) {
           // Pas de paliers volume : masquer le bloc MyLab, afficher le formulaire natif
           var wrapper = document.querySelector('[data-mylab-pricing]');
           if (wrapper) wrapper.style.display = 'none';
@@ -395,7 +291,7 @@
           return;
         }
 
-        state.currentTiers = TIERS[tierKey];
+        state.currentTiers = tiers;
 
         // Si pas de variant ID depuis Liquid, utiliser le premier variant
         if (!state.variantId && product.variants && product.variants.length > 0) {
