@@ -599,15 +599,24 @@
         /* ── CHARGEMENT DES CONTENANCES LIÉES VIA JS ── */
         /* Map explicite : handle 200ml -> [{handle, size}] */
         var LINKED = {
-          /* ── Neutres 500ml ── */
+          /* ── Crèmes ── */
           'creme-boucles': [{h:'creme-boucles-500ml',s:'500'}],
-          'shampoing-gel-douche': [{h:'shampoing-gel-douche-500ml',s:'500'}],
-          'shampoing-boucles': [{h:'shampoing-boucles-500ml',s:'500'}],
-          'shampoing-ha-repulpe': [{h:'shampoing-ha-repulpe-500ml',s:'500'}],
-          'shampoing-nourrissant': [{h:'shampoing-nourrissant-500ml',s:'500'},{h:'shampoing-nourrissant-1000-ml',s:'1000'}],
-          'shampoing-protecteur-de-couleur': [{h:'shampoing-protecteur-de-couleur-500ml',s:'500'}],
-          'shampoing-purifiant': [{h:'shampoing-purifiant-500ml',s:'500'}],
-          'shampoing-volume': [{h:'shampoing-volume-500ml',s:'500'}],
+          /* ── Masques neutres (400ml + 1000ml) ── */
+          'masque-boucles': [{h:'masque-boucles-400ml',s:'400'},{h:'masque-boucles-1000ml',s:'1000'}],
+          'masque-ha-repulpe': [{h:'masque-ha-repulpe-400ml',s:'400'},{h:'masque-ha-repulpe-1000ml',s:'1000'}],
+          'masque-lissant': [{h:'masque-lissant-400ml',s:'400'},{h:'masque-lissant-1000ml',s:'1000'}],
+          'masque-nourrissant': [{h:'masque-nourrissant-400ml',s:'400'},{h:'masque-nourrissant-1000ml',s:'1000'}],
+          'masque-protecteur-de-couleur': [{h:'masque-protecteur-de-couleur-400ml',s:'400'},{h:'masque-protecteur-de-couleur-1000ml',s:'1000'}],
+          'masque-volume': [{h:'masque-volume-400ml',s:'400'},{h:'masque-volume-1000ml',s:'1000'}],
+          /* ── Shampoings neutres (500ml + 1000ml) ── */
+          'shampoing-gel-douche': [{h:'shampoing-gel-douche-500ml',s:'500'},{h:'shampoing-gel-douche-1000ml',s:'1000'}],
+          'shampoing-boucles': [{h:'shampoing-boucles-500ml',s:'500'},{h:'shampoing-boucles-1000ml',s:'1000'}],
+          'shampoing-ha-repulpe': [{h:'shampoing-ha-repulpe-500ml',s:'500'},{h:'shampoing-ha-repulpe-1000ml',s:'1000'}],
+          'shampoing-lissant': [{h:'shampoing-lissant-500ml',s:'500'},{h:'shampoing-lissant-1000ml',s:'1000'}],
+          'shampoing-nourrissant': [{h:'shampoing-nourrissant-500ml',s:'500'},{h:'shampoing-nourrissant-1000ml',s:'1000'}],
+          'shampoing-protecteur-de-couleur': [{h:'shampoing-protecteur-de-couleur-500ml',s:'500'},{h:'shampoing-protecteur-de-couleur-1000ml',s:'1000'}],
+          'shampoing-purifiant': [{h:'shampoing-purifiant-500ml',s:'500'},{h:'shampoing-purifiant-1000ml',s:'1000'}],
+          'shampoing-volume': [{h:'shampoing-volume-500ml',s:'500'},{h:'shampoing-volume-1000ml',s:'1000'}],
           /* ── Coloristeur shampoings 1000ml ── */
           'shampoing-coloristeur-blond-soleil': [{h:'shampoing-1000ml-coloristeur-blond-soleil',s:'1000'}],
           'shampoing-coloristeur-blond-vanille': [{h:'shampoing-1000ml-coloristeur-blond-vanille',s:'1000'}],
