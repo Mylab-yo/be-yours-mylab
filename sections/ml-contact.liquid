@@ -1,0 +1,711 @@
+{% comment %}
+  MyLab Shop — Page Contact
+  sections/ml-contact.liquid
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-contact {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: #111;
+  }
+
+  /* ── HERO ── */
+  .ml-contact__hero {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 3rem;
+  }
+  .ml-contact__badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+  .ml-contact__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.15;
+    margin: 0 0 1.2rem;
+    color: #111;
+  }
+  .ml-contact__subtitle {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── GRID ── */
+  .ml-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── LEFT: INFOS ── */
+  .ml-contact__infos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+  .ml-contact__card {
+    padding: 1.6rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+  .ml-contact__card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #111;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+  }
+  .ml-contact__card-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #fff;
+    fill: none;
+    stroke-width: 1.5;
+  }
+  .ml-contact__card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 0.4rem;
+  }
+  .ml-contact__card-text {
+    font-size: 1.3rem;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .ml-contact__card-text a {
+    color: #111;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .ml-contact__card-text a:hover {
+    color: #555;
+  }
+
+  /* Horaires */
+  .ml-contact__hours {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ml-contact__hours li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    color: #555;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .ml-contact__hours li:last-child {
+    border-bottom: none;
+  }
+  .ml-contact__hours li span:last-child {
+    font-weight: 500;
+    color: #111;
+  }
+
+  /* Social */
+  .ml-contact__social {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
+  }
+  .ml-contact__social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #111;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  .ml-contact__social a:hover {
+    background: #333;
+  }
+  .ml-contact__social svg {
+    width: 18px;
+    height: 18px;
+    fill: #fff;
+  }
+
+  /* ── RIGHT: FORMULAIRE ── */
+  .ml-contact__form-wrap {
+    padding: 2.4rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .ml-contact__form-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: #111;
+  }
+  .ml-contact__form-desc {
+    font-size: 1.2rem;
+    color: #888;
+    margin: 0 0 1.6rem;
+  }
+  .ml-contact__field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .ml-contact__field {
+    margin-bottom: 1.2rem;
+  }
+  .ml-contact__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.4rem;
+  }
+  .ml-contact__label span {
+    color: #c00;
+  }
+  .ml-contact__input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+  }
+  .ml-contact__input:focus {
+    outline: none;
+    border-color: #111;
+    box-shadow: 0 0 0 2px rgba(17,17,17,0.08);
+    background: #fff;
+  }
+  .ml-contact__input::placeholder {
+    color: #bbb;
+  }
+  textarea.ml-contact__input {
+    resize: vertical;
+    min-height: 120px;
+  }
+  .ml-contact__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 3rem;
+  }
+  .ml-contact__submit {
+    width: 100%;
+    padding: 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.8rem;
+    min-height: 50px;
+  }
+  .ml-contact__submit:hover {
+    background: #333;
+  }
+  .ml-contact__submit:active {
+    transform: scale(0.98);
+  }
+
+  /* ── SUCCESS ── */
+  .ml-contact__success {
+    text-align: center;
+    padding: 2rem;
+    background: #f0faf0;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+  }
+  .ml-contact__success svg {
+    margin-bottom: 0.6rem;
+  }
+  .ml-contact__success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d7a45;
+    margin: 0 0 0.4rem;
+  }
+  .ml-contact__success-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 749px) {
+    .ml-contact__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .ml-contact__form-wrap {
+      padding: 1.6rem;
+    }
+    .ml-contact__card {
+      padding: 1.2rem;
+    }
+    .ml-contact__title {
+      font-size: clamp(2.4rem, 7vw, 3.2rem);
+    }
+    .ml-contact__field-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="ml-contact page-width">
+
+  {%- comment -%} ====== HERO ====== {%- endcomment -%}
+  <div class="ml-contact__hero">
+    <div class="ml-contact__badge">{{ section.settings.badge | default: 'MyLab' }}</div>
+    <h1 class="ml-contact__title">{{ section.settings.heading | default: 'Contactez-nous' }}</h1>
+    <p class="ml-contact__subtitle">{{ section.settings.subtitle | default: 'Une question sur nos produits, nos formules ou votre commande ? Notre équipe est à votre écoute.' }}</p>
+  </div>
+
+  {%- comment -%} ====== GRID ====== {%- endcomment -%}
+  <div class="ml-contact__grid">
+
+    {%- comment -%} ── LEFT: Infos ── {%- endcomment -%}
+    <div class="ml-contact__infos">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'info_card' -%}
+            <div class="ml-contact__card" {{ block.shopify_attributes }}>
+              <div class="ml-contact__card-icon">
+                {%- case block.settings.icon -%}
+                  {%- when 'email' -%}
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  {%- when 'phone' -%}
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                  {%- when 'location' -%}
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {%- when 'clock' -%}
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {%- endcase -%}
+              </div>
+              <h3 class="ml-contact__card-title">{{ block.settings.title }}</h3>
+              <div class="ml-contact__card-text">{{ block.settings.text }}</div>
+            </div>
+
+          {%- when 'hours' -%}
+            <div class="ml-contact__card" {{ block.shopify_attributes }}>
+              <div class="ml-contact__card-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h3 class="ml-contact__card-title">{{ block.settings.title | default: 'Horaires' }}</h3>
+              <ul class="ml-contact__hours">
+                {%- if block.settings.line_1_label != blank -%}
+                  <li><span>{{ block.settings.line_1_label }}</span><span>{{ block.settings.line_1_value }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.line_2_label != blank -%}
+                  <li><span>{{ block.settings.line_2_label }}</span><span>{{ block.settings.line_2_value }}</span></li>
+                {%- endif -%}
+                {%- if block.settings.line_3_label != blank -%}
+                  <li><span>{{ block.settings.line_3_label }}</span><span>{{ block.settings.line_3_value }}</span></li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+          {%- when 'social' -%}
+            <div class="ml-contact__card" {{ block.shopify_attributes }}>
+              <h3 class="ml-contact__card-title">{{ block.settings.title | default: 'Suivez-nous' }}</h3>
+              <div class="ml-contact__social">
+                {%- if settings.social_facebook_link != blank -%}
+                  <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+                  </a>
+                {%- endif -%}
+                {%- if settings.social_instagram_link != blank -%}
+                  <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                  </a>
+                {%- endif -%}
+                {%- if settings.social_tiktok_link != blank -%}
+                  <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+                    <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} ── RIGHT: Formulaire ── {%- endcomment -%}
+    <div class="ml-contact__form-wrap">
+      <h2 class="ml-contact__form-title">{{ section.settings.form_heading | default: 'Envoyez-nous un message' }}</h2>
+      <p class="ml-contact__form-desc">{{ section.settings.form_desc | default: 'Nous vous répondons sous 24h.' }}</p>
+
+      {%- assign form_id = 'MLContactForm-' | append: section.id -%}
+      {%- form 'contact', id: form_id -%}
+
+        {%- if form.posted_successfully? -%}
+          <div class="ml-contact__success">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l3 3 5-5"/>
+            </svg>
+            <h3 class="ml-contact__success-title">Message envoyé !</h3>
+            <p class="ml-contact__success-text">Merci pour votre message. Nous vous répondrons dans les plus brefs délais.</p>
+          </div>
+        {%- endif -%}
+
+        <div class="ml-contact__field-row">
+          <div class="ml-contact__field">
+            <label class="ml-contact__label" for="{{ form_id }}-name">Nom <span>*</span></label>
+            <input
+              class="ml-contact__input"
+              type="text"
+              id="{{ form_id }}-name"
+              name="contact[{{ 'templates.contact.form.name' | t }}]"
+              autocomplete="name"
+              required
+              placeholder="Votre nom"
+              value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            >
+          </div>
+          <div class="ml-contact__field">
+            <label class="ml-contact__label" for="{{ form_id }}-email">Email <span>*</span></label>
+            <input
+              class="ml-contact__input"
+              type="email"
+              id="{{ form_id }}-email"
+              name="contact[email]"
+              autocomplete="email"
+              required
+              placeholder="votre@email.fr"
+              value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+              {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+            >
+            {%- if form.errors contains 'email' -%}
+              <small style="color:#c00;font-size:1.1rem;margin-top:0.3rem;display:block;">
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </small>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="ml-contact__field">
+          <label class="ml-contact__label" for="{{ form_id }}-phone">Téléphone</label>
+          <input
+            class="ml-contact__input"
+            type="tel"
+            id="{{ form_id }}-phone"
+            name="contact[{{ 'templates.contact.form.phone' | t }}]"
+            autocomplete="tel"
+            placeholder="06 12 34 56 78"
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          >
+        </div>
+
+        {%- if section.settings.show_subject -%}
+          <div class="ml-contact__field">
+            <label class="ml-contact__label" for="{{ form_id }}-subject">Sujet</label>
+            <select
+              class="ml-contact__input ml-contact__select"
+              id="{{ form_id }}-subject"
+              name="contact[Sujet]"
+            >
+              <option value="" disabled selected>Sélectionnez un sujet</option>
+              <option value="Question produit">Question sur un produit</option>
+              <option value="Commande en cours">Commande en cours</option>
+              <option value="Personnalisation / Étiquettes">Personnalisation / Étiquettes</option>
+              <option value="Devenir revendeur">Devenir revendeur</option>
+              <option value="Dossier cosmétologique">Dossier cosmétologique</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        {%- endif -%}
+
+        <div class="ml-contact__field">
+          <label class="ml-contact__label" for="{{ form_id }}-message">Message <span>*</span></label>
+          <textarea
+            class="ml-contact__input"
+            id="{{ form_id }}-message"
+            name="contact[{{ 'templates.contact.form.comment' | t }}]"
+            required
+            placeholder="Comment pouvons-nous vous aider ?"
+            rows="5"
+          >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+
+        <button type="submit" class="ml-contact__submit">
+          {{ section.settings.submit_label | default: 'Envoyer le message' }}
+        </button>
+
+      {%- endform -%}
+    </div>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "ML Contact",
+  "tag": "section",
+  "class": "ml-contact-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "MyLab"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Contactez-nous"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Une question sur nos produits, nos formules ou votre commande ? Notre équipe est à votre écoute."
+    },
+    {
+      "type": "header",
+      "content": "Formulaire"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Titre du formulaire",
+      "default": "Envoyez-nous un message"
+    },
+    {
+      "type": "text",
+      "id": "form_desc",
+      "label": "Description",
+      "default": "Nous vous répondons sous 24h."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Texte du bouton",
+      "default": "Envoyer le message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subject",
+      "label": "Afficher le sélecteur de sujet",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_card",
+      "name": "Carte info",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "email", "label": "Email" },
+            { "value": "phone", "label": "Téléphone" },
+            { "value": "location", "label": "Adresse" },
+            { "value": "clock", "label": "Horloge" }
+          ],
+          "default": "email"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Email"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Contenu",
+          "default": "<p><a href=\"mailto:contact@mylab-shop.fr\">contact@mylab-shop.fr</a></p>"
+        }
+      ]
+    },
+    {
+      "type": "hours",
+      "name": "Horaires",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Horaires"
+        },
+        {
+          "type": "text",
+          "id": "line_1_label",
+          "label": "Ligne 1 — Jour",
+          "default": "Lun – Ven"
+        },
+        {
+          "type": "text",
+          "id": "line_1_value",
+          "label": "Ligne 1 — Horaire",
+          "default": "9h – 18h"
+        },
+        {
+          "type": "text",
+          "id": "line_2_label",
+          "label": "Ligne 2 — Jour",
+          "default": "Samedi"
+        },
+        {
+          "type": "text",
+          "id": "line_2_value",
+          "label": "Ligne 2 — Horaire",
+          "default": "Sur rendez-vous"
+        },
+        {
+          "type": "text",
+          "id": "line_3_label",
+          "label": "Ligne 3 — Jour"
+        },
+        {
+          "type": "text",
+          "id": "line_3_value",
+          "label": "Ligne 3 — Horaire"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Réseaux sociaux",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Suivez-nous"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Contact",
+      "blocks": [
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "email",
+            "title": "Email",
+            "text": "<p><a href=\"mailto:contact@mylab-shop.fr\">contact@mylab-shop.fr</a></p>"
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "phone",
+            "title": "Téléphone",
+            "text": "<p><a href=\"tel:+33400000000\">04 00 00 00 00</a></p>"
+          }
+        },
+        {
+          "type": "info_card",
+          "settings": {
+            "icon": "location",
+            "title": "Adresse",
+            "text": "<p>MyLab Cosmétiques<br>Cavaillon, France</p>"
+          }
+        },
+        {
+          "type": "hours",
+          "settings": {
+            "title": "Horaires",
+            "line_1_label": "Lun – Ven",
+            "line_1_value": "9h – 18h",
+            "line_2_label": "Samedi",
+            "line_2_value": "Sur rendez-vous"
+          }
+        },
+        {
+          "type": "social",
+          "settings": {
+            "title": "Suivez-nous"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
