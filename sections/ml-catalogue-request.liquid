@@ -450,30 +450,47 @@
 
   </div>
 
-  {%- comment -%} ====== WEBHOOK N8N ====== {%- endcomment -%}
+  {%- comment -%} ====== ENVOI N8N VIA IFRAME CACHÉ ====== {%- endcomment -%}
   {%- if section.settings.webhook_url != blank -%}
+    <iframe name="ml-cat-n8n-frame" style="display:none;" aria-hidden="true"></iframe>
     <script>
       (function () {
         'use strict';
-        var form = document.getElementById('{{ form_id }}');
-        if (!form) return;
+        var shopifyForm = document.getElementById('{{ form_id }}');
+        if (!shopifyForm) return;
 
-        form.addEventListener('submit', function () {
-          var data = {
-            nom: form.querySelector('[name="contact[Nom]"]').value,
-            email: form.querySelector('[name="contact[email]"]').value,
-            telephone: form.querySelector('[name="contact[Telephone]"]') ? form.querySelector('[name="contact[Telephone]"]').value : '',
-            salon: form.querySelector('[name="contact[Salon]"]') ? form.querySelector('[name="contact[Salon]"]').value : '',
-            ville: form.querySelector('[name="contact[Ville]"]') ? form.querySelector('[name="contact[Ville]"]').value : '',
-            activite: form.querySelector('[name="contact[Activite]"]') ? form.querySelector('[name="contact[Activite]"]').value : '',
-            source: 'catalogue-mylab'
+        shopifyForm.addEventListener('submit', function () {
+          var webhookUrl = {{ section.settings.webhook_url | json }};
+
+          /* Créer un formulaire caché qui poste vers n8n dans l'iframe */
+          var n8nForm = document.createElement('form');
+          n8nForm.method = 'POST';
+          n8nForm.action = webhookUrl;
+          n8nForm.target = 'ml-cat-n8n-frame';
+          n8nForm.style.display = 'none';
+
+          var fields = {
+            nom: shopifyForm.querySelector('[name="contact[Nom]"]'),
+            email: shopifyForm.querySelector('[name="contact[email]"]'),
+            telephone: shopifyForm.querySelector('[name="contact[Telephone]"]'),
+            salon: shopifyForm.querySelector('[name="contact[Salon]"]'),
+            ville: shopifyForm.querySelector('[name="contact[Ville]"]'),
+            activite: shopifyForm.querySelector('[name="contact[Activite]"]')
           };
 
-          fetch({{ section.settings.webhook_url | json }}, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          }).catch(function () {});
+          Object.keys(fields).forEach(function (key) {
+            if (fields[key] && fields[key].value) {
+              var input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = key;
+              input.value = fields[key].value;
+              n8nForm.appendChild(input);
+            }
+          });
+
+          document.body.appendChild(n8nForm);
+          n8nForm.submit();
+          setTimeout(function () { n8nForm.remove(); }, 2000);
         });
       })();
     </script>
