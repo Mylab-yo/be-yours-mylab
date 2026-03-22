@@ -564,8 +564,8 @@
                     {%- endif -%}
 
                     {%- if ml_page_is_dossier_item -%}
-                      <div style="font-size:1.2rem;color:#888;line-height:1.4;margin-top:6px;padding:8px 10px;background:#f8f8f8;border-radius:4px;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" style="vertical-align:-2px;margin-right:4px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                      <div class="ml-dossier-gate-msg ml-dossier-gate-msg--page">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
                         Requis pour votre première commande professionnelle.
                       </div>
                     {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}

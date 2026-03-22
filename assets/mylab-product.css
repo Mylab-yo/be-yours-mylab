@@ -38,6 +38,7 @@
 .ml-contenance-btns {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .ml-contenance-btn {
@@ -227,6 +228,8 @@
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--ml-line);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .ml-palier-table {
@@ -295,11 +298,13 @@
    RESPONSIVE MOBILE
    ============================================================ */
 
-@media (max-width: 749px) {
+@media (max-width: 989px) {
   #ml-qty-btns {
     grid-template-columns: repeat(3, 1fr);
   }
+}
 
+@media (max-width: 749px) {
   .ml-price-amount {
     font-size: 3.6rem;
   }
@@ -314,6 +319,38 @@
     padding-left: 0 !important;
     border-bottom: 1px solid var(--ml-line);
   }
+
+  .ml-trust__item:last-child {
+    flex: 1 1 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* ── Dossier gate messages ── */
+.ml-dossier-required {
+  font-size: 1.2rem;
+  color: #888;
+  font-style: italic;
+}
+.ml-dossier-gate-msg {
+  font-size: 1.1rem;
+  color: #888;
+  line-height: 1.4;
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: #f8f8f8;
+  border-radius: 4px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.ml-dossier-gate-msg svg {
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+.ml-dossier-gate-msg--page {
+  font-size: 1.2rem;
+  padding: 8px 10px;
 }
 
 /* ============================================================
@@ -341,6 +378,7 @@
   width: 100%;
   max-width: 480px;
   height: 100vh;
+  height: 100dvh;
   background: var(--ml-white);
   z-index: 300;
   display: flex;
