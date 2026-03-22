@@ -450,6 +450,35 @@
 
   </div>
 
+  {%- comment -%} ====== WEBHOOK N8N ====== {%- endcomment -%}
+  {%- if section.settings.webhook_url != blank -%}
+    <script>
+      (function () {
+        'use strict';
+        var form = document.getElementById('{{ form_id }}');
+        if (!form) return;
+
+        form.addEventListener('submit', function () {
+          var data = {
+            nom: form.querySelector('[name="contact[Nom]"]').value,
+            email: form.querySelector('[name="contact[email]"]').value,
+            telephone: form.querySelector('[name="contact[Telephone]"]') ? form.querySelector('[name="contact[Telephone]"]').value : '',
+            salon: form.querySelector('[name="contact[Salon]"]') ? form.querySelector('[name="contact[Salon]"]').value : '',
+            ville: form.querySelector('[name="contact[Ville]"]') ? form.querySelector('[name="contact[Ville]"]').value : '',
+            activite: form.querySelector('[name="contact[Activite]"]') ? form.querySelector('[name="contact[Activite]"]').value : '',
+            source: 'catalogue-mylab'
+          };
+
+          fetch({{ section.settings.webhook_url | json }}, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).catch(function () {});
+        });
+      })();
+    </script>
+  {%- endif -%}
+
   {%- comment -%} ====== TRUST ====== {%- endcomment -%}
   <div class="ml-cat__trust">
     <div class="ml-cat__trust-item">
@@ -561,6 +590,16 @@
       "id": "success_text",
       "label": "Texte succès",
       "default": "Vous recevrez le catalogue par email dans quelques minutes. Pensez à vérifier vos spams."
+    },
+    {
+      "type": "header",
+      "content": "Intégration n8n"
+    },
+    {
+      "type": "text",
+      "id": "webhook_url",
+      "label": "URL du webhook n8n",
+      "info": "Les données du formulaire seront envoyées à cette URL en plus de Shopify. Laissez vide pour désactiver."
     },
     {
       "type": "header",
