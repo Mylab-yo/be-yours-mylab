@@ -245,6 +245,50 @@
     text-decoration: underline;
   }
 
+  /* ── AUTOCOMPLETE VILLE ── */
+  .ml-cat__autocomplete {
+    position: relative;
+  }
+  .ml-cat__suggestions {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .ml-cat__suggestions.is-visible {
+    display: block;
+  }
+  .ml-cat__suggestions li {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
+  }
+  .ml-cat__suggestions li:last-child {
+    border-bottom: none;
+  }
+  .ml-cat__suggestions li:hover,
+  .ml-cat__suggestions li.is-active {
+    background: #f5f5f5;
+  }
+  .ml-cat__suggestions li small {
+    color: #888;
+    margin-left: 0.4rem;
+  }
+
   /* ── SUCCESS MESSAGE ── */
   .ml-cat__success {
     text-align: center;
@@ -435,16 +479,17 @@
             >
           </div>
 
-          <div class="ml-cat__field">
+          <div class="ml-cat__field ml-cat__autocomplete">
             <label class="ml-cat__label" for="{{ form_id }}-city">Ville</label>
             <input
               class="ml-cat__input"
               type="text"
               id="{{ form_id }}-city"
               name="ville"
-              autocomplete="address-level2"
-              placeholder="Paris"
+              autocomplete="off"
+              placeholder="Tapez votre ville..."
             >
+            <ul class="ml-cat__suggestions" id="{{ form_id }}-city-list"></ul>
           </div>
 
           {%- if section.settings.show_activity -%}
@@ -528,6 +573,82 @@
             /* Afficher le message de succès */
             document.getElementById('{{ form_id }}-fields').style.display = 'none';
             document.getElementById('{{ form_id }}-success').style.display = '';
+          });
+
+          /* ── Autocomplete ville via API Geo Gouv ── */
+          var cityInput = document.getElementById('{{ form_id }}-city');
+          var cityList = document.getElementById('{{ form_id }}-city-list');
+          if (!cityInput || !cityList) return;
+
+          var debounceTimer = null;
+          var activeIndex = -1;
+
+          cityInput.addEventListener('input', function () {
+            var q = cityInput.value.trim();
+            clearTimeout(debounceTimer);
+            if (q.length < 2) { cityList.classList.remove('is-visible'); return; }
+
+            debounceTimer = setTimeout(function () {
+              var isZip = /^\d{2,5}$/.test(q);
+              var url = 'https://geo.api.gouv.fr/communes?'
+                + (isZip ? 'codePostal=' : 'nom=') + encodeURIComponent(q)
+                + '&fields=nom,codesPostaux&boost=population&limit=8';
+
+              fetch(url)
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                  cityList.innerHTML = '';
+                  activeIndex = -1;
+                  if (!data.length) { cityList.classList.remove('is-visible'); return; }
+
+                  data.forEach(function (c) {
+                    var cp = c.codesPostaux && c.codesPostaux[0] ? c.codesPostaux[0] : '';
+                    var li = document.createElement('li');
+                    li.innerHTML = c.nom + (cp ? ' <small>' + cp + '</small>' : '');
+                    li.dataset.value = c.nom + (cp ? ' (' + cp + ')' : '');
+                    li.addEventListener('click', function () {
+                      cityInput.value = li.dataset.value;
+                      cityList.classList.remove('is-visible');
+                    });
+                    cityList.appendChild(li);
+                  });
+                  cityList.classList.add('is-visible');
+                })
+                .catch(function () {});
+            }, 250);
+          });
+
+          /* Navigation clavier */
+          cityInput.addEventListener('keydown', function (e) {
+            var items = cityList.querySelectorAll('li');
+            if (!items.length || !cityList.classList.contains('is-visible')) return;
+
+            if (e.key === 'ArrowDown') {
+              e.preventDefault();
+              activeIndex = Math.min(activeIndex + 1, items.length - 1);
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault();
+              activeIndex = Math.max(activeIndex - 1, 0);
+            } else if (e.key === 'Enter' && activeIndex >= 0) {
+              e.preventDefault();
+              cityInput.value = items[activeIndex].dataset.value;
+              cityList.classList.remove('is-visible');
+              return;
+            } else if (e.key === 'Escape') {
+              cityList.classList.remove('is-visible');
+              return;
+            } else { return; }
+
+            items.forEach(function (li, i) {
+              li.classList.toggle('is-active', i === activeIndex);
+            });
+          });
+
+          /* Fermer la liste quand on clique ailleurs */
+          document.addEventListener('click', function (e) {
+            if (!cityInput.contains(e.target) && !cityList.contains(e.target)) {
+              cityList.classList.remove('is-visible');
+            }
           });
         })();
       </script>
