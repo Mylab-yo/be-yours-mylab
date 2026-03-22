@@ -1,0 +1,58 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-catalogue-request",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Gammes complètes",
+            "description": "Shampoings, masques, crèmes, sérums, huiles et cires professionnelles"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Tarifs dégressifs",
+            "description": "Grilles de prix par palier selon les quantités commandées"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Formules de personnalisation",
+            "description": "Étiquetage personnalisé avec votre logo et votre marque"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "title": "Contenances disponibles",
+            "description": "Formats 50ml, 200ml, 500ml et 1000ml selon les gammes"
+          }
+        },
+        "feature_5": {
+          "type": "feature",
+          "settings": {
+            "title": "Modèles d'étiquettes",
+            "description": "Aperçu des designs d'étiquettes personnalisables"
+          }
+        },
+        "feature_6": {
+          "type": "feature",
+          "settings": {
+            "title": "Dossier cosmétologique",
+            "description": "Informations sur le dossier réglementaire inclus à la première commande"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4", "feature_5", "feature_6"],
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "show_activity": true
+      }
+    }
+  },
+  "order": ["main"]
+}

@@ -1,0 +1,669 @@
+{% comment %}
+  MyLab Shop — Demande de catalogue professionnel
+  sections/ml-catalogue-request.liquid
+
+  Formulaire natif Shopify ({% form 'contact' %}) stylé MyLab.
+  Les soumissions arrivent dans Shopify > Clients > Formulaires de contact.
+  Shopify Flow peut déclencher un webhook n8n pour envoyer le catalogue par mail.
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-cat {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: #111;
+  }
+
+  /* ── HERO ── */
+  .ml-cat__hero {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .ml-cat__badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+  .ml-cat__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.15;
+    margin: 0 0 1.2rem;
+    color: #111;
+  }
+  .ml-cat__subtitle {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── GRID 2 COL ── */
+  .ml-cat__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── LEFT : CONTENU ── */
+  .ml-cat__content {
+    padding: 2.4rem;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #eee;
+  }
+  .ml-cat__content-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 1.4rem;
+    color: #111;
+  }
+  .ml-cat__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .ml-cat__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .ml-cat__features li:last-child {
+    border-bottom: none;
+  }
+  .ml-cat__features-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+  .ml-cat__why {
+    padding: 1.6rem;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+  .ml-cat__why-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+    color: #111;
+  }
+  .ml-cat__why-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  /* ── RIGHT : FORMULAIRE ── */
+  .ml-cat__form-wrap {
+    padding: 2.4rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .ml-cat__form-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: #111;
+  }
+  .ml-cat__form-desc {
+    font-size: 1.2rem;
+    color: #888;
+    margin: 0 0 1.6rem;
+  }
+  .ml-cat__field {
+    margin-bottom: 1.2rem;
+  }
+  .ml-cat__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.4rem;
+  }
+  .ml-cat__label span {
+    color: #c00;
+  }
+  .ml-cat__input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+  }
+  .ml-cat__input:focus {
+    outline: none;
+    border-color: #111;
+    box-shadow: 0 0 0 2px rgba(17,17,17,0.08);
+    background: #fff;
+  }
+  .ml-cat__input::placeholder {
+    color: #bbb;
+  }
+  .ml-cat__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 3rem;
+  }
+  .ml-cat__submit {
+    width: 100%;
+    padding: 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.8rem;
+    min-height: 50px;
+  }
+  .ml-cat__submit:hover {
+    background: #333;
+  }
+  .ml-cat__submit:active {
+    transform: scale(0.98);
+  }
+  .ml-cat__privacy {
+    font-size: 1.1rem;
+    color: #999;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.4;
+  }
+  .ml-cat__privacy a {
+    color: #888;
+    text-decoration: underline;
+  }
+
+  /* ── SUCCESS MESSAGE ── */
+  .ml-cat__success {
+    text-align: center;
+    padding: 2rem;
+    background: #f0faf0;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    margin-bottom: 1.6rem;
+  }
+  .ml-cat__success svg {
+    margin-bottom: 0.6rem;
+  }
+  .ml-cat__success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d7a45;
+    margin: 0 0 0.4rem;
+  }
+  .ml-cat__success-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── TRUST ROW ── */
+  .ml-cat__trust {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .ml-cat__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    color: #888;
+  }
+  .ml-cat__trust-item svg {
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 749px) {
+    .ml-cat__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .ml-cat__content,
+    .ml-cat__form-wrap {
+      padding: 1.6rem;
+    }
+    .ml-cat__title {
+      font-size: clamp(2.4rem, 7vw, 3.2rem);
+    }
+    .ml-cat__trust {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+</style>
+
+<div class="ml-cat page-width">
+
+  {%- comment -%} ====== HERO ====== {%- endcomment -%}
+  <div class="ml-cat__hero">
+    <div class="ml-cat__badge">{{ section.settings.badge | default: 'MyLab Professionnel' }}</div>
+    <h1 class="ml-cat__title">{{ section.settings.heading | default: 'Recevez notre catalogue professionnel' }}</h1>
+    <p class="ml-cat__subtitle">{{ section.settings.subtitle | default: 'Découvrez nos gammes complètes, nos tarifs dégressifs et nos formules de personnalisation. Renseignez vos coordonnées pour recevoir le catalogue directement par email.' }}</p>
+  </div>
+
+  {%- comment -%} ====== GRID ====== {%- endcomment -%}
+  <div class="ml-cat__grid">
+
+    {%- comment -%} ── LEFT : Contenu ── {%- endcomment -%}
+    <div class="ml-cat__content">
+      <h2 class="ml-cat__content-title">{{ section.settings.content_heading | default: 'Ce que contient le catalogue' }}</h2>
+      <ul class="ml-cat__features">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <li {{ block.shopify_attributes }}>
+              <svg class="ml-cat__features-icon" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12l3 3 5-5"/>
+              </svg>
+              <div>
+                <strong>{{ block.settings.title }}</strong>
+                {%- if block.settings.description != blank -%}
+                  <br><span style="color:#666;font-size:1.2rem;">{{ block.settings.description }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="ml-cat__why">
+        <h3 class="ml-cat__why-title">{{ section.settings.why_heading | default: 'Pourquoi ces informations ?' }}</h3>
+        <p class="ml-cat__why-text">{{ section.settings.why_text | default: 'Vos coordonnées nous permettent de vous envoyer le catalogue par email et de vous proposer un accompagnement personnalisé adapté à votre activité.' }}</p>
+      </div>
+    </div>
+
+    {%- comment -%} ── RIGHT : Formulaire ── {%- endcomment -%}
+    <div class="ml-cat__form-wrap">
+      <h2 class="ml-cat__form-title">{{ section.settings.form_heading | default: 'Recevez le catalogue' }}</h2>
+      <p class="ml-cat__form-desc">{{ section.settings.form_desc | default: 'Remplissez le formulaire, vous recevrez le catalogue sous quelques minutes.' }}</p>
+
+      {%- assign form_id = 'CatalogueForm-' | append: section.id -%}
+      {%- form 'contact', id: form_id -%}
+
+        {%- if form.posted_successfully? -%}
+          <div class="ml-cat__success">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l3 3 5-5"/>
+            </svg>
+            <h3 class="ml-cat__success-title">{{ section.settings.success_title | default: 'Votre demande a bien été envoyée !' }}</h3>
+            <p class="ml-cat__success-text">{{ section.settings.success_text | default: 'Vous recevrez le catalogue par email dans quelques minutes. Pensez à vérifier vos spams.' }}</p>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Champ caché pour identifier la source dans Shopify Flow {%- endcomment -%}
+        <input type="hidden" name="contact[tags]" value="catalogue-request">
+        <input type="hidden" name="contact[Formulaire]" value="Demande de catalogue">
+
+        <div class="ml-cat__field">
+          <label class="ml-cat__label" for="{{ form_id }}-name">Nom complet <span>*</span></label>
+          <input
+            class="ml-cat__input"
+            type="text"
+            id="{{ form_id }}-name"
+            name="contact[Nom]"
+            autocomplete="name"
+            required
+            placeholder="Jean Dupont"
+            value="{% if customer %}{{ customer.name }}{% endif %}"
+          >
+        </div>
+
+        <div class="ml-cat__field">
+          <label class="ml-cat__label" for="{{ form_id }}-email">Email <span>*</span></label>
+          <input
+            class="ml-cat__input"
+            type="email"
+            id="{{ form_id }}-email"
+            name="contact[email]"
+            autocomplete="email"
+            required
+            placeholder="jean@monsalon.fr"
+            value="{% if customer %}{{ customer.email }}{% endif %}"
+            {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+          >
+          {%- if form.errors contains 'email' -%}
+            <small style="color:#c00;font-size:1.1rem;margin-top:0.3rem;display:block;">
+              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+            </small>
+          {%- endif -%}
+        </div>
+
+        <div class="ml-cat__field">
+          <label class="ml-cat__label" for="{{ form_id }}-phone">Téléphone</label>
+          <input
+            class="ml-cat__input"
+            type="tel"
+            id="{{ form_id }}-phone"
+            name="contact[Telephone]"
+            autocomplete="tel"
+            placeholder="06 12 34 56 78"
+            value="{% if customer %}{{ customer.phone }}{% endif %}"
+          >
+        </div>
+
+        <div class="ml-cat__field">
+          <label class="ml-cat__label" for="{{ form_id }}-salon">Nom du salon / entreprise</label>
+          <input
+            class="ml-cat__input"
+            type="text"
+            id="{{ form_id }}-salon"
+            name="contact[Salon]"
+            autocomplete="organization"
+            placeholder="Mon Salon de Coiffure"
+          >
+        </div>
+
+        <div class="ml-cat__field">
+          <label class="ml-cat__label" for="{{ form_id }}-city">Ville</label>
+          <input
+            class="ml-cat__input"
+            type="text"
+            id="{{ form_id }}-city"
+            name="contact[Ville]"
+            autocomplete="address-level2"
+            placeholder="Paris"
+          >
+        </div>
+
+        {%- if section.settings.show_activity -%}
+          <div class="ml-cat__field">
+            <label class="ml-cat__label" for="{{ form_id }}-activity">Activité</label>
+            <select
+              class="ml-cat__input ml-cat__select"
+              id="{{ form_id }}-activity"
+              name="contact[Activite]"
+            >
+              <option value="" disabled selected>Sélectionnez votre activité</option>
+              <option value="Salon de coiffure">Salon de coiffure</option>
+              <option value="Institut de beauté">Institut de beauté</option>
+              <option value="Barbershop">Barbershop</option>
+              <option value="Spa / Bien-être">Spa / Bien-être</option>
+              <option value="Revendeur">Revendeur</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </div>
+        {%- endif -%}
+
+        <button type="submit" class="ml-cat__submit">
+          {{ section.settings.submit_label | default: 'Recevoir le catalogue' }}
+        </button>
+
+        <p class="ml-cat__privacy">
+          En soumettant ce formulaire, vous acceptez de recevoir le catalogue par email.
+          {%- if section.settings.privacy_url != blank -%}
+            <a href="{{ section.settings.privacy_url }}">Politique de confidentialité</a>
+          {%- endif -%}
+        </p>
+
+      {%- endform -%}
+    </div>
+
+  </div>
+
+  {%- comment -%} ====== TRUST ====== {%- endcomment -%}
+  <div class="ml-cat__trust">
+    <div class="ml-cat__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Données sécurisées
+    </div>
+    <div class="ml-cat__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Envoi instantané
+    </div>
+    <div class="ml-cat__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Accompagnement personnalisé
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "ML Demande catalogue",
+  "tag": "section",
+  "class": "ml-catalogue-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "MyLab Professionnel"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Recevez notre catalogue professionnel"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Découvrez nos gammes complètes, nos tarifs dégressifs et nos formules de personnalisation. Renseignez vos coordonnées pour recevoir le catalogue directement par email."
+    },
+    {
+      "type": "header",
+      "content": "Contenu catalogue"
+    },
+    {
+      "type": "text",
+      "id": "content_heading",
+      "label": "Titre du contenu",
+      "default": "Ce que contient le catalogue"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Titre encadré explicatif",
+      "default": "Pourquoi ces informations ?"
+    },
+    {
+      "type": "textarea",
+      "id": "why_text",
+      "label": "Texte explicatif",
+      "default": "Vos coordonnées nous permettent de vous envoyer le catalogue par email et de vous proposer un accompagnement personnalisé adapté à votre activité."
+    },
+    {
+      "type": "header",
+      "content": "Formulaire"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Titre du formulaire",
+      "default": "Recevez le catalogue"
+    },
+    {
+      "type": "text",
+      "id": "form_desc",
+      "label": "Description du formulaire",
+      "default": "Remplissez le formulaire, vous recevrez le catalogue sous quelques minutes."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Texte du bouton",
+      "default": "Recevoir le catalogue"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_activity",
+      "label": "Afficher le sélecteur d'activité",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Message de succès"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Titre succès",
+      "default": "Votre demande a bien été envoyée !"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Texte succès",
+      "default": "Vous recevrez le catalogue par email dans quelques minutes. Pensez à vérifier vos spams."
+    },
+    {
+      "type": "header",
+      "content": "Liens"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Lien politique de confidentialité"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Point du catalogue",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Gammes complètes"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Shampoings, masques, crèmes, sérums et huiles professionnelles"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Demande catalogue",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Gammes complètes",
+            "description": "Shampoings, masques, crèmes, sérums, huiles et cires professionnelles"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Tarifs dégressifs",
+            "description": "Grilles de prix par palier selon les quantités commandées"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Formules de personnalisation",
+            "description": "Étiquetage personnalisé avec votre logo et votre marque"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Contenances disponibles",
+            "description": "Formats 50ml, 200ml, 500ml et 1000ml selon les gammes"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Modèles d'étiquettes",
+            "description": "Aperçu des designs d'étiquettes personnalisables"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Dossier cosmétologique",
+            "description": "Informations sur le dossier réglementaire inclus à la première commande"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
