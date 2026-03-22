@@ -1,82 +1,94 @@
-{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  MyLab Shop — Page Étiquettes (3 forfaits + grille modèles)
+  sections/ml-modeles-etiquettes.liquid
+{% endcomment %}
 
 {%- style -%}
-  .ml-etiquettes-hero {
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-etiq {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: #111;
+  }
+
+  /* ── HERO ── */
+  .ml-etiq__hero {
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    max-width: 680px;
+    margin: 0 auto 3rem;
   }
-  .ml-etiquettes-hero__subheading {
+  .ml-etiq__badge {
+    display: inline-block;
     font-size: 1.1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: {{ section.settings.accent_color }};
-    margin-bottom: 0.8rem;
     font-weight: 600;
-    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
   }
-  .ml-etiquettes-hero__heading {
-    font-size: clamp(2.4rem, 3.5vw, 3.6rem);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    margin: 0 0 2rem;
-    color: {{ section.settings.text_color }};
+  .ml-etiq__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 500;
+    font-style: italic;
     line-height: 1.15;
-    letter-spacing: 0.02em;
+    margin: 0 0 1rem;
+    color: #111;
   }
-  .ml-etiquettes-hero__heading strong,
-  .ml-etiquettes-hero__heading em {
-    color: {{ section.settings.accent_color }};
-    font-style: normal;
-    font-weight: 700;
-  }
-  .ml-etiquettes-hero__note {
-    font-size: 1.1rem;
-    color: {{ section.settings.text_color }};
-    opacity: 0.5;
-    font-style: normal;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.02em;
-    margin-bottom: 2rem;
+  .ml-etiq__subtitle {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
   /* ── FORFAITS ── */
-  .ml-forfaits {
+  .ml-etiq__forfaits {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     max-width: 1000px;
-    margin: 0 auto 3rem;
-    padding: 0 1.5rem;
+    margin: 0 auto 4rem;
   }
-  .ml-forfait {
-    background: {{ section.settings.card_bg }};
-    border: 2px solid #E5E5E5;
-    border-radius: 1.2rem;
-    padding: 2rem 1.8rem;
+  .ml-etiq__card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 2.4rem 1.8rem;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .ml-forfait:hover {
-    border-color: {{ section.settings.accent_color }};
+  .ml-etiq__card:hover {
+    border-color: #111;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   }
-  .ml-forfait--popular {
-    border-color: {{ section.settings.accent_color }};
+  .ml-etiq__card--popular {
+    border: 2px solid #111;
     position: relative;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
-  .ml-forfait__badge {
+  .ml-etiq__card-badge {
     position: absolute;
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background: {{ section.settings.accent_color }};
+    background: #111;
     color: #fff;
-    font-family: 'DM Sans', sans-serif;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.06em;
@@ -85,349 +97,306 @@
     border-radius: 50px;
     white-space: nowrap;
   }
-  .ml-forfait__icon {
-    width: 48px;
-    height: 48px;
+  .ml-etiq__card-icon {
+    width: 44px;
+    height: 44px;
     margin-bottom: 1rem;
+    stroke: #111;
+    fill: none;
+    stroke-width: 1.5;
   }
-  .ml-forfait__name {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.4rem;
+  .ml-etiq__card--popular .ml-etiq__card-icon {
+    stroke: #111;
+  }
+  .ml-etiq__card-name {
+    font-size: 1.5rem;
     font-weight: 700;
-    color: {{ section.settings.text_color }};
+    color: #111;
     margin: 0 0 0.4rem;
   }
-  .ml-forfait__desc {
-    font-family: 'DM Sans', sans-serif;
+  .ml-etiq__card-desc {
     font-size: 1.2rem;
     color: #888;
     line-height: 1.5;
-    margin: 0 0 1rem;
+    margin: 0 0 1.2rem;
     flex: 1;
   }
-  .ml-forfait__price {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: {{ section.settings.text_color }};
-    margin-bottom: 0.3rem;
-  }
-  .ml-forfait__price-note {
-    font-size: 1.1rem;
-    color: #888;
-    margin-bottom: 1.2rem;
-  }
-  .ml-forfait__cta {
-    display: inline-block;
-    width: 100%;
-    padding: 0.9rem 1.5rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #fff;
-    background: {{ section.settings.text_color }};
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    min-height: 44px;
-  }
-  .ml-forfait__cta:hover { background: {{ section.settings.accent_color }}; }
-  .ml-forfait__cta:active { transform: scale(0.98); }
-  .ml-forfait__features {
+  .ml-etiq__features {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.2rem;
+    margin: 0 0 1.4rem;
     text-align: left;
     width: 100%;
   }
-  .ml-forfait__features li {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.15rem;
+  .ml-etiq__features li {
+    font-size: 1.2rem;
     color: #555;
     padding: 0.4rem 0;
     display: flex;
     align-items: flex-start;
     gap: 0.6rem;
+    line-height: 1.4;
   }
-  .ml-forfait__features li svg {
+  .ml-etiq__features li svg {
     flex-shrink: 0;
     margin-top: 2px;
   }
-
-  /* ── Section title for modèles grid ── */
-  .ml-etiquettes-section-title {
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.8rem;
+  .ml-etiq__price {
+    font-size: 2.4rem;
     font-weight: 700;
-    color: {{ section.settings.text_color }};
-    margin: 0 0 0.6rem;
+    color: #111;
+    margin-bottom: 0.2rem;
   }
-  .ml-etiquettes-section-subtitle {
-    text-align: center;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.2rem;
+  .ml-etiq__price-note {
+    font-size: 1.1rem;
     color: #888;
-    margin: 0 0 2rem;
+    margin-bottom: 1.4rem;
+  }
+  .ml-etiq__cta {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    min-height: 48px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .ml-etiq__cta:hover { background: #333; color: #fff; }
+  .ml-etiq__cta:active { transform: scale(0.98); }
+
+  /* ── SECTION MODÈLES ── */
+  .ml-etiq__models-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .ml-etiq__models-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500;
+    font-style: italic;
+    color: #111;
+    margin: 0 0 0.4rem;
+  }
+  .ml-etiq__models-subtitle {
+    font-size: 1.3rem;
+    color: #888;
+    margin: 0;
   }
 
-  @media screen and (max-width: 749px) {
-    .ml-forfaits {
-      grid-template-columns: 1fr;
-      max-width: 400px;
-    }
-  }
-  .ml-etiquettes-grid {
+  /* ── GRILLE MODÈLES ── */
+  .ml-etiq__grid {
     display: grid;
-    grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    gap: 2.5rem;
-    max-width: 1200px;
+    grid-template-columns: repeat({{ section.settings.columns_desktop | default: 4 }}, 1fr);
+    gap: 2rem;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
   }
-  .ml-etiquette-card {
-    text-align: center;
-    transition: transform 0.3s ease;
-    background: {{ section.settings.card_bg }};
-    border-radius: 1.2rem;
+  .ml-etiq__model {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
     overflow: hidden;
-    border: 1px solid #E5E5E5;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .ml-etiquette-card:hover {
+  .ml-etiq__model:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   }
-  .ml-etiquette-card__image-wrap {
+  .ml-etiq__model-img-wrap {
     position: relative;
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
-    background: #fff;
+    background: #fafafa;
   }
-  .ml-etiquette-card__image {
+  .ml-etiq__model-img {
     width: 100%;
     height: 100%;
     display: block;
     object-fit: contain;
-    transition: opacity 0.4s ease;
     padding: 1rem;
+    transition: opacity 0.4s;
   }
-  .ml-etiquette-card__image--hover {
+  .ml-etiq__model-img--hover {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     object-fit: contain;
-    opacity: 0;
-    transition: opacity 0.4s ease;
     padding: 1rem;
-  }
-  .ml-etiquette-card:hover .ml-etiquette-card__image--primary {
     opacity: 0;
+    transition: opacity 0.4s;
   }
-  .ml-etiquette-card:hover .ml-etiquette-card__image--hover {
-    opacity: 1;
-  }
-  .ml-etiquette-card__body {
+  .ml-etiq__model:hover .ml-etiq__model-img--primary { opacity: 0; }
+  .ml-etiq__model:hover .ml-etiq__model-img--hover { opacity: 1; }
+  .ml-etiq__model-body {
     padding: 1rem 1.2rem 1.4rem;
+    text-align: center;
   }
-  .ml-etiquette-card__name {
-    font-size: 1.4rem;
+  .ml-etiq__model-name {
+    font-size: 1.3rem;
     font-weight: 600;
-    color: {{ section.settings.text_color }};
+    color: #111;
     margin: 0 0 0.3rem;
-    font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.02em;
   }
-  .ml-etiquette-card__price {
+  .ml-etiq__model-price {
     font-size: 1.2rem;
     font-weight: 500;
-    color: {{ section.settings.accent_color }};
-    font-family: 'DM Sans', sans-serif;
+    color: #888;
     margin-bottom: 0.8rem;
   }
-  .ml-etiquette-card__btn {
+  .ml-etiq__model-btn {
     display: inline-block;
     width: 100%;
-    padding: 0.7rem 1.5rem;
-    font-family: 'DM Sans', sans-serif;
+    padding: 0.8rem 1rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: #ffffff;
-    background: {{ section.settings.text_color }};
+    color: #fff;
+    background: #111;
     border: none;
-    border-radius: 0.6rem;
+    border-radius: 50px;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.15s ease;
+    transition: background 0.2s;
+    min-height: 44px;
   }
-  .ml-etiquette-card__btn:hover {
-    background: {{ section.settings.accent_color }};
-    transform: scale(1.02);
-  }
-  .ml-etiquette-card__btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-  .ml-etiquette-card__btn--added {
-    background: #2e7d32;
-  }
-  .ml-etiquette-card__btn--added:hover {
-    background: #2e7d32;
-    transform: none;
-  }
-  .ml-etiquette-card__unavailable {
-    font-size: 1.1rem;
-    color: #888;
-    font-family: 'DM Sans', sans-serif;
-    padding: 0.7rem 0;
-  }
+  .ml-etiq__model-btn:hover { background: #333; }
+  .ml-etiq__model-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .ml-etiq__model-btn--added { background: #2d7a45; }
+  .ml-etiq__model-btn--added:hover { background: #2d7a45; }
+
+  /* ── RESPONSIVE ── */
   @media screen and (max-width: 749px) {
-    .ml-etiquettes-grid {
-      grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr);
-      gap: 1.5rem;
-      padding: 1rem 1rem 3rem;
+    .ml-etiq__forfaits {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .ml-etiquettes-hero__heading {
-      font-size: 2rem;
+    .ml-etiq__grid {
+      grid-template-columns: repeat({{ section.settings.columns_mobile | default: 2 }}, 1fr);
+      gap: 1.2rem;
     }
-    .ml-etiquettes-info {
-      flex-direction: column;
-      align-items: center;
+    .ml-etiq__card {
+      padding: 1.6rem 1.4rem;
     }
   }
-{%- endstyle -%}
+</style>
 
-<div class="ml-etiquettes-hero">
-  <p class="ml-etiquettes-hero__subheading">{{ section.settings.subheading }}</p>
-  <h1 class="ml-etiquettes-hero__heading">{{ section.settings.heading }}</h1>
+<div class="ml-etiq page-width">
 
-  <p class="ml-etiquettes-hero__note">{{ section.settings.note }}</p>
-</div>
-
-{%- comment -%} ====== 3 FORFAITS ====== {%- endcomment -%}
-<div class="ml-forfaits">
-  {%- comment -%} ── Forfait 1 : Standard ── {%- endcomment -%}
-  <div class="ml-forfait">
-    <svg class="ml-forfait__icon" viewBox="0 0 48 48" fill="none" stroke="{{ section.settings.text_color }}" stroke-width="1.5"><rect x="8" y="6" width="32" height="36" rx="3"/><path d="M16 16h16M16 22h16M16 28h10"/></svg>
-    <h2 class="ml-forfait__name">Standard</h2>
-    <p class="ml-forfait__desc">Étiquettes avec fonds colorés et impression noire. Simple et efficace.</p>
-    <ul class="ml-forfait__features">
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Fonds colorés au choix</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Impression texte noir</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre logo intégré</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
-    </ul>
-    <div class="ml-forfait__price">99 €</div>
-    <div class="ml-forfait__price-note">HT / forfait unique</div>
-    <button type="button" class="ml-forfait__cta" data-variant-id="55418362003790" onclick="mlAddLabel(this)">Ajouter au panier</button>
+  {%- comment -%} ====== HERO ====== {%- endcomment -%}
+  <div class="ml-etiq__hero">
+    <div class="ml-etiq__badge">{{ section.settings.subheading | default: 'Personnalisation' }}</div>
+    <h1 class="ml-etiq__title">{{ section.settings.heading | default: 'Personnalisez vos étiquettes' }}</h1>
+    <p class="ml-etiq__subtitle">{{ section.settings.subtitle | default: 'Choisissez parmi 3 forfaits adaptés à vos besoins : impression standard, modèles design ou création sur mesure.' }}</p>
   </div>
 
-  {%- comment -%} ── Forfait 2 : Modèle d'étiquette ── {%- endcomment -%}
-  <div class="ml-forfait ml-forfait--popular">
-    <div class="ml-forfait__badge">Populaire</div>
-    <svg class="ml-forfait__icon" viewBox="0 0 48 48" fill="none" stroke="{{ section.settings.accent_color }}" stroke-width="1.5"><rect x="6" y="10" width="36" height="28" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M6 34l10-8 6 4 10-10 10 8"/></svg>
-    <h2 class="ml-forfait__name">Modèle design</h2>
-    <p class="ml-forfait__desc">Choisissez parmi nos modèles d'étiquettes créés par nos designers.</p>
-    <ul class="ml-forfait__features">
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Design professionnel</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Impression couleur</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre logo intégré</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
-    </ul>
-    <div class="ml-forfait__price">99 €</div>
-    <div class="ml-forfait__price-note">HT / par modèle</div>
-    <a href="#ml-modeles-grid" class="ml-forfait__cta" style="text-decoration:none;text-align:center;">Voir les modèles</a>
-  </div>
+  {%- comment -%} ====== 3 FORFAITS ====== {%- endcomment -%}
+  <div class="ml-etiq__forfaits">
 
-  {%- comment -%} ── Forfait 3 : Création sur mesure ── {%- endcomment -%}
-  <div class="ml-forfait">
-    <svg class="ml-forfait__icon" viewBox="0 0 48 48" fill="none" stroke="{{ section.settings.text_color }}" stroke-width="1.5"><path d="M34 7l7 7-24 24H10v-7L34 7z"/><path d="M28 13l7 7"/></svg>
-    <h2 class="ml-forfait__name">Création sur mesure</h2>
-    <p class="ml-forfait__desc">Design d'étiquette 100% personnalisé par notre graphiste selon votre charte.</p>
-    <ul class="ml-forfait__features">
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Design 100% unique</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre charte graphique</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Allers-retours illimités</li>
-      <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
-    </ul>
-    <div class="ml-forfait__price">390 €</div>
-    <div class="ml-forfait__price-note">HT / création</div>
-    <button type="button" class="ml-forfait__cta" data-variant-id="55418346242382" onclick="mlAddLabel(this)">Ajouter au panier</button>
-  </div>
-</div>
-
-{%- comment -%} ====== TITRE GRILLE MODÈLES ====== {%- endcomment -%}
-<div id="ml-modeles-grid">
-  <h2 class="ml-etiquettes-section-title">Nos modèles d'étiquettes</h2>
-  <p class="ml-etiquettes-section-subtitle">Choisissez un modèle et ajoutez-le à votre panier</p>
-</div>
-
-<div class="ml-etiquettes-grid">
-  {%- for block in section.blocks -%}
-    {%- assign block_product = block.settings.product -%}
-    <div class="ml-etiquette-card" {{ block.shopify_attributes }}>
-      <div class="ml-etiquette-card__image-wrap">
-        {%- if block.settings.image != blank -%}
-          {%- if block.settings.image_hover != blank -%}
-            <img
-              class="ml-etiquette-card__image ml-etiquette-card__image--primary"
-              src="{{ block.settings.image | image_url: width: 500 }}"
-              alt="{{ block.settings.name | escape }}"
-              width="500"
-              height="500"
-              loading="lazy"
-            >
-            <img
-              class="ml-etiquette-card__image ml-etiquette-card__image--hover"
-              src="{{ block.settings.image_hover | image_url: width: 500 }}"
-              alt="{{ block.settings.name | escape }} — variante"
-              width="500"
-              height="500"
-              loading="lazy"
-            >
-          {%- else -%}
-            <img
-              class="ml-etiquette-card__image"
-              src="{{ block.settings.image | image_url: width: 500 }}"
-              alt="{{ block.settings.name | escape }}"
-              width="500"
-              height="500"
-              loading="lazy"
-            >
-          {%- endif -%}
-        {%- else -%}
-          {{ 'image' | placeholder_svg_tag: 'ml-etiquette-card__image' }}
-        {%- endif -%}
-      </div>
-      <div class="ml-etiquette-card__body">
-        <h3 class="ml-etiquette-card__name">{{ block.settings.name }}</h3>
-        {%- if block_product != blank -%}
-          <div class="ml-etiquette-card__price">{{ block_product.price | money }}</div>
-          {%- if block_product.available -%}
-            <button
-              type="button"
-              class="ml-etiquette-card__btn"
-              data-variant-id="{{ block_product.selected_or_first_available_variant.id }}"
-              onclick="mlAddLabel(this)"
-            >
-              Commander
-            </button>
-          {%- else -%}
-            <div class="ml-etiquette-card__unavailable">Indisponible</div>
-          {%- endif -%}
-        {%- else -%}
-          <div class="ml-etiquette-card__unavailable">Bientôt disponible</div>
-        {%- endif -%}
-      </div>
+    {%- comment -%} Forfait 1 : Standard — GRATUIT {%- endcomment -%}
+    <div class="ml-etiq__card">
+      <svg class="ml-etiq__card-icon" viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="36" rx="3"/><path d="M16 16h16M16 22h16M16 28h10"/></svg>
+      <h2 class="ml-etiq__card-name">Standard</h2>
+      <p class="ml-etiq__card-desc">Étiquettes avec fonds colorés et impression noire. Simple et efficace.</p>
+      <ul class="ml-etiq__features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Fonds colorés au choix</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Impression texte noir</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre logo intégré</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
+      </ul>
+      <div class="ml-etiq__price">Gratuit</div>
+      <div class="ml-etiq__price-note">Inclus avec votre commande</div>
+      <button type="button" class="ml-etiq__cta" data-variant-id="55418362003790" onclick="mlAddLabel(this)">Ajouter au panier</button>
     </div>
-  {%- endfor -%}
+
+    {%- comment -%} Forfait 2 : Modèle design {%- endcomment -%}
+    <div class="ml-etiq__card ml-etiq__card--popular">
+      <div class="ml-etiq__card-badge">Populaire</div>
+      <svg class="ml-etiq__card-icon" viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="28" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M6 34l10-8 6 4 10-10 10 8"/></svg>
+      <h2 class="ml-etiq__card-name">Modèle design</h2>
+      <p class="ml-etiq__card-desc">Choisissez parmi nos modèles d'étiquettes créés par nos designers.</p>
+      <ul class="ml-etiq__features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Design professionnel</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Impression couleur</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre logo intégré</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
+      </ul>
+      <div class="ml-etiq__price">99 €</div>
+      <div class="ml-etiq__price-note">HT / par modèle</div>
+      <a href="#ml-modeles-grid" class="ml-etiq__cta">Voir les modèles</a>
+    </div>
+
+    {%- comment -%} Forfait 3 : Création sur mesure {%- endcomment -%}
+    <div class="ml-etiq__card">
+      <svg class="ml-etiq__card-icon" viewBox="0 0 48 48"><path d="M34 7l7 7-24 24H10v-7L34 7z"/><path d="M28 13l7 7"/></svg>
+      <h2 class="ml-etiq__card-name">Création sur mesure</h2>
+      <p class="ml-etiq__card-desc">Design 100% personnalisé par notre graphiste selon votre charte.</p>
+      <ul class="ml-etiq__features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Design 100% unique</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Votre charte graphique</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Allers-retours illimités</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>Conforme réglementation</li>
+      </ul>
+      <div class="ml-etiq__price">390 €</div>
+      <div class="ml-etiq__price-note">HT / création</div>
+      <button type="button" class="ml-etiq__cta" data-variant-id="55418346242382" onclick="mlAddLabel(this)">Ajouter au panier</button>
+    </div>
+
+  </div>
+
+  {%- comment -%} ====== GRILLE MODÈLES ====== {%- endcomment -%}
+  <div id="ml-modeles-grid" class="ml-etiq__models-header">
+    <h2 class="ml-etiq__models-title">Nos modèles d'étiquettes</h2>
+    <p class="ml-etiq__models-subtitle">Choisissez un modèle et ajoutez-le à votre panier — 99 € HT par modèle</p>
+  </div>
+
+  <div class="ml-etiq__grid">
+    {%- for block in section.blocks -%}
+      {%- assign block_product = block.settings.product -%}
+      <div class="ml-etiq__model" {{ block.shopify_attributes }}>
+        <div class="ml-etiq__model-img-wrap">
+          {%- if block.settings.image != blank -%}
+            {%- if block.settings.image_hover != blank -%}
+              <img class="ml-etiq__model-img ml-etiq__model-img--primary" src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.name | escape }}" width="500" height="500" loading="lazy">
+              <img class="ml-etiq__model-img ml-etiq__model-img--hover" src="{{ block.settings.image_hover | image_url: width: 500 }}" alt="{{ block.settings.name | escape }} — variante" width="500" height="500" loading="lazy">
+            {%- else -%}
+              <img class="ml-etiq__model-img" src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.name | escape }}" width="500" height="500" loading="lazy">
+            {%- endif -%}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'ml-etiq__model-img' }}
+          {%- endif -%}
+        </div>
+        <div class="ml-etiq__model-body">
+          <h3 class="ml-etiq__model-name">{{ block.settings.name }}</h3>
+          {%- if block_product != blank -%}
+            <div class="ml-etiq__model-price">{{ block_product.price | money }}</div>
+            {%- if block_product.available -%}
+              <button type="button" class="ml-etiq__model-btn" data-variant-id="{{ block_product.selected_or_first_available_variant.id }}" onclick="mlAddLabel(this)">Ajouter au panier</button>
+            {%- else -%}
+              <div style="font-size:1.1rem;color:#888;padding:0.7rem 0;">Indisponible</div>
+            {%- endif -%}
+          {%- else -%}
+            <div style="font-size:1.1rem;color:#888;padding:0.7rem 0;">Bientôt disponible</div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
 </div>
 
 <script>
@@ -435,6 +404,7 @@
     if (btn.disabled) return;
     var variantId = btn.getAttribute('data-variant-id');
     btn.disabled = true;
+    var originalText = btn.textContent;
     btn.textContent = 'Ajout...';
 
     fetch('/cart/add.js', {
@@ -448,127 +418,79 @@
     })
     .then(function() {
       btn.textContent = 'Ajouté ✓';
-      btn.classList.add('ml-etiquette-card__btn--added');
+      btn.classList.add('ml-etiq__model-btn--added');
+      document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: true } }));
       setTimeout(function() {
         btn.disabled = false;
-        btn.textContent = 'Commander';
-        btn.classList.remove('ml-etiquette-card__btn--added');
+        btn.textContent = originalText;
+        btn.classList.remove('ml-etiq__model-btn--added');
       }, 2000);
-      /* Ouvre le cart drawer si disponible */
-      var drawer = document.querySelector('#ml-drawer');
-      if (drawer) {
-        fetch('/cart.js').then(function(r) { return r.json(); }).then(function(cart) {
-          document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { cart: cart } }));
-          if (typeof window.MylabCart !== 'undefined' && window.MylabCart.open) {
-            window.MylabCart.open();
-          }
-        });
-      } else {
-        /* Fallback — pubsub Be Yours */
-        if (typeof publish === 'function') {
-          fetch('/cart.js').then(function(r) { return r.json(); }).then(function(cart) {
-            publish('cart:update', { cart: cart });
-          });
-        }
-      }
     })
     .catch(function() {
       btn.textContent = 'Erreur — Réessayer';
       btn.disabled = false;
-      btn.classList.remove('ml-etiquette-card__btn--added');
     });
   }
 </script>
 
 {% schema %}
 {
-  "name": "Modèles d'étiquettes",
+  "name": "ML Étiquettes",
   "tag": "section",
-  "class": "ml-modeles-etiquettes",
+  "class": "ml-etiquettes-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
     {
       "type": "text",
       "id": "subheading",
-      "label": "Sous-titre",
-      "default": "PERSONNALISATION"
+      "label": "Badge",
+      "default": "Personnalisation"
     },
     {
-      "type": "richtext",
+      "type": "text",
       "id": "heading",
       "label": "Titre",
-      "default": "<p>Personnalisez les étiquettes de vos <em>produits cosmétiques</em></p>"
+      "default": "Personnalisez vos étiquettes"
     },
     {
-      "type": "text",
-      "id": "price_etiquette",
-      "label": "Prix étiquette",
-      "default": "99 €"
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Choisissez parmi 3 forfaits adaptés à vos besoins : impression standard, modèles design ou création sur mesure."
     },
     {
-      "type": "text",
-      "id": "price_etiquette_label",
-      "label": "Libellé prix étiquette",
-      "default": "par modèle — valable pour toutes les références"
-    },
-    {
-      "type": "text",
-      "id": "price_impression",
-      "label": "Prix impression",
-      "default": "250 € / an"
-    },
-    {
-      "type": "text",
-      "id": "price_impression_label",
-      "label": "Libellé prix impression",
-      "default": "forfait impression interne illimité"
-    },
-    {
-      "type": "text",
-      "id": "note",
-      "label": "Note",
-      "default": "Toutes les étiquettes ont des couleurs variables selon la gamme."
+      "type": "header",
+      "content": "Grille"
     },
     {
       "type": "range",
       "id": "columns_desktop",
-      "label": "Colonnes bureau",
+      "label": "Colonnes (desktop)",
       "min": 2,
-      "max": 4,
+      "max": 5,
       "step": 1,
-      "default": 3
+      "default": 4
     },
     {
-      "type": "select",
+      "type": "range",
       "id": "columns_mobile",
-      "label": "Colonnes mobile",
-      "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
-      ],
-      "default": "2"
+      "label": "Colonnes (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
     },
     {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Couleur accent",
-      "default": "#888888"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Couleur texte",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
-      "id": "card_bg",
-      "label": "Fond des cartes",
-      "default": "#F5F4F2"
+      "type": "header",
+      "content": "Espacement"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Marge haute",
+      "label": "Espacement haut",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -578,18 +500,18 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Marge basse",
+      "label": "Espacement bas",
       "min": 0,
       "max": 100,
       "step": 4,
       "unit": "px",
-      "default": 20
+      "default": 60
     }
   ],
   "blocks": [
     {
       "type": "etiquette",
-      "name": "Modèle",
+      "name": "Modèle d'étiquette",
       "settings": [
         {
           "type": "text",
@@ -600,7 +522,7 @@
         {
           "type": "product",
           "id": "product",
-          "label": "Produit lié (virtuel)"
+          "label": "Produit lié"
         },
         {
           "type": "image_picker",
@@ -610,19 +532,14 @@
         {
           "type": "image_picker",
           "id": "image_hover",
-          "label": "Image au survol (optionnelle)"
+          "label": "Image au survol (optionnel)"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Modèles d'étiquettes",
-      "blocks": [
-        { "type": "etiquette", "settings": { "name": "Black and Yellow" } },
-        { "type": "etiquette", "settings": { "name": "Green Floral" } },
-        { "type": "etiquette", "settings": { "name": "Aquarel" } }
-      ]
+      "name": "ML Étiquettes"
     }
   ]
 }
