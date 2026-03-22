@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-quick-order",
+      "settings": {
+        "collection": "boutique-adherents",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}

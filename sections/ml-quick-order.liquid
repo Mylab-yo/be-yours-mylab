@@ -1,0 +1,687 @@
+{% comment %}
+  MyLab Shop — Commande Express Pro
+  sections/ml-quick-order.liquid
+  Accessible uniquement aux clients taggés "dossier-valide" ou "pro"
+{% endcomment %}
+
+{%- assign is_pro = false -%}
+{%- if customer -%}
+  {%- if customer.tags contains 'dossier-valide' or customer.tags contains 'pro' -%}
+    {%- assign is_pro = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-qo {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: #111;
+  }
+
+  /* ── HERO ── */
+  .ml-qo__hero {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 2.4rem;
+  }
+  .ml-qo__badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+  .ml-qo__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+  .ml-qo__subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── GATE (non-pro) ── */
+  .ml-qo__gate {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .ml-qo__gate-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 0.8rem;
+  }
+  .ml-qo__gate-text {
+    font-size: 1.3rem;
+    color: #555;
+    margin: 0 0 1.4rem;
+    line-height: 1.5;
+  }
+  .ml-qo__gate-btn {
+    display: inline-block;
+    padding: 1rem 2.4rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .ml-qo__gate-btn:hover { background: #333; }
+
+  /* ── TABLE ── */
+  .ml-qo__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fff;
+  }
+  .ml-qo__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.3rem;
+  }
+  .ml-qo__table thead {
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+  }
+  .ml-qo__table th {
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #888;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .ml-qo__table th:last-child {
+    text-align: center;
+  }
+  .ml-qo__table td {
+    padding: 1rem 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+  }
+  .ml-qo__table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* Product cell */
+  .ml-qo__product {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 200px;
+  }
+  .ml-qo__product-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid #eee;
+    flex-shrink: 0;
+  }
+  .ml-qo__product-name {
+    font-weight: 500;
+    line-height: 1.3;
+    font-size: 1.3rem;
+  }
+  .ml-qo__product-variant {
+    font-size: 1.1rem;
+    color: #888;
+  }
+
+  /* Tier select */
+  .ml-qo__select-wrap {
+    position: relative;
+    min-width: 130px;
+  }
+  .ml-qo__select {
+    width: 100%;
+    padding: 0.7rem 2.4rem 0.7rem 1rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #111;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+    cursor: pointer;
+  }
+  .ml-qo__select:focus {
+    outline: none;
+    border-color: #111;
+  }
+
+  /* Price cell */
+  .ml-qo__price {
+    font-weight: 600;
+    white-space: nowrap;
+    font-size: 1.3rem;
+  }
+  .ml-qo__price-unit {
+    font-size: 1.1rem;
+    color: #888;
+    font-weight: 400;
+  }
+
+  /* Checkbox cell */
+  .ml-qo__check {
+    text-align: center;
+  }
+  .ml-qo__check input {
+    width: 18px;
+    height: 18px;
+    accent-color: #111;
+    cursor: pointer;
+  }
+
+  /* ── FOOTER ── */
+  .ml-qo__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.6rem 0;
+    margin-top: 1.6rem;
+    flex-wrap: wrap;
+  }
+  .ml-qo__total {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+  .ml-qo__total-label {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #888;
+  }
+  .ml-qo__total-ht {
+    font-size: 1.2rem;
+    color: #888;
+    font-weight: 400;
+    margin-left: 0.3rem;
+  }
+  .ml-qo__submit {
+    padding: 1.2rem 3rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    min-height: 50px;
+  }
+  .ml-qo__submit:hover { background: #333; }
+  .ml-qo__submit:active { transform: scale(0.98); }
+  .ml-qo__submit:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .ml-qo__count {
+    font-size: 1.2rem;
+    color: #555;
+  }
+
+  /* ── CATEGORY HEADER ── */
+  .ml-qo__category td {
+    background: #f8f8f8;
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #555;
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 749px) {
+    .ml-qo__title {
+      font-size: clamp(2rem, 7vw, 2.8rem);
+    }
+    .ml-qo__table th,
+    .ml-qo__table td {
+      padding: 0.8rem;
+    }
+    .ml-qo__product-img {
+      width: 40px;
+      height: 40px;
+    }
+    .ml-qo__footer {
+      flex-direction: column;
+      text-align: center;
+    }
+    .ml-qo__submit {
+      width: 100%;
+    }
+  }
+</style>
+
+<div class="ml-qo page-width">
+
+  <div class="ml-qo__hero">
+    <div class="ml-qo__badge">{{ section.settings.badge | default: 'Espace Pro' }}</div>
+    <h1 class="ml-qo__title">{{ section.settings.heading | default: 'Commande express' }}</h1>
+    <p class="ml-qo__subtitle">{{ section.settings.subtitle | default: 'Sélectionnez vos produits et quantités, puis ajoutez tout au panier en un clic.' }}</p>
+  </div>
+
+  {%- unless is_pro -%}
+    {%- comment -%} ── NON-PRO GATE ── {%- endcomment -%}
+    <div class="ml-qo__gate">
+      <h2 class="ml-qo__gate-title">Accès réservé aux professionnels</h2>
+      <p class="ml-qo__gate-text">Cette page est réservée aux clients disposant du dossier cosmétologique. Commandez-le pour accéder à la commande express.</p>
+      <a href="/products/creation-du-dossier-cosmetologique" class="ml-qo__gate-btn">Obtenir le dossier</a>
+    </div>
+  {%- else -%}
+    {%- comment -%} ── TABLEAU COMMANDE EXPRESS ── {%- endcomment -%}
+    {%- assign collection = collections[section.settings.collection] -%}
+
+    <div class="ml-qo__table-wrap">
+      <table class="ml-qo__table" id="ml-qo-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>Prix unit. HT</th>
+            <th>Total HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- assign current_type = '' -%}
+          {%- for product in collection.products -%}
+            {%- liquid
+              assign ml_tg = product.tags | join: ' ' | downcase
+              assign ml_tl = product.title | downcase
+
+              comment
+                Detect tier data (same logic as mini-cart.liquid)
+              endcomment
+              assign ml_f = ''
+              if ml_tg contains '1000ml' or ml_tg contains '1l' or ml_tl contains '1000'
+                assign ml_f = '1000'
+              elsif ml_tg contains '500ml' or ml_tl contains '500'
+                assign ml_f = '500'
+              elsif ml_tg contains '400ml' or ml_tl contains '400'
+                assign ml_f = '400'
+              elsif ml_tg contains '200ml' or ml_tl contains '200'
+                assign ml_f = '200'
+              elsif ml_tg contains '50ml' or ml_tl contains '50ml'
+                assign ml_f = '50'
+              endif
+
+              assign ml_t = ''
+              if ml_tg contains 'shampoing' or ml_tl contains 'shampoing'
+                assign ml_t = 'shampoing'
+              elsif ml_tl contains 'spray' and ml_tl contains 'masque'
+                assign ml_t = 'spray_reparateur'
+              elsif ml_tg contains 'masque' or ml_tl contains 'masque'
+                assign ml_t = 'masque'
+              elsif ml_tg contains 'creme' or ml_tg contains 'crème' or ml_tl contains 'crème'
+                assign ml_t = 'creme'
+              elsif ml_tg contains 'serum' or ml_tg contains 'sérum' or ml_tl contains 'sérum'
+                assign ml_t = 'serum'
+              elsif ml_tg contains 'huile' or ml_tl contains 'huile' or ml_tl contains 'bain miraculeux'
+                assign ml_t = 'huile'
+              elsif ml_tg contains 'cire' or ml_tl contains 'cire'
+                assign ml_t = 'cire'
+              endif
+
+              assign ml_g = ''
+              if ml_tg contains 'dejauniss' or ml_tg contains 'colorist' or ml_tl contains 'colorist'
+                assign ml_g = 'dejaunisseur'
+              elsif ml_tg contains 'homme' or ml_tg contains 'herborist' or ml_tl contains 'herborist'
+                assign ml_g = 'homme'
+              endif
+
+              assign ml_tier_data = ''
+              if ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '200'
+                assign ml_tier_data = '6:750,12:710,24:675,48:600,96:540'
+              elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '200'
+                assign ml_tier_data = '6:960,12:910,24:860,48:765,96:690'
+              elsif ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '1000'
+                assign ml_tier_data = '1:2890,3:2745,6:2450,12:2160'
+              elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '1000'
+                assign ml_tier_data = '1:3490,3:3315,6:2965,12:2615'
+              elsif ml_g == 'homme' and ml_t == 'masque' and ml_f == '500'
+                assign ml_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+              elsif ml_t == 'spray_reparateur'
+                assign ml_tier_data = '6:990,12:940,24:890,48:790,96:710'
+              elsif ml_t == 'shampoing' and ml_f == '200'
+                assign ml_tier_data = '6:700,12:665,24:630,48:560,96:500'
+              elsif ml_t == 'shampoing' and ml_f == '500'
+                assign ml_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+              elsif ml_t == 'shampoing' and ml_f == '1000'
+                assign ml_tier_data = '1:2490,3:2365,6:2100,12:1865'
+              elsif ml_t == 'masque' and ml_f == '200'
+                assign ml_tier_data = '6:950,12:900,24:855,48:760,96:680'
+              elsif ml_t == 'masque' and ml_f == '400'
+                assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+              elsif ml_t == 'masque' and ml_f == '1000'
+                assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+              elsif ml_t == 'creme' and ml_f == '200'
+                assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+              elsif ml_t == 'creme' and ml_f == '400'
+                assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+              elsif ml_t == 'creme' and ml_f == '1000'
+                assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+              elsif ml_t == 'serum'
+                assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+              elsif ml_t == 'huile'
+                assign ml_tier_data = '6:950,12:900,24:850,48:760,96:680'
+              elsif ml_t == 'cire'
+                assign ml_tier_data = '6:690,12:660,24:630,48:600'
+              endif
+            -%}
+
+            {%- if ml_tier_data != '' -%}
+              {%- comment -%} Detect product type for category headers {%- endcomment -%}
+              {%- assign display_type = product.type | default: ml_t -%}
+              {%- if display_type != current_type and display_type != '' -%}
+                {%- assign current_type = display_type -%}
+                <tr class="ml-qo__category"><td colspan="5">{{ current_type }}</td></tr>
+              {%- endif -%}
+
+              <tr data-variant-id="{{ product.variants.first.id }}" data-tier-data="{{ ml_tier_data }}">
+                <td class="ml-qo__check">
+                  <input type="checkbox" aria-label="Sélectionner {{ product.title | escape }}">
+                </td>
+                <td>
+                  <div class="ml-qo__product">
+                    {%- if product.featured_image -%}
+                      <img
+                        class="ml-qo__product-img"
+                        src="{{ product.featured_image | image_url: width: 100 }}"
+                        alt="{{ product.featured_image.alt | escape }}"
+                        width="50"
+                        height="50"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                    <div>
+                      <div class="ml-qo__product-name">{{ product.title }}</div>
+                      {%- if ml_f != '' -%}
+                        <div class="ml-qo__product-variant">{{ ml_f }}ml</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="ml-qo__select-wrap">
+                    <select class="ml-qo__select" data-qo-qty>
+                      <option value="0">—</option>
+                      {%- assign tiers = ml_tier_data | split: ',' -%}
+                      {%- for tier in tiers -%}
+                        {%- assign parts = tier | split: ':' -%}
+                        <option value="{{ parts[0] }}" data-price="{{ parts[1] }}">{{ parts[0] }} unités</option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                </td>
+                <td class="ml-qo__price">
+                  <span data-qo-unit>—</span>
+                  <div class="ml-qo__price-unit">€ HT</div>
+                </td>
+                <td class="ml-qo__price">
+                  <span data-qo-line>—</span>
+                  <div class="ml-qo__price-unit">€ HT</div>
+                </td>
+              </tr>
+            {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ml-qo__footer">
+      <div>
+        <div class="ml-qo__count"><span id="ml-qo-count">0</span> produit(s) sélectionné(s)</div>
+        <div class="ml-qo__total">
+          <span class="ml-qo__total-label">Total :</span>
+          <span id="ml-qo-total">0,00</span>
+          <span class="ml-qo__total-ht">€ HT</span>
+        </div>
+      </div>
+      <button type="button" class="ml-qo__submit" id="ml-qo-submit" disabled>
+        Ajouter au panier
+      </button>
+    </div>
+
+    <script>
+      (function () {
+        'use strict';
+        var table = document.getElementById('ml-qo-table');
+        var totalEl = document.getElementById('ml-qo-total');
+        var countEl = document.getElementById('ml-qo-count');
+        var submitBtn = document.getElementById('ml-qo-submit');
+        if (!table) return;
+
+        function formatPrice(centimes) {
+          var e = Math.floor(centimes / 100);
+          var c = centimes % 100;
+          return e.toLocaleString('fr-FR') + ',' + (c < 10 ? '0' : '') + c;
+        }
+
+        function updateRow(tr) {
+          var select = tr.querySelector('[data-qo-qty]');
+          var checkbox = tr.querySelector('input[type="checkbox"]');
+          var unitEl = tr.querySelector('[data-qo-unit]');
+          var lineEl = tr.querySelector('[data-qo-line]');
+          var qty = parseInt(select.value, 10);
+
+          if (qty > 0) {
+            var opt = select.options[select.selectedIndex];
+            var price = parseInt(opt.dataset.price, 10);
+            unitEl.textContent = formatPrice(price);
+            lineEl.textContent = formatPrice(price * qty);
+            checkbox.checked = true;
+          } else {
+            unitEl.textContent = '—';
+            lineEl.textContent = '—';
+            checkbox.checked = false;
+          }
+          updateTotal();
+        }
+
+        function updateTotal() {
+          var rows = table.querySelectorAll('tbody tr[data-variant-id]');
+          var total = 0;
+          var count = 0;
+          rows.forEach(function (tr) {
+            var select = tr.querySelector('[data-qo-qty]');
+            var checkbox = tr.querySelector('input[type="checkbox"]');
+            if (checkbox.checked && parseInt(select.value, 10) > 0) {
+              var opt = select.options[select.selectedIndex];
+              var price = parseInt(opt.dataset.price, 10);
+              var qty = parseInt(select.value, 10);
+              total += price * qty;
+              count++;
+            }
+          });
+          totalEl.textContent = formatPrice(total);
+          countEl.textContent = count;
+          submitBtn.disabled = count === 0;
+        }
+
+        /* Event delegation */
+        table.addEventListener('change', function (e) {
+          var tr = e.target.closest('tr[data-variant-id]');
+          if (!tr) return;
+
+          if (e.target.matches('[data-qo-qty]')) {
+            updateRow(tr);
+          }
+          if (e.target.matches('input[type="checkbox"]')) {
+            var select = tr.querySelector('[data-qo-qty]');
+            if (!e.target.checked) {
+              select.value = '0';
+              updateRow(tr);
+            } else if (parseInt(select.value, 10) === 0) {
+              select.selectedIndex = 1;
+              updateRow(tr);
+            }
+            updateTotal();
+          }
+        });
+
+        /* Add to cart */
+        submitBtn.addEventListener('click', function () {
+          var items = [];
+          table.querySelectorAll('tbody tr[data-variant-id]').forEach(function (tr) {
+            var checkbox = tr.querySelector('input[type="checkbox"]');
+            var select = tr.querySelector('[data-qo-qty]');
+            if (checkbox.checked && parseInt(select.value, 10) > 0) {
+              items.push({
+                id: parseInt(tr.dataset.variantId, 10),
+                quantity: parseInt(select.value, 10)
+              });
+            }
+          });
+
+          if (!items.length) return;
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Ajout en cours...';
+
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ items: items })
+          })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Erreur ' + r.status);
+            submitBtn.textContent = 'Ajouté !';
+            submitBtn.style.background = '#2d7a45';
+            document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: true } }));
+            setTimeout(function () {
+              submitBtn.textContent = 'Ajouter au panier';
+              submitBtn.style.background = '';
+              submitBtn.disabled = false;
+            }, 2000);
+          })
+          .catch(function () {
+            submitBtn.textContent = 'Erreur — réessayez';
+            submitBtn.style.background = '#c00';
+            setTimeout(function () {
+              submitBtn.textContent = 'Ajouter au panier';
+              submitBtn.style.background = '';
+              submitBtn.disabled = false;
+            }, 2000);
+          });
+        });
+      })();
+    </script>
+  {%- endunless -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "ML Commande Express",
+  "tag": "section",
+  "class": "ml-quick-order-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Espace Pro"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Commande express"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Sélectionnez vos produits et quantités, puis ajoutez tout au panier en un clic."
+    },
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection à afficher"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Commande Express"
+    }
+  ]
+}
+{% endschema %}
