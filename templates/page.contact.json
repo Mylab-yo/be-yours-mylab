@@ -16,7 +16,7 @@
           "settings": {
             "icon": "phone",
             "title": "Téléphone",
-            "text": "<p><a href=\"tel:+33490000000\">04 90 00 00 00</a></p>"
+            "text": "<p><a href=\"tel:+33485693347\">04 85 69 33 47</a></p>"
           }
         },
         "address": {
@@ -24,7 +24,7 @@
           "settings": {
             "icon": "location",
             "title": "Adresse",
-            "text": "<p>MyLab Cosmétiques<br>Cavaillon, France</p>"
+            "text": "<p>231, Avenue de la Voguette<br>84300 Cavaillon, France</p>"
           }
         },
         "hours": {

@@ -28,6 +28,13 @@
     max-width: 680px;
     margin: 0 auto 3rem;
   }
+  .ml-contact__logo {
+    margin-bottom: 1.2rem;
+  }
+  .ml-contact__logo img {
+    height: auto;
+    max-width: 100%;
+  }
   .ml-contact__badge {
     display: inline-block;
     font-size: 1.1rem;
@@ -302,7 +309,19 @@
 
   {%- comment -%} ====== HERO ====== {%- endcomment -%}
   <div class="ml-contact__hero">
-    <div class="ml-contact__badge">{{ section.settings.badge | default: 'MyLab' }}</div>
+    {%- if section.settings.logo != blank -%}
+      <div class="ml-contact__logo">
+        <img
+          src="{{ section.settings.logo | image_url: width: section.settings.logo_width }}"
+          alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+          width="{{ section.settings.logo_width }}"
+          height="{{ section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio }}"
+          loading="lazy"
+        >
+      </div>
+    {%- else -%}
+      <div class="ml-contact__badge">{{ section.settings.badge | default: 'MyLab' }}</div>
+    {%- endif -%}
     <h1 class="ml-contact__title">{{ section.settings.heading | default: 'Contactez-nous' }}</h1>
     <p class="ml-contact__subtitle">{{ section.settings.subtitle | default: 'Une question sur nos produits, nos formules ou votre commande ? Notre équipe est à votre écoute.' }}</p>
   </div>
@@ -499,9 +518,24 @@
       "content": "En-tête"
     },
     {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Largeur du logo",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "default": 100
+    },
+    {
       "type": "text",
       "id": "badge",
-      "label": "Badge",
+      "label": "Badge texte (si pas de logo)",
       "default": "MyLab"
     },
     {
