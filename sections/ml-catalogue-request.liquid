@@ -222,6 +222,29 @@
     text-decoration: underline;
   }
 
+  /* ── CHECKBOX ── */
+  .ml-cat__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #666;
+  }
+  .ml-cat__checkbox input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #111;
+    cursor: pointer;
+  }
+  .ml-cat__checkbox a {
+    color: #888;
+    text-decoration: underline;
+  }
+
   /* ── SUCCESS MESSAGE ── */
   .ml-cat__success {
     text-align: center;
@@ -332,191 +355,153 @@
       <p class="ml-cat__form-desc">{{ section.settings.form_desc | default: 'Remplissez le formulaire, vous recevrez le catalogue sous quelques minutes.' }}</p>
 
       {%- assign form_id = 'CatalogueForm-' | append: section.id -%}
-      {%- form 'contact', id: form_id -%}
+      <iframe name="ml-cat-n8n-frame" style="display:none;" aria-hidden="true"></iframe>
 
-        {%- if form.posted_successfully? -%}
-          <div class="ml-cat__success">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M8 12l3 3 5-5"/>
-            </svg>
-            <h3 class="ml-cat__success-title">{{ section.settings.success_title | default: 'Votre demande a bien été envoyée !' }}</h3>
-            <p class="ml-cat__success-text">{{ section.settings.success_text | default: 'Vous recevrez le catalogue par email dans quelques minutes. Pensez à vérifier vos spams.' }}</p>
+      <form id="{{ form_id }}"
+        method="POST"
+        action="{{ section.settings.webhook_url }}"
+        target="ml-cat-n8n-frame"
+      >
+        <div class="ml-cat__success" id="{{ form_id }}-success" style="display:none;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12l3 3 5-5"/>
+          </svg>
+          <h3 class="ml-cat__success-title">{{ section.settings.success_title | default: 'Votre demande a bien été envoyée !' }}</h3>
+          <p class="ml-cat__success-text">{{ section.settings.success_text | default: 'Vous recevrez le catalogue par email dans quelques minutes. Pensez à vérifier vos spams.' }}</p>
+        </div>
+
+        <div id="{{ form_id }}-fields">
+          <div class="ml-cat__field-row">
+            <div class="ml-cat__field">
+              <label class="ml-cat__label" for="{{ form_id }}-firstname">Prénom <span>*</span></label>
+              <input
+                class="ml-cat__input"
+                type="text"
+                id="{{ form_id }}-firstname"
+                name="prenom"
+                autocomplete="given-name"
+                required
+                placeholder="Jean"
+                value="{% if customer %}{{ customer.first_name }}{% endif %}"
+              >
+            </div>
+            <div class="ml-cat__field">
+              <label class="ml-cat__label" for="{{ form_id }}-lastname">Nom <span>*</span></label>
+              <input
+                class="ml-cat__input"
+                type="text"
+                id="{{ form_id }}-lastname"
+                name="nom"
+                autocomplete="family-name"
+                required
+                placeholder="Dupont"
+                value="{% if customer %}{{ customer.last_name }}{% endif %}"
+              >
+            </div>
           </div>
-        {%- endif -%}
 
-        {%- comment -%} Champ caché pour identifier la source dans Shopify Flow {%- endcomment -%}
-        <input type="hidden" name="contact[tags]" value="catalogue-request">
-        <input type="hidden" name="contact[Formulaire]" value="Demande de catalogue">
-
-        <div class="ml-cat__field-row">
           <div class="ml-cat__field">
-            <label class="ml-cat__label" for="{{ form_id }}-firstname">Prénom <span>*</span></label>
+            <label class="ml-cat__label" for="{{ form_id }}-email">Email <span>*</span></label>
+            <input
+              class="ml-cat__input"
+              type="email"
+              id="{{ form_id }}-email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="jean@monsalon.fr"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+            >
+          </div>
+
+          <div class="ml-cat__field">
+            <label class="ml-cat__label" for="{{ form_id }}-phone">Téléphone</label>
+            <input
+              class="ml-cat__input"
+              type="tel"
+              id="{{ form_id }}-phone"
+              name="telephone"
+              autocomplete="tel"
+              placeholder="06 12 34 56 78"
+              value="{% if customer %}{{ customer.phone }}{% endif %}"
+            >
+          </div>
+
+          <div class="ml-cat__field">
+            <label class="ml-cat__label" for="{{ form_id }}-salon">Nom du salon / entreprise</label>
             <input
               class="ml-cat__input"
               type="text"
-              id="{{ form_id }}-firstname"
-              name="contact[Prenom]"
-              autocomplete="given-name"
-              required
-              placeholder="Jean"
-              value="{% if customer %}{{ customer.first_name }}{% endif %}"
+              id="{{ form_id }}-salon"
+              name="salon"
+              autocomplete="organization"
+              placeholder="Mon Salon de Coiffure"
             >
           </div>
+
           <div class="ml-cat__field">
-            <label class="ml-cat__label" for="{{ form_id }}-lastname">Nom <span>*</span></label>
+            <label class="ml-cat__label" for="{{ form_id }}-city">Ville</label>
             <input
               class="ml-cat__input"
               type="text"
-              id="{{ form_id }}-lastname"
-              name="contact[Nom]"
-              autocomplete="family-name"
-              required
-              placeholder="Dupont"
-              value="{% if customer %}{{ customer.last_name }}{% endif %}"
+              id="{{ form_id }}-city"
+              name="ville"
+              autocomplete="address-level2"
+              placeholder="Paris"
             >
           </div>
-        </div>
 
-        <div class="ml-cat__field">
-          <label class="ml-cat__label" for="{{ form_id }}-email">Email <span>*</span></label>
-          <input
-            class="ml-cat__input"
-            type="email"
-            id="{{ form_id }}-email"
-            name="contact[email]"
-            autocomplete="email"
-            required
-            placeholder="jean@monsalon.fr"
-            value="{% if customer %}{{ customer.email }}{% endif %}"
-            {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
-          >
-          {%- if form.errors contains 'email' -%}
-            <small style="color:#c00;font-size:1.1rem;margin-top:0.3rem;display:block;">
-              {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
-            </small>
+          {%- if section.settings.show_activity -%}
+            <div class="ml-cat__field">
+              <label class="ml-cat__label" for="{{ form_id }}-activity">Activité</label>
+              <select
+                class="ml-cat__input ml-cat__select"
+                id="{{ form_id }}-activity"
+                name="activite"
+              >
+                <option value="" disabled selected>Sélectionnez votre activité</option>
+                <option value="Salon de coiffure">Salon de coiffure</option>
+                <option value="Institut de beauté">Institut de beauté</option>
+                <option value="Barber shop">Barber shop</option>
+                <option value="Head spa">Head spa</option>
+                <option value="E-commerce">E-commerce</option>
+                <option value="Revendeur">Revendeur</option>
+                <option value="Autres">Autres</option>
+              </select>
+            </div>
           {%- endif -%}
-        </div>
 
-        <div class="ml-cat__field">
-          <label class="ml-cat__label" for="{{ form_id }}-phone">Téléphone</label>
-          <input
-            class="ml-cat__input"
-            type="tel"
-            id="{{ form_id }}-phone"
-            name="contact[Telephone]"
-            autocomplete="tel"
-            placeholder="06 12 34 56 78"
-            value="{% if customer %}{{ customer.phone }}{% endif %}"
-          >
-        </div>
-
-        <div class="ml-cat__field">
-          <label class="ml-cat__label" for="{{ form_id }}-salon">Nom du salon / entreprise</label>
-          <input
-            class="ml-cat__input"
-            type="text"
-            id="{{ form_id }}-salon"
-            name="contact[Salon]"
-            autocomplete="organization"
-            placeholder="Mon Salon de Coiffure"
-          >
-        </div>
-
-        <div class="ml-cat__field">
-          <label class="ml-cat__label" for="{{ form_id }}-city">Ville</label>
-          <input
-            class="ml-cat__input"
-            type="text"
-            id="{{ form_id }}-city"
-            name="contact[Ville]"
-            autocomplete="address-level2"
-            placeholder="Paris"
-          >
-        </div>
-
-        {%- if section.settings.show_activity -%}
-          <div class="ml-cat__field">
-            <label class="ml-cat__label" for="{{ form_id }}-activity">Activité</label>
-            <select
-              class="ml-cat__input ml-cat__select"
-              id="{{ form_id }}-activity"
-              name="contact[Activite]"
-            >
-              <option value="" disabled selected>Sélectionnez votre activité</option>
-              <option value="Salon de coiffure">Salon de coiffure</option>
-              <option value="Institut de beauté">Institut de beauté</option>
-              <option value="Barber shop">Barber shop</option>
-              <option value="Head spa">Head spa</option>
-              <option value="E-commerce">E-commerce</option>
-              <option value="Revendeur">Revendeur</option>
-              <option value="Autres">Autres</option>
-            </select>
+          <div class="ml-cat__field" style="margin-top:0.4rem;">
+            <label class="ml-cat__checkbox">
+              <input type="checkbox" name="consent" value="oui" required>
+              <span>J'accepte de recevoir le catalogue et d'être recontacté par MyLab.
+                {%- if section.settings.privacy_url != blank -%}
+                  <a href="{{ section.settings.privacy_url }}" target="_blank">Politique de confidentialité</a>
+                {%- endif -%}
+              </span>
+            </label>
           </div>
-        {%- endif -%}
 
-        <button type="submit" class="ml-cat__submit">
-          {{ section.settings.submit_label | default: 'Recevoir le catalogue' }}
-        </button>
+          <button type="submit" class="ml-cat__submit">
+            {{ section.settings.submit_label | default: 'Recevoir le catalogue' }}
+          </button>
+        </div>
+      </form>
 
-        <p class="ml-cat__privacy">
-          En soumettant ce formulaire, vous acceptez de recevoir le catalogue par email.
-          {%- if section.settings.privacy_url != blank -%}
-            <a href="{{ section.settings.privacy_url }}">Politique de confidentialité</a>
-          {%- endif -%}
-        </p>
-
-      {%- endform -%}
-    </div>
-
-  </div>
-
-  {%- comment -%} ====== ENVOI N8N VIA IFRAME CACHÉ ====== {%- endcomment -%}
-  {%- if section.settings.webhook_url != blank -%}
-    <iframe name="ml-cat-n8n-frame" style="display:none;" aria-hidden="true"></iframe>
-    <script>
-      (function () {
-        'use strict';
-        var shopifyForm = document.getElementById('{{ form_id }}');
-        if (!shopifyForm) return;
-
-        shopifyForm.addEventListener('submit', function () {
-          var webhookUrl = {{ section.settings.webhook_url | json }};
-
-          /* Créer un formulaire caché qui poste vers n8n dans l'iframe */
-          var n8nForm = document.createElement('form');
-          n8nForm.method = 'POST';
-          n8nForm.action = webhookUrl;
-          n8nForm.target = 'ml-cat-n8n-frame';
-          n8nForm.style.display = 'none';
-
-          var fields = {
-            prenom: shopifyForm.querySelector('[name="contact[Prenom]"]'),
-            nom: shopifyForm.querySelector('[name="contact[Nom]"]'),
-            email: shopifyForm.querySelector('[name="contact[email]"]'),
-            telephone: shopifyForm.querySelector('[name="contact[Telephone]"]'),
-            salon: shopifyForm.querySelector('[name="contact[Salon]"]'),
-            ville: shopifyForm.querySelector('[name="contact[Ville]"]'),
-            activite: shopifyForm.querySelector('[name="contact[Activite]"]')
-          };
-
-          Object.keys(fields).forEach(function (key) {
-            if (fields[key] && fields[key].value) {
-              var input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = key;
-              input.value = fields[key].value;
-              n8nForm.appendChild(input);
-            }
+      <script>
+        (function () {
+          'use strict';
+          var form = document.getElementById('{{ form_id }}');
+          if (!form) return;
+          form.addEventListener('submit', function () {
+            setTimeout(function () {
+              document.getElementById('{{ form_id }}-fields').style.display = 'none';
+              document.getElementById('{{ form_id }}-success').style.display = '';
+            }, 300);
           });
-
-          document.body.appendChild(n8nForm);
-          n8nForm.submit();
-          setTimeout(function () { n8nForm.remove(); }, 2000);
-        });
-      })();
+        })();
     </script>
-  {%- endif -%}
 
   {%- comment -%} ====== TRUST ====== {%- endcomment -%}
   <div class="ml-cat__trust">
