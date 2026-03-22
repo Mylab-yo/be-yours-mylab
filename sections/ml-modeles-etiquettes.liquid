@@ -277,7 +277,20 @@
   .ml-etiq__model-btn--added { background: #2d7a45; }
   .ml-etiq__model-btn--added:hover { background: #2d7a45; }
 
-  /* ── RESPONSIVE ── */
+  /* ── RESPONSIVE TABLET ── */
+  @media screen and (min-width: 750px) and (max-width: 999px) {
+    .ml-etiq__forfaits {
+      grid-template-columns: 1fr;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ml-etiq__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* ── RESPONSIVE MOBILE ── */
   @media screen and (max-width: 749px) {
     .ml-etiq__forfaits {
       grid-template-columns: 1fr;

@@ -285,12 +285,32 @@
       width: 40px;
       height: 40px;
     }
+    .ml-qo__product {
+      min-width: 150px;
+    }
+    .ml-qo__check input {
+      width: 22px;
+      height: 22px;
+    }
     .ml-qo__footer {
       flex-direction: column;
       text-align: center;
     }
     .ml-qo__submit {
       width: 100%;
+    }
+    .ml-qo__table-wrap {
+      position: relative;
+    }
+    .ml-qo__table-wrap::after {
+      content: '';
+      position: sticky;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 24px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.9));
+      pointer-events: none;
     }
   }
 </style>
