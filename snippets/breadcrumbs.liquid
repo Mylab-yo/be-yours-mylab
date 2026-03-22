@@ -16,8 +16,16 @@
     {%- if template.name == 'product' -%}
       {%- if collection and collection.handle %}
         <span class="breadcrumb__divider" aria-hidden="true">/</span>
-        {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
-        {{ collection.title | link_to: url, class: "link" }}
+        {%- if collection.handle == 'boutique-adherents' -%}
+          {% capture url %}/pages/la-boutique-my-lab{% endcapture %}
+          {{ 'Boutique Pro' | link_to: url, class: "link" }}
+        {%- elsif collection.handle == 'boutique-decouverte' -%}
+          {% capture url %}/pages/boutique-testeurs{% endcapture %}
+          {{ 'Boutique Testeurs' | link_to: url, class: "link" }}
+        {%- else -%}
+          {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
+          {{ collection.title | link_to: url, class: "link" }}
+        {%- endif -%}
       {%- endif %}
       
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
