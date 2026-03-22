@@ -348,8 +348,92 @@
               {%- assign handle_check = '|' | append: product.handle | append: '|' -%}
               {%- if rendered_handles contains handle_check -%}{%- continue -%}{%- endif -%}
 
-              {%- assign qo_product = product -%}
-              {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
+              {%- comment -%} ── Detect tier for this product (inline) ── {%- endcomment -%}
+              {%- liquid
+                assign qo_tg = product.tags | join: ' ' | downcase
+                assign qo_tl = product.title | downcase
+                assign qo_format = ''
+                if qo_tg contains '1000ml' or qo_tg contains '1l' or qo_tl contains '1000'
+                  assign qo_format = '1000'
+                elsif qo_tg contains '500ml' or qo_tl contains '500'
+                  assign qo_format = '500'
+                elsif qo_tg contains '400ml' or qo_tl contains '400'
+                  assign qo_format = '400'
+                elsif qo_tg contains '200ml' or qo_tl contains '200'
+                  assign qo_format = '200'
+                elsif qo_tg contains '50ml' or qo_tl contains '50ml'
+                  assign qo_format = '50'
+                endif
+                assign qo_type = ''
+                if qo_tg contains 'shampoing' or qo_tl contains 'shampoing'
+                  assign qo_type = 'shampoing'
+                elsif qo_tl contains 'spray' and qo_tl contains 'masque'
+                  assign qo_type = 'spray_reparateur'
+                elsif qo_tg contains 'masque' or qo_tl contains 'masque'
+                  assign qo_type = 'masque'
+                elsif qo_tg contains 'creme' or qo_tg contains 'crème' or qo_tl contains 'crème'
+                  assign qo_type = 'creme'
+                elsif qo_tg contains 'serum' or qo_tg contains 'sérum' or qo_tl contains 'sérum'
+                  assign qo_type = 'serum'
+                elsif qo_tg contains 'huile' or qo_tl contains 'huile' or qo_tl contains 'bain miraculeux'
+                  assign qo_type = 'huile'
+                elsif qo_tg contains 'cire' or qo_tl contains 'cire'
+                  assign qo_type = 'cire'
+                endif
+                assign qo_prefix = ''
+                if qo_tg contains 'dejauniss' or qo_tg contains 'colorist' or qo_tl contains 'colorist'
+                  assign qo_prefix = 'dejaunisseur'
+                elsif qo_tg contains 'homme' or qo_tg contains 'herborist' or qo_tl contains 'herborist'
+                  assign qo_prefix = 'homme'
+                endif
+                assign qo_gamme = qo_type
+                if qo_prefix == 'homme'
+                  assign qo_gamme = 'homme'
+                elsif qo_prefix == 'dejaunisseur'
+                  assign qo_gamme = 'dejaunisseur'
+                endif
+                if qo_gamme == ''
+                  assign qo_gamme = 'autre'
+                endif
+                assign qo_tier_data = ''
+                if qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '200'
+                  assign qo_tier_data = '6:750,12:710,24:675,48:600,96:540'
+                elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '200'
+                  assign qo_tier_data = '6:960,12:910,24:860,48:765,96:690'
+                elsif qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '1000'
+                  assign qo_tier_data = '1:2890,3:2745,6:2450,12:2160'
+                elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '1000'
+                  assign qo_tier_data = '1:3490,3:3315,6:2965,12:2615'
+                elsif qo_prefix == 'homme' and qo_type == 'masque' and qo_format == '500'
+                  assign qo_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+                elsif qo_type == 'spray_reparateur'
+                  assign qo_tier_data = '6:990,12:940,24:890,48:790,96:710'
+                elsif qo_type == 'shampoing' and qo_format == '200'
+                  assign qo_tier_data = '6:700,12:665,24:630,48:560,96:500'
+                elsif qo_type == 'shampoing' and qo_format == '500'
+                  assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+                elsif qo_type == 'shampoing' and qo_format == '1000'
+                  assign qo_tier_data = '1:2490,3:2365,6:2100,12:1865'
+                elsif qo_type == 'masque' and qo_format == '200'
+                  assign qo_tier_data = '6:950,12:900,24:855,48:760,96:680'
+                elsif qo_type == 'masque' and qo_format == '400'
+                  assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                elsif qo_type == 'masque' and qo_format == '1000'
+                  assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                elsif qo_type == 'creme' and qo_format == '200'
+                  assign qo_tier_data = '6:850,12:805,24:765,48:680,96:610'
+                elsif qo_type == 'creme' and qo_format == '400'
+                  assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                elsif qo_type == 'creme' and qo_format == '1000'
+                  assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                elsif qo_type == 'serum'
+                  assign qo_tier_data = '6:850,12:805,24:765,48:680,96:610'
+                elsif qo_type == 'huile'
+                  assign qo_tier_data = '6:950,12:900,24:850,48:760,96:680'
+                elsif qo_type == 'cire'
+                  assign qo_tier_data = '6:690,12:660,24:630,48:600'
+                endif
+              -%}
 
               {%- if qo_tier_data != '' and qo_gamme == gk -%}
                 {%- unless gamme_has_products -%}
@@ -357,12 +441,10 @@
                   <tr class="ml-qo__category"><td colspan="5">{{ gl }}</td></tr>
                 {%- endunless -%}
 
-                {%- comment -%} ── Render this product ── {%- endcomment -%}
                 {%- assign rendered_handles = rendered_handles | append: product.handle | append: '|' -%}
                 {%- render 'ml-qo-row', qo_product: product, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
 
-                {%- comment -%} ── Render linked contenances (500ml, 1000ml, 400ml) ── {%- endcomment -%}
-                {%- assign contenance_handles = '' -%}
+                {%- comment -%} ── Contenances liées (500ml, 1000ml) ── {%- endcomment -%}
                 {%- assign h500 = product.metafields.custom.contenance_500ml.value -%}
                 {%- assign h1000 = product.metafields.custom.contenance_1000ml.value -%}
 
@@ -370,12 +452,48 @@
                   {%- assign h500_check = '|' | append: h500 | append: '|' -%}
                   {%- unless rendered_handles contains h500_check -%}
                     {%- assign rendered_handles = rendered_handles | append: h500 | append: '|' -%}
-                    {%- assign linked_p = all_products[h500] -%}
-                    {%- if linked_p.id != blank -%}
-                      {%- assign qo_product = linked_p -%}
-                      {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
+                    {%- assign lp = all_products[h500] -%}
+                    {%- if lp.id != blank -%}
+                      {%- liquid
+                        assign qo_tg = lp.tags | join: ' ' | downcase
+                        assign qo_tl = lp.title | downcase
+                        assign qo_format = ''
+                        if qo_tg contains '1000ml' or qo_tg contains '1l' or qo_tl contains '1000'
+                          assign qo_format = '1000'
+                        elsif qo_tg contains '500ml' or qo_tl contains '500'
+                          assign qo_format = '500'
+                        elsif qo_tg contains '400ml' or qo_tl contains '400'
+                          assign qo_format = '400'
+                        elsif qo_tg contains '200ml' or qo_tl contains '200'
+                          assign qo_format = '200'
+                        elsif qo_tg contains '50ml' or qo_tl contains '50ml'
+                          assign qo_format = '50'
+                        endif
+                        assign qo_tier_data = ''
+                        if qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '500'
+                          assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+                        elsif qo_type == 'shampoing' and qo_format == '500'
+                          assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+                        elsif qo_type == 'shampoing' and qo_format == '1000'
+                          assign qo_tier_data = '1:2490,3:2365,6:2100,12:1865'
+                        elsif qo_type == 'masque' and qo_format == '400'
+                          assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                        elsif qo_type == 'masque' and qo_format == '500'
+                          assign qo_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+                        elsif qo_type == 'masque' and qo_format == '1000'
+                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                        elsif qo_type == 'creme' and qo_format == '400'
+                          assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                        elsif qo_type == 'creme' and qo_format == '1000'
+                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                        elsif qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '1000'
+                          assign qo_tier_data = '1:2890,3:2745,6:2450,12:2160'
+                        elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '1000'
+                          assign qo_tier_data = '1:3490,3:3315,6:2965,12:2615'
+                        endif
+                      -%}
                       {%- if qo_tier_data != '' -%}
-                        {%- render 'ml-qo-row', qo_product: linked_p, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
+                        {%- render 'ml-qo-row', qo_product: lp, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
                       {%- endif -%}
                     {%- endif -%}
                   {%- endunless -%}
@@ -385,12 +503,38 @@
                   {%- assign h1000_check = '|' | append: h1000 | append: '|' -%}
                   {%- unless rendered_handles contains h1000_check -%}
                     {%- assign rendered_handles = rendered_handles | append: h1000 | append: '|' -%}
-                    {%- assign linked_p = all_products[h1000] -%}
-                    {%- if linked_p.id != blank -%}
-                      {%- assign qo_product = linked_p -%}
-                      {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
+                    {%- assign lp = all_products[h1000] -%}
+                    {%- if lp.id != blank -%}
+                      {%- liquid
+                        assign qo_tg = lp.tags | join: ' ' | downcase
+                        assign qo_tl = lp.title | downcase
+                        assign qo_format = ''
+                        if qo_tg contains '1000ml' or qo_tg contains '1l' or qo_tl contains '1000'
+                          assign qo_format = '1000'
+                        elsif qo_tg contains '500ml' or qo_tl contains '500'
+                          assign qo_format = '500'
+                        elsif qo_tg contains '400ml' or qo_tl contains '400'
+                          assign qo_format = '400'
+                        endif
+                        assign qo_tier_data = ''
+                        if qo_type == 'shampoing' and qo_format == '1000'
+                          assign qo_tier_data = '1:2490,3:2365,6:2100,12:1865'
+                        elsif qo_type == 'masque' and qo_format == '1000'
+                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                        elsif qo_type == 'creme' and qo_format == '1000'
+                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
+                        elsif qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '1000'
+                          assign qo_tier_data = '1:2890,3:2745,6:2450,12:2160'
+                        elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '1000'
+                          assign qo_tier_data = '1:3490,3:3315,6:2965,12:2615'
+                        elsif qo_type == 'masque' and qo_format == '400'
+                          assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                        elsif qo_type == 'creme' and qo_format == '400'
+                          assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                        endif
+                      -%}
                       {%- if qo_tier_data != '' -%}
-                        {%- render 'ml-qo-row', qo_product: linked_p, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
+                        {%- render 'ml-qo-row', qo_product: lp, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
                       {%- endif -%}
                     {%- endif -%}
                   {%- endunless -%}
