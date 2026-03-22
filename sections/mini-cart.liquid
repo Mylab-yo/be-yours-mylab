@@ -57,6 +57,56 @@
         endif
       -%}
       <span class="mini-cart__border"></span>
+
+      {%- comment -%} ── ML PARCOURS PRO (uniquement pour les non-taggés) ── {%- endcomment -%}
+      {%- assign ml_show_steps = true -%}
+      {%- if customer -%}
+        {%- if customer.tags contains 'dossier-valide' or customer.tags contains 'pro' -%}
+          {%- assign ml_show_steps = false -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if ml_show_steps and cart != empty -%}
+        {%- assign ml_has_dossier = false -%}
+        {%- assign ml_has_etiquettes = false -%}
+        {%- assign ml_has_pro = false -%}
+        {%- for item in cart.items -%}
+          {%- if item.product.handle == 'creation-du-dossier-cosmetologique' -%}
+            {%- assign ml_has_dossier = true -%}
+          {%- endif -%}
+          {%- for col in item.product.collections -%}
+            {%- if col.handle == 'modeles-detiquettes' -%}
+              {%- assign ml_has_etiquettes = true -%}
+            {%- endif -%}
+            {%- if col.handle == 'boutique-adherents' -%}
+              {%- assign ml_has_pro = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        <div class="ml-steps" style="padding:1rem 1.6rem;margin-bottom:0.5rem;">
+          <div style="font-family:'DM Sans',var(--font-body-family),sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#888;margin-bottom:0.8rem;">Votre parcours professionnel</div>
+          <div class="ml-steps__list" style="display:flex;flex-direction:column;gap:0.6rem;">
+            <a href="/products/creation-du-dossier-cosmetologique" style="display:flex;align-items:center;gap:0.8rem;text-decoration:none;font-family:'DM Sans',var(--font-body-family),sans-serif;font-size:1.2rem;color:{% if ml_has_dossier %}#2d7a45{% else %}#555{% endif %};">
+              <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;flex-shrink:0;{% if ml_has_dossier %}background:#2d7a45;{% else %}background:#fff;border:2px solid #ddd;{% endif %}">
+                {%- if ml_has_dossier -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span style="font-size:1rem;font-weight:700;color:#888;">1</span>{%- endif -%}
+              </span>
+              <span style="{% if ml_has_dossier %}font-weight:600;{% endif %}">Dossier cosmétologique</span>
+            </a>
+            <a href="/pages/modeles-etiquettes" style="display:flex;align-items:center;gap:0.8rem;text-decoration:none;font-family:'DM Sans',var(--font-body-family),sans-serif;font-size:1.2rem;color:{% if ml_has_etiquettes %}#2d7a45{% else %}#555{% endif %};">
+              <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;flex-shrink:0;{% if ml_has_etiquettes %}background:#2d7a45;{% else %}background:#fff;border:2px solid #ddd;{% endif %}">
+                {%- if ml_has_etiquettes -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span style="font-size:1rem;font-weight:700;color:#888;">2</span>{%- endif -%}
+              </span>
+              <span style="{% if ml_has_etiquettes %}font-weight:600;{% endif %}">Choisissez vos étiquettes</span>
+            </a>
+            <a href="/pages/la-boutique-my-lab" style="display:flex;align-items:center;gap:0.8rem;text-decoration:none;font-family:'DM Sans',var(--font-body-family),sans-serif;font-size:1.2rem;color:{% if ml_has_pro %}#2d7a45{% else %}#555{% endif %};">
+              <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;flex-shrink:0;{% if ml_has_pro %}background:#2d7a45;{% else %}background:#fff;border:2px solid #ddd;{% endif %}">
+                {%- if ml_has_pro -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span style="font-size:1rem;font-weight:700;color:#888;">3</span>{%- endif -%}
+              </span>
+              <span style="{% if ml_has_pro %}font-weight:600;{% endif %}">Commandez vos produits</span>
+            </a>
+          </div>
+        </div>
+        <span class="mini-cart__border"></span>
+      {%- endif -%}
     </div>
     <div class="mini-cart__empty center" data-animate data-animate-delay-{{ animate_count }}>
       <p class="mini-cart__empty-text h3">{{ 'sections.cart.empty' | t }}</p>
