@@ -444,112 +444,36 @@
                 {%- endunless -%}
 
                 {%- assign rendered_handles = rendered_handles | append: product.handle | append: '|' -%}
-                {%- render 'ml-qo-row', qo_product: product, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
-
-                {%- comment -%}
-                  ── Contenances liées (500ml, 1000ml) ──
-                  Essaie d'abord les metafields, puis construit le handle
-                  automatiquement si le metafield n'existe pas.
-                  Handles connus :
-                    Neutres : {type}-{gamme}-500ml / {type}-{gamme}-1000-ml
-                    Coloristeur : {type}-1000ml-coloristeur-{color}
-                    Dejaunisseur : {type}-1000ml-dejaunisseur-{color}
-                {%- endcomment -%}
-
+                {%- comment -%} data-linked-handles pour le JS qui chargera les contenances ── {%- endcomment -%}
                 {%- liquid
-                  comment
-                    Build candidate handles for 500ml and 1000ml
-                    Coloristeur/dejaunisseur n'ont PAS de 500ml — seulement 200ml et 1000ml
-                  endcomment
-                  assign h500 = product.metafields.custom.contenance_500ml.value
-                  assign h1000 = product.metafields.custom.contenance_1000ml.value
-                  assign is_coloristeur_handle = false
+                  assign linked_500 = product.metafields.custom.contenance_500ml.value
+                  assign linked_1000 = product.metafields.custom.contenance_1000ml.value
                   assign phandle = product.handle
+                  assign is_col = false
                   if phandle contains 'coloristeur-' or phandle contains 'dejaunisseur-'
-                    assign is_coloristeur_handle = true
+                    assign is_col = true
                   endif
-
-                  comment
-                    If no metafield for 1000ml, construct handle automatically
-                  endcomment
-                  if h1000 == blank
-                    if is_coloristeur_handle
-                      assign handle_parts = phandle | split: '-'
-                      assign h1000_auto = handle_parts[0] | append: '-1000ml'
+                  if linked_1000 == blank
+                    if is_col
+                      assign hp = phandle | split: '-'
+                      assign linked_1000 = hp[0] | append: '-1000ml'
                       for i in (1..10)
-                        if handle_parts[i]
-                          assign h1000_auto = h1000_auto | append: '-' | append: handle_parts[i]
+                        if hp[i]
+                          assign linked_1000 = linked_1000 | append: '-' | append: hp[i]
                         endif
                       endfor
-                      assign h1000 = h1000_auto
                     else
-                      assign h1000 = phandle | append: '-1000-ml'
+                      assign linked_1000 = phandle | append: '-1000-ml'
                     endif
                   endif
-
-                  comment
-                    500ml uniquement pour les neutres (pas coloristeur/dejaunisseur)
-                  endcomment
-                  if h500 == blank and is_coloristeur_handle == false
-                    assign h500 = phandle | append: '-500ml'
+                  if linked_500 == blank and is_col == false
+                    assign linked_500 = phandle | append: '-500ml'
                   endif
                 -%}
-
-                {%- comment -%} ── Render 500ml ── {%- endcomment -%}
-                {%- if h500 != blank and h500 != product.handle -%}
-                  {%- assign h500_check = '|' | append: h500 | append: '|' -%}
-                  {%- unless rendered_handles contains h500_check -%}
-                    {%- assign lp = all_products[h500] -%}
-                    {%- if lp.id != blank -%}
-                      {%- assign rendered_handles = rendered_handles | append: h500 | append: '|' -%}
-                      {%- liquid
-                        assign qo_format = '500'
-                        assign qo_tier_data = ''
-                        if qo_prefix == 'dejaunisseur' and qo_type == 'shampoing'
-                          assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
-                        elsif qo_prefix == 'homme' and qo_type == 'masque'
-                          assign qo_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
-                        elsif qo_type == 'shampoing'
-                          assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
-                        elsif qo_type == 'masque'
-                          assign qo_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
-                        endif
-                      -%}
-                      {%- if qo_tier_data != '' -%}
-                        {%- render 'ml-qo-row', qo_product: lp, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
-                      {%- endif -%}
-                    {%- endif -%}
-                  {%- endunless -%}
-                {%- endif -%}
-
-                {%- comment -%} ── Render 1000ml ── {%- endcomment -%}
-                {%- if h1000 != product.handle -%}
-                  {%- assign h1000_check = '|' | append: h1000 | append: '|' -%}
-                  {%- unless rendered_handles contains h1000_check -%}
-                    {%- assign lp = all_products[h1000] -%}
-                    {%- if lp.id != blank -%}
-                      {%- assign rendered_handles = rendered_handles | append: h1000 | append: '|' -%}
-                      {%- liquid
-                        assign qo_format = '1000'
-                        assign qo_tier_data = ''
-                        if qo_prefix == 'dejaunisseur' and qo_type == 'shampoing'
-                          assign qo_tier_data = '1:2890,3:2745,6:2450,12:2160'
-                        elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque'
-                          assign qo_tier_data = '1:3490,3:3315,6:2965,12:2615'
-                        elsif qo_type == 'shampoing'
-                          assign qo_tier_data = '1:2490,3:2365,6:2100,12:1865'
-                        elsif qo_type == 'masque'
-                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                        elsif qo_type == 'creme'
-                          assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                        endif
-                      -%}
-                      {%- if qo_tier_data != '' -%}
-                        {%- render 'ml-qo-row', qo_product: lp, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
-                      {%- endif -%}
-                    {%- endif -%}
-                  {%- endunless -%}
-                {%- endif -%}
+                {%- render 'ml-qo-row', qo_product: product, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
+                {%- comment -%} Placeholder rows for linked contenances (filled by JS) {%- endcomment -%}
+                <tr class="ml-qo__linked-placeholder" data-parent-handle="{{ product.handle }}" data-linked-handle="{{ linked_500 }}" data-type="{{ qo_type }}" data-prefix="{{ qo_prefix }}" data-size="500" style="display:none;"></tr>
+                <tr class="ml-qo__linked-placeholder" data-parent-handle="{{ product.handle }}" data-linked-handle="{{ linked_1000 }}" data-type="{{ qo_type }}" data-prefix="{{ qo_prefix }}" data-size="1000" style="display:none;"></tr>
 
               {%- endif -%}
             {%- endfor -%}
@@ -697,6 +621,69 @@
               submitBtn.disabled = false;
             }, 2000);
           });
+        });
+
+        /* ── CHARGEMENT DES CONTENANCES LIÉES VIA JS ── */
+        var TIER_MAP = {
+          'dejaunisseur_shampoing_500': '6:1490,12:1340,24:1265,48:1190,96:1065',
+          'dejaunisseur_shampoing_1000': '1:2890,3:2745,6:2450,12:2160',
+          'dejaunisseur_masque_1000': '1:3490,3:3315,6:2965,12:2615',
+          'homme_masque_500': '6:1990,12:1790,24:1690,48:1590,96:1430',
+          'shampoing_500': '6:1490,12:1340,24:1265,48:1190,96:1065',
+          'shampoing_1000': '1:2490,3:2365,6:2100,12:1865',
+          'masque_400': '6:1690,12:1590,24:1520,48:1350,96:1210',
+          'masque_1000': '1:3290,3:3125,6:2790,12:2465',
+          'creme_400': '6:1690,12:1590,24:1520,48:1350,96:1210',
+          'creme_1000': '1:3290,3:3125,6:2790,12:2465'
+        };
+
+        function getTierData(prefix, type, size) {
+          if (prefix) {
+            var key = prefix + '_' + type + '_' + size;
+            if (TIER_MAP[key]) return TIER_MAP[key];
+          }
+          return TIER_MAP[type + '_' + size] || '';
+        }
+
+        function buildRow(product, tierData, sizeLabel) {
+          var img = product.images && product.images[0]
+            ? '<img class="ml-qo__product-img" src="' + product.images[0].replace(/\.([^.]+)$/, '_100x100.$1') + '" width="50" height="50" loading="lazy">'
+            : '';
+          var tiers = tierData.split(',');
+          var options = '<option value="0">—</option>';
+          tiers.forEach(function (t) {
+            var p = t.split(':');
+            options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unités</option>';
+          });
+          return '<tr data-variant-id="' + product.variants[0].id + '" data-tier-data="' + tierData + '">'
+            + '<td class="ml-qo__check"><input type="checkbox" aria-label="Sélectionner ' + product.title + '"></td>'
+            + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
+            + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
+            + '<td><div class="ml-qo__select-wrap"><select class="ml-qo__select" data-qo-qty>' + options + '</select></div></td>'
+            + '<td class="ml-qo__price"><span data-qo-unit>—</span><div class="ml-qo__price-unit">€ HT</div></td>'
+            + '<td class="ml-qo__price"><span data-qo-line>—</span><div class="ml-qo__price-unit">€ HT</div></td>'
+            + '</tr>';
+        }
+
+        var placeholders = table.querySelectorAll('.ml-qo__linked-placeholder');
+        var seen = {};
+
+        placeholders.forEach(function (ph) {
+          var handle = ph.dataset.linkedHandle;
+          if (!handle || seen[handle]) { ph.remove(); return; }
+          seen[handle] = true;
+
+          fetch('/products/' + handle + '.js')
+            .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+            .then(function (product) {
+              var size = ph.dataset.size;
+              var tierData = getTierData(ph.dataset.prefix, ph.dataset.type, size);
+              if (!tierData) { ph.remove(); return; }
+              var html = buildRow(product, tierData, size);
+              ph.insertAdjacentHTML('afterend', html);
+              ph.remove();
+            })
+            .catch(function () { ph.remove(); });
         });
       })();
     </script>
