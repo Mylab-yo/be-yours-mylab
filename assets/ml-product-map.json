@@ -112,23 +112,23 @@
   "serum-finition-ultime": {
     "type": "serum", "prefix": "", "gamme": "Sérums",
     "sizes": { "50": "serum-finition-ultime" },
-    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
+    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
   },
   "serum-barbe": {
     "type": "serum", "prefix": "homme", "gamme": "Gamme Homme",
     "sizes": { "50": "serum-barbe" },
-    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
+    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
   },
 
   "bain-miraculeux": {
     "type": "huile", "prefix": "", "gamme": "Huiles",
     "sizes": { "50": "bain-miraculeux" },
-    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
+    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
   },
   "huile-a-barbe": {
     "type": "huile", "prefix": "homme", "gamme": "Gamme Homme",
     "sizes": { "50": "huile-a-barbe" },
-    "tiers": { "50": "6:950,12:900,24:850,48:760,96:680" }
+    "tiers": { "50": "6:850,12:805,24:765,48:680,96:610" }
   },
 
   "masque-intense": {
