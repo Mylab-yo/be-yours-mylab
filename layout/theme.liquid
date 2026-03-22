@@ -98,6 +98,9 @@
     {%- render 'js-variables' -%}
     {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
 
+    {%- comment -%} ML Product Map URL — source de vérité unique {%- endcomment -%}
+    <script>window.MylabAssets = { productMapUrl: {{ 'ml-product-map.json' | asset_url | json }} };</script>
+
     {%- comment -%} ML Dossier Gate — config pour auto-ajout du dossier cosmétologique {%- endcomment -%}
     {%- assign ml_is_dossier_valide = false -%}
     {%- if customer -%}

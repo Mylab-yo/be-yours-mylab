@@ -18,8 +18,7 @@
 
   function loadProductMap() {
     if (PRODUCT_MAP) return Promise.resolve(PRODUCT_MAP);
-    var url = document.querySelector('[data-ml-product-map-url]');
-    var mapUrl = url ? url.dataset.mlProductMapUrl : '/assets/ml-product-map.json';
+    var mapUrl = (window.MylabAssets && window.MylabAssets.productMapUrl) || '/assets/ml-product-map.json';
     return fetch(mapUrl)
       .then(function (r) { return r.json(); })
       .then(function (data) { PRODUCT_MAP = data; return data; });
