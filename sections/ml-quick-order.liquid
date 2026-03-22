@@ -328,12 +328,15 @@
         </thead>
         <tbody>
           {%- comment -%}
-            ── TRI PAR GAMMES ──
-            On itère plusieurs fois sur la collection, une fois par gamme,
-            pour regrouper les produits par catégorie.
+            ── TRI PAR GAMMES + CONTENANCES LIÉES ──
+            Pour chaque produit de la collection, on affiche aussi ses
+            contenances liées (500ml, 1000ml) via metafields, même si
+            elles ne sont pas dans la collection.
           {%- endcomment -%}
           {%- assign gamme_keys = 'shampoing,masque,creme,serum,huile,spray_reparateur,cire,homme,dejaunisseur,autre' | split: ',' -%}
           {%- assign gamme_labels = 'Shampoings,Masques capillaires,Crèmes de coiffage sans rinçage,Sérums,Huiles,Sprays réparateurs,Produits de finition,Gamme Homme,Gamme Déjaunisseur / Coloristeur,Autres produits' | split: ',' -%}
+
+          {%- assign rendered_handles = '|' -%}
 
           {%- for gamme_index in (0..9) -%}
             {%- assign gk = gamme_keys[gamme_index] -%}
@@ -341,151 +344,58 @@
             {%- assign gamme_has_products = false -%}
 
             {%- for product in collection.products -%}
-              {%- liquid
-                assign ml_tg = product.tags | join: ' ' | downcase
-                assign ml_tl = product.title | downcase
+              {%- comment -%} Skip if already rendered via a contenance link {%- endcomment -%}
+              {%- assign handle_check = '|' | append: product.handle | append: '|' -%}
+              {%- if rendered_handles contains handle_check -%}{%- continue -%}{%- endif -%}
 
-                assign ml_f = ''
-                if ml_tg contains '1000ml' or ml_tg contains '1l' or ml_tl contains '1000'
-                  assign ml_f = '1000'
-                elsif ml_tg contains '500ml' or ml_tl contains '500'
-                  assign ml_f = '500'
-                elsif ml_tg contains '400ml' or ml_tl contains '400'
-                  assign ml_f = '400'
-                elsif ml_tg contains '200ml' or ml_tl contains '200'
-                  assign ml_f = '200'
-                elsif ml_tg contains '50ml' or ml_tl contains '50ml'
-                  assign ml_f = '50'
-                endif
+              {%- assign qo_product = product -%}
+              {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
 
-                assign ml_t = ''
-                if ml_tg contains 'shampoing' or ml_tl contains 'shampoing'
-                  assign ml_t = 'shampoing'
-                elsif ml_tl contains 'spray' and ml_tl contains 'masque'
-                  assign ml_t = 'spray_reparateur'
-                elsif ml_tg contains 'masque' or ml_tl contains 'masque'
-                  assign ml_t = 'masque'
-                elsif ml_tg contains 'creme' or ml_tg contains 'crème' or ml_tl contains 'crème'
-                  assign ml_t = 'creme'
-                elsif ml_tg contains 'serum' or ml_tg contains 'sérum' or ml_tl contains 'sérum'
-                  assign ml_t = 'serum'
-                elsif ml_tg contains 'huile' or ml_tl contains 'huile' or ml_tl contains 'bain miraculeux'
-                  assign ml_t = 'huile'
-                elsif ml_tg contains 'cire' or ml_tl contains 'cire'
-                  assign ml_t = 'cire'
-                endif
-
-                assign ml_g = ''
-                if ml_tg contains 'dejauniss' or ml_tg contains 'colorist' or ml_tl contains 'colorist'
-                  assign ml_g = 'dejaunisseur'
-                elsif ml_tg contains 'homme' or ml_tg contains 'herborist' or ml_tl contains 'herborist'
-                  assign ml_g = 'homme'
-                endif
-
-                comment
-                  Determine which gamme this product belongs to
-                endcomment
-                assign ml_gamme = ml_t
-                if ml_g == 'homme'
-                  assign ml_gamme = 'homme'
-                elsif ml_g == 'dejaunisseur'
-                  assign ml_gamme = 'dejaunisseur'
-                endif
-                if ml_gamme == ''
-                  assign ml_gamme = 'autre'
-                endif
-
-                assign ml_tier_data = ''
-                if ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '200'
-                  assign ml_tier_data = '6:750,12:710,24:675,48:600,96:540'
-                elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '200'
-                  assign ml_tier_data = '6:960,12:910,24:860,48:765,96:690'
-                elsif ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '1000'
-                  assign ml_tier_data = '1:2890,3:2745,6:2450,12:2160'
-                elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '1000'
-                  assign ml_tier_data = '1:3490,3:3315,6:2965,12:2615'
-                elsif ml_g == 'homme' and ml_t == 'masque' and ml_f == '500'
-                  assign ml_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
-                elsif ml_t == 'spray_reparateur'
-                  assign ml_tier_data = '6:990,12:940,24:890,48:790,96:710'
-                elsif ml_t == 'shampoing' and ml_f == '200'
-                  assign ml_tier_data = '6:700,12:665,24:630,48:560,96:500'
-                elsif ml_t == 'shampoing' and ml_f == '500'
-                  assign ml_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
-                elsif ml_t == 'shampoing' and ml_f == '1000'
-                  assign ml_tier_data = '1:2490,3:2365,6:2100,12:1865'
-                elsif ml_t == 'masque' and ml_f == '200'
-                  assign ml_tier_data = '6:950,12:900,24:855,48:760,96:680'
-                elsif ml_t == 'masque' and ml_f == '400'
-                  assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
-                elsif ml_t == 'masque' and ml_f == '1000'
-                  assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                elsif ml_t == 'creme' and ml_f == '200'
-                  assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
-                elsif ml_t == 'creme' and ml_f == '400'
-                  assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
-                elsif ml_t == 'creme' and ml_f == '1000'
-                  assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                elsif ml_t == 'serum'
-                  assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
-                elsif ml_t == 'huile'
-                  assign ml_tier_data = '6:950,12:900,24:850,48:760,96:680'
-                elsif ml_t == 'cire'
-                  assign ml_tier_data = '6:690,12:660,24:630,48:600'
-                endif
-              -%}
-
-              {%- if ml_tier_data != '' and ml_gamme == gk -%}
+              {%- if qo_tier_data != '' and qo_gamme == gk -%}
                 {%- unless gamme_has_products -%}
                   {%- assign gamme_has_products = true -%}
                   <tr class="ml-qo__category"><td colspan="5">{{ gl }}</td></tr>
                 {%- endunless -%}
 
-              <tr data-variant-id="{{ product.variants.first.id }}" data-tier-data="{{ ml_tier_data }}">
-                <td class="ml-qo__check">
-                  <input type="checkbox" aria-label="Sélectionner {{ product.title | escape }}">
-                </td>
-                <td>
-                  <div class="ml-qo__product">
-                    {%- if product.featured_image -%}
-                      <img
-                        class="ml-qo__product-img"
-                        src="{{ product.featured_image | image_url: width: 100 }}"
-                        alt="{{ product.featured_image.alt | escape }}"
-                        width="50"
-                        height="50"
-                        loading="lazy"
-                      >
-                    {%- endif -%}
-                    <div>
-                      <div class="ml-qo__product-name">{{ product.title }}</div>
-                      {%- if ml_f != '' -%}
-                        <div class="ml-qo__product-variant">{{ ml_f }}ml</div>
+                {%- comment -%} ── Render this product ── {%- endcomment -%}
+                {%- assign rendered_handles = rendered_handles | append: product.handle | append: '|' -%}
+                {%- render 'ml-qo-row', qo_product: product, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
+
+                {%- comment -%} ── Render linked contenances (500ml, 1000ml, 400ml) ── {%- endcomment -%}
+                {%- assign contenance_handles = '' -%}
+                {%- assign h500 = product.metafields.custom.contenance_500ml.value -%}
+                {%- assign h1000 = product.metafields.custom.contenance_1000ml.value -%}
+
+                {%- if h500 != blank and h500 != product.handle -%}
+                  {%- assign h500_check = '|' | append: h500 | append: '|' -%}
+                  {%- unless rendered_handles contains h500_check -%}
+                    {%- assign rendered_handles = rendered_handles | append: h500 | append: '|' -%}
+                    {%- assign linked_p = all_products[h500] -%}
+                    {%- if linked_p.id != blank -%}
+                      {%- assign qo_product = linked_p -%}
+                      {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
+                      {%- if qo_tier_data != '' -%}
+                        {%- render 'ml-qo-row', qo_product: linked_p, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
                       {%- endif -%}
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="ml-qo__select-wrap">
-                    <select class="ml-qo__select" data-qo-qty>
-                      <option value="0">—</option>
-                      {%- assign tiers = ml_tier_data | split: ',' -%}
-                      {%- for tier in tiers -%}
-                        {%- assign parts = tier | split: ':' -%}
-                        <option value="{{ parts[0] }}" data-price="{{ parts[1] }}">{{ parts[0] }} unités</option>
-                      {%- endfor -%}
-                    </select>
-                  </div>
-                </td>
-                <td class="ml-qo__price">
-                  <span data-qo-unit>—</span>
-                  <div class="ml-qo__price-unit">€ HT</div>
-                </td>
-                <td class="ml-qo__price">
-                  <span data-qo-line>—</span>
-                  <div class="ml-qo__price-unit">€ HT</div>
-                </td>
-              </tr>
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endif -%}
+
+                {%- if h1000 != blank and h1000 != product.handle -%}
+                  {%- assign h1000_check = '|' | append: h1000 | append: '|' -%}
+                  {%- unless rendered_handles contains h1000_check -%}
+                    {%- assign rendered_handles = rendered_handles | append: h1000 | append: '|' -%}
+                    {%- assign linked_p = all_products[h1000] -%}
+                    {%- if linked_p.id != blank -%}
+                      {%- assign qo_product = linked_p -%}
+                      {%- render 'ml-qo-detect-tier', qo_product: qo_product -%}
+                      {%- if qo_tier_data != '' -%}
+                        {%- render 'ml-qo-row', qo_product: linked_p, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endif -%}
+
               {%- endif -%}
             {%- endfor -%}
           {%- endfor -%}
