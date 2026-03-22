@@ -355,13 +355,8 @@
       <p class="ml-cat__form-desc">{{ section.settings.form_desc | default: 'Remplissez le formulaire, vous recevrez le catalogue sous quelques minutes.' }}</p>
 
       {%- assign form_id = 'CatalogueForm-' | append: section.id -%}
-      <iframe name="ml-cat-n8n-frame" style="display:none;" aria-hidden="true"></iframe>
 
-      <form id="{{ form_id }}"
-        method="POST"
-        action="{{ section.settings.webhook_url }}"
-        target="ml-cat-n8n-frame"
-      >
+      <form id="{{ form_id }}" onsubmit="return true;">
         <div class="ml-cat__success" id="{{ form_id }}-success" style="display:none;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
@@ -491,17 +486,51 @@
 
       <script>
         (function () {
-          'use strict';
+          var N8N_WEBHOOK_URL = {{ section.settings.webhook_url | default: '' | json }};
+
           var form = document.getElementById('{{ form_id }}');
           if (!form) return;
-          form.addEventListener('submit', function () {
-            setTimeout(function () {
-              document.getElementById('{{ form_id }}-fields').style.display = 'none';
-              document.getElementById('{{ form_id }}-success').style.display = '';
-            }, 300);
+
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            /* Collecte des champs */
+            var get = function () {
+              for (var i = 0; i < arguments.length; i++) {
+                var el = form.querySelector('[name="' + arguments[i] + '"]');
+                if (el && el.value && el.value.trim()) return el.value.trim();
+              }
+              return '';
+            };
+
+            var payload = {
+              prenom    : get('prenom', 'firstname'),
+              nom       : get('nom', 'lastname'),
+              email     : get('email'),
+              telephone : get('telephone', 'phone'),
+              enseigne  : get('salon', 'enseigne', 'company'),
+              ville     : get('ville', 'city'),
+              activite  : get('activite', 'activity'),
+              source    : 'Shopify — page catalogue',
+              page_url  : window.location.href
+            };
+
+            /* Envoi vers n8n */
+            if (N8N_WEBHOOK_URL) {
+              fetch(N8N_WEBHOOK_URL, {
+                method    : 'POST',
+                headers   : { 'Content-Type': 'application/json' },
+                body      : JSON.stringify(payload),
+                keepalive : true
+              }).catch(function () {});
+            }
+
+            /* Afficher le message de succès */
+            document.getElementById('{{ form_id }}-fields').style.display = 'none';
+            document.getElementById('{{ form_id }}-success').style.display = '';
           });
         })();
-    </script>
+      </script>
 
   {%- comment -%} ====== TRUST ====== {%- endcomment -%}
   <div class="ml-cat__trust">
