@@ -646,6 +646,24 @@
 .bulk-quantity__notes { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
 .bulk-quantity__note { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; color: #888; }
 
+/* MOQ warning */
+.bulk-qty-moq-warning { display: flex; align-items: flex-start; gap: 0.8rem; background: #fff8e1; border: 1px solid #ffe0b2; border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1.2rem; }
+.bulk-qty-moq-warning svg { flex-shrink: 0; margin-top: 2px; }
+.bulk-qty-moq-warning strong { color: #e65100; display: block; margin-bottom: 0.3rem; font-size: 1.1rem; }
+.bulk-qty-moq-warning p { margin: 0; font-size: 1.05rem; color: #555; line-height: 1.5; }
+
+/* Section labels in price table */
+.bulk-qty-section-label { font-weight: 600 !important; color: #888 !important; font-size: 1rem !important; text-transform: uppercase; letter-spacing: 0.06em; background: #f8f8f8 !important; border-bottom: 2px solid #eee !important; }
+
+/* Bottle MOQ on card */
+.bulk-bottle__moq { font-size: 0.95rem; color: #888; font-style: italic; }
+
+/* Bottle price tiers tooltip */
+.bulk-bottle__tiers-tooltip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #111; color: #fff; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.9rem; white-space: nowrap; z-index: 10; margin-bottom: 4px; }
+.bulk-bottle__tiers-tooltip span { display: block; padding: 0.15rem 0; }
+.bulk-bottle__price { position: relative; }
+.bulk-bottle__price:hover .bulk-bottle__tiers-tooltip { display: block; }
+
 /* ── STEP 5: SUMMARY ── */
 .bulk-summary__header { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid #111; }
 .bulk-summary__brand { font-size: 2rem; font-weight: 700; letter-spacing: 0.1em; }

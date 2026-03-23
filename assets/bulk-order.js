@@ -275,6 +275,7 @@
     /* Validate before advancing */
     if (n === 2 && state.step === 1 && selectedCount() === 0) return;
     if (n === 3 && state.step === 2 && !allFormatsChosen()) return;
+    if (n === 5 && state.step === 4 && !allMoqsMet()) return;
 
     state.step = n;
     document.querySelectorAll('.bulk-order__step').forEach(function (el) {
@@ -437,6 +438,16 @@
     }
   }
 
+  function allMoqsMet() {
+    var formulas = getSelectedFormulasWithFormat();
+    return formulas.every(function (f) {
+      var qs = qtyState[f.id];
+      if (!qs) return false;
+      var calc = calculateOrder(f, state.formats[f.id], qs.kg, qs.tier);
+      return calc && calc.moqMet;
+    });
+  }
+
   function allFormatsChosen() {
     var selected = state.formulas.filter(function (f) { return !!state.selectedIds[f.id]; });
     return selected.length > 0 && selected.every(function (f) { return !!state.formats[f.id]; });
@@ -569,9 +580,27 @@
       if (b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--eco">Éco</span>';
       if (closureMatch && !b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--recommended">Recommandé</span>';
 
-      var priceHtml = b.price_estimate
-        ? '<div class="bulk-bottle__price">' + fmtPrice(b.price_estimate / 100) + ' HT/unité</div>'
-        : '<div class="bulk-bottle__price" style="color:#888;">Prix sur demande</div>';
+      /* Price display with tiers */
+      var priceHtml = '';
+      if (b.price_tiers && b.price_tiers.length > 0) {
+        var lowestTier = b.price_tiers[b.price_tiers.length - 1];
+        priceHtml = '<div class="bulk-bottle__price">À partir de ' + fmtPrice(lowestTier.price) + '/u' +
+          '<span class="bulk-bottle__tiers-tooltip">';
+        b.price_tiers.forEach(function (t) {
+          priceHtml += '<span>' + t.min_qty + (t.max_qty ? '–' + t.max_qty : '+') + ' u → ' + fmtPrice(t.price) + '</span>';
+        });
+        priceHtml += '</span></div>';
+      } else if (b.price_estimate) {
+        priceHtml = '<div class="bulk-bottle__price">' + fmtPrice(b.price_estimate / 100) + ' HT/unité</div>';
+      } else {
+        priceHtml = '<div class="bulk-bottle__price" style="color:#888;font-style:italic;">Prix sur demande</div>';
+      }
+
+      /* MOQ display */
+      var moqHtml = '';
+      if (b.min_order_qty) {
+        moqHtml = '<div class="bulk-bottle__moq">Min. ' + b.min_order_qty + ' unités</div>';
+      }
 
       var linkHtml = b.takemoto_url
         ? '<a href="' + esc(b.takemoto_url) + '" target="_blank" rel="noopener" class="bulk-bottle__link" onclick="event.stopPropagation()">Voir sur Takemoto <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>'
@@ -592,6 +621,7 @@
           (b.eco_label ? '<span class="bulk-bottle__tag bulk-bottle__tag--eco">Éco</span>' : '') +
         '</div>' +
         priceHtml +
+        moqHtml +
         linkHtml +
         '</div>';
 
@@ -708,11 +738,29 @@
     var pumpTotal = needsPump ? 0.45 * nbUnits : 0;
 
     var bottleUnitPrice = 0;
+    var bottleMoq = 0;
+    var bottleName = '';
     if (isCustomBottle && bottlesData) {
       var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
-      if (bObj && bObj.price_estimate) bottleUnitPrice = bObj.price_estimate / 100;
+      if (bObj) {
+        bottleName = bObj.name;
+        bottleMoq = bObj.min_order_qty || 0;
+        /* Apply tier pricing if available */
+        if (bObj.price_tiers && bObj.price_tiers.length > 0) {
+          bottleUnitPrice = bObj.price_tiers[0].price; /* base price */
+          for (var ti = 0; ti < bObj.price_tiers.length; ti++) {
+            if (nbUnits >= bObj.price_tiers[ti].min_qty) {
+              bottleUnitPrice = bObj.price_tiers[ti].price;
+            }
+          }
+        } else if (bObj.price_estimate) {
+          bottleUnitPrice = bObj.price_estimate / 100;
+        }
+      }
     }
     var bottleTotal = bottleUnitPrice * nbUnits;
+    var moqMet = !isCustomBottle || bottleMoq === 0 || nbUnits >= bottleMoq;
+    var moqMinKg = bottleMoq > 0 ? Math.ceil((bottleMoq * formatMl) / 1000) : 0;
 
     var grandTotal = formuleTotal + remplissageTotal + packagingTotal + etiquetteTotal + pumpTotal + bottleTotal;
 
@@ -727,6 +775,10 @@
       needsPump: needsPump,
       bottleUnitPrice: bottleUnitPrice,
       bottleTotal: bottleTotal,
+      bottleName: bottleName,
+      bottleMoq: bottleMoq,
+      moqMet: moqMet,
+      moqMinKg: moqMinKg,
       isCustomBottle: isCustomBottle,
       grandTotal: grandTotal
     };
@@ -793,23 +845,39 @@
           qs.kg + ' kg = <strong>' + calc.nbUnits + ' flacons</strong> de ' + fmtLabel +
           '</div>';
 
-        /* Price breakdown */
+        /* MOQ warning */
+        if (calc.isCustomBottle && !calc.moqMet) {
+          html += '<div class="bulk-qty-moq-warning">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
+            '<div><strong>Quantité insuffisante pour ce flacon</strong>' +
+            '<p>Le minimum de commande pour ' + esc(calc.bottleName) + ' est de <strong>' + calc.bottleMoq + ' unités</strong>. ' +
+            'Votre commande de ' + calc.nbUnits + ' unités est insuffisante. ' +
+            'Augmentez la quantité à au moins <strong>' + calc.moqMinKg + ' kg</strong> pour atteindre le minimum.</p></div>' +
+            '</div>';
+        }
+
+        /* Price breakdown — Production MY.LAB */
         html += '<div class="bulk-qty-table-wrap"><table class="bulk-qty-table">' +
           '<thead><tr><th>Composant</th><th>Prix unitaire</th><th>Quantité</th><th>Sous-total</th></tr></thead>' +
           '<tbody>' +
+          '<tr><td colspan="4" class="bulk-qty-section-label">Production MY.LAB</td></tr>' +
           '<tr><td>Formule</td><td>' + fmtPrice(calc.pricing.formule) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.formuleTotal) + '</td></tr>' +
           '<tr><td>Remplissage</td><td>' + fmtPrice(calc.pricing.remplissage) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.remplissageTotal) + '</td></tr>';
-
-        if (calc.isCustomBottle && calc.bottleUnitPrice > 0) {
-          html += '<tr><td>Flacon Takemoto</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
-        } else if (!calc.isCustomBottle) {
-          html += '<tr><td>Packaging</td><td>' + fmtPrice(calc.pricing.packaging) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.packagingTotal) + '</td></tr>';
-        }
 
         html += '<tr><td>Étiquette</td><td>' + fmtPrice(calc.pricing.etiquette) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.etiquetteTotal) + '</td></tr>';
 
         if (calc.needsPump) {
           html += '<tr><td>Pompe (option 1L)</td><td>' + fmtPrice(0.45) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.pumpTotal) + '</td></tr>';
+        }
+
+        /* Packaging section */
+        html += '<tr><td colspan="4" class="bulk-qty-section-label">Packaging</td></tr>';
+        if (calc.isCustomBottle && calc.bottleUnitPrice > 0) {
+          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
+        } else if (calc.isCustomBottle && calc.bottleUnitPrice === 0) {
+          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td colspan="3" style="color:#888;font-style:italic;">Prix sur demande</td></tr>';
+        } else {
+          html += '<tr><td>Packaging MY.LAB Standard</td><td>' + fmtPrice(calc.pricing.packaging) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.packagingTotal) + '</td></tr>';
         }
 
         html += '<tr class="bulk-qty-row--total"><td colspan="3">Total HT</td><td>' + fmtPrice(calc.grandTotal) + '</td></tr>' +
