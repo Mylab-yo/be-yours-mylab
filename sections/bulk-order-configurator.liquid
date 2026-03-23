@@ -90,6 +90,7 @@
   window.BulkOrderConfig = {
     formulasUrl: {{ 'bulk-data-formulas.json' | asset_url | json }},
     bottlesUrl: {{ 'bulk-data-bottles.json' | asset_url | json }},
+    productImagesUrl: {{ 'bulk-product-images.json' | asset_url | json }},
     webhookUrl: {{ section.settings.webhook_url | default: '' | json }}
   };
 </script>

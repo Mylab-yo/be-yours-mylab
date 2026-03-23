@@ -32,6 +32,7 @@
   ];
 
   var LABELS = ['Sans sulfate', 'Sans parabène', 'Sans silicone', 'Vegan', 'Sans cruauté'];
+  var productImages = {};  // { handle: imageUrl }
 
   /* ══════════════════════════════════════════════
      DOM REFS
@@ -155,7 +156,9 @@
           '</span>' +
 
           '<div class="bulk-card__visual">' +
-            '<span class="bulk-card__color-dot"></span>' +
+            (productImages[f.id] ?
+              '<img class="bulk-card__product-img" src="' + productImages[f.id] + '" alt="' + esc(f.name) + '" loading="lazy">' :
+              '<span class="bulk-card__color-dot"></span>') +
             '<span class="bulk-card__gamme-label">' + esc(gamme.label.replace('Gamme ', '')) + '</span>' +
           '</div>' +
 
@@ -577,7 +580,9 @@
       html += '<div class="bulk-bottle' + (isSelected ? ' bulk-bottle--selected' : '') + (visible ? '' : ' bulk-bottle--hidden') + '" data-bottle-id="' + esc(b.id) + '" data-material="' + esc(b.material) + '" data-color="' + esc(b.color) + '" data-eco="' + b.eco_label + '">' +
         badges +
         '<div class="bulk-bottle__img">' +
-          (b.image_url ? '<img src="' + esc(b.image_url) + '" alt="' + esc(b.name) + '">' : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 7h18l-2 13H5L3 7z"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>') +
+          (b.image_url_external ? '<img src="' + esc(b.image_url_external) + '" alt="' + esc(b.name) + '" loading="lazy">' :
+           b.image_url ? '<img src="' + esc(b.image_url) + '" alt="' + esc(b.name) + '" loading="lazy">' :
+           '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 7h18l-2 13H5L3 7z"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>') +
         '</div>' +
         '<div class="bulk-bottle__name">' + esc(b.name) + '</div>' +
         '<div class="bulk-bottle__meta">' +
@@ -1092,11 +1097,13 @@
 
   Promise.all([
     fetch(config.formulasUrl).then(function (r) { if (!r.ok) throw new Error('Formulas HTTP ' + r.status); return r.json(); }),
-    fetch(config.bottlesUrl).then(function (r) { if (!r.ok) throw new Error('Bottles HTTP ' + r.status); return r.json(); })
+    fetch(config.bottlesUrl).then(function (r) { if (!r.ok) throw new Error('Bottles HTTP ' + r.status); return r.json(); }),
+    config.productImagesUrl ? fetch(config.productImagesUrl).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; }) : Promise.resolve({})
   ])
     .then(function (results) {
       state.data = results[0];
       bottlesData = results[1];
+      productImages = results[2] || {};
       renderGammeFilters();
       renderFormulas();
       updateSelectionBar();
