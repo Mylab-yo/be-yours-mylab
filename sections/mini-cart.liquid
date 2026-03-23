@@ -120,16 +120,50 @@
             display: flex;
             gap: 0.8rem;
           }
+          /* ── Mobile compact footer ── */
           @media screen and (max-width: 749px) {
             .ml-steps { padding: 0.5rem 1.2rem; }
             .ml-steps__title { font-size: 0.85rem; margin-bottom: 0.4rem; }
             .ml-steps__link { font-size: 0.95rem; }
             .ml-steps__circle { width: 18px; height: 18px; }
             .ml-steps__required { font-size: 0.8rem; }
-            .mini-cart__actions .button {
-              font-size: 1rem;
-              padding: 0.8rem 0.8rem;
+
+            /* Tabs bar compact */
+            .mini-cart__actions { padding: 0.5rem 0 !important; }
+            .mini-cart__action summary > span { font-size: 0.8rem !important; column-gap: 0.4rem !important; letter-spacing: 0.03em !important; }
+            .mini-cart__action summary .icon { height: 1rem !important; }
+
+            /* Subtotal compact */
+            .mini-cart__footer .subtotal { margin: 0.8rem 0 !important; }
+            .mini-cart__footer .subtotal > * { font-size: 1.3rem !important; }
+            .mini-cart__footer #mini-cart-subtotal { font-size: 1.5rem !important; }
+            .cart-drawer .taxes-discounts { margin-top: 0.3rem !important; margin-bottom: 0.3rem !important; font-size: 0.95rem !important; }
+            .cart-drawer .subtotal + .taxes-discounts { margin-top: -0.3rem !important; }
+
+            /* Buttons side by side */
+            .mini-cart__footer .button-container { display: flex !important; gap: 0.6rem; flex-wrap: nowrap !important; }
+            .mini-cart__footer .button-container .button {
+              min-height: 3.6rem !important;
+              font-size: 1rem !important;
+              padding: 0.6rem 0.8rem !important;
+              width: 50% !important;
+              border-radius: 50px !important;
+              transform: none !important;
+              display: flex !important;
+              align-items: center;
+              justify-content: center;
+              margin-top: 0 !important;
             }
+            .mini-cart__footer .button-container .button + .button {
+              border: 1px solid #111 !important;
+              box-shadow: none !important;
+              background: #fff !important;
+              color: #111 !important;
+              text-decoration: none !important;
+            }
+
+            /* Footer padding */
+            .mini-cart__footer { padding: 0 1.2rem 1rem !important; }
           }
         </style>
         <div class="ml-steps">
