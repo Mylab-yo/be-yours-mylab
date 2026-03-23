@@ -1,41 +1,60 @@
 {% comment %}
-  ============================================================================
   MY.LAB — Étape 3 : Choix du flacon Takemoto
   snippets/bulk-step-bottles.liquid
-  ============================================================================
-
-  L'utilisateur choisit le modèle de flacon parmi le catalogue Takemoto
-  pour chaque format sélectionné à l'étape 2.
-
-  Flacons disponibles par format :
-  - 200ml : bouteille ambrée + bouchon noir (standard)
-  - 500ml : bouteille ambrée + pompe noire (standard)
-  - 1000ml : bouteille ambrée + bouchon blanc (pompe en option +0.45€)
-  - 5000ml : à la charge du client
-
-  Données chargées depuis bulk-data-bottles.json
-
-  TODO:
-  - [ ] Grille de flacons avec image, nom, description
-  - [ ] Filtrage par format compatible (200ml, 500ml, 1000ml)
-  - [ ] Sélection visuelle (card cliquable avec bordure active)
-  - [ ] Options supplémentaires (pompe 1000ml +0.45€)
-  - [ ] Prix du packaging affiché par flacon
-  - [ ] Peuplé par bulk-order.js depuis bulk-data-bottles.json
-  ============================================================================
+  Peuplé dynamiquement par bulk-order.js depuis bulk-data-bottles.json
 {% endcomment %}
 
 <div class="bulk-bottles" id="bulk-bottles">
-  <h2 class="bulk-step__title">Choisissez votre flacon</h2>
-  <p class="bulk-step__desc">Sélectionnez le modèle de flacon pour chaque format de conditionnement.</p>
+  <h2 class="bulk-step__title">Choisissez vos flacons</h2>
+  <p class="bulk-step__desc">Sélectionnez un flacon pour chaque formule. Le packaging standard MY.LAB est toujours disponible.</p>
 
-  {%- comment -%} TODO: Grille de flacons peuplée par JS depuis bulk-data-bottles.json {%- endcomment -%}
-  <div class="bulk-bottles__grid" id="bulk-bottles-grid">
-    <!-- Peuplé dynamiquement par bulk-order.js -->
+  {%- comment -%} Sélecteur de formule (onglets) {%- endcomment -%}
+  <div class="bulk-bottles__tabs" id="bulk-bottles-tabs"></div>
+
+  {%- comment -%} Filtres {%- endcomment -%}
+  <div class="bulk-bottles__filters" id="bulk-bottles-filters">
+    <div class="bulk-filters__group">
+      <span class="bulk-filters__label">Matériau</span>
+      <div class="bulk-filters__chips" id="bulk-bottles-filter-material">
+        <button type="button" class="bulk-chip bulk-chip--active" data-filter-material="all">Tous</button>
+      </div>
+    </div>
+    <div class="bulk-filters__group">
+      <span class="bulk-filters__label">Couleur</span>
+      <div class="bulk-filters__chips" id="bulk-bottles-filter-color">
+        <button type="button" class="bulk-chip bulk-chip--active" data-filter-color="all">Toutes</button>
+      </div>
+    </div>
+    <div class="bulk-filters__group">
+      <label class="bulk-bottles__eco-toggle">
+        <input type="checkbox" id="bulk-bottles-eco-filter">
+        <span class="bulk-bottles__eco-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Éco-responsable uniquement
+        </span>
+      </label>
+    </div>
   </div>
 
-  {%- comment -%} TODO: Option pompe pour 1000ml {%- endcomment -%}
-  <div class="bulk-bottles__options" id="bulk-bottles-options" style="display:none;">
-    <!-- Options supplémentaires affichées conditionnellement -->
+  {%- comment -%} Grille flacons {%- endcomment -%}
+  <div class="bulk-bottles__content">
+    <div class="bulk-bottles__grid" id="bulk-bottles-grid"></div>
+
+    {%- comment -%} Mini récap sélection (desktop: sidebar, mobile: bottom) {%- endcomment -%}
+    <div class="bulk-bottles__recap" id="bulk-bottles-recap">
+      <h3 class="bulk-bottles__recap-title">Votre sélection</h3>
+      <div class="bulk-bottles__recap-list" id="bulk-bottles-recap-list"></div>
+    </div>
+  </div>
+
+  {%- comment -%} Message vide {%- endcomment -%}
+  <div class="bulk-bottles__empty" id="bulk-bottles-empty" style="display:none;">
+    Aucun flacon ne correspond aux filtres sélectionnés.
+  </div>
+
+  {%- comment -%} CTA personnalisé {%- endcomment -%}
+  <div class="bulk-bottles__custom">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    <span>Vous ne trouvez pas votre bonheur ? <a href="/pages/contact" class="bulk-bottles__custom-link">Contactez-nous pour un packaging sur-mesure</a></span>
   </div>
 </div>

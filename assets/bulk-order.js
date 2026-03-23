@@ -283,6 +283,7 @@
 
     /* Render step-specific content */
     if (n === 2) renderFormats();
+    if (n === 3) { renderBottleTabs(); renderBottleGrid(); }
 
     renderStepper();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -451,24 +452,248 @@
   }
 
   /* ══════════════════════════════════════════════
+     STEP 3 — BOTTLE SELECTION
+     ══════════════════════════════════════════════ */
+  var elBottlesTabs     = document.getElementById('bulk-bottles-tabs');
+  var elBottlesGrid     = document.getElementById('bulk-bottles-grid');
+  var elBottlesEmpty    = document.getElementById('bulk-bottles-empty');
+  var elBottlesRecap    = document.getElementById('bulk-bottles-recap-list');
+  var elBottlesMatFilter = document.getElementById('bulk-bottles-filter-material');
+  var elBottlesColFilter = document.getElementById('bulk-bottles-filter-color');
+  var elBottlesEcoFilter = document.getElementById('bulk-bottles-eco-filter');
+
+  var bottlesData = null;
+  var bottleState = {
+    activeFormulaId: null,
+    selections: {},      // { formulaId: bottleId }
+    filterMaterial: 'all',
+    filterColor: 'all',
+    filterEco: false
+  };
+
+  var CLOSURE_COMPAT = {
+    shampoing: ['pump', 'screw_cap'],
+    creme_coiffage: ['pump', 'dispensing_cap'],
+    masque: ['pump', 'dispensing_cap', 'screw_cap'],
+    spray: ['spray'],
+    serum: ['dropper', 'pump'],
+    huile: ['dropper', 'pump']
+  };
+
+  var COLOR_LABELS = { amber: 'Ambré', clear: 'Transparent', white: 'Blanc', black: 'Noir', frosted: 'Givré' };
+  var MATERIAL_LABELS = { PET: 'PET', rPET: 'rPET', PCR: 'PCR', biomass_PET: 'Bio PET', glass: 'Verre' };
+  var CLOSURE_LABELS = { pump: 'Pompe', screw_cap: 'Bouchon vis', dispensing_cap: 'Clapet', spray: 'Spray', dropper: 'Pipette' };
+
+  function getSelectedFormulasWithFormat() {
+    return state.formulas.filter(function (f) {
+      return state.selectedIds[f.id] && state.formats[f.id];
+    });
+  }
+
+  function renderBottleTabs() {
+    if (!elBottlesTabs) return;
+    var formulas = getSelectedFormulasWithFormat();
+    if (formulas.length === 0) return;
+
+    if (!bottleState.activeFormulaId || !state.selectedIds[bottleState.activeFormulaId]) {
+      bottleState.activeFormulaId = formulas[0].id;
+    }
+
+    var html = '';
+    formulas.forEach(function (f) {
+      var isActive = f.id === bottleState.activeFormulaId;
+      var hasBottle = !!bottleState.selections[f.id];
+      var fmtLabel = state.formats[f.id] >= 1000 ? (state.formats[f.id] / 1000) + 'L' : state.formats[f.id] + 'ml';
+      html += '<button type="button" class="bulk-bottles__tab' + (isActive ? ' bulk-bottles__tab--active' : '') + '" data-tab-formula="' + esc(f.id) + '">' +
+        esc(f.name) + ' — ' + fmtLabel +
+        (hasBottle ? ' <span class="bulk-bottles__tab-check">✓</span>' : '') +
+        '</button>';
+    });
+    elBottlesTabs.innerHTML = html;
+
+    elBottlesTabs.querySelectorAll('.bulk-bottles__tab').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        bottleState.activeFormulaId = btn.dataset.tabFormula;
+        renderBottleTabs();
+        renderBottleGrid();
+      });
+    });
+  }
+
+  function renderBottleGrid() {
+    if (!elBottlesGrid || !bottlesData) return;
+    var f = state.formulas.find(function (x) { return x.id === bottleState.activeFormulaId; });
+    if (!f) return;
+
+    var format = state.formats[f.id];
+    var category = f.category;
+    var compatClosures = CLOSURE_COMPAT[category] || [];
+
+    /* Build material + color filter chips */
+    renderBottleFilterChips(format, compatClosures);
+
+    var html = '';
+    var visibleCount = 0;
+
+    /* Standard MY.LAB option first (for ≤1000ml) */
+    if (format <= 1000) {
+      var stdSelected = bottleState.selections[f.id] === 'standard';
+      html += '<div class="bulk-bottle bulk-bottle--standard' + (stdSelected ? ' bulk-bottle--selected' : '') + '" data-bottle-id="standard">' +
+        '<span class="bulk-bottle__badge bulk-bottle__badge--included">Inclus</span>' +
+        '<div class="bulk-bottle__img"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg></div>' +
+        '<div class="bulk-bottle__name">Packaging MY.LAB Standard</div>' +
+        '<div class="bulk-bottle__meta"><span class="bulk-bottle__tag">Bouteille ambrée</span><span class="bulk-bottle__tag">' + (category === 'shampoing' ? 'Bouchon noir' : 'Pompe noire') + '</span></div>' +
+        '<div class="bulk-bottle__price bulk-bottle__price--free">Inclus dans le prix</div>' +
+        '</div>';
+      visibleCount++;
+    }
+
+    /* Takemoto bottles filtered by compatibility */
+    bottlesData.bottles.forEach(function (b) {
+      if (!b.compatible_formats.includes(format)) return;
+      var closureMatch = compatClosures.length === 0 || compatClosures.indexOf(b.closure_type) !== -1;
+
+      /* Apply filters */
+      var matMatch = bottleState.filterMaterial === 'all' || b.material === bottleState.filterMaterial;
+      var colMatch = bottleState.filterColor === 'all' || b.color === bottleState.filterColor;
+      var ecoMatch = !bottleState.filterEco || b.eco_label;
+      var visible = matMatch && colMatch && ecoMatch;
+
+      var isSelected = bottleState.selections[f.id] === b.id;
+      var badges = '';
+      if (b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--eco">Éco</span>';
+      if (closureMatch && !b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--recommended">Recommandé</span>';
+
+      var priceHtml = b.price_estimate
+        ? '<div class="bulk-bottle__price">' + fmtPrice(b.price_estimate / 100) + ' HT/unité</div>'
+        : '<div class="bulk-bottle__price" style="color:#888;">Prix sur demande</div>';
+
+      var linkHtml = b.takemoto_url
+        ? '<a href="' + esc(b.takemoto_url) + '" target="_blank" rel="noopener" class="bulk-bottle__link" onclick="event.stopPropagation()">Voir sur Takemoto <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>'
+        : '';
+
+      html += '<div class="bulk-bottle' + (isSelected ? ' bulk-bottle--selected' : '') + (visible ? '' : ' bulk-bottle--hidden') + '" data-bottle-id="' + esc(b.id) + '" data-material="' + esc(b.material) + '" data-color="' + esc(b.color) + '" data-eco="' + b.eco_label + '">' +
+        badges +
+        '<div class="bulk-bottle__img">' +
+          (b.image_url ? '<img src="' + esc(b.image_url) + '" alt="' + esc(b.name) + '">' : '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 7h18l-2 13H5L3 7z"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>') +
+        '</div>' +
+        '<div class="bulk-bottle__name">' + esc(b.name) + '</div>' +
+        '<div class="bulk-bottle__meta">' +
+          '<span class="bulk-bottle__tag">' + (MATERIAL_LABELS[b.material] || b.material) + '</span>' +
+          '<span class="bulk-bottle__tag">' + (CLOSURE_LABELS[b.closure_type] || b.closure_type) + '</span>' +
+          '<span class="bulk-bottle__tag">' + (COLOR_LABELS[b.color] || b.color) + '</span>' +
+          (b.eco_label ? '<span class="bulk-bottle__tag bulk-bottle__tag--eco">Éco</span>' : '') +
+        '</div>' +
+        priceHtml +
+        linkHtml +
+        '</div>';
+
+      if (visible) visibleCount++;
+    });
+
+    elBottlesGrid.innerHTML = html;
+    elBottlesEmpty.style.display = visibleCount === 0 ? '' : 'none';
+
+    /* Bind click */
+    elBottlesGrid.querySelectorAll('.bulk-bottle').forEach(function (card) {
+      card.addEventListener('click', function () {
+        var bid = card.dataset.bottleId;
+        bottleState.selections[bottleState.activeFormulaId] = bid;
+        renderBottleGrid();
+        renderBottleTabs();
+        renderBottleRecap();
+      });
+    });
+
+    renderBottleRecap();
+  }
+
+  function renderBottleFilterChips(format, compatClosures) {
+    if (!bottlesData || !elBottlesMatFilter || !elBottlesColFilter) return;
+
+    var materials = {};
+    var colors = {};
+    bottlesData.bottles.forEach(function (b) {
+      if (!b.compatible_formats.includes(format)) return;
+      materials[b.material] = true;
+      colors[b.color] = true;
+    });
+
+    var matHtml = '<button type="button" class="bulk-chip' + (bottleState.filterMaterial === 'all' ? ' bulk-chip--active' : '') + '" data-filter-material="all">Tous</button>';
+    Object.keys(materials).forEach(function (m) {
+      matHtml += '<button type="button" class="bulk-chip' + (bottleState.filterMaterial === m ? ' bulk-chip--active' : '') + '" data-filter-material="' + m + '">' + (MATERIAL_LABELS[m] || m) + '</button>';
+    });
+    elBottlesMatFilter.innerHTML = matHtml;
+
+    var colHtml = '<button type="button" class="bulk-chip' + (bottleState.filterColor === 'all' ? ' bulk-chip--active' : '') + '" data-filter-color="all">Toutes</button>';
+    Object.keys(colors).forEach(function (c) {
+      colHtml += '<button type="button" class="bulk-chip' + (bottleState.filterColor === c ? ' bulk-chip--active' : '') + '" data-filter-color="' + c + '">' + (COLOR_LABELS[c] || c) + '</button>';
+    });
+    elBottlesColFilter.innerHTML = colHtml;
+
+    /* Bind filter events */
+    bindFilterEvents(elBottlesMatFilter, 'data-filter-material', function (val) {
+      bottleState.filterMaterial = val;
+      renderBottleGrid();
+    });
+    bindFilterEvents(elBottlesColFilter, 'data-filter-color', function (val) {
+      bottleState.filterColor = val;
+      renderBottleGrid();
+    });
+  }
+
+  function renderBottleRecap() {
+    if (!elBottlesRecap) return;
+    var formulas = getSelectedFormulasWithFormat();
+    var html = '';
+    formulas.forEach(function (f) {
+      var bid = bottleState.selections[f.id];
+      var bottleName = '';
+      if (bid === 'standard') {
+        bottleName = 'MY.LAB Standard';
+      } else if (bid && bottlesData) {
+        var b = bottlesData.bottles.find(function (x) { return x.id === bid; });
+        if (b) bottleName = b.name;
+      }
+      var icon = bid
+        ? '<svg class="bulk-bottles__recap-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>'
+        : '<svg class="bulk-bottles__recap-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>';
+      var fmtLabel = state.formats[f.id] >= 1000 ? (state.formats[f.id] / 1000) + 'L' : state.formats[f.id] + 'ml';
+      html += '<div class="bulk-bottles__recap-item">' + icon +
+        '<div><span class="bulk-bottles__recap-formula">' + esc(f.name) + ' — ' + fmtLabel + '</span>' +
+        (bottleName ? '<br><span class="bulk-bottles__recap-bottle">' + esc(bottleName) + '</span>' : '<br><span class="bulk-bottles__recap-bottle" style="color:#c0392b;">À choisir</span>') +
+        '</div></div>';
+    });
+    elBottlesRecap.innerHTML = html;
+  }
+
+  /* Eco filter */
+  if (elBottlesEcoFilter) {
+    elBottlesEcoFilter.addEventListener('change', function () {
+      bottleState.filterEco = elBottlesEcoFilter.checked;
+      renderBottleGrid();
+    });
+  }
+
+  /* ══════════════════════════════════════════════
      INIT
      ══════════════════════════════════════════════ */
   renderStepper();
 
-  fetch(config.formulasUrl)
-    .then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(function (data) {
-      state.data = data;
+  Promise.all([
+    fetch(config.formulasUrl).then(function (r) { if (!r.ok) throw new Error('Formulas HTTP ' + r.status); return r.json(); }),
+    fetch(config.bottlesUrl).then(function (r) { if (!r.ok) throw new Error('Bottles HTTP ' + r.status); return r.json(); })
+  ])
+    .then(function (results) {
+      state.data = results[0];
+      bottlesData = results[1];
       renderGammeFilters();
       renderFormulas();
       updateSelectionBar();
     })
     .catch(function (err) {
-      console.error('BulkOrder: impossible de charger les formules', err);
-      elGrid.innerHTML = '<p style="text-align:center;color:#c00;padding:2rem;">Erreur de chargement des données. Veuillez rafraîchir la page.</p>';
+      console.error('BulkOrder: impossible de charger les données', err);
+      if (elGrid) elGrid.innerHTML = '<p style="text-align:center;color:#c00;padding:2rem;">Erreur de chargement des données. Veuillez rafraîchir la page.</p>';
     });
 
 })();
