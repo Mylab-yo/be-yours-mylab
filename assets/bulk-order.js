@@ -15,6 +15,8 @@
     step: 1,
     formulas: [],       // { id, name, gammeId, gammeColor, category, ... }
     selectedIds: {},     // { formulaId: true }
+    formats: {},         // { formulaId: 200|500|1000|5000 }
+    skipTakemoto: false, // true if user chooses to keep standard packaging
     filterGamme: 'all',
     filterType: 'all',
     data: null           // données JSON chargées
@@ -266,6 +268,11 @@
      ══════════════════════════════════════════════ */
   function goToStep(n) {
     if (n < 1 || n > 5) return;
+
+    /* Validate before advancing */
+    if (n === 2 && state.step === 1 && selectedCount() === 0) return;
+    if (n === 3 && state.step === 2 && !allFormatsChosen()) return;
+
     state.step = n;
     document.querySelectorAll('.bulk-order__step').forEach(function (el) {
       el.style.display = parseInt(el.dataset.step) === n ? '' : 'none';
@@ -273,12 +280,35 @@
     elPrev.disabled = n === 1;
     elNext.disabled = n === 5;
     elSelBar.classList.toggle('bulk-selection-bar--visible', n === 1 && selectedCount() > 0);
+
+    /* Render step-specific content */
+    if (n === 2) renderFormats();
+
     renderStepper();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  if (elPrev) elPrev.addEventListener('click', function () { goToStep(state.step - 1); });
-  if (elNext) elNext.addEventListener('click', function () { goToStep(state.step + 1); });
+  if (elPrev) elPrev.addEventListener('click', function () {
+    /* When going back from step 4, if Takemoto was skipped, go to step 2 */
+    if (state.step === 4 && state.skipTakemoto) {
+      goToStep(2);
+    } else {
+      goToStep(state.step - 1);
+    }
+  });
+  if (elNext) elNext.addEventListener('click', function () {
+    /* At step 2, if all formats chosen and no 5L, show Takemoto choice (handled by renderFormats) */
+    if (state.step === 2) {
+      if (!allFormatsChosen()) return;
+      var has5L = state.formulas.some(function (f) { return state.selectedIds[f.id] && state.formats[f.id] === 5000; });
+      if (has5L) {
+        goToStep(3); /* Force Takemoto for 5L */
+      }
+      /* Otherwise, Takemoto choice buttons handle navigation */
+      return;
+    }
+    goToStep(state.step + 1);
+  });
   if (elSelNext) elSelNext.addEventListener('click', function () {
     if (selectedCount() > 0) goToStep(2);
   });
@@ -288,6 +318,135 @@
     bindFilterEvents(elFilterType, 'data-filter-type', function (val) {
       state.filterType = val;
       applyFilters();
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     STEP 2 — FORMAT SELECTION
+     ══════════════════════════════════════════════ */
+  var elFormatList   = document.getElementById('bulk-format-list');
+  var elTakemoto     = document.getElementById('bulk-format-takemoto');
+  var el5lNotice     = document.getElementById('bulk-format-5l-notice');
+  var elTakemotoYes  = document.getElementById('bulk-takemoto-yes');
+  var elTakemotoNo   = document.getElementById('bulk-takemoto-no');
+
+  function fmtPrice(euros) {
+    return euros.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '\u00a0\u20ac';
+  }
+
+  function getPackagingNote(format, category) {
+    if (format === 5000) return 'Packaging à votre charge';
+    if (format === 1000) return 'Packaging inclus : bouteille ambrée + bouchon blanc (pompe en option : +0,45\u00a0\u20ac/unité)';
+    if (category === 'shampoing') return 'Packaging inclus : bouteille ambrée + bouchon noir';
+    return 'Packaging inclus : bouteille ambrée + pompe noire';
+  }
+
+  function renderFormats() {
+    if (!elFormatList || !state.data) return;
+
+    var selected = state.formulas.filter(function (f) { return !!state.selectedIds[f.id]; });
+
+    if (selected.length === 0) {
+      elFormatList.innerHTML = '<p style="text-align:center;color:#888;padding:2rem;">Aucune formule sélectionnée. Retournez à l\'étape 1.</p>';
+      return;
+    }
+
+    var html = '';
+    selected.forEach(function (f) {
+      var currentFormat = state.formats[f.id] || null;
+
+      html += '<div class="bulk-format-row" style="--gamme-color:' + esc(f.gammeColor) + '">' +
+        '<div class="bulk-format-row__header">' +
+          '<span class="bulk-format-row__dot"></span>' +
+          '<span class="bulk-format-row__gamme">' + esc(f.gammeLabel.replace('Gamme ', '')) + '</span>' +
+        '</div>' +
+        '<div class="bulk-format-row__name">' + esc(f.name) + '</div>' +
+        '<div class="bulk-format-row__formats">';
+
+      f.available_formats.forEach(function (fmt) {
+        var label = fmt >= 1000 ? (fmt / 1000) + ' L' : fmt + ' ml';
+        var isActive = currentFormat === fmt;
+        html += '<button type="button" class="bulk-format-pill' + (isActive ? ' bulk-format-pill--active' : '') + '" ' +
+          'data-formula-id="' + esc(f.id) + '" data-format="' + fmt + '">' +
+          label +
+          '</button>';
+      });
+
+      html += '</div>';
+
+      /* Price indication */
+      if (currentFormat && f.pricing) {
+        var fmtKey = currentFormat + 'ml';
+        var priceData = f.pricing['50kg'] && f.pricing['50kg'][fmtKey];
+        if (priceData) {
+          html += '<div class="bulk-format-row__price">À partir de <strong>' + fmtPrice(priceData.total) + ' HT/unité</strong> (tranche 50 kg)</div>';
+        }
+        html += '<div class="bulk-format-row__packaging">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>' +
+          '<span>' + getPackagingNote(currentFormat, f.category) + '</span>' +
+          '</div>';
+      }
+
+      html += '</div>';
+    });
+
+    elFormatList.innerHTML = html;
+    updateTakemotoVisibility();
+
+    /* Bind format pill clicks */
+    elFormatList.querySelectorAll('.bulk-format-pill').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var fid = btn.dataset.formulaId;
+        var fmt = parseInt(btn.dataset.format, 10);
+        state.formats[fid] = fmt;
+        renderFormats();
+      });
+    });
+  }
+
+  function updateTakemotoVisibility() {
+    if (!elTakemoto || !el5lNotice) return;
+
+    var selected = state.formulas.filter(function (f) { return !!state.selectedIds[f.id]; });
+    var has5L = false;
+    var allHaveFormat = true;
+
+    selected.forEach(function (f) {
+      if (!state.formats[f.id]) allHaveFormat = false;
+      if (state.formats[f.id] === 5000) has5L = true;
+    });
+
+    /* Show 5L notice */
+    el5lNotice.style.display = has5L ? '' : 'none';
+
+    /* Show Takemoto choice only when all formats chosen and no 5L */
+    if (allHaveFormat && !has5L && selected.length > 0) {
+      elTakemoto.style.display = '';
+    } else if (has5L) {
+      /* 5L forces Takemoto step — hide the optional choice */
+      elTakemoto.style.display = 'none';
+      state.skipTakemoto = false;
+    } else {
+      elTakemoto.style.display = 'none';
+    }
+  }
+
+  function allFormatsChosen() {
+    var selected = state.formulas.filter(function (f) { return !!state.selectedIds[f.id]; });
+    return selected.length > 0 && selected.every(function (f) { return !!state.formats[f.id]; });
+  }
+
+  /* Takemoto buttons */
+  if (elTakemotoYes) {
+    elTakemotoYes.addEventListener('click', function () {
+      state.skipTakemoto = false;
+      goToStep(3);
+    });
+  }
+  if (elTakemotoNo) {
+    elTakemotoNo.addEventListener('click', function () {
+      state.skipTakemoto = true;
+      goToStep(4); /* Skip step 3 */
     });
   }
 

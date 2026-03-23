@@ -1,40 +1,39 @@
 {% comment %}
-  ============================================================================
   MY.LAB — Étape 2 : Choix du format / contenance
   snippets/bulk-step-format.liquid
-  ============================================================================
-
-  Pour chaque formule sélectionnée à l'étape 1, l'utilisateur choisit
-  le format de conditionnement :
-  - 200 ml
-  - 500 ml
-  - 1000 ml
-  - 5000 ml (bidon — packaging à la charge du client)
-
-  Affiche :
-  - Liste des formules choisies avec sélecteur de format pour chacune
-  - Prix unitaire indicatif par format (depuis bulk-data-formulas.json)
-  - Note sur le packaging inclus vs à charge
-
-  TODO:
-  - [ ] Liste des formules sélectionnées (reprises de l'étape 1)
-  - [ ] Pour chaque formule : boutons radio ou pills pour le format
-  - [ ] Affichage du prix unitaire selon le format choisi
-  - [ ] Note packaging : "* 5000ml : packaging à votre charge"
-  - [ ] Mise à jour dynamique par bulk-order.js
-  ============================================================================
+  Peuplé dynamiquement par bulk-order.js
 {% endcomment %}
 
 <div class="bulk-format" id="bulk-format">
   <h2 class="bulk-step__title">Choisissez le format</h2>
   <p class="bulk-step__desc">Pour chaque formule, sélectionnez le format de conditionnement souhaité.</p>
 
-  {%- comment -%} TODO: Liste des formules avec sélecteur de format, peuplée par JS {%- endcomment -%}
-  <div class="bulk-format__list" id="bulk-format-list">
-    <!-- Peuplé dynamiquement par bulk-order.js -->
+  <div class="bulk-format__list" id="bulk-format-list"></div>
+
+  {%- comment -%} Choix Takemoto (affiché conditionnellement par JS) {%- endcomment -%}
+  <div class="bulk-format__takemoto" id="bulk-format-takemoto" style="display:none;">
+    <div class="bulk-format__takemoto-inner">
+      <div class="bulk-format__takemoto-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a574" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>
+      </div>
+      <div class="bulk-format__takemoto-text">
+        <strong>Packaging standard MY.LAB inclus</strong>
+        <p>Souhaitez-vous choisir un flacon personnalisé chez notre partenaire Takemoto ?</p>
+      </div>
+      <div class="bulk-format__takemoto-btns">
+        <button type="button" class="bulk-order__btn bulk-order__btn--next" id="bulk-takemoto-yes">
+          Oui, personnaliser
+        </button>
+        <button type="button" class="bulk-format__takemoto-skip" id="bulk-takemoto-no">
+          Non, garder le standard
+        </button>
+      </div>
+    </div>
   </div>
 
-  <p class="bulk-format__note">
-    * Format 5000 ml : packaging à votre charge. Tous les autres formats incluent le flacon et le bouchon.
-  </p>
+  {%- comment -%} Message obligatoire 5000ml {%- endcomment -%}
+  <div class="bulk-format__5l-notice" id="bulk-format-5l-notice" style="display:none;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c0392b" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <span>Vous avez sélectionné un format 5000 ml — le packaging est à votre charge. L'étape suivante vous permettra de choisir un flacon chez notre partenaire Takemoto.</span>
+  </div>
 </div>

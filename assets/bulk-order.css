@@ -389,6 +389,163 @@
 @media screen and (min-width: 750px) and (max-width: 999px) {
   .bulk-formulas__grid { grid-template-columns: repeat(2, 1fr); }
 }
+/* ── STEP 2: FORMAT ── */
+.bulk-format__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.bulk-format-row {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  transition: border-color 0.2s;
+}
+.bulk-format-row:hover { border-color: #ddd; }
+.bulk-format-row__header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.bulk-format-row__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gamme-color, #ddd);
+  flex-shrink: 0;
+}
+.bulk-format-row__gamme {
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gamme-color, #888);
+}
+.bulk-format-row__name {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #111;
+}
+.bulk-format-row__formats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+.bulk-format-pill {
+  padding: 0.7rem 1.4rem;
+  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.bulk-format-pill:hover { border-color: #aaa; background: #fafafa; }
+.bulk-format-pill--active {
+  border-color: var(--gamme-color, #111);
+  background: var(--gamme-color, #111);
+  color: #fff;
+}
+.bulk-format-pill--active:hover {
+  background: var(--gamme-color, #111);
+  border-color: var(--gamme-color, #111);
+}
+.bulk-format-row__price {
+  font-size: 1.15rem;
+  color: #555;
+  margin-bottom: 0.4rem;
+}
+.bulk-format-row__price strong {
+  color: #111;
+  font-weight: 700;
+}
+.bulk-format-row__packaging {
+  font-size: 1.05rem;
+  color: #888;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+.bulk-format-row__packaging svg { flex-shrink: 0; margin-top: 2px; }
+
+/* Takemoto choice */
+.bulk-format__takemoto {
+  margin-top: 2rem;
+}
+.bulk-format__takemoto-inner {
+  background: #fdf8f4;
+  border: 1px solid #ecdac5;
+  border-radius: 12px;
+  padding: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+.bulk-format__takemoto-icon { flex-shrink: 0; }
+.bulk-format__takemoto-text { flex: 1; min-width: 200px; }
+.bulk-format__takemoto-text strong {
+  display: block;
+  font-size: 1.2rem;
+  color: #111;
+  margin-bottom: 0.3rem;
+}
+.bulk-format__takemoto-text p {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+.bulk-format__takemoto-btns {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.bulk-format__takemoto-skip {
+  padding: 0.8rem 1.5rem;
+  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 44px;
+}
+.bulk-format__takemoto-skip:hover { background: #f5f5f5; border-color: #bbb; }
+
+/* 5L notice */
+.bulk-format__5l-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  font-size: 1.1rem;
+  color: #721c24;
+  margin-top: 1.5rem;
+  line-height: 1.5;
+}
+.bulk-format__5l-notice svg { flex-shrink: 0; margin-top: 2px; }
+
+/* ── RESPONSIVE ── */
+@media screen and (min-width: 750px) and (max-width: 999px) {
+  .bulk-formulas__grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media screen and (max-width: 749px) {
   .bulk-formulas__grid { grid-template-columns: 1fr; }
   .bulk-stepper__label { display: none; }
@@ -398,4 +555,7 @@
   .bulk-selection-bar__chips { display: none; }
   .bulk-order { padding-bottom: 90px; }
   .bulk-step__title { font-size: clamp(2rem, 7vw, 2.8rem); }
+  .bulk-format__takemoto-inner { flex-direction: column; text-align: center; }
+  .bulk-format__takemoto-btns { width: 100%; justify-content: center; }
+  .bulk-format-pill { padding: 0.6rem 1rem; font-size: 1.1rem; }
 }
