@@ -1,0 +1,1719 @@
+{
+  "_doc": "MY.LAB — Catalogue flacons Takemoto. Généré automatiquement par scrape_takemoto.py. Données à valider manuellement.",
+  "_source": "eu.store.takemotopkg.com — scrappé le 2026-03-23",
+  "_compatibility_rules": {
+    "shampoing": "Viscosité basse/moyenne → Pump + Bottle ou Screw Cap + Bottle",
+    "creme_coiffage": "Viscosité haute → Dispensing Cap + Bottle ou Pump + Bottle",
+    "masque": "Viscosité haute → Jar ou Dispensing Cap + Bottle",
+    "spray": "Viscosité basse → Spray + Bottle",
+    "serum": "Viscosité basse → Dropper + Bottle ou Pump + Bottle (petit format)",
+    "huile": "Viscosité basse → Dropper + Bottle ou Pump + Bottle (petit format)"
+  },
+  "bottles": [
+    {
+      "id": "tk-ph-100-z-155-c110-1-290-spray",
+      "name": "PH-100 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-100-z-155-c110-1-290-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430090472_7010160986_1_447098e9-94ae-458f-9344-96ce15662acf.jpg?v=1772434194",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-100-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 100ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 400, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-pepi-300-z-155-c110-1-290-spray",
+      "name": "PEPI-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-pepi-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2330100405_7010160986_1_4d1319ff-4ad6-4ed1-af3d-d3291eee2acb.jpg?v=1772434186",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/pepi-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-aom-400-z-155-c110-1-290-spray",
+      "name": "AOM-400 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 400,
+      "compatible_formats": [],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-400-z-155-c110-1-290-spray-400ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120040014_7010160986_1_7b39761a-2a27-48f8-b0d0-b8bb37796076.jpg?v=1772434177",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-400-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-aom-300-z-155-c110-1-290-spray",
+      "name": "AOM-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120020069_7010160986_1_4af26e2f-3349-449f-9c60-c020c41bd920.jpg?v=1772434169",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-aom-200-z-155-c110-1-290-spray",
+      "name": "AOM-200 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-200-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_7010160986_1_fc30deb6-41b0-4b5c-a8ba-e7171990a835.jpg?v=1772434160",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-200-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ambe-300-z-155-c110-1-290-spray",
+      "name": "AMBE-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122040008_7010160986_1_5ccbbeb5-d0b0-4ce0-8776-1b0d42128710.jpg?v=1772434152",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-ambe-200-z-155-c110-1-290-spray",
+      "name": "AMBE-200 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-200-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122030009_7010160986_1_f39fda42-f401-4528-806a-1c3aa058ebc4.jpg?v=1772434143",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-200-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-ambe-150-z-155-c110-1-290-spray",
+      "name": "AMBE-150 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-150-z-155-c110-1-290-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122020007_7010160986_1_767246b5-c148-4d22-aa73-5a2e18835584.jpg?v=1772434134",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-150-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-supi-300-z-155-c110-1-290-spray",
+      "name": "SUPI-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-supi-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3120020057_7010160986_1_6d824f78-7452-4de6-929d-09031c47fa3d.jpg?v=1772434125",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/supi-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pmpin-300-z-155-c110-1-290-spray",
+      "name": "S-PMPIN-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pmpin-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2523020003_7010160986_1_05f7194d-a8dd-45d8-b364-bfcc50640cd8.jpg?v=1772434115",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pmpin-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pewin-150a-z-155-c110-1-290-spray",
+      "name": "S-PEWIN-150A + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pewin-150a-z-155-c110-1-290-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2371020005_7010160986_1_f37e3032-2b76-494d-9175-5571f481f597.jpg?v=1772434107",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pewin-150a-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pewin-120a-z-155-c110-1-290-spray",
+      "name": "S-PEWIN-120A + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pewin-120a-z-155-c110-1-290-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2371010005_7010160986_1_c2925e52-8548-4dc7-a890-5025fba0a951.jpg?v=1772434098",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pewin-120a-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-200a-z-155-c110-1-290-spray",
+      "name": "S-PEPIN-200A + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-200a-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_7010160986_1_f84f3dc4-62ad-409d-ae61-685174ff9ebb.jpg?v=1772434090",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-200a-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-200-z-155-c110-1-290-spray",
+      "name": "S-PEPIN-200 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-200-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_7010160986_1_58b4aef7-e250-459f-8a04-c223375b6536.jpg?v=1772434081",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-200-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-120-z-155-c110-1-290-spray",
+      "name": "S-PEPIN-120 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-120-z-155-c110-1-290-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332020003_7010160986_1_f8e74d2c-19b0-4305-b4c1-79b87434f50a.jpg?v=1772434072",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-120-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-100-z-155-c110-1-290-spray",
+      "name": "S-PEPIN-100 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-100-z-155-c110-1-290-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332010006_7010160986_1_e62f0dbb-5940-44ff-aa71-6293c8d366cc.jpg?v=1772434062",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-100-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-200a-z-155-c110-1-290-spray",
+      "name": "S-PEMIN-200A + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-200a-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_7010160986_1_641ae855-254f-40c2-ac0a-65026376dcb3.jpg?v=1772434053",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-200a-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-200-z-155-c110-1-290-spray",
+      "name": "S-PEMIN-200 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-200-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_7010160986_1_e642cb2d-c668-4e0c-92c4-731fd06f7607.jpg?v=1772434043",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-200-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-120-z-155-c110-1-290-spray",
+      "name": "S-PEMIN-120 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-120-z-155-c110-1-290-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292020003_7010160986_1_ea853fec-163b-4483-84b6-f85a71f06152.jpg?v=1772434034",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-120-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-100-z-155-c110-1-290-spray",
+      "name": "S-PEMIN-100 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-100-z-155-c110-1-290-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292010003_7010160986_1_93ab997c-2fef-4c75-ba35-0264e68f3215.jpg?v=1772434025",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-100-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-opt-150b-z-155-c110-1-290-spray",
+      "name": "S-OPT-150B + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-opt-150b-z-155-c110-1-290-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2011010003_7010160986_1_ba103030-931f-45fb-ad08-1b9b39ece999.jpg?v=1772434015",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-opt-150b-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "An oval 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-apin-300-z-155-c110-1-290-spray",
+      "name": "S-APIN-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-apin-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0161040003_7010160986_1_235a8ed8-d9ab-44ee-8144-746bcc1a1a93.jpg?v=1772434002",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-apin-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-apin-100-z-155-c110-1-290-spray",
+      "name": "S-APIN-100 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-apin-100-z-155-c110-1-290-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0161010003_7010160986_1_9342bb00-71bc-406f-a762-3394b7e2c102.jpg?v=1772433992",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-apin-100-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-aompn-300-z-155-c110-1-290-spray",
+      "name": "S-AOMPN-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-aompn-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0131020008_7010160986_1_8a8de478-1d90-489b-9fed-cf0071f1541f.jpg?v=1772433983",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-aompn-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-ph-50iii-z-155-c110-1-290-spray",
+      "name": "PH-50III + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 50,
+      "compatible_formats": [
+        50
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-50iii-z-155-c110-1-290-spray-50ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_7010160986_1_1a88e353-c327-4917-8b6c-a36f71058dba.jpg?v=1772433976",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-50iii-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 50ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from "
+    },
+    {
+      "id": "tk-ph-500-z-155-c110-1-290-spray",
+      "name": "PH-500 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 500,
+      "compatible_formats": [
+        500
+      ],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-500-z-155-c110-1-290-spray-500ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7010160986_1_d606236b-f9e1-4ea2-a162-561337ac7c94.jpg?v=1772433969",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-500-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 500ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-400-z-155-c110-1-290-spray",
+      "name": "PH-400 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 400,
+      "compatible_formats": [],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-400-z-155-c110-1-290-spray-400ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430220126_7010160986_1_c322d38e-a9bf-44bc-b728-7bf7f7b751a3.jpg?v=1772433962",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-400-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-300-z-155-c110-1-290-spray",
+      "name": "PH-300 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-300-z-155-c110-1-290-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430180311_7010160986_1_87beb769-235c-4e99-8672-71f7b83df470.jpg?v=1772433954",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-300-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-250-z-155-c110-1-290-spray",
+      "name": "PH-250 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 250,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-250-z-155-c110-1-290-spray-250ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_7010160986_1_779d482c-5d41-4724-9a31-a791c8b56673.jpg?v=1772433947",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-250-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 250ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-200-z-155-c110-1-290-spray",
+      "name": "PH-200 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-200-z-155-c110-1-290-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_7010160986_1_9bd68c63-6bc5-4c8c-8b65-cdcd12384ef2.jpg?v=1772433939",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-200-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-150-z-155-c110-1-290-spray",
+      "name": "PH-150 + Z-155-C110-1-290 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-150-z-155-c110-1-290-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430110222_7010160986_1_1386017a-28ab-4420-b7e5-6ae463883795.jpg?v=1772433930",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-150-z-155-c110-1-290-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 300, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-supi-300-z-155-c112-2-spray",
+      "name": "SUPI-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-supi-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3120020057_7010161155_1.jpg?v=1755673837",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/supi-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pmpin-300-z-155-c112-2-spray",
+      "name": "S-PMPIN-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pmpin-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2523020003_7010161155_1.jpg?v=1755673827",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pmpin-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pewin-150a-z-155-c112-2-spray",
+      "name": "S-PEWIN-150A + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pewin-150a-z-155-c112-2-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2371020005_7010161155_1.jpg?v=1755673816",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pewin-150a-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pewin-120a-z-155-c112-2-spray",
+      "name": "S-PEWIN-120A + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pewin-120a-z-155-c112-2-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2371010005_7010161155_1.jpg?v=1755673805",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pewin-120a-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-200a-z-155-c112-2-spray",
+      "name": "S-PEPIN-200A + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-200a-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_7010161155_1.jpg?v=1755673795",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-200a-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-200-z-155-c112-2-spray",
+      "name": "S-PEPIN-200 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-200-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_7010161155_1.jpg?v=1755673784",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-200-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-120-z-155-c112-2-spray",
+      "name": "S-PEPIN-120 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-120-z-155-c112-2-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332020003_7010161155_1.jpg?v=1755673772",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-120-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pepin-100-z-155-c112-2-spray",
+      "name": "S-PEPIN-100 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pepin-100-z-155-c112-2-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332010006_7010161155_1.jpg?v=1755673760",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pepin-100-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-200a-z-155-c112-2-spray",
+      "name": "S-PEMIN-200A + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-200a-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_7010161155_1.jpg?v=1755673749",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-200a-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-200-z-155-c112-2-spray",
+      "name": "S-PEMIN-200 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-200-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_7010161155_1.jpg?v=1755673738",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-200-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-120-z-155-c112-2-spray",
+      "name": "S-PEMIN-120 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 120,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-120-z-155-c112-2-spray-120ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292020003_7010161155_1.jpg?v=1755673726",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-120-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-pemin-100-z-155-c112-2-spray",
+      "name": "S-PEMIN-100 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-pemin-100-z-155-c112-2-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292010003_7010161155_1.jpg?v=1755673715",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-pemin-100-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-opt-150b-z-155-c112-2-spray",
+      "name": "S-OPT-150B + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-opt-150b-z-155-c112-2-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2011010003_7010161155_1.jpg?v=1755673702",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-opt-150b-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "An oval 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-apin-300-z-155-c112-2-spray",
+      "name": "S-APIN-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-apin-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0161040003_7010161155_1.jpg?v=1755673678",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-apin-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-s-apin-100-z-155-c112-2-spray",
+      "name": "S-APIN-100 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-apin-100-z-155-c112-2-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0161010003_7010161155_1.jpg?v=1755673666",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-apin-100-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe"
+    },
+    {
+      "id": "tk-s-aompn-300-z-155-c112-2-spray",
+      "name": "S-AOMPN-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-s-aompn-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0131020008_7010161155_1.jpg?v=1755673655",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/s-aompn-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-ph-50iii-z-155-c112-2-spray",
+      "name": "PH-50III + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 50,
+      "compatible_formats": [
+        50
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-50iii-z-155-c112-2-spray-50ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_7010161155_1.jpg?v=1755673644",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-50iii-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 50ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from "
+    },
+    {
+      "id": "tk-ph-500-z-155-c112-2-spray",
+      "name": "PH-500 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 500,
+      "compatible_formats": [
+        500
+      ],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-500-z-155-c112-2-spray-500ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7010161155_1.jpg?v=1755673634",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-500-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 500ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-400-z-155-c112-2-spray",
+      "name": "PH-400 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 400,
+      "compatible_formats": [],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-400-z-155-c112-2-spray-400ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430220126_7010161155_1.jpg?v=1755673625",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-400-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-300-z-155-c112-2-spray",
+      "name": "PH-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430180311_7010161155_1.jpg?v=1755673616",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-250-z-155-c112-2-spray",
+      "name": "PH-250 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 250,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-250-z-155-c112-2-spray-250ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_7010161155_1.jpg?v=1755673606",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-250-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 250ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-200-z-155-c112-2-spray",
+      "name": "PH-200 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-200-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_7010161155_1.jpg?v=1755673596",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-200-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-150-z-155-c112-2-spray",
+      "name": "PH-150 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-150-z-155-c112-2-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430110222_7010161155_1.jpg?v=1755673587",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-150-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 300, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ph-100-z-155-c112-2-spray",
+      "name": "PH-100 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 100,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-100-z-155-c112-2-spray-100ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430090472_7010161155_1.jpg?v=1755673577",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-100-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 100ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 400, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-pepi-300-z-155-c112-2-spray",
+      "name": "PEPI-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "rPET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-pepi-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2330100405_7010161155_1.jpg?v=1755673567",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/pepi-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 72,
+      "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe"
+    },
+    {
+      "id": "tk-aom-400-z-155-c112-2-spray",
+      "name": "AOM-400 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 400,
+      "compatible_formats": [],
+      "compatible_products": [],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-400-z-155-c112-2-spray-400ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120040014_7010161155_1.jpg?v=1755673555",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-400-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-aom-300-z-155-c112-2-spray",
+      "name": "AOM-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120020069_7010161155_1.jpg?v=1755673545",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-aom-200-z-155-c112-2-spray",
+      "name": "AOM-200 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-aom-200-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_7010161155_1.jpg?v=1755673533",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/aom-200-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from"
+    },
+    {
+      "id": "tk-ambe-300-z-155-c112-2-spray",
+      "name": "AMBE-300 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 300,
+      "compatible_formats": [
+        300
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-300-z-155-c112-2-spray-300ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122040008_7010161155_1.jpg?v=1755673523",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-300-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-ambe-200-z-155-c112-2-spray",
+      "name": "AMBE-200 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 200,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-200-z-155-c112-2-spray-200ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122030009_7010161155_1.jpg?v=1755673511",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-200-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-ambe-150-z-155-c112-2-spray",
+      "name": "AMBE-150 + Z-155-C112-2 SPRAY",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "spray",
+      "material": "biomass_PET",
+      "capacity_ml": 150,
+      "compatible_formats": [],
+      "compatible_products": [
+        "spray"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ambe-150-z-155-c112-2-spray-150ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0122020007_7010161155_1.jpg?v=1755673495",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ambe-150-z-155-c112-2-spray",
+      "price_estimate": null,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A square 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select fro"
+    },
+    {
+      "id": "tk-ph-sw30-pd-0220-pps-pump-pd-0220-over-cap-m",
+      "name": "PH-SW30 + PD-0220 PPS PUMP + PD-0220 OVER CAP M",
+      "brand": "Takemoto",
+      "type": "bottle",
+      "closure_type": "pump",
+      "material": "biomass_PET",
+      "capacity_ml": 220,
+      "compatible_formats": [
+        200
+      ],
+      "compatible_products": [
+        "shampoing",
+        "creme_coiffage",
+        "masque"
+      ],
+      "color": "clear",
+      "eco_label": true,
+      "image_url": "/files/takemoto-ph-sw30-pd-0220-pps-pump-pd-0220-over-cap-m-220ml.webp",
+      "image_url_external": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430320057_6090010157_6090110037_1.jpg?v=1694455381",
+      "takemoto_url": "https://eu.store.takemotopkg.com/products/ph-sw30-pd-0220-pps-pump-pd-0220-over-cap-m",
+      "price_estimate": 319,
+      "dimensions": {
+        "height_mm": null,
+        "diameter_mm": null
+      },
+      "min_order_qty": 100,
+      "notes": "A round 30ml biomass PE bottle combined with a pump. It is suitable for low-viscosity formula, and medium-viscosity formula. It is available for purchase in sets of 200, with the matching number of ac"
+    }
+  ],
+  "closures": [
+    {
+      "id": "screw-black",
+      "label": "Bouchon noir à vis",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "black"
+    },
+    {
+      "id": "screw-white",
+      "label": "Bouchon blanc à vis",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "white"
+    },
+    {
+      "id": "pump-black",
+      "label": "Pompe noire",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "black"
+    },
+    {
+      "id": "pump-white",
+      "label": "Pompe blanche",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "white"
+    },
+    {
+      "id": "spray-black",
+      "label": "Spray gâchette noire",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "black"
+    },
+    {
+      "id": "dropper-black",
+      "label": "Pipette tétine noire",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "black"
+    },
+    {
+      "id": "dispensing-black",
+      "label": "Bouchon clapet noir",
+      "compatible_types": [
+        "bottle"
+      ],
+      "color": "black"
+    },
+    {
+      "id": "jar-lid-black",
+      "label": "Couvercle pot noir",
+      "compatible_types": [
+        "jar"
+      ],
+      "color": "black"
+    }
+  ]
+}
