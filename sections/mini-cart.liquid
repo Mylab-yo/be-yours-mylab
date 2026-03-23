@@ -387,6 +387,7 @@
       <cart-items>
         {%- assign animate_count = animate_count | plus: 1 -%}
         {%- assign ml_ht_subtotal = 0 -%}
+        {%- assign ml_has_non_tiered = false -%}
 
         {%- comment -%} ── ML DOSSIER GATE — pré-scan du panier ── {%- endcomment -%}
         {%- assign ml_cart_has_pro = false -%}
@@ -521,10 +522,12 @@
               assign ml_ht_subtotal = ml_ht_subtotal | plus: ml_lc
             else
               comment
-                Testeurs / produits sans palier : ajouter le prix Shopify au sous-total HT
+                Produits sans palier : utiliser le prix Shopify sans l'ajouter au sous-total HT
+                car ce prix est potentiellement TTC (incohérent avec les prix HT des paliers).
+                On track séparément pour le fallback Shopify natif.
               endcomment
-              assign ml_lc = item.final_price | times: item.quantity
-              assign ml_ht_subtotal = ml_ht_subtotal | plus: ml_lc
+              assign ml_lc = 0
+              assign ml_has_non_tiered = true
             endif
           -%}
           <li data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
@@ -679,18 +682,18 @@
                     {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
                       {%- comment -%} ── NATIVE QUANTITY ── {%- endcomment -%}
                       {%- assign ml_is_dossier_native = false -%}
-                      {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_cart_has_pro and ml_is_dossier_valide == false -%}
+                      {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_is_dossier_valide == false -%}
                         {%- assign ml_is_dossier_native = true -%}
                       {%- endif -%}
 
                       {%- if ml_is_dossier_native -%}
-                        {%- comment -%} ── DOSSIER GATE : quantité fixe, pas de suppression ── {%- endcomment -%}
+                        {%- comment -%} ── DOSSIER : quantité fixe à 1, pas de +/- ── {%- endcomment -%}
                         <div class="cart-item__quantity-wrapper">
-                          <span class="ml-dossier-required">Requis</span>
+                          <span class="ml-dossier-required">Quantité : 1</span>
                         </div>
                         <div class="ml-dossier-gate-msg">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                          Ajouté automatiquement pour votre première commande pro.
+                          Le dossier cosmétologique est unique et ne peut être commandé qu'une seule fois.
                         </div>
                       {%- else -%}
                       <quantity-popover>
@@ -1071,11 +1074,13 @@
         <div class="subtotal">
           <div class="label h3">{{ 'sections.cart.subtotal' | t }}</div>
           <div class="value price" id="mini-cart-subtotal">
-            {%- if ml_ht_subtotal > 0 -%}
+            {%- if ml_ht_subtotal > 0 and ml_has_non_tiered == false -%}
+              {%- comment -%} Tous les produits ont des paliers → sous-total HT custom {%- endcomment -%}
               {%- assign ml_se = ml_ht_subtotal | divided_by: 100 -%}
               {%- assign ml_sr = ml_ht_subtotal | modulo: 100 -%}
               {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
             {%- else -%}
+              {%- comment -%} Mix ou pas de paliers → prix Shopify natif {%- endcomment -%}
               {{ cart.total_price | money_with_currency }}
             {%- endif -%}
           </div>
