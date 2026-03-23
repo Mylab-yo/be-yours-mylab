@@ -88,12 +88,14 @@
           .ml-steps__list { display: flex; flex-direction: column; gap: 0.6rem; }
           .ml-steps__link { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.2rem; min-height: 32px; }
           .ml-steps__link--done { color: #2d7a45; }
-          .ml-steps__link--pending { color: #555; }
+          .ml-steps__link--pending { color: #c0392b; }
           .ml-steps__circle { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; }
           .ml-steps__circle--done { background: #2d7a45; }
-          .ml-steps__circle--pending { background: #fff; border: 2px solid #ddd; }
-          .ml-steps__num { font-size: 1rem; font-weight: 700; color: #888; }
+          .ml-steps__circle--pending { background: #fdecea; border: 2px solid #c0392b; }
+          .ml-steps__num { font-size: 1rem; font-weight: 700; color: #c0392b; }
           .ml-steps__label--done { font-weight: 600; }
+          .ml-steps__label--pending { font-weight: 500; }
+          .ml-steps__required { display: inline-block; font-size: 0.95rem; font-weight: 600; color: #c0392b; margin-left: 0.3rem; }
         </style>
         <div class="ml-steps">
           <div class="ml-steps__title">Votre parcours de création de marque</div>
@@ -102,19 +104,19 @@
               <span class="ml-steps__circle {% if ml_has_dossier %}ml-steps__circle--done{% else %}ml-steps__circle--pending{% endif %}">
                 {%- if ml_has_dossier -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span class="ml-steps__num">1</span>{%- endif -%}
               </span>
-              <span class="{% if ml_has_dossier %}ml-steps__label--done{% endif %}">Dossier cosmétologique</span>
+              <span class="{% if ml_has_dossier %}ml-steps__label--done{% else %}ml-steps__label--pending{% endif %}">Dossier cosmétologique{%- unless ml_has_dossier -%}<span class="ml-steps__required">— Requis</span>{%- endunless -%}</span>
             </a>
             <a href="/pages/modeles-etiquettes" class="ml-steps__link {% if ml_has_etiquettes %}ml-steps__link--done{% else %}ml-steps__link--pending{% endif %}">
               <span class="ml-steps__circle {% if ml_has_etiquettes %}ml-steps__circle--done{% else %}ml-steps__circle--pending{% endif %}">
                 {%- if ml_has_etiquettes -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span class="ml-steps__num">2</span>{%- endif -%}
               </span>
-              <span class="{% if ml_has_etiquettes %}ml-steps__label--done{% endif %}">Choisissez vos étiquettes</span>
+              <span class="{% if ml_has_etiquettes %}ml-steps__label--done{% else %}ml-steps__label--pending{% endif %}">Choisissez vos étiquettes{%- unless ml_has_etiquettes -%}<span class="ml-steps__required">— Requis</span>{%- endunless -%}</span>
             </a>
             <a href="/pages/la-boutique-my-lab" class="ml-steps__link {% if ml_has_pro %}ml-steps__link--done{% else %}ml-steps__link--pending{% endif %}">
               <span class="ml-steps__circle {% if ml_has_pro %}ml-steps__circle--done{% else %}ml-steps__circle--pending{% endif %}">
                 {%- if ml_has_pro -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span class="ml-steps__num">3</span>{%- endif -%}
               </span>
-              <span class="{% if ml_has_pro %}ml-steps__label--done{% endif %}">Commandez vos produits</span>
+              <span class="{% if ml_has_pro %}ml-steps__label--done{% else %}ml-steps__label--pending{% endif %}">Commandez vos produits{%- unless ml_has_pro -%}<span class="ml-steps__required">— Requis</span>{%- endunless -%}</span>
             </a>
           </div>
         </div>
