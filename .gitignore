@@ -2,3 +2,7 @@
 *.zip
 .DS_Store
 Thumbs.db
+bottle_images/
+takemoto_raw_data.json
+scrape_checkpoint.json
+scrape_errors.log

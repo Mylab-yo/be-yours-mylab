@@ -124,16 +124,18 @@ def save_checkpoint(data):
 
 # ── DETECTION HELPERS ──
 def detect_capacity(product):
-    """Extract capacity in ml from title, tags, or variants."""
-    title = product.get("title", "").lower()
+    """Extract capacity in ml from title, tags, or variants.
+    Takemoto uses codes like AOM-200, PH-100, PEPI-300 where the number IS the capacity in ml."""
+    title = product.get("title", "")
+    title_lower = title.lower()
     tags = " ".join(product.get("tags", [])).lower() if isinstance(product.get("tags"), list) else product.get("tags", "").lower()
-    combined = f"{title} {tags}"
+    combined = f"{title_lower} {tags}"
 
-    # Match patterns like "200ml", "200 ml", "0.2L"
+    # Standard patterns: 200ml, 0.2L, etc.
     patterns = [
-        (r"(\d+)\s*ml\b", 1),           # 200ml
-        (r"(\d+(?:\.\d+)?)\s*l\b", 1000),  # 0.2L, 1L
-        (r"(\d+)\s*oz\b", 29.5735),     # oz to ml
+        (r"(\d+)\s*ml\b", 1),
+        (r"(\d+(?:\.\d+)?)\s*l\b", 1000),
+        (r"(\d+)\s*oz\b", 29.5735),
     ]
     for pattern, multiplier in patterns:
         match = re.search(pattern, combined)
@@ -141,13 +143,29 @@ def detect_capacity(product):
             val = float(match.group(1)) * multiplier
             return int(round(val))
 
+    # Takemoto code pattern: XXX-NNN where NNN is capacity (e.g., AOM-200, PH-100, PEPI-300)
+    # Extract the number from codes like "AOM-200", "PH-100", "PEPI-300"
+    code_match = re.search(r"[A-Z]+-(\d+)", title)
+    if code_match:
+        val = int(code_match.group(1))
+        if 30 <= val <= 5000:
+            return val
+
+    # Fallback: any standalone number between 30-5000 in the title
+    num_match = re.findall(r"\b(\d+)\b", title)
+    for n in num_match:
+        val = int(n)
+        if 30 <= val <= 5000:
+            return val
+
     # Check variants
     for variant in product.get("variants", []):
-        vtitle = variant.get("title", "").lower()
-        for pattern, multiplier in patterns:
-            match = re.search(pattern, vtitle)
-            if match:
-                return int(round(float(match.group(1)) * multiplier))
+        vtitle = variant.get("title", "")
+        code_match = re.search(r"[A-Z]+-(\d+)", vtitle)
+        if code_match:
+            val = int(code_match.group(1))
+            if 30 <= val <= 5000:
+                return val
 
     return None
 
