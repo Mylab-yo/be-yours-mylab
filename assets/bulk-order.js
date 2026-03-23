@@ -284,6 +284,7 @@
     /* Render step-specific content */
     if (n === 2) renderFormats();
     if (n === 3) { renderBottleTabs(); renderBottleGrid(); }
+    if (n === 4) renderQuantity();
 
     renderStepper();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -672,6 +673,195 @@
     elBottlesEcoFilter.addEventListener('change', function () {
       bottleState.filterEco = elBottlesEcoFilter.checked;
       renderBottleGrid();
+    });
+  }
+
+  /* ══════════════════════════════════════════════
+     STEP 4 — QUANTITY & PRICING
+     ══════════════════════════════════════════════ */
+  var elQtyList       = document.getElementById('bulk-quantity-list');
+  var elGrandValue    = document.getElementById('bulk-quantity-grand-value');
+  var elGrandUnits    = document.getElementById('bulk-quantity-grand-units');
+
+  var qtyState = {};  // { formulaId: { kg: 50, tier: '50kg' } }
+
+  function calculateOrder(formula, formatMl, kg, tierKey) {
+    var fmtKey = formatMl + 'ml';
+    var pricing = formula.pricing && formula.pricing[tierKey] && formula.pricing[tierKey][fmtKey];
+    if (!pricing) return null;
+
+    var nbUnits = Math.ceil((kg * 1000) / formatMl);
+    var bottleId = bottleState.selections[formula.id];
+    var isCustomBottle = bottleId && bottleId !== 'standard';
+    var needsPump = formatMl === 1000 && formula.category !== 'shampoing';
+
+    var formuleTotal = pricing.formule * nbUnits;
+    var remplissageTotal = pricing.remplissage * nbUnits;
+    var packagingTotal = isCustomBottle ? 0 : pricing.packaging * nbUnits;
+    var etiquetteTotal = pricing.etiquette * nbUnits;
+    var pumpTotal = needsPump ? 0.45 * nbUnits : 0;
+
+    var bottleUnitPrice = 0;
+    if (isCustomBottle && bottlesData) {
+      var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
+      if (bObj && bObj.price_estimate) bottleUnitPrice = bObj.price_estimate / 100;
+    }
+    var bottleTotal = bottleUnitPrice * nbUnits;
+
+    var grandTotal = formuleTotal + remplissageTotal + packagingTotal + etiquetteTotal + pumpTotal + bottleTotal;
+
+    return {
+      nbUnits: nbUnits,
+      pricing: pricing,
+      formuleTotal: formuleTotal,
+      remplissageTotal: remplissageTotal,
+      packagingTotal: packagingTotal,
+      etiquetteTotal: etiquetteTotal,
+      pumpTotal: pumpTotal,
+      needsPump: needsPump,
+      bottleUnitPrice: bottleUnitPrice,
+      bottleTotal: bottleTotal,
+      isCustomBottle: isCustomBottle,
+      grandTotal: grandTotal
+    };
+  }
+
+  function renderQuantity() {
+    if (!elQtyList) return;
+    var formulas = getSelectedFormulasWithFormat();
+    if (formulas.length === 0) { elQtyList.innerHTML = ''; return; }
+
+    var html = '';
+    formulas.forEach(function (f) {
+      var format = state.formats[f.id];
+      var fmtLabel = format >= 1000 ? (format / 1000) + ' L' : format + ' ml';
+      var bottleId = bottleState.selections[f.id] || 'standard';
+      var bottleName = bottleId === 'standard' ? 'MY.LAB Standard' : '';
+      if (bottleId !== 'standard' && bottlesData) {
+        var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
+        if (bObj) bottleName = bObj.name;
+      }
+
+      if (!qtyState[f.id]) qtyState[f.id] = { kg: 50, tier: '50kg' };
+      var qs = qtyState[f.id];
+
+      /* Auto-detect tier */
+      if (qs.kg >= 100) qs.tier = '100_200kg';
+      else qs.tier = '50kg';
+
+      var calc = calculateOrder(f, format, qs.kg, qs.tier);
+      var tierLabel50 = '50 litres minimum';
+      var tierLabel100 = '100 à 200 litres';
+
+      html += '<div class="bulk-qty-block" style="--gamme-color:' + esc(f.gammeColor) + '">' +
+
+        /* Header */
+        '<div class="bulk-qty-block__header">' +
+          '<span class="bulk-qty-block__dot" style="background:' + esc(f.gammeColor) + '"></span>' +
+          '<span class="bulk-qty-block__label">' + esc(f.name) + '</span>' +
+          '<span class="bulk-qty-block__detail">' + fmtLabel + ' · ' + esc(bottleName) + '</span>' +
+        '</div>' +
+
+        /* Tier selector */
+        '<div class="bulk-qty-tiers">' +
+          '<button type="button" class="bulk-qty-tier' + (qs.tier === '50kg' ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="50kg">' +
+            tierLabel50 +
+            (calc ? '<span class="bulk-qty-tier__price">' + fmtPrice(calc.pricing.total) + '/u</span>' : '') +
+          '</button>' +
+          '<button type="button" class="bulk-qty-tier' + (qs.tier === '100_200kg' ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="100_200kg">' +
+            tierLabel100 +
+            (f.pricing && f.pricing['100_200kg'] && f.pricing['100_200kg'][format + 'ml'] ? '<span class="bulk-qty-tier__price">' + fmtPrice(f.pricing['100_200kg'][format + 'ml'].total) + '/u</span>' : '') +
+          '</button>' +
+        '</div>' +
+
+        /* Input */
+        '<div class="bulk-qty-input-row">' +
+          '<label>Quantité</label>' +
+          '<input type="number" class="bulk-qty-input" data-formula-input="' + esc(f.id) + '" value="' + qs.kg + '" min="50" step="10">' +
+          '<span class="bulk-qty-unit">kg</span>' +
+        '</div>';
+
+      if (calc) {
+        html += '<div class="bulk-qty-calc">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2"><path d="M5 12l5 5L19 7"/></svg>' +
+          qs.kg + ' kg = <strong>' + calc.nbUnits + ' flacons</strong> de ' + fmtLabel +
+          '</div>';
+
+        /* Price breakdown */
+        html += '<div class="bulk-qty-table-wrap"><table class="bulk-qty-table">' +
+          '<thead><tr><th>Composant</th><th>Prix unitaire</th><th>Quantité</th><th>Sous-total</th></tr></thead>' +
+          '<tbody>' +
+          '<tr><td>Formule</td><td>' + fmtPrice(calc.pricing.formule) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.formuleTotal) + '</td></tr>' +
+          '<tr><td>Remplissage</td><td>' + fmtPrice(calc.pricing.remplissage) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.remplissageTotal) + '</td></tr>';
+
+        if (calc.isCustomBottle && calc.bottleUnitPrice > 0) {
+          html += '<tr><td>Flacon Takemoto</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
+        } else if (!calc.isCustomBottle) {
+          html += '<tr><td>Packaging</td><td>' + fmtPrice(calc.pricing.packaging) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.packagingTotal) + '</td></tr>';
+        }
+
+        html += '<tr><td>Étiquette</td><td>' + fmtPrice(calc.pricing.etiquette) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.etiquetteTotal) + '</td></tr>';
+
+        if (calc.needsPump) {
+          html += '<tr><td>Pompe (option 1L)</td><td>' + fmtPrice(0.45) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.pumpTotal) + '</td></tr>';
+        }
+
+        html += '<tr class="bulk-qty-row--total"><td colspan="3">Total HT</td><td>' + fmtPrice(calc.grandTotal) + '</td></tr>' +
+          '</tbody></table></div>';
+      }
+
+      html += '</div>';
+    });
+
+    elQtyList.innerHTML = html;
+    updateGrandTotal();
+    bindQtyEvents();
+  }
+
+  function updateGrandTotal() {
+    var formulas = getSelectedFormulasWithFormat();
+    var total = 0;
+    var totalUnits = 0;
+
+    formulas.forEach(function (f) {
+      var qs = qtyState[f.id];
+      if (!qs) return;
+      var calc = calculateOrder(f, state.formats[f.id], qs.kg, qs.tier);
+      if (calc) {
+        total += calc.grandTotal;
+        totalUnits += calc.nbUnits;
+      }
+    });
+
+    if (elGrandValue) elGrandValue.textContent = fmtPrice(total) + ' HT';
+    if (elGrandUnits) elGrandUnits.textContent = totalUnits + ' flacons au total';
+  }
+
+  function bindQtyEvents() {
+    /* Tier buttons */
+    elQtyList.querySelectorAll('.bulk-qty-tier').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var fid = btn.dataset.formulaQty;
+        var tier = btn.dataset.tier;
+        if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
+        qtyState[fid].tier = tier;
+        if (tier === '100_200kg' && qtyState[fid].kg < 100) qtyState[fid].kg = 100;
+        renderQuantity();
+      });
+    });
+
+    /* Qty inputs */
+    elQtyList.querySelectorAll('.bulk-qty-input').forEach(function (input) {
+      input.addEventListener('input', function () {
+        var fid = input.dataset.formulaInput;
+        var val = parseInt(input.value, 10);
+        if (isNaN(val) || val < 0) val = 0;
+        if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
+        qtyState[fid].kg = val;
+        if (val >= 100) qtyState[fid].tier = '100_200kg';
+        else qtyState[fid].tier = '50kg';
+        renderQuantity();
+      });
     });
   }
 

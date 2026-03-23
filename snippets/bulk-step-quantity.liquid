@@ -1,70 +1,41 @@
 {% comment %}
-  ============================================================================
   MY.LAB — Étape 4 : Quantité et calcul de prix
   snippets/bulk-step-quantity.liquid
-  ============================================================================
-
-  L'utilisateur saisit la quantité pour chaque formule/format sélectionné.
-  Minimum : 50 kg par référence (converti en unités selon le format).
-
-  Conversions 50 kg :
-  - 200ml = 250 unités minimum
-  - 500ml = 100 unités minimum
-  - 1000ml = 50 unités minimum
-  - 5000ml = 10 unités minimum
-
-  Paliers de prix (depuis bulk-data-formulas.json) :
-  - 50 kg (quantité de base)
-  - 100-200 kg (prix réduit)
-
-  Affiche :
-  - Tableau récapitulatif par ligne (formule + format + quantité)
-  - Prix unitaire dégressif selon la quantité
-  - Sous-total par ligne
-  - Total général HT
-
-  TODO:
-  - [ ] Tableau avec : Formule | Format | Qté min | Input quantité | Prix/u | Total ligne
-  - [ ] Validation : quantité >= minimum (50kg converti)
-  - [ ] Calcul prix dégressif selon paliers
-  - [ ] Affichage total HT en temps réel
-  - [ ] Note : "Prix HT départ entrepôt, transport à votre charge"
-  - [ ] Calcul dynamique par bulk-order.js
-  ============================================================================
+  Peuplé dynamiquement par bulk-order.js
 {% endcomment %}
 
 <div class="bulk-quantity" id="bulk-quantity">
   <h2 class="bulk-step__title">Quantités et tarifs</h2>
-  <p class="bulk-step__desc">Indiquez la quantité souhaitée pour chaque référence. Minimum 50 kg par formule.</p>
+  <p class="bulk-step__desc">Indiquez la quantité souhaitée pour chaque formule. Minimum 50 kg par référence.</p>
 
-  {%- comment -%} TODO: Tableau de quantités peuplé par JS {%- endcomment -%}
-  <div class="bulk-quantity__table-wrap">
-    <table class="bulk-quantity__table" id="bulk-quantity-table">
-      <thead>
-        <tr>
-          <th>Formule</th>
-          <th>Format</th>
-          <th>Qté min.</th>
-          <th>Quantité</th>
-          <th>Prix / unité HT</th>
-          <th>Total HT</th>
-        </tr>
-      </thead>
-      <tbody id="bulk-quantity-body">
-        <!-- Peuplé dynamiquement par bulk-order.js -->
-      </tbody>
-    </table>
+  <div class="bulk-quantity__list" id="bulk-quantity-list"></div>
+
+  {%- comment -%} Total général {%- endcomment -%}
+  <div class="bulk-quantity__grand-total" id="bulk-quantity-grand-total">
+    <div class="bulk-quantity__grand-total-row">
+      <span class="bulk-quantity__grand-total-label">Total général HT</span>
+      <span class="bulk-quantity__grand-total-value" id="bulk-quantity-grand-value">0,00 €</span>
+    </div>
+    <div class="bulk-quantity__grand-total-sub" id="bulk-quantity-grand-units">0 flacons au total</div>
   </div>
 
-  {%- comment -%} TODO: Total général {%- endcomment -%}
-  <div class="bulk-quantity__total" id="bulk-quantity-total">
-    <span class="bulk-quantity__total-label">Total HT</span>
-    <span class="bulk-quantity__total-value">0,00 €</span>
+  {%- comment -%} Notes {%- endcomment -%}
+  <div class="bulk-quantity__notes">
+    <div class="bulk-quantity__note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      Marge de production et/ou de conditionnement : +/- 3%
+    </div>
+    <div class="bulk-quantity__note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Délai de mise à disposition : 6 à 8 semaines
+    </div>
+    <div class="bulk-quantity__note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Conditions de règlement : 50% à la commande — 50% au départ marchandise
+    </div>
+    <div class="bulk-quantity__note">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Prix HT départ de nos entrepôts — transport à votre charge
+    </div>
   </div>
-
-  <p class="bulk-quantity__note">
-    Prix HT départ de nos entrepôts. Transport à votre charge.<br>
-    Conditions de règlement : 50% à la commande — 50% au départ marchandise.<br>
-    Délai de mise à disposition : 6 à 8 semaines.
-  </p>
 </div>

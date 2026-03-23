@@ -594,6 +594,51 @@
 .bulk-bottles__custom { display: flex; align-items: center; gap: 0.6rem; margin-top: 2rem; padding: 1rem 1.4rem; background: #f8f8f8; border-radius: 8px; font-size: 1.1rem; color: #666; }
 .bulk-bottles__custom-link { color: #d4a574; font-weight: 500; }
 
+/* ── STEP 4: QUANTITY ── */
+.bulk-quantity__list { display: flex; flex-direction: column; gap: 1.5rem; }
+.bulk-qty-block { background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 1.6rem; }
+.bulk-qty-block__header { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid #f0f0f0; }
+.bulk-qty-block__dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.bulk-qty-block__label { font-size: 1.2rem; font-weight: 600; color: #111; }
+.bulk-qty-block__detail { font-size: 1.05rem; color: #888; }
+
+/* Tier selector */
+.bulk-qty-tiers { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.bulk-qty-tier { padding: 0.7rem 1.4rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #555; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
+.bulk-qty-tier:hover { border-color: #aaa; }
+.bulk-qty-tier--active { border-color: #111; background: #111; color: #fff; }
+.bulk-qty-tier__price { font-size: 0.95rem; opacity: 0.7; }
+
+/* Input row */
+.bulk-qty-input-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+.bulk-qty-input-row label { font-size: 1.1rem; font-weight: 500; color: #555; min-width: 120px; }
+.bulk-qty-input { width: 140px; padding: 0.8rem 1rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.3rem; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; text-align: center; transition: border-color 0.2s; }
+.bulk-qty-input:focus { outline: none; border-color: #111; background: #fff; }
+.bulk-qty-input:invalid { border-color: #c0392b; }
+.bulk-qty-unit { font-size: 1.1rem; color: #888; }
+.bulk-qty-calc { font-size: 1.1rem; color: #2d7a45; font-weight: 500; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.4rem; }
+.bulk-qty-calc svg { flex-shrink: 0; }
+
+/* Price breakdown table */
+.bulk-qty-table-wrap { overflow-x: auto; margin-bottom: 0.5rem; }
+.bulk-qty-table { width: 100%; border-collapse: collapse; font-size: 1.1rem; }
+.bulk-qty-table th { text-align: left; font-weight: 600; color: #888; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.6rem 0.8rem; border-bottom: 2px solid #eee; }
+.bulk-qty-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid #f0f0f0; color: #333; }
+.bulk-qty-table td:last-child { text-align: right; font-weight: 600; }
+.bulk-qty-table tr:last-child td { border-bottom: none; }
+.bulk-qty-table .bulk-qty-row--total td { font-size: 1.2rem; font-weight: 700; color: #111; border-top: 2px solid #111; padding-top: 0.8rem; }
+
+/* Grand total */
+.bulk-quantity__grand-total { background: #111; color: #fff; border-radius: 12px; padding: 1.4rem 1.8rem; margin-top: 2rem; }
+.bulk-quantity__grand-total-row { display: flex; justify-content: space-between; align-items: baseline; }
+.bulk-quantity__grand-total-label { font-size: 1.3rem; font-weight: 500; }
+.bulk-quantity__grand-total-value { font-size: 2.2rem; font-weight: 700; }
+.bulk-quantity__grand-total-sub { font-size: 1.1rem; opacity: 0.6; margin-top: 0.3rem; }
+
+/* Notes */
+.bulk-quantity__notes { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+.bulk-quantity__note { display: flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; color: #888; }
+
 /* ── RESPONSIVE ── */
 @media screen and (min-width: 750px) and (max-width: 999px) {
   .bulk-formulas__grid { grid-template-columns: repeat(2, 1fr); }
