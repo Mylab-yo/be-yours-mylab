@@ -1,41 +1,55 @@
 {% comment %}
-  ============================================================================
   MY.LAB — Étape 1 : Sélection des formules
   snippets/bulk-step-formulas.liquid
-  ============================================================================
-
-  L'utilisateur choisit parmi les gammes MY.LAB :
-  - Shampoings, Masques, Crèmes de coiffage, Sérums, Huiles, Cires
-  - Gamme coloristeur / déjaunisseur
-  - Gamme Homme
-
-  Chaque gamme affiche :
-  - Nom + couleur d'accent (vert sauge pour Volume, beige pour Nourrissant...)
-  - Liste des formules disponibles avec checkbox
-  - Prix indicatif par format (depuis bulk-data-formulas.json)
-
-  Données chargées dynamiquement par bulk-order.js depuis bulk-data-formulas.json
-
-  TODO:
-  - [ ] Grille de cartes gammes (2-3 colonnes desktop, 1 mobile)
-  - [ ] Checkbox par formule avec nom + description courte
-  - [ ] Badge couleur par gamme
-  - [ ] Compteur "X formule(s) sélectionnée(s)" en bas
-  - [ ] Le JS peuple les cartes depuis les données JSON
-  ============================================================================
+  Peuplé dynamiquement par bulk-order.js depuis bulk-data-formulas.json
 {% endcomment %}
 
 <div class="bulk-formulas" id="bulk-formulas">
   <h2 class="bulk-step__title">Choisissez vos formules</h2>
   <p class="bulk-step__desc">Sélectionnez une ou plusieurs formules parmi nos gammes professionnelles.</p>
 
-  {%- comment -%} TODO: Grille de gammes peuplée par JS depuis bulk-data-formulas.json {%- endcomment -%}
-  <div class="bulk-formulas__grid" id="bulk-formulas-grid">
-    <!-- Peuplé dynamiquement par bulk-order.js -->
+  {%- comment -%} Filtres gamme + type {%- endcomment -%}
+  <div class="bulk-filters">
+    <div class="bulk-filters__group">
+      <span class="bulk-filters__label">Gamme</span>
+      <div class="bulk-filters__chips" id="bulk-filter-gamme">
+        <button type="button" class="bulk-chip bulk-chip--active" data-filter-gamme="all">Toutes</button>
+      </div>
+    </div>
+    <div class="bulk-filters__group">
+      <span class="bulk-filters__label">Type</span>
+      <div class="bulk-filters__chips" id="bulk-filter-type">
+        <button type="button" class="bulk-chip bulk-chip--active" data-filter-type="all">Tous</button>
+        <button type="button" class="bulk-chip" data-filter-type="shampoing">Shampoings</button>
+        <button type="button" class="bulk-chip" data-filter-type="masque">Masques</button>
+        <button type="button" class="bulk-chip" data-filter-type="creme_coiffage">Crèmes</button>
+        <button type="button" class="bulk-chip" data-filter-type="spray">Sprays</button>
+        <button type="button" class="bulk-chip" data-filter-type="serum">Sérums</button>
+        <button type="button" class="bulk-chip" data-filter-type="huile">Huiles</button>
+      </div>
+    </div>
   </div>
 
-  {%- comment -%} TODO: Compteur de sélection {%- endcomment -%}
-  <div class="bulk-formulas__counter" id="bulk-formulas-counter">
-    0 formule(s) sélectionnée(s)
+  {%- comment -%} Grille produits {%- endcomment -%}
+  <div class="bulk-formulas__grid" id="bulk-formulas-grid"></div>
+
+  {%- comment -%} Message vide {%- endcomment -%}
+  <div class="bulk-formulas__empty" id="bulk-formulas-empty" style="display:none;">
+    Aucune formule ne correspond aux filtres sélectionnés.
+  </div>
+</div>
+
+{%- comment -%} Barre de sélection fixe {%- endcomment -%}
+<div class="bulk-selection-bar" id="bulk-selection-bar">
+  <div class="bulk-selection-bar__inner">
+    <div class="bulk-selection-bar__info">
+      <span class="bulk-selection-bar__count" id="bulk-selection-count">0</span>
+      <span class="bulk-selection-bar__label">formule(s) sélectionnée(s)</span>
+    </div>
+    <div class="bulk-selection-bar__chips" id="bulk-selection-chips"></div>
+    <button type="button" class="bulk-order__btn bulk-order__btn--next" id="bulk-formulas-next" disabled>
+      Étape suivante
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
   </div>
 </div>
