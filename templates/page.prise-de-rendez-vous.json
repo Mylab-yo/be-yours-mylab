@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-rendez-vous",
+      "settings": {
+        "subtitle": "MyLab Professionnel",
+        "heading": "Prenez rendez-vous",
+        "description": "Échangeons sur votre projet de création de marque capillaire. Choisissez un créneau qui vous convient, nous vous rappelons pour un premier échange gratuit et sans engagement.",
+        "calendly_url": "https://calendly.com/yoann-mylab/premier-contact?text_color=000000&primary_color=1a1a1a",
+        "calendly_height": 660,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": ["main"]
+}
