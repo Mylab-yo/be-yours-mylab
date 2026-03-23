@@ -116,32 +116,6 @@
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .ml-calc__arrow {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border: 1px solid #e0e0e0;
-    border-radius: 50%;
-    background: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s, border-color 0.15s;
-    color: #111;
-    padding: 0;
-  }
-
-  .ml-calc__arrow:hover:not(:disabled) {
-    background: #f5f5f5;
-    border-color: #bbb;
-  }
-
-  .ml-calc__arrow:disabled {
-    opacity: 0.25;
-    cursor: default;
-  }
-
   .ml-calc__product-select {
     width: 100%;
     padding: 0.9rem 1.2rem;
@@ -439,13 +413,6 @@
       overflow: hidden;
     }
 
-    /* Sélecteur produit : flèches plus grandes (touch target 44px) */
-    .ml-calc__arrow {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-    }
-
     .ml-calc__product-selector {
       gap: 1rem;
       margin-bottom: 2rem;
@@ -462,6 +429,11 @@
       font-size: 1.4rem;
       white-space: normal;
       word-break: break-word;
+    }
+
+    .ml-calc__product-select {
+      padding: 1.1rem 3rem 1.1rem 1.2rem;
+      min-height: 44px;
     }
 
     /* Slider : thumb plus grand pour le touch */
@@ -574,27 +546,6 @@
     }
   }
 </style>
-
-{%- comment -%} Données produits injectées pour le JS {%- endcomment -%}
-<script type="application/json" id="ml-calc-data-{{ section.id }}">
-  {
-    "products": [
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'product' -%}
-          {
-            "label": {{ block.settings.label | json }},
-            "volume": {{ block.settings.volume | json }},
-            "retailPrice": {{ block.settings.retail_price | times: 100 | round }},
-            "url": {% if block.settings.product != blank %}{{ block.settings.product.url | json }}{% else %}"#"{% endif %},
-            "image": {% if block.settings.product != blank and block.settings.product.featured_image != blank %}{{ block.settings.product.featured_image | image_url: width: 200 | json }}{% else %}null{% endif %},
-            "tiers": {{ block.settings.tiers_json }},
-            "maxQty": {{ block.settings.max_qty }}
-          }{% unless forloop.last %},{% endunless %}
-        {%- endif -%}
-      {%- endfor -%}
-    ]
-  }
-</script>
 
 <section class="ml-calc-section color-{{ section.settings.color_scheme }} gradient">
   <div class="ml-calc">

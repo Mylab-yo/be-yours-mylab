@@ -403,7 +403,7 @@
 
       {%- assign form_id = 'CatalogueForm-' | append: section.id -%}
 
-      <form id="{{ form_id }}" onsubmit="return true;">
+      <form id="{{ form_id }}">
         <div class="ml-cat__success" id="{{ form_id }}-success" style="display:none;">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
             <circle cx="12" cy="12" r="10"/>
@@ -655,6 +655,8 @@
           });
         })();
       </script>
+    </div>
+  </div>
 
   {%- comment -%} ====== TRUST ====== {%- endcomment -%}
   <div class="ml-cat__trust">

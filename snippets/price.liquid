@@ -30,14 +30,6 @@
   assign money_price = price | money | append: ' HT'
   assign money_price_min = price_min | money | append: ' HT'
   assign money_price_max = price_max | money | append: ' HT'
-  if settings.currency_code_enabled
-    comment
-      Forcer le format français sans code devise (8,50 € HT au lieu de €8,50 EUR HT)
-    endcomment
-    assign money_price = price | money | append: ' HT'
-    assign money_price_min = price_min | money | append: ' HT'
-    assign money_price_max = price_max | money | append: ' HT'
-  endif
 -%}
 {%- capture formatted_money_price -%}
   {%- if target == product and product.price_varies -%}
