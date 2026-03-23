@@ -658,6 +658,16 @@
 /* Bottle MOQ on card */
 .bulk-bottle__moq { font-size: 0.95rem; color: #888; font-style: italic; }
 
+/* Bottle compatibility badges */
+.bulk-bottle__badge--compat { background: #e8f5e9; color: #2d7a45; }
+.bulk-bottle__badge--moq-warn { background: #fff3e0; color: #e65100; }
+
+/* MOQ info/ok messages */
+.bulk-qty-moq-info { display: flex; align-items: flex-start; gap: 0.8rem; background: #e3f2fd; border: 1px solid #bbdefb; border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: #333; line-height: 1.5; }
+.bulk-qty-moq-info svg { flex-shrink: 0; margin-top: 2px; }
+.bulk-qty-moq-ok { display: flex; align-items: center; gap: 0.5rem; color: #2d7a45; font-size: 1.05rem; font-weight: 500; margin-bottom: 1rem; }
+.bulk-qty-set-note { font-size: 0.95rem; color: #888; font-style: italic; margin-top: 0.4rem; }
+
 /* Bottle price tiers tooltip */
 .bulk-bottle__tiers-tooltip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #111; color: #fff; padding: 0.6rem 0.8rem; border-radius: 6px; font-size: 0.9rem; white-space: nowrap; z-index: 10; margin-bottom: 4px; }
 .bulk-bottle__tiers-tooltip span { display: block; padding: 0.15rem 0; }

@@ -484,7 +484,8 @@
     selections: {},      // { formulaId: bottleId }
     filterMaterial: 'all',
     filterColor: 'all',
-    filterEco: false
+    filterEco: false,
+    filterMoqCompat: true  // show only MOQ-compatible by default
   };
 
   var CLOSURE_COMPAT = {
@@ -564,9 +565,24 @@
       visibleCount++;
     }
 
+    /* Calculate expected nb of bottles for MOQ compatibility check */
+    var qs = qtyState[f.id] || { kg: 50, tier: '50kg' };
+    var expectedUnits = Math.ceil((qs.kg * 1000) / format);
+
+    /* Sort bottles: compatible first, then by price */
+    var filteredBottles = bottlesData.bottles.filter(function (b) {
+      return b.compatible_formats && b.compatible_formats.includes(format);
+    }).sort(function (a, b2) {
+      var aCompat = (!a.min_order_qty || expectedUnits >= a.min_order_qty) ? 0 : 1;
+      var bCompat = (!b2.min_order_qty || expectedUnits >= b2.min_order_qty) ? 0 : 1;
+      if (aCompat !== bCompat) return aCompat - bCompat;
+      var aPrice = a.price_estimate || 99999;
+      var bPrice = b2.price_estimate || 99999;
+      return aPrice - bPrice;
+    });
+
     /* Takemoto bottles filtered by compatibility */
-    bottlesData.bottles.forEach(function (b) {
-      if (!b.compatible_formats.includes(format)) return;
+    filteredBottles.forEach(function (b) {
       var closureMatch = compatClosures.length === 0 || compatClosures.indexOf(b.closure_type) !== -1;
 
       /* Apply filters */
@@ -575,10 +591,20 @@
       var ecoMatch = !bottleState.filterEco || b.eco_label;
       var visible = matMatch && colMatch && ecoMatch;
 
+      /* MOQ compatibility filter */
+      var moqCompat = !b.min_order_qty || expectedUnits >= b.min_order_qty;
+      if (bottleState.filterMoqCompat && !moqCompat) {
+        visible = false;
+      }
+
       var isSelected = bottleState.selections[f.id] === b.id;
       var badges = '';
+      if (moqCompat) {
+        badges += '<span class="bulk-bottle__badge bulk-bottle__badge--compat">\u2713 Compatible</span>';
+      } else {
+        badges += '<span class="bulk-bottle__badge bulk-bottle__badge--moq-warn">\u26A0 Min. non atteint</span>';
+      }
       if (b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--eco">Éco</span>';
-      if (closureMatch && !b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--recommended">Recommandé</span>';
 
       /* Price display with tiers */
       var priceHtml = '';
@@ -596,10 +622,12 @@
         priceHtml = '<div class="bulk-bottle__price" style="color:#888;font-style:italic;">Prix sur demande</div>';
       }
 
-      /* MOQ display */
+      /* MOQ + set price display */
       var moqHtml = '';
       if (b.min_order_qty) {
-        moqHtml = '<div class="bulk-bottle__moq">Min. ' + b.min_order_qty + ' unités</div>';
+        var setTotal = b.price_estimate ? (b.price_estimate / 100) * b.min_order_qty : 0;
+        moqHtml = '<div class="bulk-bottle__moq">Minimum : ' + b.min_order_qty + ' unités (1 set)' +
+          (setTotal > 0 ? '<br>Set complet : ' + fmtPrice(setTotal) : '') + '</div>';
       }
 
       var linkHtml = b.takemoto_url
@@ -712,6 +740,15 @@
     });
   }
 
+  /* MOQ compatibility filter */
+  var elBottlesMoqFilter = document.getElementById('bulk-bottles-moq-filter');
+  if (elBottlesMoqFilter) {
+    elBottlesMoqFilter.addEventListener('change', function () {
+      bottleState.filterMoqCompat = elBottlesMoqFilter.checked;
+      renderBottleGrid();
+    });
+  }
+
   /* ══════════════════════════════════════════════
      STEP 4 — QUANTITY & PRICING
      ══════════════════════════════════════════════ */
@@ -731,25 +768,43 @@
     var isCustomBottle = bottleId && bottleId !== 'standard';
     var needsPump = formatMl === 1000 && formula.category !== 'shampoing';
 
+    /* Production costs (based on nbUnits = actual product units) */
     var formuleTotal = pricing.formule * nbUnits;
     var remplissageTotal = pricing.remplissage * nbUnits;
     var packagingTotal = isCustomBottle ? 0 : pricing.packaging * nbUnits;
     var etiquetteTotal = pricing.etiquette * nbUnits;
     var pumpTotal = needsPump ? 0.45 * nbUnits : 0;
 
+    /* Bottle / Takemoto costs */
     var bottleUnitPrice = 0;
     var bottleMoq = 0;
     var bottleName = '';
+    var nbSets = 0;
+    var nbBottlesOrdered = 0; /* actual bottles ordered (rounded to sets) */
+    var bottleSurplus = 0;
+
     if (isCustomBottle && bottlesData) {
       var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
       if (bObj) {
         bottleName = bObj.name;
         bottleMoq = bObj.min_order_qty || 0;
-        /* Apply tier pricing if available */
+
+        /* Round up to full sets */
+        if (bottleMoq > 0) {
+          nbSets = Math.ceil(nbUnits / bottleMoq);
+          nbBottlesOrdered = nbSets * bottleMoq;
+        } else {
+          nbBottlesOrdered = nbUnits;
+          nbSets = 1;
+        }
+
+        bottleSurplus = nbBottlesOrdered - nbUnits;
+
+        /* Apply tier pricing based on actual bottles ordered */
         if (bObj.price_tiers && bObj.price_tiers.length > 0) {
-          bottleUnitPrice = bObj.price_tiers[0].price; /* base price */
+          bottleUnitPrice = bObj.price_tiers[0].price;
           for (var ti = 0; ti < bObj.price_tiers.length; ti++) {
-            if (nbUnits >= bObj.price_tiers[ti].min_qty) {
+            if (nbBottlesOrdered >= bObj.price_tiers[ti].min_qty) {
               bottleUnitPrice = bObj.price_tiers[ti].price;
             }
           }
@@ -758,11 +813,14 @@
         }
       }
     }
-    var bottleTotal = bottleUnitPrice * nbUnits;
+
+    var bottleTotal = bottleUnitPrice * nbBottlesOrdered;
     var moqMet = !isCustomBottle || bottleMoq === 0 || nbUnits >= bottleMoq;
     var moqMinKg = bottleMoq > 0 ? Math.ceil((bottleMoq * formatMl) / 1000) : 0;
+    var setPrice = bottleUnitPrice * bottleMoq;
 
-    var grandTotal = formuleTotal + remplissageTotal + packagingTotal + etiquetteTotal + pumpTotal + bottleTotal;
+    var productionTotal = formuleTotal + remplissageTotal + packagingTotal + etiquetteTotal + pumpTotal;
+    var grandTotal = productionTotal + bottleTotal;
 
     return {
       nbUnits: nbUnits,
@@ -773,10 +831,15 @@
       etiquetteTotal: etiquetteTotal,
       pumpTotal: pumpTotal,
       needsPump: needsPump,
+      productionTotal: productionTotal,
       bottleUnitPrice: bottleUnitPrice,
       bottleTotal: bottleTotal,
       bottleName: bottleName,
       bottleMoq: bottleMoq,
+      nbSets: nbSets,
+      nbBottlesOrdered: nbBottlesOrdered,
+      bottleSurplus: bottleSurplus,
+      setPrice: setPrice,
       moqMet: moqMet,
       moqMinKg: moqMinKg,
       isCustomBottle: isCustomBottle,
@@ -845,15 +908,33 @@
           qs.kg + ' kg = <strong>' + calc.nbUnits + ' flacons</strong> de ' + fmtLabel +
           '</div>';
 
-        /* MOQ warning */
-        if (calc.isCustomBottle && !calc.moqMet) {
-          html += '<div class="bulk-qty-moq-warning">' +
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
-            '<div><strong>Quantité insuffisante pour ce flacon</strong>' +
-            '<p>Le minimum de commande pour ' + esc(calc.bottleName) + ' est de <strong>' + calc.bottleMoq + ' unités</strong>. ' +
-            'Votre commande de ' + calc.nbUnits + ' unités est insuffisante. ' +
-            'Augmentez la quantité à au moins <strong>' + calc.moqMinKg + ' kg</strong> pour atteindre le minimum.</p></div>' +
-            '</div>';
+        /* MOQ status */
+        if (calc.isCustomBottle && calc.bottleMoq > 0) {
+          if (!calc.moqMet) {
+            /* CAS 2: MOQ not met */
+            html += '<div class="bulk-qty-moq-warning">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>' +
+              '<div><strong>Quantit\u00e9 insuffisante pour ce flacon</strong>' +
+              '<p>Votre commande : <strong>' + calc.nbUnits + ' flacons</strong><br>' +
+              'Minimum requis : <strong>' + calc.bottleMoq + ' flacons</strong> (1 set Takemoto)<br>' +
+              '\u2192 Augmentez \u00e0 au moins <strong>' + calc.moqMinKg + ' kg</strong> pour atteindre le minimum.</p></div>' +
+              '</div>';
+          } else if (calc.moqMet && calc.bottleSurplus > 0) {
+            /* CAS 3: MOQ met but not exact multiple */
+            html += '<div class="bulk-qty-moq-info">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' +
+              '<div>Takemoto livre par sets de <strong>' + calc.bottleMoq + '</strong>. ' +
+              'Vous commanderez <strong>' + calc.nbSets + ' set' + (calc.nbSets > 1 ? 's' : '') + '</strong> ' +
+              'soit <strong>' + calc.nbBottlesOrdered + ' flacons</strong>. ' +
+              'Surplus de ' + calc.bottleSurplus + ' flacon' + (calc.bottleSurplus > 1 ? 's' : '') + '.</div>' +
+              '</div>';
+          } else {
+            /* CAS 1: Perfect match */
+            html += '<div class="bulk-qty-moq-ok">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>' +
+              'Votre commande de ' + calc.nbUnits + ' flacons respecte le minimum de ' + calc.bottleMoq + ' unit\u00e9s.' +
+              '</div>';
+          }
         }
 
         /* Price breakdown — Production MY.LAB */
@@ -873,7 +954,7 @@
         /* Packaging section */
         html += '<tr><td colspan="4" class="bulk-qty-section-label">Packaging</td></tr>';
         if (calc.isCustomBottle && calc.bottleUnitPrice > 0) {
-          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
+          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbBottlesOrdered + '*</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
         } else if (calc.isCustomBottle && calc.bottleUnitPrice === 0) {
           html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td colspan="3" style="color:#888;font-style:italic;">Prix sur demande</td></tr>';
         } else {
@@ -881,7 +962,13 @@
         }
 
         html += '<tr class="bulk-qty-row--total"><td colspan="3">Total HT</td><td>' + fmtPrice(calc.grandTotal) + '</td></tr>' +
-          '</tbody></table></div>';
+          '</tbody></table>';
+
+        /* Note about sets */
+        if (calc.isCustomBottle && calc.bottleMoq > 0 && calc.nbBottlesOrdered > calc.nbUnits) {
+          html += '<p class="bulk-qty-set-note">* Flacons livr\u00e9s par sets de ' + calc.bottleMoq + ' (' + calc.nbSets + ' set' + (calc.nbSets > 1 ? 's' : '') + ' command\u00e9' + (calc.nbSets > 1 ? 's' : '') + ')</p>';
+        }
+        html += '</div>';
       }
 
       html += '</div>';
