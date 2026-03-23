@@ -182,5 +182,17 @@
     {% render 'js-utilities' %}
     <script src="{{ 'mylab-cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'ml-dossier-gate.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%} Redirection checkout → boutique pro {%- endcomment -%}
+    {%- if request.path == '/' -%}
+      <script>
+        (function(){
+          var ref = document.referrer || '';
+          if (ref.indexOf('/checkouts/') !== -1 || ref.indexOf('/checkout') !== -1) {
+            window.location.replace('/pages/la-boutique-my-lab');
+          }
+        })();
+      </script>
+    {%- endif -%}
   </body>
 </html>
