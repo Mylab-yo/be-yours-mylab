@@ -195,7 +195,9 @@
         loading="eager"
       >
     {%- endif -%}
-    <p class="ml-rdv__subtitle">{{ section.settings.subtitle | default: 'MyLab Professionnel' }}</p>
+    {%- if section.settings.subtitle != blank -%}
+      <p class="ml-rdv__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
     <h1 class="ml-rdv__title">{{ section.settings.heading | default: 'Prenez rendez-vous' }}</h1>
     <p class="ml-rdv__desc">{{ section.settings.description | default: 'Échangeons sur votre projet de création de marque capillaire. Choisissez un créneau qui vous convient, nous vous rappelons pour un premier échange gratuit et sans engagement.' }}</p>
   </div>
@@ -278,7 +280,7 @@
       "type": "text",
       "id": "subtitle",
       "label": "Sous-titre",
-      "default": "MyLab Professionnel"
+      "default": ""
     },
     {
       "type": "text",
