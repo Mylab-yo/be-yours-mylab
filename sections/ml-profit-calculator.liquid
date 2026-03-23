@@ -142,6 +142,33 @@
     cursor: default;
   }
 
+  .ml-calc__product-select {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #111;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 3rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .ml-calc__product-select:focus {
+    outline: none;
+    border-color: #111;
+  }
+  .ml-calc__product-select optgroup {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
   .ml-calc__product-info {
     flex: 1;
     display: flex;
@@ -605,23 +632,20 @@
     {%- comment -%} ===== CARTE CALCULATEUR ===== {%- endcomment -%}
     <div class="ml-calc__card" id="ml-calc-card-{{ section.id }}">
 
-      {%- comment -%} Sélecteur produit {%- endcomment -%}
+      {%- comment -%} Sélecteur produit — dropdown {%- endcomment -%}
       <div class="ml-calc__product-selector">
-        <button class="ml-calc__arrow" id="ml-calc-prev-{{ section.id }}" aria-label="Produit précédent" disabled>
-          <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="ml-calc__product-info" id="ml-calc-product-{{ section.id }}">
-          <div class="ml-calc__product-placeholder">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity="0.3"><path d="M3 7h18l-2 13H5L3 7z" stroke="currentColor" stroke-width="1.5"/><path d="M8 7V5a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <div>
-            <div class="ml-calc__product-name">Chargement…</div>
-            <div class="ml-calc__product-volume">—</div>
-          </div>
+        <select class="ml-calc__product-select" id="ml-calc-select-{{ section.id }}" aria-label="Choisir un produit">
+          <option value="" disabled selected>Choisissez un produit…</option>
+        </select>
+      </div>
+      <div class="ml-calc__product-info" id="ml-calc-product-{{ section.id }}" style="display:none;">
+        <div class="ml-calc__product-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity="0.3"><path d="M3 7h18l-2 13H5L3 7z" stroke="currentColor" stroke-width="1.5"/><path d="M8 7V5a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
-        <button class="ml-calc__arrow" id="ml-calc-next-{{ section.id }}" aria-label="Produit suivant">
-          <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        <div>
+          <div class="ml-calc__product-name"></div>
+          <div class="ml-calc__product-volume"></div>
+        </div>
       </div>
 
       {%- comment -%} Slider quantité {%- endcomment -%}
@@ -683,57 +707,128 @@
   'use strict';
 
   var sectionId = {{ section.id | json }};
-
-  // Lecture des données produits
-  var dataEl = document.getElementById('ml-calc-data-' + sectionId);
-  if (!dataEl) return;
-
-  var data;
-  try { data = JSON.parse(dataEl.textContent); } catch(e) { return; }
-
-  var products = data.products;
-  if (!products || products.length === 0) return;
-
-  // État
-  var state = { productIndex: 0, qty: 0, tab: 'roi' };
+  var mapUrl = {{ 'ml-product-map.json' | asset_url | json }};
+  var retailMultiplier = {{ section.settings.retail_multiplier | default: 2.5 }};
 
   // DOM
+  var elSelect  = document.getElementById('ml-calc-select-' + sectionId);
   var elProduct = document.getElementById('ml-calc-product-' + sectionId);
   var elSlider  = document.getElementById('ml-calc-slider-' + sectionId);
   var elQty     = document.getElementById('ml-calc-qty-' + sectionId);
   var elHint    = document.getElementById('ml-calc-hint-' + sectionId);
   var elResults = document.getElementById('ml-calc-results-' + sectionId);
-  var elPrev    = document.getElementById('ml-calc-prev-' + sectionId);
-  var elNext    = document.getElementById('ml-calc-next-' + sectionId);
   var elCta     = document.getElementById('ml-calc-cta-' + sectionId);
   var tabs      = document.querySelectorAll('#ml-calc-card-' + sectionId + ' .ml-calc__tab');
 
+  if (!elSelect || !elSlider) return;
+
+  var products = [];
+  var state = { productIndex: -1, qty: 0, tab: 'roi' };
+
+  /* ── Gammes pour le regroupement ── */
+  var gammeOrder = ['Shampoings', 'Masques capillaires', 'Crèmes de coiffage sans rinçage', 'Sérums', 'Huiles', 'Sprays réparateurs', 'Produits de finition', 'Gamme Homme', 'Gamme Déjaunisseur / Coloristeur'];
+
   function fmt(cents) {
-    return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '\u00a0€';
+    return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '\u00a0\u20ac';
   }
 
-  function getPricePerUnit(product, qty) {
-    var price = product.tiers[0].price;
-    for (var i = 0; i < product.tiers.length; i++) {
-      if (qty >= product.tiers[i].qty) price = product.tiers[i].price;
+  function parseTiers(tierStr) {
+    return tierStr.split(',').map(function(t) {
+      var p = t.split(':');
+      return { qty: parseInt(p[0], 10), price: parseInt(p[1], 10) };
+    });
+  }
+
+  function getPricePerUnit(tiers, qty) {
+    var price = tiers[0].price;
+    for (var i = 0; i < tiers.length; i++) {
+      if (qty >= tiers[i].qty) price = tiers[i].price;
     }
     return price;
   }
 
-  function getNextTier(product, qty) {
-    for (var i = 0; i < product.tiers.length; i++) {
-      if (qty < product.tiers[i].qty) return product.tiers[i];
+  function getNextTier(tiers, qty) {
+    for (var i = 0; i < tiers.length; i++) {
+      if (qty < tiers[i].qty) return tiers[i];
     }
     return null;
   }
 
-  function updateSlider(product) {
-    var minQty    = product.tiers[0].qty;
-    var maxSlider = (product.maxQty > 0) ? product.maxQty : product.tiers[product.tiers.length - 1].qty * 3;
+  /* ── Charger la product map et construire la liste ── */
+  fetch(mapUrl)
+    .then(function(r) { return r.json(); })
+    .then(function(map) {
+      var byGamme = {};
 
-    elSlider.min   = minQty;
-    elSlider.max   = maxSlider;
-    state.qty      = Math.max(minQty, Math.min(state.qty || minQty, maxSlider));
+      Object.keys(map).forEach(function(handle) {
+        var entry = map[handle];
+        if (!entry.tiers || !entry.gamme) return;
+        var gamme = entry.gamme;
+        if (!byGamme[gamme]) byGamme[gamme] = [];
+
+        /* Pour chaque taille disponible, créer un produit */
+        Object.keys(entry.sizes).forEach(function(size) {
+          var tierStr = entry.tiers[size];
+          if (!tierStr) return;
+          var tiers = parseTiers(tierStr);
+          var sizeHandle = entry.sizes[size];
+          var sizeLabel = size + 'ml';
+          var label = handle.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+
+          byGamme[gamme].push({
+            index: products.length,
+            label: label + ' ' + sizeLabel,
+            volume: sizeLabel,
+            handle: sizeHandle,
+            tiers: tiers,
+            retailPrice: Math.round(tiers[0].price * retailMultiplier),
+            maxQty: tiers[tiers.length - 1].qty * 3,
+            url: '/products/' + sizeHandle,
+            image: null
+          });
+
+          products.push(byGamme[gamme][byGamme[gamme].length - 1]);
+        });
+      });
+
+      /* Construire le dropdown avec optgroups */
+      gammeOrder.forEach(function(gamme) {
+        if (!byGamme[gamme] || byGamme[gamme].length === 0) return;
+        var group = document.createElement('optgroup');
+        group.label = gamme;
+        byGamme[gamme].forEach(function(p) {
+          var opt = document.createElement('option');
+          opt.value = p.index;
+          opt.textContent = p.label;
+          group.appendChild(opt);
+        });
+        elSelect.appendChild(group);
+      });
+
+      /* Charger les images en arrière-plan */
+      products.forEach(function(p) {
+        fetch('/products/' + p.handle + '.js')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data.featured_image) {
+              p.image = data.featured_image.replace(/\.([^.]+)$/, '_200x200.$1');
+            }
+            if (state.productIndex === p.index) renderProduct();
+          })
+          .catch(function() {});
+      });
+    })
+    .catch(function(err) {
+      console.error('ML Calc: impossible de charger la product map', err);
+    });
+
+  /* ── Render ── */
+  function updateSlider(p) {
+    var minQty = p.tiers[0].qty;
+    var maxSlider = p.maxQty > 0 ? p.maxQty : p.tiers[p.tiers.length - 1].qty * 3;
+    elSlider.min = minQty;
+    elSlider.max = maxSlider;
+    state.qty = Math.max(minQty, Math.min(state.qty || minQty, maxSlider));
     elSlider.value = state.qty;
   }
 
@@ -742,125 +837,84 @@
     var max = parseFloat(elSlider.max);
     var val = parseFloat(elSlider.value);
     var pct = ((val - min) / (max - min)) * 100;
-    elSlider.style.background =
-      'linear-gradient(to right, #111 ' + pct + '%, #e0e0e0 ' + pct + '%)';
+    elSlider.style.background = 'linear-gradient(to right, #111 ' + pct + '%, #e0e0e0 ' + pct + '%)';
   }
 
   function renderProduct() {
     var p = products[state.productIndex];
+    if (!p) return;
 
     var imgHtml = p.image
       ? '<img src="' + p.image + '" alt="' + p.label + '" class="ml-calc__product-img">'
       : '<div class="ml-calc__product-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" opacity="0.3"><path d="M3 7h18l-2 13H5L3 7z" stroke="currentColor" stroke-width="1.5"/></svg></div>';
 
-    elProduct.innerHTML =
-      imgHtml +
-      '<div>' +
-        '<div class="ml-calc__product-name">' + p.label + '</div>' +
-        '<div class="ml-calc__product-volume">' + p.volume + '</div>' +
-      '</div>';
+    elProduct.style.display = '';
+    elProduct.innerHTML = imgHtml +
+      '<div><div class="ml-calc__product-name">' + p.label + '</div>' +
+      '<div class="ml-calc__product-volume">' + p.volume + '</div></div>';
 
-    if (elCta && p.url && p.url !== '#' && elCta.dataset.isPro === 'true') {
+    if (elCta && p.url && elCta.dataset.isPro === 'true') {
       elCta.href = p.url;
     }
-
-    elPrev.disabled = state.productIndex === 0;
-    elNext.disabled = state.productIndex === products.length - 1;
 
     updateSlider(p);
     renderResults();
   }
 
   function renderResults() {
-    var p            = products[state.productIndex];
-    var qty          = state.qty;
-    var priceUnit    = getPricePerUnit(p, qty);
-    var totalCost    = priceUnit * qty;
-    var retailUnit   = p.retailPrice;
+    if (state.productIndex < 0) return;
+    var p = products[state.productIndex];
+    var qty = state.qty;
+    var priceUnit = getPricePerUnit(p.tiers, qty);
+    var totalCost = priceUnit * qty;
+    var retailUnit = p.retailPrice;
     var totalEarnings = retailUnit * qty;
-    var profit       = totalEarnings - totalCost;
-    var roi          = totalCost > 0 ? Math.round((profit / totalCost) * 100) : 0;
-    var catalogUnit  = p.tiers[0].price;
+    var profit = totalEarnings - totalCost;
+    var roi = totalCost > 0 ? Math.round((profit / totalCost) * 100) : 0;
+    var catalogUnit = p.tiers[0].price;
     var catalogTotal = catalogUnit * qty;
-    var savings      = catalogTotal - totalCost;
+    var savings = catalogTotal - totalCost;
 
-    // Mise à jour affichage quantité
     elQty.textContent = qty;
     updateSliderTrack();
 
-    // Hint palier suivant
-    var next = getNextTier(p, qty);
+    var next = getNextTier(p.tiers, qty);
     if (next) {
       var diff = next.qty - qty;
-      elHint.textContent = 'Encore\u00a0' + diff + '\u00a0unité' + (diff > 1 ? 's' : '') + ' pour atteindre\u00a0' + fmt(next.price) + '/unité';
+      elHint.textContent = 'Encore\u00a0' + diff + '\u00a0unit\u00e9' + (diff > 1 ? 's' : '') + ' pour atteindre\u00a0' + fmt(next.price) + '/unit\u00e9';
       elHint.className = 'ml-calc__tier-hint';
     } else {
-      elHint.textContent = 'Vous bénéficiez du meilleur tarif !';
+      elHint.textContent = 'Vous b\u00e9n\u00e9ficiez du meilleur tarif !';
       elHint.className = 'ml-calc__tier-hint ml-calc__tier-hint--best';
     }
 
     var html = '';
-
     if (state.tab === 'roi') {
       html =
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">PVC conseillé (unité)</span>' +
-          '<span class="ml-calc__row-value">' + fmt(retailUnit) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Prix d\'achat (' + qty + ' unités)</span>' +
-          '<span class="ml-calc__row-value">' + fmt(totalCost) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Total bénéfices clients</span>' +
-          '<span class="ml-calc__row-value">' + fmt(totalEarnings) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row ml-calc__row--total">' +
-          '<span class="ml-calc__row-label">Votre profit</span>' +
-          '<span class="ml-calc__row-value">' + fmt(profit) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Retour sur investissement</span>' +
-          '<span class="ml-calc__row-value">' + roi + '\u00a0%</span>' +
-        '</div>';
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">PVC conseill\u00e9 (unit\u00e9)</span><span class="ml-calc__row-value">' + fmt(retailUnit) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Prix d\'achat (' + qty + ' unit\u00e9s)</span><span class="ml-calc__row-value">' + fmt(totalCost) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Total b\u00e9n\u00e9fices clients</span><span class="ml-calc__row-value">' + fmt(totalEarnings) + '</span></div>' +
+        '<div class="ml-calc__row ml-calc__row--total"><span class="ml-calc__row-label">Votre profit</span><span class="ml-calc__row-value">' + fmt(profit) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Retour sur investissement</span><span class="ml-calc__row-value">' + roi + '\u00a0%</span></div>';
     } else {
       html =
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Prix unitaire catalogue</span>' +
-          '<span class="ml-calc__row-value">' + fmt(catalogUnit) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Votre prix unitaire</span>' +
-          '<span class="ml-calc__row-value">' + fmt(priceUnit) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Total catalogue (' + qty + ' unités)</span>' +
-          '<span class="ml-calc__row-value">' + fmt(catalogTotal) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row ml-calc__row--total">' +
-          '<span class="ml-calc__row-label">Économies réalisées</span>' +
-          '<span class="ml-calc__row-value">' + fmt(savings) + '</span>' +
-        '</div>' +
-        '<div class="ml-calc__row">' +
-          '<span class="ml-calc__row-label">Prix d\'achat total</span>' +
-          '<span class="ml-calc__row-value">' + fmt(totalCost) + '</span>' +
-        '</div>';
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Prix unitaire catalogue</span><span class="ml-calc__row-value">' + fmt(catalogUnit) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Votre prix unitaire</span><span class="ml-calc__row-value">' + fmt(priceUnit) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Total catalogue (' + qty + ' unit\u00e9s)</span><span class="ml-calc__row-value">' + fmt(catalogTotal) + '</span></div>' +
+        '<div class="ml-calc__row ml-calc__row--total"><span class="ml-calc__row-label">\u00c9conomies r\u00e9alis\u00e9es</span><span class="ml-calc__row-value">' + fmt(savings) + '</span></div>' +
+        '<div class="ml-calc__row"><span class="ml-calc__row-label">Prix d\'achat total</span><span class="ml-calc__row-value">' + fmt(totalCost) + '</span></div>';
     }
-
     elResults.innerHTML = html;
   }
 
-  // === ÉVÉNEMENTS ===
-  elPrev.addEventListener('click', function() {
-    if (state.productIndex > 0) { state.productIndex--; renderProduct(); }
-  });
-
-  elNext.addEventListener('click', function() {
-    if (state.productIndex < products.length - 1) { state.productIndex++; renderProduct(); }
+  /* ── Événements ── */
+  elSelect.addEventListener('change', function() {
+    state.productIndex = parseInt(elSelect.value, 10);
+    renderProduct();
   });
 
   elSlider.addEventListener('input', function() {
-    state.qty = parseInt(elSlider.value);
+    state.qty = parseInt(elSlider.value, 10);
     renderResults();
   });
 
@@ -872,9 +926,6 @@
       renderResults();
     });
   });
-
-  // Init
-  renderProduct();
 
 })();
 </script>
@@ -932,6 +983,20 @@
       "id": "footnote",
       "label": "Note de bas de carte",
       "default": "Le PVC conseillé est indicatif. Vous êtes libre de fixer vos prix de revente."
+    },
+    {
+      "type": "header",
+      "content": "Calcul"
+    },
+    {
+      "type": "range",
+      "id": "retail_multiplier",
+      "label": "Multiplicateur PVC (x prix d'achat)",
+      "info": "Le PVC conseillé est calculé en multipliant le prix du premier palier par ce coefficient.",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 2.5
     },
     {
       "type": "header",
