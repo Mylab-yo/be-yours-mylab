@@ -782,7 +782,7 @@
             handle: sizeHandle,
             tiers: tiers,
             retailPrice: Math.round(tiers[0].price * retailMultiplier),
-            maxQty: tiers[tiers.length - 1].qty * 3,
+            maxQty: Math.min(tiers[tiers.length - 1].qty * 3, 250),
             url: '/products/' + sizeHandle,
             image: null
           });
