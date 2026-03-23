@@ -89,7 +89,8 @@
 <script>
   window.BulkOrderConfig = {
     formulasUrl: {{ 'bulk-data-formulas.json' | asset_url | json }},
-    bottlesUrl: {{ 'bulk-data-bottles.json' | asset_url | json }}
+    bottlesUrl: {{ 'bulk-data-bottles.json' | asset_url | json }},
+    webhookUrl: {{ section.settings.webhook_url | default: '' | json }}
   };
 </script>
 <script src="{{ 'bulk-order.js' | asset_url }}" defer="defer"></script>
@@ -115,6 +116,16 @@
       "id": "description",
       "label": "Description",
       "default": "Configurez votre commande à partir de 50 kg minimum par référence. Choisissez vos formules, formats, flacons et quantités."
+    },
+    {
+      "type": "header",
+      "content": "Webhook devis"
+    },
+    {
+      "type": "text",
+      "id": "webhook_url",
+      "label": "URL webhook n8n (optionnel)",
+      "info": "Les devis seront aussi envoyés à cette URL en JSON."
     },
     {
       "type": "header",

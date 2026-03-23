@@ -1,72 +1,124 @@
 {% comment %}
-  ============================================================================
   MY.LAB — Étape 5 : Récapitulatif devis
   snippets/bulk-step-summary.liquid
-  ============================================================================
-
-  Récapitulatif complet de la commande gros volumes avant envoi du devis.
-
-  Affiche :
-  - Tableau récap : formule, format, flacon, quantité, prix unitaire, total
-  - Sous-total HT
-  - Note sur les conditions (délai, paiement, transport)
-  - Formulaire de contact pour recevoir le devis :
-    - Nom, Prénom, Email, Téléphone, Nom du salon/entreprise, Ville
-  - Bouton "Recevoir mon devis" → envoi vers n8n webhook ou email
-
-  TODO:
-  - [ ] Tableau récapitulatif complet (lecture seule)
-  - [ ] Total HT affiché
-  - [ ] Formulaire de demande de devis (champs contact)
-  - [ ] Bouton envoi → webhook n8n ou Shopify contact form
-  - [ ] Message de confirmation après envoi
-  - [ ] Option : télécharger le récap en PDF (futur)
-  ============================================================================
+  Peuplé dynamiquement par bulk-order.js
 {% endcomment %}
 
 <div class="bulk-summary" id="bulk-summary">
-  <h2 class="bulk-step__title">Récapitulatif de votre commande</h2>
-  <p class="bulk-step__desc">Vérifiez votre sélection avant de recevoir votre devis personnalisé.</p>
 
-  {%- comment -%} TODO: Tableau récapitulatif (lecture seule) peuplé par JS {%- endcomment -%}
+  {%- comment -%} En-tête devis {%- endcomment -%}
+  <div class="bulk-summary__header">
+    <div class="bulk-summary__logo">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}" width="60" height="60" loading="lazy">
+      {%- else -%}
+        <span class="bulk-summary__brand">MY.LAB</span>
+      {%- endif -%}
+    </div>
+    <div class="bulk-summary__header-info">
+      <h2 class="bulk-step__title" style="text-align:left;margin:0;">Récapitulatif de votre devis</h2>
+      <div class="bulk-summary__meta">
+        <span id="bulk-summary-ref">Réf. : —</span>
+        <span id="bulk-summary-date">Date : —</span>
+        <span class="bulk-summary__validity">Devis valable 3 mois</span>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Tableau récap {%- endcomment -%}
   <div class="bulk-summary__table-wrap">
     <table class="bulk-summary__table" id="bulk-summary-table">
       <thead>
         <tr>
-          <th>Formule</th>
+          <th>Gamme</th>
+          <th>Produit</th>
           <th>Format</th>
           <th>Flacon</th>
-          <th>Quantité</th>
-          <th>Prix / unité HT</th>
+          <th>Qté (kg)</th>
+          <th>Nb unités</th>
+          <th>Prix unit. HT</th>
           <th>Total HT</th>
         </tr>
       </thead>
-      <tbody id="bulk-summary-body">
-        <!-- Peuplé dynamiquement par bulk-order.js -->
-      </tbody>
+      <tbody id="bulk-summary-body"></tbody>
+      <tfoot id="bulk-summary-foot"></tfoot>
     </table>
   </div>
 
-  {%- comment -%} TODO: Total + conditions {%- endcomment -%}
-  <div class="bulk-summary__total" id="bulk-summary-total">
-    <span class="bulk-summary__total-label">Total HT estimé</span>
-    <span class="bulk-summary__total-value">0,00 €</span>
+  {%- comment -%} Conditions commerciales {%- endcomment -%}
+  <div class="bulk-summary__conditions">
+    <h3 class="bulk-summary__conditions-title">Conditions commerciales</h3>
+    <ul class="bulk-summary__conditions-list">
+      <li>Conditions de règlement : 50% à la commande — 50% au départ marchandise</li>
+      <li>Prix HT départ de nos entrepôts (transport à votre charge)</li>
+      <li>Délai de mise à disposition : 6 à 8 semaines</li>
+      <li>Marge de production et/ou de conditionnement : +/- 3%</li>
+      <li>Articles de conditionnement : fournis par nous (sauf 5 litres)</li>
+      <li>Prestations comprises : contrôle bactériologiques sur produits semi-finis et finis, N° lot, mise carton, palettisation</li>
+    </ul>
   </div>
 
-  {%- comment -%} TODO: Formulaire de demande de devis {%- endcomment -%}
+  {%- comment -%} Formulaire client {%- endcomment -%}
   <div class="bulk-summary__form-wrap">
-    <h3 class="bulk-summary__form-title">Recevez votre devis</h3>
-    <p class="bulk-summary__form-desc">Renseignez vos coordonnées pour recevoir votre devis personnalisé par email.</p>
-
+    <h3 class="bulk-summary__form-title">Vos coordonnées</h3>
+    <p class="bulk-summary__form-desc">Renseignez vos informations pour recevoir votre devis par email.</p>
     <form class="bulk-summary__form" id="bulk-summary-form">
-      <!-- TODO: Champs Prénom, Nom, Email, Téléphone, Salon, Ville -->
-      <!-- TODO: Bouton "Recevoir mon devis" -->
-      <!-- TODO: Envoi vers webhook n8n avec les données du configurateur -->
+      <div class="bulk-summary__field-row">
+        <div class="bulk-summary__field">
+          <label for="bulk-client-firstname">Prénom *</label>
+          <input type="text" id="bulk-client-firstname" required placeholder="Jean">
+        </div>
+        <div class="bulk-summary__field">
+          <label for="bulk-client-lastname">Nom *</label>
+          <input type="text" id="bulk-client-lastname" required placeholder="Dupont">
+        </div>
+      </div>
+      <div class="bulk-summary__field-row">
+        <div class="bulk-summary__field">
+          <label for="bulk-client-company">Société *</label>
+          <input type="text" id="bulk-client-company" required placeholder="Mon Salon de Coiffure">
+        </div>
+        <div class="bulk-summary__field">
+          <label for="bulk-client-email">Email *</label>
+          <input type="email" id="bulk-client-email" required placeholder="jean@monsalon.fr">
+        </div>
+      </div>
+      <div class="bulk-summary__field-row">
+        <div class="bulk-summary__field">
+          <label for="bulk-client-phone">Téléphone</label>
+          <input type="tel" id="bulk-client-phone" placeholder="06 12 34 56 78">
+        </div>
+        <div class="bulk-summary__field">
+          <label for="bulk-client-city">Ville</label>
+          <input type="text" id="bulk-client-city" placeholder="Paris">
+        </div>
+      </div>
+      <div class="bulk-summary__field bulk-summary__field--full">
+        <label for="bulk-client-notes">Message / Notes spéciales</label>
+        <textarea id="bulk-client-notes" rows="3" placeholder="Précisions sur votre projet, spécificités..."></textarea>
+      </div>
     </form>
   </div>
 
-  {%- comment -%} TODO: Message de confirmation {%- endcomment -%}
-  <div class="bulk-summary__success" id="bulk-summary-success" style="display:none;">
-    <!-- TODO: Message de confirmation après envoi -->
+  {%- comment -%} Boutons d'action {%- endcomment -%}
+  <div class="bulk-summary__actions">
+    <button type="button" class="bulk-summary__btn bulk-summary__btn--pdf" id="bulk-btn-pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      Télécharger le devis PDF
+    </button>
+    <button type="button" class="bulk-summary__btn bulk-summary__btn--send" id="bulk-btn-send">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Envoyer le devis par email
+    </button>
   </div>
+
+  {%- comment -%} Message succès {%- endcomment -%}
+  <div class="bulk-summary__success" id="bulk-summary-success" style="display:none;">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+    <h3>Votre devis a été envoyé !</h3>
+    <p>Vous recevrez un email récapitulatif dans quelques minutes. Notre équipe vous contactera sous 24h pour finaliser votre commande.</p>
+  </div>
+
 </div>
+
+{%- comment -%} html2pdf CDN (lazy loaded par JS) {%- endcomment -%}

@@ -285,6 +285,7 @@
     if (n === 2) renderFormats();
     if (n === 3) { renderBottleTabs(); renderBottleGrid(); }
     if (n === 4) renderQuantity();
+    if (n === 5) renderSummary();
 
     renderStepper();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -864,6 +865,225 @@
       });
     });
   }
+
+  /* ══════════════════════════════════════════════
+     STEP 5 — SUMMARY & QUOTE
+     ══════════════════════════════════════════════ */
+  var elSummaryRef   = document.getElementById('bulk-summary-ref');
+  var elSummaryDate  = document.getElementById('bulk-summary-date');
+  var elSummaryBody  = document.getElementById('bulk-summary-body');
+  var elSummaryFoot  = document.getElementById('bulk-summary-foot');
+  var elSummaryForm  = document.getElementById('bulk-summary-form');
+  var elBtnPdf       = document.getElementById('bulk-btn-pdf');
+  var elBtnSend      = document.getElementById('bulk-btn-send');
+  var elSummaryOk    = document.getElementById('bulk-summary-success');
+
+  function genRef() {
+    var d = new Date();
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+    var rand = Math.floor(1000 + Math.random() * 9000);
+    return 'MYLAB-GV-' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + rand;
+  }
+
+  function renderSummary() {
+    if (!elSummaryBody || !elSummaryFoot) return;
+    var formulas = getSelectedFormulasWithFormat();
+    var now = new Date();
+    var dateStr = now.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    if (elSummaryRef) elSummaryRef.textContent = 'Réf. : ' + genRef();
+    if (elSummaryDate) elSummaryDate.textContent = 'Date : ' + dateStr;
+
+    var bodyHtml = '';
+    var totalHT = 0;
+    var totalUnits = 0;
+
+    formulas.forEach(function (f) {
+      var format = state.formats[f.id];
+      var fmtLabel = format >= 1000 ? (format / 1000) + ' L' : format + ' ml';
+      var qs = qtyState[f.id] || { kg: 50, tier: '50kg' };
+      var calc = calculateOrder(f, format, qs.kg, qs.tier);
+      if (!calc) return;
+
+      var bottleId = bottleState.selections[f.id] || 'standard';
+      var bottleName = 'MY.LAB Standard';
+      if (bottleId !== 'standard' && bottlesData) {
+        var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
+        if (bObj) bottleName = bObj.name;
+      }
+
+      totalHT += calc.grandTotal;
+      totalUnits += calc.nbUnits;
+
+      bodyHtml += '<tr>' +
+        '<td><span class="bulk-summary__gamme-dot" style="background:' + esc(f.gammeColor) + '"></span>' + esc(f.gammeLabel.replace('Gamme ', '')) + '</td>' +
+        '<td>' + esc(f.name) + '</td>' +
+        '<td>' + fmtLabel + '</td>' +
+        '<td>' + esc(bottleName) + '</td>' +
+        '<td>' + qs.kg + ' kg</td>' +
+        '<td>' + calc.nbUnits + '</td>' +
+        '<td>' + fmtPrice(calc.grandTotal / calc.nbUnits) + '</td>' +
+        '<td>' + fmtPrice(calc.grandTotal) + '</td>' +
+        '</tr>';
+    });
+
+    elSummaryBody.innerHTML = bodyHtml;
+
+    var tva = totalHT * 0.20;
+    var ttc = totalHT + tva;
+
+    elSummaryFoot.innerHTML =
+      '<tr class="bulk-summary__row--subtotal"><td colspan="7">Sous-total HT</td><td>' + fmtPrice(totalHT) + '</td></tr>' +
+      '<tr class="bulk-summary__row--tva"><td colspan="7">TVA (20%)</td><td>' + fmtPrice(tva) + '</td></tr>' +
+      '<tr class="bulk-summary__row--total"><td colspan="7">Total TTC</td><td>' + fmtPrice(ttc) + '</td></tr>';
+  }
+
+  function collectFormData() {
+    return {
+      firstname: document.getElementById('bulk-client-firstname').value.trim(),
+      lastname: document.getElementById('bulk-client-lastname').value.trim(),
+      company: document.getElementById('bulk-client-company').value.trim(),
+      email: document.getElementById('bulk-client-email').value.trim(),
+      phone: document.getElementById('bulk-client-phone').value.trim(),
+      city: document.getElementById('bulk-client-city').value.trim(),
+      notes: document.getElementById('bulk-client-notes').value.trim()
+    };
+  }
+
+  function buildQuotePayload() {
+    var client = collectFormData();
+    var formulas = getSelectedFormulasWithFormat();
+    var items = [];
+    var totalHT = 0;
+
+    formulas.forEach(function (f) {
+      var format = state.formats[f.id];
+      var qs = qtyState[f.id] || { kg: 50, tier: '50kg' };
+      var calc = calculateOrder(f, format, qs.kg, qs.tier);
+      if (!calc) return;
+
+      var bottleId = bottleState.selections[f.id] || 'standard';
+      var bottleName = 'MY.LAB Standard';
+      if (bottleId !== 'standard' && bottlesData) {
+        var bObj = bottlesData.bottles.find(function (b) { return b.id === bottleId; });
+        if (bObj) bottleName = bObj.name;
+      }
+
+      totalHT += calc.grandTotal;
+
+      items.push({
+        gamme: f.gammeLabel,
+        product: f.name,
+        format: format + 'ml',
+        bottle: bottleName,
+        quantity_kg: qs.kg,
+        nb_units: calc.nbUnits,
+        unit_price: Math.round(calc.grandTotal / calc.nbUnits * 100) / 100,
+        total_ht: Math.round(calc.grandTotal * 100) / 100,
+        tier: qs.tier
+      });
+    });
+
+    return {
+      ref: elSummaryRef ? elSummaryRef.textContent.replace('Réf. : ', '') : genRef(),
+      date: new Date().toISOString(),
+      client: client,
+      items: items,
+      total_ht: Math.round(totalHT * 100) / 100,
+      tva: Math.round(totalHT * 0.20 * 100) / 100,
+      total_ttc: Math.round(totalHT * 1.20 * 100) / 100,
+      source: 'Shopify — Commande Gros Volumes'
+    };
+  }
+
+  /* PDF generation (lazy load html2pdf) */
+  function generatePDF() {
+    var summaryEl = document.getElementById('bulk-summary');
+    if (!summaryEl) return;
+
+    /* Hide buttons and form for PDF */
+    var actions = summaryEl.querySelector('.bulk-summary__actions');
+    var formWrap = summaryEl.querySelector('.bulk-summary__form-wrap');
+    if (actions) actions.style.display = 'none';
+    if (formWrap) formWrap.style.display = 'none';
+
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+    script.onload = function () {
+      var ref = elSummaryRef ? elSummaryRef.textContent.replace('Réf. : ', '') : 'devis';
+      html2pdf().set({
+        margin: [10, 10, 10, 10],
+        filename: ref + '.pdf',
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+      }).from(summaryEl).save().then(function () {
+        if (actions) actions.style.display = '';
+        if (formWrap) formWrap.style.display = '';
+      });
+    };
+    document.head.appendChild(script);
+  }
+
+  /* Send quote via webhook */
+  function sendQuote() {
+    var client = collectFormData();
+    if (!client.firstname || !client.lastname || !client.company || !client.email) {
+      alert('Veuillez remplir tous les champs obligatoires (Prénom, Nom, Société, Email).');
+      return;
+    }
+
+    var payload = buildQuotePayload();
+    elBtnSend.disabled = true;
+    elBtnSend.textContent = 'Envoi en cours...';
+
+    /* Send to Shopify contact form as fallback */
+    var formData = new FormData();
+    formData.append('form_type', 'contact');
+    formData.append('utf8', '✓');
+    formData.append('contact[email]', client.email);
+    formData.append('contact[Prenom]', client.firstname);
+    formData.append('contact[Nom]', client.lastname);
+    formData.append('contact[Societe]', client.company);
+    formData.append('contact[Telephone]', client.phone);
+    formData.append('contact[Ville]', client.city);
+    formData.append('contact[Notes]', client.notes);
+    formData.append('contact[Formulaire]', 'Devis Gros Volumes');
+    formData.append('contact[Devis]', JSON.stringify(payload.items));
+    formData.append('contact[Total_HT]', payload.total_ht + ' EUR');
+    formData.append('contact[Reference]', payload.ref);
+
+    fetch('/contact#contact_form', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function () {
+      /* Also send to n8n if configured */
+      if (config.webhookUrl) {
+        fetch(config.webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch(function () {});
+      }
+
+      elSummaryForm.style.display = 'none';
+      document.querySelector('.bulk-summary__actions').style.display = 'none';
+      document.querySelector('.bulk-summary__conditions').style.display = 'none';
+      elSummaryOk.style.display = '';
+      window.scrollTo({ top: elSummaryOk.offsetTop - 100, behavior: 'smooth' });
+    })
+    .catch(function () {
+      elBtnSend.disabled = false;
+      elBtnSend.textContent = 'Envoyer le devis par email';
+      alert('Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.');
+    });
+  }
+
+  /* Bind buttons */
+  if (elBtnPdf) elBtnPdf.addEventListener('click', generatePDF);
+  if (elBtnSend) elBtnSend.addEventListener('click', sendQuote);
 
   /* ══════════════════════════════════════════════
      INIT
