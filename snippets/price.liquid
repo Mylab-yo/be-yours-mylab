@@ -27,13 +27,13 @@
   assign available = target.available | default: false
   assign price_min = product.price_min
   assign price_max = product.price_max
-  assign money_price = price | money
-  assign money_price_min = price_min | money
-  assign money_price_max = price_max | money
+  assign money_price = price | money | append: ' HT'
+  assign money_price_min = price_min | money | append: ' HT'
+  assign money_price_max = price_max | money | append: ' HT'
   if settings.currency_code_enabled
-    assign money_price = price | money_with_currency
-    assign money_price_min = price_min | money_with_currency
-    assign money_price_max = price_max | money_with_currency
+    assign money_price = price | money_with_currency | append: ' HT'
+    assign money_price_min = price_min | money_with_currency | append: ' HT'
+    assign money_price_max = price_max | money_with_currency | append: ' HT'
   endif
 -%}
 {%- capture formatted_money_price -%}

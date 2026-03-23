@@ -18,7 +18,7 @@
             "text": "Déposez votre logo et commandez vos futurs produits capillaires en quelques clics.",
             "text_size": "typeset2",
             "button_label": "Découvrir la boutique",
-            "button_link": "shopify:\/\/collections\/all",
+            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "button_size": "medium",
             "button_style_secondary": false,
             "button_alt_label": "Les étapes de création",
@@ -42,13 +42,13 @@
             "text": "Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.",
             "text_size": "typeset2",
             "button_label": "Voir les formules",
-            "button_link": "shopify:\/\/collections\/all",
+            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "button_size": "medium",
             "button_style_secondary": false,
-            "button_alt_label": "",
-            "button_alt_link": "",
+            "button_alt_label": "Découvrir la gamme",
+            "button_alt_link": "shopify:\/\/pages\/catalogue-prix-et-formules-mylab",
             "button_alt_size": "medium",
-            "button_alt_style_secondary": false,
+            "button_alt_style_secondary": true,
             "enable_highlight": false,
             "highlight_style": "solid-color"
           }
@@ -353,7 +353,7 @@
             "highlight_color": "#c5a467",
             "button_label": "Découvrir",
             "button_size": "medium",
-            "button_link": "shopify:\/\/collections\/all",
+            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "image": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
             "media_background_color": "#f5f0eb"
           }
@@ -371,7 +371,7 @@
             "highlight_color": "#c5a467",
             "button_label": "Découvrir",
             "button_size": "medium",
-            "button_link": "shopify:\/\/collections\/all",
+            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "media_background_color": "#1a1a1a"
           }
         },
@@ -388,7 +388,7 @@
             "highlight_color": "#c5a467",
             "button_label": "Découvrir",
             "button_size": "medium",
-            "button_link": "shopify:\/\/collections\/all",
+            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "media_background_color": "#c5a467"
           }
         }
@@ -500,7 +500,7 @@
             "date": "ÉTAPE 01",
             "text": "<p><strong>Essayez nos produits<\/strong><\/p><p>Découvrez et testez nos formules capillaires via la boutique en ligne. Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.<\/p>",
             "source_text": "Voir la boutique",
-            "source_link": "shopify:\/\/collections\/all"
+            "source_link": "shopify:\/\/pages\/la-boutique-my-lab"
           }
         },
         "step_2": {
@@ -852,7 +852,7 @@
             "button_link": "shopify:\/\/pages\/contact",
             "button_style_secondary": false,
             "button_alt_label": "Découvrir la boutique",
-            "button_alt_link": "shopify:\/\/collections\/all",
+            "button_alt_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "button_alt_style_secondary": true
           }
         }
