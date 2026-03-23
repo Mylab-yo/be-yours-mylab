@@ -167,6 +167,9 @@
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
 }
 .bulk-chip:hover { border-color: #aaa; background: #fafafa; }
 .bulk-chip--active {
@@ -372,6 +375,7 @@
   align-items: center;
   gap: 0.3rem;
   padding: 0.3rem 0.7rem;
+  min-height: 36px;
   font-size: 1rem;
   background: #f5f5f5;
   border: 1px solid #e0e0e0;
@@ -392,10 +396,6 @@
   line-height: 1;
 }
 
-/* ── RESPONSIVE ── */
-@media screen and (min-width: 750px) and (max-width: 999px) {
-  .bulk-formulas__grid { grid-template-columns: repeat(2, 1fr); }
-}
 /* ── STEP 2: FORMAT ── */
 .bulk-format__list {
   display: flex;
@@ -551,7 +551,7 @@
 
 /* ── STEP 3: BOTTLES ── */
 .bulk-bottles__tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; padding-bottom: 0.8rem; }
-.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; display: inline-flex; align-items: center; }
 .bulk-bottles__tab:hover { background: #f0f0f0; }
 .bulk-bottles__tab--active { background: #fff; color: #111; font-weight: 600; border-color: #ddd; border-bottom-color: #fff; }
 .bulk-bottles__tab-check { color: #2d7a45; margin-left: 0.3rem; }
@@ -771,6 +771,27 @@
   .bulk-format__takemoto-btns { width: 100%; justify-content: center; }
   .bulk-format-pill { padding: 0.6rem 1rem; font-size: 1.1rem; }
   .bulk-bottles__content { grid-template-columns: 1fr; }
-  .bulk-bottles__grid { grid-template-columns: repeat(2, 1fr); }
+  .bulk-bottles__grid { grid-template-columns: 1fr; }
+  .bulk-bottle { min-width: unset; }
   .bulk-bottles__recap { position: static; }
+  .bulk-order__nav { flex-direction: column-reverse; }
+  .bulk-order__btn { width: 100%; justify-content: center; }
+  .bulk-qty-input { width: 100%; max-width: 200px; }
+  .bulk-qty-input-row label { min-width: unset; width: 100%; }
+  .bulk-modal__nav--prev { left: 4px; }
+  .bulk-modal__nav--next { right: 4px; }
+  .bulk-modal__close { top: -8px; right: 4px; }
+  .bulk-bottles__eco-toggle { min-height: 44px; }
+  .bulk-summary__header { flex-direction: column; text-align: center; }
+  .bulk-summary__meta { justify-content: center; }
+  .bulk-summary__field-row { grid-template-columns: 1fr; }
+  .bulk-summary__actions { flex-direction: column; }
+  .bulk-summary__btn { width: 100%; justify-content: center; }
 }
+
+/* Sticky recap max-height */
+.bulk-bottles__recap { max-height: calc(100vh - 120px); overflow-y: auto; }
+
+/* Tooltip accessible on touch via focus */
+.bulk-bottle__price { cursor: pointer; }
+.bulk-bottle__price:focus-within .bulk-bottle__tiers-tooltip { display: block; }
