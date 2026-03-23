@@ -1,0 +1,72 @@
+{% comment %}
+  ============================================================================
+  MY.LAB — Étape 5 : Récapitulatif devis
+  snippets/bulk-step-summary.liquid
+  ============================================================================
+
+  Récapitulatif complet de la commande gros volumes avant envoi du devis.
+
+  Affiche :
+  - Tableau récap : formule, format, flacon, quantité, prix unitaire, total
+  - Sous-total HT
+  - Note sur les conditions (délai, paiement, transport)
+  - Formulaire de contact pour recevoir le devis :
+    - Nom, Prénom, Email, Téléphone, Nom du salon/entreprise, Ville
+  - Bouton "Recevoir mon devis" → envoi vers n8n webhook ou email
+
+  TODO:
+  - [ ] Tableau récapitulatif complet (lecture seule)
+  - [ ] Total HT affiché
+  - [ ] Formulaire de demande de devis (champs contact)
+  - [ ] Bouton envoi → webhook n8n ou Shopify contact form
+  - [ ] Message de confirmation après envoi
+  - [ ] Option : télécharger le récap en PDF (futur)
+  ============================================================================
+{% endcomment %}
+
+<div class="bulk-summary" id="bulk-summary">
+  <h2 class="bulk-step__title">Récapitulatif de votre commande</h2>
+  <p class="bulk-step__desc">Vérifiez votre sélection avant de recevoir votre devis personnalisé.</p>
+
+  {%- comment -%} TODO: Tableau récapitulatif (lecture seule) peuplé par JS {%- endcomment -%}
+  <div class="bulk-summary__table-wrap">
+    <table class="bulk-summary__table" id="bulk-summary-table">
+      <thead>
+        <tr>
+          <th>Formule</th>
+          <th>Format</th>
+          <th>Flacon</th>
+          <th>Quantité</th>
+          <th>Prix / unité HT</th>
+          <th>Total HT</th>
+        </tr>
+      </thead>
+      <tbody id="bulk-summary-body">
+        <!-- Peuplé dynamiquement par bulk-order.js -->
+      </tbody>
+    </table>
+  </div>
+
+  {%- comment -%} TODO: Total + conditions {%- endcomment -%}
+  <div class="bulk-summary__total" id="bulk-summary-total">
+    <span class="bulk-summary__total-label">Total HT estimé</span>
+    <span class="bulk-summary__total-value">0,00 €</span>
+  </div>
+
+  {%- comment -%} TODO: Formulaire de demande de devis {%- endcomment -%}
+  <div class="bulk-summary__form-wrap">
+    <h3 class="bulk-summary__form-title">Recevez votre devis</h3>
+    <p class="bulk-summary__form-desc">Renseignez vos coordonnées pour recevoir votre devis personnalisé par email.</p>
+
+    <form class="bulk-summary__form" id="bulk-summary-form">
+      <!-- TODO: Champs Prénom, Nom, Email, Téléphone, Salon, Ville -->
+      <!-- TODO: Bouton "Recevoir mon devis" -->
+      <!-- TODO: Envoi vers webhook n8n avec les données du configurateur -->
+    </form>
+  </div>
+
+  {%- comment -%} TODO: Message de confirmation {%- endcomment -%}
+  <div class="bulk-summary__success" id="bulk-summary-success" style="display:none;">
+    <!-- TODO: Message de confirmation après envoi -->
+  </div>
+</div>

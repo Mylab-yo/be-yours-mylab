@@ -1,0 +1,45 @@
+/**
+ * ============================================================================
+ * MY.LAB — Styles Commande Gros Volumes
+ * assets/bulk-order.css
+ * ============================================================================
+ *
+ * Palette :
+ *   - Fond : #fff
+ *   - Texte : #000 / #111
+ *   - Accent principal : #d4a574 (beige/saumon)
+ *   - Accent secondaire : #2d7a45 (vert, validations)
+ *   - Gris léger : #f8f8f8, #eee, #ddd
+ *   - Muted : #888, #555
+ *
+ * Couleurs par gamme :
+ *   - Volume : vert sauge
+ *   - Nourrissant : beige
+ *   - Boucles : cuivré
+ *   - Lissant : doré
+ *   - Purifiant : vert menthe
+ *   - Coloristeur : bordeaux
+ *   - Homme : anthracite
+ *
+ * Typographie : DM Sans (via theme.liquid)
+ * Boutons : fond #111, texte #fff, border-radius: 8px
+ * Mobile-first
+ *
+ * TODO:
+ * - [ ] .bulk-order — conteneur principal
+ * - [ ] .bulk-order__stepper — barre de progression 5 étapes
+ * - [ ] .bulk-order__step — conteneur d'étape (show/hide)
+ * - [ ] .bulk-order__nav — boutons précédent/suivant
+ * - [ ] .bulk-order__btn — style boutons (primaire, secondaire)
+ * - [ ] .bulk-step__title / .bulk-step__desc — titres et descriptions
+ * - [ ] .bulk-formulas__grid — grille des gammes (étape 1)
+ * - [ ] .bulk-format__list — liste format/contenance (étape 2)
+ * - [ ] .bulk-bottles__grid — grille flacons (étape 3)
+ * - [ ] .bulk-quantity__table — tableau quantités (étape 4)
+ * - [ ] .bulk-summary__table — tableau récap (étape 5)
+ * - [ ] .bulk-summary__form — formulaire devis
+ * - [ ] Responsive : @media (max-width: 749px)
+ * ============================================================================
+ */
+
+/* TODO: Implémenter les styles */

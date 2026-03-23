@@ -1,0 +1,29 @@
+{
+  "_doc": "MY.LAB — Données formules pour commande gros volumes. Prix en centimes HT.",
+  "_todo": [
+    "Compléter avec toutes les gammes MY.LAB",
+    "Chaque formule a des prix par format et par palier de production (50kg, 100-200kg)",
+    "Les prix incluent : formule + remplissage + packaging + étiquette",
+    "Format attendu par bulk-order.js"
+  ],
+
+  "gammes": [
+    {
+      "id": "shampoings",
+      "label": "Shampoings",
+      "color": "#8B9A6B",
+      "formulas": [
+        {
+          "id": "shampoing-nourrissant",
+          "label": "Shampoing Nourrissant",
+          "formats": {
+            "200":  { "50kg": 390, "100kg": 360, "minUnits": 250 },
+            "500":  { "50kg": 790, "100kg": 730, "minUnits": 100 },
+            "1000": { "50kg": 1450, "100kg": 1340, "minUnits": 50 },
+            "5000": { "50kg": 6650, "100kg": 6140, "minUnits": 10 }
+          }
+        }
+      ]
+    }
+  ]
+}

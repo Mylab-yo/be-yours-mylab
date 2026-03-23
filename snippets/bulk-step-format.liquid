@@ -1,0 +1,40 @@
+{% comment %}
+  ============================================================================
+  MY.LAB — Étape 2 : Choix du format / contenance
+  snippets/bulk-step-format.liquid
+  ============================================================================
+
+  Pour chaque formule sélectionnée à l'étape 1, l'utilisateur choisit
+  le format de conditionnement :
+  - 200 ml
+  - 500 ml
+  - 1000 ml
+  - 5000 ml (bidon — packaging à la charge du client)
+
+  Affiche :
+  - Liste des formules choisies avec sélecteur de format pour chacune
+  - Prix unitaire indicatif par format (depuis bulk-data-formulas.json)
+  - Note sur le packaging inclus vs à charge
+
+  TODO:
+  - [ ] Liste des formules sélectionnées (reprises de l'étape 1)
+  - [ ] Pour chaque formule : boutons radio ou pills pour le format
+  - [ ] Affichage du prix unitaire selon le format choisi
+  - [ ] Note packaging : "* 5000ml : packaging à votre charge"
+  - [ ] Mise à jour dynamique par bulk-order.js
+  ============================================================================
+{% endcomment %}
+
+<div class="bulk-format" id="bulk-format">
+  <h2 class="bulk-step__title">Choisissez le format</h2>
+  <p class="bulk-step__desc">Pour chaque formule, sélectionnez le format de conditionnement souhaité.</p>
+
+  {%- comment -%} TODO: Liste des formules avec sélecteur de format, peuplée par JS {%- endcomment -%}
+  <div class="bulk-format__list" id="bulk-format-list">
+    <!-- Peuplé dynamiquement par bulk-order.js -->
+  </div>
+
+  <p class="bulk-format__note">
+    * Format 5000 ml : packaging à votre charge. Tous les autres formats incluent le flacon et le bouchon.
+  </p>
+</div>

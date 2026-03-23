@@ -1,0 +1,41 @@
+{% comment %}
+  ============================================================================
+  MY.LAB — Étape 1 : Sélection des formules
+  snippets/bulk-step-formulas.liquid
+  ============================================================================
+
+  L'utilisateur choisit parmi les gammes MY.LAB :
+  - Shampoings, Masques, Crèmes de coiffage, Sérums, Huiles, Cires
+  - Gamme coloristeur / déjaunisseur
+  - Gamme Homme
+
+  Chaque gamme affiche :
+  - Nom + couleur d'accent (vert sauge pour Volume, beige pour Nourrissant...)
+  - Liste des formules disponibles avec checkbox
+  - Prix indicatif par format (depuis bulk-data-formulas.json)
+
+  Données chargées dynamiquement par bulk-order.js depuis bulk-data-formulas.json
+
+  TODO:
+  - [ ] Grille de cartes gammes (2-3 colonnes desktop, 1 mobile)
+  - [ ] Checkbox par formule avec nom + description courte
+  - [ ] Badge couleur par gamme
+  - [ ] Compteur "X formule(s) sélectionnée(s)" en bas
+  - [ ] Le JS peuple les cartes depuis les données JSON
+  ============================================================================
+{% endcomment %}
+
+<div class="bulk-formulas" id="bulk-formulas">
+  <h2 class="bulk-step__title">Choisissez vos formules</h2>
+  <p class="bulk-step__desc">Sélectionnez une ou plusieurs formules parmi nos gammes professionnelles.</p>
+
+  {%- comment -%} TODO: Grille de gammes peuplée par JS depuis bulk-data-formulas.json {%- endcomment -%}
+  <div class="bulk-formulas__grid" id="bulk-formulas-grid">
+    <!-- Peuplé dynamiquement par bulk-order.js -->
+  </div>
+
+  {%- comment -%} TODO: Compteur de sélection {%- endcomment -%}
+  <div class="bulk-formulas__counter" id="bulk-formulas-counter">
+    0 formule(s) sélectionnée(s)
+  </div>
+</div>

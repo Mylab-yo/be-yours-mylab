@@ -1,0 +1,144 @@
+{% comment %}
+  ============================================================================
+  MY.LAB — Configurateur Commande Gros Volumes
+  sections/bulk-order-configurator.liquid
+  ============================================================================
+
+  Section principale du configurateur multi-étapes pour les commandes
+  à partir de 50 kg minimum par référence.
+
+  5 étapes :
+    1. Sélection des formules (gammes MY.LAB)
+    2. Choix du format / contenance (200ml, 500ml, 1000ml, 5000ml)
+    3. Choix du flacon Takemoto
+    4. Quantité et calcul de prix
+    5. Récapitulatif devis
+
+  Palette :
+    - Fond blanc, texte #000
+    - Accent beige/saumon : #d4a574
+    - Couleurs par gamme (vert sauge Volume, beige Nourrissant, etc.)
+    - Boutons : fond #111, texte #fff, border-radius léger
+
+  Typographie : DM Sans (cohérent avec le reste du site MY.LAB)
+  ============================================================================
+{% endcomment %}
+
+{{ 'bulk-order.css' | asset_url | stylesheet_tag }}
+
+<div class="bulk-order page-width" id="bulk-order-app">
+
+  {%- comment -%} ── STEPPER / PROGRESS BAR ── {%- endcomment -%}
+  {%- comment -%}
+    TODO: Barre de progression 5 étapes avec :
+    - Numéros + labels (Formules, Format, Flacon, Quantité, Récap)
+    - État actif / complété / à venir
+    - Responsive : labels cachés sur mobile, seulement les numéros
+  {%- endcomment -%}
+  <div class="bulk-order__stepper" id="bulk-stepper">
+    <!-- TODO: Rendu par bulk-order.js -->
+  </div>
+
+  {%- comment -%} ── CONTENEUR DES ÉTAPES ── {%- endcomment -%}
+  <div class="bulk-order__steps">
+
+    {%- comment -%} Étape 1 : Formules {%- endcomment -%}
+    <div class="bulk-order__step" data-step="1">
+      {% render 'bulk-step-formulas' %}
+    </div>
+
+    {%- comment -%} Étape 2 : Format / Contenance {%- endcomment -%}
+    <div class="bulk-order__step" data-step="2" style="display:none;">
+      {% render 'bulk-step-format' %}
+    </div>
+
+    {%- comment -%} Étape 3 : Flacon Takemoto {%- endcomment -%}
+    <div class="bulk-order__step" data-step="3" style="display:none;">
+      {% render 'bulk-step-bottles' %}
+    </div>
+
+    {%- comment -%} Étape 4 : Quantité & Calcul {%- endcomment -%}
+    <div class="bulk-order__step" data-step="4" style="display:none;">
+      {% render 'bulk-step-quantity' %}
+    </div>
+
+    {%- comment -%} Étape 5 : Récapitulatif Devis {%- endcomment -%}
+    <div class="bulk-order__step" data-step="5" style="display:none;">
+      {% render 'bulk-step-summary' %}
+    </div>
+
+  </div>
+
+  {%- comment -%} ── NAVIGATION PRÉCÉDENT / SUIVANT ── {%- endcomment -%}
+  <div class="bulk-order__nav">
+    <button type="button" class="bulk-order__btn bulk-order__btn--prev" id="bulk-prev" disabled>
+      Précédent
+    </button>
+    <button type="button" class="bulk-order__btn bulk-order__btn--next" id="bulk-next">
+      Suivant
+    </button>
+  </div>
+
+</div>
+
+{%- comment -%} ── DONNÉES JSON (formules + flacons) ── {%- endcomment -%}
+{%- comment -%}
+  TODO: Les URLs CDN des fichiers JSON sont injectées ici pour le JS.
+  bulk-order.js les fetchera au chargement.
+{%- endcomment -%}
+<script>
+  window.BulkOrderConfig = {
+    formulasUrl: {{ 'bulk-data-formulas.json' | asset_url | json }},
+    bottlesUrl: {{ 'bulk-data-bottles.json' | asset_url | json }}
+  };
+</script>
+<script src="{{ 'bulk-order.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Commande Gros Volumes",
+  "tag": "section",
+  "class": "bulk-order-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Commande Gros Volumes"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Configurez votre commande à partir de 50 kg minimum par référence. Choisissez vos formules, formats, flacons et quantités."
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Commande Gros Volumes"
+    }
+  ]
+}
+{% endschema %}

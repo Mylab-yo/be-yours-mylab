@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "bulk-order-configurator",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

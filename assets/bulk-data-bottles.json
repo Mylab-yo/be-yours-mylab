@@ -1,0 +1,48 @@
+{
+  "_doc": "MY.LAB — Données flacons Takemoto pour commande gros volumes. Prix en centimes HT.",
+  "_todo": [
+    "Compléter avec le catalogue Takemoto complet",
+    "Chaque flacon a un format compatible, un prix, une image",
+    "Les flacons standard sont inclus dans le prix formule",
+    "Les options (pompe 1000ml) sont en supplément"
+  ],
+
+  "bottles": [
+    {
+      "id": "ambree-200",
+      "label": "Bouteille ambrée 200ml",
+      "format": "200",
+      "closure": "Bouchon noir",
+      "price": 70,
+      "included": true,
+      "image": null
+    },
+    {
+      "id": "ambree-500",
+      "label": "Bouteille ambrée 500ml",
+      "format": "500",
+      "closure": "Pompe noire",
+      "price": 80,
+      "included": true,
+      "image": null
+    },
+    {
+      "id": "ambree-1000",
+      "label": "Bouteille ambrée 1000ml",
+      "format": "1000",
+      "closure": "Bouchon blanc",
+      "price": 70,
+      "included": true,
+      "image": null
+    },
+    {
+      "id": "pompe-1000",
+      "label": "Pompe pour 1000ml",
+      "format": "1000",
+      "closure": "Pompe (option)",
+      "price": 45,
+      "included": false,
+      "image": null
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{% comment %}
+  ============================================================================
+  MY.LAB — Étape 3 : Choix du flacon Takemoto
+  snippets/bulk-step-bottles.liquid
+  ============================================================================
+
+  L'utilisateur choisit le modèle de flacon parmi le catalogue Takemoto
+  pour chaque format sélectionné à l'étape 2.
+
+  Flacons disponibles par format :
+  - 200ml : bouteille ambrée + bouchon noir (standard)
+  - 500ml : bouteille ambrée + pompe noire (standard)
+  - 1000ml : bouteille ambrée + bouchon blanc (pompe en option +0.45€)
+  - 5000ml : à la charge du client
+
+  Données chargées depuis bulk-data-bottles.json
+
+  TODO:
+  - [ ] Grille de flacons avec image, nom, description
+  - [ ] Filtrage par format compatible (200ml, 500ml, 1000ml)
+  - [ ] Sélection visuelle (card cliquable avec bordure active)
+  - [ ] Options supplémentaires (pompe 1000ml +0.45€)
+  - [ ] Prix du packaging affiché par flacon
+  - [ ] Peuplé par bulk-order.js depuis bulk-data-bottles.json
+  ============================================================================
+{% endcomment %}
+
+<div class="bulk-bottles" id="bulk-bottles">
+  <h2 class="bulk-step__title">Choisissez votre flacon</h2>
+  <p class="bulk-step__desc">Sélectionnez le modèle de flacon pour chaque format de conditionnement.</p>
+
+  {%- comment -%} TODO: Grille de flacons peuplée par JS depuis bulk-data-bottles.json {%- endcomment -%}
+  <div class="bulk-bottles__grid" id="bulk-bottles-grid">
+    <!-- Peuplé dynamiquement par bulk-order.js -->
+  </div>
+
+  {%- comment -%} TODO: Option pompe pour 1000ml {%- endcomment -%}
+  <div class="bulk-bottles__options" id="bulk-bottles-options" style="display:none;">
+    <!-- Options supplémentaires affichées conditionnellement -->
+  </div>
+</div>
