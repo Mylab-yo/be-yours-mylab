@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" fill="#f5f5f5" rx="8"/>
+  <g transform="translate(60, 20)" fill="none" stroke="#d4d4d4" stroke-width="2">
+    <rect x="20" y="0" width="20" height="12" rx="2"/>
+    <rect x="10" y="12" width="40" height="110" rx="8"/>
+    <ellipse cx="30" cy="122" rx="20" ry="4"/>
+    <rect x="25" y="-12" width="10" height="14" rx="3"/>
+    <circle cx="30" cy="-18" r="6"/>
+  </g>
+  <text x="100" y="170" text-anchor="middle" fill="#999" font-family="sans-serif" font-size="12">Image à venir</text>
+</svg>
