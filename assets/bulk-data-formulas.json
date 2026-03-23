@@ -1,29 +1,455 @@
 {
-  "_doc": "MY.LAB — Données formules pour commande gros volumes. Prix en centimes HT.",
-  "_todo": [
-    "Compléter avec toutes les gammes MY.LAB",
-    "Chaque formule a des prix par format et par palier de production (50kg, 100-200kg)",
-    "Les prix incluent : formule + remplissage + packaging + étiquette",
-    "Format attendu par bulk-order.js"
-  ],
+  "_doc": "MY.LAB — Données formules gros volumes. Prix en EUR HT. Minimum 50 kg par référence.",
+  "_conditions": {
+    "marge_production": "+/- 3%",
+    "delai": "6 à 8 semaines",
+    "reglement": "50% à la commande — 50% au départ marchandise",
+    "transport": "Prix HT départ entrepôts, transport à la charge du client",
+    "prestations_incluses": "Contrôle bactériologiques sur produits semi-finis et finis, N° lot, mise carton, palettisation",
+    "packaging_200_500": "Bouteille ambrée + bouchon noir (shampoings) ou pompe noire (masques/crèmes)",
+    "packaging_1000": "Bouteille ambrée + bouchon blanc. Pompes en option à 0.45€/pièce",
+    "packaging_5000": "À la charge du client"
+  },
 
   "gammes": [
     {
-      "id": "shampoings",
-      "label": "Shampoings",
-      "color": "#8B9A6B",
+      "id": "nourrissante",
+      "label": "Gamme Nourrissante",
+      "color": "#d4a574",
+      "parfum": "Fleur de Tiaré",
       "formulas": [
         {
           "id": "shampoing-nourrissant",
-          "label": "Shampoing Nourrissant",
-          "formats": {
-            "200":  { "50kg": 390, "100kg": 360, "minUnits": 250 },
-            "500":  { "50kg": 790, "100kg": 730, "minUnits": 100 },
-            "1000": { "50kg": 1450, "100kg": 1340, "minUnits": 50 },
-            "5000": { "50kg": 6650, "100kg": 6140, "minUnits": 10 }
-          }
+          "name": "Shampoing Nourrissant",
+          "category": "shampoing",
+          "description": "Shampoing nourrissant professionnel à la Phytokératine",
+          "actifs": ["Phytokératine", "Provitamine B5"],
+          "natural_pct": 98.4,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 },
+              "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 },
+              "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 },
+              "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 },
+              "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 },
+              "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 },
+              "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-nourrissant",
+          "name": "Masque Nourrissant",
+          "category": "masque",
+          "description": "Masque capillaire nourrissant professionnel à la Phytokératine",
+          "actifs": ["Phytokératine", "Provitamine B5"],
+          "natural_pct": 97.2,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 },
+              "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 },
+              "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 },
+              "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 },
+              "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 },
+              "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 },
+              "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-nourrissante",
+          "name": "Crème de Coiffage Nourrissante",
+          "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage nourrissante à la Phytokératine",
+          "actifs": ["Phytokératine", "Provitamine B5"],
+          "natural_pct": 96.8,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 },
+              "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 },
+              "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 },
+              "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 },
+              "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 },
+              "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 },
+              "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "volume",
+      "label": "Gamme Volume",
+      "color": "#a8c5a0",
+      "parfum": "Coco",
+      "formulas": [
+        {
+          "id": "shampoing-volume",
+          "name": "Shampoing Volume",
+          "category": "shampoing",
+          "description": "Shampoing volumateur professionnel à la Protéine de riz",
+          "actifs": ["Protéine de riz"],
+          "natural_pct": 97.6,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 },
+              "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 },
+              "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 },
+              "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 },
+              "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 },
+              "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 },
+              "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-volume",
+          "name": "Masque Volume",
+          "category": "masque",
+          "description": "Masque capillaire volumateur professionnel à la Protéine de riz",
+          "actifs": ["Protéine de riz"],
+          "natural_pct": 96.4,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 },
+              "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 },
+              "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 },
+              "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 },
+              "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 },
+              "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 },
+              "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-volume",
+          "name": "Crème de Coiffage Volume",
+          "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage volumatrice à la Protéine de riz",
+          "actifs": ["Protéine de riz"],
+          "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 },
+              "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 },
+              "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 },
+              "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 },
+              "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 },
+              "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 },
+              "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "lissante",
+      "label": "Gamme Lissante",
+      "color": "#c9a88a",
+      "parfum": "Raisin et Mûre",
+      "formulas": [
+        {
+          "id": "shampoing-lissant",
+          "name": "Shampoing Lissant",
+          "category": "shampoing",
+          "description": "Shampoing lissant professionnel aux Phospholipides et Glycine de soja",
+          "actifs": ["Phospholipides", "Glycine de soja"],
+          "natural_pct": 97.8,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 },
+              "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 },
+              "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 },
+              "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 },
+              "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 },
+              "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 },
+              "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-lissant",
+          "name": "Masque Lissant",
+          "category": "masque",
+          "description": "Masque capillaire lissant professionnel aux Phospholipides",
+          "actifs": ["Phospholipides", "Glycine de soja"],
+          "natural_pct": 96.2,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 },
+              "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 },
+              "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 },
+              "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 },
+              "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 },
+              "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 },
+              "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-lissante",
+          "name": "Crème de Coiffage Lissante",
+          "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage lissante aux Phospholipides",
+          "actifs": ["Phospholipides", "Glycine de soja"],
+          "natural_pct": 96.5,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": {
+            "50kg": {
+              "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 },
+              "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 },
+              "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 },
+              "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 }
+            },
+            "100_200kg": {
+              "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 },
+              "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 },
+              "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 },
+              "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 }
+            }
+          },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "ha-repulpe",
+      "label": "Gamme HA Repulpe",
+      "color": "#c4956a",
+      "parfum": "Pêche",
+      "formulas": [
+        {
+          "id": "shampoing-ha-repulpe", "name": "Shampoing HA Repulpe", "category": "shampoing",
+          "description": "Shampoing repulpant à l'Acide Hyaluronique", "actifs": ["Acide Hyaluronique"], "natural_pct": 97.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-ha-repulpe", "name": "Masque HA Repulpe", "category": "masque",
+          "description": "Masque capillaire repulpant à l'Acide Hyaluronique", "actifs": ["Acide Hyaluronique"], "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-ha-repulpe", "name": "Crème de Coiffage HA Repulpe", "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage repulpante à l'Acide Hyaluronique", "actifs": ["Acide Hyaluronique"], "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 }, "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 }, "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 }, "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 } }, "100_200kg": { "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 }, "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 }, "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 }, "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "purifiante",
+      "label": "Gamme Purifiante",
+      "color": "#7fac98",
+      "parfum": "Bambou",
+      "formulas": [
+        {
+          "id": "shampoing-purifiant", "name": "Shampoing Purifiant", "category": "shampoing",
+          "description": "Shampoing purifiant professionnel au Blue Seakale et Kimarine", "actifs": ["Blue Seakale", "Kimarine"], "natural_pct": 98.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "spray-texturisant", "name": "Spray Texturisant Purifiant", "category": "spray",
+          "description": "Spray texturisant purifiant au Blue Seakale", "actifs": ["Blue Seakale", "Kimarine"], "natural_pct": 97.0,
+          "available_formats": [200],
+          "pricing": { "50kg": { "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 } }, "100_200kg": { "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 } } },
+          "packaging_notes": "Spray 200ml : Bouteille ambrée + spray."
+        }
+      ]
+    },
+
+    {
+      "id": "boucles",
+      "label": "Gamme Boucles",
+      "color": "#c9a88a",
+      "parfum": "Pastèque",
+      "formulas": [
+        {
+          "id": "shampoing-boucles", "name": "Shampoing Boucles", "category": "shampoing",
+          "description": "Shampoing pour boucles à la Protéine de maïs", "actifs": ["Protéine de maïs"], "natural_pct": 98.1,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-boucles", "name": "Masque Boucles", "category": "masque",
+          "description": "Masque capillaire pour boucles à la Protéine de maïs", "actifs": ["Protéine de maïs"], "natural_pct": 96.8,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-boucles", "name": "Crème de Coiffage Boucles", "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage pour boucles à la Protéine de maïs", "actifs": ["Protéine de maïs"], "natural_pct": 96.5,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 }, "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 }, "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 }, "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 } }, "100_200kg": { "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 }, "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 }, "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 }, "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "protecteur-couleur",
+      "label": "Gamme Protecteur de Couleur",
+      "color": "#f5e6e0",
+      "parfum": "Floral",
+      "formulas": [
+        {
+          "id": "shampoing-protecteur-de-couleur", "name": "Shampoing Protecteur de Couleur", "category": "shampoing",
+          "description": "Shampoing protecteur de couleur à l'Huile de camélia et Huile de karanja", "actifs": ["Huile de camélia", "Huile de karanja"], "natural_pct": 97.5,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-protecteur-de-couleur", "name": "Masque Protecteur de Couleur", "category": "masque",
+          "description": "Masque capillaire protecteur de couleur à l'Huile de camélia", "actifs": ["Huile de camélia", "Huile de karanja"], "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "creme-protectrice-de-couleur", "name": "Crème de Coiffage Protectrice de Couleur", "category": "creme_coiffage",
+          "description": "Crème de coiffage sans rinçage protectrice de couleur", "actifs": ["Huile de camélia", "Huile de karanja"], "natural_pct": 96.2,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 3.60, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.10 }, "500ml": { "formule": 9.00, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 10.60 }, "1000ml": { "formule": 18.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 19.50 }, "5000ml": { "formule": 90.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 91.50 } }, "100_200kg": { "200ml": { "formule": 3.40, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 4.80 }, "500ml": { "formule": 8.50, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 10.00 }, "1000ml": { "formule": 17.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 18.40 }, "5000ml": { "formule": 85.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 86.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe noire. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "dejaunisseur",
+      "label": "Gamme Déjaunisseur / Coloristeur",
+      "color": "#8b6fb0",
+      "parfum": "",
+      "formulas": [
+        {
+          "id": "shampoing-dejaunisseur", "name": "Shampoing Déjaunisseur", "category": "shampoing",
+          "description": "Shampoing déjaunisseur professionnel au Beurre de karité et Provitamine B5", "actifs": ["Beurre de karité", "Huile de ricin", "Provitamine B5"], "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-dejaunisseur", "name": "Masque Déjaunisseur", "category": "masque",
+          "description": "Masque déjaunisseur professionnel au Beurre de karité", "actifs": ["Beurre de karité", "Huile de ricin", "Provitamine B5"], "natural_pct": 95.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "botox",
+      "label": "Gamme Botox",
+      "color": "#d4a574",
+      "parfum": "",
+      "formulas": [
+        {
+          "id": "masque-botox", "name": "Masque Soin Botox", "category": "masque",
+          "description": "Masque soin botox capillaire professionnel", "actifs": ["Kératine", "Collagène", "Acide Hyaluronique"], "natural_pct": 95.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        }
+      ]
+    },
+
+    {
+      "id": "homme",
+      "label": "Gamme Homme / The Herborist",
+      "color": "#4a4a4a",
+      "parfum": "Oud",
+      "formulas": [
+        {
+          "id": "shampoing-gel-douche", "name": "Shampoing-Gel Douche Homme", "category": "shampoing",
+          "description": "Shampoing-gel douche 2 en 1 à l'Huile de chanvre et CBD", "actifs": ["Huile de chanvre", "CBD"], "natural_pct": 97.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 2.60, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 3.90 }, "500ml": { "formule": 6.50, "remplissage": 0.60, "packaging": 0.60, "etiquette": 0.20, "total": 7.90 }, "1000ml": { "formule": 13.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 14.50 }, "5000ml": { "formule": 65.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 66.50 } }, "100_200kg": { "200ml": { "formule": 2.40, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 3.60 }, "500ml": { "formule": 6.00, "remplissage": 0.50, "packaging": 0.60, "etiquette": 0.20, "total": 7.30 }, "1000ml": { "formule": 12.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 13.40 }, "5000ml": { "formule": 60.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 61.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "masque-intense-homme", "name": "Masque Intense Homme", "category": "masque",
+          "description": "Masque capillaire intense homme à l'Huile de chanvre et CBD", "actifs": ["Huile de chanvre", "CBD"], "natural_pct": 96.0,
+          "available_formats": [200, 500, 1000, 5000],
+          "pricing": { "50kg": { "200ml": { "formule": 4.20, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 5.70 }, "500ml": { "formule": 10.50, "remplissage": 0.60, "packaging": 0.80, "etiquette": 0.20, "total": 12.10 }, "1000ml": { "formule": 21.00, "remplissage": 0.60, "packaging": 0.70, "etiquette": 0.20, "total": 22.50 }, "5000ml": { "formule": 105.00, "remplissage": 1.30, "packaging": 0, "etiquette": 0.20, "total": 106.50 } }, "100_200kg": { "200ml": { "formule": 4.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 5.40 }, "500ml": { "formule": 10.00, "remplissage": 0.50, "packaging": 0.80, "etiquette": 0.20, "total": 11.30 }, "1000ml": { "formule": 20.00, "remplissage": 0.50, "packaging": 0.70, "etiquette": 0.20, "total": 21.40 }, "5000ml": { "formule": 100.00, "remplissage": 1.20, "packaging": 0, "etiquette": 0.20, "total": 101.40 } } },
+          "packaging_notes": "* 200/500ml : Bouteille ambrée + pompe. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+        },
+        {
+          "id": "huile-a-barbe", "name": "Huile à Barbe", "category": "huile",
+          "description": "Huile à barbe professionnelle à l'Huile de chanvre et CBD", "actifs": ["Huile de chanvre", "CBD", "Huile de ricin"], "natural_pct": 99.0,
+          "available_formats": [50],
+          "pricing": { "50kg": { "50ml": { "formule": 4.50, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 5.80 } }, "100_200kg": { "50ml": { "formule": 4.20, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 5.40 } } },
+          "packaging_notes": "Flacon pipette ambré 50ml."
+        },
+        {
+          "id": "serum-barbe", "name": "Sérum Barbe", "category": "serum",
+          "description": "Sérum barbe professionnel à l'Huile de chanvre et CBD", "actifs": ["Huile de chanvre", "CBD"], "natural_pct": 98.5,
+          "available_formats": [50],
+          "pricing": { "50kg": { "50ml": { "formule": 4.50, "remplissage": 0.60, "packaging": 0.50, "etiquette": 0.20, "total": 5.80 } }, "100_200kg": { "50ml": { "formule": 4.20, "remplissage": 0.50, "packaging": 0.50, "etiquette": 0.20, "total": 5.40 } } },
+          "packaging_notes": "Flacon pipette ambré 50ml."
         }
       ]
     }
-  ]
+  ],
+
+  "format_min_units": {
+    "50ml": { "50kg": 1000, "100kg": 2000 },
+    "200ml": { "50kg": 250, "100kg": 500 },
+    "500ml": { "50kg": 100, "100kg": 200 },
+    "1000ml": { "50kg": 50, "100kg": 100 },
+    "5000ml": { "50kg": 10, "100kg": 20 }
+  }
 }
