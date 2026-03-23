@@ -31,9 +31,12 @@
   assign money_price_min = price_min | money | append: ' HT'
   assign money_price_max = price_max | money | append: ' HT'
   if settings.currency_code_enabled
-    assign money_price = price | money_with_currency | append: ' HT'
-    assign money_price_min = price_min | money_with_currency | append: ' HT'
-    assign money_price_max = price_max | money_with_currency | append: ' HT'
+    comment
+      Forcer le format français sans code devise (8,50 € HT au lieu de €8,50 EUR HT)
+    endcomment
+    assign money_price = price | money | append: ' HT'
+    assign money_price_min = price_min | money | append: ' HT'
+    assign money_price_max = price_max | money | append: ' HT'
   endif
 -%}
 {%- capture formatted_money_price -%}
@@ -75,7 +78,7 @@
             </dt>
             <dd {% if show_badges == false %}class="price__last"{% endif %}>
               <span class="price-item price-item--regular variant-item__old-price">
-                <price-money><bdi>{% if settings.currency_code_enabled %}{{ compare_at_price | money_with_currency }}{% else %}{{ compare_at_price | money }}{% endif %}</bdi></price-money>
+                <price-money><bdi>{{ compare_at_price | money }} HT</bdi></price-money>
               </span>
             </dd>
           {%- endunless -%}
@@ -115,7 +118,7 @@
         </dt>
         <dd class="price__compare">
           <s class="price-item price-item--regular">
-            <price-money><bdi>{% if settings.currency_code_enabled %}{{ compare_at_price | money_with_currency }}{% else %}{{ compare_at_price | money }}{% endif %}</bdi></price-money>
+            <price-money><bdi>{{ compare_at_price | money }} HT</bdi></price-money>
           </s>
         </dd>
       {%- endunless -%}
@@ -133,7 +136,7 @@
         <dt class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</dt>
         <dd {% if show_badges == false %}class="price__last"{% endif %}>
           <span data-unit-price>
-            <price-money><bdi>{% if settings.currency_code_enabled %}{{ product.selected_or_first_available_variant.unit_price | money_with_currency }}{% else %}{{ product.selected_or_first_available_variant.unit_price | money }}{% endif %}</bdi></price-money>
+            <price-money><bdi>{{ product.selected_or_first_available_variant.unit_price | money }} HT</bdi></price-money>
           </span>
           <span aria-hidden="true">/</span>
           <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
@@ -162,7 +165,7 @@
           {%- when 'percentage' -%}
             &#8211;{{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}%
           {%- when 'value' -%}
-            &#8211;{% if settings.currency_code_enabled %}{{ target.compare_at_price | minus: target.price | money_with_currency }}{% else %}{{ target.compare_at_price | minus: target.price | money }}{% endif %}
+            &#8211;{{ target.compare_at_price | minus: target.price | money }}
           {%- else %}
             {%- if product.variants.size == 1 -%}
               &#8211;{{ target.compare_at_price | minus: target.price | times: 100.0 | divided_by: target.compare_at_price | round }}%

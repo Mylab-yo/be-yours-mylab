@@ -132,6 +132,7 @@
     {%- if settings.price_superscript %} data-price-superscript{% endif -%}
     {%- if settings.button_corner_radius > 0 %} data-button-round{% endif -%}
   >
+    {%- render 'schema-seo' -%}
     <a class="skip-to-content-link button button--small visually-hidden" href="#MainContent">
       {{ "accessibility.skip_to_text" | t }}
     </a>

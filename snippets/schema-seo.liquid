@@ -1,0 +1,72 @@
+{%- comment -%}
+  MyLab — Données structurées SEO complémentaires
+  LocalBusiness (toutes pages) + BreadcrumbList (collections, pages) + FAQPage (FAQ)
+{%- endcomment -%}
+
+{%- comment -%} ── LocalBusiness (affiché sur toutes les pages) ── {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "MY.LAB — Laboratoire Cosmétique",
+  "description": "Laboratoire français de produits capillaires en marque blanche pour professionnels de la coiffure.",
+  "url": "{{ shop.url }}",
+  "telephone": "+33485693347",
+  "email": "contact@mylab-shop.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "231 Avenue de la Voguette",
+    "addressLocality": "Cavaillon",
+    "postalCode": "84300",
+    "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 43.8345,
+    "longitude": 5.0385
+  },
+  "image": "{{ 'logo-mylab.png' | asset_url }}",
+  "priceRange": "€€",
+  "currenciesAccepted": "EUR",
+  "paymentAccepted": "Carte bancaire, Virement",
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "sameAs": [
+    {%- if settings.social_facebook_link != blank %}"{{ settings.social_facebook_link }}"{% endif -%}
+    {%- if settings.social_instagram_link != blank %}{%- if settings.social_facebook_link != blank %},{% endif %}"{{ settings.social_instagram_link }}"{% endif -%}
+    {%- if settings.social_youtube_link != blank %},{%- endif -%}
+    {%- if settings.social_youtube_link != blank %}"{{ settings.social_youtube_link }}"{% endif -%}
+    {%- if settings.social_tiktok_link != blank %},{%- endif -%}
+    {%- if settings.social_tiktok_link != blank %}"{{ settings.social_tiktok_link }}"{% endif -%}
+  ]
+}
+</script>
+
+{%- comment -%} ── BreadcrumbList (collections + pages) ── {%- endcomment -%}
+{%- if template.name == 'collection' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ shop.url }}" },
+    { "@type": "ListItem", "position": 2, "name": "{{ collection.title | escape }}", "item": "{{ shop.url }}{{ collection.url }}" }
+  ]
+}
+</script>
+{%- endif -%}
+
+{%- if template.name == 'page' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ shop.url }}" },
+    { "@type": "ListItem", "position": 2, "name": "{{ page.title | escape }}", "item": "{{ shop.url }}{{ page.url }}" }
+  ]
+}
+</script>
+{%- endif -%}

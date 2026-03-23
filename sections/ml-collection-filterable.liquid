@@ -42,6 +42,12 @@
     color: #fff !important;
   }
 
+  /* ── FIX: forcer opacité images produit (animation zoom-fade sans parent [data-animate-image]) ── */
+  .ml-filterable use-animate .image-animate,
+  .ml-filterable .card .media img {
+    opacity: 1 !important;
+  }
+
   /* ── HIDE FILTERED ITEMS ── */
   .ml-filterable-hidden {
     display: none !important;
