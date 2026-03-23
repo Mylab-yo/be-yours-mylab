@@ -34,12 +34,12 @@
 <cart-items class="page-width{% if cart == empty %} is-empty{% endif %} section--padding">
   <div class="title-wrapper">
     <h1 class="title">{{ 'sections.cart.title' | t }}</h1>
-    <a href="{{ routes.all_products_collection_url }}" class="link link--underline">{{ 'general.continue_shopping' | t }}</a>
+    <a href="/pages/la-boutique-my-lab" class="link link--underline">{{ 'general.continue_shopping' | t }}</a>
   </div>
 
   <div class="cart__warnings">
     <p class="cart__empty-text h2">{{ 'sections.cart.empty' | t }}</p>
-    <a href="{{ routes.all_products_collection_url }}" class="button button--tertiary">{{ 'general.continue_shopping' | t }}</a>
+    <a href="/pages/la-boutique-my-lab" class="button button--tertiary">{{ 'general.continue_shopping' | t }}</a>
   </div>
 
   <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
