@@ -1085,7 +1085,7 @@
 
       var calc = calculateOrder(f, format, qs.kg, qs.tier);
       var tierLabel50 = '50 litres minimum';
-      var tierLabel100 = '100 à 200 litres';
+      var tierLabel100 = '100 litres';
 
       /* Price per unit for each tier */
       var price50 = '';
