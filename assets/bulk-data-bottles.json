@@ -20,8 +20,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -85,8 +84,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -154,8 +152,7 @@
       "capacity_ml": 400,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -223,8 +220,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -292,8 +288,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -361,8 +356,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -432,8 +426,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -501,8 +494,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -568,8 +560,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -637,8 +628,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -706,8 +696,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -777,8 +766,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -848,8 +836,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -921,8 +908,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -994,8 +980,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1065,8 +1050,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1136,8 +1120,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1207,8 +1190,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1292,8 +1274,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1363,8 +1344,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -1436,8 +1416,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -1501,8 +1480,7 @@
         50
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1566,8 +1544,7 @@
         500
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1629,8 +1606,7 @@
       "capacity_ml": 400,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1694,8 +1670,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1759,8 +1734,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1824,8 +1798,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1887,8 +1860,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -1952,8 +1924,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2023,8 +1994,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2092,8 +2062,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -2159,8 +2128,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -2228,8 +2196,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -2297,8 +2264,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2368,8 +2334,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2439,8 +2404,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2512,8 +2476,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2585,8 +2548,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2656,8 +2618,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2727,8 +2688,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2798,8 +2758,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2883,8 +2842,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -2954,8 +2912,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -3027,8 +2984,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -3092,8 +3048,7 @@
         50
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3157,8 +3112,7 @@
         500
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3220,8 +3174,7 @@
       "capacity_ml": 400,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3285,8 +3238,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3350,8 +3302,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3415,8 +3366,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3478,8 +3428,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3541,8 +3490,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "clear",
       "eco_label": true,
@@ -3606,8 +3554,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "amber",
       "eco_label": true,
@@ -3675,8 +3622,7 @@
       "capacity_ml": 400,
       "compatible_formats": [],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -3744,8 +3690,7 @@
         300
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -3813,8 +3758,7 @@
         200
       ],
       "compatible_products": [
-        "shampoing",
-        "spray"
+        "shampoing-spray"
       ],
       "color": "blush",
       "eco_label": true,
@@ -4576,7 +4520,7 @@
       "name": "AOPF-450 + F5 FOAMER PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 450,
       "compatible_formats": [
@@ -4642,7 +4586,7 @@
       "name": "S-PEPIN-200A + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -4650,8 +4594,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -4718,7 +4661,7 @@
       "name": "S-PEPIN-200 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -4726,8 +4669,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -4800,7 +4742,7 @@
       "name": "S-PEMIN-200A + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -4808,8 +4750,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -4882,7 +4823,7 @@
       "name": "S-PEMIN-200 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -4890,8 +4831,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -4964,7 +4904,7 @@
       "name": "PH-50III + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -4972,8 +4912,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -5034,7 +4973,7 @@
       "name": "PH-500 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -5042,8 +4981,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -5104,7 +5042,7 @@
       "name": "PH-250 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -5112,8 +5050,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -5174,7 +5111,7 @@
       "name": "PH-200 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -5182,8 +5119,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -5244,7 +5180,7 @@
       "name": "AOM-200 + OZ-35 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -5252,8 +5188,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -5320,7 +5255,7 @@
       "name": "SUPI-500 + PD-3033EVI PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -5399,7 +5334,7 @@
       "name": "PH-500II + PD-3033EVI PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -5469,7 +5404,7 @@
       "name": "PEPI-500II + PD-3033EVI PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -5551,7 +5486,7 @@
       "name": "PBPI-500 + PD-3033EVI PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -5645,7 +5580,7 @@
       "name": "D-500 + PD-3033EVI PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -7327,7 +7262,7 @@
       "name": "YP-B-180 + 15-415 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 180,
       "compatible_formats": [
@@ -7335,8 +7270,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -7500,7 +7434,7 @@
       "name": "SUPI-500 + PD-3033AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -7789,7 +7723,7 @@
       "name": "S-PEPIN-200A + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -7797,8 +7731,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -7865,7 +7798,7 @@
       "name": "S-PEPIN-200A + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -7941,7 +7874,7 @@
       "name": "S-PEPIN-200A + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -8017,7 +7950,7 @@
       "name": "S-PEPIN-200A + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -8102,7 +8035,7 @@
       "name": "S-PEPIN-200A + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -8110,8 +8043,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -9070,7 +9002,7 @@
       "name": "S-PEPIN-200 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -9078,8 +9010,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -9152,7 +9083,7 @@
       "name": "S-PEPIN-200 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -9234,7 +9165,7 @@
       "name": "S-PEPIN-200 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -9316,7 +9247,7 @@
       "name": "S-PEPIN-200 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -9407,7 +9338,7 @@
       "name": "S-PEPIN-200 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -9415,8 +9346,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -10355,7 +10285,7 @@
       "name": "S-PEMIN-200A + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -10363,8 +10293,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -10710,7 +10639,7 @@
       "name": "S-PEMIN-200A + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -10792,7 +10721,7 @@
       "name": "S-PEMIN-200A + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -10874,7 +10803,7 @@
       "name": "S-PEMIN-200A + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -10965,7 +10894,7 @@
       "name": "S-PEMIN-200A + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -10973,8 +10902,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -11995,7 +11923,7 @@
       "name": "S-PEMIN-200 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -12003,8 +11931,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -12077,7 +12004,7 @@
       "name": "S-PEMIN-200 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -12159,7 +12086,7 @@
       "name": "S-PEMIN-200 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -12241,7 +12168,7 @@
       "name": "S-PEMIN-200 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -12332,7 +12259,7 @@
       "name": "S-PEMIN-200 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -12340,8 +12267,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -12899,7 +12825,7 @@
       "name": "RFPI-500 + PD-3043AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -12978,7 +12904,7 @@
       "name": "RF-500 + PD-3043AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -13048,7 +12974,7 @@
       "name": "PH-SW30 + PD-0220CB PUMP + PD-0220 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 220,
       "compatible_formats": [
@@ -13259,7 +13185,7 @@
       "name": "PH-50III + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -13267,8 +13193,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -13487,7 +13412,7 @@
       "name": "PH-50III + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -13557,7 +13482,7 @@
       "name": "PH-50III + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -13627,7 +13552,7 @@
       "name": "PH-50III + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -13706,7 +13631,7 @@
       "name": "PH-50III + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -13714,8 +13639,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -14157,7 +14081,7 @@
       "name": "PH-500II + PD-3033AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14359,7 +14283,7 @@
       "name": "PH-500 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14367,8 +14291,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -14587,7 +14510,7 @@
       "name": "PH-500 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14657,7 +14580,7 @@
       "name": "PH-500 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14727,7 +14650,7 @@
       "name": "PH-500 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14806,7 +14729,7 @@
       "name": "PH-500 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -14814,8 +14737,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -15459,7 +15381,7 @@
       "name": "PH-250 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -15467,8 +15389,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -15687,7 +15608,7 @@
       "name": "PH-250 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -15757,7 +15678,7 @@
       "name": "PH-250 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -15827,7 +15748,7 @@
       "name": "PH-250 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -15906,7 +15827,7 @@
       "name": "PH-250 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 250,
       "compatible_formats": [
@@ -15914,8 +15835,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -16559,7 +16479,7 @@
       "name": "PH-200 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -16567,8 +16487,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -16787,7 +16706,7 @@
       "name": "PH-200 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -16857,7 +16776,7 @@
       "name": "PH-200 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -16927,7 +16846,7 @@
       "name": "PH-200 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -17006,7 +16925,7 @@
       "name": "PH-200 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -17014,8 +16933,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -17775,7 +17693,7 @@
       "name": "PEW-50A + PPSII-FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -17783,8 +17701,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -18211,7 +18128,7 @@
       "name": "PEW-50A + PD-0220CB PUMP + PD-0220 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -18299,7 +18216,7 @@
       "name": "PEW-50A + PD-0220 PPS PUMP + PD-0220 OVER CAP M",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -18628,7 +18545,7 @@
       "name": "PEW-30A + PPSII-FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 30,
       "compatible_formats": [
@@ -18636,8 +18553,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "amber",
       "eco_label": false,
@@ -19064,7 +18980,7 @@
       "name": "PEW-30A + PD-0220CB PUMP + PD-0220 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 30,
       "compatible_formats": [
@@ -19152,7 +19068,7 @@
       "name": "PEW-30A + PD-0220 PPS PUMP + PD-0220 OVER CAP M",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 30,
       "compatible_formats": [
@@ -19315,7 +19231,7 @@
       "name": "PEPI-500II + PD-3033AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -19491,7 +19407,7 @@
       "name": "PBPI-500 + PD-3033AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -19805,7 +19721,7 @@
       "name": "DBI-50 + 15-415 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 50,
       "compatible_formats": [
@@ -19813,8 +19729,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -19966,7 +19881,7 @@
       "name": "DBI-30 + 15-415 FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 30,
       "compatible_formats": [
@@ -19974,8 +19889,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "clear",
       "eco_label": false,
@@ -20125,7 +20039,7 @@
       "name": "D-500 + PD-3033AIIIR PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 500,
       "compatible_formats": [
@@ -20697,7 +20611,7 @@
       "name": "AOM-200 + PII N FLIP-TOP CAP (4⌀)",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -20705,8 +20619,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -20943,7 +20856,7 @@
       "name": "AOM-200 + PD-P1024EBII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -21019,7 +20932,7 @@
       "name": "AOM-200 + PD-P1024BII PUMP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -21095,7 +21008,7 @@
       "name": "AOM-200 + PD-P0524B PUMP + PD-P0524 TOP CAP B",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "pump",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -21180,7 +21093,7 @@
       "name": "AOM-200 + PC3⌀ FLIP-TOP CAP",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "flip_top",
       "material": "PET",
       "capacity_ml": 200,
       "compatible_formats": [
@@ -21188,8 +21101,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme",
-        "masque"
+        "creme"
       ],
       "color": "blush",
       "eco_label": false,
@@ -21593,16 +21505,15 @@
       "name": "AG-30 + TBG30 DROPPER WITHOUT RIB",
       "brand": "Takemoto",
       "type": "bottle",
-      "closure_type": "screw_cap",
+      "closure_type": "dropper",
       "material": "PET",
       "capacity_ml": 30,
       "compatible_formats": [
         50
       ],
       "compatible_products": [
-        "shampoing",
-        "creme",
-        "masque"
+        "serum",
+        "huile"
       ],
       "color": "amber",
       "eco_label": false,
