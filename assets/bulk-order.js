@@ -1079,13 +1079,22 @@
       if (!qtyState[f.id]) qtyState[f.id] = { kg: 50, tier: '50kg' };
       var qs = qtyState[f.id];
 
-      /* Auto-detect tier */
-      if (qs.kg >= 100) qs.tier = '100_200kg';
-      else qs.tier = '50kg';
+      /* Set kg based on tier (no manual input) */
+      if (qs.tier === '100_200kg') qs.kg = 100;
+      else qs.kg = 50;
 
       var calc = calculateOrder(f, format, qs.kg, qs.tier);
       var tierLabel50 = '50 litres minimum';
       var tierLabel100 = '100 à 200 litres';
+
+      /* Price per unit for each tier */
+      var price50 = '';
+      var calcFor50 = calculateOrder(f, format, 50, '50kg');
+      if (calcFor50) price50 = '<span class="bulk-qty-tier__price">' + fmtPrice(calcFor50.pricing.total) + '/u</span>';
+      var price100 = '';
+      if (f.pricing && f.pricing['100_200kg'] && f.pricing['100_200kg'][format + 'ml']) {
+        price100 = '<span class="bulk-qty-tier__price">' + fmtPrice(f.pricing['100_200kg'][format + 'ml'].total) + '/u</span>';
+      }
 
       html += '<div class="bulk-qty-block" style="--gamme-color:' + esc(f.gammeColor) + '">' +
 
@@ -1096,23 +1105,14 @@
           '<span class="bulk-qty-block__detail">' + fmtLabel + ' · ' + esc(bottleName) + '</span>' +
         '</div>' +
 
-        /* Tier selector */
+        /* Tier selector — both always clickable */
         '<div class="bulk-qty-tiers">' +
           '<button type="button" class="bulk-qty-tier' + (qs.tier === '50kg' ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="50kg">' +
-            tierLabel50 +
-            (calc ? '<span class="bulk-qty-tier__price">' + fmtPrice(calc.pricing.total) + '/u</span>' : '') +
+            tierLabel50 + price50 +
           '</button>' +
           '<button type="button" class="bulk-qty-tier' + (qs.tier === '100_200kg' ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="100_200kg">' +
-            tierLabel100 +
-            (f.pricing && f.pricing['100_200kg'] && f.pricing['100_200kg'][format + 'ml'] ? '<span class="bulk-qty-tier__price">' + fmtPrice(f.pricing['100_200kg'][format + 'ml'].total) + '/u</span>' : '') +
+            tierLabel100 + price100 +
           '</button>' +
-        '</div>' +
-
-        /* Input */
-        '<div class="bulk-qty-input-row">' +
-          '<label>Quantité</label>' +
-          '<input type="number" class="bulk-qty-input" data-formula-input="' + esc(f.id) + '" value="' + qs.kg + '" min="50" step="10">' +
-          '<span class="bulk-qty-unit">kg</span>' +
         '</div>';
 
       if (calc) {
@@ -1212,28 +1212,14 @@
   }
 
   function bindQtyEvents() {
-    /* Tier buttons */
+    /* Tier buttons — always clickable, toggle between 50kg and 100_200kg */
     elQtyList.querySelectorAll('.bulk-qty-tier').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var fid = btn.dataset.formulaQty;
         var tier = btn.dataset.tier;
         if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
         qtyState[fid].tier = tier;
-        if (tier === '100_200kg' && qtyState[fid].kg < 100) qtyState[fid].kg = 100;
-        renderQuantity();
-      });
-    });
-
-    /* Qty inputs */
-    elQtyList.querySelectorAll('.bulk-qty-input').forEach(function (input) {
-      input.addEventListener('input', function () {
-        var fid = input.dataset.formulaInput;
-        var val = parseInt(input.value, 10);
-        if (isNaN(val) || val < 0) val = 0;
-        if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
-        qtyState[fid].kg = val;
-        if (val >= 100) qtyState[fid].tier = '100_200kg';
-        else qtyState[fid].tier = '50kg';
+        qtyState[fid].kg = tier === '100_200kg' ? 100 : 50;
         renderQuantity();
       });
     });
