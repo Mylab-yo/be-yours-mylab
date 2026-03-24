@@ -479,13 +479,15 @@
   var elBottlesEcoFilter = document.getElementById('bulk-bottles-eco-filter');
 
   var bottlesData = null;
+  var BOTTLES_PER_PAGE = 30;
   var bottleState = {
     activeFormulaId: null,
     selections: {},      // { formulaId: bottleId }
     filterMaterial: 'all',
     filterColor: 'all',
     filterEco: false,
-    filterMoqCompat: true  // show only MOQ-compatible by default
+    filterMoqCompat: true,  // show only MOQ-compatible by default
+    page: 1
   };
 
   var CLOSURE_COMPAT = {
@@ -497,7 +499,9 @@
     huile: ['dropper', 'pump']
   };
 
-  var COLOR_LABELS = { amber: 'Ambré', clear: 'Transparent', white: 'Blanc', black: 'Noir', frosted: 'Givré' };
+  var COLOR_LABELS = { clear: 'Transparent', amber: 'Ambré', blush: 'Rose poudré', butter_yellow: 'Jaune beurre', mist: 'Fumé', teal: 'Bleu-vert', red: 'Rouge', white: 'Blanc', black: 'Noir', frosted: 'Givré' };
+  var COLOR_DOTS = { clear: '#f0f0f0', amber: '#b5651d', blush: '#e8a0a0', butter_yellow: '#f5d67a', mist: '#c0c0c0', teal: '#008080', red: '#c0392b', white: '#ffffff', black: '#333333', frosted: '#d4e4f7' };
+  var COLOR_ORDER = ['clear', 'amber', 'blush', 'butter_yellow', 'mist', 'teal', 'red', 'white', 'black', 'frosted'];
   var MATERIAL_LABELS = { PET: 'PET', rPET: 'rPET', PCR: 'PCR', biomass_PET: 'Bio PET', glass: 'Verre' };
   var CLOSURE_LABELS = { pump: 'Pompe', screw_cap: 'Bouchon vis', dispensing_cap: 'Clapet', spray: 'Spray', dropper: 'Pipette' };
 
@@ -583,23 +587,30 @@
       return aPrice - bPrice;
     });
 
-    /* Takemoto bottles filtered by compatibility */
+    /* Takemoto bottles — filter then paginate */
+    var visibleBottles = [];
     filteredBottles.forEach(function (b) {
-      var closureMatch = compatClosures.length === 0 || compatClosures.indexOf(b.closure_type) !== -1;
-
-      /* Apply filters */
       var matMatch = bottleState.filterMaterial === 'all' || b.material === bottleState.filterMaterial;
       var colMatch = bottleState.filterColor === 'all' || b.color === bottleState.filterColor;
       var ecoMatch = !bottleState.filterEco || b.eco_label;
-      var visible = matMatch && colMatch && ecoMatch;
-
-      /* MOQ compatibility filter */
       var moqCompat = !b.min_order_qty || expectedUnits >= b.min_order_qty;
-      if (bottleState.filterMoqCompat && !moqCompat) {
-        visible = false;
-      }
+      var visible = matMatch && colMatch && ecoMatch;
+      if (bottleState.filterMoqCompat && !moqCompat) visible = false;
+      if (visible) visibleBottles.push({ bottle: b, moqCompat: moqCompat });
+    });
 
+    /* Pagination */
+    var totalPages = Math.max(1, Math.ceil(visibleBottles.length / BOTTLES_PER_PAGE));
+    if (bottleState.page > totalPages) bottleState.page = totalPages;
+    var startIdx = (bottleState.page - 1) * BOTTLES_PER_PAGE;
+    var pageBottles = visibleBottles.slice(startIdx, startIdx + BOTTLES_PER_PAGE);
+
+    /* Render page of bottles */
+    pageBottles.forEach(function (entry) {
+      var b = entry.bottle;
+      var moqCompat = entry.moqCompat;
       var isSelected = bottleState.selections[f.id] === b.id;
+
       var badges = '';
       if (moqCompat) {
         badges += '<span class="bulk-bottle__badge bulk-bottle__badge--compat">\u2713 Compatible</span>';
@@ -608,11 +619,10 @@
       }
       if (b.eco_label) badges += '<span class="bulk-bottle__badge bulk-bottle__badge--eco">Éco</span>';
 
-      /* Price display with tiers */
       var priceHtml = '';
       if (b.price_tiers && b.price_tiers.length > 0) {
         var lowestTier = b.price_tiers[b.price_tiers.length - 1];
-        priceHtml = '<div class="bulk-bottle__price">À partir de ' + fmtPrice(lowestTier.price) + '/u' +
+        priceHtml = '<div class="bulk-bottle__price" tabindex="0">À partir de ' + fmtPrice(lowestTier.price) + '/u' +
           '<span class="bulk-bottle__tiers-tooltip">';
         b.price_tiers.forEach(function (t) {
           priceHtml += '<span>' + t.min_qty + (t.max_qty ? '–' + t.max_qty : '+') + ' u → ' + fmtPrice(t.price) + '</span>';
@@ -624,7 +634,6 @@
         priceHtml = '<div class="bulk-bottle__price" style="color:#888;font-style:italic;">Prix sur demande</div>';
       }
 
-      /* MOQ + set price display */
       var moqHtml = '';
       if (b.min_order_qty) {
         var setTotal = b.price_estimate ? (b.price_estimate / 100) * b.min_order_qty : 0;
@@ -636,7 +645,7 @@
         ? '<a href="' + esc(b.takemoto_url) + '" target="_blank" rel="noopener" class="bulk-bottle__link" onclick="event.stopPropagation()">Voir sur Takemoto <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>'
         : '';
 
-      html += '<div class="bulk-bottle' + (isSelected ? ' bulk-bottle--selected' : '') + (visible ? '' : ' bulk-bottle--hidden') + '" data-bottle-id="' + esc(b.id) + '" data-material="' + esc(b.material) + '" data-color="' + esc(b.color) + '" data-eco="' + b.eco_label + '">' +
+      html += '<div class="bulk-bottle' + (isSelected ? ' bulk-bottle--selected' : '') + '" data-bottle-id="' + esc(b.id) + '" data-material="' + esc(b.material) + '" data-color="' + esc(b.color) + '" data-eco="' + b.eco_label + '">' +
         badges +
         '<div class="bulk-bottle__img" data-zoom-images="' + esc(JSON.stringify(b.images_all || [b.image_url_600 || b.image_url_external || ''])) + '">' +
           (b.image_url_600 ? '<img src="' + esc(b.image_url_600) + '" alt="' + esc(b.name) + '" loading="lazy" class="bulk-bottle__img--loading" onload="this.classList.remove(\'bulk-bottle__img--loading\');this.classList.add(\'bulk-bottle__img--loaded\')" onerror="this.src=\'' + placeholderUrl + '\'">' :
@@ -654,14 +663,35 @@
         priceHtml +
         moqHtml +
         linkHtml +
-        '</div>' + /* close bulk-bottle__body */
-        '</div>';
+        '</div></div>';
 
-      if (visible) visibleCount++;
+      visibleCount++;
     });
 
+    /* Pagination controls */
+    if (totalPages > 1) {
+      html += '<div class="bulk-bottles__pagination">' +
+        '<button type="button" class="bulk-bottles__page-btn" data-page-dir="prev"' + (bottleState.page <= 1 ? ' disabled' : '') + '>' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Précédent</button>' +
+        '<span class="bulk-bottles__page-info">Page ' + bottleState.page + ' sur ' + totalPages + '</span>' +
+        '<button type="button" class="bulk-bottles__page-btn" data-page-dir="next"' + (bottleState.page >= totalPages ? ' disabled' : '') + '>' +
+        'Suivant <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>' +
+        '</div>';
+    }
+
     elBottlesGrid.innerHTML = html;
-    elBottlesEmpty.style.display = visibleCount === 0 ? '' : 'none';
+    elBottlesEmpty.style.display = visibleBottles.length === 0 ? '' : 'none';
+
+    /* Bind pagination */
+    elBottlesGrid.querySelectorAll('.bulk-bottles__page-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.dataset.pageDir === 'prev' && bottleState.page > 1) bottleState.page--;
+        if (btn.dataset.pageDir === 'next' && bottleState.page < totalPages) bottleState.page++;
+        renderBottleGrid();
+        var gridTop = elBottlesGrid.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({ top: gridTop, behavior: 'smooth' });
+      });
+    });
 
     /* Bind click */
     elBottlesGrid.querySelectorAll('.bulk-bottle').forEach(function (card) {
@@ -695,18 +725,25 @@
     elBottlesMatFilter.innerHTML = matHtml;
 
     var colHtml = '<button type="button" class="bulk-chip' + (bottleState.filterColor === 'all' ? ' bulk-chip--active' : '') + '" data-filter-color="all">Toutes</button>';
-    Object.keys(colors).forEach(function (c) {
-      colHtml += '<button type="button" class="bulk-chip' + (bottleState.filterColor === c ? ' bulk-chip--active' : '') + '" data-filter-color="' + c + '">' + (COLOR_LABELS[c] || c) + '</button>';
+    COLOR_ORDER.forEach(function (c) {
+      if (!colors[c]) return;
+      var dot = COLOR_DOTS[c] || '#ccc';
+      var border = c === 'clear' || c === 'white' ? 'border:1px solid #ccc;' : '';
+      colHtml += '<button type="button" class="bulk-chip' + (bottleState.filterColor === c ? ' bulk-chip--active' : '') + '" data-filter-color="' + c + '">' +
+        '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + dot + ';' + border + 'margin-right:6px;vertical-align:middle;"></span>' +
+        (COLOR_LABELS[c] || c) + '</button>';
     });
     elBottlesColFilter.innerHTML = colHtml;
 
     /* Bind filter events */
     bindFilterEvents(elBottlesMatFilter, 'data-filter-material', function (val) {
       bottleState.filterMaterial = val;
+      bottleState.page = 1;
       renderBottleGrid();
     });
     bindFilterEvents(elBottlesColFilter, 'data-filter-color', function (val) {
       bottleState.filterColor = val;
+      bottleState.page = 1;
       renderBottleGrid();
     });
   }
@@ -740,6 +777,7 @@
   if (elBottlesEcoFilter) {
     elBottlesEcoFilter.addEventListener('change', function () {
       bottleState.filterEco = elBottlesEcoFilter.checked;
+      bottleState.page = 1;
       renderBottleGrid();
     });
   }
@@ -749,6 +787,7 @@
   if (elBottlesMoqFilter) {
     elBottlesMoqFilter.addEventListener('change', function () {
       bottleState.filterMoqCompat = elBottlesMoqFilter.checked;
+      bottleState.page = 1;
       renderBottleGrid();
     });
   }

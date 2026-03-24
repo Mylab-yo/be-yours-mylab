@@ -789,6 +789,40 @@
   .bulk-summary__btn { width: 100%; justify-content: center; }
 }
 
+/* ── BOTTLES PAGINATION ── */
+.bulk-bottles__pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 1.5rem 0 0.5rem;
+}
+.bulk-bottles__page-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 44px;
+}
+.bulk-bottles__page-btn:hover:not(:disabled) { border-color: #111; background: #f5f5f5; }
+.bulk-bottles__page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.bulk-bottles__page-info {
+  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-size: 1.1rem;
+  color: #888;
+  white-space: nowrap;
+}
+
 /* Sticky recap max-height */
 .bulk-bottles__recap { max-height: calc(100vh - 120px); overflow-y: auto; }
 
