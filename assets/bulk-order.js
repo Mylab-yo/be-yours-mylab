@@ -596,18 +596,24 @@
       return aPrice - bPrice;
     });
 
-    /* Takemoto bottles — filter by product type + material + color + eco + moq, then paginate */
-    var productFilter = category === 'creme_coiffage' ? 'creme' : category; /* normalize creme_coiffage → creme */
+    /* Takemoto bottles — filter by product type + material + color + closure + eco + moq, then paginate */
+    var productFilter = category === 'creme_coiffage' ? 'creme' : category;
+    /* spray category → show spray-compatible bottles */
+    if (category === 'spray') productFilter = 'shampoing-spray';
     var visibleBottles = [];
     filteredBottles.forEach(function (b) {
       var prods = b.compatible_products || [];
 
       /* Product type filter (from active formula tab) */
       var prodMatch = false;
-      if (bottleState.filterSprayOnly && category === 'shampoing') {
+      if (category === 'spray') {
+        /* Spray texturisant: show only spray bottles */
         prodMatch = prods.indexOf('shampoing-spray') !== -1;
+      } else if (category === 'shampoing') {
+        /* Shampoings: show shampoing bottles (excluding spray-only unless they also have shampoing) */
+        prodMatch = prods.indexOf('shampoing') !== -1;
       } else {
-        prodMatch = prods.indexOf(productFilter) !== -1 || prods.indexOf('shampoing-spray') !== -1 && productFilter === 'shampoing';
+        prodMatch = prods.indexOf(productFilter) !== -1;
       }
       if (!prodMatch) return;
 
@@ -751,10 +757,10 @@
       if (b.closure_type) closures[b.closure_type] = true;
     });
 
-    /* Spray toggle (shampoing tab only) */
+    /* Spray toggle (visible only for spray category products like Spray Texturisant) */
     var sprayToggleEl = document.getElementById('bulk-bottles-spray-toggle');
     if (sprayToggleEl) {
-      if (activeCategory === 'shampoing') {
+      if (activeCategory === 'spray') {
         sprayToggleEl.style.display = '';
       } else {
         sprayToggleEl.style.display = 'none';
