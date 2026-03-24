@@ -487,6 +487,7 @@
     filterColor: 'all',
     filterEco: false,
     filterMoqCompat: true,  // show only MOQ-compatible by default
+    filterSprayOnly: false, // spray toggle (shampoing tab only)
     page: 1
   };
 
@@ -535,6 +536,9 @@
     elBottlesTabs.querySelectorAll('.bulk-bottles__tab').forEach(function (btn) {
       btn.addEventListener('click', function () {
         bottleState.activeFormulaId = btn.dataset.tabFormula;
+        bottleState.page = 1;
+        bottleState.filterSprayOnly = false;
+        if (elBottlesSprayFilter) elBottlesSprayFilter.checked = false;
         renderBottleTabs();
         renderBottleGrid();
       });
@@ -587,9 +591,21 @@
       return aPrice - bPrice;
     });
 
-    /* Takemoto bottles — filter then paginate */
+    /* Takemoto bottles — filter by product type + material + color + eco + moq, then paginate */
+    var productFilter = category === 'creme_coiffage' ? 'creme' : category; /* normalize creme_coiffage → creme */
     var visibleBottles = [];
     filteredBottles.forEach(function (b) {
+      var prods = b.compatible_products || [];
+
+      /* Product type filter (from active formula tab) */
+      var prodMatch = false;
+      if (bottleState.filterSprayOnly && category === 'shampoing') {
+        prodMatch = prods.indexOf('shampoing-spray') !== -1;
+      } else {
+        prodMatch = prods.indexOf(productFilter) !== -1 || prods.indexOf('shampoing-spray') !== -1 && productFilter === 'shampoing';
+      }
+      if (!prodMatch) return;
+
       var matMatch = bottleState.filterMaterial === 'all' || b.material === bottleState.filterMaterial;
       var colMatch = bottleState.filterColor === 'all' || b.color === bottleState.filterColor;
       var ecoMatch = !bottleState.filterEco || b.eco_label;
@@ -710,13 +726,33 @@
   function renderBottleFilterChips(format, compatClosures) {
     if (!bottlesData || !elBottlesMatFilter || !elBottlesColFilter) return;
 
+    /* Get active formula category for spray toggle */
+    var activeF = state.formulas.find(function (x) { return x.id === bottleState.activeFormulaId; });
+    var activeCategory = activeF ? activeF.category : '';
+    var productFilter = activeCategory === 'creme_coiffage' ? 'creme' : activeCategory;
+
+    /* Only count materials/colors from bottles matching the product filter */
     var materials = {};
     var colors = {};
     bottlesData.bottles.forEach(function (b) {
-      if (!b.compatible_formats.includes(format)) return;
+      if (!b.compatible_formats || !b.compatible_formats.includes(format)) return;
+      var prods = b.compatible_products || [];
+      var prodOk = prods.indexOf(productFilter) !== -1 || (productFilter === 'shampoing' && prods.indexOf('shampoing-spray') !== -1);
+      if (!prodOk) return;
       materials[b.material] = true;
       colors[b.color] = true;
     });
+
+    /* Spray toggle (shampoing tab only) */
+    var sprayToggleEl = document.getElementById('bulk-bottles-spray-toggle');
+    if (sprayToggleEl) {
+      if (activeCategory === 'shampoing') {
+        sprayToggleEl.style.display = '';
+      } else {
+        sprayToggleEl.style.display = 'none';
+        bottleState.filterSprayOnly = false;
+      }
+    }
 
     var matHtml = '<button type="button" class="bulk-chip' + (bottleState.filterMaterial === 'all' ? ' bulk-chip--active' : '') + '" data-filter-material="all">Tous</button>';
     Object.keys(materials).forEach(function (m) {
@@ -771,6 +807,16 @@
         '</div></div>';
     });
     elBottlesRecap.innerHTML = html;
+  }
+
+  /* Spray filter (shampoing tab only) */
+  var elBottlesSprayFilter = document.getElementById('bulk-bottles-spray-filter');
+  if (elBottlesSprayFilter) {
+    elBottlesSprayFilter.addEventListener('change', function () {
+      bottleState.filterSprayOnly = elBottlesSprayFilter.checked;
+      bottleState.page = 1;
+      renderBottleGrid();
+    });
   }
 
   /* Eco filter */
