@@ -608,7 +608,7 @@
       var prodMatch = false;
       if (category === 'spray') {
         /* Spray texturisant: show only spray bottles */
-        prodMatch = prods.indexOf('shampoing-spray') !== -1;
+        prodMatch = prods.indexOf('spray') !== -1;
       } else if (category === 'shampoing') {
         /* Shampoings: show shampoing bottles (excluding spray-only unless they also have shampoing) */
         prodMatch = prods.indexOf('shampoing') !== -1;
