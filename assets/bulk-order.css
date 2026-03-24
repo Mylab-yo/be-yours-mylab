@@ -5,7 +5,7 @@
 
 /* ── BASE ── */
 .bulk-order {
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   color: #111;
   padding-bottom: 120px; /* space for fixed bar */
 }
@@ -103,7 +103,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -157,7 +157,7 @@
 }
 .bulk-chip {
   padding: 0.45rem 1rem;
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.1rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -443,7 +443,7 @@
 }
 .bulk-format-pill {
   padding: 0.7rem 1.4rem;
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.2rem;
   font-weight: 600;
   border: 2px solid #e0e0e0;
@@ -520,7 +520,7 @@
 }
 .bulk-format__takemoto-skip {
   padding: 0.8rem 1.5rem;
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.15rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -551,7 +551,7 @@
 
 /* ── STEP 3: BOTTLES ── */
 .bulk-bottles__tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; padding-bottom: 0.8rem; }
-.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; display: inline-flex; align-items: center; }
+.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: var(--font-body-family); font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; display: inline-flex; align-items: center; }
 .bulk-bottles__tab:hover { background: #f0f0f0; }
 .bulk-bottles__tab--active { background: #fff; color: #111; font-weight: 600; border-color: #ddd; border-bottom-color: #fff; }
 .bulk-bottles__tab-check { color: #2d7a45; margin-left: 0.3rem; }
@@ -575,9 +575,9 @@
 .bulk-bottle__badge--eco { background: #e8f5e9; color: #2d7a45; }
 .bulk-bottle__badge--recommended { background: #fff3e0; color: #e65100; }
 
-.bulk-bottle__img { width: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; background: #fff; padding: 8px; border-bottom: 1px solid #eee; overflow: hidden; }
+.bulk-bottle__img { width: 100%; min-height: 220px; display: flex; align-items: center; justify-content: center; background: #fff; padding: 8px; border-bottom: 1px solid #eee; overflow: hidden; }
 .bulk-bottle__img svg { opacity: 0.3; }
-.bulk-bottle__img img { max-height: 180px; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; transition: transform 0.3s ease; }
+.bulk-bottle__img img { max-height: 200px; max-width: 100%; object-fit: contain; display: block; margin: 0 auto; transition: transform 0.3s ease; }
 .bulk-bottle:hover .bulk-bottle__img img { transform: scale(1.05); }
 .bulk-bottle__img img.bulk-bottle__img--loading { opacity: 0; }
 .bulk-bottle__img img.bulk-bottle__img--loaded { opacity: 1; transition: opacity 0.3s ease, transform 0.3s ease; }
@@ -619,7 +619,7 @@
 
 /* Tier selector */
 .bulk-qty-tiers { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-.bulk-qty-tier { padding: 0.7rem 1.4rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #555; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
+.bulk-qty-tier { padding: 0.7rem 1.4rem; font-family: var(--font-body-family); font-size: 1.1rem; font-weight: 500; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #555; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
 .bulk-qty-tier:hover { border-color: #aaa; }
 .bulk-qty-tier--active { border-color: #111; background: #111; color: #fff; }
 .bulk-qty-tier__price { font-size: 0.95rem; opacity: 0.7; }
@@ -627,7 +627,7 @@
 /* Input row */
 .bulk-qty-input-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
 .bulk-qty-input-row label { font-size: 1.1rem; font-weight: 500; color: #555; min-width: 120px; }
-.bulk-qty-input { width: 140px; padding: 0.8rem 1rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.3rem; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; text-align: center; transition: border-color 0.2s; }
+.bulk-qty-input { width: 140px; padding: 0.8rem 1rem; font-family: var(--font-body-family); font-size: 1.3rem; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; text-align: center; transition: border-color 0.2s; }
 .bulk-qty-input:focus { outline: none; border-color: #111; background: #fff; }
 .bulk-qty-input:invalid { border-color: #c0392b; }
 .bulk-qty-unit { font-size: 1.1rem; color: #888; }
@@ -728,11 +728,11 @@
 .bulk-summary__field { display: flex; flex-direction: column; gap: 0.3rem; }
 .bulk-summary__field--full { grid-column: 1 / -1; }
 .bulk-summary__field label { font-size: 1.1rem; font-weight: 500; color: #555; }
-.bulk-summary__field input, .bulk-summary__field textarea { padding: 0.8rem 1rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; transition: border-color 0.2s; }
+.bulk-summary__field input, .bulk-summary__field textarea { padding: 0.8rem 1rem; font-family: var(--font-body-family); font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; transition: border-color 0.2s; }
 .bulk-summary__field input:focus, .bulk-summary__field textarea:focus { outline: none; border-color: #111; background: #fff; }
 
 .bulk-summary__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-.bulk-summary__btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 1.8rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.15rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 44px; border: none; }
+.bulk-summary__btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 1.8rem; font-family: var(--font-body-family); font-size: 1.15rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 44px; border: none; }
 .bulk-summary__btn--pdf { background: #fff; color: #111; border: 1px solid #ddd; }
 .bulk-summary__btn--pdf:hover { background: #f5f5f5; border-color: #bbb; }
 .bulk-summary__btn--send { background: #111; color: #fff; }
@@ -803,7 +803,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.6rem 1.2rem;
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.1rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -817,7 +817,7 @@
 .bulk-bottles__page-btn:hover:not(:disabled) { border-color: #111; background: #f5f5f5; }
 .bulk-bottles__page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .bulk-bottles__page-info {
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family);
   font-size: 1.1rem;
   color: #888;
   white-space: nowrap;
