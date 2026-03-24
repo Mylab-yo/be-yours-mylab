@@ -6,3 +6,11 @@ bottle_images/
 takemoto_raw_data.json
 scrape_checkpoint.json
 scrape_errors.log
+scrape_pricing.log
+enrich_checkpoint.json
+enrich_errors.log
+moq_checkpoint.json
+moq_errors.log
+assets/bulk-data-bottles.backup*.json
+assets/bulk-data-bottles.images-backup.json
+fix_compat_moq.py

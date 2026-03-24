@@ -20,6 +20,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -32,7 +33,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 400,
       "notes": "A round 100ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 400, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -84,6 +85,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -96,7 +98,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -151,7 +153,10 @@
       "material": "biomass_PET",
       "capacity_ml": 400,
       "compatible_formats": [],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "blush",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120040014_7010160986_1_7b39761a-2a27-48f8-b0d0-b8bb37796076.jpg?v=1772434177",
@@ -162,7 +167,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -218,6 +223,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -230,7 +236,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -286,6 +292,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -298,7 +305,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -354,6 +361,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -366,7 +374,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -424,6 +432,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -436,7 +445,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -492,6 +501,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -504,7 +514,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -558,6 +568,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -570,7 +581,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -626,6 +637,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -638,7 +650,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -694,6 +706,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -706,7 +719,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -764,6 +777,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -776,7 +790,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -834,6 +848,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -846,7 +861,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -906,6 +921,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -918,7 +934,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -978,6 +994,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -990,7 +1007,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1048,6 +1065,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1060,7 +1078,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1118,6 +1136,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1130,7 +1149,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1188,6 +1207,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1200,7 +1220,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "An oval 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1272,6 +1292,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1284,7 +1305,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1342,6 +1363,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1354,7 +1376,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1414,6 +1436,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -1426,7 +1449,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1478,6 +1501,7 @@
         50
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -1490,7 +1514,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 50ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from ",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1541,7 +1565,10 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "clear",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7010160986_1_d606236b-f9e1-4ea2-a162-561337ac7c94.jpg?v=1772433969",
@@ -1552,7 +1579,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 500ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1601,7 +1628,10 @@
       "material": "biomass_PET",
       "capacity_ml": 400,
       "compatible_formats": [],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "clear",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430220126_7010160986_1_c322d38e-a9bf-44bc-b728-7bf7f7b751a3.jpg?v=1772433962",
@@ -1612,7 +1642,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1664,6 +1694,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -1676,7 +1707,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1728,6 +1759,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -1740,7 +1772,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 250ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1792,6 +1824,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -1804,7 +1837,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1854,6 +1887,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -1866,7 +1900,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 300,
       "notes": "A round 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 300, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1918,6 +1952,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -1930,7 +1965,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -1988,6 +2023,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2000,7 +2036,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2056,6 +2092,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -2068,7 +2105,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2122,6 +2159,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -2134,7 +2172,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2190,6 +2228,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -2202,7 +2241,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2258,6 +2297,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2270,7 +2310,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2328,6 +2368,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2340,7 +2381,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2398,6 +2439,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2410,7 +2452,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2470,6 +2512,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2482,7 +2525,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2542,6 +2585,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2554,7 +2598,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2612,6 +2656,7 @@
       "capacity_ml": 120,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2624,7 +2669,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 120ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2682,6 +2727,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2694,7 +2740,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2752,6 +2798,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2764,7 +2811,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "An oval 150ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2836,6 +2883,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2848,7 +2896,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2906,6 +2954,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -2918,7 +2967,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 100ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -2978,6 +3027,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -2990,7 +3040,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3042,6 +3092,7 @@
         50
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3054,7 +3105,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 50ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from ",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3105,7 +3156,10 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "clear",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7010161155_1.jpg?v=1755673634",
@@ -3116,7 +3170,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 500ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3165,7 +3219,10 @@
       "material": "biomass_PET",
       "capacity_ml": 400,
       "compatible_formats": [],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "clear",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430220126_7010161155_1.jpg?v=1755673625",
@@ -3176,7 +3233,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3228,6 +3285,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3240,7 +3298,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3292,6 +3350,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3304,7 +3363,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 250ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3356,6 +3415,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3368,7 +3428,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 200, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3418,6 +3478,7 @@
       "capacity_ml": 150,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3430,7 +3491,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 300,
       "notes": "A round 150ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 300, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3480,6 +3541,7 @@
       "capacity_ml": 100,
       "compatible_formats": [],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "clear",
@@ -3492,7 +3554,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 400,
       "notes": "A round 100ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 400, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3544,6 +3606,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "amber",
@@ -3556,7 +3619,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml rPET bottle (guaranteed minimum 72% recycled content) combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching numbe",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3611,7 +3674,10 @@
       "material": "biomass_PET",
       "capacity_ml": 400,
       "compatible_formats": [],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "spray"
+      ],
       "color": "blush",
       "eco_label": true,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120040014_7010161155_1.jpg?v=1755673555",
@@ -3622,7 +3688,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 400ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3678,6 +3744,7 @@
         300
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -3690,7 +3757,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 300ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3746,6 +3813,7 @@
         200
       ],
       "compatible_products": [
+        "shampoing",
         "spray"
       ],
       "color": "blush",
@@ -3758,7 +3826,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 100,
       "notes": "A round 200ml biomass PE bottle combined with a finger spray. It is suitable for spray formula. It is available for purchase in sets of 100, with the matching number of accessories. Please select from",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3815,7 +3883,7 @@
       ],
       "compatible_products": [
         "shampoing",
-        "creme_coiffage",
+        "creme",
         "masque"
       ],
       "color": "clear",
@@ -3828,7 +3896,7 @@
         "height_mm": null,
         "diameter_mm": null
       },
-      "min_order_qty": 1,
+      "min_order_qty": 200,
       "notes": "A round 30ml biomass PE bottle combined with a pump. It is suitable for low-viscosity formula, and medium-viscosity formula. It is available for purchase in sets of 200, with the matching number of ac",
       "compare_at_price": null,
       "price_currency": "EUR",
@@ -3888,7 +3956,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_7010020269_1.jpg?v=1755244339",
@@ -3954,7 +4026,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_7010020269_1.jpg?v=1755244329",
@@ -4024,7 +4100,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_7010020269_1.jpg?v=1755244296",
@@ -4094,7 +4174,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_7010020269_1.jpg?v=1755244285",
@@ -4164,7 +4248,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_7010020269_1.jpg?v=1755244193",
@@ -4226,7 +4314,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7010020269_1.jpg?v=1755244185",
@@ -4288,7 +4380,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_7010020269_1.jpg?v=1755244158",
@@ -4350,7 +4446,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_7010020269_1.jpg?v=1755244149",
@@ -4412,7 +4512,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_7010020269_1.jpg?v=1755244091",
@@ -4478,7 +4582,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0135020005_7020010174_1.jpg?v=1733401156",
@@ -4540,7 +4648,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115540072_1.jpg?v=1721837620",
@@ -4612,7 +4724,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115540072_1.jpg?v=1721837609",
@@ -4690,7 +4806,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115540072_1.jpg?v=1721837570",
@@ -4768,7 +4888,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115540072_1.jpg?v=1721837557",
@@ -4846,7 +4970,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115540072_1.jpg?v=1721837417",
@@ -4912,7 +5040,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115540072_1.jpg?v=1721837408",
@@ -4978,7 +5110,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115540072_1.jpg?v=1721837381",
@@ -5044,7 +5180,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115540072_1.jpg?v=1721837372",
@@ -5110,7 +5250,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115540072_1.jpg?v=1721837309",
@@ -5182,7 +5326,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3120040104_6094010720_1.jpg?v=1721744776",
@@ -5257,7 +5405,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430250111_6094010720_1.jpg?v=1721744763",
@@ -5323,7 +5475,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2330210139_6094010720_1.jpg?v=1721744751",
@@ -5401,7 +5557,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2220070038_6094010720_1.jpg?v=1721744720",
@@ -5491,7 +5651,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0550020052_6094010720_1.jpg?v=1721744659",
@@ -5566,7 +5730,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115250088_6115090024_1.jpg?v=1713451024",
@@ -5647,7 +5815,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115250088_6115090026_1.jpg?v=1713451012",
@@ -5728,7 +5900,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115250088_6115090025_1.jpg?v=1713451000",
@@ -5809,7 +5985,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115250088_6115090024_1.jpg?v=1713450908",
@@ -5896,7 +6076,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115250088_6115090026_1.jpg?v=1713450896",
@@ -5983,7 +6167,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115250088_6115090025_1.jpg?v=1713450882",
@@ -6070,7 +6258,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115250088_6115090024_1.jpg?v=1713450868",
@@ -6157,7 +6349,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115250088_6115090026_1.jpg?v=1713450854",
@@ -6244,7 +6440,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115250088_6115090025_1.jpg?v=1713450842",
@@ -6331,7 +6531,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115250088_6115111005_1.jpg?v=1713450411",
@@ -6406,7 +6610,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115250088_6115111006_1.jpg?v=1713450402",
@@ -6481,7 +6689,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115250088_6115111005_1.jpg?v=1713450392",
@@ -6556,7 +6768,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115250088_6115111006_1.jpg?v=1713450383",
@@ -6631,7 +6847,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115250088_6115111005_1.jpg?v=1713450337",
@@ -6706,7 +6926,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115250088_6115111006_1.jpg?v=1713450328",
@@ -6781,7 +7005,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115250088_6115111005_1.jpg?v=1713450319",
@@ -6856,7 +7084,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115250088_6115111006_1.jpg?v=1713450310",
@@ -6931,7 +7163,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115250088_6115111005_1.jpg?v=1713450179",
@@ -7012,7 +7248,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115250088_6115111006_1.jpg?v=1713450166",
@@ -7093,7 +7333,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3569020002_6182030005_1.jpg?v=1694474574",
@@ -7183,7 +7427,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3120040104_6160010051_1.jpg?v=1694474455",
@@ -7258,7 +7506,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/3120040104_6094010676_1.jpg?v=1694474445",
@@ -7333,7 +7585,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2571050003_6187010007_1.jpg?v=1694473034",
@@ -7399,7 +7655,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_7800012205_1.jpg?v=1694469669",
@@ -7465,7 +7725,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_7030020047_1.jpg?v=1694469661",
@@ -7531,7 +7795,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115680007_1.jpg?v=1694469591",
@@ -7603,7 +7871,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6185000089_1.jpg?v=1694469608",
@@ -7675,7 +7947,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6185000091_1.jpg?v=1694469618",
@@ -7747,7 +8023,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6184000034_6184071006_1.jpg?v=1694469600",
@@ -7828,7 +8108,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115590006_1.jpg?v=1694469583",
@@ -7900,7 +8184,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115080096_1.jpg?v=1694469507",
@@ -7978,7 +8266,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115300079_6115090024_1.jpg?v=1694469557",
@@ -8059,7 +8351,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115300079_6115090026_1.jpg?v=1694469574",
@@ -8140,7 +8436,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115300079_6115090025_1.jpg?v=1694469566",
@@ -8221,7 +8521,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6193020003_6193040004_1.jpg?v=1694469635",
@@ -8302,7 +8606,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6193020003_6193040003_1.jpg?v=1694469626",
@@ -8383,7 +8691,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115270035_1.jpg?v=1694469524",
@@ -8455,7 +8767,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115020094_1.jpg?v=1694469497",
@@ -8527,7 +8843,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332060007_6115170119_6115100017_1.jpg?v=1694469515",
@@ -8608,7 +8928,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_7800012205_1.jpg?v=1694468563",
@@ -8678,7 +9002,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_7030020047_1.jpg?v=1694468554",
@@ -8748,7 +9076,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115680007_1.jpg?v=1694468478",
@@ -8826,7 +9158,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6185000089_1.jpg?v=1694468498",
@@ -8904,7 +9240,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6185000091_1.jpg?v=1694468511",
@@ -8982,7 +9322,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6184000034_6184071006_1.jpg?v=1694468488",
@@ -9069,7 +9413,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115590006_1.jpg?v=1694468469",
@@ -9147,7 +9495,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115080096_1.jpg?v=1694468390",
@@ -9233,7 +9585,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115270035_1.jpg?v=1694468409",
@@ -9311,7 +9667,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115170119_6115100017_1.jpg?v=1694468399",
@@ -9398,7 +9758,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115300077_6115090024_1.jpg?v=1694468418",
@@ -9485,7 +9849,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115300077_6115090026_1.jpg?v=1694468435",
@@ -9572,7 +9940,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6115300077_6115090025_1.jpg?v=1694468426",
@@ -9659,7 +10031,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6193020003_6193040004_1.jpg?v=1694468528",
@@ -9746,7 +10122,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2332030003_6193020003_6193040003_1.jpg?v=1694468519",
@@ -9833,7 +10213,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_7800012205_1.jpg?v=1694464789",
@@ -9903,7 +10287,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_7030020047_1.jpg?v=1694464780",
@@ -9973,7 +10361,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115680007_1.jpg?v=1694464708",
@@ -10051,7 +10443,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115310101_6115090024_1.jpg?v=1694464647",
@@ -10138,7 +10534,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115310101_6115090026_1.jpg?v=1694464665",
@@ -10225,7 +10625,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115310101_6115090025_1.jpg?v=1694464657",
@@ -10312,7 +10716,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6185000089_1.jpg?v=1694464726",
@@ -10390,7 +10798,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6185000091_1.jpg?v=1694464737",
@@ -10468,7 +10880,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6184000034_6184071006_1.jpg?v=1694464717",
@@ -10555,7 +10971,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115590006_1.jpg?v=1694464699",
@@ -10633,7 +11053,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115080096_1.jpg?v=1694464568",
@@ -10719,7 +11143,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115300077_6115090024_1.jpg?v=1694464595",
@@ -10806,7 +11234,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115300077_6115090026_1.jpg?v=1694464612",
@@ -10893,7 +11325,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115300077_6115090025_1.jpg?v=1694464603",
@@ -10980,7 +11416,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6193020003_6193040004_1.jpg?v=1694464753",
@@ -11067,7 +11507,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6193020003_6193040003_1.jpg?v=1694464745",
@@ -11154,7 +11598,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115270035_1.jpg?v=1694464586",
@@ -11232,7 +11680,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115020094_1.jpg?v=1694464558",
@@ -11310,7 +11762,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292060003_6115170119_6115100017_1.jpg?v=1694464577",
@@ -11397,7 +11853,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_7800012205_1.jpg?v=1694464010",
@@ -11467,7 +11927,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_7030020047_1.jpg?v=1694464002",
@@ -11537,7 +12001,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115680007_1.jpg?v=1694463964",
@@ -11615,7 +12083,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6185000089_1.jpg?v=1694463983",
@@ -11693,7 +12165,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6185000091_1.jpg?v=1694463993",
@@ -11771,7 +12247,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6184000034_6184071006_1.jpg?v=1694463974",
@@ -11858,7 +12338,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115590006_1.jpg?v=1694463956",
@@ -11936,7 +12420,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115080096_1.jpg?v=1694463928",
@@ -12022,7 +12510,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115270035_1.jpg?v=1694464485",
@@ -12100,7 +12592,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115020094_1.jpg?v=1694463918",
@@ -12178,7 +12674,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2292030003_6115170119_6115100017_1.jpg?v=1694463938",
@@ -12265,7 +12765,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2940030027_6079060114_1.jpg?v=1694459597",
@@ -12331,7 +12835,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2940010019_6079060114_1.jpg?v=1694459588",
@@ -12397,7 +12905,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2860010022_6095010076_1.jpg?v=1694456017",
@@ -12472,7 +12984,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2840020052_6095010076_1.jpg?v=1694456002",
@@ -12538,7 +13054,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430320057_6090010126_6090110029_1.jpg?v=1694455371",
@@ -12613,7 +13133,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_7800012205_1.jpg?v=1694455197",
@@ -12675,7 +13199,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_7030020047_1.jpg?v=1694455188",
@@ -12737,7 +13265,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115680007_1.jpg?v=1694455149",
@@ -12803,7 +13335,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115310101_6115111005_1.jpg?v=1694455105",
@@ -12878,7 +13414,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115310101_6115111006_1.jpg?v=1694455114",
@@ -12953,7 +13493,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6185000089_1.jpg?v=1694455169",
@@ -13019,7 +13563,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6185000091_1.jpg?v=1694455179",
@@ -13085,7 +13633,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6184000034_6184071006_1.jpg?v=1694455159",
@@ -13160,7 +13712,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115590006_1.jpg?v=1694455140",
@@ -13226,7 +13782,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115080108_1.jpg?v=1694455050",
@@ -13296,7 +13856,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115300077_6115111005_1.jpg?v=1694455069",
@@ -13371,7 +13935,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115300077_6115111006_1.jpg?v=1694455078",
@@ -13446,7 +14014,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430060093_6115170119_6115100016_1.jpg?v=1694455060",
@@ -13521,7 +14093,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430250111_6160010051_1.jpg?v=1694455019",
@@ -13587,7 +14163,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430250111_6094010676_1.jpg?v=1694455007",
@@ -13653,7 +14233,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7800012205_1.jpg?v=1694454814",
@@ -13715,7 +14299,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_7030020047_1.jpg?v=1694454805",
@@ -13777,7 +14365,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115680007_1.jpg?v=1694454766",
@@ -13843,7 +14435,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115310101_6115111005_1.jpg?v=1694454721",
@@ -13918,7 +14514,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115310101_6115111006_1.jpg?v=1694454730",
@@ -13993,7 +14593,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6185000089_1.jpg?v=1694454786",
@@ -14059,7 +14663,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6185000091_1.jpg?v=1694454795",
@@ -14125,7 +14733,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6184000034_6184071006_1.jpg?v=1694454776",
@@ -14200,7 +14812,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115590006_1.jpg?v=1694454756",
@@ -14266,7 +14882,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115080096_1.jpg?v=1694454658",
@@ -14336,7 +14956,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115300077_6115111005_1.jpg?v=1694454686",
@@ -14411,7 +15035,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115300077_6115111006_1.jpg?v=1694454695",
@@ -14486,7 +15114,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115270035_1.jpg?v=1694454678",
@@ -14552,7 +15184,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115020094_1.jpg?v=1694454649",
@@ -14618,7 +15254,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430241075_6115170119_6115100016_1.jpg?v=1694454668",
@@ -14693,7 +15333,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_7800012205_1.jpg?v=1694453753",
@@ -14755,7 +15399,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_7030020047_1.jpg?v=1694453744",
@@ -14817,7 +15465,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115680007_1.jpg?v=1694453705",
@@ -14883,7 +15535,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115310101_6115111005_1.jpg?v=1694453662",
@@ -14958,7 +15614,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115310101_6115111006_1.jpg?v=1694453670",
@@ -15033,7 +15693,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6185000089_1.jpg?v=1694453725",
@@ -15099,7 +15763,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6185000091_1.jpg?v=1694453735",
@@ -15165,7 +15833,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6184000034_6184071006_1.jpg?v=1694453715",
@@ -15240,7 +15912,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115590006_1.jpg?v=1694453697",
@@ -15306,7 +15982,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115080096_1.jpg?v=1694453599",
@@ -15376,7 +16056,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115300077_6115111005_1.jpg?v=1694453626",
@@ -15451,7 +16135,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115300077_6115111006_1.jpg?v=1694453635",
@@ -15526,7 +16214,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115270035_1.jpg?v=1694453617",
@@ -15592,7 +16284,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115020094_1.jpg?v=1694453589",
@@ -15658,7 +16354,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430160257_6115170119_6115100016_1.jpg?v=1694453608",
@@ -15733,7 +16433,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_7800012205_1.jpg?v=1694453400",
@@ -15795,7 +16499,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_7030020047_1.jpg?v=1694453391",
@@ -15857,7 +16565,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115680007_1.jpg?v=1694453354",
@@ -15923,7 +16635,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115310101_6115111005_1.jpg?v=1694453312",
@@ -15998,7 +16714,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115310101_6115111006_1.jpg?v=1694453320",
@@ -16073,7 +16793,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6185000089_1.jpg?v=1694453373",
@@ -16139,7 +16863,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6185000091_1.jpg?v=1694453382",
@@ -16205,7 +16933,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6184000034_6184071006_1.jpg?v=1694453364",
@@ -16280,7 +17012,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115590006_1.jpg?v=1694453346",
@@ -16346,7 +17082,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115080096_1.jpg?v=1694453248",
@@ -16416,7 +17156,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115300077_6115111005_1.jpg?v=1694453276",
@@ -16491,7 +17235,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115300077_6115111006_1.jpg?v=1694453285",
@@ -16566,7 +17314,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115270035_1.jpg?v=1694453267",
@@ -16632,7 +17384,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115020094_1.jpg?v=1694453239",
@@ -16698,7 +17454,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2430140546_6115170119_6115100016_1.jpg?v=1694453258",
@@ -16773,7 +17533,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_7010160987_1.jpg?v=1694452004",
@@ -16841,7 +17605,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6107010004_6108020006_1.jpg?v=1694451912",
@@ -16925,7 +17693,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6107010004_6108020005_1.jpg?v=1694451903",
@@ -17009,7 +17781,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6108040044_1.jpg?v=1694451940",
@@ -17091,7 +17867,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6108060015_1.jpg?v=1694451950",
@@ -17173,7 +17953,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6108070012_6108030005_1.jpg?v=1694451960",
@@ -17257,7 +18041,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6108100009_6108020006_1.jpg?v=1694451977",
@@ -17341,7 +18129,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6108100009_6108020005_1.jpg?v=1694451968",
@@ -17425,7 +18217,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6090010126_6090110029_1.jpg?v=1694451885",
@@ -17509,7 +18305,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370060295_6090010157_6090110037_1.jpg?v=1694451894",
@@ -17586,7 +18386,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_7010160987_1.jpg?v=1694451350",
@@ -17654,7 +18458,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6107010004_6108020006_1.jpg?v=1694451260",
@@ -17738,7 +18546,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6107010004_6108020005_1.jpg?v=1694451252",
@@ -17822,7 +18634,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6108040044_1.jpg?v=1694451287",
@@ -17904,7 +18720,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6108060015_1.jpg?v=1694451296",
@@ -17986,7 +18806,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6108070012_6108030005_1.jpg?v=1694451305",
@@ -18070,7 +18894,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6108100009_6108020006_1.jpg?v=1694451323",
@@ -18154,7 +18982,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6108100009_6108020005_1.jpg?v=1694451314",
@@ -18238,7 +19070,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6090010126_6090110029_1.jpg?v=1694451235",
@@ -18322,7 +19158,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2370030192_6090010157_6090110037_1.jpg?v=1694451243",
@@ -18399,7 +19239,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2330210139_6160010051_1.jpg?v=1694451124",
@@ -18477,7 +19321,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2330210139_6094010676_1.jpg?v=1694451115",
@@ -18555,7 +19403,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2220070038_6160010051_1.jpg?v=1694450024",
@@ -18645,7 +19497,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/2220070038_6094010676_1.jpg?v=1694450014",
@@ -18735,7 +19591,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/1410100357_6067120299_1.jpg?v=1694449815",
@@ -18801,7 +19661,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/1410070109_6067120299_1.jpg?v=1694449802",
@@ -18867,7 +19731,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0564030010_6182010004_6182060002_1.jpg?v=1694449752",
@@ -18943,7 +19811,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0564030010_6182030005_1.jpg?v=1694449767",
@@ -19020,7 +19892,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0564010003_6182010004_6182060002_1.jpg?v=1694449728",
@@ -19096,7 +19972,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0564010003_6182030005_1.jpg?v=1694449742",
@@ -19172,7 +20052,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0550020052_6160010051_1.jpg?v=1694449486",
@@ -19247,7 +20131,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0550020052_6094010676_1.jpg?v=1694449476",
@@ -19322,7 +20210,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0490030037_6025050027_1.jpg?v=1694449454",
@@ -19391,7 +20283,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0490060063_6025090034_1.jpg?v=1694449441",
@@ -19460,7 +20356,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "butter_yellow",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0440020025_6074010034_1.jpg?v=1694449401",
@@ -19529,7 +20429,11 @@
       "compatible_formats": [
         500
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0175030001_6067130198_1.jpg?v=1694449373",
@@ -19592,7 +20496,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "clear",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0175020001_6025050027_1.jpg?v=1694449361",
@@ -19655,7 +20563,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_7800012205_1.jpg?v=1694447359",
@@ -19721,7 +20633,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_7030020047_1.jpg?v=1694447350",
@@ -19787,7 +20703,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115680007_1.jpg?v=1694447312",
@@ -19859,7 +20779,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115310101_6115111005_1.jpg?v=1694447267",
@@ -19940,7 +20864,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115310101_6115111006_1.jpg?v=1694447276",
@@ -20021,7 +20949,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6185000089_1.jpg?v=1694447331",
@@ -20093,7 +21025,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6185000091_1.jpg?v=1694447340",
@@ -20165,7 +21101,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6184000034_6184071006_1.jpg?v=1694447322",
@@ -20246,7 +21186,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115590006_1.jpg?v=1694447304",
@@ -20318,7 +21262,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115080096_1.jpg?v=1694447212",
@@ -20396,7 +21344,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115300077_6115111005_1.jpg?v=1694447230",
@@ -20477,7 +21429,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115300077_6115111006_1.jpg?v=1694447241",
@@ -20558,7 +21514,11 @@
       "compatible_formats": [
         200
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "blush",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0120010079_6115170119_6115100016_1.jpg?v=1694447221",
@@ -20639,7 +21599,11 @@
       "compatible_formats": [
         50
       ],
-      "compatible_products": [],
+      "compatible_products": [
+        "shampoing",
+        "creme",
+        "masque"
+      ],
       "color": "amber",
       "eco_label": false,
       "image_url": "https://cdn.shopify.com/s/files/1/0402/6358/1856/files/0040050001_6001070021_1_86036b96-d57d-4ed6-9e37-3aba7f9e30e8.jpg?v=1745559811",
