@@ -572,7 +572,7 @@
       var stdSelected = bottleState.selections[f.id] === 'standard';
       html += '<div class="bulk-bottle bulk-bottle--standard' + (stdSelected ? ' bulk-bottle--selected' : '') + '" data-bottle-id="standard">' +
         '<span class="bulk-bottle__badge bulk-bottle__badge--included">Inclus</span>' +
-        '<div class="bulk-bottle__img"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg></div>' +
+        '<div class="bulk-bottle__img"><img src="https://cdn.shopify.com/s/files/1/0924/1922/7982/files/flacon-rpet-alex-200-ml.webp" alt="Flacon MY.LAB Standard" loading="lazy" class="bulk-bottle__img--loaded"></div>' +
         '<div class="bulk-bottle__name">Packaging MY.LAB Standard</div>' +
         '<div class="bulk-bottle__meta"><span class="bulk-bottle__tag">Bouteille ambrée</span><span class="bulk-bottle__tag">' + (category === 'shampoing' ? 'Bouchon noir' : 'Pompe noire') + '</span></div>' +
         '<div class="bulk-bottle__price bulk-bottle__price--free">Inclus dans le prix</div>' +
