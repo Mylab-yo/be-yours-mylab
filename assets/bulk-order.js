@@ -1355,88 +1355,148 @@
     };
   }
 
-  /* PDF generation (lazy load html2pdf) */
-  function generatePDF() {
-    var summaryEl = document.getElementById('bulk-summary');
-    if (!summaryEl) return;
+  var N8N_WEBHOOK = 'https://n8n.startec-paris.com/webhook/bulk-order-quote';
 
-    /* Hide buttons and form for PDF */
-    var actions = summaryEl.querySelector('.bulk-summary__actions');
-    var formWrap = summaryEl.querySelector('.bulk-summary__form-wrap');
-    if (actions) actions.style.display = 'none';
-    if (formWrap) formWrap.style.display = 'none';
-
-    var script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-    script.onload = function () {
-      var ref = elSummaryRef ? elSummaryRef.textContent.replace('Réf. : ', '') : 'devis';
-      html2pdf().set({
-        margin: [10, 10, 10, 10],
-        filename: ref + '.pdf',
-        image: { type: 'jpeg', quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-      }).from(summaryEl).save().then(function () {
-        if (actions) actions.style.display = '';
-        if (formWrap) formWrap.style.display = '';
-      });
+  /* Build payload for n8n webhook */
+  function buildN8nPayload(sendToClient) {
+    var raw = buildQuotePayload();
+    return {
+      ref: raw.ref,
+      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      client: raw.client,
+      lignes: raw.items.map(function (it) {
+        return {
+          gamme: it.gamme,
+          produit: it.product,
+          format: it.format,
+          flacon: it.bottle,
+          qty_kg: it.quantity_kg,
+          nb_unites: it.nb_units,
+          prix_unit: it.unit_price,
+          total_ht: it.total_ht
+        };
+      }),
+      sous_total_ht: raw.total_ht,
+      tva: raw.tva,
+      total_ttc: raw.total_ttc,
+      send_to_client: sendToClient
     };
-    document.head.appendChild(script);
   }
 
-  /* Send quote via webhook */
+  /* Helper: show status message under buttons */
+  function showBtnStatus(btn, msg, color, isError) {
+    var el = btn.parentElement.querySelector('.bulk-summary__btn-status');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'bulk-summary__btn-status';
+      el.style.cssText = 'font-size:1.1rem;margin-top:0.6rem;';
+      btn.parentElement.appendChild(el);
+    }
+    el.style.color = color;
+    el.textContent = msg;
+    if (!isError) setTimeout(function () { el.textContent = ''; }, 8000);
+  }
+
+  /* PDF generation via n8n webhook */
+  function generatePDF() {
+    elBtnPdf.disabled = true;
+    var origText = elBtnPdf.innerHTML;
+    elBtnPdf.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="10"/></svg> Génération en cours...';
+
+    var payload = buildN8nPayload(false);
+
+    fetch(N8N_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var ct = r.headers.get('content-type') || '';
+      if (ct.includes('application/pdf') || ct.includes('octet-stream')) {
+        /* Binary PDF response */
+        return r.blob().then(function (blob) {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = payload.ref + '.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          showBtnStatus(elBtnPdf, '\u2713 PDF téléchargé', '#2d7a45', false);
+        });
+      } else {
+        /* JSON response — may contain pdfUrl */
+        return r.json().then(function (data) {
+          if (data.pdfUrl) {
+            window.open(data.pdfUrl, '_blank');
+            showBtnStatus(elBtnPdf, '\u2713 PDF téléchargé', '#2d7a45', false);
+          } else if (data.success) {
+            showBtnStatus(elBtnPdf, '\u2713 Devis généré — envoyé à ' + payload.client.email, '#2d7a45', false);
+          } else {
+            throw new Error(data.error || 'Réponse inattendue');
+          }
+        });
+      }
+    })
+    .catch(function (err) {
+      console.error('PDF error:', err);
+      showBtnStatus(elBtnPdf, 'Erreur de génération, réessayez', '#c0392b', true);
+    })
+    .finally(function () {
+      elBtnPdf.disabled = false;
+      elBtnPdf.innerHTML = origText;
+    });
+  }
+
+  /* Send quote via n8n webhook */
   function sendQuote() {
     var client = collectFormData();
-    if (!client.firstname || !client.lastname || !client.company || !client.email) {
-      alert('Veuillez remplir tous les champs obligatoires (Prénom, Nom, Société, Email).');
+
+    /* Validate email */
+    var emailEl = document.getElementById('bulk-client-email');
+    if (!client.email) {
+      if (emailEl) { emailEl.style.border = '2px solid #c0392b'; }
+      showBtnStatus(elBtnSend, 'Email requis', '#c0392b', true);
+      return;
+    }
+    if (emailEl) emailEl.style.border = '';
+
+    if (!client.firstname || !client.lastname || !client.company) {
+      showBtnStatus(elBtnSend, 'Veuillez remplir Prénom, Nom et Société', '#c0392b', true);
       return;
     }
 
-    var payload = buildQuotePayload();
     elBtnSend.disabled = true;
-    elBtnSend.textContent = 'Envoi en cours...';
+    var origText = elBtnSend.innerHTML;
+    elBtnSend.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="10"/></svg> Envoi en cours...';
 
-    /* Send to Shopify contact form as fallback */
-    var formData = new FormData();
-    formData.append('form_type', 'contact');
-    formData.append('utf8', '✓');
-    formData.append('contact[email]', client.email);
-    formData.append('contact[Prenom]', client.firstname);
-    formData.append('contact[Nom]', client.lastname);
-    formData.append('contact[Societe]', client.company);
-    formData.append('contact[Telephone]', client.phone);
-    formData.append('contact[Ville]', client.city);
-    formData.append('contact[Notes]', client.notes);
-    formData.append('contact[Formulaire]', 'Devis Gros Volumes');
-    formData.append('contact[Devis]', JSON.stringify(payload.items));
-    formData.append('contact[Total_HT]', payload.total_ht + ' EUR');
-    formData.append('contact[Reference]', payload.ref);
+    var payload = buildN8nPayload(true);
 
-    fetch('/contact#contact_form', {
+    fetch(N8N_WEBHOOK, {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     })
-    .then(function () {
-      /* Also send to n8n if configured */
-      if (config.webhookUrl) {
-        fetch(config.webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          keepalive: true
-        }).catch(function () {});
-      }
-
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      /* Success */
       elSummaryForm.style.display = 'none';
       document.querySelector('.bulk-summary__actions').style.display = 'none';
       document.querySelector('.bulk-summary__conditions').style.display = 'none';
       elSummaryOk.style.display = '';
+      elSummaryOk.querySelector('p').textContent = 'Devis envoyé à ' + client.email + ' et à notre équipe. Nous vous recontacterons dans les 48h.';
       window.scrollTo({ top: elSummaryOk.offsetTop - 100, behavior: 'smooth' });
     })
-    .catch(function () {
+    .catch(function (err) {
+      console.error('Send error:', err);
       elBtnSend.disabled = false;
-      elBtnSend.textContent = 'Envoyer le devis par email';
-      alert('Erreur lors de l\'envoi. Veuillez réessayer ou nous contacter directement.');
+      elBtnSend.innerHTML = origText;
+      showBtnStatus(elBtnSend, "Erreur d'envoi, veuillez réessayer", '#c0392b', true);
     });
   }
 
