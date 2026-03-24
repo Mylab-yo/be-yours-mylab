@@ -476,6 +476,7 @@
   var elBottlesRecap    = document.getElementById('bulk-bottles-recap-list');
   var elBottlesMatFilter = document.getElementById('bulk-bottles-filter-material');
   var elBottlesColFilter = document.getElementById('bulk-bottles-filter-color');
+  var elBottlesClosureFilter = document.getElementById('bulk-bottles-filter-closure');
   var elBottlesEcoFilter = document.getElementById('bulk-bottles-eco-filter');
 
   var bottlesData = null;
@@ -488,6 +489,7 @@
     filterEco: false,
     filterMoqCompat: true,  // show only MOQ-compatible by default
     filterSprayOnly: false, // spray toggle (shampoing tab only)
+    filterClosure: 'all',
     page: 1
   };
 
@@ -504,6 +506,8 @@
   var COLOR_DOTS = { clear: '#f0f0f0', amber: '#b5651d', blush: '#e8a0a0', butter_yellow: '#f5d67a', mist: '#c0c0c0', teal: '#008080', red: '#c0392b', white: '#ffffff', black: '#333333', frosted: '#d4e4f7' };
   var COLOR_ORDER = ['clear', 'amber', 'blush', 'butter_yellow', 'mist', 'teal', 'red', 'white', 'black', 'frosted'];
   var MATERIAL_LABELS = { PET: 'PET', rPET: 'rPET', PCR: 'PCR', biomass_PET: 'Bio PET', glass: 'Verre' };
+  var CLOSURE_FILTER_LABELS = { screw_cap: '\uD83D\uDD12 Bouchon \u00e0 vis', flip_top: '\uD83D\uDD04 Bouchon clapet', pump: '\uD83E\uDDF4 Pompe cr\u00e8me', spray: '\uD83D\uDCA7 Spray', dropper: '\uD83D\uDC8A Pipette' };
+  var CLOSURE_ORDER = ['screw_cap', 'pump', 'spray', 'flip_top', 'dropper'];
   var CLOSURE_LABELS = { pump: 'Pompe', screw_cap: 'Bouchon vis', dispensing_cap: 'Clapet', spray: 'Spray', dropper: 'Pipette' };
 
   function getSelectedFormulasWithFormat() {
@@ -538,6 +542,7 @@
         bottleState.activeFormulaId = btn.dataset.tabFormula;
         bottleState.page = 1;
         bottleState.filterSprayOnly = false;
+        bottleState.filterClosure = 'all';
         if (elBottlesSprayFilter) elBottlesSprayFilter.checked = false;
         renderBottleTabs();
         renderBottleGrid();
@@ -608,9 +613,10 @@
 
       var matMatch = bottleState.filterMaterial === 'all' || b.material === bottleState.filterMaterial;
       var colMatch = bottleState.filterColor === 'all' || b.color === bottleState.filterColor;
+      var closureMatch = bottleState.filterClosure === 'all' || b.closure_type === bottleState.filterClosure;
       var ecoMatch = !bottleState.filterEco || b.eco_label;
       var moqCompat = !b.min_order_qty || expectedUnits >= b.min_order_qty;
-      var visible = matMatch && colMatch && ecoMatch;
+      var visible = matMatch && colMatch && closureMatch && ecoMatch;
       if (bottleState.filterMoqCompat && !moqCompat) visible = false;
       if (visible) visibleBottles.push({ bottle: b, moqCompat: moqCompat });
     });
@@ -731,9 +737,10 @@
     var activeCategory = activeF ? activeF.category : '';
     var productFilter = activeCategory === 'creme_coiffage' ? 'creme' : activeCategory;
 
-    /* Only count materials/colors from bottles matching the product filter */
+    /* Only count materials/colors/closures from bottles matching the product filter */
     var materials = {};
     var colors = {};
+    var closures = {};
     bottlesData.bottles.forEach(function (b) {
       if (!b.compatible_formats || !b.compatible_formats.includes(format)) return;
       var prods = b.compatible_products || [];
@@ -741,6 +748,7 @@
       if (!prodOk) return;
       materials[b.material] = true;
       colors[b.color] = true;
+      if (b.closure_type) closures[b.closure_type] = true;
     });
 
     /* Spray toggle (shampoing tab only) */
@@ -771,6 +779,24 @@
     });
     elBottlesColFilter.innerHTML = colHtml;
 
+    /* Closure filter chips */
+    if (elBottlesClosureFilter) {
+      var closureHtml = '<button type="button" class="bulk-chip' + (bottleState.filterClosure === 'all' ? ' bulk-chip--active' : '') + '" data-filter-closure="all">Toutes</button>';
+      CLOSURE_ORDER.forEach(function (ct) {
+        if (!closures[ct]) return;
+        closureHtml += '<button type="button" class="bulk-chip' + (bottleState.filterClosure === ct ? ' bulk-chip--active' : '') + '" data-filter-closure="' + ct + '">' +
+          (CLOSURE_FILTER_LABELS[ct] || ct) + '</button>';
+      });
+      /* Any closure types not in CLOSURE_ORDER */
+      Object.keys(closures).forEach(function (ct) {
+        if (CLOSURE_ORDER.indexOf(ct) === -1) {
+          closureHtml += '<button type="button" class="bulk-chip' + (bottleState.filterClosure === ct ? ' bulk-chip--active' : '') + '" data-filter-closure="' + ct + '">' +
+            (CLOSURE_FILTER_LABELS[ct] || '\uD83D\uDCE6 ' + ct) + '</button>';
+        }
+      });
+      elBottlesClosureFilter.innerHTML = closureHtml;
+    }
+
     /* Bind filter events */
     bindFilterEvents(elBottlesMatFilter, 'data-filter-material', function (val) {
       bottleState.filterMaterial = val;
@@ -782,6 +808,13 @@
       bottleState.page = 1;
       renderBottleGrid();
     });
+    if (elBottlesClosureFilter) {
+      bindFilterEvents(elBottlesClosureFilter, 'data-filter-closure', function (val) {
+        bottleState.filterClosure = val;
+        bottleState.page = 1;
+        renderBottleGrid();
+      });
+    }
   }
 
   function renderBottleRecap() {
