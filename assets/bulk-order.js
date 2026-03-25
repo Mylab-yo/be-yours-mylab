@@ -447,8 +447,22 @@
       if (currentFormat && f.pricing) {
         var fmtKey = currentFormat + 'ml';
         var priceData = f.pricing['50kg'] && f.pricing['50kg'][fmtKey];
+
+        /* Fallback: calculate dynamically from 200ml base */
+        if (!priceData && f.pricing['50kg'] && f.pricing['50kg']['200ml']) {
+          var base = f.pricing['50kg']['200ml'];
+          var calcFormule = Math.round((base.formule / 200) * currentFormat * 100) / 100;
+          priceData = {
+            formule: calcFormule,
+            remplissage: base.remplissage,
+            packaging: base.packaging,
+            etiquette: base.etiquette,
+            total: Math.round((calcFormule + base.remplissage + base.packaging + base.etiquette) * 100) / 100
+          };
+        }
+
         if (priceData) {
-          html += '<div class="bulk-format-row__price">À partir de <strong>' + fmtPrice(priceData.total) + ' HT/unité</strong> (tranche 50 kg)</div>';
+          html += '<div class="bulk-format-row__price">\u00c0 partir de <strong>' + fmtPrice(priceData.total) + ' HT/unit\u00e9</strong> (tranche 50 kg)</div>';
         }
         html += '<div class="bulk-format-row__packaging">' +
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3l-4 4-4-4"/></svg>' +
@@ -1036,6 +1050,19 @@
   function calculateOrder(formula, formatMl, kg, tierKey) {
     var fmtKey = formatMl + 'ml';
     var pricing = formula.pricing && formula.pricing[tierKey] && formula.pricing[tierKey][fmtKey];
+
+    /* Fallback: calculate dynamically from 200ml base if missing */
+    if (!pricing && formula.pricing && formula.pricing[tierKey] && formula.pricing[tierKey]['200ml']) {
+      var base = formula.pricing[tierKey]['200ml'];
+      var calcFormule = Math.round((base.formule / 200) * formatMl * 100) / 100;
+      pricing = {
+        formule: calcFormule,
+        remplissage: base.remplissage,
+        packaging: base.packaging,
+        etiquette: base.etiquette,
+        total: Math.round((calcFormule + base.remplissage + base.packaging + base.etiquette) * 100) / 100
+      };
+    }
     if (!pricing) return null;
 
     var nbUnits = Math.ceil((kg * 1000) / formatMl);
