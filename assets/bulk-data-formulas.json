@@ -67,6 +67,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -97,6 +146,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -152,6 +250,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -182,6 +329,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -237,6 +433,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -267,6 +512,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -329,6 +623,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -359,6 +702,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -413,6 +805,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -443,6 +884,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -497,6 +987,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -527,6 +1066,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -590,6 +1178,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -620,6 +1257,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -675,6 +1361,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -705,6 +1440,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -760,6 +1544,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -790,6 +1623,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -852,6 +1734,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -882,6 +1813,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -936,6 +1916,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -966,6 +1995,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -1020,6 +2098,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -1050,6 +2177,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -1113,6 +2289,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -1143,6 +2368,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -1175,6 +2449,48 @@
                 "packaging": 0.7,
                 "etiquette": 0.2,
                 "total": 5.1
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
+              },
+              "500ml": {
+                "formule": 9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 10.3
               }
             },
             "100_200kg": {
@@ -1184,6 +2500,48 @@
                 "packaging": 0.7,
                 "etiquette": 0.2,
                 "total": 4.8
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
+              },
+              "500ml": {
+                "formule": 8.5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             }
           },
@@ -1246,6 +2604,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -1276,6 +2683,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -1330,6 +2786,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -1360,6 +2865,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -1414,6 +2968,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -1444,6 +3047,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -1507,6 +3159,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -1537,6 +3238,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -1592,6 +3342,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -1622,6 +3421,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -1677,6 +3525,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 91.5
+              },
+              "100ml": {
+                "formule": 1.8,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.1
+              },
+              "120ml": {
+                "formule": 2.16,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.46
+              },
+              "150ml": {
+                "formule": 2.7,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4
+              },
+              "180ml": {
+                "formule": 3.24,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.54
+              },
+              "250ml": {
+                "formule": 4.5,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.8
+              },
+              "300ml": {
+                "formule": 5.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.7
+              },
+              "400ml": {
+                "formule": 7.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8.5
               }
             },
             "100_200kg": {
@@ -1707,6 +3604,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 86.4
+              },
+              "100ml": {
+                "formule": 1.7,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.9
+              },
+              "120ml": {
+                "formule": 2.04,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.24
+              },
+              "150ml": {
+                "formule": 2.55,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.75
+              },
+              "180ml": {
+                "formule": 3.06,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.26
+              },
+              "250ml": {
+                "formule": 4.25,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.45
+              },
+              "300ml": {
+                "formule": 5.1,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.3
+              },
+              "400ml": {
+                "formule": 6.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 8
               }
             }
           },
@@ -1771,6 +3717,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -1801,6 +3796,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -1857,6 +3901,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -1887,6 +3980,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
@@ -1950,6 +4092,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 66.5
+              },
+              "100ml": {
+                "formule": 1.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.6
+              },
+              "120ml": {
+                "formule": 1.56,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.86
+              },
+              "150ml": {
+                "formule": 1.95,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.25
+              },
+              "180ml": {
+                "formule": 2.34,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.64
+              },
+              "250ml": {
+                "formule": 3.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.55
+              },
+              "300ml": {
+                "formule": 3.9,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.2
+              },
+              "400ml": {
+                "formule": 5.2,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.5
               }
             },
             "100_200kg": {
@@ -1980,6 +4171,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 61.4
+              },
+              "100ml": {
+                "formule": 1.2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.4
+              },
+              "120ml": {
+                "formule": 1.44,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 2.64
+              },
+              "150ml": {
+                "formule": 1.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3
+              },
+              "180ml": {
+                "formule": 2.16,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.36
+              },
+              "250ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "300ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "400ml": {
+                "formule": 4.8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6
               }
             }
           },
@@ -2035,6 +4275,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 106.5
+              },
+              "100ml": {
+                "formule": 2.1,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.4
+              },
+              "120ml": {
+                "formule": 2.52,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.82
+              },
+              "150ml": {
+                "formule": 3.15,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.45
+              },
+              "180ml": {
+                "formule": 3.78,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 5.08
+              },
+              "250ml": {
+                "formule": 5.25,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.55
+              },
+              "300ml": {
+                "formule": 6.3,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.6
+              },
+              "400ml": {
+                "formule": 8.4,
+                "remplissage": 0.6,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.7
               }
             },
             "100_200kg": {
@@ -2065,6 +4354,55 @@
                 "packaging": 0,
                 "etiquette": 0.2,
                 "total": 101.4
+              },
+              "100ml": {
+                "formule": 2,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.2
+              },
+              "120ml": {
+                "formule": 2.4,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 3.6
+              },
+              "150ml": {
+                "formule": 3,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.2
+              },
+              "180ml": {
+                "formule": 3.6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 4.8
+              },
+              "250ml": {
+                "formule": 5,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 6.2
+              },
+              "300ml": {
+                "formule": 6,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 7.2
+              },
+              "400ml": {
+                "formule": 8,
+                "remplissage": 0.5,
+                "packaging": 0.5,
+                "etiquette": 0.2,
+                "total": 9.2
               }
             }
           },
