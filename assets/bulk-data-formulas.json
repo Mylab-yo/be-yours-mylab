@@ -1614,8 +1614,8 @@
       ]
     },
     {
-      "id": "dejaunisseur",
-      "label": "Gamme Déjaunisseur / Coloristeur",
+      "id": "coloristeur",
+      "label": "Gamme Coloristeur",
       "color": "#8b6fb0",
       "parfum": "",
       "formulas": [

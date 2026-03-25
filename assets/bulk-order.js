@@ -117,6 +117,47 @@
   }
 
   /* ══════════════════════════════════════════════
+     DYNAMIC FORMATS FROM TAKEMOTO BOTTLES
+     ══════════════════════════════════════════════ */
+
+  /* Sérum / Huile pricing (50ml, units-based) */
+  var SERUM_HUILE_PRICING = {
+    serum:  { 250: 6.45, 500: 6.10 },
+    huile:  { 250: 5.80, 500: 5.50 }
+  };
+
+  function isSerumOrHuile(formula) {
+    return formula.category === 'serum' || formula.category === 'huile';
+  }
+
+  function getAvailableFormatsFromBottles(formula) {
+    if (!bottlesData || !bottlesData.bottles) return formula.available_formats || [];
+    if (isSerumOrHuile(formula)) return [50];
+
+    /* Map formula category to compatible_products key */
+    var compatKey = formula.category;
+    if (compatKey === 'creme_coiffage') compatKey = 'creme';
+    if (formula.category === 'spray') compatKey = 'spray';
+
+    /* Collect unique capacities from compatible bottles (≥100ml) */
+    var capacities = {};
+    bottlesData.bottles.forEach(function (b) {
+      if (b.capacity_ml < 100) return;
+      var compat = b.compatible_products || [];
+      if (compat.indexOf(compatKey) !== -1 || compat.indexOf('shampoing') !== -1 && compatKey !== 'spray') {
+        capacities[b.capacity_ml] = true;
+      }
+      /* Spray: only spray-compatible bottles */
+      if (compatKey === 'spray' && compat.indexOf('spray') !== -1 && b.capacity_ml >= 100) {
+        capacities[b.capacity_ml] = true;
+      }
+    });
+
+    var result = Object.keys(capacities).map(Number).sort(function (a, b) { return a - b; });
+    return result.length > 0 ? result : formula.available_formats || [200, 500];
+  }
+
+  /* ══════════════════════════════════════════════
      FORMULA CARDS
      ══════════════════════════════════════════════ */
   function renderFormulas() {
@@ -362,6 +403,26 @@
     selected.forEach(function (f) {
       var currentFormat = state.formats[f.id] || null;
 
+      /* Sérum/Huile: auto-set 50ml and show unit-based info */
+      if (isSerumOrHuile(f)) {
+        state.formats[f.id] = 50;
+        html += '<div class="bulk-format-row" style="--gamme-color:' + esc(f.gammeColor) + '">' +
+          '<div class="bulk-format-row__header">' +
+            '<span class="bulk-format-row__dot"></span>' +
+            '<span class="bulk-format-row__gamme">' + esc(f.gammeLabel.replace('Gamme ', '')) + '</span>' +
+          '</div>' +
+          '<div class="bulk-format-row__name">' + esc(f.name) + '</div>' +
+          '<div class="bulk-format-row__formats">' +
+            '<button type="button" class="bulk-format-pill bulk-format-pill--active" data-formula-id="' + esc(f.id) + '" data-format="50">50 ml</button>' +
+          '</div>' +
+          '<div class="bulk-format-row__price" style="color:#888;font-style:italic;">Format fixe 50 ml — Commande en unités (250 ou 500 u.)</div>' +
+          '</div>';
+        return;
+      }
+
+      /* Dynamic formats from Takemoto bottles */
+      var dynamicFormats = getAvailableFormatsFromBottles(f);
+
       html += '<div class="bulk-format-row" style="--gamme-color:' + esc(f.gammeColor) + '">' +
         '<div class="bulk-format-row__header">' +
           '<span class="bulk-format-row__dot"></span>' +
@@ -370,7 +431,7 @@
         '<div class="bulk-format-row__name">' + esc(f.name) + '</div>' +
         '<div class="bulk-format-row__formats">';
 
-      f.available_formats.forEach(function (fmt) {
+      dynamicFormats.forEach(function (fmt) {
         var label = fmt >= 1000 ? (fmt / 1000) + ' L' : fmt + ' ml';
         var isActive = currentFormat === fmt;
         html += '<button type="button" class="bulk-format-pill' + (isActive ? ' bulk-format-pill--active' : '') + '" ' +
@@ -1076,6 +1137,34 @@
         if (bObj) bottleName = bObj.name;
       }
 
+      /* ── Sérum / Huile: unit-based pricing (50ml fixed) ── */
+      if (isSerumOrHuile(f)) {
+        var pricingKey = f.category; /* 'serum' or 'huile' */
+        var shPricing = SERUM_HUILE_PRICING[pricingKey] || {};
+        if (!qtyState[f.id]) qtyState[f.id] = { units: 250, tier: '250u' };
+        var qsu = qtyState[f.id];
+        var unitPrice = shPricing[qsu.units] || 0;
+        var totalHT = unitPrice * qsu.units;
+
+        html += '<div class="bulk-qty-block" style="--gamme-color:' + esc(f.gammeColor) + '">' +
+          '<div class="bulk-qty-block__header">' +
+            '<span class="bulk-qty-block__dot" style="background:' + esc(f.gammeColor) + '"></span>' +
+            '<span class="bulk-qty-block__label">' + esc(f.name) + '</span>' +
+            '<span class="bulk-qty-block__detail">50 ml</span>' +
+          '</div>' +
+          '<div class="bulk-qty-tiers">' +
+            '<button type="button" class="bulk-qty-tier' + (qsu.units === 250 ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="250u">250 unités <span class="bulk-qty-tier__price">' + fmtPrice(shPricing[250] || 0) + '/u</span></button>' +
+            '<button type="button" class="bulk-qty-tier' + (qsu.units === 500 ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + esc(f.id) + '" data-tier="500u">500 unités <span class="bulk-qty-tier__price">' + fmtPrice(shPricing[500] || 0) + '/u</span></button>' +
+          '</div>' +
+          '<table class="bulk-qty-table"><thead><tr><th>Composant</th><th>Prix unitaire</th><th>Quantité</th><th>Sous-total</th></tr></thead><tbody>' +
+          '<tr><td>' + esc(f.name) + '</td><td>' + fmtPrice(unitPrice) + '</td><td>' + qsu.units + '</td><td>' + fmtPrice(totalHT) + '</td></tr>' +
+          '<tr class="bulk-qty-row--total"><td colspan="3">Total HT</td><td>' + fmtPrice(totalHT) + '</td></tr>' +
+          '</tbody></table>' +
+          '<p class="bulk-qty-set-note">Prix tout compris : formule, conditionnement, \u00e9tiquette et flacon 50 ml.</p>' +
+          '</div>';
+        return; /* Skip normal kg-based rendering */
+      }
+
       if (!qtyState[f.id]) qtyState[f.id] = { kg: 50, tier: '50kg' };
       var qs = qtyState[f.id];
 
@@ -1217,14 +1306,22 @@
   }
 
   function bindQtyEvents() {
-    /* Tier buttons — always clickable, toggle between 50kg and 100_200kg */
+    /* Tier buttons — handle both kg-based and unit-based (serum/huile) */
     elQtyList.querySelectorAll('.bulk-qty-tier').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var fid = btn.dataset.formulaQty;
         var tier = btn.dataset.tier;
-        if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
-        qtyState[fid].tier = tier;
-        qtyState[fid].kg = tier === '100_200kg' ? 100 : 50;
+
+        /* Unit-based tiers (250u / 500u) for serum/huile */
+        if (tier === '250u' || tier === '500u') {
+          var units = parseInt(tier, 10);
+          qtyState[fid] = { units: units, tier: tier };
+        } else {
+          /* kg-based tiers */
+          if (!qtyState[fid]) qtyState[fid] = { kg: 50, tier: '50kg' };
+          qtyState[fid].tier = tier;
+          qtyState[fid].kg = tier === '100_200kg' ? 100 : 50;
+        }
         renderQuantity();
       });
     });
@@ -1264,6 +1361,27 @@
     formulas.forEach(function (f) {
       var format = state.formats[f.id];
       var fmtLabel = format >= 1000 ? (format / 1000) + ' L' : format + ' ml';
+
+      /* Sérum / Huile: unit-based summary */
+      if (isSerumOrHuile(f)) {
+        var qsu = qtyState[f.id] || { units: 250, tier: '250u' };
+        var shPrice = (SERUM_HUILE_PRICING[f.category] || {})[qsu.units] || 0;
+        var shTotal = shPrice * qsu.units;
+        totalHT += shTotal;
+        totalUnits += qsu.units;
+        bodyHtml += '<tr>' +
+          '<td><span class="bulk-summary__gamme-dot" style="background:' + esc(f.gammeColor) + '"></span>' + esc(f.gammeLabel.replace('Gamme ', '')) + '</td>' +
+          '<td>' + esc(f.name) + '</td>' +
+          '<td>50 ml</td>' +
+          '<td>Inclus</td>' +
+          '<td>—</td>' +
+          '<td>' + qsu.units + '</td>' +
+          '<td>' + fmtPrice(shPrice) + '</td>' +
+          '<td>' + fmtPrice(shTotal) + '</td>' +
+          '</tr>';
+        return;
+      }
+
       var qs = qtyState[f.id] || { kg: 50, tier: '50kg' };
       var calc = calculateOrder(f, format, qs.kg, qs.tier);
       if (!calc) return;
@@ -1332,6 +1450,29 @@
 
     formulas.forEach(function (f) {
       var format = state.formats[f.id];
+
+      /* Sérum / Huile: unit-based payload */
+      if (isSerumOrHuile(f)) {
+        var qsu = qtyState[f.id] || { units: 250, tier: '250u' };
+        var shPrice = (SERUM_HUILE_PRICING[f.category] || {})[qsu.units] || 0;
+        var shTotal = shPrice * qsu.units;
+        totalHT += shTotal;
+        items.push({
+          gamme: f.gammeLabel,
+          product: f.name,
+          format: '50ml',
+          bottle: 'Inclus',
+          quantity_kg: null,
+          nb_units: qsu.units,
+          unit_price: shPrice,
+          total_ht: Math.round(shTotal * 100) / 100,
+          tier: qsu.tier,
+          pricing_mode: 'units',
+          moq: 0, qty_arrondie: qsu.units, qty_surplus: 0, cout_surplus: 0
+        });
+        return;
+      }
+
       var qs = qtyState[f.id] || { kg: 50, tier: '50kg' };
       var calc = calculateOrder(f, format, qs.kg, qs.tier);
       if (!calc) return;
