@@ -14,3 +14,13 @@ moq_errors.log
 assets/bulk-data-bottles.backup*.json
 assets/bulk-data-bottles.images-backup.json
 fix_compat_moq.py
+assets/bulk-order.backup.js
+assets/bulk-order.backup3.js
+assets/bulk-order.backup4.js
+assets/bulk-order.css.backup
+fix_moq2.py
+moq2_checkpoint.json
+moq2_errors.log
+.vscode/
+api/mylab-devis-workflow*.json
+api/n8n-devis-gros-volumes.json
