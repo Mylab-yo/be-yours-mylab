@@ -421,8 +421,8 @@
         return;
       }
 
-      /* Dynamic formats from Takemoto bottles */
-      var dynamicFormats = getAvailableFormatsFromBottles(f);
+      /* Use formats defined in formulas JSON (source of truth) */
+      var dynamicFormats = f.available_formats || [200, 500];
 
       html += '<div class="bulk-format-row" style="--gamme-color:' + esc(f.gammeColor) + '">' +
         '<div class="bulk-format-row__header">' +
