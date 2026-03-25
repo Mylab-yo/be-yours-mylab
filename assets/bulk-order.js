@@ -1392,7 +1392,11 @@
           qty_kg: it.quantity_kg,
           nb_unites: it.nb_units,
           prix_unit: it.unit_price,
-          total_ht: it.total_ht
+          total_ht: it.total_ht,
+          moq: it.moq,
+          qty_arrondie: it.qty_arrondie,
+          qty_surplus: it.qty_surplus,
+          cout_surplus: it.cout_surplus
         };
       }),
       sous_total_ht: raw.total_ht,
