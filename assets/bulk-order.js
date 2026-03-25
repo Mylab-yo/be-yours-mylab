@@ -1233,7 +1233,6 @@
   var elSummaryBody  = document.getElementById('bulk-summary-body');
   var elSummaryFoot  = document.getElementById('bulk-summary-foot');
   var elSummaryForm  = document.getElementById('bulk-summary-form');
-  var elBtnPdf       = document.getElementById('bulk-btn-pdf');
   var elBtnSend      = document.getElementById('bulk-btn-send');
   var elSummaryOk    = document.getElementById('bulk-summary-success');
 
@@ -1397,59 +1396,6 @@
     if (!isError) setTimeout(function () { el.textContent = ''; }, 8000);
   }
 
-  /* PDF generation via n8n webhook */
-  function generatePDF() {
-    elBtnPdf.disabled = true;
-    var origText = elBtnPdf.innerHTML;
-    elBtnPdf.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-dasharray="32" stroke-dashoffset="10"/></svg> Génération en cours...';
-
-    var payload = buildN8nPayload(false);
-
-    fetch(N8N_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      var ct = r.headers.get('content-type') || '';
-      if (ct.includes('application/pdf') || ct.includes('octet-stream')) {
-        /* Binary PDF response */
-        return r.blob().then(function (blob) {
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = payload.ref + '.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          showBtnStatus(elBtnPdf, '\u2713 PDF téléchargé', '#2d7a45', false);
-        });
-      } else {
-        /* JSON response — may contain pdfUrl */
-        return r.json().then(function (data) {
-          if (data.pdfUrl) {
-            window.open(data.pdfUrl, '_blank');
-            showBtnStatus(elBtnPdf, '\u2713 PDF téléchargé', '#2d7a45', false);
-          } else if (data.success) {
-            showBtnStatus(elBtnPdf, '\u2713 Devis généré — envoyé à ' + payload.client.email, '#2d7a45', false);
-          } else {
-            throw new Error(data.error || 'Réponse inattendue');
-          }
-        });
-      }
-    })
-    .catch(function (err) {
-      console.error('PDF error:', err);
-      showBtnStatus(elBtnPdf, 'Erreur de génération, réessayez', '#c0392b', true);
-    })
-    .finally(function () {
-      elBtnPdf.disabled = false;
-      elBtnPdf.innerHTML = origText;
-    });
-  }
-
   /* Send quote via n8n webhook */
   function sendQuote() {
     var client = collectFormData();
@@ -1500,8 +1446,7 @@
     });
   }
 
-  /* Bind buttons */
-  if (elBtnPdf) elBtnPdf.addEventListener('click', generatePDF);
+  /* Bind button */
   if (elBtnSend) elBtnSend.addEventListener('click', sendQuote);
 
   /* ══════════════════════════════════════════════

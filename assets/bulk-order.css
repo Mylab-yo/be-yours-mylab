@@ -732,10 +732,8 @@
 .bulk-summary__field input, .bulk-summary__field textarea { padding: 0.8rem 1rem; font-family: var(--font-body-family); font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; transition: border-color 0.2s; }
 .bulk-summary__field input:focus, .bulk-summary__field textarea:focus { outline: none; border-color: #111; background: #fff; }
 
-.bulk-summary__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-.bulk-summary__btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 1.8rem; font-family: var(--font-body-family); font-size: 1.15rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 44px; border: none; }
-.bulk-summary__btn--pdf { background: #fff; color: #111; border: 1px solid #ddd; }
-.bulk-summary__btn--pdf:hover { background: #f5f5f5; border-color: #bbb; }
+.bulk-summary__actions { display: flex; justify-content: center; margin-bottom: 1rem; }
+.bulk-summary__btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1rem 2rem; font-family: var(--font-body-family); font-size: 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 48px; border: none; width: 100%; max-width: 480px; }
 .bulk-summary__btn--send { background: #111; color: #fff; }
 .bulk-summary__btn--send:hover { background: #333; }
 .bulk-summary__btn:disabled { opacity: 0.5; cursor: not-allowed; }
