@@ -127,7 +127,7 @@
   };
 
   function isSerumOrHuile(formula) {
-    return formula.category === 'serum' || formula.category === 'huile';
+    return formula.category === 'serum' || formula.category === 'huile' || formula.pricing_mode === 'units';
   }
 
   function getAvailableFormatsFromBottles(formula) {
@@ -179,6 +179,7 @@
           natural_pct: f.natural_pct,
           available_formats: f.available_formats,
           pricing: f.pricing,
+          pricing_mode: f.pricing_mode || null,
           packaging_notes: f.packaging_notes
         };
         state.formulas.push(formula);
