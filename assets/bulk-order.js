@@ -1167,7 +1167,12 @@
         /* Packaging section */
         html += '<tr><td colspan="4" class="bulk-qty-section-label">Packaging</td></tr>';
         if (calc.isCustomBottle && calc.bottleUnitPrice > 0) {
-          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbBottlesOrdered + '*</td><td>' + fmtPrice(calc.bottleTotal) + '</td></tr>';
+          var bottleCostCommande = calc.bottleUnitPrice * calc.nbUnits;
+          html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.nbUnits + '</td><td>' + fmtPrice(bottleCostCommande) + '</td></tr>';
+          if (calc.bottleSurplus > 0) {
+            var coutSurplus = calc.bottleUnitPrice * calc.bottleSurplus;
+            html += '<tr style="color:#888;font-style:italic;"><td>Surplus MOQ flacons</td><td>' + fmtPrice(calc.bottleUnitPrice) + '</td><td>' + calc.bottleSurplus + '*</td><td>' + fmtPrice(coutSurplus) + '</td></tr>';
+          }
         } else if (calc.isCustomBottle && calc.bottleUnitPrice === 0) {
           html += '<tr><td>Flacon ' + esc(calc.bottleName) + '</td><td colspan="3" style="color:#888;font-style:italic;">Prix sur demande</td></tr>';
         } else {
@@ -1178,8 +1183,8 @@
           '</tbody></table>';
 
         /* Note about sets */
-        if (calc.isCustomBottle && calc.bottleMoq > 0 && calc.nbBottlesOrdered > calc.nbUnits) {
-          html += '<p class="bulk-qty-set-note">* Flacons livr\u00e9s par sets de ' + calc.bottleMoq + ' (' + calc.nbSets + ' set' + (calc.nbSets > 1 ? 's' : '') + ' command\u00e9' + (calc.nbSets > 1 ? 's' : '') + ')</p>';
+        if (calc.isCustomBottle && calc.bottleMoq > 0 && calc.bottleSurplus > 0) {
+          html += '<p class="bulk-qty-set-note">* Flacons livr\u00e9s par sets de ' + calc.bottleMoq + '. Vous commanderez ' + calc.nbSets + ' set' + (calc.nbSets > 1 ? 's' : '') + ' soit ' + calc.nbBottlesOrdered + ' flacons. Surplus : ' + calc.bottleSurplus + ' flacon' + (calc.bottleSurplus > 1 ? 's' : '') + '.</p>';
         }
         html += '</div>';
       }
@@ -1283,6 +1288,17 @@
         '<td>' + fmtPrice(calc.grandTotal / calc.nbUnits) + '</td>' +
         '<td>' + fmtPrice(calc.grandTotal) + '</td>' +
         '</tr>';
+
+      /* Surplus MOQ line in recap */
+      if (calc.isCustomBottle && calc.bottleSurplus > 0 && calc.bottleUnitPrice > 0) {
+        var surplusCost = calc.bottleUnitPrice * calc.bottleSurplus;
+        bodyHtml += '<tr style="color:#888;font-style:italic;font-size:0.9em;">' +
+          '<td colspan="4">Surplus MOQ flacons (' + calc.bottleSurplus + ' x ' + fmtPrice(calc.bottleUnitPrice) + ')</td>' +
+          '<td colspan="2">Sets : ' + calc.nbSets + ' x ' + calc.bottleMoq + '</td>' +
+          '<td></td>' +
+          '<td>' + fmtPrice(surplusCost) + '</td>' +
+          '</tr>';
+      }
     });
 
     elSummaryBody.innerHTML = bodyHtml;
@@ -1338,7 +1354,11 @@
         nb_units: calc.nbUnits,
         unit_price: Math.round(calc.grandTotal / calc.nbUnits * 100) / 100,
         total_ht: Math.round(calc.grandTotal * 100) / 100,
-        tier: qs.tier
+        tier: qs.tier,
+        moq: calc.bottleMoq,
+        qty_arrondie: calc.nbBottlesOrdered,
+        qty_surplus: calc.bottleSurplus,
+        cout_surplus: Math.round(calc.bottleUnitPrice * calc.bottleSurplus * 100) / 100
       });
     });
 
