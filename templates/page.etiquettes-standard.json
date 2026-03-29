@@ -1,0 +1,92 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-etiquettes-standard",
+      "blocks": {
+        "adv_1": {
+          "type": "advantage",
+          "settings": {
+            "icon": "check",
+            "title": "100% gratuit",
+            "text": "Aucun coût supplémentaire pour la personnalisation standard"
+          }
+        },
+        "adv_2": {
+          "type": "advantage",
+          "settings": {
+            "icon": "timer",
+            "title": "Prêt en 2 minutes",
+            "text": "Pas besoin de compétences graphiques"
+          }
+        },
+        "adv_3": {
+          "type": "advantage",
+          "settings": {
+            "icon": "star",
+            "title": "Rendu professionnel",
+            "text": "Étiquettes harmonisées avec nos gammes"
+          }
+        },
+        "adv_4": {
+          "type": "advantage",
+          "settings": {
+            "icon": "infinity",
+            "title": "Votre marque, partout",
+            "text": "Cohérence visuelle sur tous vos produits"
+          }
+        },
+        "ex_1": {
+          "type": "example",
+          "settings": {
+            "name": "Salon Elegance",
+            "subtitle": "Gamme Lissant"
+          }
+        },
+        "ex_2": {
+          "type": "example",
+          "settings": {
+            "name": "Studio Hair",
+            "subtitle": "Gamme Volume"
+          }
+        },
+        "ex_3": {
+          "type": "example",
+          "settings": {
+            "name": "Maison de Beauté",
+            "subtitle": "Gamme HA Repulpe"
+          }
+        }
+      },
+      "block_order": [
+        "adv_1",
+        "adv_2",
+        "adv_3",
+        "adv_4",
+        "ex_1",
+        "ex_2",
+        "ex_3"
+      ],
+      "settings": {
+        "hero_title": "Vos produits à votre image, en 3 clics",
+        "hero_text": "Ajoutez votre logo sur nos étiquettes professionnelles. Gratuit, rapide, sans engagement.",
+        "hero_cta_text": "Personnaliser mes étiquettes",
+        "steps_title": "Comment ça marche",
+        "step_1_title": "Choisissez vos gammes",
+        "step_1_text": "Sélectionnez parmi nos gammes professionnelles : Volume, Lissant, Boucles, HA Repulpe, Homme…",
+        "step_2_title": "Uploadez votre logo",
+        "step_2_text": "Importez le logo de votre salon. On l'applique automatiquement sur l'étiquette.",
+        "step_3_title": "Téléchargez votre récap",
+        "step_3_text": "Recevez un récapitulatif PDF avec vos visuels personnalisés. Passez commande quand vous êtes prêt.",
+        "advantages_title": "Avantages",
+        "examples_title": "Exemples de réalisations",
+        "examples_columns": 3,
+        "cta_title": "Prêt à personnaliser vos produits ?",
+        "cta_button_text": "Commencer maintenant — C'est gratuit",
+        "cta_sub_text": "Vous cherchez plus de personnalisation ? Découvrez nos modèles d'étiquettes ou notre studio de création.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}
