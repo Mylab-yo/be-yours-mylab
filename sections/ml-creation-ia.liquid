@@ -1,0 +1,979 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     Base
+     ═══════════════════════════════════════ */
+  .ml-ia {
+    --ml-black: #111;
+    --ml-mid: #555;
+    --ml-muted: #888;
+    --ml-line: #e5e5e5;
+    --ml-light-bg: #fafafa;
+    --ml-off-bg: #f5f4f2;
+    --ml-gold: #755a25;
+    --ml-gold-light: #c5a467;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: var(--ml-black);
+  }
+
+  /* ═══════════════════════════════════════
+     Hero (fullscreen)
+     ═══════════════════════════════════════ */
+  .ml-ia__hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__hero { min-height: 90vh; padding: 8rem 2rem; }
+  }
+  .ml-ia__hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .ml-ia__hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ml-ia__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(17,17,17,0.88), rgba(17,17,17,0.4), transparent);
+  }
+  @media screen and (max-width: 749px) {
+    .ml-ia__hero-overlay {
+      background: linear-gradient(to bottom, rgba(17,17,17,0.85), rgba(17,17,17,0.5));
+    }
+  }
+  .ml-ia__hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+  .ml-ia__hero-inner {
+    max-width: 42rem;
+  }
+  .ml-ia__hero-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 2rem;
+  }
+  .ml-ia__hero-title em {
+    font-style: italic;
+    color: var(--ml-gold-light);
+  }
+  .ml-ia__hero-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    max-width: 36rem;
+    margin: 0 0 3rem;
+  }
+  .ml-ia__hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__hero-actions { flex-direction: row; gap: 1.5rem; }
+  }
+  .ml-ia__btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--ml-gold) 0%, var(--ml-gold-light) 100%);
+    color: #fff;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    min-height: 44px;
+    box-shadow: 0 10px 24px rgba(117, 90, 37, 0.25);
+  }
+  .ml-ia__btn-gold:hover { opacity: 0.9; }
+  .ml-ia__btn-gold:active { transform: scale(0.97); }
+  .ml-ia__btn-gold--xl {
+    padding: 1.4rem 3.2rem;
+    font-size: 1.25rem;
+    box-shadow: 0 14px 32px rgba(117, 90, 37, 0.3);
+  }
+  .ml-ia__btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #fff;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+    backdrop-filter: blur(8px);
+  }
+  .ml-ia__btn-outline:hover {
+    background: #fff;
+    color: var(--ml-black);
+  }
+
+  /* ═══════════════════════════════════════
+     Styles IA Grid
+     ═══════════════════════════════════════ */
+  .ml-ia__styles {
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__styles { padding: 8rem 2rem; }
+  }
+  .ml-ia__styles-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .ml-ia__styles-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__styles-header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 5rem;
+    }
+  }
+  .ml-ia__styles-header-text {
+    max-width: 38rem;
+  }
+  .ml-ia__styles-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 0 0 1rem;
+  }
+  .ml-ia__styles-subtitle {
+    font-size: 1.15rem;
+    color: var(--ml-mid);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .ml-ia__styles-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ml-gold);
+    padding-bottom: 0.3rem;
+    white-space: nowrap;
+  }
+  .ml-ia__styles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__styles-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+  .ml-ia__style-card {
+    cursor: pointer;
+  }
+  .ml-ia__style-img {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+    background: var(--ml-off-bg);
+    box-shadow: 0 1px 3px rgba(17,17,17,0.04);
+    transition: transform 0.7s ease;
+  }
+  .ml-ia__style-card:hover .ml-ia__style-img {
+    transform: scale(1.02);
+  }
+  .ml-ia__style-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .ml-ia__style-card:hover .ml-ia__style-img img {
+    transform: scale(1.08);
+  }
+  .ml-ia__style-name {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0 0 0.3rem;
+  }
+  .ml-ia__style-desc {
+    font-size: 1rem;
+    color: var(--ml-mid);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ═══════════════════════════════════════
+     Timeline (processus)
+     ═══════════════════════════════════════ */
+  .ml-ia__process {
+    background: var(--ml-off-bg);
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__process { padding: 8rem 2rem; }
+  }
+  .ml-ia__process-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  @media screen and (min-width: 990px) {
+    .ml-ia__process-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+  }
+  .ml-ia__process-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold);
+    margin: 0 0 1rem;
+  }
+  .ml-ia__process-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 0 0 3rem;
+  }
+  .ml-ia__timeline {
+    position: relative;
+    padding-left: 4rem;
+  }
+  .ml-ia__timeline::before {
+    content: '';
+    position: absolute;
+    left: 1.4rem;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--ml-line);
+  }
+  .ml-ia__timeline-step {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+  .ml-ia__timeline-step:last-child { margin-bottom: 0; }
+  .ml-ia__timeline-num {
+    position: absolute;
+    left: -4rem;
+    top: 0;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ml-gold), var(--ml-gold-light));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .ml-ia__timeline-heading {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.4rem;
+  }
+  .ml-ia__timeline-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ml-mid);
+    margin: 0;
+  }
+  .ml-ia__process-visual {
+    position: relative;
+  }
+  .ml-ia__process-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: #fff;
+    padding: 1.5rem;
+    box-shadow: 0 24px 48px -12px rgba(17,17,17,0.08);
+  }
+  .ml-ia__process-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  .ml-ia__process-quote {
+    background: var(--ml-black);
+    color: #fff;
+    padding: 1.8rem;
+    max-width: 20rem;
+    box-shadow: 0 24px 48px -12px rgba(17,17,17,0.12);
+    margin-top: -3rem;
+    margin-left: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  @media screen and (min-width: 990px) {
+    .ml-ia__process-quote {
+      position: absolute;
+      bottom: -2rem;
+      left: -2rem;
+      margin: 0;
+    }
+  }
+  .ml-ia__process-quote p {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin: 0 0 0.8rem;
+  }
+  .ml-ia__process-quote cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ml-gold-light);
+  }
+
+  /* ═══════════════════════════════════════
+     Témoignage + Chiffres
+     ═══════════════════════════════════════ */
+  .ml-ia__social-proof {
+    padding: 6rem 1.5rem;
+    border-top: 1px solid var(--ml-line);
+    border-bottom: 1px solid var(--ml-line);
+    text-align: center;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__social-proof { padding: 8rem 2rem; }
+  }
+  .ml-ia__social-proof-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .ml-ia__quote-icon {
+    color: var(--ml-gold);
+    margin-bottom: 1.5rem;
+  }
+  .ml-ia__quote-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: currentColor;
+  }
+  .ml-ia__blockquote {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-style: italic;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    line-height: 1.25;
+    max-width: 48rem;
+    margin: 0 auto 1.5rem;
+  }
+  .ml-ia__cite {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.9rem;
+    color: var(--ml-gold);
+    display: block;
+    margin-bottom: 4rem;
+  }
+  .ml-ia__stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    border-top: 1px solid var(--ml-line);
+    padding-top: 4rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__stats { grid-template-columns: repeat(3, 1fr); }
+  }
+  .ml-ia__stat-value {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(3rem, 5vw, 4rem);
+    font-weight: 600;
+    color: var(--ml-gold);
+    margin: 0 0 0.3rem;
+  }
+  .ml-ia__stat-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ml-mid);
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     CTA Final (dark)
+     ═══════════════════════════════════════ */
+  .ml-ia__final-cta {
+    background: var(--ml-black);
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 1.5rem;
+    text-align: center;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-ia__final-cta { padding: 10rem 2rem; }
+  }
+  .ml-ia__final-cta-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    z-index: 0;
+  }
+  .ml-ia__final-cta-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ml-ia__final-cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .ml-ia__final-cta-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    color: #fff;
+    line-height: 1.15;
+    margin: 0 0 1.5rem;
+  }
+  .ml-ia__final-cta-text {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0 0 3rem;
+    line-height: 1.6;
+  }
+  .ml-ia__final-cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .ml-ia__final-cta-link {
+    color: var(--ml-gold-light);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(197, 164, 103, 0.3);
+    padding-bottom: 0.2rem;
+    transition: border-color 0.2s;
+    font-size: 1.05rem;
+  }
+  .ml-ia__final-cta-link:hover {
+    border-color: var(--ml-gold-light);
+  }
+{%- endstyle -%}
+
+<div class="ml-ia">
+
+  {%- comment -%} ══ HERO FULLSCREEN ══ {%- endcomment -%}
+  <section class="ml-ia__hero">
+    <div class="ml-ia__hero-bg">
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 1800 }}"
+          alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+      <div class="ml-ia__hero-overlay"></div>
+    </div>
+
+    <div class="ml-ia__hero-content">
+      <div class="ml-ia__hero-inner">
+        <h1 class="ml-ia__hero-title">{{ section.settings.hero_title }}</h1>
+        <p class="ml-ia__hero-text">{{ section.settings.hero_text }}</p>
+        <div class="ml-ia__hero-actions">
+          {%- if section.settings.hero_cta_text != blank -%}
+            <a href="{{ section.settings.hero_cta_link }}" class="ml-ia__btn-gold">
+              {{ section.settings.hero_cta_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.hero_cta2_text != blank -%}
+            <a href="{{ section.settings.hero_cta2_link }}" class="ml-ia__btn-outline">
+              {{ section.settings.hero_cta2_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ STYLES IA GRID ══ {%- endcomment -%}
+  {%- assign style_blocks = section.blocks | where: "type", "style_card" -%}
+  {%- if style_blocks.size > 0 -%}
+    <section class="ml-ia__styles">
+      <div class="ml-ia__styles-inner">
+        <div class="ml-ia__styles-header">
+          <div class="ml-ia__styles-header-text">
+            <h2 class="ml-ia__styles-title">{{ section.settings.styles_title }}</h2>
+            <p class="ml-ia__styles-subtitle">{{ section.settings.styles_subtitle }}</p>
+          </div>
+          {%- if section.settings.styles_link_text != blank -%}
+            <a href="{{ section.settings.styles_link }}" class="ml-ia__styles-link">
+              {{ section.settings.styles_link_text }} &rarr;
+            </a>
+          {%- endif -%}
+        </div>
+
+        <div class="ml-ia__styles-grid">
+          {%- for block in style_blocks -%}
+            <div class="ml-ia__style-card" {{ block.shopify_attributes }}>
+              <div class="ml-ia__style-img">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.name }}"
+                    loading="lazy"
+                    width="600"
+                    height="750"
+                  >
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <h3 class="ml-ia__style-name">{{ block.settings.name }}</h3>
+              <p class="ml-ia__style-desc">{{ block.settings.description }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ PROCESSUS (TIMELINE) ══ {%- endcomment -%}
+  {%- assign step_blocks = section.blocks | where: "type", "process_step" -%}
+  {%- if step_blocks.size > 0 -%}
+    <section class="ml-ia__process">
+      <div class="ml-ia__process-inner">
+        <div>
+          <p class="ml-ia__process-label">{{ section.settings.process_label }}</p>
+          <h2 class="ml-ia__process-title">{{ section.settings.process_title }}</h2>
+
+          <div class="ml-ia__timeline">
+            {%- for block in step_blocks -%}
+              <div class="ml-ia__timeline-step" {{ block.shopify_attributes }}>
+                <div class="ml-ia__timeline-num">{{ forloop.index }}</div>
+                <h4 class="ml-ia__timeline-heading">{{ block.settings.title }}</h4>
+                <p class="ml-ia__timeline-text">{{ block.settings.text }}</p>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="ml-ia__process-visual">
+          <div class="ml-ia__process-image">
+            {%- if section.settings.process_image != blank -%}
+              <img
+                src="{{ section.settings.process_image | image_url: width: 700 }}"
+                alt="{{ section.settings.process_image.alt | default: section.settings.process_title }}"
+                loading="lazy"
+                width="700"
+                height="700"
+              >
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.process_quote != blank -%}
+            <div class="ml-ia__process-quote">
+              <p>"{{ section.settings.process_quote }}"</p>
+              {%- if section.settings.process_quote_author != blank -%}
+                <cite>— {{ section.settings.process_quote_author }}</cite>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ TÉMOIGNAGE + CHIFFRES ══ {%- endcomment -%}
+  <section class="ml-ia__social-proof">
+    <div class="ml-ia__social-proof-inner">
+      {%- if section.settings.testimonial_text != blank -%}
+        <div class="ml-ia__quote-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/></svg>
+        </div>
+        <blockquote class="ml-ia__blockquote">{{ section.settings.testimonial_text }}</blockquote>
+        {%- if section.settings.testimonial_author != blank -%}
+          <cite class="ml-ia__cite">{{ section.settings.testimonial_author }}</cite>
+        {%- endif -%}
+      {%- endif -%}
+
+      {%- assign stat_blocks = section.blocks | where: "type", "stat" -%}
+      {%- if stat_blocks.size > 0 -%}
+        <div class="ml-ia__stats">
+          {%- for block in stat_blocks -%}
+            <div {{ block.shopify_attributes }}>
+              <div class="ml-ia__stat-value">{{ block.settings.value }}</div>
+              <p class="ml-ia__stat-label">{{ block.settings.label }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} ══ CTA FINAL (DARK) ══ {%- endcomment -%}
+  <section class="ml-ia__final-cta">
+    {%- if section.settings.cta_bg_image != blank -%}
+      <div class="ml-ia__final-cta-bg">
+        <img
+          src="{{ section.settings.cta_bg_image | image_url: width: 1600 }}"
+          alt=""
+          loading="lazy"
+        >
+      </div>
+    {%- endif -%}
+
+    <div class="ml-ia__final-cta-content">
+      <h2 class="ml-ia__final-cta-title">{{ section.settings.cta_title }}</h2>
+      {%- if section.settings.cta_text != blank -%}
+        <p class="ml-ia__final-cta-text">{{ section.settings.cta_text }}</p>
+      {%- endif -%}
+      <div class="ml-ia__final-cta-actions">
+        {%- if section.settings.cta_button_text != blank -%}
+          <a href="{{ section.settings.cta_button_link }}" class="ml-ia__btn-gold ml-ia__btn-gold--xl">
+            {{ section.settings.cta_button_text }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta_link_text != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="ml-ia__final-cta-link">
+            {{ section.settings.cta_link_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Cr\u00e9ation IA Premium",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_title",
+      "label": "Titre (HTML accept\u00e9)",
+      "default": "L\u2019IA cr\u00e9e des \u00e9tiquettes qui n\u2019existent <em>nulle part ailleurs</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Description",
+      "default": "Choisissez un style \u2014 luxe, nature, minimaliste, k-beauty \u2014 et notre intelligence artificielle g\u00e9n\u00e8re un design unique pour votre salon. Aucune comp\u00e9tence graphique requise."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Bouton principal",
+      "default": "G\u00e9n\u00e9rer mon design unique"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Lien bouton principal"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta2_text",
+      "label": "Bouton secondaire",
+      "default": "Voir le portfolio"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta2_link",
+      "label": "Lien bouton secondaire"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Image de fond hero"
+    },
+    {
+      "type": "header",
+      "content": "Styles IA"
+    },
+    {
+      "type": "text",
+      "id": "styles_title",
+      "label": "Titre",
+      "default": "Explorez nos directions artistiques"
+    },
+    {
+      "type": "textarea",
+      "id": "styles_subtitle",
+      "label": "Sous-titre",
+      "default": "Choisissez une direction artistique, l\u2019IA fait le reste. Chaque g\u00e9n\u00e9ration produit un motif unique, impossible \u00e0 dupliquer."
+    },
+    {
+      "type": "text",
+      "id": "styles_link_text",
+      "label": "Lien texte",
+      "default": "Tous les styles"
+    },
+    {
+      "type": "url",
+      "id": "styles_link",
+      "label": "Lien URL"
+    },
+    {
+      "type": "header",
+      "content": "Processus"
+    },
+    {
+      "type": "text",
+      "id": "process_label",
+      "label": "\u00c9tiquette",
+      "default": "Le Processus"
+    },
+    {
+      "type": "text",
+      "id": "process_title",
+      "label": "Titre",
+      "default": "De l\u2019id\u00e9e \u00e0 la bouteille, sans interm\u00e9diaire"
+    },
+    {
+      "type": "image_picker",
+      "id": "process_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "process_quote",
+      "label": "Citation",
+      "default": "La pr\u00e9cision du rendu 3D nous a permis de valider la collection en quelques minutes seulement."
+    },
+    {
+      "type": "text",
+      "id": "process_quote_author",
+      "label": "Auteur citation",
+      "default": "Designer Studio MyLab"
+    },
+    {
+      "type": "header",
+      "content": "T\u00e9moignage"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_text",
+      "label": "Citation",
+      "default": "En 2 clics, l\u2019IA a g\u00e9n\u00e9r\u00e9 un design qui correspond parfaitement \u00e0 l\u2019image de notre salon. Bluffant."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Auteur",
+      "default": "Salon \u00c9clat, Paris"
+    },
+    {
+      "type": "header",
+      "content": "CTA final"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre",
+      "default": "Votre marque m\u00e9rite un design \u00e0 la hauteur de votre savoir-faire"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Texte",
+      "default": "Rejoignez les 500+ salons qui ont transform\u00e9 leur image gr\u00e2ce \u00e0 l\u2019intelligence artificielle MyLab."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Bouton",
+      "default": "G\u00e9n\u00e9rer mon design unique"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Lien bouton"
+    },
+    {
+      "type": "text",
+      "id": "cta_link_text",
+      "label": "Lien secondaire texte",
+      "default": "Ou explorer nos mod\u00e8les pr\u00eats \u00e0 l\u2019emploi"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien secondaire URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_bg_image",
+      "label": "Image de fond"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "style_card",
+      "name": "Style IA",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom du style",
+          "default": "Nom du style"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Description courte du style"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "process_step",
+      "name": "\u00c9tape",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "\u00c9tape"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Description de l\u2019\u00e9tape"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Chiffre cl\u00e9",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valeur",
+          "default": "100%"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cr\u00e9ation IA Premium",
+      "blocks": [
+        { "type": "style_card", "settings": { "name": "Luxe & Or", "description": "Opulence, dorures \u00e0 chaud et typographies classiques." } },
+        { "type": "style_card", "settings": { "name": "Botanique", "description": "Illustrations organiques, textures de papier et tons terreux." } },
+        { "type": "style_card", "settings": { "name": "Minimaliste", "description": "La puret\u00e9 absolue. \u00c9quilibre des blancs et typographie helv\u00e9tique." } },
+        { "type": "style_card", "settings": { "name": "K-Beauty", "description": "Couleurs pastel, d\u00e9grad\u00e9s oniriques et modernit\u00e9 cor\u00e9enne." } },
+        { "type": "style_card", "settings": { "name": "Homme Premium", "description": "Carbone, argent et structures graphiques rigoureuses." } },
+        { "type": "style_card", "settings": { "name": "Atelier Artisanal", "description": "Effets de mati\u00e8re, tampons \u00e0 la main et authenticit\u00e9 brute." } },
+        { "type": "process_step", "settings": { "title": "Choisissez vos gammes", "text": "S\u00e9lectionnez les produits que vous souhaitez personnaliser parmi notre catalogue de formulations premium." } },
+        { "type": "process_step", "settings": { "title": "Choisissez un style IA", "text": "Notre intelligence artificielle g\u00e9n\u00e8re des dizaines de variations uniques bas\u00e9es sur votre direction artistique." } },
+        { "type": "process_step", "settings": { "title": "Pr\u00e9visualisez en 3D", "text": "Visualisez instantan\u00e9ment le rendu final sur vos bouteilles gr\u00e2ce \u00e0 notre moteur de rendu photor\u00e9aliste." } },
+        { "type": "process_step", "settings": { "title": "T\u00e9l\u00e9chargez et commandez", "text": "Validez votre design et recevez vos produits \u00e9tiquet\u00e9s directement dans votre salon sous 10 jours." } },
+        { "type": "stat", "settings": { "value": "9", "label": "Styles IA disponibles" } },
+        { "type": "stat", "settings": { "value": "30s", "label": "Design unique en 30 secondes" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "Rendu 3D sur bouteille" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
