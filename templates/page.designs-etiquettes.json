@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-designs-etiquettes",
+      "blocks": {
+        "gallery_1": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "Luxe Doré",
+            "subtitle": "Opulence & Prestige"
+          }
+        },
+        "gallery_2": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "Nature Botanique",
+            "subtitle": "Organique & Frais"
+          }
+        },
+        "gallery_3": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "Minimaliste Noir",
+            "subtitle": "Épure & Clarté"
+          }
+        },
+        "gallery_4": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "Artisanal Kraft",
+            "subtitle": "Authentique & Brut"
+          }
+        },
+        "gallery_5": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "Coloré Pop",
+            "subtitle": "Audace & Énergie"
+          }
+        },
+        "gallery_6": {
+          "type": "gallery_item",
+          "settings": {
+            "name": "K-Beauty Pastel",
+            "subtitle": "Douceur & Soin"
+          }
+        },
+        "comp_1": {
+          "type": "comparison_item",
+          "settings": {
+            "brand_name": "L'ATELIER",
+            "version_label": "VERSION A"
+          }
+        },
+        "comp_2": {
+          "type": "comparison_item",
+          "settings": {
+            "brand_name": "SALON NOIR",
+            "version_label": "VERSION B"
+          }
+        },
+        "comp_3": {
+          "type": "comparison_item",
+          "settings": {
+            "brand_name": "MODERNE",
+            "version_label": "VERSION C"
+          }
+        }
+      },
+      "block_order": [
+        "gallery_1",
+        "gallery_2",
+        "gallery_3",
+        "gallery_4",
+        "gallery_5",
+        "gallery_6",
+        "comp_1",
+        "comp_2",
+        "comp_3"
+      ],
+      "settings": {
+        "hero_title": "Des designs d'étiquettes créés par des professionnels",
+        "hero_text": "Choisissez parmi nos modèles exclusifs et personnalisez-les avec votre logo. Un rendu haut de gamme sans effort.",
+        "hero_cta_text": "Découvrir les modèles",
+        "gallery_title": "Catalogue de Styles",
+        "gallery_subtitle": "Tous nos modèles sont personnalisables avec votre logo et vos informations",
+        "gallery_columns": 3,
+        "steps_title": "Comment ça marche",
+        "step_1_title": "1. Sélectionnez un modèle",
+        "step_1_text": "Parcourez notre collection et trouvez le design qui correspond à votre univers.",
+        "step_2_title": "2. Ajoutez votre logo",
+        "step_2_text": "Importez votre identité visuelle et ajustez son placement en quelques clics.",
+        "step_3_title": "3. Validez et commandez",
+        "step_3_text": "Téléchargez votre PDF haute définition ou lancez l'impression avec nous.",
+        "comparison_title": "Un seul modèle, des résultats uniques",
+        "comparison_text": "Chaque salon garde son identité grâce à la flexibilité de nos templates. Même design, âmes différentes.",
+        "comparison_badge": "Identité Préservée",
+        "cta_title": "Trouvez le design parfait pour votre salon",
+        "cta_button_text": "Explorer les modèles",
+        "cta_sub_text": "Besoin de quelque chose d'unique ?",
+        "cta_sub_link_text": "Découvrez notre studio de création sur mesure.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}

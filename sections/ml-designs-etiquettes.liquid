@@ -1,0 +1,914 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     Base
+     ═══════════════════════════════════════ */
+  .ml-designs {
+    --ml-black: #111;
+    --ml-mid: #555;
+    --ml-muted: #888;
+    --ml-line: #e5e5e5;
+    --ml-light-bg: #fafafa;
+    --ml-off-bg: #f5f4f2;
+    --ml-green: #2d7a45;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: var(--ml-black);
+  }
+
+  /* ═══════════════════════════════════════
+     Hero
+     ═══════════════════════════════════════ */
+  .ml-designs__hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 5rem 0;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__hero {
+      grid-template-columns: 5fr 7fr;
+      gap: 4rem;
+      padding: 6rem 2rem 8rem;
+    }
+  }
+  .ml-designs__hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .ml-designs__hero-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ml-black);
+    margin: 0;
+  }
+  .ml-designs__hero-text {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--ml-mid);
+    max-width: 28rem;
+    margin: 0;
+  }
+  .ml-designs__btn {
+    display: inline-block;
+    background: var(--ml-black);
+    color: #fff;
+    padding: 1.1rem 2.8rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    min-height: 44px;
+  }
+  .ml-designs__btn:hover { opacity: 0.85; }
+  .ml-designs__btn:active { transform: scale(0.97); }
+
+  /* Hero images */
+  .ml-designs__hero-visuals {
+    position: relative;
+    height: 420px;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__hero-visuals { height: 560px; }
+  }
+  .ml-designs__hero-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    background: var(--ml-off-bg);
+    border-radius: 8px;
+    z-index: 0;
+  }
+  .ml-designs__hero-images {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    z-index: 1;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__hero-images { gap: 2rem; }
+  }
+  .ml-designs__hero-img {
+    width: 30%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 24px 48px -12px rgba(17, 17, 17, 0.1);
+  }
+  .ml-designs__hero-img:nth-child(1) { transform: translateY(1.5rem); }
+  .ml-designs__hero-img:nth-child(2) { width: 36%; transform: translateY(-2rem); }
+  .ml-designs__hero-img:nth-child(3) { transform: translateY(0.8rem); }
+
+  /* ═══════════════════════════════════════
+     Gallery (dark section)
+     ═══════════════════════════════════════ */
+  .ml-designs__gallery {
+    background: var(--ml-black);
+    color: #fff;
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__gallery { padding: 8rem 2rem; }
+  }
+  .ml-designs__gallery-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .ml-designs__gallery-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .ml-designs__gallery-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 0 0 1rem;
+  }
+  .ml-designs__gallery-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+    margin: 0;
+  }
+  .ml-designs__gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__gallery-grid {
+      grid-template-columns: repeat({{ section.settings.gallery_columns | default: 3 }}, 1fr);
+      gap: 3rem;
+    }
+  }
+  .ml-designs__gallery-item {
+    cursor: pointer;
+  }
+  .ml-designs__gallery-img-wrap {
+    overflow: hidden;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    aspect-ratio: 1;
+    margin-bottom: 1.2rem;
+  }
+  .ml-designs__gallery-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .ml-designs__gallery-item:hover .ml-designs__gallery-img-wrap img {
+    transform: scale(1.08);
+  }
+  .ml-designs__gallery-name {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.3rem;
+  }
+  .ml-designs__gallery-label {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     Steps
+     ═══════════════════════════════════════ */
+  .ml-designs__steps {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__steps { padding: 8rem 2rem; }
+  }
+  .ml-designs__steps-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    text-align: center;
+    margin: 0 0 4rem;
+  }
+  .ml-designs__steps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__steps-grid {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+  }
+  .ml-designs__step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+  }
+  .ml-designs__step-icon {
+    width: 5rem;
+    height: 5rem;
+    background: var(--ml-off-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ml-black);
+    flex-shrink: 0;
+  }
+  .ml-designs__step-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .ml-designs__step-heading {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .ml-designs__step-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--ml-mid);
+    max-width: 22rem;
+    margin: 0;
+  }
+  .ml-designs__step-arrow {
+    display: none;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__step-arrow {
+      display: block;
+      position: absolute;
+      top: 2.5rem;
+      color: var(--ml-black);
+      opacity: 0.15;
+    }
+    .ml-designs__step-arrow--1 { left: 31%; }
+    .ml-designs__step-arrow--2 { right: 31%; }
+  }
+
+  /* ═══════════════════════════════════════
+     Comparison
+     ═══════════════════════════════════════ */
+  .ml-designs__comparison {
+    background: var(--ml-light-bg);
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__comparison { padding: 8rem 2rem; }
+  }
+  .ml-designs__comparison-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  @media screen and (min-width: 990px) {
+    .ml-designs__comparison-inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 5rem;
+    }
+  }
+  .ml-designs__comparison-text {
+    flex: 1;
+  }
+  .ml-designs__comparison-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    line-height: 1.15;
+    margin: 0 0 1.5rem;
+  }
+  .ml-designs__comparison-desc {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ml-mid);
+    margin: 0 0 2rem;
+  }
+  .ml-designs__comparison-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--ml-green);
+  }
+  .ml-designs__comparison-badge svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+  .ml-designs__comparison-badge span {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .ml-designs__comparison-cards {
+    flex: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-designs__comparison-cards {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+  .ml-designs__comparison-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(17,17,17,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .ml-designs__comparison-brand {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+    filter: grayscale(1);
+  }
+  .ml-designs__comparison-brand span {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+  .ml-designs__comparison-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+  }
+  .ml-designs__comparison-version {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ml-muted);
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     CTA
+     ═══════════════════════════════════════ */
+  .ml-designs__cta {
+    text-align: center;
+    padding: 8rem 1.5rem;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .ml-designs__cta-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1.15;
+    margin: 0 0 3rem;
+  }
+  .ml-designs__cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .ml-designs__btn--large {
+    padding: 1.4rem 3.2rem;
+    font-size: 1.2rem;
+    box-shadow: 0 8px 24px rgba(17,17,17,0.15);
+  }
+  .ml-designs__cta-sub {
+    border-top: 1px solid var(--ml-line);
+    padding-top: 1.5rem;
+    max-width: 24rem;
+    width: 100%;
+  }
+  .ml-designs__cta-sub p {
+    font-size: 1.1rem;
+    color: var(--ml-mid);
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+  }
+  .ml-designs__cta-sub a {
+    color: var(--ml-black);
+    font-weight: 700;
+    font-style: normal;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ml-designs__cta-sub a:hover { opacity: 0.7; }
+{%- endstyle -%}
+
+<div class="ml-designs">
+
+  {%- comment -%} ══ HERO ══ {%- endcomment -%}
+  <section class="ml-designs__hero">
+    <div class="ml-designs__hero-content">
+      <h1 class="ml-designs__hero-title">{{ section.settings.hero_title }}</h1>
+      <p class="ml-designs__hero-text">{{ section.settings.hero_text }}</p>
+      {%- if section.settings.hero_cta_text != blank -%}
+        <a
+          href="{{ section.settings.hero_cta_link }}"
+          class="ml-designs__btn"
+        >
+          {{ section.settings.hero_cta_text }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="ml-designs__hero-visuals">
+      <div class="ml-designs__hero-bg"></div>
+      <div class="ml-designs__hero-images">
+        {%- for i in (1..3) -%}
+          {%- assign img_key = 'hero_image_' | append: i -%}
+          {%- assign img = section.settings[img_key] -%}
+          {%- if img != blank -%}
+            <img
+              class="ml-designs__hero-img"
+              src="{{ img | image_url: width: 500 }}"
+              alt="{{ img.alt | default: section.settings.hero_title }}"
+              loading="lazy"
+              width="500"
+              height="750"
+            >
+          {%- else -%}
+            <div class="ml-designs__hero-img" style="background:var(--ml-off-bg);"></div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ GALLERY ══ {%- endcomment -%}
+  {%- assign gallery_blocks = section.blocks | where: "type", "gallery_item" -%}
+  {%- if gallery_blocks.size > 0 -%}
+    <section class="ml-designs__gallery">
+      <div class="ml-designs__gallery-inner">
+        <div class="ml-designs__gallery-header">
+          <h2 class="ml-designs__gallery-title">{{ section.settings.gallery_title }}</h2>
+          <p class="ml-designs__gallery-subtitle">{{ section.settings.gallery_subtitle }}</p>
+        </div>
+
+        <div class="ml-designs__gallery-grid">
+          {%- for block in gallery_blocks -%}
+            <div class="ml-designs__gallery-item" {{ block.shopify_attributes }}>
+              <div class="ml-designs__gallery-img-wrap">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.name }}"
+                    loading="lazy"
+                    width="600"
+                    height="600"
+                  >
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <h3 class="ml-designs__gallery-name">{{ block.settings.name }}</h3>
+              <p class="ml-designs__gallery-label">{{ block.settings.subtitle }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ STEPS ══ {%- endcomment -%}
+  <section class="ml-designs__steps">
+    <h2 class="ml-designs__steps-title">{{ section.settings.steps_title }}</h2>
+
+    <div class="ml-designs__steps-grid">
+      {%- comment -%} Step 1 {%- endcomment -%}
+      <div class="ml-designs__step">
+        <div class="ml-designs__step-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h4 class="ml-designs__step-heading">{{ section.settings.step_1_title }}</h4>
+        <p class="ml-designs__step-text">{{ section.settings.step_1_text }}</p>
+      </div>
+
+      <svg class="ml-designs__step-arrow ml-designs__step-arrow--1" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+
+      {%- comment -%} Step 2 {%- endcomment -%}
+      <div class="ml-designs__step">
+        <div class="ml-designs__step-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        </div>
+        <h4 class="ml-designs__step-heading">{{ section.settings.step_2_title }}</h4>
+        <p class="ml-designs__step-text">{{ section.settings.step_2_text }}</p>
+      </div>
+
+      <svg class="ml-designs__step-arrow ml-designs__step-arrow--2" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+
+      {%- comment -%} Step 3 {%- endcomment -%}
+      <div class="ml-designs__step">
+        <div class="ml-designs__step-icon">
+          <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="m16 10-4 4-4-4"/></svg>
+        </div>
+        <h4 class="ml-designs__step-heading">{{ section.settings.step_3_title }}</h4>
+        <p class="ml-designs__step-text">{{ section.settings.step_3_text }}</p>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ COMPARISON ══ {%- endcomment -%}
+  {%- assign comp_blocks = section.blocks | where: "type", "comparison_item" -%}
+  {%- if comp_blocks.size > 0 -%}
+    <section class="ml-designs__comparison">
+      <div class="ml-designs__comparison-inner">
+        <div class="ml-designs__comparison-text">
+          <h2 class="ml-designs__comparison-title">{{ section.settings.comparison_title }}</h2>
+          <p class="ml-designs__comparison-desc">{{ section.settings.comparison_text }}</p>
+          <div class="ml-designs__comparison-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Z"/><path d="m9 12 2 2 4-4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+            <span>{{ section.settings.comparison_badge }}</span>
+          </div>
+        </div>
+
+        <div class="ml-designs__comparison-cards">
+          {%- for block in comp_blocks -%}
+            <div class="ml-designs__comparison-card" {{ block.shopify_attributes }}>
+              <div class="ml-designs__comparison-brand">
+                <span>{{ block.settings.brand_name }}</span>
+              </div>
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 400 }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.brand_name }}"
+                  loading="lazy"
+                  width="400"
+                  height="600"
+                >
+              {%- else -%}
+                {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              <p class="ml-designs__comparison-version">{{ block.settings.version_label }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ CTA ══ {%- endcomment -%}
+  <section class="ml-designs__cta">
+    <h2 class="ml-designs__cta-title">{{ section.settings.cta_title }}</h2>
+    <div class="ml-designs__cta-actions">
+      {%- if section.settings.cta_button_text != blank -%}
+        <a
+          href="{{ section.settings.cta_button_link }}"
+          class="ml-designs__btn ml-designs__btn--large"
+        >
+          {{ section.settings.cta_button_text }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta_sub_text != blank -%}
+        <div class="ml-designs__cta-sub">
+          <p>
+            {{ section.settings.cta_sub_text }}
+            {%- if section.settings.cta_sub_link_text != blank -%}
+              <a href="{{ section.settings.cta_sub_link }}">{{ section.settings.cta_sub_link_text }}</a>
+            {%- endif -%}
+          </p>
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Designs \u00e9tiquettes",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Titre",
+      "default": "Des designs d\u2019\u00e9tiquettes cr\u00e9\u00e9s par des professionnels"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Description",
+      "default": "Choisissez parmi nos mod\u00e8les exclusifs et personnalisez-les avec votre logo. Un rendu haut de gamme sans effort."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Bouton CTA",
+      "default": "D\u00e9couvrir les mod\u00e8les"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Lien CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_1",
+      "label": "Image hero 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_2",
+      "label": "Image hero 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image_3",
+      "label": "Image hero 3"
+    },
+    {
+      "type": "header",
+      "content": "Catalogue de styles"
+    },
+    {
+      "type": "text",
+      "id": "gallery_title",
+      "label": "Titre galerie",
+      "default": "Catalogue de Styles"
+    },
+    {
+      "type": "text",
+      "id": "gallery_subtitle",
+      "label": "Sous-titre galerie",
+      "default": "Tous nos mod\u00e8les sont personnalisables avec votre logo et vos informations"
+    },
+    {
+      "type": "range",
+      "id": "gallery_columns",
+      "label": "Colonnes desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "\u00c9tapes"
+    },
+    {
+      "type": "text",
+      "id": "steps_title",
+      "label": "Titre section",
+      "default": "Comment \u00e7a marche"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "\u00c9tape 1 \u2014 titre",
+      "default": "1. S\u00e9lectionnez un mod\u00e8le"
+    },
+    {
+      "type": "text",
+      "id": "step_1_text",
+      "label": "\u00c9tape 1 \u2014 texte",
+      "default": "Parcourez notre collection et trouvez le design qui correspond \u00e0 votre univers."
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "\u00c9tape 2 \u2014 titre",
+      "default": "2. Ajoutez votre logo"
+    },
+    {
+      "type": "text",
+      "id": "step_2_text",
+      "label": "\u00c9tape 2 \u2014 texte",
+      "default": "Importez votre identit\u00e9 visuelle et ajustez son placement en quelques clics."
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "\u00c9tape 3 \u2014 titre",
+      "default": "3. Validez et commandez"
+    },
+    {
+      "type": "text",
+      "id": "step_3_text",
+      "label": "\u00c9tape 3 \u2014 texte",
+      "default": "T\u00e9l\u00e9chargez votre PDF haute d\u00e9finition ou lancez l\u2019impression avec nous."
+    },
+    {
+      "type": "header",
+      "content": "Comparaison"
+    },
+    {
+      "type": "text",
+      "id": "comparison_title",
+      "label": "Titre",
+      "default": "Un seul mod\u00e8le, des r\u00e9sultats uniques"
+    },
+    {
+      "type": "textarea",
+      "id": "comparison_text",
+      "label": "Description",
+      "default": "Chaque salon garde son identit\u00e9 gr\u00e2ce \u00e0 la flexibilit\u00e9 de nos templates. M\u00eame design, \u00e2mes diff\u00e9rentes."
+    },
+    {
+      "type": "text",
+      "id": "comparison_badge",
+      "label": "Badge",
+      "default": "Identit\u00e9 Pr\u00e9serv\u00e9e"
+    },
+    {
+      "type": "header",
+      "content": "CTA final"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre",
+      "default": "Trouvez le design parfait pour votre salon"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Bouton",
+      "default": "Explorer les mod\u00e8les"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Lien bouton"
+    },
+    {
+      "type": "text",
+      "id": "cta_sub_text",
+      "label": "Texte secondaire",
+      "default": "Besoin de quelque chose d\u2019unique ?"
+    },
+    {
+      "type": "text",
+      "id": "cta_sub_link_text",
+      "label": "Lien texte",
+      "default": "D\u00e9couvrez notre studio de cr\u00e9ation sur mesure."
+    },
+    {
+      "type": "url",
+      "id": "cta_sub_link",
+      "label": "Lien secondaire"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_item",
+      "name": "Style",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom du style",
+          "default": "Nom du style"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Sous-titre",
+          "default": "Cat\u00e9gorie"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "comparison_item",
+      "name": "Comparaison",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Nom du salon",
+          "default": "MON SALON"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image produit"
+        },
+        {
+          "type": "text",
+          "id": "version_label",
+          "label": "Label version",
+          "default": "VERSION A"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Designs \u00e9tiquettes",
+      "blocks": [
+        { "type": "gallery_item", "settings": { "name": "Luxe Dor\u00e9", "subtitle": "Opulence & Prestige" } },
+        { "type": "gallery_item", "settings": { "name": "Nature Botanique", "subtitle": "Organique & Frais" } },
+        { "type": "gallery_item", "settings": { "name": "Minimaliste Noir", "subtitle": "\u00c9pure & Clart\u00e9" } },
+        { "type": "gallery_item", "settings": { "name": "Artisanal Kraft", "subtitle": "Authentique & Brut" } },
+        { "type": "gallery_item", "settings": { "name": "Color\u00e9 Pop", "subtitle": "Audace & \u00c9nergie" } },
+        { "type": "gallery_item", "settings": { "name": "K-Beauty Pastel", "subtitle": "Douceur & Soin" } },
+        { "type": "comparison_item", "settings": { "brand_name": "L\u2019ATELIER", "version_label": "VERSION A" } },
+        { "type": "comparison_item", "settings": { "brand_name": "SALON NOIR", "version_label": "VERSION B" } },
+        { "type": "comparison_item", "settings": { "brand_name": "MODERNE", "version_label": "VERSION C" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
