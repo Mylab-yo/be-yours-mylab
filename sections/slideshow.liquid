@@ -87,7 +87,11 @@
           <div class="slideshow__slide">
             {%- case block.type -%}
               {%- when 'image' -%}
-                {% render 'slide-image', block: block, position: forloop.index, image_behavior: image_behavior, loading: 'lazy', fetchpriority: 'low' %}
+                {%- if section.index == 1 -%}
+                  {% render 'slide-image', block: block, position: forloop.index, image_behavior: image_behavior, loading: 'eager', fetchpriority: 'high' %}
+                {%- else -%}
+                  {% render 'slide-image', block: block, position: forloop.index, image_behavior: image_behavior, loading: 'lazy', fetchpriority: 'low' %}
+                {%- endif -%}
               {%- when 'video' -%}
                 {% render 'slide-video', block: block, position: forloop.index, image_behavior: image_behavior, section: section %}
             {%- endcase -%}

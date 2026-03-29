@@ -27,7 +27,7 @@
           {{ collection.title | link_to: url, class: "link" }}
         {%- endif -%}
       {%- endif %}
-      
+
       <span class="breadcrumb__divider" aria-hidden="true">/</span>
 
     {%- elsif template.name == 'collection' and collection.handle %}
@@ -96,34 +96,46 @@
 
     {%- endif -%}
   </nav>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "{{ 'general.breadcrumbs.home' | t }}",
-          "item": "{{ shop.url }}"
-        }
-        {%- if template.name == 'product' -%}
+
+  {%- comment -%}
+    JSON-LD BreadcrumbList for product pages only.
+    Collection and page breadcrumbs are handled by schema-seo.liquid to avoid duplicates.
+  {%- endcomment -%}
+  {%- if template.name == 'product' -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": {{ 'general.breadcrumbs.home' | t | json }},
+            "item": "{{ shop.url }}"
+          }
           {%- if collection and collection.handle -%}
           , {
             "@type": "ListItem",
             "position": 2,
-            "name": "{{ collection.title }}",
+            "name": {{ collection.title | json }},
             "item": "{{ shop.url }}/collections/{{ collection.handle }}"
           }
-          {% endif %}
           , {
             "@type": "ListItem",
-            "position": {% if collection and collection.handle %}3{% else %}2{% endif %},
-            "name": "{{ product.title }}",
+            "position": 3,
+            "name": {{ product.title | json }},
             "item": "{{ shop.url }}/products/{{ product.handle }}"
           }
-        {%- endif -%}
-      ]
-    }
-  </script>
+          {%- else -%}
+          , {
+            "@type": "ListItem",
+            "position": 2,
+            "name": {{ product.title | json }},
+            "item": "{{ shop.url }}/products/{{ product.handle }}"
+          }
+          {%- endif -%}
+        ]
+      }
+    </script>
+  {%- endif -%}
 {%- endunless -%}

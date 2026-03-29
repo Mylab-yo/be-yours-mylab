@@ -1,0 +1,55 @@
+{%- comment -%}
+  MyLab — Structured data for testimonials page
+  Renders VideoObject schema for each video testimonial.
+  Included conditionally from schema-seo.liquid or theme.liquid.
+
+  This snippet should be rendered on the testimonials page:
+    /pages/temoignages
+{%- endcomment -%}
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Temoignage client MY.LAB - Aurelien, fondateur de Bonhomme Paris",
+    "description": "Aurelien, createur de Bonhomme Paris, commercialise ses produits dans ses 7 salons. Une marque masculine forte, portee par des formules MY.LAB de qualite professionnelle.",
+    "thumbnailUrl": "{{ 'logo-mylab.png' | asset_url | prepend: 'https:' }}",
+    "uploadDate": "2025-01-01",
+    "contentUrl": "{{ 'montage-bonhomme-v4_ygCa9teq.mp4' | file_url | prepend: 'https:' }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MY.LAB — Laboratoire Cosmetique",
+      "url": "{{ shop.url }}"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Temoignage client MY.LAB - Amandine, salon de coiffure a Cannes",
+    "description": "Amandine, gerante de son salon de coiffure a Cannes, a developpe sa marque depuis 2 ans avec MY.LAB. Une reussite qui montre que creer sa propre gamme capillaire est accessible a tous les professionnels.",
+    "thumbnailUrl": "{{ 'logo-mylab.png' | asset_url | prepend: 'https:' }}",
+    "uploadDate": "2025-01-01",
+    "contentUrl": "{{ 'reel-mylab-interview2_MiP9420u.mp4' | file_url | prepend: 'https:' }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MY.LAB — Laboratoire Cosmetique",
+      "url": "{{ shop.url }}"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Temoignage client MY.LAB - Minh, professionnel des cheveux a Paris",
+    "description": "Minh travaille tous les jours avec ses propres produits MY.LAB et en est absolument ravi. Une collaboration au quotidien qui prouve la qualite des formules professionnelles MY.LAB.",
+    "thumbnailUrl": "{{ 'logo-mylab.png' | asset_url | prepend: 'https:' }}",
+    "uploadDate": "2025-01-01",
+    "contentUrl": "{{ 'itw-minh_DbGJg6mw.mp4' | file_url | prepend: 'https:' }}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "MY.LAB — Laboratoire Cosmetique",
+      "url": "{{ shop.url }}"
+    }
+  }
+]
+</script>

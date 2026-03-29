@@ -27,6 +27,8 @@
 
     {%- if page_description -%}
       <meta name="description" content="{{ page_description | escape }}">
+    {%- else -%}
+      <meta name="description" content="MY.LAB — Laboratoire français de cosmétiques capillaires en marque blanche. Créez votre propre marque de soins capillaires professionnels, 96% d'ingrédients naturels, fabriqués en France.">
     {%- endif -%}
 
     {% render 'meta-tags' %}
@@ -96,7 +98,9 @@
     {%- endif -%}
 
     {%- render 'js-variables' -%}
-    {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+    {%- if request.page_type == 'product' -%}
+      {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
 
     {%- comment -%} ML Product Map URL — source de vérité unique {%- endcomment -%}
     <script>window.MylabAssets = { productMapUrl: {{ 'ml-product-map.json' | asset_url | json }} };</script>

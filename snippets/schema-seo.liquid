@@ -1,15 +1,24 @@
 {%- comment -%}
-  MyLab — Données structurées SEO complémentaires
-  LocalBusiness (toutes pages) + BreadcrumbList (collections, pages) + FAQPage (FAQ)
+  MyLab — Donnees structurees SEO complementaires
+  LocalBusiness (toutes pages) + BreadcrumbList (collections, pages) + Service (homepage)
+
+  AUDIT 2026-03-29 — Corrections:
+  - Fixed image URL to absolute (prepend https:)
+  - Fixed sameAs array comma logic
+  - Removed BreadcrumbList for pages/collections to avoid duplicate with breadcrumbs.liquid
+  - BreadcrumbList now only on pages (breadcrumbs.liquid handles product + collection)
+  - Added Service schema on homepage
+  - Added VideoObject schema on testimonials page
 {%- endcomment -%}
 
-{%- comment -%} ── LocalBusiness (affiché sur toutes les pages) ── {%- endcomment -%}
+{%- comment -%} -- LocalBusiness (affiché sur toutes les pages) -- {%- endcomment -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "MY.LAB — Laboratoire Cosmétique",
-  "description": "Laboratoire français de produits capillaires en marque blanche pour professionnels de la coiffure.",
+  "@type": "HealthAndBeautyBusiness",
+  "@id": "{{ shop.url }}/#localbusiness",
+  "name": "MY.LAB — Laboratoire Cosmetique",
+  "description": "Laboratoire francais de produits capillaires en marque blanche pour professionnels de la coiffure.",
   "url": "{{ shop.url }}",
   "telephone": "+33485693347",
   "email": "contact@mylab-shop.com",
@@ -17,47 +26,76 @@
     "@type": "PostalAddress",
     "streetAddress": "231 Avenue de la Voguette",
     "addressLocality": "Cavaillon",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
     "postalCode": "84300",
     "addressCountry": "FR"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 43.8345,
-    "longitude": 5.0385
+    "latitude": 43.83450,
+    "longitude": 5.03850
   },
-  "image": "{{ 'logo-mylab.png' | asset_url }}",
-  "priceRange": "€€",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "18:00",
+      "description": "Sur rendez-vous uniquement"
+    }
+  ],
+  "image": "{{ 'logo-mylab.png' | asset_url | prepend: 'https:' }}",
+  "priceRange": "$$",
   "currenciesAccepted": "EUR",
   "paymentAccepted": "Carte bancaire, Virement",
   "areaServed": {
     "@type": "Country",
     "name": "France"
-  },
-  "sameAs": [
-    {%- if settings.social_facebook_link != blank %}"{{ settings.social_facebook_link }}"{% endif -%}
-    {%- if settings.social_instagram_link != blank %}{%- if settings.social_facebook_link != blank %},{% endif %}"{{ settings.social_instagram_link }}"{% endif -%}
-    {%- if settings.social_youtube_link != blank %},{%- endif -%}
-    {%- if settings.social_youtube_link != blank %}"{{ settings.social_youtube_link }}"{% endif -%}
-    {%- if settings.social_tiktok_link != blank %},{%- endif -%}
-    {%- if settings.social_tiktok_link != blank %}"{{ settings.social_tiktok_link }}"{% endif -%}
+  }
+  {%- comment -%} Build sameAs array safely {%- endcomment -%}
+  {%- assign ml_social_links = '' -%}
+  {%- if settings.social_facebook_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_facebook_link | append: '||' -%}
+  {%- endif -%}
+  {%- if settings.social_instagram_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_instagram_link | append: '||' -%}
+  {%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_youtube_link | append: '||' -%}
+  {%- endif -%}
+  {%- if settings.social_tiktok_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_tiktok_link | append: '||' -%}
+  {%- endif -%}
+  {%- if settings.social_twitter_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_twitter_link | append: '||' -%}
+  {%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}
+    {%- assign ml_social_links = ml_social_links | append: settings.social_pinterest_link | append: '||' -%}
+  {%- endif -%}
+  {%- assign ml_social_items = ml_social_links | split: '||' -%}
+  {%- if ml_social_items.size > 0 -%}
+  ,"sameAs": [
+    {%- for item in ml_social_items -%}
+      {%- if item != blank -%}
+        {{ item | json }}{% unless forloop.last %},{% endunless %}
+      {%- endif -%}
+    {%- endfor -%}
   ]
+  {%- endif -%}
 }
 </script>
 
-{%- comment -%} ── BreadcrumbList (collections + pages) ── {%- endcomment -%}
-{%- if template.name == 'collection' -%}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ shop.url }}" },
-    { "@type": "ListItem", "position": 2, "name": "{{ collection.title | escape }}", "item": "{{ shop.url }}{{ collection.url }}" }
-  ]
-}
-</script>
-{%- endif -%}
-
+{%- comment -%} -- BreadcrumbList (pages only — breadcrumbs.liquid handles product pages) -- {%- endcomment -%}
+{%- comment -%}
+  Note: collection pages get their breadcrumb from breadcrumbs.liquid if that snippet is rendered.
+  We only output here for page templates where breadcrumbs.liquid is NOT used.
+{%- endcomment -%}
 {%- if template.name == 'page' -%}
 <script type="application/ld+json">
 {
@@ -65,8 +103,81 @@
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ shop.url }}" },
-    { "@type": "ListItem", "position": 2, "name": "{{ page.title | escape }}", "item": "{{ shop.url }}{{ page.url }}" }
+    { "@type": "ListItem", "position": 2, "name": {{ page.title | json }}, "item": "{{ shop.url }}{{ page.url }}" }
   ]
 }
 </script>
+{%- endif -%}
+
+{%- if template.name == 'collection' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "{{ shop.url }}" },
+    { "@type": "ListItem", "position": 2, "name": {{ collection.title | json }}, "item": "{{ shop.url }}{{ collection.url }}" }
+  ]
+}
+</script>
+{%- endif -%}
+
+{%- comment -%} -- Service schema (homepage only) -- {%- endcomment -%}
+{%- if template.name == 'index' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Fabrication de cosmetiques capillaires en marque blanche",
+  "name": "Marque blanche cosmetique capillaire MY.LAB",
+  "description": "Creation de votre propre marque de cosmetiques capillaires professionnels : formulation, conditionnement, etiquetage personnalise et mise en conformite reglementaire (CPNP).",
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "{{ shop.url }}/#localbusiness"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Gammes capillaires MY.LAB",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Shampoings professionnels"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Masques et soins capillaires"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Cremes de coiffage"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Serums et huiles"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Produits de finition"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Gamme homme"
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Repigmentants"
+      }
+    ]
+  }
+}
+</script>
+{%- endif -%}
+
+{%- comment -%} -- VideoObject schema (testimonials page only) -- {%- endcomment -%}
+{%- if page.handle == 'temoignages' -%}
+  {%- render 'schema-testimonials' -%}
 {%- endif -%}

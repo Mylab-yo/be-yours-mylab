@@ -2,6 +2,10 @@
    ML Volume Pricing Table — Tarifs dégressifs MyLab
    ============================================================ */
 
+[data-ml-volume-pricing] {
+  min-height: 120px;
+}
+
 .ml-volume-table-wrapper {
   margin: 1.6rem 0;
   overflow-x: auto;
