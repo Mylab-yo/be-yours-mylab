@@ -129,6 +129,27 @@
     /* Spacer to align with top grid */
   }
 
+  /* ── LEGAL LINKS ── */
+  .ml-footer__legal {
+    border-top: 1px solid var(--ml-footer-border);
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.6rem;
+  }
+  .ml-footer__legal a {
+    color: var(--ml-footer-link);
+    text-decoration: none;
+    font-size: 1.1rem;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .ml-footer__legal a:hover {
+    color: var(--ml-footer-link-hover);
+    opacity: 1;
+  }
+
   /* ── COPYRIGHT ── */
   .ml-footer__copyright {
     border-top: 1px solid var(--ml-footer-border);
@@ -307,6 +328,28 @@
       </div>
     {%- endif -%}
 
+    {%- comment -%} ====== LEGAL LINKS ====== {%- endcomment -%}
+    {%- assign has_policies = false -%}
+    {%- for policy in shop.policies -%}
+      {%- if policy != blank -%}
+        {%- assign has_policies = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_policies or section.settings.mentions_legales_link != blank -%}
+      <nav class="ml-footer__legal" aria-label="Informations légales">
+        {%- for policy in shop.policies -%}
+          {%- if policy != blank -%}
+            <a href="{{ policy.url }}">{{ policy.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if section.settings.mentions_legales_link != blank -%}
+          <a href="{{ section.settings.mentions_legales_link }}">{{ section.settings.mentions_legales_text | default: "Mentions légales" }}</a>
+        {%- endif -%}
+      </nav>
+    {%- endif -%}
+
     {%- comment -%} ====== COPYRIGHT + PAYMENT ====== {%- endcomment -%}
     <div class="ml-footer__copyright">
       <small>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ section.settings.copyright_text }}</small>
@@ -408,6 +451,25 @@
       "id": "payment_enable",
       "label": "Afficher les icônes de paiement",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Informations légales"
+    },
+    {
+      "type": "paragraph",
+      "content": "Les CGV, Politique de confidentialité, Politique de remboursement et Politique d'expédition sont automatiquement tirées de Paramètres > Règles. Configurez-les dans Admin Shopify > Paramètres > Règles."
+    },
+    {
+      "type": "url",
+      "id": "mentions_legales_link",
+      "label": "Lien Mentions légales"
+    },
+    {
+      "type": "text",
+      "id": "mentions_legales_text",
+      "label": "Texte Mentions légales",
+      "default": "Mentions légales"
     },
     {
       "type": "header",
