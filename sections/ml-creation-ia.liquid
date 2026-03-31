@@ -11,7 +11,7 @@
   }
 
   /* ═══════════════════════════════════════
-     Base + Variables
+     Base
      ═══════════════════════════════════════ */
   .ml-ia {
     --ml-black: #111;
@@ -22,140 +22,28 @@
     --ml-off-bg: #f5f4f2;
     --ml-gold: #755a25;
     --ml-gold-light: #c5a467;
-    --ml-gold-glow: rgba(197, 164, 103, 0.15);
     font-family: 'DM Sans', var(--font-body-family), sans-serif;
     color: var(--ml-black);
-    overflow-x: hidden;
   }
 
   /* ═══════════════════════════════════════
-     Scroll Reveal Animations
-     ═══════════════════════════════════════ */
-  @keyframes ml-fade-up {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes ml-fade-in {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-  @keyframes ml-scale-in {
-    from { opacity: 0; transform: scale(0.92); }
-    to   { opacity: 1; transform: scale(1); }
-  }
-  @keyframes ml-slide-left {
-    from { opacity: 0; transform: translateX(-30px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes ml-slide-right {
-    from { opacity: 0; transform: translateX(30px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-  @keyframes ml-counter-pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
-  }
-  @keyframes ml-gold-shimmer {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
-
-  .ml-ia__reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: none;
-  }
-  .ml-ia__reveal--visible {
-    animation: ml-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  .ml-ia__reveal--scale {
-    opacity: 0;
-    transform: scale(0.92);
-  }
-  .ml-ia__reveal--scale.ml-ia__reveal--visible {
-    animation: ml-scale-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  .ml-ia__reveal--left {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  .ml-ia__reveal--left.ml-ia__reveal--visible {
-    animation: ml-slide-left 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  .ml-ia__reveal--right {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  .ml-ia__reveal--right.ml-ia__reveal--visible {
-    animation: ml-slide-right 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  /* Stagger delays for grid items */
-  .ml-ia__reveal--d1 { animation-delay: 0.05s !important; }
-  .ml-ia__reveal--d2 { animation-delay: 0.12s !important; }
-  .ml-ia__reveal--d3 { animation-delay: 0.19s !important; }
-  .ml-ia__reveal--d4 { animation-delay: 0.26s !important; }
-  .ml-ia__reveal--d5 { animation-delay: 0.33s !important; }
-  .ml-ia__reveal--d6 { animation-delay: 0.40s !important; }
-
-  /* Prefer reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .ml-ia__reveal,
-    .ml-ia__reveal--scale,
-    .ml-ia__reveal--left,
-    .ml-ia__reveal--right {
-      opacity: 1;
-      transform: none;
-    }
-    .ml-ia__reveal--visible {
-      animation: none !important;
-    }
-  }
-
-  /* ═══════════════════════════════════════
-     Ornamental Divider
-     ═══════════════════════════════════════ */
-  .ml-ia__divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-    padding: 0 2rem;
-  }
-  .ml-ia__divider-line {
-    flex: 1;
-    max-width: 120px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--ml-gold-light), transparent);
-  }
-  .ml-ia__divider-diamond {
-    width: 8px;
-    height: 8px;
-    background: var(--ml-gold-light);
-    transform: rotate(45deg);
-    flex-shrink: 0;
-  }
-
-  /* ═══════════════════════════════════════
-     Hero (fullscreen + parallax)
+     Hero (fullscreen)
      ═══════════════════════════════════════ */
   .ml-ia__hero {
     position: relative;
-    min-height: 88vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     overflow: hidden;
     padding: 6rem 1.5rem;
   }
   @media screen and (min-width: 750px) {
-    .ml-ia__hero { min-height: 92vh; padding: 8rem 2rem; }
+    .ml-ia__hero { min-height: 90vh; padding: 8rem 2rem; }
   }
   .ml-ia__hero-bg {
     position: absolute;
-    inset: -10%;
+    inset: 0;
     z-index: 0;
-    will-change: transform;
-    transition: transform 0.1s linear;
   }
   .ml-ia__hero-bg img {
     width: 100%;
@@ -165,20 +53,11 @@
   .ml-ia__hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg,
-      rgba(17,17,17,0.92) 0%,
-      rgba(17,17,17,0.7) 40%,
-      rgba(17,17,17,0.3) 70%,
-      rgba(17,17,17,0.15) 100%
-    );
+    background: linear-gradient(to right, rgba(17,17,17,0.88), rgba(17,17,17,0.4), transparent);
   }
   @media screen and (max-width: 749px) {
     .ml-ia__hero-overlay {
-      background: linear-gradient(to bottom,
-        rgba(17,17,17,0.9) 0%,
-        rgba(17,17,17,0.65) 60%,
-        rgba(17,17,17,0.5) 100%
-      );
+      background: linear-gradient(to bottom, rgba(17,17,17,0.85), rgba(17,17,17,0.5));
     }
   }
   .ml-ia__hero-content {
@@ -191,129 +70,78 @@
   .ml-ia__hero-inner {
     max-width: 42rem;
   }
-  .ml-ia__hero-label {
-    display: inline-block;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--ml-gold-light);
-    border: 1px solid rgba(197, 164, 103, 0.35);
-    padding: 0.5rem 1.4rem;
-    margin-bottom: 2rem;
-    backdrop-filter: blur(6px);
-    background: rgba(197, 164, 103, 0.06);
-    animation: ml-fade-in 1s 0.2s both;
-  }
   .ml-ia__hero-title {
     font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
     font-weight: 500;
-    font-size: clamp(2.6rem, 5.5vw, 5rem);
-    line-height: 1.08;
-    letter-spacing: -0.025em;
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     color: #fff;
     margin: 0 0 2rem;
-    animation: ml-fade-up 1s 0.4s both cubic-bezier(0.22, 1, 0.36, 1);
   }
   .ml-ia__hero-title em {
     font-style: italic;
     color: var(--ml-gold-light);
-    position: relative;
   }
   .ml-ia__hero-text {
-    font-size: 1.15rem;
-    line-height: 1.75;
-    color: rgba(255,255,255,0.7);
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
     max-width: 36rem;
     margin: 0 0 3rem;
-    animation: ml-fade-up 1s 0.6s both cubic-bezier(0.22, 1, 0.36, 1);
   }
   .ml-ia__hero-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    animation: ml-fade-up 1s 0.8s both cubic-bezier(0.22, 1, 0.36, 1);
   }
   @media screen and (min-width: 750px) {
     .ml-ia__hero-actions { flex-direction: row; gap: 1.5rem; }
   }
-
-  /* ═══════════════════════════════════════
-     Buttons (Gold + Outline)
-     ═══════════════════════════════════════ */
   .ml-ia__btn-gold {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
     background: linear-gradient(135deg, var(--ml-gold) 0%, var(--ml-gold-light) 100%);
     color: #fff;
-    padding: 1.15rem 2.6rem;
-    font-size: 0.95rem;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+    transition: opacity 0.2s, transform 0.2s;
     min-height: 44px;
-    box-shadow: 0 8px 24px rgba(117, 90, 37, 0.25);
-    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+    box-shadow: 0 10px 24px rgba(117, 90, 37, 0.25);
   }
-  .ml-ia__btn-gold::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%);
-    background-size: 200% 100%;
-    animation: ml-gold-shimmer 3s ease-in-out infinite;
-    pointer-events: none;
-  }
-  .ml-ia__btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(117, 90, 37, 0.35);
-  }
-  .ml-ia__btn-gold:active { transform: translateY(0) scale(0.98); }
+  .ml-ia__btn-gold:hover { opacity: 0.9; }
+  .ml-ia__btn-gold:active { transform: scale(0.97); }
   .ml-ia__btn-gold--xl {
-    padding: 1.35rem 3.2rem;
-    font-size: 1.1rem;
+    padding: 1.4rem 3.2rem;
+    font-size: 1.25rem;
     box-shadow: 0 14px 32px rgba(117, 90, 37, 0.3);
   }
-  .ml-ia__btn-gold svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-    transition: transform 0.3s ease;
-  }
-  .ml-ia__btn-gold:hover svg {
-    transform: translateX(3px);
-  }
-
   .ml-ia__btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.04);
+    background: transparent;
     color: #fff;
-    padding: 1.15rem 2.6rem;
-    font-size: 0.95rem;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
     font-weight: 700;
     text-decoration: none;
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.3);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all 0.2s;
     min-height: 44px;
     backdrop-filter: blur(8px);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
   }
   .ml-ia__btn-outline:hover {
     background: #fff;
     color: var(--ml-black);
-    border-color: #fff;
-    transform: translateY(-2px);
   }
 
   /* ═══════════════════════════════════════
@@ -354,13 +182,13 @@
     margin: 0 0 1rem;
   }
   .ml-ia__styles-subtitle {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--ml-mid);
-    line-height: 1.7;
+    line-height: 1.65;
     margin: 0;
   }
   .ml-ia__styles-link {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -369,94 +197,49 @@
     border-bottom: 1px solid var(--ml-gold);
     padding-bottom: 0.3rem;
     white-space: nowrap;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .ml-ia__styles-link:hover {
-    color: var(--ml-gold-light);
-    border-color: var(--ml-gold-light);
   }
   .ml-ia__styles-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
   }
   @media screen and (min-width: 750px) {
     .ml-ia__styles-grid {
       grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
+      gap: 3rem;
     }
   }
-
-  /* Style Cards with hover overlay */
   .ml-ia__style-card {
     cursor: pointer;
-    position: relative;
   }
-  .ml-ia__style-img-wrap {
+  .ml-ia__style-img {
     aspect-ratio: 4/5;
     overflow: hidden;
     margin-bottom: 1.2rem;
     background: var(--ml-off-bg);
-    position: relative;
+    box-shadow: 0 1px 3px rgba(17,17,17,0.04);
+    transition: transform 0.7s ease;
   }
-  .ml-ia__style-img-wrap img {
+  .ml-ia__style-card:hover .ml-ia__style-img {
+    transform: scale(1.02);
+  }
+  .ml-ia__style-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.7s ease;
   }
-  .ml-ia__style-card:hover .ml-ia__style-img-wrap img {
+  .ml-ia__style-card:hover .ml-ia__style-img img {
     transform: scale(1.08);
-  }
-  .ml-ia__style-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(17,17,17,0.75) 0%,
-      rgba(17,17,17,0.2) 50%,
-      transparent 100%
-    );
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-  .ml-ia__style-card:hover .ml-ia__style-overlay {
-    opacity: 1;
-  }
-  .ml-ia__style-overlay-text {
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 0.6rem 1.4rem;
-    backdrop-filter: blur(6px);
-    background: rgba(255,255,255,0.06);
-    transform: translateY(10px);
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-    opacity: 0;
-  }
-  .ml-ia__style-card:hover .ml-ia__style-overlay-text {
-    transform: translateY(0);
-    opacity: 1;
   }
   .ml-ia__style-name {
     font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 500;
     margin: 0 0 0.3rem;
-    transition: color 0.3s ease;
-  }
-  .ml-ia__style-card:hover .ml-ia__style-name {
-    color: var(--ml-gold);
   }
   .ml-ia__style-desc {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--ml-mid);
     margin: 0;
     line-height: 1.5;
@@ -487,10 +270,10 @@
     }
   }
   .ml-ia__process-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     color: var(--ml-gold);
     margin: 0 0 1rem;
   }
@@ -512,14 +295,13 @@
     top: 0;
     bottom: 0;
     width: 1px;
-    background: linear-gradient(to bottom, var(--ml-gold-light), var(--ml-line));
+    background: var(--ml-line);
   }
   .ml-ia__timeline-step {
     position: relative;
     margin-bottom: 2.5rem;
-    padding-bottom: 0.5rem;
   }
-  .ml-ia__timeline-step:last-child { margin-bottom: 0; padding-bottom: 0; }
+  .ml-ia__timeline-step:last-child { margin-bottom: 0; }
   .ml-ia__timeline-num {
     position: absolute;
     left: -4rem;
@@ -535,26 +317,16 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-    box-shadow: 0 4px 12px rgba(117, 90, 37, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .ml-ia__timeline-step:hover .ml-ia__timeline-num {
-    transform: scale(1.12);
-    box-shadow: 0 6px 20px rgba(117, 90, 37, 0.35);
   }
   .ml-ia__timeline-heading {
     font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
     font-size: 1.3rem;
     font-weight: 600;
     margin: 0 0 0.4rem;
-    transition: color 0.3s ease;
-  }
-  .ml-ia__timeline-step:hover .ml-ia__timeline-heading {
-    color: var(--ml-gold);
   }
   .ml-ia__timeline-text {
-    font-size: 1rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.6;
     color: var(--ml-mid);
     margin: 0;
   }
@@ -573,10 +345,6 @@
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .ml-ia__process-image:hover img {
-    transform: scale(1.04);
   }
   .ml-ia__process-quote {
     background: var(--ml-black);
@@ -588,7 +356,6 @@
     margin-left: 1rem;
     position: relative;
     z-index: 1;
-    border-left: 3px solid var(--ml-gold-light);
   }
   @media screen and (min-width: 990px) {
     .ml-ia__process-quote {
@@ -636,7 +403,6 @@
     width: 40px;
     height: 40px;
     fill: currentColor;
-    opacity: 0.5;
   }
   .ml-ia__blockquote {
     font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
@@ -652,7 +418,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--ml-gold);
     display: block;
     margin-bottom: 4rem;
@@ -667,22 +433,15 @@
   @media screen and (min-width: 750px) {
     .ml-ia__stats { grid-template-columns: repeat(3, 1fr); }
   }
-  .ml-ia__stat {
-    text-align: center;
-  }
   .ml-ia__stat-value {
     font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
     font-size: clamp(3rem, 5vw, 4rem);
     font-weight: 600;
     color: var(--ml-gold);
     margin: 0 0 0.3rem;
-    line-height: 1;
-  }
-  .ml-ia__stat-value.ml-ia__counter--done {
-    animation: ml-counter-pulse 0.4s ease;
   }
   .ml-ia__stat-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -706,27 +465,13 @@
   .ml-ia__final-cta-bg {
     position: absolute;
     inset: 0;
-    opacity: 0.12;
+    opacity: 0.15;
     z-index: 0;
   }
   .ml-ia__final-cta-bg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(0.3);
-  }
-  /* Subtle radial gold glow */
-  .ml-ia__final-cta::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 600px;
-    height: 600px;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(circle, var(--ml-gold-glow) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
   }
   .ml-ia__final-cta-content {
     position: relative;
@@ -740,14 +485,14 @@
     font-style: italic;
     font-size: clamp(2.6rem, 5vw, 4rem);
     color: #fff;
-    line-height: 1.12;
+    line-height: 1.15;
     margin: 0 0 1.5rem;
   }
   .ml-ia__final-cta-text {
-    font-size: 1.15rem;
-    color: rgba(255,255,255,0.6);
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.65);
     margin: 0 0 3rem;
-    line-height: 1.7;
+    line-height: 1.6;
   }
   .ml-ia__final-cta-actions {
     display: flex;
@@ -761,28 +506,25 @@
     text-decoration: none;
     border-bottom: 1px solid rgba(197, 164, 103, 0.3);
     padding-bottom: 0.2rem;
-    transition: border-color 0.3s, color 0.3s;
+    transition: border-color 0.2s;
     font-size: 1.05rem;
   }
   .ml-ia__final-cta-link:hover {
     border-color: var(--ml-gold-light);
-    color: #fff;
   }
 {%- endstyle -%}
 
 <div class="ml-ia">
 
   {%- comment -%} ══ HERO FULLSCREEN ══ {%- endcomment -%}
-  <section class="ml-ia__hero" data-ml-parallax>
+  <section class="ml-ia__hero">
     <div class="ml-ia__hero-bg">
       {%- if section.settings.hero_image != blank -%}
         <img
-          src="{{ section.settings.hero_image | image_url: width: 1920 }}"
+          src="{{ section.settings.hero_image | image_url: width: 1800 }}"
           alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html }}"
           loading="eager"
           fetchpriority="high"
-          width="1920"
-          height="1080"
         >
       {%- endif -%}
       <div class="ml-ia__hero-overlay"></div>
@@ -790,16 +532,12 @@
 
     <div class="ml-ia__hero-content">
       <div class="ml-ia__hero-inner">
-        {%- if section.settings.hero_label != blank -%}
-          <span class="ml-ia__hero-label">{{ section.settings.hero_label }}</span>
-        {%- endif -%}
         <h1 class="ml-ia__hero-title">{{ section.settings.hero_title }}</h1>
         <p class="ml-ia__hero-text">{{ section.settings.hero_text }}</p>
         <div class="ml-ia__hero-actions">
           {%- if section.settings.hero_cta_text != blank -%}
             <a href="{{ section.settings.hero_cta_link }}" class="ml-ia__btn-gold">
               {{ section.settings.hero_cta_text }}
-              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/><style>path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}</style></svg>
             </a>
           {%- endif -%}
           {%- if section.settings.hero_cta2_text != blank -%}
@@ -812,19 +550,12 @@
     </div>
   </section>
 
-  {%- comment -%} ══ DIVIDER ══ {%- endcomment -%}
-  <div class="ml-ia__divider" style="padding-top:3rem;padding-bottom:3rem">
-    <span class="ml-ia__divider-line"></span>
-    <span class="ml-ia__divider-diamond"></span>
-    <span class="ml-ia__divider-line"></span>
-  </div>
-
   {%- comment -%} ══ STYLES IA GRID ══ {%- endcomment -%}
   {%- assign style_blocks = section.blocks | where: "type", "style_card" -%}
   {%- if style_blocks.size > 0 -%}
     <section class="ml-ia__styles">
       <div class="ml-ia__styles-inner">
-        <div class="ml-ia__styles-header ml-ia__reveal">
+        <div class="ml-ia__styles-header">
           <div class="ml-ia__styles-header-text">
             <h2 class="ml-ia__styles-title">{{ section.settings.styles_title }}</h2>
             <p class="ml-ia__styles-subtitle">{{ section.settings.styles_subtitle }}</p>
@@ -838,8 +569,8 @@
 
         <div class="ml-ia__styles-grid">
           {%- for block in style_blocks -%}
-            <div class="ml-ia__style-card ml-ia__reveal ml-ia__reveal--d{{ forloop.index }}" {{ block.shopify_attributes }}>
-              <div class="ml-ia__style-img-wrap">
+            <div class="ml-ia__style-card" {{ block.shopify_attributes }}>
+              <div class="ml-ia__style-img">
                 {%- if block.settings.image != blank -%}
                   <img
                     src="{{ block.settings.image | image_url: width: 600 }}"
@@ -851,9 +582,6 @@
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}
-                <div class="ml-ia__style-overlay">
-                  <span class="ml-ia__style-overlay-text">Découvrir</span>
-                </div>
               </div>
               <h3 class="ml-ia__style-name">{{ block.settings.name }}</h3>
               <p class="ml-ia__style-desc">{{ block.settings.description }}</p>
@@ -869,7 +597,7 @@
   {%- if step_blocks.size > 0 -%}
     <section class="ml-ia__process">
       <div class="ml-ia__process-inner">
-        <div class="ml-ia__reveal ml-ia__reveal--left">
+        <div>
           <p class="ml-ia__process-label">{{ section.settings.process_label }}</p>
           <h2 class="ml-ia__process-title">{{ section.settings.process_title }}</h2>
 
@@ -884,7 +612,7 @@
           </div>
         </div>
 
-        <div class="ml-ia__process-visual ml-ia__reveal ml-ia__reveal--right">
+        <div class="ml-ia__process-visual">
           <div class="ml-ia__process-image">
             {%- if section.settings.process_image != blank -%}
               <img
@@ -912,23 +640,16 @@
     </section>
   {%- endif -%}
 
-  {%- comment -%} ══ DIVIDER ══ {%- endcomment -%}
-  <div class="ml-ia__divider" style="padding-top:0;padding-bottom:0">
-    <span class="ml-ia__divider-line"></span>
-    <span class="ml-ia__divider-diamond"></span>
-    <span class="ml-ia__divider-line"></span>
-  </div>
-
   {%- comment -%} ══ TÉMOIGNAGE + CHIFFRES ══ {%- endcomment -%}
   <section class="ml-ia__social-proof">
     <div class="ml-ia__social-proof-inner">
       {%- if section.settings.testimonial_text != blank -%}
-        <div class="ml-ia__quote-icon ml-ia__reveal">
+        <div class="ml-ia__quote-icon">
           <svg viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/></svg>
         </div>
-        <blockquote class="ml-ia__blockquote ml-ia__reveal">{{ section.settings.testimonial_text }}</blockquote>
+        <blockquote class="ml-ia__blockquote">{{ section.settings.testimonial_text }}</blockquote>
         {%- if section.settings.testimonial_author != blank -%}
-          <cite class="ml-ia__cite ml-ia__reveal">{{ section.settings.testimonial_author }}</cite>
+          <cite class="ml-ia__cite">{{ section.settings.testimonial_author }}</cite>
         {%- endif -%}
       {%- endif -%}
 
@@ -936,8 +657,8 @@
       {%- if stat_blocks.size > 0 -%}
         <div class="ml-ia__stats">
           {%- for block in stat_blocks -%}
-            <div class="ml-ia__stat ml-ia__reveal ml-ia__reveal--d{{ forloop.index }}" {{ block.shopify_attributes }}>
-              <div class="ml-ia__stat-value" data-ml-counter="{{ block.settings.value }}">{{ block.settings.value }}</div>
+            <div {{ block.shopify_attributes }}>
+              <div class="ml-ia__stat-value">{{ block.settings.value }}</div>
               <p class="ml-ia__stat-label">{{ block.settings.label }}</p>
             </div>
           {%- endfor -%}
@@ -958,7 +679,7 @@
       </div>
     {%- endif -%}
 
-    <div class="ml-ia__final-cta-content ml-ia__reveal">
+    <div class="ml-ia__final-cta-content">
       <h2 class="ml-ia__final-cta-title">{{ section.settings.cta_title }}</h2>
       {%- if section.settings.cta_text != blank -%}
         <p class="ml-ia__final-cta-text">{{ section.settings.cta_text }}</p>
@@ -967,7 +688,6 @@
         {%- if section.settings.cta_button_text != blank -%}
           <a href="{{ section.settings.cta_button_link }}" class="ml-ia__btn-gold ml-ia__btn-gold--xl">
             {{ section.settings.cta_button_text }}
-            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/><style>path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}</style></svg>
           </a>
         {%- endif -%}
         {%- if section.settings.cta_link_text != blank -%}
@@ -981,99 +701,6 @@
 
 </div>
 
-<script>
-(function() {
-  'use strict';
-
-  /* ── Scroll Reveal (IntersectionObserver) ── */
-  var reveals = document.querySelectorAll('.ml-ia__reveal');
-  if (!reveals.length) return;
-
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('ml-ia__reveal--visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    reveals.forEach(function(el) { observer.observe(el); });
-  } else {
-    reveals.forEach(function(el) {
-      el.classList.add('ml-ia__reveal--visible');
-    });
-  }
-
-  /* ── Parallax Hero Background ── */
-  var heroSection = document.querySelector('[data-ml-parallax]');
-  var heroBg = heroSection ? heroSection.querySelector('.ml-ia__hero-bg') : null;
-  if (heroBg && window.matchMedia('(min-width: 750px)').matches
-      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    var ticking = false;
-    window.addEventListener('scroll', function() {
-      if (!ticking) {
-        window.requestAnimationFrame(function() {
-          var rect = heroSection.getBoundingClientRect();
-          if (rect.bottom > 0 && rect.top < window.innerHeight) {
-            var scrolled = -rect.top;
-            var parallax = scrolled * 0.15;
-            heroBg.style.transform = 'translate3d(0,' + parallax + 'px,0)';
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-
-  /* ── Counter Animation on Stats ── */
-  var counters = document.querySelectorAll('[data-ml-counter]');
-  if (counters.length && 'IntersectionObserver' in window) {
-    var counterObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counters.forEach(function(el) { counterObserver.observe(el); });
-  }
-
-  function animateCounter(el) {
-    var raw = el.getAttribute('data-ml-counter') || '';
-    var numMatch = raw.match(/(\d+)/);
-    if (!numMatch) return;
-
-    var target = parseInt(numMatch[1], 10);
-    var prefix = raw.substring(0, raw.indexOf(numMatch[1]));
-    var suffix = raw.substring(raw.indexOf(numMatch[1]) + numMatch[1].length);
-    var duration = 1200;
-    var start = performance.now();
-
-    function step(now) {
-      var elapsed = now - start;
-      var progress = Math.min(elapsed / duration, 1);
-      var ease = 1 - Math.pow(1 - progress, 3);
-      var current = Math.round(target * ease);
-      el.textContent = prefix + current + suffix;
-
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = raw;
-        el.classList.add('ml-ia__counter--done');
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-})();
-</script>
-
 {% schema %}
 {
   "name": "Cr\u00e9ation IA Premium",
@@ -1083,12 +710,6 @@
     {
       "type": "header",
       "content": "Hero"
-    },
-    {
-      "type": "text",
-      "id": "hero_label",
-      "label": "\u00c9tiquette (au-dessus du titre)",
-      "default": "Intelligence Artificielle"
     },
     {
       "type": "textarea",
