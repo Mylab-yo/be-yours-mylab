@@ -1,0 +1,138 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-creation-ia",
+      "blocks": {
+        "style_1": {
+          "type": "style_card",
+          "settings": {
+            "name": "Luxe & Or",
+            "description": "Opulence, dorures à chaud et typographies classiques."
+          }
+        },
+        "style_2": {
+          "type": "style_card",
+          "settings": {
+            "name": "Botanique",
+            "description": "Illustrations organiques, textures de papier et tons terreux."
+          }
+        },
+        "style_3": {
+          "type": "style_card",
+          "settings": {
+            "name": "Minimaliste",
+            "description": "La pureté absolue. Équilibre des blancs et typographie helvétique."
+          }
+        },
+        "style_4": {
+          "type": "style_card",
+          "settings": {
+            "name": "K-Beauty",
+            "description": "Couleurs pastel, dégradés oniriques et modernité coréenne."
+          }
+        },
+        "style_5": {
+          "type": "style_card",
+          "settings": {
+            "name": "Homme Premium",
+            "description": "Carbone, argent et structures graphiques rigoureuses."
+          }
+        },
+        "style_6": {
+          "type": "style_card",
+          "settings": {
+            "name": "Atelier Artisanal",
+            "description": "Effets de matière, tampons à la main et authenticité brute."
+          }
+        },
+        "step_1": {
+          "type": "process_step",
+          "settings": {
+            "title": "Choisissez vos gammes",
+            "text": "Sélectionnez les produits que vous souhaitez personnaliser parmi notre catalogue de formulations premium."
+          }
+        },
+        "step_2": {
+          "type": "process_step",
+          "settings": {
+            "title": "Choisissez un style IA",
+            "text": "Notre intelligence artificielle génère des dizaines de variations uniques basées sur votre direction artistique."
+          }
+        },
+        "step_3": {
+          "type": "process_step",
+          "settings": {
+            "title": "Prévisualisez en 3D",
+            "text": "Visualisez instantanément le rendu final sur vos bouteilles grâce à notre moteur de rendu photoréaliste."
+          }
+        },
+        "step_4": {
+          "type": "process_step",
+          "settings": {
+            "title": "Téléchargez et commandez",
+            "text": "Validez votre design et recevez vos produits étiquetés directement dans votre salon sous 10 jours."
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "9",
+            "label": "Styles IA disponibles"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "30s",
+            "label": "Design unique en 30 secondes"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Rendu 3D sur bouteille"
+          }
+        }
+      },
+      "block_order": [
+        "style_1",
+        "style_2",
+        "style_3",
+        "style_4",
+        "style_5",
+        "style_6",
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "hero_label": "Mode Studio",
+        "hero_title": "L'IA crée des étiquettes qui n'existent <em>nulle part ailleurs</em>",
+        "hero_text": "Choisissez un style — luxe, nature, minimaliste, k-beauty — et notre intelligence artificielle génère un design unique pour votre salon. Aucune compétence graphique requise.",
+        "hero_cta_text": "Générer mon design unique",
+        "hero_cta2_text": "Voir le portfolio",
+        "styles_title": "Explorez nos directions artistiques",
+        "styles_subtitle": "Choisissez une direction artistique, l'IA fait le reste. Chaque génération produit un motif unique, impossible à dupliquer.",
+        "styles_link_text": "Tous les styles",
+        "process_label": "Le Processus",
+        "process_title": "De l'idée à la bouteille, sans intermédiaire",
+        "process_quote": "La précision du rendu 3D nous a permis de valider la collection en quelques minutes seulement.",
+        "process_quote_author": "Designer Studio MyLab",
+        "testimonial_text": "En 2 clics, l'IA a généré un design qui correspond parfaitement à l'image de notre salon. Bluffant.",
+        "testimonial_author": "Salon Éclat, Paris",
+        "cta_title": "Votre marque mérite un design à la hauteur de votre savoir-faire",
+        "cta_text": "Rejoignez les 500+ salons qui ont transformé leur image grâce à l'intelligence artificielle MyLab.",
+        "cta_button_text": "Générer mon design unique",
+        "cta_link_text": "Ou explorer nos modèles prêts à l'emploi",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}
