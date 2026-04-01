@@ -115,6 +115,9 @@
       endif
       assign ml_lc = ml_uc | times: item.quantity
       assign ml_ht_subtotal_footer = ml_ht_subtotal_footer | plus: ml_lc
+    else
+      assign ml_item_total = item.original_price | times: item.quantity
+      assign ml_ht_subtotal_footer = ml_ht_subtotal_footer | plus: ml_item_total
     endif
   endfor
 -%}
