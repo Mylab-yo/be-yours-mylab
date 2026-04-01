@@ -1523,7 +1523,7 @@ class AddToCart extends HTMLElement {
   constructor() {
     super();
 
-    this.miniCart = document.querySelector('cart-drawer') || document.querySelector('cart-notification');
+    this.miniCart = document.querySelector('mini-cart') || document.querySelector('cart-drawer') || document.querySelector('cart-notification');
     this.addEventListener('click', this.onClickHandler.bind(this));
   }
 
@@ -2672,7 +2672,7 @@ class BundleProducts extends HTMLElement {
       active: 'is-active',
     };
 
-    this.miniCart = document.querySelector('cart-drawer') || document.querySelector('cart-notification');
+    this.miniCart = document.querySelector('mini-cart') || document.querySelector('cart-drawer') || document.querySelector('cart-notification');
     this.button = this.querySelector('button');
     if (this.button) this.button.addEventListener('click', this.onButtonClick.bind(this));
 
