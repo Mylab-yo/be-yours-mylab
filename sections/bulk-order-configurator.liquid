@@ -95,7 +95,11 @@
     webhookUrl: {{ section.settings.webhook_url | default: '' | json }}
   };
 </script>
-<script src="{{ 'bulk-order.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bulk-order-core.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bulk-order-formulas.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bulk-order-bottles.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bulk-order-quantity.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'bulk-order-summary.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
 {

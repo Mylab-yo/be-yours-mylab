@@ -24,3 +24,4 @@ moq2_errors.log
 .vscode/
 api/mylab-devis-workflow*.json
 api/n8n-devis-gros-volumes.json
+.gstack/

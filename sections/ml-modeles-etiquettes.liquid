@@ -330,7 +330,9 @@
       </ul>
       <div class="ml-etiq__price">Gratuit</div>
       <div class="ml-etiq__price-note">Inclus avec votre commande</div>
-      <button type="button" class="ml-etiq__cta" data-variant-id="59231350554958" onclick="mlAddLabel(this)">Ajouter au panier</button>
+      {%- if section.settings.product_standard != blank -%}
+        <button type="button" class="ml-etiq__cta" data-variant-id="{{ section.settings.product_standard.selected_or_first_available_variant.id }}" onclick="mlAddLabel(this)">Ajouter au panier</button>
+      {%- endif -%}
     </div>
 
     {%- comment -%} Forfait 2 : Modèle design {%- endcomment -%}
@@ -363,7 +365,9 @@
       </ul>
       <div class="ml-etiq__price">390 €</div>
       <div class="ml-etiq__price-note">HT / création</div>
-      <button type="button" class="ml-etiq__cta" data-variant-id="55418346242382" onclick="mlAddLabel(this)">Ajouter au panier</button>
+      {%- if section.settings.product_sur_mesure != blank -%}
+        <button type="button" class="ml-etiq__cta" data-variant-id="{{ section.settings.product_sur_mesure.selected_or_first_available_variant.id }}" onclick="mlAddLabel(this)">Ajouter au panier</button>
+      {%- endif -%}
     </div>
 
   </div>
@@ -470,6 +474,20 @@
       "id": "subtitle",
       "label": "Sous-titre",
       "default": "Choisissez parmi 3 forfaits adaptés à vos besoins : impression standard, modèles design ou création sur mesure."
+    },
+    {
+      "type": "header",
+      "content": "Forfaits"
+    },
+    {
+      "type": "product",
+      "id": "product_standard",
+      "label": "Produit — Forfait Standard (gratuit)"
+    },
+    {
+      "type": "product",
+      "id": "product_sur_mesure",
+      "label": "Produit — Forfait Création sur mesure"
     },
     {
       "type": "header",

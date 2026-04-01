@@ -314,10 +314,12 @@
     flex-wrap: wrap;
   }
 
-  .ml-trust__item {
+  .ml-trust .ml-trust__item,
+  .ml-trust__item:not(:first-child),
+  .ml-trust__item:last-child {
     flex: 1 1 45%;
     border-right: none;
-    padding-left: 0 !important;
+    padding-left: 0;
     border-bottom: 1px solid var(--ml-line);
   }
 
@@ -555,17 +557,17 @@ body.ml-drawer-open { overflow: hidden; }
   letter-spacing: -0.02em;
 }
 
-.ml-btn-checkout {
+.ml-drawer__footer .ml-btn-checkout {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
   padding: 16px;
-  background: #111111 !important;
-  color: #FFFFFF !important;
+  background: #111111;
+  color: #FFFFFF;
   text-align: center;
-  text-decoration: none !important;
+  text-decoration: none;
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -576,7 +578,7 @@ body.ml-drawer-open { overflow: hidden; }
   cursor: pointer;
   margin-bottom: 10px;
 }
-.ml-btn-checkout:hover { background: #333333 !important; color: #FFFFFF !important; }
+.ml-drawer__footer .ml-btn-checkout:hover { background: #333333; color: #FFFFFF; }
 
 .ml-btn-cart-page {
   display: block;
@@ -632,9 +634,9 @@ body.ml-drawer-open { overflow: hidden; }
 }
 
 /* --- Prix HT (cart page) --- */
-.cart-item__prices .price .ml-ht-label,
-.cart-item__totals .price .ml-ht-label {
-  font-size: 0.85rem !important;
+.cart-item__prices .price small.ml-ht-label,
+.cart-item__totals .price small.ml-ht-label {
+  font-size: 0.85rem;
 }
 
 /* --- Prix + HT alignement dans product-content --- */
@@ -643,17 +645,18 @@ body.ml-drawer-open { overflow: hidden; }
 }
 
 /* --- Label HT uniforme --- */
-.ml-ht-label {
-  font-family: 'DM Sans', sans-serif !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  color: var(--ml-muted, #888) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-  vertical-align: baseline !important;
-  position: relative !important;
-  top: 0 !important;
-  line-height: inherit !important;
+.price small.ml-ht-label,
+dd.price .ml-ht-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ml-muted, #888);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  vertical-align: baseline;
+  position: relative;
+  top: 0;
+  line-height: inherit;
   margin-inline-start: 0.3rem;
 }
 
@@ -886,22 +889,22 @@ td.cart-item__quantity .ml-qty-select {
 }
 
 /* --- Bouton checkout page panier --- */
-.cart__checkout-button {
+body .cart__checkout-button.button {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background-color: var(--ml-black, #111) !important;
-  color: var(--ml-white, #fff) !important;
-  border: 2px solid var(--ml-black, #111) !important;
-  border-radius: 50px !important;
+  background-color: var(--ml-black, #111);
+  color: var(--ml-white, #fff);
+  border: 2px solid var(--ml-black, #111);
+  border-radius: 50px;
   min-height: 5rem;
   transition: background-color 0.25s, color 0.25s;
 }
-.cart__checkout-button:hover {
-  background-color: transparent !important;
-  color: var(--ml-black, #111) !important;
+body .cart__checkout-button.button:hover {
+  background-color: transparent;
+  color: var(--ml-black, #111);
 }
 
 /* --- Lien Supprimer tableau --- */
