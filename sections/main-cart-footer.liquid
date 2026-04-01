@@ -205,7 +205,7 @@
           assign discount_codes = discount_codes | uniq
         -%}
 
-        <div class="cart-discount-wrap js-contents" >
+        <div class="cart-discount-wrap" >
           <cart-discount class="cart-discount grid gap-4" data-section-id="{{ section.id }}">
             <label for="CartDiscountForm-{{ section.id }}">{{ 'general.cart.discount.title' | t }}</label>
             <ul class="discounts list-unstyled flex flex-wrap items-center gap-2" role="list" aria-label="{{ 'general.cart.discount.title' | t | escape }}">
