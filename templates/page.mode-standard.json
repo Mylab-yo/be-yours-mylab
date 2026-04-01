@@ -1,0 +1,144 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-configurateur-mode",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Renseignez votre marque",
+            "text": "Entrez le nom de votre marque, votre baseline et vos coordonn\u00e9es. Ces informations seront automatiquement int\u00e9gr\u00e9es sur chaque \u00e9tiquette de votre gamme.",
+            "detail_1": "Nom de marque et baseline personnalis\u00e9e",
+            "detail_2": "Logo (upload optionnel)",
+            "detail_3": "Coordonn\u00e9es salon et num\u00e9ro CPNP",
+            "detail_4": "Palette de couleurs automatique ou personnalis\u00e9e",
+            "cost": "Gratuit \u2014 aucun frais de cr\u00e9ation"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "S\u00e9lectionnez vos produits",
+            "text": "Parcourez notre catalogue de formulations professionnelles et composez votre gamme. Shampoings, masques, soins, huiles, s\u00e9rums\u2026 choisissez les produits adapt\u00e9s \u00e0 votre client\u00e8le.",
+            "detail_1": "9 gammes disponibles : Nourrissant, R\u00e9parateur, Lissant, Volume\u2026",
+            "detail_2": "Contenances au choix : 200ml, 400ml, 500ml, 1000ml",
+            "detail_3": "Formulations certifi\u00e9es et test\u00e9es dermatologiquement",
+            "detail_4": "Fiche technique et liste INCI disponibles",
+            "cost": "Gratuit \u2014 la s\u00e9lection ne co\u00fbte rien"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Pr\u00e9visualisez vos \u00e9tiquettes",
+            "text": "Le configurateur g\u00e9n\u00e8re instantan\u00e9ment vos \u00e9tiquettes avec votre identit\u00e9 de marque. Visualisez le rendu sur bouteille et ajustez les d\u00e9tails si n\u00e9cessaire.",
+            "detail_1": "Rendu en temps r\u00e9el sur bouteille",
+            "detail_2": "Mise en page automatique par contenance",
+            "detail_3": "Mentions l\u00e9gales et INCI pr\u00e9-int\u00e9gr\u00e9s",
+            "detail_4": "Possibilit\u00e9 de t\u00e9l\u00e9charger un aper\u00e7u HD",
+            "cost": "Gratuit \u2014 pr\u00e9visualisez autant que vous voulez"
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Commandez votre gamme",
+            "text": "Validez votre s\u00e9lection et passez commande. Vos produits sont fabriqu\u00e9s et \u00e9tiquet\u00e9s dans notre laboratoire puis exp\u00e9di\u00e9s directement \u00e0 votre salon.",
+            "detail_1": "Tarifs d\u00e9gressifs selon les quantit\u00e9s",
+            "detail_2": "Livraison sous 10 jours ouvr\u00e9s",
+            "detail_3": "Suivi de commande en temps r\u00e9el",
+            "detail_4": "Service client d\u00e9di\u00e9 aux professionnels",
+            "cost": "+0,20\u20ac par produit pour l\u2019impression de l\u2019\u00e9tiquette"
+          }
+        },
+        "pricing_free": {
+          "type": "pricing_card",
+          "settings": {
+            "name": "Cr\u00e9ation",
+            "description": "Concevez votre gamme sans engagement. Aucun frais tant que vous ne commandez pas.",
+            "price": "0\u20ac",
+            "unit": "",
+            "badge": "",
+            "featured": false,
+            "feature_1": "Cr\u00e9ation de marque illimit\u00e9e",
+            "feature_2": "S\u00e9lection de produits illimit\u00e9e",
+            "feature_3": "Pr\u00e9visualisation sur bouteille",
+            "feature_4": "T\u00e9l\u00e9chargement d\u2019aper\u00e7u HD",
+            "feature_5": "Aucun engagement",
+            "cta_text": "Commencer gratuitement",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard"
+          }
+        },
+        "pricing_print": {
+          "type": "pricing_card",
+          "settings": {
+            "name": "Impression",
+            "description": "\u00c0 la commande, un petit suppl\u00e9ment par produit couvre l\u2019impression et la pose de votre \u00e9tiquette personnalis\u00e9e.",
+            "price": "0,20\u20ac",
+            "unit": "/ produit",
+            "badge": "Transparent",
+            "featured": true,
+            "feature_1": "Impression haute qualit\u00e9 sur \u00e9tiquette adh\u00e9sive",
+            "feature_2": "Pose en laboratoire avant exp\u00e9dition",
+            "feature_3": "Int\u00e9gr\u00e9 au prix de commande",
+            "feature_4": "Pas de minimum d\u2019impression",
+            "feature_5": "Abonnement annuel en pr\u00e9paration",
+            "cta_text": "Cr\u00e9er ma gamme",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard"
+          }
+        },
+        "adv_1": {
+          "type": "advantage",
+          "settings": {
+            "title": "Z\u00e9ro risque",
+            "text": "Cr\u00e9ez et explorez librement. Vous ne payez qu\u2019au moment de commander vos produits."
+          }
+        },
+        "adv_2": {
+          "type": "advantage",
+          "settings": {
+            "title": "Rapide et simple",
+            "text": "Pas besoin de comp\u00e9tences graphiques. Le configurateur g\u00e8re la mise en page et les mentions l\u00e9gales automatiquement."
+          }
+        },
+        "adv_3": {
+          "type": "advantage",
+          "settings": {
+            "title": "Votre marque, vos r\u00e8gles",
+            "text": "Chaque \u00e9tiquette porte uniquement votre identit\u00e9. Aucune mention MyLab visible sur vos produits."
+          }
+        }
+      },
+      "block_order": [
+        "step_1", "step_2", "step_3", "step_4",
+        "pricing_free", "pricing_print",
+        "adv_1", "adv_2", "adv_3"
+      ],
+      "settings": {
+        "hero_label": "Mode Standard",
+        "hero_title": "Cr\u00e9ez votre gamme compl\u00e8te, <em>gratuitement</em>",
+        "hero_text": "Le mode standard vous permet de g\u00e9n\u00e9rer vos \u00e9tiquettes personnalis\u00e9es sans aucun co\u00fbt de cr\u00e9ation. Vous ne payez que lorsque vous commandez vos produits.",
+        "hero_price_label": "Cr\u00e9ation",
+        "hero_price_value": "Gratuit",
+        "hero_cta_text": "Commencer gratuitement",
+        "hero_cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard",
+        "hero_cta2_text": "Voir les tarifs",
+        "steps_label": "\u00c9tape par \u00e9tape",
+        "steps_title": "De votre id\u00e9e \u00e0 votre gamme, en 4 \u00e9tapes",
+        "steps_subtitle": "Chaque \u00e9tape est gratuite jusqu\u2019\u00e0 la commande. Explorez, testez, ajustez \u2014 sans engagement.",
+        "pricing_label": "Tarifs transparents",
+        "pricing_title": "Payez uniquement ce que vous commandez",
+        "pricing_subtitle": "La cr\u00e9ation est enti\u00e8rement gratuite. Seule l\u2019impression de vos \u00e9tiquettes est factur\u00e9e au moment de la commande.",
+        "advantages_title": "Pourquoi choisir le mode standard",
+        "cta_title": "Lancez votre marque d\u00e8s aujourd\u2019hui",
+        "cta_text": "Aucun frais de cr\u00e9ation, aucun engagement. Votre gamme compl\u00e8te en quelques minutes.",
+        "cta_button_text": "Commencer gratuitement",
+        "cta_button_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard",
+        "cta_link_text": "Voir tous les modes du configurateur",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}
