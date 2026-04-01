@@ -42,13 +42,13 @@
         "step_4": {
           "type": "step",
           "settings": {
-            "title": "Commandez si vous le souhaitez",
-            "text": "Satisfait de vos visuels ? Passez directement \u00e0 la commande pour recevoir vos produits \u00e9tiquet\u00e9s avec votre design. Ou utilisez simplement les rendus pour votre communication.",
-            "detail_1": "Commande optionnelle \u2014 aucune obligation",
-            "detail_2": "Impression haute qualit\u00e9 de votre design import\u00e9",
-            "detail_3": "Livraison sous 10 jours ouvr\u00e9s",
-            "detail_4": "Id\u00e9al pour tester le march\u00e9 avec des visuels avant de s\u2019engager",
-            "cost": "Tarif d\u2019impression standard au moment de la commande"
+            "title": "Faites vivre votre marque en ligne",
+            "text": "Mettez en sc\u00e8ne vos produits et utilisez les visuels pour alimenter votre pr\u00e9sence digitale. R\u00e9seaux sociaux, site internet, fiches produit, stories\u2026 donnez vie \u00e0 votre marque avant m\u00eame la premi\u00e8re vente.",
+            "detail_1": "Visuels pr\u00eats \u00e0 publier sur Instagram, Facebook, TikTok",
+            "detail_2": "Rendus HD pour votre site e-commerce et fiches produit",
+            "detail_3": "Cr\u00e9ez des stories, carrousels et publications engageantes",
+            "detail_4": "Construisez votre image de marque et attirez vos premiers clients",
+            "cost": "Inclus \u2014 t\u00e9l\u00e9chargez et publiez sans limite"
           }
         },
         "pricing_free": {
@@ -122,8 +122,8 @@
         "adv_3": {
           "type": "advantage",
           "settings": {
-            "title": "Testez avant de commander",
-            "text": "Faites vivre votre marque visuellement avant m\u00eame de passer votre premi\u00e8re commande. Z\u00e9ro risque."
+            "title": "Marketing digital pr\u00eat \u00e0 l\u2019emploi",
+            "text": "Publiez imm\u00e9diatement sur vos r\u00e9seaux, votre site ou vos supports commerciaux. Lancez votre marque sans attendre."
           }
         }
       },
@@ -135,7 +135,7 @@
       "settings": {
         "hero_label": "Mode Import",
         "hero_title": "Donnez vie \u00e0 <em>votre design</em> sur nos produits",
-        "hero_text": "Vous avez d\u00e9j\u00e0 votre identit\u00e9 visuelle ? Importez vos designs pour les appliquer sur nos bouteilles et cr\u00e9ez des visuels professionnels pour votre site et vos r\u00e9seaux sociaux.",
+        "hero_text": "Importez vos designs, appliquez-les sur nos produits et cr\u00e9ez des visuels percutants pour vos r\u00e9seaux sociaux, votre site internet et votre marketing digital. Donnez vie \u00e0 votre marque avant m\u00eame de commander.",
         "hero_price_label": "Mises en situation",
         "hero_price_value": "5 gratuites/jour",
         "hero_cta_text": "Importer mon design",
@@ -143,13 +143,13 @@
         "hero_cta2_text": "Voir les tarifs",
         "steps_label": "\u00c9tape par \u00e9tape",
         "steps_title": "De votre fichier \u00e0 vos visuels pro, en 4 \u00e9tapes",
-        "steps_subtitle": "Importez votre design, visualisez-le sur nos bouteilles, t\u00e9l\u00e9chargez les rendus HD et commandez si vous le souhaitez.",
+        "steps_subtitle": "Importez votre design, visualisez-le sur nos bouteilles, t\u00e9l\u00e9chargez les rendus HD et mettez en sc\u00e8ne votre marque pour le digital.",
         "pricing_label": "Tarifs transparents",
         "pricing_title": "Cr\u00e9ez vos visuels, payez \u00e0 votre rythme",
         "pricing_subtitle": "5 mises en situation gratuites chaque jour. Au-del\u00e0, un syst\u00e8me de cr\u00e9dits flexible et sans engagement.",
         "advantages_title": "Pourquoi choisir le mode import",
-        "cta_title": "Votre marque m\u00e9rite de prendre vie",
-        "cta_text": "Importez votre design et visualisez votre gamme en quelques secondes. 5 rendus offerts chaque jour.",
+        "cta_title": "Votre marque m\u00e9rite d\u2019\u00eatre vue",
+        "cta_text": "Importez votre design, cr\u00e9ez vos visuels produit et lancez votre communication digitale en quelques minutes. 5 rendus offerts chaque jour.",
         "cta_button_text": "Importer mon design",
         "cta_button_link": "https://mylab-configurateur.vercel.app/configurateur?mode=import",
         "cta_link_text": "Voir tous les modes du configurateur",
