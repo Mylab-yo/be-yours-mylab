@@ -1,0 +1,189 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-configurateur-hub",
+      "blocks": {
+        "feat_standard": {
+          "type": "feature_card",
+          "settings": {
+            "name": "Mode Standard",
+            "description": "G\u00e9n\u00e9rez votre gamme compl\u00e8te avec vos informations de marque. Choisissez vos produits, personnalisez vos \u00e9tiquettes et pr\u00e9visualisez le r\u00e9sultat.",
+            "icon": "palette",
+            "link_text": "Cr\u00e9er ma gamme",
+            "link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard"
+          }
+        },
+        "feat_modeles": {
+          "type": "feature_card",
+          "settings": {
+            "name": "Mod\u00e8les d\u2019\u00e9tiquettes",
+            "description": "Explorez notre biblioth\u00e8que de mod\u00e8les professionnels. Luxe, botanique, minimaliste\u2026 trouvez le style qui correspond \u00e0 votre identit\u00e9.",
+            "icon": "grid",
+            "link_text": "Voir les mod\u00e8les",
+            "link": "https://mylab-configurateur.vercel.app/configurateur?mode=template"
+          }
+        },
+        "feat_ia": {
+          "type": "feature_card",
+          "settings": {
+            "name": "\u00c9tiquettes IA",
+            "description": "Notre intelligence artificielle g\u00e9n\u00e8re des designs inspirationnels uniques en quelques secondes. Un motif exclusif, impossible \u00e0 dupliquer.",
+            "icon": "sparkles",
+            "link_text": "G\u00e9n\u00e9rer un design",
+            "link": "https://mylab-configurateur.vercel.app/configurateur?mode=studio"
+          }
+        },
+        "feat_import": {
+          "type": "feature_card",
+          "settings": {
+            "name": "Import de designs",
+            "description": "Importez vos propres visuels pour mettre en situation votre marque sur nos produits. Id\u00e9al pour votre site internet et r\u00e9seaux sociaux.",
+            "icon": "upload",
+            "link_text": "Importer mon design",
+            "link": "https://mylab-configurateur.vercel.app/configurateur?mode=import"
+          }
+        },
+        "detail_standard": {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mode Standard",
+            "title": "G\u00e9n\u00e9rez votre gamme compl\u00e8te en quelques clics",
+            "text": "S\u00e9lectionnez vos produits parmi notre catalogue de formulations premium, personnalisez les \u00e9tiquettes avec votre nom de marque, et pr\u00e9visualisez instantan\u00e9ment le rendu sur bouteille.",
+            "bullet_1": "Catalogue complet : shampoings, soins, masques, huiles et s\u00e9rums",
+            "bullet_2": "Personnalisation du nom de marque et des informations",
+            "bullet_3": "Pr\u00e9visualisation 3D sur bouteille en temps r\u00e9el",
+            "bullet_4": "Export pr\u00eat \u00e0 imprimer en haute d\u00e9finition",
+            "cta_text": "Lancer le mode standard",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard"
+          }
+        },
+        "detail_modeles": {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mod\u00e8les Pro",
+            "title": "Des mod\u00e8les d\u2019\u00e9tiquettes sign\u00e9s par des designers",
+            "text": "Choisissez parmi nos collections de mod\u00e8les professionnels, con\u00e7us pour refl\u00e9ter diff\u00e9rentes esth\u00e9tiques : luxe, nature, minimalisme, k-beauty et bien plus.",
+            "bullet_1": "Collections th\u00e9matiques : Aquarel, Prestige, Atelier, K-Beauty\u2026",
+            "bullet_2": "Adapt\u00e9s \u00e0 toutes les contenances (200ml \u00e0 1000ml)",
+            "bullet_3": "Modifiables avec votre identit\u00e9 de marque",
+            "bullet_4": "Qualit\u00e9 impression professionnelle garantie",
+            "cta_text": "Explorer les mod\u00e8les",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=template"
+          }
+        },
+        "detail_ia": {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mode Studio IA",
+            "title": "L\u2019IA cr\u00e9e des \u00e9tiquettes qui n\u2019existent nulle part ailleurs",
+            "text": "Choisissez une direction artistique et notre intelligence artificielle g\u00e9n\u00e8re un design unique pour votre salon. Chaque cr\u00e9ation est exclusive et impossible \u00e0 dupliquer.",
+            "bullet_1": "9 styles artistiques : Luxe, Botanique, Minimaliste, K-Beauty\u2026",
+            "bullet_2": "G\u00e9n\u00e9ration en 30 secondes, sans comp\u00e9tence graphique",
+            "bullet_3": "Rendu 3D photor\u00e9aliste instantan\u00e9",
+            "bullet_4": "Design 100% unique et exclusif \u00e0 votre marque",
+            "cta_text": "G\u00e9n\u00e9rer mon design IA",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=studio"
+          }
+        },
+        "detail_import": {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Import Design",
+            "title": "Donnez vie \u00e0 votre marque sur nos produits",
+            "text": "Vous avez d\u00e9j\u00e0 votre identit\u00e9 visuelle ? Importez vos designs pour les appliquer sur nos bouteilles et cr\u00e9ez des mises en situation professionnelles pour votre communication.",
+            "bullet_1": "Import de fichiers PNG, JPG, PDF ou AI",
+            "bullet_2": "Mise en situation r\u00e9aliste sur bouteille",
+            "bullet_3": "Visuels pr\u00eats pour site internet et r\u00e9seaux sociaux",
+            "bullet_4": "Faites vivre votre marque avant m\u00eame la premi\u00e8re commande",
+            "cta_text": "Importer mon design",
+            "cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=import"
+          }
+        },
+        "step_1": {
+          "type": "process_step",
+          "settings": {
+            "title": "Choisissez votre mode",
+            "text": "Standard, mod\u00e8les, IA ou import \u2014 s\u00e9lectionnez l\u2019approche qui correspond \u00e0 votre projet."
+          }
+        },
+        "step_2": {
+          "type": "process_step",
+          "settings": {
+            "title": "Personnalisez",
+            "text": "Ajoutez votre nom de marque, s\u00e9lectionnez vos produits et ajustez chaque d\u00e9tail \u00e0 votre image."
+          }
+        },
+        "step_3": {
+          "type": "process_step",
+          "settings": {
+            "title": "Pr\u00e9visualisez",
+            "text": "Visualisez le rendu final en 3D sur nos bouteilles, ajustez et validez avant de commander."
+          }
+        },
+        "step_4": {
+          "type": "process_step",
+          "settings": {
+            "title": "Commandez",
+            "text": "Validez votre gamme et recevez vos produits \u00e9tiquet\u00e9s directement dans votre salon."
+          }
+        },
+        "stat_1": {
+          "type": "stat",
+          "settings": { "value": "4", "label": "Modes cr\u00e9atifs" }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": { "value": "9+", "label": "Styles disponibles" }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": { "value": "30s", "label": "Pour un design unique" }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": { "value": "100%", "label": "Personnalisable" }
+        }
+      },
+      "block_order": [
+        "feat_standard",
+        "feat_modeles",
+        "feat_ia",
+        "feat_import",
+        "detail_standard",
+        "detail_modeles",
+        "detail_ia",
+        "detail_import",
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4",
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "hero_label": "MyLab Configurateur",
+        "hero_title": "Votre marque, <em>votre identit\u00e9</em> \u2014 en quelques clics",
+        "hero_text": "G\u00e9n\u00e9rez votre gamme compl\u00e8te, choisissez vos \u00e9tiquettes, cr\u00e9ez des designs uniques par IA, ou importez vos propres visuels. Tout est possible depuis un seul outil.",
+        "hero_cta_text": "Lancer le configurateur",
+        "hero_cta_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard",
+        "hero_cta2_text": "D\u00e9couvrir les fonctionnalit\u00e9s",
+        "features_label": "4 modes cr\u00e9atifs",
+        "features_title": "Un configurateur, toutes les possibilit\u00e9s",
+        "features_subtitle": "Que vous partiez de z\u00e9ro ou avec une identit\u00e9 d\u00e9j\u00e0 \u00e9tablie, notre configurateur s\u2019adapte \u00e0 votre vision.",
+        "process_label": "Comment \u00e7a marche",
+        "process_title": "De l\u2019id\u00e9e au produit fini, en 4 \u00e9tapes",
+        "process_subtitle": "Un parcours simple et guid\u00e9 pour cr\u00e9er votre gamme personnalis\u00e9e, quel que soit votre niveau.",
+        "cta_title": "Pr\u00eat \u00e0 donner vie \u00e0 votre marque ?",
+        "cta_text": "Rejoignez les professionnels qui ont d\u00e9j\u00e0 cr\u00e9\u00e9 leur identit\u00e9 cosm\u00e9tique avec MyLab. Aucune comp\u00e9tence graphique requise.",
+        "cta_button_text": "Lancer le configurateur",
+        "cta_button_link": "https://mylab-configurateur.vercel.app/configurateur?mode=standard",
+        "cta_link_text": "Ou prendre rendez-vous avec un conseiller",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": ["main"]
+}

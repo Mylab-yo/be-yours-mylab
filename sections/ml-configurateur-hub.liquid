@@ -1,0 +1,1277 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  }
+
+  /* ═══════════════════════════════════════
+     Base
+     ═══════════════════════════════════════ */
+  .ml-hub {
+    --ml-black: #111;
+    --ml-mid: #555;
+    --ml-muted: #888;
+    --ml-line: #e5e5e5;
+    --ml-light-bg: #fafafa;
+    --ml-off-bg: #f5f4f2;
+    --ml-gold: #755a25;
+    --ml-gold-light: #c5a467;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: var(--ml-black);
+  }
+
+  /* ═══════════════════════════════════════
+     Hero (fullscreen dark)
+     ═══════════════════════════════════════ */
+  .ml-hub__hero {
+    position: relative;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__hero { min-height: 90vh; padding: 8rem 2rem; }
+  }
+  .ml-hub__hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .ml-hub__hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ml-hub__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(17,17,17,0.9), rgba(17,17,17,0.55), rgba(17,17,17,0.3));
+  }
+  @media screen and (max-width: 749px) {
+    .ml-hub__hero-overlay {
+      background: linear-gradient(to bottom, rgba(17,17,17,0.88), rgba(17,17,17,0.6));
+    }
+  }
+  .ml-hub__hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+  .ml-hub__hero-inner {
+    max-width: 44rem;
+  }
+  .ml-hub__hero-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold-light);
+    margin: 0 0 1.5rem;
+  }
+  .ml-hub__hero-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5vw, 4.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0 0 2rem;
+  }
+  .ml-hub__hero-title em {
+    font-style: italic;
+    color: var(--ml-gold-light);
+  }
+  .ml-hub__hero-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.75);
+    max-width: 36rem;
+    margin: 0 0 3rem;
+  }
+  .ml-hub__hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__hero-actions { flex-direction: row; gap: 1.5rem; }
+  }
+
+  /* Buttons */
+  .ml-hub__btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--ml-gold) 0%, var(--ml-gold-light) 100%);
+    color: #fff;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    min-height: 44px;
+    box-shadow: 0 10px 24px rgba(117, 90, 37, 0.25);
+  }
+  .ml-hub__btn-gold:hover { opacity: 0.9; }
+  .ml-hub__btn-gold:active { transform: scale(0.97); }
+  .ml-hub__btn-gold--xl {
+    padding: 1.4rem 3.2rem;
+    font-size: 1.25rem;
+    box-shadow: 0 14px 32px rgba(117, 90, 37, 0.3);
+  }
+  .ml-hub__btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: #fff;
+    padding: 1.2rem 2.6rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: 44px;
+    backdrop-filter: blur(8px);
+  }
+  .ml-hub__btn-outline:hover {
+    background: #fff;
+    color: var(--ml-black);
+  }
+  .ml-hub__btn-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ml-black);
+    color: #fff;
+    padding: 1rem 2.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+    min-height: 44px;
+  }
+  .ml-hub__btn-dark:hover { opacity: 0.85; }
+
+  /* ═══════════════════════════════════════
+     Features Grid (4 cards)
+     ═══════════════════════════════════════ */
+  .ml-hub__features {
+    padding: 6rem 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__features { padding: 8rem 2rem; }
+  }
+  .ml-hub__features-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .ml-hub__features-header {
+    text-align: center;
+    max-width: 48rem;
+    margin: 0 auto 4rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__features-header { margin-bottom: 5rem; }
+  }
+  .ml-hub__features-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold);
+    margin: 0 0 1rem;
+  }
+  .ml-hub__features-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 0 0 1rem;
+  }
+  .ml-hub__features-subtitle {
+    font-size: 1.15rem;
+    color: var(--ml-mid);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .ml-hub__features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  /* Feature card */
+  .ml-hub__card {
+    background: #fff;
+    border: 1px solid var(--ml-line);
+    padding: 0;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .ml-hub__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -12px rgba(17,17,17,0.1);
+  }
+  .ml-hub__card-img {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--ml-off-bg);
+  }
+  .ml-hub__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .ml-hub__card:hover .ml-hub__card-img img {
+    transform: scale(1.05);
+  }
+  .ml-hub__card-body {
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .ml-hub__card-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ml-gold), var(--ml-gold-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    flex-shrink: 0;
+  }
+  .ml-hub__card-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+    fill: #fff;
+  }
+  .ml-hub__card-name {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+  }
+  .ml-hub__card-desc {
+    font-size: 1.05rem;
+    color: var(--ml-mid);
+    line-height: 1.6;
+    margin: 0 0 1.5rem;
+    flex: 1;
+  }
+  .ml-hub__card-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ml-gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ml-gold);
+    padding-bottom: 0.2rem;
+    align-self: flex-start;
+    transition: color 0.2s;
+  }
+  .ml-hub__card-link:hover {
+    color: var(--ml-black);
+    border-color: var(--ml-black);
+  }
+
+  /* ═══════════════════════════════════════
+     Feature Detail Sections (alternating)
+     ═══════════════════════════════════════ */
+  .ml-hub__detail {
+    padding: 6rem 1.5rem;
+    border-top: 1px solid var(--ml-line);
+  }
+  .ml-hub__detail:nth-child(even) {
+    background: var(--ml-off-bg);
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__detail { padding: 8rem 2rem; }
+  }
+  .ml-hub__detail-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media screen and (min-width: 990px) {
+    .ml-hub__detail-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+  }
+  .ml-hub__detail:nth-child(even) .ml-hub__detail-visual {
+    order: -1;
+  }
+  @media screen and (max-width: 989px) {
+    .ml-hub__detail-visual { order: -1; }
+  }
+  .ml-hub__detail-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold);
+    margin: 0 0 1rem;
+  }
+  .ml-hub__detail-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    margin: 0 0 1.5rem;
+    line-height: 1.15;
+  }
+  .ml-hub__detail-text {
+    font-size: 1.1rem;
+    color: var(--ml-mid);
+    line-height: 1.7;
+    margin: 0 0 2rem;
+  }
+  .ml-hub__detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.5rem;
+  }
+  .ml-hub__detail-list li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+    color: var(--ml-mid);
+    line-height: 1.5;
+  }
+  .ml-hub__detail-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ml-gold), var(--ml-gold-light));
+  }
+  .ml-hub__detail-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 24px 48px -12px rgba(17,17,17,0.08);
+  }
+  .ml-hub__detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ═══════════════════════════════════════
+     Processus (Timeline)
+     ═══════════════════════════════════════ */
+  .ml-hub__process {
+    background: var(--ml-black);
+    padding: 6rem 1.5rem;
+    color: #fff;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__process { padding: 8rem 2rem; }
+  }
+  .ml-hub__process-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+  .ml-hub__process-header {
+    text-align: center;
+    max-width: 44rem;
+    margin: 0 auto 5rem;
+  }
+  .ml-hub__process-label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ml-gold-light);
+    margin: 0 0 1rem;
+  }
+  .ml-hub__process-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    margin: 0 0 1rem;
+    color: #fff;
+  }
+  .ml-hub__process-subtitle {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .ml-hub__steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__steps {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+  }
+  @media screen and (min-width: 990px) {
+    .ml-hub__steps {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+  }
+  .ml-hub__step {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: border-color 0.3s;
+  }
+  .ml-hub__step:hover {
+    border-color: var(--ml-gold-light);
+  }
+  .ml-hub__step-num {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ml-gold), var(--ml-gold-light));
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .ml-hub__step-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+    color: #fff;
+  }
+  .ml-hub__step-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     Stats
+     ═══════════════════════════════════════ */
+  .ml-hub__stats {
+    padding: 5rem 1.5rem;
+    border-top: 1px solid var(--ml-line);
+    border-bottom: 1px solid var(--ml-line);
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__stats { padding: 6rem 2rem; }
+  }
+  .ml-hub__stats-inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__stats-inner { grid-template-columns: repeat(4, 1fr); }
+  }
+  .ml-hub__stat-value {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 600;
+    color: var(--ml-gold);
+    margin: 0 0 0.3rem;
+  }
+  .ml-hub__stat-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ml-mid);
+    margin: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     CTA Final
+     ═══════════════════════════════════════ */
+  .ml-hub__cta {
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 1.5rem;
+    text-align: center;
+    background: var(--ml-off-bg);
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__cta { padding: 10rem 2rem; }
+  }
+  .ml-hub__cta-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.08;
+    z-index: 0;
+  }
+  .ml-hub__cta-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ml-hub__cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+  .ml-hub__cta-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    color: var(--ml-black);
+    line-height: 1.15;
+    margin: 0 0 1.5rem;
+  }
+  .ml-hub__cta-text {
+    font-size: 1.2rem;
+    color: var(--ml-mid);
+    margin: 0 0 3rem;
+    line-height: 1.6;
+  }
+  .ml-hub__cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-hub__cta-actions { flex-direction: row; justify-content: center; gap: 1.5rem; }
+  }
+  .ml-hub__cta-link {
+    color: var(--ml-gold);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(117, 90, 37, 0.3);
+    padding-bottom: 0.2rem;
+    transition: border-color 0.2s;
+    font-size: 1.05rem;
+  }
+  .ml-hub__cta-link:hover {
+    border-color: var(--ml-gold);
+  }
+{%- endstyle -%}
+
+<div class="ml-hub">
+
+  {%- comment -%} ══ HERO FULLSCREEN ══ {%- endcomment -%}
+  <section class="ml-hub__hero">
+    <div class="ml-hub__hero-bg">
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 1800 }}"
+          alt="{{ section.settings.hero_image.alt | default: section.settings.hero_title | strip_html }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      {%- endif -%}
+      <div class="ml-hub__hero-overlay"></div>
+    </div>
+
+    <div class="ml-hub__hero-content">
+      <div class="ml-hub__hero-inner">
+        {%- if section.settings.hero_label != blank -%}
+          <p class="ml-hub__hero-label">{{ section.settings.hero_label }}</p>
+        {%- endif -%}
+        <h1 class="ml-hub__hero-title">{{ section.settings.hero_title }}</h1>
+        <p class="ml-hub__hero-text">{{ section.settings.hero_text }}</p>
+        <div class="ml-hub__hero-actions">
+          {%- if section.settings.hero_cta_text != blank -%}
+            <a href="{{ section.settings.hero_cta_link }}" class="ml-hub__btn-gold">
+              {{ section.settings.hero_cta_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.hero_cta2_text != blank -%}
+            <a href="{{ section.settings.hero_cta2_link }}" class="ml-hub__btn-outline">
+              {{ section.settings.hero_cta2_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══ FEATURES GRID (4 cards) ══ {%- endcomment -%}
+  {%- assign feature_blocks = section.blocks | where: "type", "feature_card" -%}
+  {%- if feature_blocks.size > 0 -%}
+    <section class="ml-hub__features">
+      <div class="ml-hub__features-inner">
+        <div class="ml-hub__features-header">
+          {%- if section.settings.features_label != blank -%}
+            <p class="ml-hub__features-label">{{ section.settings.features_label }}</p>
+          {%- endif -%}
+          <h2 class="ml-hub__features-title">{{ section.settings.features_title }}</h2>
+          {%- if section.settings.features_subtitle != blank -%}
+            <p class="ml-hub__features-subtitle">{{ section.settings.features_subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="ml-hub__features-grid">
+          {%- for block in feature_blocks -%}
+            <div class="ml-hub__card" {{ block.shopify_attributes }}>
+              <div class="ml-hub__card-img">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.name }}"
+                    loading="lazy"
+                    width="800"
+                    height="450"
+                  >
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="ml-hub__card-body">
+                <div class="ml-hub__card-icon">
+                  {%- case block.settings.icon -%}
+                    {%- when 'palette' -%}
+                      <svg viewBox="0 0 24 24"><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 8 6.5 8 8 8.67 8 9.5 7.33 11 6.5 11zm3-4C8.67 7 8 6.33 8 5.5S8.67 4 9.5 4s1.5.67 1.5 1.5S10.33 7 9.5 7zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 4 14.5 4s1.5.67 1.5 1.5S15.33 7 14.5 7zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 8 17.5 8s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                    {%- when 'grid' -%}
+                      <svg viewBox="0 0 24 24"><path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/></svg>
+                    {%- when 'sparkles' -%}
+                      <svg viewBox="0 0 24 24"><path d="M19.46 8l.79-1.75L22 5.46c.39-.18.39-.73 0-.91l-1.75-.79L19.46 2c-.18-.39-.73-.39-.91 0l-.79 1.75-1.76.79c-.39.18-.39.73 0 .91l1.75.79.79 1.76c.18.39.73.39.92 0zM11.5 9.5L9.91 6c-.35-.78-1.47-.78-1.82 0L6.5 9.5 3 11.09c-.78.36-.78 1.47 0 1.82l3.5 1.59L8.09 18c.36.78 1.47.78 1.82 0l1.59-3.5 3.5-1.59c.78-.36.78-1.47 0-1.82L11.5 9.5zm7.04 6.5l-.79 1.75-1.75.79c-.39.18-.39.73 0 .91l1.75.79.79 1.76c.18.39.73.39.91 0l.79-1.75 1.76-.79c.39-.18.39-.73 0-.91l-1.75-.79-.79-1.76c-.18-.39-.74-.39-.92 0z"/></svg>
+                    {%- when 'upload' -%}
+                      <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  {%- endcase -%}
+                </div>
+                <h3 class="ml-hub__card-name">{{ block.settings.name }}</h3>
+                <p class="ml-hub__card-desc">{{ block.settings.description }}</p>
+                {%- if block.settings.link_text != blank -%}
+                  <a href="{{ block.settings.link }}" class="ml-hub__card-link">
+                    {{ block.settings.link_text }} &rarr;
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ FEATURE DETAILS (alternating) ══ {%- endcomment -%}
+  {%- assign detail_blocks = section.blocks | where: "type", "feature_detail" -%}
+  {%- if detail_blocks.size > 0 -%}
+    {%- for block in detail_blocks -%}
+      <section class="ml-hub__detail" {{ block.shopify_attributes }}>
+        <div class="ml-hub__detail-inner">
+          <div>
+            {%- if block.settings.label != blank -%}
+              <p class="ml-hub__detail-label">{{ block.settings.label }}</p>
+            {%- endif -%}
+            <h2 class="ml-hub__detail-title">{{ block.settings.title }}</h2>
+            <p class="ml-hub__detail-text">{{ block.settings.text }}</p>
+
+            {%- if block.settings.bullet_1 != blank -%}
+              <ul class="ml-hub__detail-list">
+                <li>{{ block.settings.bullet_1 }}</li>
+                {%- if block.settings.bullet_2 != blank -%}<li>{{ block.settings.bullet_2 }}</li>{%- endif -%}
+                {%- if block.settings.bullet_3 != blank -%}<li>{{ block.settings.bullet_3 }}</li>{%- endif -%}
+                {%- if block.settings.bullet_4 != blank -%}<li>{{ block.settings.bullet_4 }}</li>{%- endif -%}
+              </ul>
+            {%- endif -%}
+
+            {%- if block.settings.cta_text != blank -%}
+              <a href="{{ block.settings.cta_link }}" class="ml-hub__btn-dark">
+                {{ block.settings.cta_text }}
+              </a>
+            {%- endif -%}
+          </div>
+
+          <div class="ml-hub__detail-visual">
+            <div class="ml-hub__detail-image">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 800 }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.title }}"
+                  loading="lazy"
+                  width="800"
+                  height="600"
+                >
+              {%- else -%}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </section>
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- comment -%} ══ PROCESSUS (dark, 4 steps) ══ {%- endcomment -%}
+  {%- assign step_blocks = section.blocks | where: "type", "process_step" -%}
+  {%- if step_blocks.size > 0 -%}
+    <section class="ml-hub__process">
+      <div class="ml-hub__process-inner">
+        <div class="ml-hub__process-header">
+          {%- if section.settings.process_label != blank -%}
+            <p class="ml-hub__process-label">{{ section.settings.process_label }}</p>
+          {%- endif -%}
+          <h2 class="ml-hub__process-title">{{ section.settings.process_title }}</h2>
+          {%- if section.settings.process_subtitle != blank -%}
+            <p class="ml-hub__process-subtitle">{{ section.settings.process_subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        <div class="ml-hub__steps">
+          {%- for block in step_blocks -%}
+            <div class="ml-hub__step" {{ block.shopify_attributes }}>
+              <div class="ml-hub__step-num">{{ forloop.index }}</div>
+              <h4 class="ml-hub__step-title">{{ block.settings.title }}</h4>
+              <p class="ml-hub__step-text">{{ block.settings.text }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ STATS ══ {%- endcomment -%}
+  {%- assign stat_blocks = section.blocks | where: "type", "stat" -%}
+  {%- if stat_blocks.size > 0 -%}
+    <section class="ml-hub__stats">
+      <div class="ml-hub__stats-inner">
+        {%- for block in stat_blocks -%}
+          <div {{ block.shopify_attributes }}>
+            <div class="ml-hub__stat-value">{{ block.settings.value }}</div>
+            <p class="ml-hub__stat-label">{{ block.settings.label }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} ══ CTA FINAL ══ {%- endcomment -%}
+  <section class="ml-hub__cta">
+    {%- if section.settings.cta_bg_image != blank -%}
+      <div class="ml-hub__cta-bg">
+        <img
+          src="{{ section.settings.cta_bg_image | image_url: width: 1600 }}"
+          alt=""
+          loading="lazy"
+        >
+      </div>
+    {%- endif -%}
+
+    <div class="ml-hub__cta-content">
+      <h2 class="ml-hub__cta-title">{{ section.settings.cta_title }}</h2>
+      {%- if section.settings.cta_text != blank -%}
+        <p class="ml-hub__cta-text">{{ section.settings.cta_text }}</p>
+      {%- endif -%}
+      <div class="ml-hub__cta-actions">
+        {%- if section.settings.cta_button_text != blank -%}
+          <a href="{{ section.settings.cta_button_link }}" class="ml-hub__btn-gold ml-hub__btn-gold--xl">
+            {{ section.settings.cta_button_text }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.cta_link_text != blank -%}
+          <a href="{{ section.settings.cta_link }}" class="ml-hub__cta-link">
+            {{ section.settings.cta_link_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% schema %}
+{
+  "name": "Configurateur Hub",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_label",
+      "label": "\u00c9tiquette",
+      "default": "MyLab Configurateur"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_title",
+      "label": "Titre (HTML accept\u00e9)",
+      "default": "Votre marque, <em>votre identit\u00e9</em> \u2014 en quelques clics"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Description",
+      "default": "G\u00e9n\u00e9rez votre gamme compl\u00e8te, choisissez vos \u00e9tiquettes, cr\u00e9ez des designs uniques par IA, ou importez vos propres visuels. Tout est possible depuis un seul outil."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Bouton principal",
+      "default": "Lancer le configurateur"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Lien bouton principal"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta2_text",
+      "label": "Bouton secondaire",
+      "default": "D\u00e9couvrir les fonctionnalit\u00e9s"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta2_link",
+      "label": "Lien bouton secondaire"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Image de fond hero"
+    },
+    {
+      "type": "header",
+      "content": "Fonctionnalit\u00e9s"
+    },
+    {
+      "type": "text",
+      "id": "features_label",
+      "label": "\u00c9tiquette",
+      "default": "4 modes cr\u00e9atifs"
+    },
+    {
+      "type": "text",
+      "id": "features_title",
+      "label": "Titre",
+      "default": "Un configurateur, toutes les possibilit\u00e9s"
+    },
+    {
+      "type": "textarea",
+      "id": "features_subtitle",
+      "label": "Sous-titre",
+      "default": "Que vous partiez de z\u00e9ro ou avec une identit\u00e9 d\u00e9j\u00e0 \u00e9tablie, notre configurateur s\u2019adapte \u00e0 votre vision."
+    },
+    {
+      "type": "header",
+      "content": "Processus"
+    },
+    {
+      "type": "text",
+      "id": "process_label",
+      "label": "\u00c9tiquette",
+      "default": "Comment \u00e7a marche"
+    },
+    {
+      "type": "text",
+      "id": "process_title",
+      "label": "Titre",
+      "default": "De l\u2019id\u00e9e au produit fini, en 4 \u00e9tapes"
+    },
+    {
+      "type": "textarea",
+      "id": "process_subtitle",
+      "label": "Sous-titre",
+      "default": "Un parcours simple et guid\u00e9 pour cr\u00e9er votre gamme personnalis\u00e9e, quel que soit votre niveau."
+    },
+    {
+      "type": "header",
+      "content": "CTA final"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre",
+      "default": "Pr\u00eat \u00e0 donner vie \u00e0 votre marque ?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_text",
+      "label": "Texte",
+      "default": "Rejoignez les professionnels qui ont d\u00e9j\u00e0 cr\u00e9\u00e9 leur identit\u00e9 cosm\u00e9tique avec MyLab. Aucune comp\u00e9tence graphique requise."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Bouton",
+      "default": "Lancer le configurateur"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "Lien bouton"
+    },
+    {
+      "type": "text",
+      "id": "cta_link_text",
+      "label": "Lien secondaire texte",
+      "default": "Ou prendre rendez-vous avec un conseiller"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien secondaire URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_bg_image",
+      "label": "Image de fond"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_card",
+      "name": "Fonctionnalit\u00e9",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nom",
+          "default": "Nom de la fonctionnalit\u00e9"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description courte de la fonctionnalit\u00e9"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ic\u00f4ne",
+          "options": [
+            { "value": "palette", "label": "Palette (gamme standard)" },
+            { "value": "grid", "label": "Grille (mod\u00e8les)" },
+            { "value": "sparkles", "label": "\u00c9toiles (IA)" },
+            { "value": "upload", "label": "Upload (import)" }
+          ],
+          "default": "palette"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Texte du lien",
+          "default": "D\u00e9couvrir"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "URL"
+        }
+      ]
+    },
+    {
+      "type": "feature_detail",
+      "name": "D\u00e9tail fonctionnalit\u00e9",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "\u00c9tiquette",
+          "default": "Mode"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Titre de la fonctionnalit\u00e9"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Description d\u00e9taill\u00e9e de cette fonctionnalit\u00e9."
+        },
+        {
+          "type": "text",
+          "id": "bullet_1",
+          "label": "Point cl\u00e9 1"
+        },
+        {
+          "type": "text",
+          "id": "bullet_2",
+          "label": "Point cl\u00e9 2"
+        },
+        {
+          "type": "text",
+          "id": "bullet_3",
+          "label": "Point cl\u00e9 3"
+        },
+        {
+          "type": "text",
+          "id": "bullet_4",
+          "label": "Point cl\u00e9 4"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Bouton",
+          "default": "Essayer"
+        },
+        {
+          "type": "url",
+          "id": "cta_link",
+          "label": "Lien"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "process_step",
+      "name": "\u00c9tape processus",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "\u00c9tape"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Description de l\u2019\u00e9tape"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Chiffre cl\u00e9",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valeur",
+          "default": "100+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Configurateur Hub",
+      "blocks": [
+        {
+          "type": "feature_card",
+          "settings": {
+            "name": "Mode Standard",
+            "description": "G\u00e9n\u00e9rez votre gamme compl\u00e8te avec vos informations de marque. Choisissez vos produits, personnalisez vos \u00e9tiquettes et pr\u00e9visualisez le r\u00e9sultat.",
+            "icon": "palette",
+            "link_text": "Cr\u00e9er ma gamme"
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "name": "Mod\u00e8les d\u2019\u00e9tiquettes",
+            "description": "Explorez notre biblioth\u00e8que de mod\u00e8les professionnels. Luxe, botanique, minimaliste\u2026 trouvez le style qui correspond \u00e0 votre identit\u00e9.",
+            "icon": "grid",
+            "link_text": "Voir les mod\u00e8les"
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "name": "\u00c9tiquettes IA",
+            "description": "Notre intelligence artificielle g\u00e9n\u00e8re des designs inspirationnels uniques en quelques secondes. Un motif exclusif, impossible \u00e0 dupliquer.",
+            "icon": "sparkles",
+            "link_text": "G\u00e9n\u00e9rer un design"
+          }
+        },
+        {
+          "type": "feature_card",
+          "settings": {
+            "name": "Import de designs",
+            "description": "Importez vos propres visuels pour mettre en situation votre marque sur nos produits. Id\u00e9al pour votre site internet et r\u00e9seaux sociaux.",
+            "icon": "upload",
+            "link_text": "Importer mon design"
+          }
+        },
+        {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mode Standard",
+            "title": "G\u00e9n\u00e9rez votre gamme compl\u00e8te en quelques clics",
+            "text": "S\u00e9lectionnez vos produits parmi notre catalogue de formulations premium, personnalisez les \u00e9tiquettes avec votre nom de marque, et pr\u00e9visualisez instantan\u00e9ment le rendu sur bouteille.",
+            "bullet_1": "Catalogue complet : shampoings, soins, masques, huiles et s\u00e9rums",
+            "bullet_2": "Personnalisation du nom de marque et des informations",
+            "bullet_3": "Pr\u00e9visualisation 3D sur bouteille en temps r\u00e9el",
+            "bullet_4": "Export pr\u00eat \u00e0 imprimer en haute d\u00e9finition",
+            "cta_text": "Lancer le mode standard"
+          }
+        },
+        {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mod\u00e8les Pro",
+            "title": "Des mod\u00e8les d\u2019\u00e9tiquettes sign\u00e9s par des designers",
+            "text": "Choisissez parmi nos collections de mod\u00e8les professionnels, con\u00e7us pour refl\u00e9ter diff\u00e9rentes esth\u00e9tiques : luxe, nature, minimalisme, k-beauty et bien plus.",
+            "bullet_1": "Collections th\u00e9matiques : Aquarel, Prestige, Atelier, K-Beauty\u2026",
+            "bullet_2": "Adapt\u00e9s \u00e0 toutes les contenances (200ml \u00e0 1000ml)",
+            "bullet_3": "Modifiables avec votre identit\u00e9 de marque",
+            "bullet_4": "Qualit\u00e9 impression professionnelle garantie",
+            "cta_text": "Explorer les mod\u00e8les"
+          }
+        },
+        {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Mode Studio IA",
+            "title": "L\u2019IA cr\u00e9e des \u00e9tiquettes qui n\u2019existent nulle part ailleurs",
+            "text": "Choisissez une direction artistique et notre intelligence artificielle g\u00e9n\u00e8re un design unique pour votre salon. Chaque cr\u00e9ation est exclusive et impossible \u00e0 dupliquer.",
+            "bullet_1": "9 styles artistiques : Luxe, Botanique, Minimaliste, K-Beauty\u2026",
+            "bullet_2": "G\u00e9n\u00e9ration en 30 secondes, sans comp\u00e9tence graphique",
+            "bullet_3": "Rendu 3D photor\u00e9aliste instantan\u00e9",
+            "bullet_4": "Design 100% unique et exclusif \u00e0 votre marque",
+            "cta_text": "G\u00e9n\u00e9rer mon design IA"
+          }
+        },
+        {
+          "type": "feature_detail",
+          "settings": {
+            "label": "Import Design",
+            "title": "Donnez vie \u00e0 votre marque sur nos produits",
+            "text": "Vous avez d\u00e9j\u00e0 votre identit\u00e9 visuelle ? Importez vos designs pour les appliquer sur nos bouteilles et cr\u00e9ez des mises en situation professionnelles pour votre communication.",
+            "bullet_1": "Import de fichiers PNG, JPG, PDF ou AI",
+            "bullet_2": "Mise en situation r\u00e9aliste sur bouteille",
+            "bullet_3": "Visuels pr\u00eats pour site internet et r\u00e9seaux sociaux",
+            "bullet_4": "Faites vivre votre marque avant m\u00eame la premi\u00e8re commande",
+            "cta_text": "Importer mon design"
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "title": "Choisissez votre mode",
+            "text": "Standard, mod\u00e8les, IA ou import \u2014 s\u00e9lectionnez l\u2019approche qui correspond \u00e0 votre projet."
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "title": "Personnalisez",
+            "text": "Ajoutez votre nom de marque, s\u00e9lectionnez vos produits et ajustez chaque d\u00e9tail \u00e0 votre image."
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "title": "Pr\u00e9visualisez",
+            "text": "Visualisez le rendu final en 3D sur nos bouteilles, ajustez et validez avant de commander."
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "title": "Commandez",
+            "text": "Validez votre gamme et recevez vos produits \u00e9tiquet\u00e9s directement dans votre salon."
+          }
+        },
+        {
+          "type": "stat",
+          "settings": { "value": "4", "label": "Modes cr\u00e9atifs" }
+        },
+        {
+          "type": "stat",
+          "settings": { "value": "9+", "label": "Styles disponibles" }
+        },
+        {
+          "type": "stat",
+          "settings": { "value": "30s", "label": "Pour un design unique" }
+        },
+        {
+          "type": "stat",
+          "settings": { "value": "100%", "label": "Personnalisable" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
