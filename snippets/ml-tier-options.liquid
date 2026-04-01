@@ -14,12 +14,16 @@
   {%- assign parts = opt | split: ':' -%}
   {%- assign oq = parts[0] | plus: 0 -%}
   {%- assign oc = parts[1] | plus: 0 -%}
-  {%- if ml_max_qty > 0 and oq > ml_max_qty -%}{%- continue -%}{%- endif -%}
   {%- assign oe = oc | divided_by: 100 -%}
   {%- assign or_ = oc | modulo: 100 -%}
+  {%- assign ml_over_stock = false -%}
+  {%- if ml_max_qty > 0 and oq > ml_max_qty -%}
+    {%- assign ml_over_stock = true -%}
+  {%- endif -%}
   {%- if oq == ml_current_qty -%}{%- assign ml_qty_matched = true -%}{%- endif -%}
-  <option value="{{ oq }}"{% if oq == ml_current_qty %} selected{% endif %}>
+  <option value="{{ oq }}"{% if oq == ml_current_qty %} selected{% endif %}{% if ml_over_stock %} disabled{% endif %}>
     {{- oq }} u. &mdash; {{ oe }},{%- if or_ < 10 -%}0{%- endif -%}{{ or_ }}&nbsp;&euro;/u
+    {%- if ml_over_stock %} ({{ ml_max_qty }} en stock){%- endif -%}
   </option>
 {%- endfor -%}
 {%- unless ml_qty_matched -%}
