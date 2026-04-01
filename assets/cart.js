@@ -100,6 +100,7 @@ if (!customElements.get('cart-items')) {
 
     onChange(event) {
       if (event.target === null) return;
+      if (event.target.classList.contains('ml-qty-select')) return;
       this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'));
     }
 
