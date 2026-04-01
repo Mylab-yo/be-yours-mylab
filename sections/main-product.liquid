@@ -690,7 +690,7 @@
             <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
           {%- when 'mylab_pricing' -%}
             {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
-            <div data-mylab-pricing {{ block.shopify_attributes }}>
+            <div data-mylab-pricing data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
 
               {%- comment -%} ====== SÉLECTEUR CONTENANCE (rempli par JS depuis ml-product-map.json) ====== {%- endcomment -%}
               <div class="ml-option-group" id="ml-contenance-group" style="display:none;">

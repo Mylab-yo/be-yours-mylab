@@ -443,6 +443,110 @@
               {{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', block: block, product: product, update_url: false, product_form_id: product_form_id %}
+            {%- when 'mylab_pricing' -%}
+              {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+              <div data-mylab-pricing data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
+
+                {%- comment -%} ====== SÉLECTEUR CONTENANCE ====== {%- endcomment -%}
+                <div class="ml-option-group" id="ml-contenance-group" style="display:none;">
+                  <div class="ml-option-label">Contenance</div>
+                  <div class="ml-contenance-btns" id="ml-contenance-btns" role="group" aria-label="Sélectionner la contenance"></div>
+                </div>
+                <script>
+                  (function () {
+                    var currentHandle = {{ product.handle | json }};
+                    fetch(window.MylabAssets && window.MylabAssets.productMapUrl || '{{ "ml-product-map.json" | asset_url }}')
+                      .then(function (r) { return r.json(); })
+                      .then(function (map) {
+                        var entry = null;
+                        var keys = Object.keys(map);
+                        for (var i = 0; i < keys.length; i++) {
+                          var e = map[keys[i]];
+                          if (!e.sizes) continue;
+                          var sizeKeys = Object.keys(e.sizes);
+                          for (var s = 0; s < sizeKeys.length; s++) {
+                            if (e.sizes[sizeKeys[s]] === currentHandle) { entry = e; break; }
+                          }
+                          if (entry) break;
+                        }
+                        if (!entry || !entry.sizes) return;
+                        var sizes = entry.sizes;
+                        var sizeList = Object.keys(sizes);
+                        if (sizeList.length <= 1) return;
+
+                        var container = document.getElementById('ml-contenance-btns');
+                        var group = document.getElementById('ml-contenance-group');
+                        sizeList.forEach(function (size) {
+                          var handle = sizes[size];
+                          var isActive = handle === currentHandle;
+                          var a = document.createElement('a');
+                          a.href = '/products/' + handle;
+                          a.className = 'ml-contenance-btn' + (isActive ? ' is-active' : '');
+                          a.setAttribute('data-contenance', size + 'ml');
+                          a.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                          a.textContent = size + 'ml';
+                          container.appendChild(a);
+                        });
+                        group.style.display = '';
+                      })
+                      .catch(function () {});
+                  })();
+                </script>
+
+                {%- comment -%} ====== PALIERS QUANTITÉ ====== {%- endcomment -%}
+                <div class="ml-option-group">
+                  <div class="ml-option-label">Quantité — Sélectionnez un palier</div>
+                  <div class="ml-qty-btns" id="ml-qty-btns" role="group" aria-label="Sélectionner la quantité"></div>
+                </div>
+
+                {%- comment -%} ====== AFFICHAGE PRIX ====== {%- endcomment -%}
+                <div class="ml-pricing-card">
+                  <div class="ml-pricing-card__top">
+                    <div class="ml-price-total">
+                      <span class="ml-price-amount" id="ml-price-total">—</span>
+                      <span class="ml-price-currency">€</span>
+                      <span class="ml-price-tax">HT</span>
+                    </div>
+                    <div class="ml-price-unit">
+                      soit <span id="ml-price-unit">—</span> / unité HT
+                    </div>
+                  </div>
+                  <div class="ml-price-savings" id="ml-price-savings">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <circle cx="7" cy="7" r="7" fill="#4A7C59"/>
+                      <path d="M4 7l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span id="ml-savings-text"></span>
+                  </div>
+                </div>
+
+                {%- comment -%} ====== CTA ====== {%- endcomment -%}
+                <div class="ml-cta">
+                  <button class="ml-btn-cart" id="ml-btn-cart"
+                          data-variant-id="{{ product.variants.first.id }}"
+                          aria-label="Ajouter au panier">
+                    <span class="ml-btn-cart__text">Ajouter au panier</span>
+                    <span class="ml-btn-cart__pill" id="ml-cart-pill">—</span>
+                  </button>
+                </div>
+
+                {%- comment -%} ====== TABLE RÉCAP PALIERS ====== {%- endcomment -%}
+                <div class="ml-palier-wrap">
+                  <table class="ml-palier-table" id="ml-palier-table">
+                    <thead>
+                      <tr><th>Palier</th><th>Prix / unité HT</th><th>Remise</th></tr>
+                    </thead>
+                    <tbody id="ml-palier-body"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              {%- comment -%} ====== FORMULAIRE NATIF (fallback pour produits sans paliers) ====== {%- endcomment -%}
+              <div data-mylab-fallback style="display:none;">
+                {% render 'buy-buttons', block: block, product: product, section_id: section.id, product_form_id: product_form_id %}
+              </div>
+
+              <script src="{{ 'mylab-product.js' | asset_url }}" defer="defer"></script>
             {%- when 'buy_buttons' -%}
               {% render 'buy-buttons', block: block, product: product, section_id: section.id, product_form_id: product_form_id %}
             {%- when 'rating' -%}
@@ -1126,6 +1230,11 @@
           "label": "t:sections.main-product.blocks.inventory_status.settings.color_scheme.label"
         }
       ]
+    },
+    {
+      "type": "mylab_pricing",
+      "name": "MyLab — Tarifs & Panier",
+      "limit": 1
     },
     {
       "type": "buy_buttons",

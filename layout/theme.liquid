@@ -100,6 +100,9 @@
     {%- render 'js-variables' -%}
     {%- if request.page_type == 'product' -%}
       {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
+      <link rel="stylesheet" href="{{ 'ml-volume-pricing.css' | asset_url }}" media="print" onload="this.media='all'">
+      <noscript>{{ 'ml-volume-pricing.css' | asset_url | stylesheet_tag }}</noscript>
+      <link rel="preload" as="fetch" href="{{ 'ml-product-map.json' | asset_url }}" crossorigin>
     {%- endif -%}
 
     {%- comment -%} ML Product Map URL — source de vérité unique {%- endcomment -%}

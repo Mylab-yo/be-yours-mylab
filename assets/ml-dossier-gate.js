@@ -66,8 +66,9 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: dossierKey, quantity: 1 })
           }).then(function () {
-            isGateAction = false;
             document.dispatchEvent(new CustomEvent('cart:refresh'));
+          }).finally(function () {
+            isGateAction = false;
           });
         }
 
@@ -81,8 +82,9 @@
               items: [{ id: dossierVariantId, quantity: 1 }]
             })
           }).then(function () {
-            isGateAction = false;
             document.dispatchEvent(new CustomEvent('cart:refresh'));
+          }).finally(function () {
+            isGateAction = false;
           });
         }
 
@@ -109,9 +111,13 @@
        url.indexOf('/cart/update') !== -1)
     ) {
       var args = arguments;
-      return originalFetch.apply(this, args).then(function (response) {
+      var ctx = this;
+      return originalFetch.apply(ctx, args).then(function (response) {
         setTimeout(checkCart, 400);
         return response;
+      }).catch(function (err) {
+        setTimeout(checkCart, 400);
+        throw err;
       });
     }
     return originalFetch.apply(this, arguments);

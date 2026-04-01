@@ -23,6 +23,10 @@
           "type": "rating",
           "settings": {}
         },
+        "mylab_pricing": {
+          "type": "mylab_pricing",
+          "settings": {}
+        },
         "price": {
           "type": "price",
           "settings": {
@@ -130,6 +134,7 @@
         "subtitle",
         "title",
         "rating",
+        "mylab_pricing",
         "price",
         "variant_picker",
         "countdown",
