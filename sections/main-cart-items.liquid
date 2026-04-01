@@ -369,7 +369,13 @@
                             data-quantity-variant-id="{{ item.variant.id }}"
                             id="Quantity-{{ item.index | plus: 1 }}"
                           >
-                            {%- render 'ml-tier-options', ml_tier_data: ml_tier_data, ml_current_qty: item.quantity -%}
+                            {%- liquid
+                              assign ml_stock = 0
+                              if item.variant.inventory_management != blank and item.variant.inventory_policy == 'deny'
+                                assign ml_stock = item.variant.inventory_quantity
+                              endif
+                            -%}
+                            {%- render 'ml-tier-options', ml_tier_data: ml_tier_data, ml_current_qty: item.quantity, ml_max_qty: ml_stock -%}
                           </select>
                           {% render 'icon', icon: 'caret' %}
                         </div>

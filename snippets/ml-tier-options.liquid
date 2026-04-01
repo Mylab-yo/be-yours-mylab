@@ -5,6 +5,7 @@
   Required variables (passed via render):
     - ml_tier_data: string "6:700,12:665,24:630,48:560,96:500"
     - ml_current_qty: integer (current cart quantity)
+    - ml_max_qty: integer (max available stock, 0 = unlimited)
 {% endcomment %}
 
 {%- assign ml_opts = ml_tier_data | split: ',' -%}
@@ -13,6 +14,7 @@
   {%- assign parts = opt | split: ':' -%}
   {%- assign oq = parts[0] | plus: 0 -%}
   {%- assign oc = parts[1] | plus: 0 -%}
+  {%- if ml_max_qty > 0 and oq > ml_max_qty -%}{%- continue -%}{%- endif -%}
   {%- assign oe = oc | divided_by: 100 -%}
   {%- assign or_ = oc | modulo: 100 -%}
   {%- if oq == ml_current_qty -%}{%- assign ml_qty_matched = true -%}{%- endif -%}
