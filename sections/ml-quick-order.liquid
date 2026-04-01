@@ -352,128 +352,19 @@
         </thead>
         <tbody>
           {%- comment -%}
-            ── TRI PAR GAMMES + CONTENANCES LIÉES ──
-            Pour chaque produit de la collection, on affiche aussi ses
-            contenances liées (500ml, 1000ml) via metafields, même si
-            elles ne sont pas dans la collection.
+            ── RENDU MINIMAL ──
+            On affiche chaque produit de la collection avec data-handle.
+            Le JS charge ml-product-map.json et injecte les paliers + contenances liées.
           {%- endcomment -%}
-          {%- assign gamme_keys = 'shampoing,masque,creme,serum,huile,spray_reparateur,cire,homme,dejaunisseur,autre' | split: ',' -%}
-          {%- assign gamme_labels = 'Shampoings,Masques capillaires,Crèmes de coiffage sans rinçage,Sérums,Huiles,Sprays réparateurs,Produits de finition,Gamme Homme,Gamme Déjaunisseur / Coloristeur,Autres produits' | split: ',' -%}
-
           {%- assign rendered_handles = '|' -%}
 
-          {%- for gamme_index in (0..9) -%}
-            {%- assign gk = gamme_keys[gamme_index] -%}
-            {%- assign gl = gamme_labels[gamme_index] -%}
-            {%- assign gamme_has_products = false -%}
-
-            {%- for product in collection.products -%}
-              {%- comment -%} Skip if already rendered or if testeur {%- endcomment -%}
-              {%- assign handle_check = '|' | append: product.handle | append: '|' -%}
-              {%- if rendered_handles contains handle_check -%}{%- continue -%}{%- endif -%}
-              {%- assign skip_tags = product.tags | join: ' ' | downcase -%}
-              {%- if skip_tags contains 'testeur' or skip_tags contains 'decouverte' or skip_tags contains 'découverte' -%}{%- continue -%}{%- endif -%}
-
-              {%- comment -%} ── Detect tier for this product (inline) ── {%- endcomment -%}
-              {%- liquid
-                assign qo_tg = product.tags | join: ' ' | downcase
-                assign qo_tl = product.title | downcase
-                assign qo_format = ''
-                if qo_tg contains '1000ml' or qo_tg contains '1l' or qo_tl contains '1000'
-                  assign qo_format = '1000'
-                elsif qo_tg contains '500ml' or qo_tl contains '500'
-                  assign qo_format = '500'
-                elsif qo_tg contains '400ml' or qo_tl contains '400'
-                  assign qo_format = '400'
-                elsif qo_tg contains '200ml' or qo_tl contains '200'
-                  assign qo_format = '200'
-                elsif qo_tg contains '50ml' or qo_tl contains '50ml'
-                  assign qo_format = '50'
-                endif
-                assign qo_type = ''
-                if qo_tg contains 'shampoing' or qo_tl contains 'shampoing'
-                  assign qo_type = 'shampoing'
-                elsif qo_tl contains 'spray' and qo_tl contains 'masque'
-                  assign qo_type = 'spray_reparateur'
-                elsif qo_tg contains 'masque' or qo_tl contains 'masque'
-                  assign qo_type = 'masque'
-                elsif qo_tg contains 'creme' or qo_tg contains 'crème' or qo_tl contains 'crème'
-                  assign qo_type = 'creme'
-                elsif qo_tg contains 'serum' or qo_tg contains 'sérum' or qo_tl contains 'sérum'
-                  assign qo_type = 'serum'
-                elsif qo_tg contains 'huile' or qo_tl contains 'huile' or qo_tl contains 'bain miraculeux'
-                  assign qo_type = 'huile'
-                elsif qo_tg contains 'cire' or qo_tl contains 'cire'
-                  assign qo_type = 'cire'
-                endif
-                assign qo_prefix = ''
-                if qo_tg contains 'dejauniss' or qo_tg contains 'colorist' or qo_tl contains 'colorist'
-                  assign qo_prefix = 'dejaunisseur'
-                elsif qo_tg contains 'homme' or qo_tg contains 'herborist' or qo_tl contains 'herborist'
-                  assign qo_prefix = 'homme'
-                endif
-                assign qo_gamme = qo_type
-                if qo_prefix == 'homme'
-                  assign qo_gamme = 'homme'
-                elsif qo_prefix == 'dejaunisseur'
-                  assign qo_gamme = 'dejaunisseur'
-                endif
-                if qo_gamme == ''
-                  assign qo_gamme = 'autre'
-                endif
-                assign qo_tier_data = ''
-                if qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '200'
-                  assign qo_tier_data = '6:750,12:710,24:675,48:600,96:540'
-                elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '200'
-                  assign qo_tier_data = '6:960,12:910,24:860,48:765,96:690'
-                elsif qo_prefix == 'dejaunisseur' and qo_type == 'shampoing' and qo_format == '1000'
-                  assign qo_tier_data = '1:2890,3:2745,6:2450,12:2160'
-                elsif qo_prefix == 'dejaunisseur' and qo_type == 'masque' and qo_format == '1000'
-                  assign qo_tier_data = '1:3490,3:3315,6:2965,12:2615'
-                elsif qo_prefix == 'homme' and qo_type == 'masque' and qo_format == '500'
-                  assign qo_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
-                elsif qo_type == 'spray_reparateur'
-                  assign qo_tier_data = '6:990,12:940,24:890,48:790,96:710'
-                elsif qo_type == 'shampoing' and qo_format == '200'
-                  assign qo_tier_data = '6:700,12:665,24:630,48:560,96:500'
-                elsif qo_type == 'shampoing' and qo_format == '500'
-                  assign qo_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
-                elsif qo_type == 'shampoing' and qo_format == '1000'
-                  assign qo_tier_data = '1:2490,3:2365,6:2100,12:1865'
-                elsif qo_type == 'masque' and qo_format == '200'
-                  assign qo_tier_data = '6:950,12:900,24:855,48:760,96:680'
-                elsif qo_type == 'masque' and qo_format == '400'
-                  assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
-                elsif qo_type == 'masque' and qo_format == '1000'
-                  assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                elsif qo_type == 'creme' and qo_format == '200'
-                  assign qo_tier_data = '6:850,12:805,24:765,48:680,96:610'
-                elsif qo_type == 'creme' and qo_format == '400'
-                  assign qo_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
-                elsif qo_type == 'creme' and qo_format == '1000'
-                  assign qo_tier_data = '1:3290,3:3125,6:2790,12:2465'
-                elsif qo_type == 'serum'
-                  assign qo_tier_data = '6:850,12:805,24:765,48:680,96:610'
-                elsif qo_type == 'huile'
-                  assign qo_tier_data = '6:950,12:900,24:850,48:760,96:680'
-                elsif qo_type == 'cire'
-                  assign qo_tier_data = '6:690,12:660,24:630,48:600'
-                endif
-              -%}
-
-              {%- if qo_tier_data != '' and qo_gamme == gk -%}
-                {%- unless gamme_has_products -%}
-                  {%- assign gamme_has_products = true -%}
-                  <tr class="ml-qo__category"><td colspan="5">{{ gl }}</td></tr>
-                {%- endunless -%}
-
-                {%- assign rendered_handles = rendered_handles | append: product.handle | append: '|' -%}
-                {%- render 'ml-qo-row', qo_product: product, qo_tier_data: qo_tier_data, qo_format: qo_format -%}
-                {%- comment -%} Placeholder pour JS — handle + type/prefix pour tier lookup {%- endcomment -%}
-                <tr class="ml-qo__linked-placeholder" data-parent-handle="{{ product.handle }}" data-type="{{ qo_type }}" data-prefix="{{ qo_prefix }}" style="display:none"><td colspan="5"></td></tr>
-
-              {%- endif -%}
-            {%- endfor -%}
+          {%- for product in collection.products -%}
+            {%- assign handle_check = '|' | append: product.handle | append: '|' -%}
+            {%- if rendered_handles contains handle_check -%}{%- continue -%}{%- endif -%}
+            {%- assign skip_tags = product.tags | join: ' ' | downcase -%}
+            {%- if skip_tags contains 'testeur' or skip_tags contains 'decouverte' or skip_tags contains 'découverte' -%}{%- continue -%}{%- endif -%}
+            {%- assign rendered_handles = rendered_handles | append: product.handle | append: '|' -%}
+            {%- render 'ml-qo-row', qo_product: product, qo_tier_data: '', qo_format: '' -%}
           {%- endfor -%}
         </tbody>
       </table>
@@ -494,20 +385,30 @@
       </button>
     </div>
 
+    <script src="{{ 'ml-utils.js' | asset_url }}"></script>
     <script>
       (function () {
         'use strict';
+        var U = window.MylabUtils;
         var table = document.getElementById('ml-qo-table');
         var totalEl = document.getElementById('ml-qo-total');
         var countEl = document.getElementById('ml-qo-count');
         var submitBtn = document.getElementById('ml-qo-submit');
-        if (!table) return;
+        if (!table || !U) return;
 
-        function formatPrice(centimes) {
-          var e = Math.floor(centimes / 100);
-          var c = centimes % 100;
-          return e.toLocaleString('fr-FR') + ',' + (c < 10 ? '0' : '') + c;
-        }
+        /* ── Gamme labels pour les en-têtes de catégorie ── */
+        var GAMME_LABELS = {
+          shampoing: 'Shampoings',
+          masque: 'Masques capillaires',
+          creme: 'Crèmes de coiffage sans rinçage',
+          serum: 'Sérums',
+          huile: 'Huiles',
+          spray_reparateur: 'Sprays réparateurs',
+          cire: 'Produits de finition',
+          homme: 'Gamme Homme',
+          dejaunisseur: 'Gamme Déjaunisseur / Coloristeur'
+        };
+        var GAMME_ORDER = ['shampoing','masque','creme','serum','huile','spray_reparateur','cire','homme','dejaunisseur'];
 
         function updateRow(tr) {
           var select = tr.querySelector('[data-qo-qty]');
@@ -519,25 +420,25 @@
           if (qty > 0) {
             var opt = select.options[select.selectedIndex];
             var price = parseInt(opt.dataset.price, 10);
-            unitEl.textContent = formatPrice(price);
-            lineEl.textContent = formatPrice(price * qty);
+            unitEl.textContent = U.formatPriceRaw(price);
+            lineEl.textContent = U.formatPriceRaw(price * qty);
             checkbox.checked = true;
           } else {
-            unitEl.textContent = '—';
-            lineEl.textContent = '—';
+            unitEl.textContent = '\u2014';
+            lineEl.textContent = '\u2014';
             checkbox.checked = false;
           }
           updateTotal();
         }
 
         function updateTotal() {
-          var rows = table.querySelectorAll('tbody tr[data-variant-id]');
+          var rows = table.querySelectorAll('tbody tr[data-variant-id]:not([style*="display:none"])');
           var total = 0;
           var count = 0;
           rows.forEach(function (tr) {
             var select = tr.querySelector('[data-qo-qty]');
             var checkbox = tr.querySelector('input[type="checkbox"]');
-            if (checkbox.checked && parseInt(select.value, 10) > 0) {
+            if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
               var opt = select.options[select.selectedIndex];
               var price = parseInt(opt.dataset.price, 10);
               var qty = parseInt(select.value, 10);
@@ -545,7 +446,7 @@
               count++;
             }
           });
-          totalEl.textContent = formatPrice(total);
+          totalEl.textContent = U.formatPriceRaw(total);
           countEl.textContent = count;
           submitBtn.disabled = count === 0;
         }
@@ -554,7 +455,6 @@
         table.addEventListener('change', function (e) {
           var tr = e.target.closest('tr[data-variant-id]');
           if (!tr) return;
-
           if (e.target.matches('[data-qo-qty]')) {
             updateRow(tr);
           }
@@ -577,14 +477,13 @@
           table.querySelectorAll('tbody tr[data-variant-id]').forEach(function (tr) {
             var checkbox = tr.querySelector('input[type="checkbox"]');
             var select = tr.querySelector('[data-qo-qty]');
-            if (checkbox.checked && parseInt(select.value, 10) > 0) {
+            if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
               items.push({
                 id: parseInt(tr.dataset.variantId, 10),
                 quantity: parseInt(select.value, 10)
               });
             }
           });
-
           if (!items.length) return;
 
           submitBtn.disabled = true;
@@ -592,10 +491,7 @@
 
           fetch('/cart/add.js', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-            },
+            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
             body: JSON.stringify({ items: items })
           })
           .then(function (r) {
@@ -610,7 +506,7 @@
             }, 2000);
           })
           .catch(function () {
-            submitBtn.textContent = 'Erreur — réessayez';
+            submitBtn.textContent = 'Erreur \u2014 réessayez';
             submitBtn.style.background = '#c00';
             setTimeout(function () {
               submitBtn.textContent = 'Ajouter au panier';
@@ -620,18 +516,35 @@
           });
         });
 
-        /* ── CHARGEMENT DES CONTENANCES LIÉES DEPUIS ml-product-map.json ── */
-        function buildRow(product, tierData, sizeLabel) {
+        /* ── CHARGEMENT DEPUIS ml-product-map.json ── */
+        function populateSelect(tr, tierStr) {
+          var select = tr.querySelector('[data-qo-qty]');
+          if (!select) return;
+          /* Garder seulement l'option "—" */
+          select.innerHTML = '<option value="0">\u2014</option>';
+          var tiers = tierStr.split(',');
+          tiers.forEach(function (t) {
+            var p = t.split(':');
+            var opt = document.createElement('option');
+            opt.value = p[0];
+            opt.dataset.price = p[1];
+            opt.textContent = p[0] + ' unit\u00e9s';
+            select.appendChild(opt);
+          });
+          tr.setAttribute('data-tier-data', tierStr);
+        }
+
+        function buildLinkedRow(product, tierStr, sizeLabel) {
           var imgSrc = product.images && product.images[0] ? product.images[0] : '';
           if (imgSrc) imgSrc = imgSrc.replace(/\.([^.]+)$/, '_100x100.$1');
           var img = imgSrc ? '<img class="ml-qo__product-img" src="' + imgSrc + '" width="50" height="50" loading="lazy">' : '';
-          var tiers = tierData.split(',');
+          var tiers = tierStr.split(',');
           var options = '<option value="0">\u2014</option>';
           tiers.forEach(function (t) {
             var p = t.split(':');
             options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unit\u00e9s</option>';
           });
-          return '<tr data-variant-id="' + product.variants[0].id + '" data-tier-data="' + tierData + '">'
+          return '<tr data-variant-id="' + product.variants[0].id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '">'
             + '<td class="ml-qo__check"><input type="checkbox" aria-label="S\u00e9lectionner ' + product.title.replace(/"/g,'&quot;') + '"></td>'
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
             + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
@@ -641,43 +554,96 @@
             + '</tr>';
         }
 
-        /* Charger le JSON centralisé et injecter les contenances liées */
-        fetch('{{ "ml-product-map.json" | asset_url }}')
-          .then(function (r) { return r.json(); })
-          .then(function (map) {
-            var placeholders = table.querySelectorAll('.ml-qo__linked-placeholder');
-            placeholders.forEach(function (ph) {
-              var parentHandle = ph.dataset.parentHandle;
-              var entry = map[parentHandle];
-              if (!entry || !entry.sizes || !entry.tiers) { ph.remove(); return; }
+        U.loadProductMap().then(function (map) {
+          var tbody = table.querySelector('tbody');
+          var rows = table.querySelectorAll('tbody tr[data-handle]');
+          var gammeRows = {}; /* gamme → [tr, ...] */
 
-              /* Trouver les tailles liées (hors taille du produit 200ml dans la collection) */
-              var baseSizeHandle = entry.sizes[Object.keys(entry.sizes)[0]];
-              var linked = [];
-              Object.keys(entry.sizes).forEach(function (size) {
-                var h = entry.sizes[size];
-                if (h !== parentHandle && entry.tiers[size]) {
-                  linked.push({ handle: h, size: size, tierData: entry.tiers[size] });
+          rows.forEach(function (tr) {
+            var handle = tr.dataset.handle;
+            var found = U.findProductEntry(handle, map);
+            if (!found) { tr.remove(); return; }
+
+            var entry = found.entry;
+            var tierStr = U.findTiers(handle, map);
+            if (!tierStr) { tr.remove(); return; }
+
+            /* Montrer la ligne et remplir le select */
+            tr.style.display = '';
+            populateSelect(tr, tierStr);
+
+            /* Détecter la taille pour l'afficher */
+            var sizeEl = tr.querySelector('.ml-qo__product-variant');
+            if (sizeEl && !sizeEl.textContent.trim() && entry.sizes) {
+              var sKeys = Object.keys(entry.sizes);
+              for (var i = 0; i < sKeys.length; i++) {
+                if (entry.sizes[sKeys[i]] === handle) {
+                  sizeEl.textContent = sKeys[i] + 'ml';
+                  break;
                 }
-              });
+              }
+            }
 
-              if (!linked.length) { ph.remove(); return; }
+            /* Grouper par gamme */
+            var gamme = entry.type || 'autre';
+            if (entry.prefix === 'homme') gamme = 'homme';
+            if (entry.prefix === 'dejaunisseur') gamme = 'dejaunisseur';
+            if (!gammeRows[gamme]) gammeRows[gamme] = [];
+            gammeRows[gamme].push({ tr: tr, entry: entry, handle: handle });
+          });
 
-              var fetches = linked.map(function (l) {
-                return fetch('/products/' + l.handle + '.js')
+          /* Réorganiser le tbody : en-têtes de gamme + lignes triées + contenances liées */
+          tbody.innerHTML = '';
+          var allFetches = [];
+
+          GAMME_ORDER.forEach(function (gk) {
+            var group = gammeRows[gk];
+            if (!group || !group.length) return;
+
+            /* En-tête de catégorie */
+            var headerTr = document.createElement('tr');
+            headerTr.className = 'ml-qo__category';
+            headerTr.innerHTML = '<td colspan="5">' + (GAMME_LABELS[gk] || gk) + '</td>';
+            tbody.appendChild(headerTr);
+
+            group.forEach(function (item) {
+              tbody.appendChild(item.tr);
+
+              /* Injecter les contenances liées */
+              var entry = item.entry;
+              if (!entry.sizes || !entry.tiers) return;
+              var sizeKeys = Object.keys(entry.sizes);
+              sizeKeys.forEach(function (size) {
+                var linkedHandle = entry.sizes[size];
+                if (linkedHandle === item.handle) return;
+                var linkedTierStr = entry.tiers[size];
+                if (!linkedTierStr) return;
+
+                var f = fetch('/products/' + linkedHandle + '.js')
                   .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
                   .then(function (product) {
-                    ph.insertAdjacentHTML('beforebegin', buildRow(product, l.tierData, l.size));
+                    item.tr.insertAdjacentHTML('afterend', buildLinkedRow(product, linkedTierStr, size));
                   })
                   .catch(function () {});
+                allFetches.push(f);
               });
-
-              Promise.all(fetches).then(function () { ph.remove(); });
             });
-          })
-          .catch(function (err) {
-            console.error('ML Quick Order: impossible de charger le product map', err);
           });
+
+          /* Produits sans gamme connue */
+          Object.keys(gammeRows).forEach(function (gk) {
+            if (GAMME_ORDER.indexOf(gk) !== -1) return;
+            var group = gammeRows[gk];
+            if (!group || !group.length) return;
+            var headerTr = document.createElement('tr');
+            headerTr.className = 'ml-qo__category';
+            headerTr.innerHTML = '<td colspan="5">Autres produits</td>';
+            tbody.appendChild(headerTr);
+            group.forEach(function (item) { tbody.appendChild(item.tr); });
+          });
+        }).catch(function (err) {
+          console.error('ML Quick Order: impossible de charger le product map', err);
+        });
       })();
     </script>
   {%- endunless -%}

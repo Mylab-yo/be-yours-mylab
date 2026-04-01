@@ -2,62 +2,17 @@
 
 /**
  * ML Volume Pricing — Tarifs dégressifs MyLab
- * Lit les paliers depuis assets/ml-product-map.json (source de vérité unique).
+ * Lit les paliers depuis ml-product-map.json via MylabUtils.
+ * Dépend de ml-utils.js
  */
 
 (function () {
-  var PRODUCT_MAP = null;
-
-  function loadProductMap() {
-    if (PRODUCT_MAP) return Promise.resolve(PRODUCT_MAP);
-    return fetch((window.MylabAssets && window.MylabAssets.productMapUrl) || '/assets/ml-product-map.json')
-      .then(function (r) { return r.json(); })
-      .then(function (data) { PRODUCT_MAP = data; return data; });
-  }
-
-  function findTiers(handle, map) {
-    /* Cherche directement par handle (clé = handle 200ml) */
-    if (map[handle] && map[handle].tiers) {
-      var sizes = map[handle].sizes || {};
-      var sizeKeys = Object.keys(sizes);
-      for (var i = 0; i < sizeKeys.length; i++) {
-        if (sizes[sizeKeys[i]] === handle && map[handle].tiers[sizeKeys[i]]) {
-          return map[handle].tiers[sizeKeys[i]];
-        }
-      }
-      /* Fallback : première taille disponible */
-      if (sizeKeys.length > 0) return map[handle].tiers[sizeKeys[0]];
-    }
-    /* Cherche dans les sizes de chaque entrée */
-    var keys = Object.keys(map);
-    for (var k = 0; k < keys.length; k++) {
-      var entry = map[keys[k]];
-      var entrySizes = entry.sizes || {};
-      var eKeys = Object.keys(entrySizes);
-      for (var s = 0; s < eKeys.length; s++) {
-        if (entrySizes[eKeys[s]] === handle && entry.tiers && entry.tiers[eKeys[s]]) {
-          return entry.tiers[eKeys[s]];
-        }
-      }
-    }
-    return null;
-  }
-
-  function parseTierString(str) {
-    if (!str) return [];
-    return str.split(',').map(function (t) {
-      var p = t.split(':');
-      return { qty: parseInt(p[0], 10), price: parseInt(p[1], 10) };
-    });
-  }
+  var U = window.MylabUtils;
+  if (!U) { console.error('ML Volume Pricing: ml-utils.js non chargé'); return; }
 
   /* -------------------------------------------------------
      RENDU DU TABLEAU
      ------------------------------------------------------- */
-  function formatPrice(centimes) {
-    return (centimes / 100).toFixed(2).replace('.', ',') + ' €';
-  }
-
   function renderTable(container, tiers) {
     if (!tiers || tiers.length === 0) {
       container.style.display = 'none';
@@ -73,14 +28,13 @@
 
     tiers.forEach(function (tier, i) {
       var savings = Math.round((1 - tier.price / basePrice) * 100);
-      var savingsHtml = '';
-      if (savings > 0) {
-        savingsHtml = '<span class="ml-savings">-' + savings + '%</span>';
-      }
+      var savingsHtml = savings > 0
+        ? '<span class="ml-savings">-' + savings + '%</span>'
+        : '';
 
-      var priceHtml = formatPrice(tier.price);
+      var priceHtml = U.formatPrice(tier.price);
       if (i === tiers.length - 1) {
-        priceHtml = '<span class="ml-price-best">' + formatPrice(tier.price) + '</span>';
+        priceHtml = '<span class="ml-price-best">' + U.formatPrice(tier.price) + '</span>';
       }
 
       var qtyLabel = tier.qty === 1 ? 'À l\'unité' : 'x' + tier.qty;
@@ -109,10 +63,10 @@
     if (!handle) return;
     handle = handle.split('?')[0].split('#')[0];
 
-    loadProductMap()
+    U.loadProductMap()
       .then(function (map) {
-        var tierStr = findTiers(handle, map);
-        var tiers = parseTierString(tierStr);
+        var tierStr = U.findTiers(handle, map);
+        var tiers = U.parseTierString(tierStr);
         containers.forEach(function (container) {
           if (tiers.length) {
             renderTable(container, tiers);

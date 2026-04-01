@@ -1,5 +1,6 @@
 /* ============================================================
    ML Volume Pricing Table — Tarifs dégressifs MyLab
+   Utilise les variables CSS --ml-* de mylab-product.css
    ============================================================ */
 
 [data-ml-volume-pricing] {
@@ -17,7 +18,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #111;
+  color: var(--ml-black, #111);
   margin-bottom: 1.2rem;
 }
 
@@ -32,7 +33,7 @@
 .ml-volume-table td {
   padding: 0.8rem 1rem;
   text-align: center;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--ml-line, #E5E5E5);
 }
 
 .ml-volume-table thead th {
@@ -40,24 +41,24 @@
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #555;
-  background: #fafafa;
-  border-bottom: 2px solid #ddd;
+  color: var(--ml-mid, #555);
+  background: var(--ml-off, #F5F4F2);
+  border-bottom: 2px solid var(--ml-line, #E5E5E5);
 }
 
 .ml-volume-table tbody tr:hover {
-  background: #f8f8f8;
+  background: var(--ml-off, #F5F4F2);
 }
 
 .ml-volume-table tbody td:first-child {
   font-weight: 600;
   text-align: left;
-  color: #111;
+  color: var(--ml-black, #111);
 }
 
 .ml-volume-table .ml-price-best {
-  color: #fff;
-  background: #111;
+  color: var(--ml-white, #fff);
+  background: var(--ml-black, #111);
   border-radius: 50px;
   padding: 0.4rem 0.8rem;
   font-weight: 700;
@@ -68,25 +69,25 @@
 .ml-volume-table .ml-savings {
   display: block;
   font-size: 1.1rem;
-  color: #2e7d32;
+  color: var(--ml-green, #2D4A2D);
   font-weight: 600;
   margin-top: 0.2rem;
 }
 
 .ml-volume-note {
   font-size: 1.2rem;
-  color: #999;
+  color: var(--ml-muted, #888);
   margin-top: 0.8rem;
   line-height: 1.5;
 }
 
 /* Ligne active / sélectionnée */
 .ml-volume-table tbody tr.ml-row-active {
-  background: #f0f7ff;
+  background: var(--ml-off, #F5F4F2);
 }
 
 .ml-volume-table tbody tr.ml-row-active td:first-child {
-  border-left: 3px solid #111;
+  border-left: 3px solid var(--ml-black, #111);
 }
 
 /* Responsive */

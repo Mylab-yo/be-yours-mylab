@@ -1,10 +1,13 @@
 {%- comment -%}
   Snippet: ml-qo-row.liquid
   Renders a single product row in the quick order table.
-  Arguments: qo_product, qo_tier_data, qo_format
+  Arguments: qo_product, qo_tier_data (optional — JS populates from product map), qo_format
 {%- endcomment -%}
 
-<tr data-variant-id="{{ qo_product.variants.first.id }}" data-tier-data="{{ qo_tier_data }}">
+<tr data-variant-id="{{ qo_product.variants.first.id }}"
+    data-handle="{{ qo_product.handle }}"
+    {% if qo_tier_data != blank %}data-tier-data="{{ qo_tier_data }}"{% endif %}
+    style="{% if qo_tier_data == blank %}display:none{% endif %}">
   <td class="ml-qo__check">
     <input type="checkbox" aria-label="Sélectionner {{ qo_product.title | escape }}">
   </td>
@@ -22,9 +25,7 @@
       {%- endif -%}
       <div>
         <div class="ml-qo__product-name">{{ qo_product.title }}</div>
-        {%- if qo_format != '' -%}
-          <div class="ml-qo__product-variant">{{ qo_format }}ml</div>
-        {%- endif -%}
+        <div class="ml-qo__product-variant">{% if qo_format != blank %}{{ qo_format }}ml{% endif %}</div>
       </div>
     </div>
   </td>
@@ -32,11 +33,13 @@
     <div class="ml-qo__select-wrap">
       <select class="ml-qo__select" data-qo-qty>
         <option value="0">—</option>
-        {%- assign tiers = qo_tier_data | split: ',' -%}
-        {%- for tier in tiers -%}
-          {%- assign parts = tier | split: ':' -%}
-          <option value="{{ parts[0] }}" data-price="{{ parts[1] }}">{{ parts[0] }} unités</option>
-        {%- endfor -%}
+        {%- if qo_tier_data != blank -%}
+          {%- assign tiers = qo_tier_data | split: ',' -%}
+          {%- for tier in tiers -%}
+            {%- assign parts = tier | split: ':' -%}
+            <option value="{{ parts[0] }}" data-price="{{ parts[1] }}">{{ parts[0] }} unités</option>
+          {%- endfor -%}
+        {%- endif -%}
       </select>
     </div>
   </td>

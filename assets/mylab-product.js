@@ -4,88 +4,28 @@
  * MyLab Shop — Fiche produit B2B (Be Yours)
  * Contenance selector + paliers quantité + prix dynamique + CTA
  * Fonctionne sur page produit ET dans le quick view modal.
+ * Dépend de ml-utils.js (MylabUtils)
  */
 
 (function () {
 
-  /* -------------------------------------------------------
-     PRODUCT MAP — source de vérité unique
-     Chargé depuis assets/ml-product-map.json
-     ------------------------------------------------------- */
-  var PRODUCT_MAP = null;
-
-  function loadProductMap() {
-    if (PRODUCT_MAP) return Promise.resolve(PRODUCT_MAP);
-    var mapUrl = (window.MylabAssets && window.MylabAssets.productMapUrl) || '/assets/ml-product-map.json';
-    return fetch(mapUrl)
-      .then(function (r) { return r.json(); })
-      .then(function (data) { PRODUCT_MAP = data; return data; });
-  }
-
-  function parseTierString(str) {
-    if (!str) return [];
-    return str.split(',').map(function (t) {
-      var p = t.split(':');
-      return { qty: parseInt(p[0], 10), price: parseInt(p[1], 10) };
-    });
-  }
-
-  function findProductEntry(handle, map) {
-    if (map[handle]) return { entry: map[handle], size: null };
-    var keys = Object.keys(map);
-    for (var i = 0; i < keys.length; i++) {
-      var entry = map[keys[i]];
-      var sizes = entry.sizes || {};
-      var sizeKeys = Object.keys(sizes);
-      for (var s = 0; s < sizeKeys.length; s++) {
-        if (sizes[sizeKeys[s]] === handle) {
-          return { entry: entry, size: sizeKeys[s] };
-        }
-      }
-    }
-    return null;
-  }
-
-  function detectTiers(handle, map) {
-    var found = findProductEntry(handle, map);
-    if (!found) return null;
-    var entry = found.entry;
-    var size = found.size;
-    if (!size) {
-      var sizeKeys = Object.keys(entry.sizes || {});
-      for (var i = 0; i < sizeKeys.length; i++) {
-        if (entry.sizes[sizeKeys[i]] === handle) { size = sizeKeys[i]; break; }
-      }
-      if (!size && sizeKeys.length > 0) size = sizeKeys[0];
-    }
-    var tierStr = entry.tiers ? entry.tiers[size] : null;
-    if (!tierStr) return null;
-    return parseTierString(tierStr);
-  }
+  var U = window.MylabUtils;
+  if (!U) { console.error('MyLab: ml-utils.js non chargé'); return; }
 
   /* -------------------------------------------------------
      HELPERS
      ------------------------------------------------------- */
-  function formatMoney(cents) {
-    return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
-  }
-
-  function formatMoneyCompact(cents) {
-    return (cents / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
 
   /** querySelector scopé au conteneur pricing (évite les collisions d'IDs en quick view) */
   function q(root, sel) { return root.querySelector(sel); }
 
   /**
-   * Cache/montre les blocs natifs Be Yours (price, buy_buttons, variant_picker)
+   * Cache/montre les blocs natifs Be Yours (price, buy_buttons)
    * qui sont frères du bloc MyLab dans le même product__info-container.
-   * Évite les doublons quand le pricing MyLab est actif.
    */
   function toggleNativeBlocks(root, show) {
     var infoContainer = root.closest('.product__info-container') || root.parentElement;
     if (!infoContainer) return;
-    /* Les blocs natifs sont identifiés par leur attribut id="price-*" ou leur class */
     var selectors = [
       '[id^="price-"]:not([data-mylab-pricing] *)',
       '.product__tax',
@@ -96,7 +36,6 @@
       var el = infoContainer.querySelector(sel);
       if (el) el.style.display = show ? '' : 'none';
     });
-    /* Cacher les buy-buttons natifs (pas ceux dans le fallback MyLab) */
     var buyBtns = infoContainer.querySelectorAll('.buy-buttons');
     buyBtns.forEach(function (bb) {
       if (!bb.closest('[data-mylab-pricing]') && !bb.closest('[data-mylab-fallback]')) {
@@ -109,7 +48,7 @@
      PALIERS — BOUTONS QUANTITÉ
      ------------------------------------------------------- */
   function renderQtyButtons(ctx) {
-    var container = q(ctx.root, '#ml-qty-btns') || q(ctx.root, '[id="ml-qty-btns"]');
+    var container = q(ctx.root, '#ml-qty-btns');
     if (!container) return;
 
     container.innerHTML = '';
@@ -168,19 +107,19 @@
     if (totalEl) {
       totalEl.classList.add('is-updating');
       setTimeout(function () {
-        totalEl.textContent = formatMoneyCompact(totalPrice);
+        totalEl.textContent = U.formatPriceCompact(totalPrice);
         totalEl.classList.remove('is-updating');
       }, 120);
     }
 
     var unitEl = q(ctx.root, '#ml-price-unit');
-    if (unitEl) unitEl.textContent = formatMoney(unitPrice);
+    if (unitEl) unitEl.textContent = U.formatPrice(unitPrice);
 
     var savingsEl = q(ctx.root, '#ml-price-savings');
     var savingsText = q(ctx.root, '#ml-savings-text');
     if (savingsEl && savingsText) {
       if (savings > 0) {
-        savingsText.textContent = 'Vous économisez ' + formatMoney(savings) + ' sur cette commande';
+        savingsText.textContent = 'Vous économisez ' + U.formatPrice(savings) + ' sur cette commande';
         savingsEl.classList.add('is-visible');
       } else {
         savingsEl.classList.remove('is-visible');
@@ -199,8 +138,7 @@
     var basePrice = ctx.tiers[0].price;
 
     ctx.tiers.forEach(function (tier) {
-      var unitPrice = tier.price;
-      var discountPct = Math.round((1 - unitPrice / basePrice) * 100);
+      var discountPct = Math.round((1 - tier.price / basePrice) * 100);
       var isActive = tier.qty === activeQty;
 
       var tr = document.createElement('tr');
@@ -212,7 +150,7 @@
 
       tr.innerHTML =
         '<td class="ml-palier-qty">' + tier.qty + ' unité' + (tier.qty > 1 ? 's' : '') + '</td>' +
-        '<td class="ml-palier-price">' + formatMoney(unitPrice) + '</td>' +
+        '<td class="ml-palier-price">' + U.formatPrice(tier.price) + '</td>' +
         '<td class="ml-palier-discount">' + discountHtml + '</td>';
 
       tbody.appendChild(tr);
@@ -249,7 +187,6 @@
       var textEl = btn.querySelector('.ml-btn-cart__text');
       if (textEl) textEl.textContent = 'Ajouté !';
 
-      // Rafraîchir le panier (ouvre le drawer natif Be Yours)
       document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: true } }));
 
       setTimeout(function () {
@@ -274,7 +211,6 @@
     var qtyContainer = q(root, '#ml-qty-btns');
     if (!qtyContainer) return;
 
-    /* Handle depuis data-attribute (quick view) ou URL (page produit) */
     var handle = root.dataset.productHandle;
     if (!handle) {
       var pathParts = window.location.pathname.split('/products/');
@@ -289,27 +225,25 @@
       selectedQty: null
     };
 
-    /* Variant ID depuis le bouton CTA */
     var cartBtn = q(root, '#ml-btn-cart');
     if (cartBtn && cartBtn.dataset.variantId) {
       ctx.variantId = parseInt(cartBtn.dataset.variantId);
     }
-
     if (cartBtn) {
       cartBtn.addEventListener('click', function () { handleAddToCart(ctx); });
     }
 
     Promise.all([
-      loadProductMap(),
+      U.loadProductMap(),
       fetch('/products/' + handle + '.js').then(function (r) { return r.json(); })
     ])
       .then(function (results) {
         var map = results[0];
         var product = results[1];
-        var tiers = detectTiers(handle, map);
+        var tierStr = U.findTiers(handle, map);
+        var tiers = U.parseTierString(tierStr);
 
         if (!tiers || !tiers.length) {
-          /* Pas de paliers MyLab → masquer le bloc, montrer le fallback + blocs natifs */
           root.style.display = 'none';
           var fallback = root.parentElement && root.parentElement.querySelector('[data-mylab-fallback]');
           if (fallback) fallback.style.display = '';
@@ -317,7 +251,6 @@
           return;
         }
 
-        /* Paliers trouvés → cacher les blocs natifs (prix, buy buttons) pour éviter les doublons */
         toggleNativeBlocks(root, false);
         ctx.tiers = tiers;
 
