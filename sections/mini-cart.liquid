@@ -421,13 +421,16 @@
             endcomment
             assign ml_tier_data = ''
             assign ml_tg = item.product.tags | join: ' ' | downcase
-            assign ml_is_testeur = false
-            if ml_tg contains 'testeur' or ml_tg contains 'découverte' or ml_tg contains 'decouverte'
-              assign ml_is_testeur = true
-            endif
             assign ml_tl = item.product.title | downcase
+            assign ml_is_adherent = false
+            for col in item.product.collections
+              if col.handle == 'boutique-adherents'
+                assign ml_is_adherent = true
+                break
+              endif
+            endfor
             assign ml_f = ''
-            unless ml_is_testeur
+            if ml_is_adherent
             if ml_tg contains '1000ml' or ml_tg contains '1l' or ml_tl contains '1000'
               assign ml_f = '1000'
             elsif ml_tg contains '500ml' or ml_tl contains '500'
@@ -498,7 +501,7 @@
             elsif ml_t == 'cire'
               assign ml_tier_data = '6:690,12:660,24:630,48:600'
             endif
-            endunless
+            endif
             comment
               ── CALCUL PRIX HT ──
             endcomment
