@@ -91,7 +91,7 @@
         "price_impression_label": "forfait impression interne illimité",
         "note": "Toutes les étiquettes ont des couleurs variables selon la gamme.",
         "columns_desktop": 3,
-        "columns_mobile": "2",
+        "columns_mobile": 2,
         "accent_color": "#c5a467",
         "text_color": "#1a1a1a",
         "card_bg": "#f5f0eb",
