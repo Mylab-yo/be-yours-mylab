@@ -90,15 +90,27 @@ if (!customElements.get('cart-items')) {
           return response.text();
         })
         .then((state) => {
-          const parsedState = JSON.parse(state);
+          let parsedState;
+          try {
+            parsedState = JSON.parse(state);
+          } catch (e) {
+            // Shopify returned HTML (redirect, error page, or session expired).
+            // Fall back: force a full reload so the cart state syncs with the server.
+            console.warn('[cart] non-JSON response from cart_change_url — reloading', { line, body: state.slice(0, 200) });
+            window.location.reload();
+            return;
+          }
           publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cart: parsedState,  target, line, name, sections  });
         })
-        .catch(() => {
+        .catch((err) => {
+          console.warn('[cart] fetch error — reloading', err);
           this.querySelectorAll('.loading-overlay').forEach((overlay) => overlay.classList.add('hidden'));
           this.disableLoading();
           if (this.cartErrors) {
             this.cartErrors.textContent = theme.cartStrings.error;
           }
+          // Graceful fallback: reload so the user sees the latest server cart state
+          window.location.reload();
         });
     }
 
