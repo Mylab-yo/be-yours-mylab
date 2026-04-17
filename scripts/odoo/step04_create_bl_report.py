@@ -12,6 +12,9 @@ TEMPLATE_FILE = Path("scripts/odoo/templates/bl_deliveryslip.xml")
 def main():
     # 1. Read template XML
     arch = TEMPLATE_FILE.read_text(encoding="utf-8")
+    # Strip <?xml ?> declaration: Odoo's arch_base expects a fragment (already unicode)
+    if arch.lstrip().startswith("<?xml"):
+        arch = arch[arch.index("?>") + 2:].lstrip()
 
     # 2. Upsert ir.ui.view (QWeb template)
     view_values = {
