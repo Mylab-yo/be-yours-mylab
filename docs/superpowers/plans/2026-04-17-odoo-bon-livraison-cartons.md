@@ -17,14 +17,16 @@
 **Fichiers à créer** :
 - `scripts/odoo/__init__.py` — package marker
 - `scripts/odoo/_client.py` — helper XML-RPC partagé (connexion, execute, search_read)
-- `scripts/odoo/01_create_carton_field.py` — crée `x_carton_capacity` sur `product.template`
-- `scripts/odoo/02_init_carton_capacity.py` — peuple le champ via parsing nom produit
-- `scripts/odoo/03_create_server_action.py` — crée l'`ir.actions.server` "Répartir en cartons"
-- `scripts/odoo/04_create_bl_report.py` — crée `ir.ui.view` (QWeb) + `ir.actions.report`
-- `scripts/odoo/05_add_picking_button.py` — crée vue héritée `stock.view_picking_form` avec bouton
-- `scripts/odoo/templates/bl_deliveryslip.xml` — source QWeb du template BL (lu par `04_create_bl_report.py`)
-- `scripts/odoo/server_action_code.py` — source Python de l'action serveur (lue par `03_create_server_action.py`)
+- `scripts/odoo/stepstep01_create_carton_field.py` — crée `x_carton_capacity` sur `product.template`
+- `scripts/odoo/stepstep02_init_carton_capacity.py` — peuple le champ via parsing nom produit
+- `scripts/odoo/stepstep03_create_server_action.py` — crée l'`ir.actions.server` "Répartir en cartons"
+- `scripts/odoo/stepstep04_create_bl_report.py` — crée `ir.ui.view` (QWeb) + `ir.actions.report`
+- `scripts/odoo/stepstep05_add_picking_button.py` — crée vue héritée `stock.view_picking_form` avec bouton
+- `scripts/odoo/templates/bl_deliveryslip.xml` — source QWeb du template BL (lu par `stepstep04_create_bl_report.py`)
+- `scripts/odoo/server_action_code.py` — source Python de l'action serveur (lue par `stepstep03_create_server_action.py`)
 - `scripts/odoo/README.md` — instructions pour exécuter les scripts dans l'ordre
+
+**Convention de nommage :** préfixe `stepNN_` (et non `NN_`) car Python n'autorise pas les identifiants commençant par un chiffre — `python -m scripts.odoo.01_xxx` échouerait.
 
 **Responsabilités** :
 - Chaque script Odoo est idempotent : s'il est relancé, il met à jour le record existant plutôt que d'en créer un doublon.
@@ -165,11 +167,11 @@ git commit -m "Add Odoo XML-RPC client helper for BL carton scripts"
 ## Task 2: Créer le champ `x_carton_capacity` sur product.template
 
 **Files:**
-- Create: `scripts/odoo/01_create_carton_field.py`
+- Create: `scripts/odoo/step01_create_carton_field.py`
 
 - [ ] **Step 1: Écrire le script de création du champ**
 
-Créer `scripts/odoo/01_create_carton_field.py` :
+Créer `scripts/odoo/step01_create_carton_field.py` :
 
 ```python
 """Create custom field x_carton_capacity on product.template.
@@ -214,7 +216,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Exécuter le script**
 
 ```bash
-cd d:/be-yours-mylab && python -m scripts.odoo.01_create_carton_field
+cd d:/be-yours-mylab && python -m scripts.odoo.step01_create_carton_field
 ```
 
 Expected : `Created field x_carton_capacity (id=XXXX) on product.template`. Si relancé : `Field x_carton_capacity already exists (id=XXXX), skipping`.
@@ -226,7 +228,7 @@ Ouvrir https://odoo.startec-paris.com, aller sur un produit, ouvrir Mode Dévelo
 - [ ] **Step 4: Commit**
 
 ```bash
-git add scripts/odoo/01_create_carton_field.py
+git add scripts/odoo/step01_create_carton_field.py
 git commit -m "Add script to create x_carton_capacity field on product.template"
 ```
 
@@ -235,12 +237,12 @@ git commit -m "Add script to create x_carton_capacity field on product.template"
 ## Task 3: Initialiser x_carton_capacity par parsing des noms produits
 
 **Files:**
-- Create: `scripts/odoo/02_init_carton_capacity.py`
+- Create: `scripts/odoo/step02_init_carton_capacity.py`
 - Create (log output): `scripts/odoo/init_carton_capacity.csv`
 
 - [ ] **Step 1: Écrire le script d'initialisation**
 
-Créer `scripts/odoo/02_init_carton_capacity.py` :
+Créer `scripts/odoo/step02_init_carton_capacity.py` :
 
 ```python
 """Initialize x_carton_capacity on all products from name parsing.
@@ -356,7 +358,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Exécuter le script**
 
 ```bash
-cd d:/be-yours-mylab && python -m scripts.odoo.02_init_carton_capacity
+cd d:/be-yours-mylab && python -m scripts.odoo.step02_init_carton_capacity
 ```
 
 Expected : sortie listant les updates par capacité + résumé. Fichier `scripts/odoo/init_carton_capacity.csv` créé.
@@ -368,7 +370,7 @@ Ouvrir `scripts/odoo/init_carton_capacity.csv` dans Excel/LibreOffice. Filtrer s
 - [ ] **Step 4: Commit le script + le log CSV**
 
 ```bash
-git add scripts/odoo/02_init_carton_capacity.py scripts/odoo/init_carton_capacity.csv
+git add scripts/odoo/step02_init_carton_capacity.py scripts/odoo/init_carton_capacity.csv
 git commit -m "Init x_carton_capacity on all products from name parsing"
 ```
 
@@ -415,7 +417,7 @@ git commit -m "Document manual carton_capacity corrections"
 **Files:**
 - Create: `scripts/odoo/server_action_code.py`
 
-Ce fichier contient le code Python qui sera exécuté côté Odoo comme action serveur. Il est maintenu en fichier séparé pour la lisibilité — le script `03_create_server_action.py` le lira et l'enverra à Odoo comme chaîne de caractères.
+Ce fichier contient le code Python qui sera exécuté côté Odoo comme action serveur. Il est maintenu en fichier séparé pour la lisibilité — le script `step03_create_server_action.py` le lira et l'enverra à Odoo comme chaîne de caractères.
 
 - [ ] **Step 1: Écrire le code de l'action serveur**
 
@@ -579,11 +581,11 @@ git commit -m "Add Python code for 'Répartir en cartons' server action"
 ## Task 6: Déployer l'action serveur vers Odoo
 
 **Files:**
-- Create: `scripts/odoo/03_create_server_action.py`
+- Create: `scripts/odoo/step03_create_server_action.py`
 
 - [ ] **Step 1: Écrire le script de déploiement**
 
-Créer `scripts/odoo/03_create_server_action.py` :
+Créer `scripts/odoo/step03_create_server_action.py` :
 
 ```python
 """Create (or update) the 'Répartir en cartons' server action on stock.picking."""
@@ -634,7 +636,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Exécuter le script**
 
 ```bash
-cd d:/be-yours-mylab && python -m scripts.odoo.03_create_server_action
+cd d:/be-yours-mylab && python -m scripts.odoo.step03_create_server_action
 ```
 
 Expected : `Created server action id=XXX` (ou `Updated...` si relancé).
@@ -646,7 +648,7 @@ Aller sur Paramètres → Technique → Actions → Actions serveur. Chercher "R
 - [ ] **Step 4: Commit**
 
 ```bash
-git add scripts/odoo/03_create_server_action.py
+git add scripts/odoo/step03_create_server_action.py
 git commit -m "Add script to deploy 'Répartir en cartons' server action"
 ```
 
@@ -835,11 +837,11 @@ git commit -m "Add QWeb template for MyLab carton-aware delivery slip"
 ## Task 9: Déployer le template PDF et son action report
 
 **Files:**
-- Create: `scripts/odoo/04_create_bl_report.py`
+- Create: `scripts/odoo/step04_create_bl_report.py`
 
 - [ ] **Step 1: Écrire le script de déploiement**
 
-Créer `scripts/odoo/04_create_bl_report.py` :
+Créer `scripts/odoo/step04_create_bl_report.py` :
 
 ```python
 """Create/update the QWeb view and ir.actions.report for MyLab BL."""
@@ -905,7 +907,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Exécuter le script**
 
 ```bash
-cd d:/be-yours-mylab && python -m scripts.odoo.04_create_bl_report
+cd d:/be-yours-mylab && python -m scripts.odoo.step04_create_bl_report
 ```
 
 Expected : `Created QWeb view id=XXX` et `Created report action id=XXX`.
@@ -931,7 +933,7 @@ Logs wkhtmltopdf : accessible via les logs Odoo sur le VPS. Erreurs courantes :
 - [ ] **Step 5: Commit**
 
 ```bash
-git add scripts/odoo/04_create_bl_report.py
+git add scripts/odoo/step04_create_bl_report.py
 git commit -m "Deploy QWeb view + report action for MyLab BL"
 ```
 
@@ -940,11 +942,11 @@ git commit -m "Deploy QWeb view + report action for MyLab BL"
 ## Task 10: Ajouter le bouton "Répartir en cartons" dans la vue picking
 
 **Files:**
-- Create: `scripts/odoo/05_add_picking_button.py`
+- Create: `scripts/odoo/step05_add_picking_button.py`
 
 - [ ] **Step 1: Écrire le script**
 
-Créer `scripts/odoo/05_add_picking_button.py` :
+Créer `scripts/odoo/step05_add_picking_button.py` :
 
 ```python
 """Add 'Répartir en cartons' button to stock.picking form view."""
@@ -1008,7 +1010,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Exécuter**
 
 ```bash
-cd d:/be-yours-mylab && python -m scripts.odoo.05_add_picking_button
+cd d:/be-yours-mylab && python -m scripts.odoo.step05_add_picking_button
 ```
 
 Expected : `Created inherited view id=XXX`.
@@ -1020,7 +1022,7 @@ Ouvrir un picking en état "Assigné" ou "Fait". Le bouton "Répartir en cartons
 - [ ] **Step 4: Commit**
 
 ```bash
-git add scripts/odoo/05_add_picking_button.py
+git add scripts/odoo/step05_add_picking_button.py
 git commit -m "Add 'Répartir en cartons' button to picking form"
 ```
 
@@ -1103,21 +1105,21 @@ Scripts Python XML-RPC pour customisations Odoo (déploiement de champs, actions
 
 ```bash
 # 1. Créer le champ x_carton_capacity
-python -m scripts.odoo.01_create_carton_field
+python -m scripts.odoo.step01_create_carton_field
 
 # 2. Initialiser les valeurs depuis les noms produits
-python -m scripts.odoo.02_init_carton_capacity
+python -m scripts.odoo.step02_init_carton_capacity
 # → ouvrir scripts/odoo/init_carton_capacity.csv pour vérif manuelle
 # → corriger exceptions dans l'UI Odoo
 
 # 3. Déployer l'action serveur
-python -m scripts.odoo.03_create_server_action
+python -m scripts.odoo.step03_create_server_action
 
 # 4. Déployer le template PDF + action report
-python -m scripts.odoo.04_create_bl_report
+python -m scripts.odoo.step04_create_bl_report
 
 # 5. Ajouter le bouton dans la vue picking
-python -m scripts.odoo.05_add_picking_button
+python -m scripts.odoo.step05_add_picking_button
 ```
 
 Tous les scripts sont **idempotents** : relançables sans effet de bord.
@@ -1180,7 +1182,7 @@ type: project
 
 2. **Action serveur "Répartir en cartons"** sur `stock.picking`
    - Code dans `scripts/odoo/server_action_code.py`
-   - Déployée via `scripts/odoo/03_create_server_action.py`
+   - Déployée via `scripts/odoo/step03_create_server_action.py`
    - Idempotente : purge packages précédents avant recréation
 
 3. **Template QWeb `mylab.report_deliveryslip_document`** + action report "Bon de livraison MyLab"
@@ -1202,7 +1204,7 @@ type: project
 
 **Why:** Les clients B2B ont besoin d'un BL qui reflète la composition physique des cartons pour vérifier la livraison à réception sans recompter l'ensemble. La logistique STARTEC est structurée par conditionnement carton.
 
-**How to apply:** Pour modifier la logique de répartition, éditer `scripts/odoo/server_action_code.py` puis relancer `03_create_server_action.py`. Pour le layout PDF, éditer `scripts/odoo/templates/bl_deliveryslip.xml` puis relancer `04_create_bl_report.py`. Spec complet : `docs/superpowers/specs/2026-04-17-odoo-bon-livraison-cartons-design.md`.
+**How to apply:** Pour modifier la logique de répartition, éditer `scripts/odoo/server_action_code.py` puis relancer `step03_create_server_action.py`. Pour le layout PDF, éditer `scripts/odoo/templates/bl_deliveryslip.xml` puis relancer `step04_create_bl_report.py`. Spec complet : `docs/superpowers/specs/2026-04-17-odoo-bon-livraison-cartons-design.md`.
 ```
 
 - [ ] **Step 2: Ajouter l'entrée dans MEMORY.md**
