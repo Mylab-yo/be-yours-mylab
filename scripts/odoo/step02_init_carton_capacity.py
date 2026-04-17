@@ -35,6 +35,8 @@ def detect_capacity(name: str) -> tuple[int, str]:
     is_serum_huile = ("sérum" in n or "serum" in n or "huile" in n)
     is_shamp_creme = ("shampoing" in n or "shampooing" in n or
                       "crème" in n or "creme" in n or "spray" in n)
+    # Leave-in products behave like shampoing/creme (family 40) not masque (family 24)
+    is_sans_rincage = ("sans rinçage" in n or "sans rincage" in n)
 
     # Exclusions: packs, coffrets, testeurs, duo, trio
     if any(k in n for k in ["pack", "coffret", "testeur", "duo", "trio"]):
@@ -42,6 +44,9 @@ def detect_capacity(name: str) -> tuple[int, str]:
 
     if has_50ml and is_serum_huile:
         return (50, "50ml serum/huile")
+    # Masque sans rinçage 200ml -> famille 40 (avant la règle masque générique)
+    if has_200ml and is_masque and is_sans_rincage:
+        return (40, "200ml masque sans rinçage (famille shampoing)")
     if has_200ml and is_masque:
         return (24, "200ml masque")
     if has_400ml and is_masque:
