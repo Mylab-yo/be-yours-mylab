@@ -21,7 +21,7 @@
             <!-- ========== SUMMARY BADGE ========== -->
             <t t-set="packages" t-value="doc.move_line_ids.mapped('result_package_id')"/>
             <t t-set="nb_cartons" t-value="len(packages)"/>
-            <t t-set="total_weight" t-value="sum(ml.product_id.weight * ml.qty_done for ml in doc.move_line_ids)"/>
+            <t t-set="total_weight" t-value="sum(ml.product_id.weight * ml.quantity for ml in doc.move_line_ids)"/>
             <div style="background: #1a1a1a; color: #c9a96e; padding: 6pt 10pt; border-radius: 3pt; display: inline-block; margin-bottom: 12pt; font-weight: bold;">
                 <span t-esc="nb_cartons"/> cartons — <span t-esc="'%.2f' % total_weight"/> kg
                 <span t-if="doc.carrier_id"> — <t t-esc="doc.carrier_id.name"/></span>
@@ -47,7 +47,7 @@
                         <t t-if="pid not in agg">
                             <t t-set="ignored" t-value="agg.update({pid: {'sku': ml.product_id.default_code or '', 'name': ml.product_id.name, 'qty': 0, 'weight': ml.product_id.weight or 0}})"/>
                         </t>
-                        <t t-set="ignored" t-value="agg[pid].update({'qty': agg[pid]['qty'] + ml.qty_done})"/>
+                        <t t-set="ignored" t-value="agg[pid].update({'qty': agg[pid]['qty'] + ml.quantity})"/>
                     </t>
                     <t t-foreach="agg.values()" t-as="row">
                         <tr style="border-bottom: 0.5pt solid #e5e0d0;">
@@ -74,8 +74,8 @@
 
             <t t-foreach="packages" t-as="pkg">
                 <t t-set="pkg_mls" t-value="doc.move_line_ids.filtered(lambda m: m.result_package_id.id == pkg.id)"/>
-                <t t-set="pkg_units" t-value="int(sum(ml.qty_done for ml in pkg_mls))"/>
-                <t t-set="pkg_weight" t-value="sum(ml.qty_done * (ml.product_id.weight or 0) for ml in pkg_mls)"/>
+                <t t-set="pkg_units" t-value="int(sum(ml.quantity for ml in pkg_mls))"/>
+                <t t-set="pkg_weight" t-value="sum(ml.quantity * (ml.product_id.weight or 0) for ml in pkg_mls)"/>
                 <t t-set="pkg_capacity" t-value="pkg_mls and (pkg_mls[0].product_id.x_carton_capacity or 0) or 0"/>
                 <div style="border: 0.5pt solid #c9a96e; margin-bottom: 5pt; page-break-inside: avoid;">
                     <div style="background: #1a1a1a; color: #c9a96e; padding: 3pt 6pt; display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt;">
@@ -88,7 +88,7 @@
                     </div>
                     <div style="padding: 3pt 8pt;">
                         <t t-foreach="pkg_mls" t-as="ml">
-                            <div>• <t t-esc="ml.product_id.name"/> ×<t t-esc="int(ml.qty_done)"/></div>
+                            <div>• <t t-esc="ml.product_id.name"/> ×<t t-esc="int(ml.quantity)"/></div>
                         </t>
                     </div>
                 </div>

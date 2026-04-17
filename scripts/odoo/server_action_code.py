@@ -46,12 +46,12 @@ def purge_existing_packages(picking):
 
 def split_move_line(ml, qty_to_split):
     """Split a move line: reduce current qty, return a new move line with qty_to_split."""
-    remaining = ml.qty_done - qty_to_split
+    remaining = ml.quantity - qty_to_split
     new_ml = ml.copy({
-        "qty_done": qty_to_split,
+        "quantity": qty_to_split,
         "result_package_id": False,
     })
-    ml.qty_done = remaining
+    ml.quantity = remaining
     return new_ml
 
 
@@ -68,7 +68,7 @@ def allocate_family(picking, capacity, move_lines, carton_counter):
         return [pkg.id]
 
     label = family_label(capacity)
-    total_units = sum(ml.qty_done for ml in move_lines)
+    total_units = sum(ml.quantity for ml in move_lines)
     nb_full = int(total_units // capacity)
     remainder = int(total_units % capacity)
     nb_cartons = nb_full + (1 if remainder else 0)
@@ -82,7 +82,7 @@ def allocate_family(picking, capacity, move_lines, carton_counter):
     i = 0
     while i < len(ml_list):
         ml = ml_list[i]
-        qty = ml.qty_done
+        qty = ml.quantity
         if qty <= 0:
             i += 1
             continue
