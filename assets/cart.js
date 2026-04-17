@@ -74,8 +74,12 @@ if (!customElements.get('cart-items')) {
 
     updateQuantity(line, quantity, name, target) {
       const sections = this.getSectionsToRender().map((section) => section.section);
+      // Prefer line item key (item.key) over line position — robust to cart desync
+      // (dossier gate auto-actions, stock changes, race conditions)
+      const row = document.getElementById(`CartItem-${line}`) || document.getElementById(`CartDrawer-Item-${line}`);
+      const key = row && row.dataset && row.dataset.key;
       const body = JSON.stringify({
-        line,
+        ...(key ? { id: key } : { line }),
         quantity,
         sections: sections,
         sections_url: window.location.pathname

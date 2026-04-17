@@ -533,7 +533,7 @@
               assign ml_has_non_tiered = true
             endif
           -%}
-          <li data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
+          <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" data-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
             <div class="product-container{% unless item.image %} no-image{% endunless %}">
               {% if item.image %}
                 <div>

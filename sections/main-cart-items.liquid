@@ -183,7 +183,7 @@
                     assign ml_ht_subtotal_page = ml_ht_subtotal_page | plus: ml_lc
                   endif
                 -%}
-                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
+                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}" data-key="{{ item.key }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
                   <td class="cart-item__media">
                     {% if item.image %}
                       <span class="media-wrapper media-wrapper--small">
