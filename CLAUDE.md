@@ -81,3 +81,12 @@ Two Google Font families are loaded in `layout/theme.liquid`: **Cormorant Garamo
 - Be Yours native components use custom HTML elements (e.g. `<cart-drawer>`, `<product-info>`, `<variant-selects>`, `<menu-drawer>`).
 - Section schemas define Theme Editor settings; snippets have no schema and accept only passed variables.
 - The native Be Yours cart drawer is suppressed by `mylab-product.js` — do not re-enable it without removing the MyLab override logic.
+
+## Odoo customizations
+
+Des scripts Python XML-RPC pour déployer des customisations Odoo vivent dans `scripts/odoo/`. Ils couvrent :
+- Champ `x_carton_capacity` sur `product.template` (capacité carton par produit)
+- Action serveur "Répartir en cartons" sur `stock.picking`
+- Template PDF bon de livraison custom avec détail par carton
+
+Voir `scripts/odoo/README.md` pour l'ordre d'exécution. Tous les scripts sont idempotents.
