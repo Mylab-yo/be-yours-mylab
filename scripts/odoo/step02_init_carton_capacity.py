@@ -34,7 +34,7 @@ def detect_capacity(name: str) -> tuple[int, str]:
     is_masque = "masque" in n
     is_serum_huile = ("sérum" in n or "serum" in n or "huile" in n)
     is_shamp_creme = ("shampoing" in n or "shampooing" in n or
-                      "crème" in n or "creme" in n)
+                      "crème" in n or "creme" in n or "spray" in n)
 
     # Exclusions: packs, coffrets, testeurs, duo, trio
     if any(k in n for k in ["pack", "coffret", "testeur", "duo", "trio"]):
@@ -47,7 +47,7 @@ def detect_capacity(name: str) -> tuple[int, str]:
     if has_400ml and is_masque:
         return (24, "400ml masque")
     if has_200ml and is_shamp_creme:
-        return (40, "200ml shampoing/creme")
+        return (40, "200ml shampoing/creme/spray")
     if has_500ml and is_shamp_creme:
         return (23, "500ml shampoing/creme")
     if has_1l and (is_shamp_creme or is_masque):
