@@ -30,11 +30,12 @@ const existingIds = await odooExecute.call(this, 'res.partner', 'search',
 let partnerId;
 let partnerCreated = false;
 
-if (existingIds.length > 0) {
+if (existingIds && existingIds.length > 0) {
   partnerId = existingIds[0];
   // Compare Shopify shipping address to Odoo partner to flag differences
-  const [odooPartner] = await odooExecute.call(this, 'res.partner', 'read',
+  const partners = await odooExecute.call(this, 'res.partner', 'read',
     [[partnerId]], { fields: ['street', 'zip', 'city', 'country_id'] });
+  const odooPartner = (partners && partners[0]) || {};
   const odooStreet = odooPartner.street || '';
   const shopStreet = ship.address1 || '';
   if (odooStreet && shopStreet && odooStreet.trim().toLowerCase() !== shopStreet.trim().toLowerCase()) {
@@ -45,7 +46,7 @@ if (existingIds.length > 0) {
   const countryCode = (ship.country_code || 'FR').toUpperCase();
   const countryIds = await odooExecute.call(this, 'res.country', 'search',
     [[['code', '=', countryCode]]], { limit: 1 });
-  const countryId = countryIds.length ? countryIds[0] : false;
+  const countryId = countryIds && countryIds.length ? countryIds[0] : false;
 
   // 3. Fiscal position detection
   const vat = order.customer?.tax_exempt

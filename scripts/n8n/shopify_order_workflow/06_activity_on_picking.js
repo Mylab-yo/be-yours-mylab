@@ -11,20 +11,24 @@ if (!picking_id) {
   return [{ json: { ...input, activity_id: null } }];
 }
 
-const pickingModelId = (await odooExecute.call(this, 'ir.model', 'search',
-  [[['model', '=', 'stock.picking']]], { limit: 1 }))[0];
+const pickingModelIds = await odooExecute.call(this, 'ir.model', 'search',
+  [[['model', '=', 'stock.picking']]], { limit: 1 });
+const pickingModelId = pickingModelIds && pickingModelIds.length ? pickingModelIds[0] : false;
 
 const activityTypeIds = await odooExecute.call(this, 'mail.activity.type', 'search',
   [[['category', '=', 'default']]], { limit: 1 });
-const activityTypeId = activityTypeIds.length ? activityTypeIds[0] : false;
+const activityTypeId = activityTypeIds && activityTypeIds.length ? activityTypeIds[0] : false;
 
-const activityId = await odooExecute.call(this, 'mail.activity', 'create', [{
-  res_model_id: pickingModelId,
-  res_id: picking_id,
-  activity_type_id: activityTypeId,
-  summary: `Répartir en cartons et imprimer BL — Shopify #${shopify_order_number}`,
-  note: `Commande Shopify #${shopify_order_number} — ${customer_email || 'email manquant'} — sale.order ${order_number}.<br>Cliquer "Répartir en cartons" puis imprimer "Bon de livraison MyLab".`,
-  user_id: 8,
-}]);
+let activityId = null;
+if (pickingModelId && activityTypeId) {
+  activityId = await odooExecute.call(this, 'mail.activity', 'create', [{
+    res_model_id: pickingModelId,
+    res_id: picking_id,
+    activity_type_id: activityTypeId,
+    summary: `Répartir en cartons et imprimer BL — Shopify #${shopify_order_number}`,
+    note: `Commande Shopify #${shopify_order_number} — ${customer_email || 'email manquant'} — sale.order ${order_number}.<br>Cliquer "Répartir en cartons" puis imprimer "Bon de livraison MyLab".`,
+    user_id: 8,
+  }]);
+}
 
 return [{ json: { ...input, activity_id: activityId } }];

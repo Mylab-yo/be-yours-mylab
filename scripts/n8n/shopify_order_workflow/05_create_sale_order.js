@@ -65,30 +65,34 @@ if (has_unmatched) {
   // --- Leave as draft + create mail.activity to fix products ---
   const activityTypeIds = await odooExecute.call(this, 'mail.activity.type', 'search',
     [[['category', '=', 'default']]], { limit: 1 });
-  const activityTypeId = activityTypeIds.length ? activityTypeIds[0] : false;
-  const modelId = (await odooExecute.call(this, 'ir.model', 'search',
-    [[['model', '=', 'sale.order']]], { limit: 1 }))[0];
-  await odooExecute.call(this, 'mail.activity', 'create', [{
-    res_model_id: modelId,
-    res_id: saleOrderId,
-    activity_type_id: activityTypeId,
-    summary: `⚠ Corriger produits non matchés (${unmatched_log.length})`,
-    note: unmatched_log.map((u) => `• SKU ${u.sku || 'N/A'} — ${u.title} × ${u.qty}`).join('<br>'),
-    user_id: 8,  // Yoann
-  }]);
+  const activityTypeId = activityTypeIds && activityTypeIds.length ? activityTypeIds[0] : false;
+  const modelIds = await odooExecute.call(this, 'ir.model', 'search',
+    [[['model', '=', 'sale.order']]], { limit: 1 });
+  const modelId = modelIds && modelIds.length ? modelIds[0] : false;
+  if (modelId && activityTypeId) {
+    await odooExecute.call(this, 'mail.activity', 'create', [{
+      res_model_id: modelId,
+      res_id: saleOrderId,
+      activity_type_id: activityTypeId,
+      summary: `⚠ Corriger produits non matchés (${unmatched_log.length})`,
+      note: unmatched_log.map((u) => `• SKU ${u.sku || 'N/A'} — ${u.title} × ${u.qty}`).join('<br>'),
+      user_id: 8,  // Yoann
+    }]);
+  }
   status = 'draft_unmatched';
 } else {
   // --- Confirm + retrieve picking ---
   await odooExecute.call(this, 'sale.order', 'action_confirm', [[saleOrderId]]);
   const soData = await odooExecute.call(this, 'sale.order', 'read',
     [[saleOrderId]], { fields: ['picking_ids', 'name'] });
-  const pickingIds = soData[0].picking_ids || [];
+  const pickingIds = (soData && soData[0] && soData[0].picking_ids) || [];
   pickingId = pickingIds.length ? pickingIds[0] : null;
   status = 'confirmed';
 }
 
-const soName = (await odooExecute.call(this, 'sale.order', 'read',
-  [[saleOrderId]], { fields: ['name'] }))[0].name;
+const soRead = await odooExecute.call(this, 'sale.order', 'read',
+  [[saleOrderId]], { fields: ['name'] });
+const soName = (soRead && soRead[0] && soRead[0].name) || String(saleOrderId);
 
 return [{
   json: {

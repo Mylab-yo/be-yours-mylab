@@ -38,29 +38,89 @@ function xmlrpcBody(method, params) {
   return `<?xml version="1.0"?><methodCall><methodName>${method}</methodName><params>${paramsXml}</params></methodCall>`;
 }
 
-// Minimal XML-RPC response parser (handles success + fault)
+// Depth-aware XML-RPC response parser — handles nested arrays + structs, tolerates whitespace
 function parseXmlrpcResponse(xml) {
   if (xml.includes('<fault>')) {
-    const faultMatch = xml.match(/<string>([^<]+)<\/string>/);
+    const faultMatch = xml.match(/<string>([\s\S]*?)<\/string>/);
     throw new Error(`Odoo fault: ${faultMatch ? faultMatch[1] : xml.slice(0, 500)}`);
   }
-  // Very simple value extractor — works for int, string, array-of-ints, bool
-  function extract(fragment) {
-    const intMatch = fragment.match(/<int>(-?\d+)<\/int>/);
-    if (intMatch) return parseInt(intMatch[1], 10);
-    const boolMatch = fragment.match(/<boolean>([01])<\/boolean>/);
-    if (boolMatch) return boolMatch[1] === '1';
-    const strMatch = fragment.match(/<string>([^<]*)<\/string>/);
-    if (strMatch) return strMatch[1];
-    const arrMatch = fragment.match(/<array><data>([\s\S]*)<\/data><\/array>/);
-    if (arrMatch) {
-      const items = [...arrMatch[1].matchAll(/<value>([\s\S]*?)<\/value>/g)];
-      return items.map((m) => extract(m[1]));
-    }
-    return null;
+  const m = xml.match(/<params>\s*<param>\s*<value>([\s\S]*)<\/value>\s*<\/param>\s*<\/params>/);
+  if (!m) return null;
+  return parseValue(m[1].trim());
+}
+
+function parseValue(frag) {
+  frag = frag.trim();
+  if (frag.startsWith('<nil/>')) return null;
+  const m = frag.match(/^<(int|i4|boolean|string|double|array|struct|dateTime\.iso8601|base64)>([\s\S]*)<\/\1>$/);
+  if (!m) return frag; // implicit string
+  const tag = m[1];
+  const inner = m[2];
+  if (tag === 'int' || tag === 'i4') return parseInt(inner, 10);
+  if (tag === 'boolean') return inner === '1';
+  if (tag === 'string') return inner;
+  if (tag === 'double') return parseFloat(inner);
+  if (tag === 'dateTime.iso8601') return inner;
+  if (tag === 'base64') return inner;
+  if (tag === 'array') {
+    const dataMatch = inner.match(/<data>([\s\S]*)<\/data>/);
+    if (!dataMatch) return [];
+    return splitValues(dataMatch[1]).map(parseValue);
   }
-  const valueMatch = xml.match(/<param><value>([\s\S]*?)<\/value><\/param>/);
-  return valueMatch ? extract(valueMatch[1]) : null;
+  if (tag === 'struct') {
+    const result = {};
+    let rest = inner;
+    while (true) {
+      const mem = rest.match(/^\s*<member>\s*<name>([^<]+)<\/name>\s*<value>([\s\S]*)/);
+      if (!mem) break;
+      const nameStr = mem[1];
+      const after = mem[2];
+      const endIdx = findMatchingValueEnd(after);
+      if (endIdx < 0) break;
+      result[nameStr] = parseValue(after.slice(0, endIdx));
+      const afterVal = after.slice(endIdx);
+      const memEnd = afterVal.match(/<\/value>\s*<\/member>/);
+      if (!memEnd) break;
+      rest = afterVal.slice(memEnd.index + memEnd[0].length);
+    }
+    return result;
+  }
+  return null;
+}
+
+// Split <data> content into top-level <value>...</value> fragments (depth-aware)
+function splitValues(data) {
+  const out = [];
+  let i = 0;
+  while (i < data.length) {
+    const start = data.indexOf('<value>', i);
+    if (start < 0) break;
+    const end = findMatchingValueEnd(data.slice(start + 7));
+    if (end < 0) break;
+    out.push(data.slice(start + 7, start + 7 + end).trim());
+    i = start + 7 + end + '</value>'.length;
+  }
+  return out;
+}
+
+// Given a string starting just AFTER <value>, return index of matching </value>
+function findMatchingValueEnd(s) {
+  let depth = 1;
+  let i = 0;
+  while (i < s.length && depth > 0) {
+    const openIdx = s.indexOf('<value>', i);
+    const closeIdx = s.indexOf('</value>', i);
+    if (closeIdx < 0) return -1;
+    if (openIdx >= 0 && openIdx < closeIdx) {
+      depth++;
+      i = openIdx + 7;
+    } else {
+      depth--;
+      if (depth === 0) return closeIdx;
+      i = closeIdx + 8;
+    }
+  }
+  return -1;
 }
 
 // Authenticate once and cache UID for this execution
@@ -76,7 +136,7 @@ async function odooAuthenticate() {
     returnFullResponse: false,
   });
   const uid = parseXmlrpcResponse(resp);
-  if (!uid) throw new Error('Odoo authentication failed');
+  if (!uid) throw new Error(`Odoo authentication failed (resp=${String(resp).slice(0, 300)})`);
   cachedUid = uid;
   return uid;
 }
@@ -94,6 +154,6 @@ async function odooExecute(model, method, args, kwargs = {}) {
   return parseXmlrpcResponse(resp);
 }
 
-// ATTENTION: this file is designed to be copy-pasted at the top of each Code node
-// that interacts with Odoo. The odooExecute function uses "this" (the node context)
-// to access helpers.httpRequest, so call it as odooExecute.call(this, ...).
+// ATTENTION: this file is designed to be prepended to each Code node
+// that interacts with Odoo. odooExecute uses "this" (the node context) for
+// helpers.httpRequest, so call it as odooExecute.call(this, ...).
