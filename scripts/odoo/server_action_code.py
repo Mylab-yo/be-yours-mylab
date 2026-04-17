@@ -25,13 +25,35 @@ def family_label(capacity):
 
 
 def purge_existing_packages(picking):
-    # Remove previous auto-generated packages for this picking
+    # Remove previous auto-generated packages AND consolidate split move lines
     auto_package_prefix = "Carton "
     pkg_ids = set()
     for ml in picking.move_line_ids:
         if ml.result_package_id:
             pkg_ids.add(ml.result_package_id.id)
     picking.move_line_ids.write({"result_package_id": False})
+
+    # Consolidate move lines that were split in previous runs: same move_id + product_id
+    # + location + lot -> merge into one to avoid fragment accumulation
+    groups = {}
+    for ml in picking.move_line_ids:
+        key = (
+            ml.move_id.id,
+            ml.product_id.id,
+            ml.location_id.id,
+            ml.location_dest_id.id,
+            ml.lot_id.id if ml.lot_id else 0,
+        )
+        groups.setdefault(key, []).append(ml)
+    for key, lines in groups.items():
+        if len(lines) > 1:
+            kept = lines[0]
+            total_qty = sum(l.quantity for l in lines)
+            extras = env["stock.move.line"].browse([l.id for l in lines[1:]])
+            extras.unlink()
+            kept.write({"quantity": total_qty})
+
+    # Delete orphan auto-packages
     if pkg_ids:
         packages = env["stock.quant.package"].browse(list(pkg_ids))
         for pkg in packages:
