@@ -10,15 +10,16 @@ if not ENV_PATH.exists():
     raise FileNotFoundError(f"Missing env file: {ENV_PATH}")
 load_dotenv(ENV_PATH)
 
-URL = os.environ["ODOO_URL"]
-DB = os.environ["ODOO_DB"]
-USER = os.environ["ODOO_USER"]
-API_KEY = os.environ["ODOO_API_KEY"]
+URL = os.environ["ODOO_URL"].strip()
+DB = os.environ["ODOO_DB"].strip()
+# ODOO_LOGIN = email used for Odoo web login (ODOO_USER in .env.local is a comment, not a login)
+LOGIN = os.environ.get("ODOO_LOGIN", "").strip() or os.environ["ODOO_USER"].strip()
+API_KEY = os.environ["ODOO_API_KEY"].strip()
 
 _common = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/common")
-UID = _common.authenticate(DB, USER, API_KEY, {})
+UID = _common.authenticate(DB, LOGIN, API_KEY, {})
 if not UID:
-    raise RuntimeError("Odoo authentication failed")
+    raise RuntimeError(f"Odoo authentication failed (login={LOGIN!r}, db={DB!r})")
 
 _models = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/object")
 
