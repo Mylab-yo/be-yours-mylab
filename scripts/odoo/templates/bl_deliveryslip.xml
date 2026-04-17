@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t t-name="mylab.report_deliveryslip_document">
+    <t t-call="web.external_layout">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang or 'fr_FR')"/>
+        <div class="page" style="font-family: 'DM Sans', sans-serif; font-size: 9pt; color: #1a1a1a;">
+
+            <!-- ========== HEADER ========== -->
+            <div style="display: flex; justify-content: space-between; border-bottom: 2pt solid #c9a96e; padding-bottom: 8pt; margin-bottom: 10pt;">
+                <div>
+                    <h2 style="margin: 0; color: #1a1a1a; font-family: 'Cormorant Garamond', serif;">Bon de livraison</h2>
+                    <div style="font-size: 11pt; font-weight: bold;"><span t-field="doc.name"/></div>
+                    <div t-if="doc.origin">Réf. commande : <span t-field="doc.origin"/></div>
+                    <div t-if="doc.scheduled_date">Date expédition : <span t-field="doc.scheduled_date" t-options="{'widget': 'date'}"/></div>
+                </div>
+                <div style="text-align: right;">
+                    <div><strong>Client</strong></div>
+                    <div t-field="doc.partner_id" t-options="{'widget': 'contact', 'fields': ['name', 'address'], 'no_marker': true}"/>
+                </div>
+            </div>
+
+            <!-- ========== SUMMARY BADGE ========== -->
+            <t t-set="packages" t-value="doc.move_line_ids.mapped('result_package_id')"/>
+            <t t-set="nb_cartons" t-value="len(packages)"/>
+            <t t-set="total_weight" t-value="sum(ml.product_id.weight * ml.qty_done for ml in doc.move_line_ids)"/>
+            <div style="background: #1a1a1a; color: #c9a96e; padding: 6pt 10pt; border-radius: 3pt; display: inline-block; margin-bottom: 12pt; font-weight: bold;">
+                <span t-esc="nb_cartons"/> cartons — <span t-esc="'%.2f' % total_weight"/> kg
+                <span t-if="doc.carrier_id"> — <t t-esc="doc.carrier_id.name"/></span>
+            </div>
+
+            <!-- ========== SECTION 1: RECAP PRODUITS ========== -->
+            <h3 style="color: #1a1a1a; font-family: 'Cormorant Garamond', serif; margin-top: 8pt; margin-bottom: 4pt;">Récapitulatif produits</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                <thead>
+                    <tr style="background: #f5f0e6; border-bottom: 1pt solid #c9a96e;">
+                        <th style="text-align: left; padding: 4pt;">Référence</th>
+                        <th style="text-align: left; padding: 4pt;">Désignation</th>
+                        <th style="text-align: right; padding: 4pt;">Qté</th>
+                        <th style="text-align: right; padding: 4pt;">Poids unit.</th>
+                        <th style="text-align: right; padding: 4pt;">Poids total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aggregate per product -->
+                    <t t-set="agg" t-value="{}"/>
+                    <t t-foreach="doc.move_line_ids" t-as="ml">
+                        <t t-set="pid" t-value="ml.product_id.id"/>
+                        <t t-if="pid not in agg">
+                            <t t-set="ignored" t-value="agg.update({pid: {'sku': ml.product_id.default_code or '', 'name': ml.product_id.name, 'qty': 0, 'weight': ml.product_id.weight or 0}})"/>
+                        </t>
+                        <t t-set="ignored" t-value="agg[pid].update({'qty': agg[pid]['qty'] + ml.qty_done})"/>
+                    </t>
+                    <t t-foreach="agg.values()" t-as="row">
+                        <tr style="border-bottom: 0.5pt solid #e5e0d0;">
+                            <td style="padding: 3pt 4pt;"><span t-esc="row['sku']"/></td>
+                            <td style="padding: 3pt 4pt;"><span t-esc="row['name']"/></td>
+                            <td style="padding: 3pt 4pt; text-align: right;"><span t-esc="int(row['qty'])"/></td>
+                            <td style="padding: 3pt 4pt; text-align: right;"><span t-esc="'%.2f' % row['weight']"/> kg</td>
+                            <td style="padding: 3pt 4pt; text-align: right;"><span t-esc="'%.2f' % (row['qty'] * row['weight'])"/> kg</td>
+                        </tr>
+                    </t>
+                </tbody>
+                <tfoot>
+                    <tr style="border-top: 1pt solid #1a1a1a; font-weight: bold;">
+                        <td colspan="2" style="padding: 4pt;">Total</td>
+                        <td style="padding: 4pt; text-align: right;"><t t-esc="int(sum(r['qty'] for r in agg.values()))"/></td>
+                        <td></td>
+                        <td style="padding: 4pt; text-align: right;"><t t-esc="'%.2f' % total_weight"/> kg</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- ========== SECTION 2: DETAIL PAR CARTON ========== -->
+            <h3 style="color: #1a1a1a; font-family: 'Cormorant Garamond', serif; margin-top: 14pt; margin-bottom: 4pt;">Détail par carton</h3>
+
+            <t t-foreach="packages" t-as="pkg">
+                <t t-set="pkg_mls" t-value="doc.move_line_ids.filtered(lambda m: m.result_package_id.id == pkg.id)"/>
+                <t t-set="pkg_units" t-value="int(sum(ml.qty_done for ml in pkg_mls))"/>
+                <t t-set="pkg_weight" t-value="sum(ml.qty_done * (ml.product_id.weight or 0) for ml in pkg_mls)"/>
+                <t t-set="pkg_capacity" t-value="pkg_mls and (pkg_mls[0].product_id.x_carton_capacity or 0) or 0"/>
+                <div style="border: 0.5pt solid #c9a96e; margin-bottom: 5pt; page-break-inside: avoid;">
+                    <div style="background: #1a1a1a; color: #c9a96e; padding: 3pt 6pt; display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt;">
+                        <span>☐ <t t-esc="pkg.name"/></span>
+                        <span>
+                            <t t-if="pkg_capacity &gt; 0"><t t-esc="pkg_units"/>/<t t-esc="pkg_capacity"/></t>
+                            <t t-if="pkg_capacity == 0"><t t-esc="pkg_units"/> unités</t>
+                            — <t t-esc="'%.2f' % pkg_weight"/> kg
+                        </span>
+                    </div>
+                    <div style="padding: 3pt 8pt;">
+                        <t t-foreach="pkg_mls" t-as="ml">
+                            <div>• <t t-esc="ml.product_id.name"/> ×<t t-esc="int(ml.qty_done)"/></div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+
+            <!-- ========== SIGNATURE ========== -->
+            <div style="margin-top: 20pt; border: 0.5pt solid #1a1a1a; padding: 8pt; font-size: 9pt;">
+                <div><strong>Reçu en bon état par :</strong> ____________________________</div>
+                <div style="margin-top: 6pt;"><strong>Date :</strong> ________________ &#160;&#160;&#160; <strong>Signature :</strong></div>
+                <div style="height: 28pt;"></div>
+            </div>
+
+        </div>
+    </t>
+</t>
