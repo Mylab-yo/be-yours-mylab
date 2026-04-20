@@ -172,8 +172,8 @@ def detect_closure(product):
         return "spray"
     if "dropper" in combined or "pipette" in combined:
         return "dropper"
-    if "dispensing" in combined or "flip" in combined:
-        return "dispensing_cap"
+    if "flip" in combined or "dispensing" in combined:
+        return "flip_top"
     return "screw_cap"
 
 
@@ -197,11 +197,13 @@ def detect_material(product):
 
 
 def detect_compatible_products(closure_type, capacity):
+    """UI attend 'creme' (pas 'creme_coiffage') dans compatible_products.
+    Cf. bulk-order-bottles.js: productFilter = category === 'creme_coiffage' ? 'creme' : category"""
     compat = []
     if closure_type in ("pump", "screw_cap") and capacity >= 200:
         compat.append("shampoing")
-    if closure_type in ("pump", "dispensing_cap") and capacity >= 200:
-        compat.extend(["creme_coiffage", "masque"])
+    if closure_type in ("pump", "flip_top") and capacity >= 200:
+        compat.extend(["creme", "masque"])
     if closure_type == "spray" and capacity <= 300:
         compat.append("spray")
     if closure_type in ("dropper", "pump") and capacity <= 100:
