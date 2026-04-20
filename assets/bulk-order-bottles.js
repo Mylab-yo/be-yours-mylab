@@ -201,16 +201,16 @@
         (function () {
           var cols = b.available_colors && b.available_colors.length ? b.available_colors : [b.color];
           if (!cols.length) return '';
+          var selectedColor = (B.bottleState.selectedColors && B.bottleState.selectedColors[b.id]) || cols[0];
           var dots = cols.map(function (c) {
             var bg = B.COLOR_DOTS[c] || '#ccc';
             var border = (c === 'clear' || c === 'white') ? 'border:1px solid #ccc;' : '';
-            var highlight = (B.bottleState.filterColor === c) ? 'box-shadow:0 0 0 2px #111;' : '';
-            return '<span class="bulk-bottle__swatch" title="' + B.esc(B.COLOR_LABELS[c] || c) + '" style="background:' + bg + ';' + border + highlight + '"></span>';
+            var isActive = c === selectedColor;
+            var activeCls = isActive ? ' bulk-bottle__swatch--active' : '';
+            return '<button type="button" class="bulk-bottle__swatch' + activeCls + '" data-color-pick="' + B.esc(c) + '" data-bottle-id="' + B.esc(b.id) + '" title="' + B.esc(B.COLOR_LABELS[c] || c) + '" style="background:' + bg + ';' + border + '"></button>';
           }).join('');
-          var label = cols.length === 1
-            ? (B.COLOR_LABELS[cols[0]] || cols[0])
-            : cols.length + ' couleurs disponibles';
-          return '<div class="bulk-bottle__colors"><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label">' + B.esc(label) + '</span></div>';
+          var label = B.COLOR_LABELS[selectedColor] || selectedColor;
+          return '<div class="bulk-bottle__colors"><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label" data-color-label="' + B.esc(b.id) + '">' + B.esc(label) + '</span></div>';
         })() +
         priceHtml +
         moqHtml +
@@ -247,7 +247,24 @@
 
     /* Bind card click */
     elBottlesGrid.querySelectorAll('.bulk-bottle').forEach(function (card) {
-      card.addEventListener('click', function () {
+      card.addEventListener('click', function (e) {
+        // Swatch click: pick color, don't select card
+        var swatch = e.target.closest('[data-color-pick]');
+        if (swatch) {
+          e.stopPropagation();
+          var bidSw = swatch.dataset.bottleId;
+          var color = swatch.dataset.colorPick;
+          if (!B.bottleState.selectedColors) B.bottleState.selectedColors = {};
+          B.bottleState.selectedColors[bidSw] = color;
+          // Update sibling swatches + label locally (no full re-render)
+          var container = swatch.parentElement;
+          container.querySelectorAll('[data-color-pick]').forEach(function (s) {
+            s.classList.toggle('bulk-bottle__swatch--active', s === swatch);
+          });
+          var labelEl = card.querySelector('[data-color-label="' + bidSw + '"]');
+          if (labelEl) labelEl.textContent = B.COLOR_LABELS[color] || color;
+          return;
+        }
         var bid = card.dataset.bottleId;
         B.bottleState.selections[B.bottleState.activeFormulaId] = bid;
         renderBottleGrid();
@@ -278,7 +295,7 @@
       var prodOk = prods.indexOf(productFilter) !== -1 || (productFilter === 'shampoing' && prods.indexOf('shampoing-spray') !== -1);
       if (!prodOk) return;
       materials[b.material] = true;
-      colors[b.color] = true;
+      (b.available_colors && b.available_colors.length ? b.available_colors : [b.color]).forEach(function (c) { if (c) colors[c] = true; });
       if (b.closure_type) closures[b.closure_type] = true;
     });
 
@@ -299,6 +316,7 @@
     });
     elBottlesMatFilter.innerHTML = matHtml;
 
+    /* Color filter chips */
     var colHtml = '<button type="button" class="bulk-chip' + (B.bottleState.filterColor === 'all' ? ' bulk-chip--active' : '') + '" data-filter-color="all">Toutes</button>';
     B.COLOR_ORDER.forEach(function (c) {
       if (!colors[c]) return;
@@ -307,6 +325,14 @@
       colHtml += '<button type="button" class="bulk-chip' + (B.bottleState.filterColor === c ? ' bulk-chip--active' : '') + '" data-filter-color="' + c + '">' +
         '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + dot + ';' + border + 'margin-right:6px;vertical-align:middle;"></span>' +
         (B.COLOR_LABELS[c] || c) + '</button>';
+    });
+    Object.keys(colors).forEach(function (c) {
+      if (B.COLOR_ORDER.indexOf(c) === -1) {
+        var dot2 = B.COLOR_DOTS[c] || '#ccc';
+        colHtml += '<button type="button" class="bulk-chip' + (B.bottleState.filterColor === c ? ' bulk-chip--active' : '') + '" data-filter-color="' + c + '">' +
+          '<span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:' + dot2 + ';margin-right:6px;vertical-align:middle;"></span>' +
+          (B.COLOR_LABELS[c] || c) + '</button>';
+      }
     });
     elBottlesColFilter.innerHTML = colHtml;
 
@@ -361,7 +387,12 @@
         bottleName = 'MY.LAB Standard';
       } else if (bid && B.bottlesData) {
         var b = B.bottlesData.bottles.find(function (x) { return x.id === bid; });
-        if (b) bottleName = b.name;
+        if (b) {
+          bottleName = b.name;
+          var pickedColor = B.bottleState.selectedColors && B.bottleState.selectedColors[bid];
+          var displayColor = pickedColor || (b.available_colors && b.available_colors[0]) || b.color;
+          if (displayColor) bottleName += ' — ' + (B.COLOR_LABELS[displayColor] || displayColor);
+        }
       }
       var icon = bid
         ? '<svg class="bulk-bottles__recap-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>'

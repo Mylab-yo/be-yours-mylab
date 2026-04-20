@@ -595,9 +595,11 @@
 .bulk-bottle__tag { font-size: 0.9rem; padding: 0.15rem 0.5rem; background: #f5f5f5; border-radius: 3px; color: #555; }
 .bulk-bottle__tag--eco { background: #e8f5e9; color: #2d7a45; }
 .bulk-bottle__colors { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.1rem; }
-.bulk-bottle__colors-dots { display: inline-flex; gap: 0.3rem; }
-.bulk-bottle__swatch { width: 18px; height: 18px; border-radius: 50%; display: inline-block; transition: box-shadow 0.15s; }
-.bulk-bottle__colors-label { font-size: 0.85rem; color: #777; }
+.bulk-bottle__colors-dots { display: inline-flex; gap: 0.35rem; }
+.bulk-bottle__swatch { width: 18px; height: 18px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; outline: none; }
+.bulk-bottle__swatch:hover { transform: scale(1.15); }
+.bulk-bottle__swatch--active { transform: scale(1.25); box-shadow: 0 0 0 2px #111, 0 0 0 4px #fff; }
+.bulk-bottle__colors-label { font-size: 0.85rem; color: #555; font-weight: 500; }
 .bulk-bottle__price { font-size: 1.1rem; font-weight: 600; color: #111; }
 .bulk-bottle__price--free { color: #2d7a45; }
 .bulk-bottle__link { font-size: 0.95rem; color: #d4a574; text-decoration: none; display: flex; align-items: center; gap: 0.3rem; }

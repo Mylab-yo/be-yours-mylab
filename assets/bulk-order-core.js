@@ -33,6 +33,7 @@
     bottleState: {
       activeFormulaId: null,
       selections: {},
+      selectedColors: {},
       filterMaterial: 'all',
       filterColor: 'all',
       filterEco: false,
@@ -195,6 +196,9 @@
         var bObj = this.bottlesData.bottles.find(function (b) { return b.id === bottleId; });
         if (bObj) {
           bottleName = bObj.name;
+          var pickedCol = this.bottleState.selectedColors && this.bottleState.selectedColors[bottleId];
+          var displayCol = pickedCol || (bObj.available_colors && bObj.available_colors[0]) || bObj.color;
+          if (displayCol) bottleName += ' — ' + (this.COLOR_LABELS[displayCol] || displayCol);
           bottleMoq = bObj.min_order_qty || 0;
 
           if (bottleMoq > 0) {

@@ -221,18 +221,25 @@ def detect_material(product):
 
 def detect_compatible_products(closure_type, capacity):
     """UI attend 'creme' (pas 'creme_coiffage') dans compatible_products.
-    Cf. bulk-order-bottles.js: productFilter = category === 'creme_coiffage' ? 'creme' : category"""
+    Cf. bulk-order-bottles.js: productFilter = category === 'creme_coiffage' ? 'creme' : category.
+
+    Compat permissive : une même fermeture peut convenir à plusieurs usages
+    (un flip-top marche sur un shampoing comme sur un masque). Seules vraies
+    restrictions : spray (≤300ml, liquide basse-visco) et dropper/nozzle (≤100ml).
+    """
     compat = []
-    if closure_type in ("pump", "screw_cap", "nozzle") and capacity >= 200:
+    big = capacity >= 200
+    small = capacity <= 100
+
+    if big and closure_type in ("pump", "screw_cap", "flip_top", "disc", "nozzle"):
         compat.append("shampoing")
-    if closure_type in ("pump", "flip_top", "disc") and capacity >= 200:
+    if big and closure_type in ("pump", "flip_top", "disc", "screw_cap"):
         compat.extend(["creme", "masque"])
     if closure_type == "spray" and capacity <= 300:
         compat.append("spray")
-    if closure_type in ("dropper", "pump", "nozzle") and capacity <= 100:
+    if small and closure_type in ("dropper", "pump", "nozzle"):
         compat.extend(["serum", "huile"])
-    if closure_type in ("screw_cap", "disc") and capacity >= 200:
-        compat.append("masque")
+
     return sorted(set(compat))
 
 
