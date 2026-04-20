@@ -293,7 +293,13 @@
     })
     .then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
+      return r.text();
+    })
+    .then(function (text) {
+      // Webhook n8n peut renvoyer 200 + body vide (Respond to Webhook pas configuré)
+      var data = {};
+      if (text) { try { data = JSON.parse(text); } catch (_) {} }
+      return data;
     })
     .then(function (data) {
       elSummaryForm.style.display = 'none';
