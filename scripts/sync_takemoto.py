@@ -463,16 +463,23 @@ def build_bottles(products, enrichment_map, existing_index):
         if p.get("body_html"):
             desc = BeautifulSoup(p["body_html"], "html.parser").get_text(separator=" ", strip=True)[:300]
 
-        # MOQ: enrichment first, else from description, else default 100
+        # MOQ: sets-of match in body first (Takemoto standard phrase "available in sets of N"),
+        # else Playwright enrichment, else default 100.
+        # NB: ignore enriched MOQ of 0 or 1 (c'est le nombre de sets dispo pour le variant
+        # sélectionné sur la page Takemoto, pas la MOQ réelle du produit).
         enriched = enrichment_map.get(handle, {})
-        moq = enriched.get("moq")
+        moq = None
+        body_lower = (p.get("body_html") or "").lower()
+        moq_match = re.search(r"sets?\s+of\s+(\d[\d,]*)", body_lower)
+        if moq_match:
+            try:
+                moq = int(moq_match.group(1).replace(",", ""))
+            except ValueError:
+                pass
         if moq is None:
-            moq_match = re.search(r"(?:minimum|moq|sets? of)[:\s]*(\d[\d,]*)", (p.get("body_html") or "").lower())
-            if moq_match:
-                try:
-                    moq = int(moq_match.group(1).replace(",", ""))
-                except ValueError:
-                    pass
+            enriched_moq = enriched.get("moq")
+            if enriched_moq and enriched_moq > 1:
+                moq = enriched_moq
         if moq is None:
             moq = 100
 
