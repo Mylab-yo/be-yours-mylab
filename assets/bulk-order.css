@@ -777,8 +777,13 @@
 
 /* Mobile (<= 749px) */
 @media screen and (max-width: 749px) {
-  /* Safe horizontal padding */
-  .bulk-order { padding-left: 1rem; padding-right: 1rem; padding-bottom: 100px; }
+  /* Safe horizontal padding + clip any rogue horizontal overflow from the whole configurator */
+  .bulk-order {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 100px;
+    overflow-x: hidden;
+  }
 
   /* Stepper compact — labels hidden, circles smaller */
   .bulk-order__stepper { margin-bottom: 1.8rem; gap: 0; }
@@ -790,19 +795,34 @@
   .bulk-step__title { font-size: clamp(1.8rem, 6vw, 2.4rem); }
   .bulk-step__desc { font-size: 1.1rem; }
 
-  /* Filters : labels stacked, chips scroll-x if needed */
-  .bulk-filters__group { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  /* Filters : labels stacked, chips scroll-x — forcé pour ne jamais sortir de l'écran */
+  .bulk-bottles__filters, .bulk-filters { min-width: 0; max-width: 100%; overflow: visible; }
+  .bulk-filters__group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    min-width: 0;
+    max-width: 100%;
+  }
   .bulk-filters__label { font-size: 1rem; }
   .bulk-filters__chips {
     flex-wrap: nowrap;
     overflow-x: auto;
-    padding-bottom: 0.3rem;
+    overflow-y: hidden;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding-bottom: 0.4rem;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
+    /* masquer la scrollbar iOS/Safari pendant qu'elle reste fonctionnelle */
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
   }
   .bulk-filters__chips::-webkit-scrollbar { height: 3px; }
   .bulk-filters__chips::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-  .bulk-chip { scroll-snap-align: start; flex-shrink: 0; }
+  .bulk-filters__chips::-webkit-scrollbar-track { background: transparent; }
+  .bulk-chip { scroll-snap-align: start; flex-shrink: 0; white-space: nowrap; }
 
   /* Step 1 : formules 1 colonne */
   .bulk-formulas__grid { grid-template-columns: 1fr; gap: 0.8rem; }
