@@ -2,13 +2,11 @@
    MY.LAB — Styles Commande Gros Volumes
    assets/bulk-order.css
    ============================================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&family=DM+Sans:wght@400;500;600&display=swap');
-
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
 /* ── BASE ── */
 .bulk-order {
-  font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   color: #111;
   padding-bottom: 120px; /* space for fixed bar */
 }
@@ -77,7 +75,7 @@
 
 /* ── STEP TITLES ── */
 .bulk-step__title {
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+  font-family: var(--font-heading-family), serif; font-style: italic; font-weight: 500;
   font-size: clamp(2.4rem, 3.5vw, 3.2rem);
   font-weight: 500;
   font-style: italic;
@@ -106,7 +104,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -160,7 +158,7 @@
 }
 .bulk-chip {
   padding: 0.45rem 1rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -446,7 +444,7 @@
 }
 .bulk-format-pill {
   padding: 0.7rem 1.4rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
   border: 2px solid #e0e0e0;
@@ -523,7 +521,7 @@
 }
 .bulk-format__takemoto-skip {
   padding: 0.8rem 1.5rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.15rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -554,7 +552,7 @@
 
 /* ── STEP 3: BOTTLES ── */
 .bulk-bottles__tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; padding-bottom: 0.8rem; }
-.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; display: inline-flex; align-items: center; }
+.bulk-bottles__tab { padding: 0.6rem 1.2rem; font-family: var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 1px solid #e0e0e0; border-radius: 8px 8px 0 0; background: #fafafa; color: #555; cursor: pointer; transition: all 0.2s; border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; display: inline-flex; align-items: center; }
 .bulk-bottles__tab:hover { background: #f0f0f0; }
 .bulk-bottles__tab--active { background: #fff; color: #111; font-weight: 600; border-color: #ddd; border-bottom-color: #fff; }
 .bulk-bottles__tab-check { color: #2d7a45; margin-left: 0.3rem; }
@@ -628,7 +626,7 @@
 
 /* Tier selector */
 .bulk-qty-tiers { display: flex; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
-.bulk-qty-tier { padding: 0.7rem 1.4rem; font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 500; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #555; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
+.bulk-qty-tier { padding: 0.7rem 1.4rem; font-family: var(--font-body-family), sans-serif; font-size: 1.1rem; font-weight: 500; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff; color: #555; cursor: pointer; transition: all 0.2s; min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
 .bulk-qty-tier:hover { border-color: #aaa; }
 .bulk-qty-tier--active { border-color: #111; background: #111; color: #fff; }
 .bulk-qty-tier__price { font-size: 0.95rem; opacity: 0.7; }
@@ -636,7 +634,7 @@
 /* Input row */
 .bulk-qty-input-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
 .bulk-qty-input-row label { font-size: 1.1rem; font-weight: 500; color: #555; min-width: 120px; }
-.bulk-qty-input { width: 140px; padding: 0.8rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 1.3rem; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; text-align: center; transition: border-color 0.2s; }
+.bulk-qty-input { width: 140px; padding: 0.8rem 1rem; font-family: var(--font-body-family), sans-serif; font-size: 1.3rem; font-weight: 600; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; text-align: center; transition: border-color 0.2s; }
 .bulk-qty-input:focus { outline: none; border-color: #111; background: #fff; }
 .bulk-qty-input:invalid { border-color: #c0392b; }
 .bulk-qty-unit { font-size: 1.1rem; color: #888; }
@@ -737,11 +735,11 @@
 .bulk-summary__field { display: flex; flex-direction: column; gap: 0.3rem; }
 .bulk-summary__field--full { grid-column: 1 / -1; }
 .bulk-summary__field label { font-size: 1.1rem; font-weight: 500; color: #555; }
-.bulk-summary__field input, .bulk-summary__field textarea { padding: 0.8rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; transition: border-color 0.2s; }
+.bulk-summary__field input, .bulk-summary__field textarea { padding: 0.8rem 1rem; font-family: var(--font-body-family), sans-serif; font-size: 1.2rem; border: 1px solid #ddd; border-radius: 8px; background: #fafafa; color: #111; transition: border-color 0.2s; }
 .bulk-summary__field input:focus, .bulk-summary__field textarea:focus { outline: none; border-color: #111; background: #fff; }
 
 .bulk-summary__actions { display: flex; justify-content: center; margin-bottom: 1rem; }
-.bulk-summary__btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1rem 2rem; font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 48px; border: none; width: 100%; max-width: 480px; }
+.bulk-summary__btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 1rem 2rem; font-family: var(--font-body-family), sans-serif; font-size: 1.2rem; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-height: 48px; border: none; width: 100%; max-width: 480px; }
 .bulk-summary__btn--send { background: #111; color: #fff; }
 .bulk-summary__btn--send:hover { background: #333; }
 .bulk-summary__btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -810,7 +808,7 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.6rem 1.2rem;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
   border: 1px solid #ddd;
@@ -824,7 +822,7 @@
 .bulk-bottles__page-btn:hover:not(:disabled) { border-color: #111; background: #f5f5f5; }
 .bulk-bottles__page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 .bulk-bottles__page-info {
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body-family), sans-serif;
   font-size: 1.1rem;
   color: #888;
   white-space: nowrap;
