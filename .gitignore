@@ -25,3 +25,10 @@ moq2_errors.log
 api/mylab-devis-workflow*.json
 api/n8n-devis-gros-volumes.json
 .gstack/
+.env*
+
+# sync_takemoto runtime artefacts
+scripts/.sync_takemoto_checkpoint.json
+scripts/sync_takemoto.log
+scripts/sync_takemoto_report.csv
+scripts/__pycache__/
