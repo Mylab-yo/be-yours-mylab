@@ -128,7 +128,8 @@
       if (!prodMatch) return;
 
       var matMatch = B.bottleState.filterMaterial === 'all' || b.material === B.bottleState.filterMaterial;
-      var colMatch = B.bottleState.filterColor === 'all' || b.color === B.bottleState.filterColor;
+      var availableColors = b.available_colors || (b.color ? [b.color] : []);
+      var colMatch = B.bottleState.filterColor === 'all' || availableColors.indexOf(B.bottleState.filterColor) !== -1;
       var closureMatch = B.bottleState.filterClosure === 'all' || b.closure_type === B.bottleState.filterClosure;
       var ecoMatch = !B.bottleState.filterEco || b.eco_label;
       var moqCompat = !b.min_order_qty || expectedUnits >= b.min_order_qty;
@@ -195,9 +196,22 @@
         '<div class="bulk-bottle__meta">' +
           '<span class="bulk-bottle__tag">' + (B.MATERIAL_LABELS[b.material] || b.material) + '</span>' +
           '<span class="bulk-bottle__tag">' + (B.CLOSURE_LABELS[b.closure_type] || b.closure_type) + '</span>' +
-          '<span class="bulk-bottle__tag">' + (B.COLOR_LABELS[b.color] || b.color) + '</span>' +
           (b.eco_label ? '<span class="bulk-bottle__tag bulk-bottle__tag--eco">Éco</span>' : '') +
         '</div>' +
+        (function () {
+          var cols = b.available_colors && b.available_colors.length ? b.available_colors : [b.color];
+          if (!cols.length) return '';
+          var dots = cols.map(function (c) {
+            var bg = B.COLOR_DOTS[c] || '#ccc';
+            var border = (c === 'clear' || c === 'white') ? 'border:1px solid #ccc;' : '';
+            var highlight = (B.bottleState.filterColor === c) ? 'box-shadow:0 0 0 2px #111;' : '';
+            return '<span class="bulk-bottle__swatch" title="' + B.esc(B.COLOR_LABELS[c] || c) + '" style="background:' + bg + ';' + border + highlight + '"></span>';
+          }).join('');
+          var label = cols.length === 1
+            ? (B.COLOR_LABELS[cols[0]] || cols[0])
+            : cols.length + ' couleurs disponibles';
+          return '<div class="bulk-bottle__colors"><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label">' + B.esc(label) + '</span></div>';
+        })() +
         priceHtml +
         moqHtml +
         linkHtml +

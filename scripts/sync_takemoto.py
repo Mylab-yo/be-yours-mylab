@@ -441,50 +441,44 @@ def build_bottles(products, enrichment_map, existing_index):
         ]
 
         base_slug = re.sub(r"[^a-z0-9]+", "-", handle.lower()).strip("-")
-        base_id = f"tk-{base_slug}"
+        entry_id = f"tk-{base_slug}"
+        primary_color = colors[0] if colors else "clear"
 
-        # Emit 1 entry per color variant
-        for color in colors:
-            entry_id = base_id if len(colors) == 1 else f"{base_id}--{color}"
-            display_name = title if len(colors) == 1 else f"{title} — {color.replace('_', ' ').title()}"
+        # Preserve manual overrides if present
+        manual = existing_index.get(entry_id, {})
 
-            # Preserve manual overrides if present
-            manual = existing_index.get(entry_id, {})
+        bottle = {
+            "id": entry_id,
+            "name": title,
+            "brand": "Takemoto",
+            "type": detect_type(p),
+            "closure_type": closure,
+            "material": material,
+            "capacity_ml": capacity,
+            "compatible_formats": formats,
+            "compatible_products": compat,
+            "color": primary_color,
+            "available_colors": colors,
+            "eco_label": eco,
+            "image_url_external": image_main,
+            "image_url_600": manual.get("image_url_600", image_main),
+            "images_all": images_all[:4],
+            "takemoto_url": f"{BASE_URL}/products/{handle}",
+            "price_estimate": manual.get("price_estimate") if manual.get("_price_manual") else price,
+            "min_order_qty": manual.get("min_order_qty") if manual.get("_moq_manual") else moq,
+            "_raw_handle": handle,
+        }
+        if accessory_options:
+            bottle["accessory_options"] = accessory_options
 
-            bottle = {
-                "id": entry_id,
-                "name": display_name,
-                "brand": "Takemoto",
-                "type": detect_type(p),
-                "closure_type": closure,
-                "material": material,
-                "capacity_ml": capacity,
-                "compatible_formats": formats,
-                "compatible_products": compat,
-                "color": color,
-                "available_colors": colors,
-                "eco_label": eco,
-                "image_url_external": image_main,
-                "image_url_600": manual.get("image_url_600", image_main),
-                "images_all": images_all[:4],
-                "takemoto_url": f"{BASE_URL}/products/{handle}",
-                "price_estimate": manual.get("price_estimate") if manual.get("_price_manual") else price,
-                "min_order_qty": manual.get("min_order_qty") if manual.get("_moq_manual") else moq,
-                "_raw_handle": handle,
-                "_base_id": base_id,
-            }
-            if accessory_options:
-                bottle["accessory_options"] = accessory_options
+        # Preserve manual flags
+        if manual.get("_price_manual"):
+            bottle["_price_manual"] = True
+        if manual.get("_moq_manual"):
+            bottle["_moq_manual"] = True
 
-            # Preserve manual flags
-            if manual.get("_price_manual"):
-                bottle["_price_manual"] = True
-            if manual.get("_moq_manual"):
-                bottle["_moq_manual"] = True
-
-            bottles.append(bottle)
-
-            total_variants += 1
+        bottles.append(bottle)
+        total_variants += 1
 
     log.info(f"Built {total_variants} bottle entries from {len(products)} products")
     log.info(f"  skipped (contenance): {skipped_contenance}")
@@ -555,6 +549,7 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="Pas d'upload Shopify")
     parser.add_argument("--skip-fetch", action="store_true", help="Utiliser le cache de produits")
     parser.add_argument("--skip-enrich", action="store_true", help="Pas d'enrichissement Playwright (utilise checkpoint seul)")
+    parser.add_argument("--force", action="store_true", help="Bypass sanity check (utile quand le modèle de donnée change)")
     args = parser.parse_args()
 
     log.info("=" * 60)
@@ -613,8 +608,11 @@ def main():
 
     # Step 5: Sanity check
     if not sanity_check(new_bottles, list(existing_index.values())):
-        log.error("Sanity check failed, not writing output.")
-        return 1
+        if args.force:
+            log.warning("Sanity check failed but --force set, continuing.")
+        else:
+            log.error("Sanity check failed, not writing output. Use --force to bypass.")
+            return 1
 
     # Step 6: Write new JSON (with backup)
     if BOTTLES_FILE.exists():
