@@ -122,6 +122,9 @@
     },
 
     bindFilterEvents: function (container, attr, cb) {
+      if (!container._bulkBoundAttrs) container._bulkBoundAttrs = {};
+      if (container._bulkBoundAttrs[attr]) return;
+      container._bulkBoundAttrs[attr] = true;
       container.addEventListener('click', function (e) {
         var btn = e.target.closest('.bulk-chip');
         if (!btn) return;
