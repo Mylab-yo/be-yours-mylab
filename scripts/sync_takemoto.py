@@ -165,24 +165,38 @@ def detect_type(product):
 
 
 def detect_closure(product):
+    """Identifie le type de fermeture. Title-first (ordre de spécificité),
+    fallback sur les tags Takemoto ('DISPENSING CAP' = disc, 'FLIP-TOP CAP' = flip_top).
+    """
     title = product.get('title', '').lower()
-    body = (product.get('body_html', '') or '').lower()
     tags = ' '.join(product.get('tags', [])).lower() if isinstance(product.get('tags'), list) else ''
-    combined = f"{title} {body} {tags}"
 
-    if "pump" in combined or "pompe" in combined:
+    # Title-based detection — prioritize specific cap names
+    if "pump" in title or "pompe" in title:
         return "pump"
-    if "spray" in combined or "trigger" in combined or "mist" in combined:
+    if "spray" in title or "trigger" in title or "mist" in title:
         return "spray"
-    if "dropper" in combined or "pipette" in combined:
+    if "dropper" in title or "pipette" in title:
         return "dropper"
-    if "flip" in combined or "dispensing" in combined:
+    if "flip" in title:
         return "flip_top"
-    # Check title specifically for cap types (avoid matches inside body_html prose)
-    if "nozzle" in title or "tongari" in title:
-        return "nozzle"
     if "disc" in title:
         return "disc"
+    if "nozzle" in title or "tongari" in title:
+        return "nozzle"
+
+    # Tag fallback — Takemoto uses 'DISPENSING CAP + BOTTLE' for disc products
+    if "dispensing cap" in tags:
+        return "disc"
+    if "flip-top" in tags or "flip top" in tags:
+        return "flip_top"
+    if "pump + bottle" in tags:
+        return "pump"
+    if "spray + bottle" in tags or "mist + bottle" in tags:
+        return "spray"
+    if "dropper + bottle" in tags:
+        return "dropper"
+
     return "screw_cap"
 
 
