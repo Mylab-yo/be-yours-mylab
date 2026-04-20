@@ -69,14 +69,17 @@ EXCLUDE_TAGS = {"food", "pet", "garden", "jardin", "alimentaire", "animal"}
 def get_compatible_formats(capacity):
     """Map capacity to MY.LAB compatible formats.
 
-    Le filtre actuel dans bulk-data-bottles.json utilise la capacité exacte
-    (ex: 100ml → [100], 220ml → [220]). Inchangé par rapport au comportement prod.
+    Mapping par capacité exacte + tolérance sur les gros formats 1000ml :
+    aucun flacon Takemoto n'a pile 1000ml, on accepte 900-1100ml.
     """
     if capacity is None:
         return []
-    if MIN_CAPACITY_ML <= capacity <= MAX_CAPACITY_ML:
-        return [capacity]
-    return []
+    if not (MIN_CAPACITY_ML <= capacity <= MAX_CAPACITY_ML):
+        return []
+    formats = [capacity]
+    if 900 <= capacity <= 1100 and capacity != 1000:
+        formats.append(1000)
+    return formats
 
 
 # ── LOGGING ──
@@ -184,6 +187,8 @@ def detect_closure(product):
         return "disc"
     if "nozzle" in title or "tongari" in title:
         return "nozzle"
+    if "twist" in title or "ball" in title:
+        return "twist_cap"
 
     # Tag fallback — Takemoto uses 'DISPENSING CAP + BOTTLE' for disc products
     if "dispensing cap" in tags:
@@ -198,6 +203,12 @@ def detect_closure(product):
         return "dropper"
 
     return "screw_cap"
+
+
+def is_foamer(product):
+    """Exclut les pompes foamer (mousse) — non souhaitées par MY.LAB."""
+    title = product.get('title', '').lower()
+    return "foamer" in title or "mousse" in title
 
 
 def detect_material(product):
@@ -231,9 +242,9 @@ def detect_compatible_products(closure_type, capacity):
     big = capacity >= 200
     small = capacity <= 100
 
-    if big and closure_type in ("pump", "screw_cap", "flip_top", "disc", "nozzle"):
+    if big and closure_type in ("pump", "screw_cap", "flip_top", "disc", "nozzle", "twist_cap"):
         compat.append("shampoing")
-    if big and closure_type in ("pump", "flip_top", "disc", "screw_cap"):
+    if big and closure_type in ("pump", "flip_top", "disc", "screw_cap", "twist_cap"):
         compat.extend(["creme", "masque"])
     if closure_type == "spray" and capacity <= 300:
         compat.append("spray")
@@ -419,6 +430,9 @@ def build_bottles(products, enrichment_map, existing_index):
             continue
 
         if should_exclude_shape(handle, title):
+            skipped_shape += 1
+            continue
+        if is_foamer(p):
             skipped_shape += 1
             continue
 
@@ -607,6 +621,8 @@ def main():
             continue
         handle = p.get("handle", "")
         if should_exclude_shape(handle, p.get("title", "")):
+            continue
+        if is_foamer(p):
             continue
         relevant_urls.append((handle, f"{BASE_URL}/products/{handle}"))
 
