@@ -165,7 +165,11 @@ def detect_type(product):
 
 
 def detect_closure(product):
-    combined = f"{product.get('title', '')} {product.get('body_html', '')} {' '.join(product.get('tags', []))}".lower()
+    title = product.get('title', '').lower()
+    body = (product.get('body_html', '') or '').lower()
+    tags = ' '.join(product.get('tags', [])).lower() if isinstance(product.get('tags'), list) else ''
+    combined = f"{title} {body} {tags}"
+
     if "pump" in combined or "pompe" in combined:
         return "pump"
     if "spray" in combined or "trigger" in combined or "mist" in combined:
@@ -174,6 +178,11 @@ def detect_closure(product):
         return "dropper"
     if "flip" in combined or "dispensing" in combined:
         return "flip_top"
+    # Check title specifically for cap types (avoid matches inside body_html prose)
+    if "nozzle" in title or "tongari" in title:
+        return "nozzle"
+    if "disc" in title:
+        return "disc"
     return "screw_cap"
 
 
@@ -200,15 +209,15 @@ def detect_compatible_products(closure_type, capacity):
     """UI attend 'creme' (pas 'creme_coiffage') dans compatible_products.
     Cf. bulk-order-bottles.js: productFilter = category === 'creme_coiffage' ? 'creme' : category"""
     compat = []
-    if closure_type in ("pump", "screw_cap") and capacity >= 200:
+    if closure_type in ("pump", "screw_cap", "nozzle") and capacity >= 200:
         compat.append("shampoing")
-    if closure_type in ("pump", "flip_top") and capacity >= 200:
+    if closure_type in ("pump", "flip_top", "disc") and capacity >= 200:
         compat.extend(["creme", "masque"])
     if closure_type == "spray" and capacity <= 300:
         compat.append("spray")
-    if closure_type in ("dropper", "pump") and capacity <= 100:
+    if closure_type in ("dropper", "pump", "nozzle") and capacity <= 100:
         compat.extend(["serum", "huile"])
-    if closure_type == "screw_cap" and capacity >= 200:
+    if closure_type in ("screw_cap", "disc") and capacity >= 200:
         compat.append("masque")
     return sorted(set(compat))
 

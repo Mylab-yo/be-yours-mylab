@@ -71,21 +71,21 @@
     },
 
     CLOSURE_COMPAT: {
-      shampoing: ['pump', 'screw_cap'],
-      creme_coiffage: ['pump', 'dispensing_cap'],
-      masque: ['pump', 'dispensing_cap', 'screw_cap'],
+      shampoing: ['pump', 'screw_cap', 'nozzle'],
+      creme_coiffage: ['pump', 'flip_top', 'disc'],
+      masque: ['pump', 'flip_top', 'screw_cap', 'disc'],
       spray: ['spray'],
-      serum: ['dropper', 'pump'],
-      huile: ['dropper', 'pump']
+      serum: ['dropper', 'pump', 'nozzle'],
+      huile: ['dropper', 'pump', 'nozzle']
     },
 
     COLOR_LABELS: { clear: 'Transparent', amber: 'Ambré', blush: 'Rose poudré', butter_yellow: 'Jaune beurre', mist: 'Fumé', teal: 'Bleu-vert', red: 'Rouge', white: 'Blanc', black: 'Noir', frosted: 'Givré' },
     COLOR_DOTS: { clear: '#f0f0f0', amber: '#b5651d', blush: '#e8a0a0', butter_yellow: '#f5d67a', mist: '#c0c0c0', teal: '#008080', red: '#c0392b', white: '#ffffff', black: '#333333', frosted: '#d4e4f7' },
     COLOR_ORDER: ['clear', 'amber', 'blush', 'butter_yellow', 'mist', 'teal', 'red', 'white', 'black', 'frosted'],
     MATERIAL_LABELS: { PET: 'PET', rPET: 'rPET', PCR: 'PCR', biomass_PET: 'Bio PET', glass: 'Verre' },
-    CLOSURE_FILTER_LABELS: { screw_cap: '\uD83D\uDD12 Bouchon \u00e0 vis', flip_top: '\uD83D\uDD04 Bouchon clapet', pump: '\uD83E\uDDF4 Pompe cr\u00e8me', spray: '\uD83D\uDCA7 Spray', dropper: '\uD83D\uDC8A Pipette' },
-    CLOSURE_ORDER: ['screw_cap', 'pump', 'spray', 'flip_top', 'dropper'],
-    CLOSURE_LABELS: { pump: 'Pompe', screw_cap: 'Bouchon vis', dispensing_cap: 'Clapet', spray: 'Spray', dropper: 'Pipette' },
+    CLOSURE_FILTER_LABELS: { screw_cap: '\uD83D\uDD12 Bouchon \u00e0 vis', flip_top: '\uD83D\uDD04 Bouchon clapet', pump: '\uD83E\uDDF4 Pompe cr\u00e8me', spray: '\uD83D\uDCA7 Spray', dropper: '\uD83D\uDC8A Pipette', nozzle: '\uD83D\uDD87 Bec verseur', disc: '\u25CE Disc top' },
+    CLOSURE_ORDER: ['screw_cap', 'pump', 'spray', 'flip_top', 'nozzle', 'disc', 'dropper'],
+    CLOSURE_LABELS: { pump: 'Pompe', screw_cap: 'Bouchon vis', flip_top: 'Clapet', spray: 'Spray', dropper: 'Pipette', nozzle: 'Bec verseur', disc: 'Disc top' },
 
     BOTTLES_PER_PAGE: 30,
     N8N_WEBHOOK: 'https://n8n.startec-paris.com/webhook/bulk-order-quote',
