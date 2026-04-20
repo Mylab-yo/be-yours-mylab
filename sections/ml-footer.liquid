@@ -110,7 +110,6 @@
     font-size: 1.3rem;
     line-height: 1.5;
     transition: color 0.2s;
-    text-transform: capitalize;
   }
   .ml-footer__links a:hover {
     color: var(--ml-footer-link-hover);
@@ -294,6 +293,18 @@
               <ul class="ml-footer__links">
                 {%- for link in block.settings.menu.links -%}
                   <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <ul class="ml-footer__links">
+                {%- for i in (1..8) -%}
+                  {%- assign label_key = 'label_' | append: i -%}
+                  {%- assign url_key = 'url_' | append: i -%}
+                  {%- assign label_val = block.settings[label_key] -%}
+                  {%- assign url_val = block.settings[url_key] -%}
+                  {%- if label_val != blank and url_val != blank -%}
+                    <li><a href="{{ url_val }}">{{ label_val }}</a></li>
+                  {%- endif -%}
                 {%- endfor -%}
               </ul>
             {%- endif -%}
@@ -524,10 +535,35 @@
           "default": "Liens"
         },
         {
+          "type": "header",
+          "content": "Méthode 1 — Menu Shopify"
+        },
+        {
           "type": "link_list",
           "id": "menu",
-          "label": "Menu"
-        }
+          "label": "Menu",
+          "info": "Si défini, prioritaire sur les liens manuels ci-dessous"
+        },
+        {
+          "type": "header",
+          "content": "Méthode 2 — Liens manuels (jusqu'à 8)"
+        },
+        { "type": "text", "id": "label_1", "label": "Libellé 1" },
+        { "type": "url",  "id": "url_1",   "label": "URL 1" },
+        { "type": "text", "id": "label_2", "label": "Libellé 2" },
+        { "type": "url",  "id": "url_2",   "label": "URL 2" },
+        { "type": "text", "id": "label_3", "label": "Libellé 3" },
+        { "type": "url",  "id": "url_3",   "label": "URL 3" },
+        { "type": "text", "id": "label_4", "label": "Libellé 4" },
+        { "type": "url",  "id": "url_4",   "label": "URL 4" },
+        { "type": "text", "id": "label_5", "label": "Libellé 5" },
+        { "type": "url",  "id": "url_5",   "label": "URL 5" },
+        { "type": "text", "id": "label_6", "label": "Libellé 6" },
+        { "type": "url",  "id": "url_6",   "label": "URL 6" },
+        { "type": "text", "id": "label_7", "label": "Libellé 7" },
+        { "type": "url",  "id": "url_7",   "label": "URL 7" },
+        { "type": "text", "id": "label_8", "label": "Libellé 8" },
+        { "type": "url",  "id": "url_8",   "label": "URL 8" }
       ]
     },
     {

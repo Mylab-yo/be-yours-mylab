@@ -8,26 +8,61 @@
         "col1": {
           "type": "link_column",
           "settings": {
-            "heading": "Produits",
-            "menu": "footer"
+            "heading": "Acheter",
+            "label_1": "La boutique pro",
+            "url_1": "/pages/la-boutique-my-lab",
+            "label_2": "Boutique testeurs",
+            "url_2": "/pages/boutique-testeurs",
+            "label_3": "Catalogue & prix",
+            "url_3": "/pages/catalogue-prix-et-formules-mylab",
+            "label_4": "Commande express",
+            "url_4": "/pages/commande-express",
+            "label_5": "Commande gros volume",
+            "url_5": "/pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici"
           }
         },
         "col2": {
           "type": "link_column",
           "settings": {
-            "heading": "Informations",
-            "menu": ""
+            "heading": "Créer ma marque",
+            "label_1": "Étapes de création",
+            "url_1": "/pages/etapes-creation",
+            "label_2": "Personnalisation",
+            "url_2": "/pages/personnalisation",
+            "label_3": "Modèles d'étiquettes",
+            "url_3": "/pages/modeles-etiquettes",
+            "label_4": "Designs d'étiquettes",
+            "url_4": "/pages/designs-etiquettes",
+            "label_5": "Configurateur",
+            "url_5": "/pages/configurateur"
           }
         },
         "col3": {
           "type": "link_column",
           "settings": {
-            "heading": "Aide",
-            "menu": ""
+            "heading": "À propos",
+            "label_1": "FAQ",
+            "url_1": "/pages/faq",
+            "label_2": "Nos réalisations",
+            "url_2": "/pages/nos-realisations",
+            "label_3": "Témoignages",
+            "url_3": "/pages/temoignages"
+          }
+        },
+        "col4": {
+          "type": "link_column",
+          "settings": {
+            "heading": "Contact",
+            "label_1": "Nous contacter",
+            "url_1": "/pages/contact",
+            "label_2": "Prendre rendez-vous",
+            "url_2": "/pages/prise-de-rendez-vous",
+            "label_3": "contact@mylab-shop.com",
+            "url_3": "mailto:contact@mylab-shop.com"
           }
         }
       },
-      "block_order": ["col1", "col2", "col3"],
+      "block_order": ["col1", "col2", "col3", "col4"],
       "settings": {
         "logo_width": 120,
         "show_social": true,
