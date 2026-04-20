@@ -4,7 +4,7 @@
       "type": "main-page",
       "settings": {
         "narrow": false,
-        "padding_top": 80,
+        "padding_top": 100,
         "padding_bottom": 0
       }
     },

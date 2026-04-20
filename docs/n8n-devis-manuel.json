@@ -1,0 +1,81 @@
+{
+  "id": "e0rRHlz61Ll807gX",
+  "name": "MY.LAB - Devis Manuel (Formulaire)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mylab-devis-manuel",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "webhookId": "mylab-devis-manuel-001"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Parse la demande client avec Gemini\nconst GEMINI_KEY = 'AIzaSyAuJLwZ7-o8HurimsUnzwopdbklcUVp3vA';\n\nconst input = $input.first().json;\nconst email = input.body?.email || '';\nconst demande = input.body?.demande || '';\nconst clientName = input.body?.client_name || '';\n\nif (!demande) {\n  return [{ json: { error: true, message: 'Le champ demande est requis.' } }];\n}\n\nconst catalogue = `CATALOGUE PRODUITS MY.LAB (cosmetiques capillaires professionnels B2B) :\n\nSHAMPOINGS - 200ml, 500ml, 1000ml :\nnourrissant | boucles | lissant | HA repulpe | volume | purifiant | protecteur de couleur\nHomme : shampoing gel douche (200ml/500ml/1000ml)\n\nMASQUES CAPILLAIRES - 200ml, 400ml, 1000ml :\nnourrissant | boucles | lissant | HA repulpe | volume | protecteur de couleur\nHomme : masque intense (200ml seulement)\n\nCREMES SANS RINCAGE - 200ml (boucles aussi en 500ml) :\nboucles | HA repulpe | lissante | nourrissante | volume\n\nSPRAYS - 200ml :\nmasque reparateur sans rincage | spray texturisant\n\nSERUMS - 50ml :\nserum finition ultime | serum barbe (homme)\n\nHUILES - 50ml :\nbain miraculeux (NOM ODOO: \"bain miraculeux\", PAS \"huile bain miraculeux\") | huile a barbe (homme)\n\nCOLORISTEURS/DEJAUNISSEURS - shampoings ET masques - 200ml, 1000ml :\nblond soleil | blond vanille | chocolat | cuivre | marron noisette | dejaunisseur platine\n\nNOMS COMMERCIAUX (alias utilises par les clients) :\n- \"brillance\" ou \"protecteur de couleur\" = protecteur de couleur (shampoing/creme/masque)\n- \"blond polaire\" ou \"platine\" = dejaunisseur platine\n- \"blond cuivre\" ou \"cuivre\" = coloristeur cuivre\n- \"spray volume\" ou \"spray detox\" ou \"spray volume & detox\" = spray texturisant\n- \"1L\" ou \"1 litre\" = 1000ml\n- \"demi-litre\" ou \"0.5L\" = 500ml\n\nATTENTION creme protectrice de couleur : le nom Odoo est \"creme protectrice de couleur\" (pas \"creme protecteur\")`;\n\nconst prompt = `Analyse cette demande client MY.LAB et extrais les produits et quantites.\n\n${catalogue}\n\nREGLES :\n1. Retourne UNIQUEMENT du JSON valide, rien d autre\n2. Format : { \"products\": [{ \"search_name\": \"...\", \"display_name\": \"...\", \"quantity\": N }] }\n3. search_name = nom normalise minuscule pour Odoo, format EXACT : \"type variante contenanceml\"\n   Exemples : \"shampoing nourrissant 200ml\", \"masque boucles 400ml\", \"creme lissante 200ml\",\n   \"serum finition ultime 50ml\", \"shampoing coloristeur blond soleil 200ml\"\n4. display_name = nom lisible avec majuscules\n5. Contenance par defaut si non precisee : 200ml (50ml pour serums/huiles)\n6. Quantite par defaut si non precisee : 6 (minimum B2B)\n7. Si un produit demande n existe pas dans le catalogue, search_name = \"INCONNU\"\n8. search_name doit etre le NOM EXACT tel que dans Odoo, SANS prefixe de type\n   Correct: \"bain miraculeux 50ml\", \"serum finition ultime 50ml\"\n   Incorrect: \"huile bain miraculeux 50ml\", \"serum de finition ultime 50ml\"\n9. TOUJOURS traduire les noms commerciaux vers les noms Odoo\n   \"shampoing brillance\" -> \"shampoing protecteur de couleur 200ml\"\n   \"creme brillance\" -> \"creme protectrice de couleur 200ml\"\n   \"shampoing blond polaire\" -> \"shampoing dejaunisseur platine 200ml\"\n   \"masque blond polaire 1L\" -> \"masque dejaunisseur platine 1000ml\"\n   \"masque blond cuivre 1L\" -> \"masque coloristeur cuivre 1000ml\"\n   \"spray volume & detox\" -> \"spray texturisant 200ml\"\n\nDEMANDE :\n${demande}`;\n\nconst response = await this.helpers.httpRequest({\n  method: 'POST',\n  url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' + GEMINI_KEY,\n  headers: { 'Content-Type': 'application/json' },\n  body: {\n    contents: [{ parts: [{ text: prompt }] }],\n    generationConfig: { temperature: 0.1, responseMimeType: 'application/json' }\n  }\n});\n\nconst text = response.candidates[0].content.parts[0].text;\nconst parsed = JSON.parse(text);\n\nreturn [{\n  json: {\n    email,\n    client_name: clientName,\n    products: parsed.products || [],\n    raw_demande: demande\n  }\n}];"
+      },
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Parse avec Gemini",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Creer le devis dans Odoo\nconst ODOO_URL = 'https://odoo.startec-paris.com';\nconst ODOO_DB = 'OdooYJ';\nconst ODOO_UID = 8;\nconst ODOO_KEY = 'e6d35b4261b948664841075e8fffc3510c8db437';\nconst COMPANY_ID = 3;\nconst PRICELIST_ID = 3;\n\nconst helpers = this.helpers;\nconst input = $input.first().json;\n\nif (input.error) {\n  return [{ json: input }];\n}\n\nconst { email, client_name, products, raw_demande } = input;\n\nasync function odoo(model, method, args, kwargs) {\n  const resp = await helpers.httpRequest({\n    method: 'POST',\n    url: ODOO_URL + '/jsonrpc',\n    headers: { 'Content-Type': 'application/json' },\n    body: {\n      jsonrpc: '2.0',\n      id: Date.now(),\n      method: 'call',\n      params: {\n        service: 'object',\n        method: 'execute_kw',\n        args: [ODOO_DB, ODOO_UID, ODOO_KEY, model, method, args],\n        kwargs: kwargs || {}\n      }\n    }\n  });\n  if (resp.error) throw new Error(JSON.stringify(resp.error));\n  return resp.result;\n}\n\n\n// Alias map: noms alternatifs -> nom exact Odoo\nconst PRODUCT_ALIASES = {\n  'shampoing brillance 200ml': 'shampoing protecteur de couleur 200ml',\n  'shampoing brillance 500ml': 'shampoing protecteur de couleur 500ml',\n  'shampoing brillance 1000ml': 'shampoing protecteur de couleur 1000ml',\n  'creme brillance 200ml': 'creme protectrice de couleur 200ml',\n  'masque brillance 200ml': 'masque protecteur de couleur 200ml',\n  'masque brillance 400ml': 'masque protecteur de couleur 400ml',\n  'masque brillance 1000ml': 'masque protecteur de couleur 1000ml',\n  'shampoing blond polaire 200ml': 'shampoing dejaunisseur platine 200ml',\n  'shampoing blond polaire 1000ml': 'shampoing dejaunisseur platine 1000ml',\n  'masque blond polaire 200ml': 'masque dejaunisseur platine 200ml',\n  'masque blond polaire 1000ml': 'masque dejaunisseur platine 1000ml',\n  'masque blond cuivre 200ml': 'masque coloristeur cuivre 200ml',\n  'masque blond cuivre 1000ml': 'masque coloristeur cuivre intense 1000ml',\n  'shampoing blond cuivre 200ml': 'shampoing coloristeur cuivre 200ml',\n  'shampoing blond cuivre 1000ml': 'shampoing coloristeur cuivre 1000ml',\n  'spray volume 200ml': 'spray texturisant 200ml',\n  'spray detox 200ml': 'spray texturisant 200ml',\n  'spray volume detox 200ml': 'spray texturisant 200ml',\n  'huile bain miraculeux 50ml': 'bain miraculeux 50ml',\n};\n// 1. Chercher ou creer le client\nlet partnerId;\nlet partnerName = client_name || email || 'Client sans nom';\n\nif (email) {\n  const existing = await odoo('res.partner', 'search_read',\n    [[['email', '=', email]]],\n    { fields: ['id', 'name'], limit: 1 }\n  );\n  if (existing.length > 0) {\n    partnerId = existing[0].id;\n    partnerName = existing[0].name;\n  }\n}\n\nif (!partnerId) {\n  partnerId = await odoo('res.partner', 'create', [{\n    name: partnerName,\n    email: email || false,\n    company_type: 'company',\n    customer_rank: 1,\n    company_id: COMPANY_ID\n  }]);\n}\n\n// 2. Matcher les produits dans Odoo\nconst orderLines = [];\nconst matched = [];\nconst unmatched = [];\n\nfor (const p of products) {\n  if (p.search_name === 'INCONNU') {\n    unmatched.push({ demande: p.display_name, raison: 'Produit non reconnu par IA' });\n    continue;\n  }\n\n  // Resoudre alias si present\n  const searchName = PRODUCT_ALIASES[p.search_name] || p.search_name;\n\n  let found = await odoo('product.product', 'search_read',\n    [[['name', '=', searchName], ['sale_ok', '=', true]]],\n    { fields: ['id', 'name', 'list_price', 'default_code'], limit: 1 }\n  );\n\n  if (found.length === 0) {\n    found = await odoo('product.product', 'search_read',\n      [[['name', 'ilike', searchName], ['sale_ok', '=', true]]],\n      { fields: ['id', 'name', 'list_price', 'default_code'], limit: 3 }\n    );\n  }\n\n  // Dernier recours: chercher sans la contenance\n  if (found.length === 0 && searchName.match(/\\d+ml$/)) {\n    const baseName = searchName.replace(/\\s*\\d+ml$/, '');\n    found = await odoo('product.product', 'search_read',\n      [[['name', 'ilike', baseName], ['sale_ok', '=', true]]],\n      { fields: ['id', 'name', 'list_price', 'default_code'], limit: 5 }\n    );\n  }\n\n  if (found.length > 0) {\n    const prod = found[0];\n    orderLines.push([0, 0, {\n      product_id: prod.id,\n      product_uom_qty: p.quantity\n    }]);\n    matched.push({\n      name: prod.name,\n      odoo_id: prod.id,\n      sku: prod.default_code || '',\n      quantity: p.quantity,\n      prix_unitaire: prod.list_price\n    });\n  } else {\n    unmatched.push({\n      demande: p.display_name,\n      search: p.search_name,\n      raison: 'Non trouve dans Odoo'\n    });\n  }\n}\n\n// 3. Creer le devis\nlet result = {\n  success: false,\n  devis: null,\n  devis_id: null,\n  devis_url: null,\n  client: partnerName,\n  partner_id: partnerId,\n  matched,\n  unmatched,\n  nb_produits: matched.length,\n  nb_non_trouves: unmatched.length,\n  montant_total: null\n};\n\nif (orderLines.length > 0) {\n  const orderId = await odoo('sale.order', 'create', [{\n    partner_id: partnerId,\n    pricelist_id: PRICELIST_ID,\n    company_id: COMPANY_ID,\n    order_line: orderLines,\n    note: 'Devis genere automatiquement.\\nDemande originale :\\n' + raw_demande\n  }]);\n\n  const order = await odoo('sale.order', 'read', [[orderId]],\n    { fields: ['name', 'amount_total', 'amount_untaxed'] }\n  );\n\n  result.success = true;\n  result.devis = order[0].name;\n  result.devis_id = orderId;\n  result.devis_url = ODOO_URL + '/web#id=' + orderId + '&model=sale.order&view_type=form';\n  result.montant_total = order[0].amount_total;\n  result.montant_ht = order[0].amount_untaxed;\n}\n\nreturn [{ json: result }];"
+      },
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Creer devis Odoo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse avec Gemini",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse avec Gemini": {
+      "main": [
+        [
+          {
+            "node": "Creer devis Odoo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "pinData": null
+}

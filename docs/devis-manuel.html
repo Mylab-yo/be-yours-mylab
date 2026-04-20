@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY.LAB — Devis Manuel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #f7f4f0;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 2rem;
+      letter-spacing: 0.02em;
+      color: #1a1a1a;
+    }
+    .header p {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #444;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #1a1a1a;
+      background: #fafafa;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none;
+      border-color: #1a1a1a;
+      box-shadow: 0 0 0 3px rgba(26,26,26,0.08);
+      background: #fff;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.5;
+    }
+    .field .hint {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .row {
+      display: flex;
+      gap: 16px;
+    }
+    .row .field { flex: 1; }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 4px;
+    }
+    button[type="submit"]:hover { background: #333; }
+    button[type="submit"]:active { transform: scale(0.99); }
+    button[type="submit"]:disabled {
+      background: #999;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ── Loading ── */
+    .loading { display: none; text-align: center; margin-top: 24px; }
+    .loading.visible { display: block; }
+    .loading .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid #eee;
+      border-top-color: #1a1a1a;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { color: #666; font-size: 0.9rem; }
+
+    /* ── Result ── */
+    .result {
+      display: none;
+      margin-top: 24px;
+    }
+    .result.visible { display: block; }
+
+    .result-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .result-success {
+      border-left: 4px solid #22c55e;
+    }
+    .result-error {
+      border-left: 4px solid #ef4444;
+    }
+    .result-partial {
+      border-left: 4px solid #f59e0b;
+    }
+
+    .result h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .devis-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .devis-client { color: #666; font-size: 0.9rem; margin-bottom: 16px; }
+
+    .devis-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #1a1a1a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      transition: background 0.2s;
+    }
+    .devis-link:hover { background: #333; }
+
+    .product-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 0.88rem;
+    }
+    .product-table th {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 2px solid #eee;
+      font-weight: 600;
+      color: #444;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .product-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .product-table tr:last-child td { border-bottom: none; }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-top: 12px;
+      border-top: 2px solid #eee;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .warnings {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #fef3c7;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #92400e;
+    }
+    .warnings strong { display: block; margin-bottom: 6px; }
+    .warnings ul { margin: 0; padding-left: 18px; }
+    .warnings li { margin: 3px 0; }
+
+    .error-msg {
+      color: #dc2626;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .btn-reset {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: none;
+      border: 1.5px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: #666;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-reset:hover { border-color: #999; color: #333; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>MY.LAB</h1>
+      <p>Generateur de devis automatique</p>
+    </div>
+
+    <div class="card" id="formCard">
+      <form id="devisForm">
+        <div class="row">
+          <div class="field">
+            <label for="email">Email client</label>
+            <input type="email" id="email" name="email" placeholder="client@salon.fr">
+          </div>
+          <div class="field">
+            <label for="clientName">Nom (optionnel)</label>
+            <input type="text" id="clientName" name="client_name" placeholder="Salon XYZ">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="demande">Demande produits</label>
+          <textarea id="demande" name="demande" required
+            placeholder="Collez ici la demande du client, par exemple :&#10;&#10;12 shampoings nourrissants 200ml&#10;6 masques boucles 400ml&#10;24 cremes lissantes&#10;12 serums finition ultime"></textarea>
+          <div class="hint">L'IA reconnait les noms de produits meme en langage naturel, avec ou sans accents.</div>
+        </div>
+
+        <button type="submit" id="submitBtn">Generer le devis</button>
+      </form>
+    </div>
+
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>Analyse de la demande et creation du devis dans Odoo...</p>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // ── Configuration ──
+    const WEBHOOK_URL = 'https://n8n.startec-paris.com/webhook/mylab-devis-manuel';
+
+    const form = document.getElementById('devisForm');
+    const loading = document.getElementById('loading');
+    const resultDiv = document.getElementById('result');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const clientName = document.getElementById('clientName').value.trim();
+      const demande = document.getElementById('demande').value.trim();
+
+      if (!demande) {
+        alert('Veuillez saisir la demande produits.');
+        return;
+      }
+
+      // UI: loading state
+      submitBtn.disabled = true;
+      loading.classList.add('visible');
+      resultDiv.classList.remove('visible');
+
+      try {
+        const resp = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, client_name: clientName, demande })
+        });
+
+        if (!resp.ok) {
+          throw new Error(`Erreur HTTP ${resp.status}: ${resp.statusText}`);
+        }
+
+        const data = await resp.json();
+        renderResult(data);
+      } catch (err) {
+        renderError(err.message);
+      } finally {
+        submitBtn.disabled = false;
+        loading.classList.remove('visible');
+      }
+    });
+
+    function renderResult(data) {
+      if (data.error) {
+        renderError(data.message || 'Erreur inconnue');
+        return;
+      }
+
+      const isPartial = data.unmatched && data.unmatched.length > 0;
+      const statusClass = data.success
+        ? (isPartial ? 'result-partial' : 'result-success')
+        : 'result-error';
+
+      let html = `<div class="result-card ${statusClass}">`;
+
+      if (data.success) {
+        html += `
+          <div class="devis-number">${esc(data.devis)}</div>
+          <div class="devis-client">Client : ${esc(data.client)}</div>
+          <a href="${esc(data.devis_url)}" target="_blank" class="devis-link">
+            Ouvrir dans Odoo
+          </a>
+        `;
+
+        if (data.matched && data.matched.length > 0) {
+          html += `
+            <h3>Produits (${data.nb_produits})</h3>
+            <table class="product-table">
+              <thead>
+                <tr><th>Produit</th><th>Qte</th><th>PU HT</th></tr>
+              </thead>
+              <tbody>
+          `;
+          for (const m of data.matched) {
+            const pu = m.prix_unitaire != null ? m.prix_unitaire.toFixed(2) + ' \u20AC' : '-';
+            html += `<tr>
+              <td>${esc(m.name)}</td>
+              <td>${m.quantity}</td>
+              <td>${pu}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+
+          if (data.montant_ht != null) {
+            html += `
+              <div class="total-row">
+                <span>Total HT</span>
+                <span>${data.montant_ht.toFixed(2)} \u20AC</span>
+              </div>
+            `;
+          }
+          if (data.montant_total != null) {
+            html += `
+              <div class="total-row" style="border-top:none; padding-top:0; font-size:0.9rem; color:#666;">
+                <span>Total TTC</span>
+                <span>${data.montant_total.toFixed(2)} \u20AC</span>
+              </div>
+            `;
+          }
+        }
+      } else {
+        html += `
+          <h3>Aucun produit reconnu</h3>
+          <p class="error-msg">
+            Aucun produit de la demande n'a pu etre matche dans Odoo.
+            Verifiez les noms ou ajoutez les produits manquants dans le catalogue.
+          </p>
+        `;
+      }
+
+      // Produits non trouves
+      if (data.unmatched && data.unmatched.length > 0) {
+        html += `
+          <div class="warnings">
+            <strong>Produits non trouves (${data.nb_non_trouves})</strong>
+            <ul>
+              ${data.unmatched.map(u =>
+                `<li>${esc(u.demande)}${u.search ? ` (recherche: "${esc(u.search)}")` : ''} — ${esc(u.raison)}</li>`
+              ).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      html += `<button class="btn-reset" onclick="resetForm()">Nouveau devis</button>`;
+      html += '</div>';
+
+      resultDiv.innerHTML = html;
+      resultDiv.classList.add('visible');
+    }
+
+    function renderError(message) {
+      resultDiv.innerHTML = `
+        <div class="result-card result-error">
+          <h3>Erreur</h3>
+          <p class="error-msg">${esc(message)}</p>
+          <button class="btn-reset" onclick="resetForm()">Reessayer</button>
+        </div>
+      `;
+      resultDiv.classList.add('visible');
+    }
+
+    function resetForm() {
+      resultDiv.classList.remove('visible');
+      resultDiv.innerHTML = '';
+      document.getElementById('demande').value = '';
+      document.getElementById('demande').focus();
+    }
+
+    function esc(str) {
+      if (!str) return '';
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+  </script>
+</body>
+</html>

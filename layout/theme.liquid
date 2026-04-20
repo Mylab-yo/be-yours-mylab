@@ -107,6 +107,7 @@
 
     {%- comment -%} ML Product Map URL — source de vérité unique {%- endcomment -%}
     <script>window.MylabAssets = { productMapUrl: {{ 'ml-product-map.json' | asset_url | json }} };</script>
+    <script src="{{ 'ml-utils.js' | asset_url }}" defer="defer"></script>
 
     {%- comment -%} ML Dossier Gate — config pour auto-ajout du dossier cosmétologique {%- endcomment -%}
     {%- assign ml_is_dossier_valide = false -%}
@@ -188,7 +189,6 @@
     {%- endif -%}
     
     {% render 'js-utilities' %}
-    <script src="{{ 'ml-utils.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'mylab-cart.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'ml-dossier-gate.js' | asset_url }}" defer="defer"></script>
 

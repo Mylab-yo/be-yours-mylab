@@ -1,0 +1,169 @@
+id,sku,name,current,new,reason,changed
+2413,,,0,0,no rule matched,
+2258,aquarel,Aquarel,0,0,no rule matched,
+2259,azul,Azul,0,0,no rule matched,
+2262,black-and-yellow,Black and Yellow,0,0,no rule matched,
+2263,catalogue-personnalise,Catalogue personnalisé,0,0,no rule matched,
+2266,creation-de-codes-barres-professionnels,Création de codes-barres professionnels,0,0,no rule matched,
+2267,creation-du-dossier-cosmetologique,Création du dossier cosmétologique - 1,0,0,no rule matched,
+2363,,"DROPPER NOIR ""MYLAB""",0,0,no rule matched,
+2370,forfait-dimpression-standard,Etiquettes standards,0,0,no rule matched,
+2362,,FLACON VERRE 50ML,0,0,no rule matched,
+2281,finesse,Finesse,0,0,no rule matched,
+2282,forfait-dimpression,Forfait d’impression,0,0,no rule matched,
+2280,forfait-dimpression-standard,Forfait d’impression standard,0,0,no rule matched,
+2283,forfait-dimpression-standard,Forfait d’impression standard,0,0,no rule matched,
+2284,frais-dimpression-etiquettes,Frais d'impression étiquettes,0,0,no rule matched,
+2285,frais-de-creation-design-etiquette,Frais de création design étiquette,0,0,no rule matched,
+2367,,Frais de livraison DPD,0,0,no rule matched,
+2286,fresh,Fresh,0,0,no rule matched,
+2287,golden-line,Golden Line,0,0,no rule matched,
+2288,golden-line,Golden Line,0,0,no rule matched,
+2289,green-floral,Green Floral,0,0,no rule matched,
+2320,number,Number,0,0,no rule matched,
+2321,oliver,Oliver,0,0,no rule matched,
+2364,,POMPES 500ML,0,0,no rule matched,
+2325,prestige,Prestige,0,0,no rule matched,
+2414,,Remise,0,0,no rule matched,
+2326,sac-personnalise,Sac personnalisé,0,0,no rule matched,
+2417,,Shampoing boucles 100ml,0,0,no rule matched,
+2419,,Shampoing platine 100ml,0,0,no rule matched,
+2418,,Shampoing volume 100ml,0,0,no rule matched,
+2361,zebra,Zebra,0,0,no rule matched,
+2260,bain-miraculeux-50-ml,bain miraculeux 50ml,0,0,no rule matched,
+2261,bain-miraculeux-testeur,bain miraculeux testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2264,coffret-decouverte,coffret decouverte,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2265,coffret-decouverte-barber,coffret decouverte barber,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2268,creme-boucles-200-ml,creme boucles 200ml,0,40,200ml shampoing/creme/spray,YES
+2407,creme-boucles-500-ml,creme boucles 500ml,0,23,500ml shampoing/creme,YES
+2269,creme-boucles-testeur,creme boucles testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2270,creme-ha-repulpe-200-ml,creme ha repulpe 200ml,0,40,200ml shampoing/creme/spray,YES
+2271,creme-ha-repulpe-testeur,creme ha repulpe testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2272,creme-lissante-200-ml,creme lissante 200ml,0,40,200ml shampoing/creme/spray,YES
+2273,creme-lissante-testeur,creme lissante testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2274,creme-nourrissante-200-ml,creme nourrissante 200ml,0,40,200ml shampoing/creme/spray,YES
+2275,creme-nourrissante-testeur,creme nourrissante testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2276,creme-protectrice-de-couleur-200-ml,creme protectrice de couleur 200ml,0,40,200ml shampoing/creme/spray,YES
+2277,creme-protectrice-de-couleur-testeur,creme protectrice de couleur testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2278,creme-volume-200-ml,creme volume 200ml,0,40,200ml shampoing/creme/spray,YES
+2279,creme-volume-testeur,creme volume testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2409,,crème boucles 1000ml,0,12,1L shampoing/creme/masque,YES
+2290,huile-a-barbe-50-ml,huile a barbe 50ml,0,50,50ml serum/huile,YES
+2291,huile-a-barbe-testeur,huile a barbe testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2292,masque-blond-soleil-testeur,masque blond soleil testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2293,masque-blond-vanille-testeur,masque blond vanille testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2369,masque-boucles-1000-ml,masque boucles 1000ml,0,12,1L shampoing/creme/masque,YES
+2294,masque-boucles-200-ml,masque boucles 200ml,0,24,200ml masque,YES
+2368,masque-boucles-400-ml,masque boucles 400ml,0,24,400ml masque,YES
+2295,masque-boucles-testeur,masque boucles testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2296,masque-chocolat-testeur,masque chocolat testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2401,masque-coloristeur-blond-soleil-1000-ml,masque coloristeur blond soleil 1000ml,0,12,1L shampoing/creme/masque,YES
+2297,masque-coloristeur-blond-soleil-200-ml,masque coloristeur blond soleil 200ml,0,24,200ml masque,YES
+2402,masque-coloristeur-blond-vanille-1000-ml,masque coloristeur blond vanille 1000ml,0,12,1L shampoing/creme/masque,YES
+2298,masque-coloristeur-blond-vanille-200-ml,masque coloristeur blond vanille 200ml,0,24,200ml masque,YES
+2403,masque-coloristeur-chocolat-1000-ml,masque coloristeur chocolat 1000ml,0,12,1L shampoing/creme/masque,YES
+2299,masque-coloristeur-chocolat-200-ml,masque coloristeur chocolat 200ml,0,24,200ml masque,YES
+2300,masque-coloristeur-cuivre-200-ml,masque coloristeur cuivre 200ml,0,24,200ml masque,YES
+2404,masque-coloristeur-cuivre-intense-1000-ml,masque coloristeur cuivre intense 1000ml,0,12,1L shampoing/creme/masque,YES
+2405,masque-coloristeur-marron-noisette-1000-ml,masque coloristeur marron noisette 1000ml,0,12,1L shampoing/creme/masque,YES
+2301,masque-coloristeur-marron-noisette-200-ml,masque coloristeur marron noisette 200ml,0,24,200ml masque,YES
+2302,masque-cuivre-intense-testeur,masque cuivre intense testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2406,masque-dejaunisseur-platine-1000-ml,masque dejaunisseur platine 1000ml,0,12,1L shampoing/creme/masque,YES
+2303,masque-dejaunisseur-platine-200-ml,masque dejaunisseur platine 200ml,0,24,200ml masque,YES
+2422,,masque gloss 100ml,0,0,no rule matched,
+2426,,masque gloss 200ml,0,24,200ml masque,YES
+2396,masque-ha-repulpe-1000-ml,masque ha repulpe 1000ml,0,12,1L shampoing/creme/masque,YES
+2304,masque-ha-repulpe-200-ml,masque ha repulpe 200ml,0,24,200ml masque,YES
+2391,masque-ha-repulpe-400-ml,masque ha repulpe 400ml,0,24,400ml masque,YES
+2411,,masque ha repulpe 500ml,0,0,no rule matched,
+2305,masque-ha-repulpe-testeur,masque ha repulpe testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2306,masque-intense-200-ml,masque intense 200ml,0,24,200ml masque,YES
+2412,,masque intense 500ml,0,0,no rule matched,
+2307,masque-intense-testeur,masque intense testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2397,masque-lissant-1000-ml,masque lissant 1000ml,0,12,1L shampoing/creme/masque,YES
+2308,masque-lissant-200-ml,masque lissant 200ml,0,24,200ml masque,YES
+2392,masque-lissant-400-ml,masque lissant 400ml,0,24,400ml masque,YES
+2309,masque-lissant-testeur,masque lissant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2310,masque-marron-noisette-testeur,masque marron noisette testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2398,masque-nourrissant-1000-ml,masque nourrissant 1000ml,0,12,1L shampoing/creme/masque,YES
+2423,,masque nourrissant 100ml,0,0,no rule matched,
+2311,masque-nourrissant-200-ml,masque nourrissant 200ml,0,24,200ml masque,YES
+2393,masque-nourrissant-400-ml,masque nourrissant 400ml,0,24,400ml masque,YES
+2312,masque-nourrissant-testeur,masque nourrissant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2313,masque-platine-testeur,masque platine testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2400,masque-protecteur-de-couleur-1000-ml,masque protecteur de couleur 1000ml,0,12,1L shampoing/creme/masque,YES
+2314,masque-protecteur-de-couleur-200-ml,masque protecteur de couleur 200ml,0,24,200ml masque,YES
+2395,masque-protecteur-de-couleur-400-ml,masque protecteur de couleur 400ml,0,24,400ml masque,YES
+2315,masque-protecteur-de-couleur-testeur,masque protecteur de couleur testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2316,masque-reparateur-sans-rincage-200-ml,masque reparateur sans rincage 200ml,0,40,200ml masque sans rinçage (famille shampoing),YES
+2317,masque-reparateur-sans-rincage-testeur,masque reparateur sans rincage testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2420,,masque réparateur sans rinçage 100ml,0,0,no rule matched,
+2399,masque-volume-1000-ml,masque volume 1000ml,0,12,1L shampoing/creme/masque,YES
+2318,masque-volume-200-ml,masque volume 200ml,0,24,200ml masque,YES
+2394,masque-volume-400-ml,masque volume 400ml,0,24,400ml masque,YES
+2319,masque-volume-testeur,masque volume testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2322,pack-barber,pack barber,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2323,pack-complet,pack complet,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2324,pack-de-revente,pack de revente,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2327,serum-barbe-50-ml,serum barbe 50ml,0,50,50ml serum/huile,YES
+2328,serum-barbe-testeur,serum barbe testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2329,serum-finition-ultime-50-ml,serum finition ultime 50ml,0,50,50ml serum/huile,YES
+2330,serum-finition-ultime-testeur,serum finition ultime testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2333,shampoing-blond-soleil-testeur,shampoing blond soleil testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2334,shampoing-blond-vanille-testeur,shampoing blond vanille testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2378,shampoing-boucles-1000-ml,shampoing boucles 1000ml,0,12,1L shampoing/creme/masque,YES
+2335,shampoing-boucles-200-ml,shampoing boucles 200ml,0,40,200ml shampoing/creme/spray,YES
+2371,shampoing-boucles-500-ml,shampoing boucles 500ml,0,23,500ml shampoing/creme,YES
+2336,shampoing-boucles-testeur,shampoing boucles testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2337,shampoing-chocolat-testeur,shampoing chocolat testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2385,shampoing-coloristeur-blond-soleil-1000-ml,shampoing coloristeur blond soleil 1000ml,0,12,1L shampoing/creme/masque,YES
+2338,shampoing-coloristeur-blond-soleil-200-ml,shampoing coloristeur blond soleil 200ml,0,40,200ml shampoing/creme/spray,YES
+2386,shampoing-coloristeur-blond-vanille-1000-ml,shampoing coloristeur blond vanille 1000ml,0,12,1L shampoing/creme/masque,YES
+2339,shampoing-coloristeur-blond-vanille-200-ml,shampoing coloristeur blond vanille 200ml,0,40,200ml shampoing/creme/spray,YES
+2387,shampoing-coloristeur-chocolat-1000-ml,shampoing coloristeur chocolat 1000ml,0,12,1L shampoing/creme/masque,YES
+2340,shampoing-coloristeur-chocolat-200-ml,shampoing coloristeur chocolat 200ml,0,40,200ml shampoing/creme/spray,YES
+2388,shampoing-coloristeur-cuivre-1000-ml,shampoing coloristeur cuivre 1000ml,0,12,1L shampoing/creme/masque,YES
+2341,shampoing-coloristeur-cuivre-200-ml,shampoing coloristeur cuivre 200ml,0,40,200ml shampoing/creme/spray,YES
+2389,shampoing-coloristeur-marron-noisette-1000-ml,shampoing coloristeur marron noisette 1000ml,0,12,1L shampoing/creme/masque,YES
+2342,shampoing-coloristeur-marron-noisette-200-ml,shampoing coloristeur marron noisette 200ml,0,40,200ml shampoing/creme/spray,YES
+2343,shampoing-cuivre-intense-testeur,shampoing cuivre intense testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2390,shampoing-dejaunisseur-platine-1000-ml,shampoing dejaunisseur platine 1000ml,0,12,1L shampoing/creme/masque,YES
+2344,shampoing-dejaunisseur-platine-200-ml,shampoing dejaunisseur platine 200ml,0,40,200ml shampoing/creme/spray,YES
+2366,shampoing-gel-douche-1000-ml,shampoing gel douche 1000ml,0,12,1L shampoing/creme/masque,YES
+2331,shampoing-gel-douche-200-ml,shampoing gel douche 200ml,0,40,200ml shampoing/creme/spray,YES
+2377,shampoing-gel-douche-500-ml,shampoing gel douche 500ml,0,23,500ml shampoing/creme,YES
+2410,,shampoing gel douche 500ml,0,23,500ml shampoing/creme,YES
+2332,shampoing-gel-douche-testeur,shampoing gel douche testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2421,,shampoing gloss 100ml,0,0,no rule matched,
+2424,,shampoing gloss 200ml,0,40,200ml shampoing/creme/spray,YES
+2379,shampoing-ha-repulpe-1000-ml,shampoing ha repulpe 1000ml,0,12,1L shampoing/creme/masque,YES
+2345,shampoing-ha-repulpe-200-ml,shampoing ha repulpe 200ml,0,40,200ml shampoing/creme/spray,YES
+2372,shampoing-ha-repulpe-500-ml,shampoing ha repulpe 500ml,0,23,500ml shampoing/creme,YES
+2346,shampoing-ha-repulpe-testeur,shampoing ha repulpe testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2380,shampoing-lissant-1000-ml,shampoing lissant 1000ml,0,12,1L shampoing/creme/masque,YES
+2347,shampoing-lissant-200-ml,shampoing lissant 200ml,0,40,200ml shampoing/creme/spray,YES
+2373,shampoing-lissant-500-ml,shampoing lissant 500ml,0,23,500ml shampoing/creme,YES
+2348,shampoing-lissant-testeur,shampoing lissant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2349,shampoing-marron-noisette-testeur,shampoing marron noisette testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2381,shampoing-nourrissant-1000-ml,shampoing nourrissant 1000ml,0,12,1L shampoing/creme/masque,YES
+2415,,shampoing nourrissant 100ml,0,0,no rule matched,
+2350,shampoing-nourrissant-200-ml,shampoing nourrissant 200ml,0,40,200ml shampoing/creme/spray,YES
+2365,shampoing-nourrissant-500-ml,shampoing nourrissant 500ml,0,23,500ml shampoing/creme,YES
+2351,shampoing-nourrissant-testeur,shampoing nourrissant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2352,shampoing-platine-testeur,shampoing platine testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2382,shampoing-protecteur-de-couleur-1000-ml,shampoing protecteur de couleur 1000ml,0,12,1L shampoing/creme/masque,YES
+2353,shampoing-protecteur-de-couleur-200-ml,shampoing protecteur de couleur 200ml,0,40,200ml shampoing/creme/spray,YES
+2374,shampoing-protecteur-de-couleur-500-ml,shampoing protecteur de couleur 500ml,0,23,500ml shampoing/creme,YES
+2354,shampoing-protecteur-de-couleur-testeur,shampoing protecteur de couleur testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2383,shampoing-purifiant-1000-ml,shampoing purifiant 1000ml,0,12,1L shampoing/creme/masque,YES
+2416,,shampoing purifiant 100ml,0,0,no rule matched,
+2355,shampoing-purifiant-200-ml,shampoing purifiant 200ml,0,40,200ml shampoing/creme/spray,YES
+2375,shampoing-purifiant-500-ml,shampoing purifiant 500ml,0,23,500ml shampoing/creme,YES
+2356,shampoing-purifiant-testeur,shampoing purifiant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2384,shampoing-volume-1000-ml,shampoing volume 1000ml,0,12,1L shampoing/creme/masque,YES
+2357,shampoing-volume-200-ml,shampoing volume 200ml,0,40,200ml shampoing/creme/spray,YES
+2408,,shampoing volume 5000ml,0,0,no rule matched,
+2376,shampoing-volume-500-ml,shampoing volume 500ml,0,23,500ml shampoing/creme,YES
+2358,shampoing-volume-testeur,shampoing volume testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
+2359,spray-texturisant-200-ml,spray texturisant 200ml,0,40,200ml shampoing/creme/spray,YES
+2360,spray-texturisant-testeur,spray texturisant testeur,0,0,exclusion: pack/coffret/testeur/duo/trio,
