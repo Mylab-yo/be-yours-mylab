@@ -629,9 +629,10 @@ def main():
     output["_source"] = BASE_URL
     output["bottles"] = new_bottles
 
-    json_content = json.dumps(output, ensure_ascii=False, indent=2)
+    # Compact JSON (no indent) — stays under Shopify's 5MB theme asset limit
+    json_content = json.dumps(output, ensure_ascii=False, separators=(",", ":"))
     BOTTLES_FILE.write_text(json_content, encoding="utf-8")
-    log.info(f"Wrote: {BOTTLES_FILE} ({len(new_bottles)} bottles)")
+    log.info(f"Wrote: {BOTTLES_FILE} ({len(new_bottles)} bottles, {len(json_content.encode())/1024/1024:.2f} MB)")
 
     # Step 7: Report CSV
     generate_report(new_bottles)
