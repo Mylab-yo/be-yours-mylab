@@ -748,50 +748,155 @@
 .bulk-summary__success h3 { font-size: 1.4rem; font-weight: 600; color: #2d7a45; margin: 1rem 0 0.5rem; }
 .bulk-summary__success p { font-size: 1.15rem; color: #555; max-width: 480px; margin: 0 auto; }
 
-@media screen and (max-width: 749px) {
-  .bulk-summary__header { flex-direction: column; text-align: center; }
-  .bulk-summary__meta { justify-content: center; }
-  .bulk-summary__field-row { grid-template-columns: 1fr; }
-  .bulk-summary__actions { flex-direction: column; }
-  .bulk-summary__btn { width: 100%; justify-content: center; }
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE-FIRST RESPONSIVE
+   - Tablette (<1000px) : 2 colonnes
+   - Mobile  (<750px)   : 1 colonne, nav full-width, tabs scroll-x
+   - Small   (<480px)   : stepper ultra-compact, summary table scroll-x
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Prevent double-tap zoom on interactive elements + smoother tap feedback */
+.bulk-order button,
+.bulk-order .bulk-card,
+.bulk-order .bulk-bottle,
+.bulk-order .bulk-chip,
+.bulk-order .bulk-format-pill,
+.bulk-order .bulk-qty-tier,
+.bulk-order .bulk-bottle__swatch {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
-/* ── RESPONSIVE ── */
+/* Tablet */
 @media screen and (min-width: 750px) and (max-width: 999px) {
   .bulk-formulas__grid { grid-template-columns: repeat(2, 1fr); }
   .bulk-bottles__content { grid-template-columns: 1fr; }
   .bulk-bottles__grid { grid-template-columns: repeat(2, 1fr); }
-  .bulk-bottles__recap { position: static; }
+  .bulk-bottles__recap { position: static; max-height: none; }
 }
+
+/* Mobile (<= 749px) */
 @media screen and (max-width: 749px) {
-  .bulk-formulas__grid { grid-template-columns: 1fr; }
+  /* Safe horizontal padding */
+  .bulk-order { padding-left: 1rem; padding-right: 1rem; padding-bottom: 100px; }
+
+  /* Stepper compact — labels hidden, circles smaller */
+  .bulk-order__stepper { margin-bottom: 1.8rem; gap: 0; }
   .bulk-stepper__label { display: none; }
-  .bulk-stepper__circle { width: 28px; height: 28px; font-size: 1.1rem; }
-  .bulk-filters__group { flex-direction: column; align-items: flex-start; }
-  .bulk-selection-bar__inner { flex-wrap: wrap; }
+  .bulk-stepper__circle { width: 32px; height: 32px; font-size: 1.05rem; }
+  .bulk-stepper__item::after { top: 16px; }
+
+  /* Titles smaller */
+  .bulk-step__title { font-size: clamp(1.8rem, 6vw, 2.4rem); }
+  .bulk-step__desc { font-size: 1.1rem; }
+
+  /* Filters : labels stacked, chips scroll-x if needed */
+  .bulk-filters__group { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+  .bulk-filters__label { font-size: 1rem; }
+  .bulk-filters__chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+  .bulk-filters__chips::-webkit-scrollbar { height: 3px; }
+  .bulk-filters__chips::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+  .bulk-chip { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Step 1 : formules 1 colonne */
+  .bulk-formulas__grid { grid-template-columns: 1fr; gap: 0.8rem; }
+  .bulk-card { padding: 1.1rem; }
+  .bulk-card__name { font-size: 1.2rem; }
+
+  /* Selection bar (fixed bottom) — compact */
+  .bulk-selection-bar { padding: 0.6rem 0; }
+  .bulk-selection-bar__inner { padding: 0 1rem; gap: 0.8rem; }
+  .bulk-selection-bar__count { font-size: 1.4rem; }
+  .bulk-selection-bar__label { font-size: 0.95rem; }
   .bulk-selection-bar__chips { display: none; }
-  .bulk-order { padding-bottom: 90px; }
-  .bulk-step__title { font-size: clamp(2rem, 7vw, 2.8rem); }
-  .bulk-format__takemoto-inner { flex-direction: column; text-align: center; }
-  .bulk-format__takemoto-btns { width: 100%; justify-content: center; }
-  .bulk-format-pill { padding: 0.6rem 1rem; font-size: 1.1rem; }
-  .bulk-bottles__content { grid-template-columns: 1fr; }
-  .bulk-bottles__grid { grid-template-columns: 1fr; }
+  #bulk-formulas-next { min-height: 44px; padding: 0.6rem 1rem; font-size: 1rem; white-space: nowrap; }
+
+  /* Step 2 : format pills wrap correctly */
+  .bulk-format-row { padding: 1.1rem; }
+  .bulk-format-row__formats { gap: 0.5rem; }
+  .bulk-format-pill { padding: 0.65rem 1rem; font-size: 1.05rem; min-height: 44px; flex: 1 1 auto; justify-content: center; }
+  .bulk-format__takemoto-inner { flex-direction: column; text-align: center; gap: 0.8rem; }
+  .bulk-format__takemoto-btns { width: 100%; justify-content: center; flex-direction: column; }
+  .bulk-format__takemoto-btns button { width: 100%; min-height: 44px; }
+
+  /* Step 3 : tabs horizontal scroll, grid 1 col, recap en bas */
+  .bulk-bottles__tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.5rem;
+  }
+  .bulk-bottles__tab { flex-shrink: 0; scroll-snap-align: start; }
+  .bulk-bottles__content { grid-template-columns: 1fr; gap: 1rem; }
+  .bulk-bottles__grid { grid-template-columns: 1fr; gap: 0.8rem; }
   .bulk-bottle { min-width: unset; }
-  .bulk-bottles__recap { position: static; }
-  .bulk-order__nav { flex-direction: column-reverse; }
-  .bulk-order__btn { width: 100%; justify-content: center; }
-  .bulk-qty-input { width: 100%; max-width: 200px; }
+  .bulk-bottle__img { min-height: 180px; }
+  .bulk-bottles__recap { position: static; max-height: none; }
+  .bulk-bottles__eco-toggle { min-height: 44px; padding: 0.4rem 0; }
+
+  /* Step 4 : quantity, tier buttons + tables scrollable */
+  .bulk-qty-block { padding: 1.2rem; }
+  .bulk-qty-tiers { gap: 0.5rem; }
+  .bulk-qty-tier { flex: 1 1 auto; padding: 0.7rem 0.9rem; font-size: 1rem; min-height: 44px; justify-content: center; }
+  .bulk-qty-input { width: 100%; max-width: 100%; }
   .bulk-qty-input-row label { min-width: unset; width: 100%; }
+  .bulk-qty-input-row { flex-direction: column; align-items: stretch; gap: 0.4rem; }
+  .bulk-qty-table { font-size: 0.95rem; min-width: 520px; }
+  .bulk-qty-table th, .bulk-qty-table td { padding: 0.5rem 0.4rem; }
+  .bulk-quantity__grand-total { padding: 1.1rem 1.2rem; }
+  .bulk-quantity__grand-total-value { font-size: 1.6rem; }
+
+  /* Step 5 : summary — form 1 col, table scroll-x */
+  .bulk-summary__header { flex-direction: column; text-align: center; gap: 0.6rem; }
+  .bulk-summary__meta { justify-content: center; font-size: 0.95rem; gap: 0.8rem; }
+  .bulk-summary__table { font-size: 0.95rem; min-width: 580px; }
+  .bulk-summary__field-row { grid-template-columns: 1fr; }
+  .bulk-summary__form-wrap { padding: 1.2rem; }
+  .bulk-summary__actions { flex-direction: column; }
+  .bulk-summary__btn { width: 100%; max-width: none; padding: 0.9rem 1.2rem; }
+
+  /* Navigation Précédent / Suivant — pile verticalement, Suivant en premier */
+  .bulk-order__nav { flex-direction: column-reverse; gap: 0.6rem; }
+  .bulk-order__btn { width: 100%; justify-content: center; min-height: 48px; }
+
+  /* Modal zoom — close/nav dans le viewport */
+  .bulk-modal__content { max-width: 96vw; }
+  .bulk-modal__img { max-width: 96vw; max-height: 75vh; }
+  .bulk-modal__close { top: -6px; right: 4px; }
   .bulk-modal__nav--prev { left: 4px; }
   .bulk-modal__nav--next { right: 4px; }
-  .bulk-modal__close { top: -8px; right: 4px; }
-  .bulk-bottles__eco-toggle { min-height: 44px; }
-  .bulk-summary__header { flex-direction: column; text-align: center; }
-  .bulk-summary__meta { justify-content: center; }
-  .bulk-summary__field-row { grid-template-columns: 1fr; }
-  .bulk-summary__actions { flex-direction: column; }
-  .bulk-summary__btn { width: 100%; justify-content: center; }
+}
+
+/* Very small phones (< 480px) — extra compaction */
+@media screen and (max-width: 479px) {
+  .bulk-order { padding-left: 0.8rem; padding-right: 0.8rem; }
+  .bulk-stepper__circle { width: 28px; height: 28px; font-size: 0.95rem; }
+  .bulk-stepper__item::after { top: 14px; }
+  .bulk-step__title { font-size: 1.7rem; }
+  .bulk-card { padding: 0.9rem; gap: 0.5rem; }
+  .bulk-card__visual { height: 40px; }
+  .bulk-card__product-img { width: 40px; height: 40px; }
+  .bulk-card__name { font-size: 1.1rem; }
+  .bulk-card__actifs { gap: 0.3rem; }
+  .bulk-card__actif-tag { font-size: 0.85rem; padding: 0.1rem 0.45rem; }
+  .bulk-chip { padding: 0.4rem 0.8rem; font-size: 0.95rem; }
+  .bulk-selection-bar__count { font-size: 1.2rem; }
+  #bulk-formulas-next { padding: 0.55rem 0.9rem; font-size: 0.95rem; }
+  .bulk-format-pill { font-size: 1rem; padding: 0.6rem 0.8rem; }
+  .bulk-bottles__tab { font-size: 1rem; padding: 0.55rem 0.9rem; }
+  .bulk-bottle__body { padding: 0.9rem 1rem; }
+  .bulk-bottle__img { min-height: 160px; padding: 6px; }
+  .bulk-bottle__img img { max-height: 150px; }
+  .bulk-qty-block__label { font-size: 1.1rem; }
+  .bulk-quantity__grand-total-value { font-size: 1.4rem; }
+  .bulk-summary__brand { font-size: 1.6rem; }
 }
 
 /* ── BOTTLES PAGINATION ── */
