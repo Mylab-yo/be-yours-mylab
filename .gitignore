@@ -31,4 +31,4 @@ api/n8n-devis-gros-volumes.json
 scripts/.sync_takemoto_checkpoint.json
 scripts/sync_takemoto.log
 scripts/sync_takemoto_report.csv
-scripts/__pycache__/
+__pycache__/
