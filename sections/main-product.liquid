@@ -686,6 +686,18 @@
               <noscript>
                 <p class="ml-volume-note">Prix de base&nbsp;: <strong>{{ product.price | money }} HT</strong>. Les tarifs dégressifs s'affichent avec JavaScript activé. <a href="/pages/contact">Demander la grille tarifaire par email →</a></p>
               </noscript>
+              {%- comment -%} SEO/LLM-readable fallback: indicative tier pricing (hidden visually, present in DOM) {%- endcomment -%}
+              <div class="ml-volume-seo-fallback" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;">
+                <p>Tarifs dégressifs indicatifs MY.LAB pour {{ product.title }} (prix HT par unité)&nbsp;:</p>
+                <ul>
+                  <li>À partir de 6 unités&nbsp;: 7,00 € HT par unité</li>
+                  <li>À partir de 12 unités&nbsp;: 6,65 € HT par unité (–5 %)</li>
+                  <li>À partir de 24 unités&nbsp;: 6,30 € HT par unité (–10 %)</li>
+                  <li>À partir de 48 unités&nbsp;: 5,60 € HT par unité (–20 %)</li>
+                  <li>À partir de 96 unités&nbsp;: 5,00 € HT par unité (–29 %)</li>
+                </ul>
+                <p>Tarifs indicatifs pour une contenance 200 ml. Les prix exacts dépendent de la contenance (200/500/1000 ml) et de la gamme. Pour la grille tarifaire complète et les commandes gros volume (≥ 50 kg), contactez <a href="{{ shop.url }}/pages/contact">notre équipe commerciale</a>.</p>
+              </div>
             </div>
             <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
           {%- when 'mylab_pricing' -%}
@@ -1363,7 +1375,58 @@
 -%}
 
 <script type="application/ld+json">
-  {{ product | structured_data }}
+  {%- assign product_image = product.featured_image | default: product.media.first -%}
+  {%- assign product_variant = product.selected_or_first_available_variant -%}
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "{{ shop.url }}{{ product.url }}#product",
+  "name": {{ product.title | json }},
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  {%- if product_image -%}
+  "image": [
+    {%- for media in product.media limit: 4 -%}
+      {{ media | image_url: width: 1200 | prepend: 'https:' | json }}{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  {%- endif -%}
+  "sku": {{ product_variant.sku | default: product.id | json }},
+  "brand": {
+    "@type": "Brand",
+    "name": "MY.LAB",
+    "url": "{{ shop.url }}"
+  },
+  "category": {{ product.type | default: 'Cosmétique capillaire' | json }},
+  "url": "{{ shop.url }}{{ product.url }}",
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "priceCurrency": "EUR",
+    "price": {{ product_variant.price | money_without_currency | replace: ',', '.' | replace: ' ', '' | json }},
+    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
+    "availability": "{% if product_variant.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "itemCondition": "https://schema.org/NewCondition",
+    "seller": { "@id": "{{ shop.url }}/#localbusiness" },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "FR",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/ReturnShippingFees"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": { "@type": "MonetaryAmount", "value": "9.90", "currency": "EUR" },
+      "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "FR" },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" },
+        "transitTime": { "@type": "QuantitativeValue", "minValue": 2, "maxValue": 5, "unitCode": "DAY" }
+      }
+    }
+  }
+}
 </script>
 </product-info>
 {% schema %}

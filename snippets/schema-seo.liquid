@@ -17,11 +17,27 @@
   "@context": "https://schema.org",
   "@type": "HealthAndBeautyBusiness",
   "@id": "{{ shop.url }}/#localbusiness",
-  "name": "MY.LAB — Laboratoire Cosmetique",
-  "description": "Laboratoire francais de produits capillaires en marque blanche pour professionnels de la coiffure.",
+  "name": "MY.LAB — Laboratoire Cosmétique Capillaire",
+  "legalName": "STARTEC",
+  "description": "Laboratoire français coordonnant la fabrication de produits capillaires en marque blanche pour professionnels de la coiffure. Formules 96 % d'origine naturelle, conformes au règlement CE 1223/2009, dès 6 unités par référence.",
   "url": "{{ shop.url }}",
   "telephone": "+33485693347",
   "email": "contact@mylab-shop.com",
+  "foundingDate": "2017",
+  "knowsAbout": [
+    "Cosmétique capillaire",
+    "Marque blanche",
+    "Formulation cosmétique",
+    "CPNP",
+    "Règlement CE 1223/2009",
+    "Dossier cosmétologique",
+    "ISO 16128"
+  ],
+  "identifier": [
+    { "@type": "PropertyValue", "propertyID": "SIRET", "value": "49950066800060" },
+    { "@type": "PropertyValue", "propertyID": "RCS", "value": "Avignon 499 500 668" }
+  ],
+  "vatID": "FR38499500668",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "231 Avenue de la Voguette",
@@ -51,12 +67,19 @@
     }
   ],
   "image": "{{ 'logo-mylab.png' | asset_url | prepend: 'https:' }}",
-  "priceRange": "$$",
   "currenciesAccepted": "EUR",
   "paymentAccepted": "Carte bancaire, Virement",
   "areaServed": {
     "@type": "Country",
     "name": "France"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+33485693347",
+    "email": "contact@mylab-shop.com",
+    "contactType": "sales",
+    "areaServed": "FR",
+    "availableLanguage": ["French"]
   }
   {%- comment -%} Build sameAs array safely {%- endcomment -%}
   {%- assign ml_social_links = '' -%}
