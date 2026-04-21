@@ -684,7 +684,7 @@
             {{ 'ml-volume-pricing.css' | asset_url | stylesheet_tag }}
             <div class="ml-volume-table-wrapper" data-ml-volume-pricing {{ block.shopify_attributes }}>
               <noscript>
-                <p class="ml-volume-note">Activez JavaScript pour voir les tarifs dégressifs.</p>
+                <p class="ml-volume-note">Prix de base&nbsp;: <strong>{{ product.price | money }} HT</strong>. Les tarifs dégressifs s'affichent avec JavaScript activé. <a href="/pages/contact">Demander la grille tarifaire par email →</a></p>
               </noscript>
             </div>
             <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
@@ -803,7 +803,7 @@
                 </table>
               </div>
 
-              <noscript><p style="font-size:1.2rem;color:#999;margin-top:12px;">Activez JavaScript pour voir les tarifs dégressifs.</p></noscript>
+              <noscript><p style="font-size:1.2rem;color:#555;margin-top:12px;">Prix de base&nbsp;: <strong>{{ product.price | money }} HT</strong>. Les tarifs dégressifs s'affichent avec JavaScript activé. <a href="/pages/contact" style="color:#c5a467;">Demander la grille tarifaire →</a></p></noscript>
             </div>
 
             {%- comment -%} ====== FORMULAIRE NATIF (fallback pour produits sans paliers) ====== {%- endcomment -%}
