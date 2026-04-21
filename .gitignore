@@ -35,3 +35,4 @@ __pycache__/
 
 # Audit fix debug snapshots (temporary inspection files)
 scripts/audit_fixes/live_*.json
+scripts/audit_fixes/*.html

@@ -52,10 +52,37 @@
             "enable_highlight": false,
             "highlight_style": "solid-color"
           }
+        },
+        "slide_gros_volume": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/photo-bouteille-home-scaled.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/photo-bouteille-home-scaled.jpg",
+            "image_position": "center center",
+            "text_box_position": "middle-right",
+            "subheading": "COMMANDES GROS VOLUME",
+            "subheading_size": "h5",
+            "heading": "Lancez votre <strong>production en série<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "text": "Dès 50 kg par référence. Packaging Takemoto, tarifs dégressifs, devis sous 72h.",
+            "text_size": "typeset2",
+            "button_label": "Configurer ma commande",
+            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "Parler à un conseiller",
+            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
         }
       },
       "block_order": [
         "slide_main",
+        "slide_gros_volume",
         "slide_formules"
       ],
       "settings": {
@@ -235,7 +262,7 @@
         "g_labo": {
           "type": "guarantee",
           "settings": {
-            "icon": "flask",
+            "icon": "shop",
             "icon_size": "medium",
             "custom_icon": "",
             "title": "Laboratoire marque blanche",
@@ -315,134 +342,6 @@
         "highlight_style": "solid-color"
       }
     },
-    "best_sellers": {
-      "type": "tabbed-featured-collections",
-      "blocks": {
-        "col_best": {
-          "type": "collection",
-          "settings": {
-            "tab_label": "NOS BEST SELLERS",
-            "collection": "best-sellers"
-          }
-        }
-      },
-      "block_order": [
-        "col_best"
-      ],
-      "settings": {
-        "products_to_show": 4,
-        "horizontal_scroll": false,
-        "show_view_all": true,
-        "show_divider": false,
-        "enable_drag": false,
-        "heading": "Nos <strong>formules<\/strong>",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "heading_tag": "h2",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "image_ratio": "portrait",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "show_quick_buy": true,
-        "enable_quick_view": true,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "colors_highlight": "#c5a467",
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "enable_highlight": true,
-        "highlight_style": "solid-color"
-      }
-    },
-    "dual_scroll_products": {
-      "type": "dual-scroll",
-      "blocks": {
-        "slide_shampooing": {
-          "type": "slide",
-          "settings": {
-            "title": "Shampooings",
-            "heading_size": "h1",
-            "description": "<p>Des formules nettoyantes douces et efficaces, adaptées à chaque type de cheveu. Sans sulfates, sans silicones — vos cheveux retrouvent leur éclat naturel.<\/p>",
-            "text_size": "typeset2",
-            "secondary_color": false,
-            "enable_highlight": false,
-            "highlight_style": "marker",
-            "highlight_color": "#c5a467",
-            "button_label": "Découvrir",
-            "button_size": "medium",
-            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
-            "image": "shopify:\/\/shop_images\/huile-goutte.jpg",
-            "media_background_color": "#f5f0eb"
-          }
-        },
-        "slide_apres": {
-          "type": "slide",
-          "settings": {
-            "title": "Après-shampooings",
-            "heading_size": "h1",
-            "description": "<p>Des soins démêlants et nourrissants qui complètent le rituel capillaire. Texture légère, résultat professionnel.<\/p>",
-            "text_size": "typeset2",
-            "secondary_color": false,
-            "enable_highlight": false,
-            "highlight_style": "marker",
-            "highlight_color": "#c5a467",
-            "button_label": "Découvrir",
-            "button_size": "medium",
-            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
-            "media_background_color": "#1a1a1a"
-          }
-        },
-        "slide_masques": {
-          "type": "slide",
-          "settings": {
-            "title": "Masques & Soins",
-            "heading_size": "h1",
-            "description": "<p>Des traitements intensifs pour réparer, hydrater et sublimer. Idéals pour offrir à vos clients des résultats salon.<\/p>",
-            "text_size": "typeset2",
-            "secondary_color": false,
-            "enable_highlight": false,
-            "highlight_style": "marker",
-            "highlight_color": "#c5a467",
-            "button_label": "Découvrir",
-            "button_size": "medium",
-            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
-            "media_background_color": "#c5a467"
-          }
-        }
-      },
-      "block_order": [
-        "slide_shampooing",
-        "slide_apres",
-        "slide_masques"
-      ],
-      "settings": {
-        "heading": "Nos <em>gammes<\/em> capillaires",
-        "heading_size": "h1",
-        "heading_tag": "h2",
-        "heading_alignment": "center",
-        "enable_highlight": true,
-        "highlight_style": "solid-color",
-        "narrow": true,
-        "padding_top": 40,
-        "padding_bottom": 0,
-        "heading_color": "#1a1a1a",
-        "text_color": "#f3f3f3",
-        "description_color": "#d2d5d9",
-        "panel_background_color": "#1a1a1a",
-        "border_color": "#1a1a1a",
-        "button_background_color": "#c5a467",
-        "button_text_color": "#ffffff",
-        "highlight_color": "#c5a467",
-        "transition_type": "scroll",
-        "media_rotation": 0,
-        "media_scale": 82,
-        "enable_media_shadow": false
-      }
-    },
     "brand_story": {
       "type": "image-with-text",
       "blocks": {
@@ -496,6 +395,7 @@
         "button"
       ],
       "settings": {
+        "image": "shopify:\/\/shop_images\/C9192EEC-8C75-4D77-BED5-619AF0A1ADCD_1_105_c.jpg",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -529,8 +429,11 @@
           "settings": {
             "date": "ÉTAPE 01",
             "text": "<p><strong>Essayez nos produits<\/strong><\/p><p>Découvrez et testez nos formules capillaires via la boutique en ligne. Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.<\/p>",
+            "image_alt": "",
+            "source_link": "shopify:\/\/pages\/la-boutique-my-lab",
             "source_text": "Voir la boutique",
-            "source_link": "shopify:\/\/pages\/la-boutique-my-lab"
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "step_2": {
@@ -538,7 +441,11 @@
           "settings": {
             "date": "ÉTAPE 02",
             "text": "<p><strong>Dossier cosmétologique<\/strong><\/p><p>Notre équipe enregistre votre compte, dépose votre marque sur le CPNP et crée vos codes-barres pour une mise en conformité totale.<\/p>",
-            "source_text": ""
+            "image_alt": "",
+            "source_link": "",
+            "source_text": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "step_3": {
@@ -546,7 +453,11 @@
           "settings": {
             "date": "ÉTAPE 03",
             "text": "<p><strong>Personnalisez votre étiquette<\/strong><\/p><p>3 options : le design MY.LAB gratuit, nos modèles personnalisables, ou une création sur mesure unique à votre image.<\/p>",
-            "source_text": ""
+            "image_alt": "",
+            "source_link": "",
+            "source_text": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "step_4": {
@@ -554,7 +465,11 @@
           "settings": {
             "date": "ÉTAPE 04",
             "text": "<p><strong>Commandez en autonomie<\/strong><\/p><p>Accédez à la boutique professionnelle et constituez votre gamme à partir de 6 unités par référence. Simple, rapide et efficace.<\/p>",
-            "source_text": ""
+            "image_alt": "",
+            "source_link": "",
+            "source_text": "",
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         }
       },
@@ -592,9 +507,13 @@
             "title_size": "h3",
             "text": "<p>Impression en noir de votre logo sur notre modèle standard.<\/p><p><strong>SANS FRAIS SUPPLÉMENTAIRES<\/strong><\/p>",
             "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
             "button_label": "",
             "button_link": "",
-            "button_style_secondary": false
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "opt_2": {
@@ -607,9 +526,13 @@
             "title_size": "h3",
             "text": "<p>Choisissez parmi nos modèles d'étiquette et personnalisez-les avec vos couleurs et votre logo.<\/p>",
             "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
             "button_label": "",
             "button_link": "",
-            "button_style_secondary": true
+            "button_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
         "opt_3": {
@@ -622,9 +545,13 @@
             "title_size": "h3",
             "text": "<p>Création sur mesure de votre étiquette personnalisée. Donnez vie à votre vision.<\/p>",
             "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
             "button_label": "Nous contacter",
             "button_link": "shopify:\/\/pages\/contact",
-            "button_style_secondary": false
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         }
       },
@@ -635,74 +562,23 @@
       ],
       "settings": {
         "image_ratio": "adapt",
+        "image_position": "center center",
         "text_alignment": "center",
+        "show_divider": false,
         "image_width": "full",
         "columns_desktop": 3,
+        "open_in_new_tab": false,
         "heading": "Personnalisez votre <strong>étiquette<\/strong>",
         "heading_size": "h1",
         "heading_alignment": "center",
         "heading_tag": "h2",
+        "mobile_text_alignment": "left",
         "columns_mobile": "1",
         "swipe_on_mobile": true,
         "colors_highlight": "#c5a467",
         "padding_top": 40,
         "padding_bottom": 40,
         "card_border_radius": 12,
-        "enable_highlight": true,
-        "highlight_style": "solid-color"
-      }
-    },
-    "testimonials_section": {
-      "type": "testimonials",
-      "blocks": {
-        "t_aurelien": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5",
-            "text": "<p>Créateur de Bonhomme Paris, il commercialise ses produits dans ses 7 salons. Une marque masculine forte, portée par des formules MY.LAB de qualité professionnelle.<\/p>",
-            "author": "Aurélien — Fondateur de Bonhomme Paris",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "t_amandine": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5",
-            "text": "<p>Gérante de son salon de coiffure à Cannes, elle a développé sa marque depuis 2 ans. Une réussite qui montre qu'avec MY.LAB, créer sa propre gamme capillaire est accessible à tous les professionnels.<\/p>",
-            "author": "Amandine — Salon de Coiffure, Cannes",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "t_minh": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5",
-            "text": "<p>Minh travaille tous les jours avec ses propres produits MY.LAB, et il en est absolument ravi. Une collaboration au quotidien qui prouve la qualité de nos formules professionnelles.<\/p>",
-            "author": "Minh — Professionnel des Cheveux, Paris",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        }
-      },
-      "block_order": [
-        "t_aurelien",
-        "t_amandine",
-        "t_minh"
-      ],
-      "settings": {
-        "autorotate": true,
-        "autorotate_speed": 7,
-        "hide_images": true,
-        "show_divider": false,
-        "heading": "Ce que disent nos <strong>clients<\/strong>",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "heading_tag": "h2",
-        "colors_highlight": "#c5a467",
-        "padding_top": 40,
-        "padding_bottom": 40,
         "enable_highlight": true,
         "highlight_style": "solid-color"
       }
@@ -760,6 +636,7 @@
         "button"
       ],
       "settings": {
+        "image": "shopify:\/\/shop_images\/conseiller-t-l-phone.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -783,6 +660,61 @@
         "colors_highlight": "#c5a467",
         "padding_top": 60,
         "padding_bottom": 60
+      }
+    },
+    "testimonials_section": {
+      "type": "testimonials",
+      "blocks": {
+        "t_aurelien": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>Créateur de Bonhomme Paris, il commercialise ses produits dans ses 7 salons. Une marque masculine forte, portée par des formules MY.LAB de qualité professionnelle.<\/p>",
+            "author": "Aurélien — Fondateur de Bonhomme Paris",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "t_amandine": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>Gérante de son salon de coiffure à Cannes, elle a développé sa marque depuis 2 ans. Une réussite qui montre qu'avec MY.LAB, créer sa propre gamme capillaire est accessible à tous les professionnels.<\/p>",
+            "author": "Amandine — Salon de Coiffure, Cannes",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "t_minh": {
+          "type": "testimonial",
+          "settings": {
+            "icon": "5",
+            "text": "<p>Minh travaille tous les jours avec ses propres produits MY.LAB, et il en est absolument ravi. Une collaboration au quotidien qui prouve la qualité de nos formules professionnelles.<\/p>",
+            "author": "Minh — Professionnel des Cheveux, Paris",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "t_aurelien",
+        "t_amandine",
+        "t_minh"
+      ],
+      "settings": {
+        "autorotate": true,
+        "autorotate_speed": 7,
+        "hide_images": true,
+        "show_divider": false,
+        "heading": "Ce que disent nos <strong>clients<\/strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
       }
     },
     "temoignages_video": {
@@ -953,7 +885,9 @@
         "paragraph",
         "email"
       ],
+      "disabled": true,
       "settings": {
+        "return_url": "",
         "text_alignment": "center",
         "mobile_text_alignment": "center",
         "full_width": false,
@@ -973,8 +907,6 @@
     "scrolling_values",
     "intro_text",
     "guarantees_section",
-    "best_sellers",
-    "dual_scroll_products",
     "brand_story",
     "etapes_timeline",
     "etiquettes_section",
