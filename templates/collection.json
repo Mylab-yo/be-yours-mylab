@@ -86,62 +86,13 @@
           "padding_top": 60,
           "padding_bottom": 36
         }
-      },
-      "1653715735c2bf2595": {
-        "type": "multicolumn",
-        "blocks": {
-          "165371573547ea2014-0": {
-            "type": "column",
-            "settings": {
-              "image": "",
-              "title": "Follow Us On Instagram",
-              "title_size": "h2",
-              "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-              "button_label": "Follow Us",
-              "button_link": "https://www.instagram.com/",
-              "button_style_secondary": false
-            }
-          },
-          "165371573547ea2014-1": {
-            "type": "column",
-            "settings": {
-              "image": "",
-              "title": "From Our Blog",
-              "title_size": "h2",
-              "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-              "button_label": "Read More",
-              "button_link": "",
-              "button_style_secondary": false
-            }
-          }
-        },
-        "block_order": [
-          "165371573547ea2014-0",
-          "165371573547ea2014-1"
-        ],
-        "settings": {
-          "image_ratio": "wide",
-          "image_position": "center center",
-          "text_alignment": "center",
-          "show_divider": false,
-          "heading": "More to Discover",
-          "heading_size": "h1",
-          "heading_alignment": "left",
-          "heading_tag": "h2",
-          "mobile_text_alignment": "center",
-          "columns_mobile": "1",
-          "swipe_on_mobile": false,
-          "padding_top": 36,
-          "padding_bottom": 72
-        }
       }
     },
     "order": [
       "banner",
       "subs",
       "product-grid",
-      "recently-viewed",
-      "1653715735c2bf2595"
+      "recently-viewed"
     ]
   }
   

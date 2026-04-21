@@ -401,10 +401,11 @@
             {%- if block_product.available -%}
               <button type="button" class="ml-etiq__model-btn" data-variant-id="{{ block_product.selected_or_first_available_variant.id }}" onclick="mlAddLabel(this)">Ajouter au panier</button>
             {%- else -%}
-              <div style="font-size:1.1rem;color:#888;padding:0.7rem 0;">Indisponible</div>
+              <a href="/pages/contact?sujet=etiquette-{{ block.settings.name | handle }}" class="ml-etiq__model-btn" style="display:inline-block;text-decoration:none;text-align:center;">Nous contacter</a>
             {%- endif -%}
           {%- else -%}
-            <div style="font-size:1.1rem;color:#888;padding:0.7rem 0;">Bientôt disponible</div>
+            <div class="ml-etiq__model-price" style="font-size:1rem;color:#666;">Sur devis — 99 € HT</div>
+            <a href="/pages/contact?sujet=etiquette-{{ block.settings.name | handle }}" class="ml-etiq__model-btn" style="display:inline-block;text-decoration:none;text-align:center;">Demander ce modèle</a>
           {%- endif -%}
         </div>
       </div>

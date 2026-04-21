@@ -6,8 +6,8 @@
         "slide_main": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
-            "image_mobile": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
+            "image": "shopify:\/\/shop_images\/huile-goutte.jpg",
+            "image_mobile": "shopify:\/\/shop_images\/huile-goutte.jpg",
             "image_position": "center center",
             "text_box_position": "middle-left",
             "subheading": "COSMÉTIQUES CAPILLAIRES B2B",
@@ -54,7 +54,10 @@
           }
         }
       },
-      "block_order": ["slide_main", "slide_formules"],
+      "block_order": [
+        "slide_main",
+        "slide_formules"
+      ],
       "settings": {
         "slideshow_type": "legacy",
         "text_alignment": "left",
@@ -149,7 +152,14 @@
           }
         }
       },
-      "block_order": ["val_1", "val_2", "val_3", "val_4", "val_5", "val_6"],
+      "block_order": [
+        "val_1",
+        "val_2",
+        "val_3",
+        "val_4",
+        "val_5",
+        "val_6"
+      ],
       "settings": {
         "direction": "left",
         "speed": 1.2,
@@ -197,7 +207,11 @@
           }
         }
       },
-      "block_order": ["subheading", "heading", "text"],
+      "block_order": [
+        "subheading",
+        "heading",
+        "text"
+      ],
       "settings": {
         "text_alignment": "center",
         "mobile_text_alignment": "center",
@@ -271,7 +285,12 @@
           }
         }
       },
-      "block_order": ["g_labo", "g_france", "g_experience", "g_naturel"],
+      "block_order": [
+        "g_labo",
+        "g_france",
+        "g_experience",
+        "g_naturel"
+      ],
       "settings": {
         "layout": "default",
         "column_alignment": "center",
@@ -307,7 +326,9 @@
           }
         }
       },
-      "block_order": ["col_best"],
+      "block_order": [
+        "col_best"
+      ],
       "settings": {
         "products_to_show": 4,
         "horizontal_scroll": false,
@@ -354,7 +375,7 @@
             "button_label": "Découvrir",
             "button_size": "medium",
             "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
-            "image": "shopify:\/\/shop_images\/shampoing-dejaunisseur-home.png",
+            "image": "shopify:\/\/shop_images\/huile-goutte.jpg",
             "media_background_color": "#f5f0eb"
           }
         },
@@ -393,7 +414,11 @@
           }
         }
       },
-      "block_order": ["slide_shampooing", "slide_apres", "slide_masques"],
+      "block_order": [
+        "slide_shampooing",
+        "slide_apres",
+        "slide_masques"
+      ],
       "settings": {
         "heading": "Nos <em>gammes<\/em> capillaires",
         "heading_size": "h1",
@@ -464,7 +489,12 @@
           }
         }
       },
-      "block_order": ["sub", "heading", "text", "button"],
+      "block_order": [
+        "sub",
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "image_position": "center center",
         "layout": "image_first",
@@ -528,7 +558,12 @@
           }
         }
       },
-      "block_order": ["step_1", "step_2", "step_3", "step_4"],
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
       "settings": {
         "section_height": "500",
         "animation_speed": 800,
@@ -593,7 +628,11 @@
           }
         }
       },
-      "block_order": ["opt_1", "opt_2", "opt_3"],
+      "block_order": [
+        "opt_1",
+        "opt_2",
+        "opt_3"
+      ],
       "settings": {
         "image_ratio": "adapt",
         "text_alignment": "center",
@@ -616,48 +655,42 @@
     "testimonials_section": {
       "type": "testimonials",
       "blocks": {
-        "t_1": {
+        "t_aurelien": {
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>\"MY.LAB m'a permis de lancer ma marque capillaire en quelques semaines. L'accompagnement est top et les formules sont exceptionnelles. Mes clientes adorent !\"<\/p>",
-            "author": "Sophie M. — Fondatrice de marque",
+            "text": "<p>Créateur de Bonhomme Paris, il commercialise ses produits dans ses 7 salons. Une marque masculine forte, portée par des formules MY.LAB de qualité professionnelle.<\/p>",
+            "author": "Aurélien — Fondateur de Bonhomme Paris",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "t_2": {
+        "t_amandine": {
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>\"Les produits sont d'une qualité professionnelle remarquable. Le fait de pouvoir commander dès 6 unités m'a permis de tester le marché sans prendre de risque.\"<\/p>",
-            "author": "Marc D. — Entrepreneur coiffure",
+            "text": "<p>Gérante de son salon de coiffure à Cannes, elle a développé sa marque depuis 2 ans. Une réussite qui montre qu'avec MY.LAB, créer sa propre gamme capillaire est accessible à tous les professionnels.<\/p>",
+            "author": "Amandine — Salon de Coiffure, Cannes",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         },
-        "t_3": {
+        "t_minh": {
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>\"Le processus est simple et bien encadré. Du dossier réglementaire à la personnalisation des étiquettes, tout est fluide. Je recommande vivement.\"<\/p>",
-            "author": "Aminata K. — Créatrice de gamme capillaire",
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "t_4": {
-          "type": "testimonial",
-          "settings": {
-            "icon": "5",
-            "text": "<p>\"J'ai été impressionné par la qualité des shampoings repigmentants. Mes clients voient la différence dès la première utilisation.\"<\/p>",
-            "author": "Thomas R. — Salon de coiffure",
+            "text": "<p>Minh travaille tous les jours avec ses propres produits MY.LAB, et il en est absolument ravi. Une collaboration au quotidien qui prouve la qualité de nos formules professionnelles.<\/p>",
+            "author": "Minh — Professionnel des Cheveux, Paris",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
         }
       },
-      "block_order": ["t_1", "t_2", "t_3", "t_4"],
+      "block_order": [
+        "t_aurelien",
+        "t_amandine",
+        "t_minh"
+      ],
       "settings": {
         "autorotate": true,
         "autorotate_speed": 7,
@@ -720,7 +753,12 @@
           }
         }
       },
-      "block_order": ["sub", "heading", "text", "button"],
+      "block_order": [
+        "sub",
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "image_position": "center center",
         "layout": "text_first",
@@ -793,7 +831,12 @@
           }
         }
       },
-      "block_order": ["tv_sub", "tv_heading", "tv_text", "tv_button"],
+      "block_order": [
+        "tv_sub",
+        "tv_heading",
+        "tv_text",
+        "tv_button"
+      ],
       "settings": {
         "text_alignment": "center",
         "mobile_text_alignment": "center",
@@ -857,7 +900,12 @@
           }
         }
       },
-      "block_order": ["sub", "heading", "text", "button"],
+      "block_order": [
+        "sub",
+        "heading",
+        "text",
+        "button"
+      ],
       "settings": {
         "text_alignment": "center",
         "mobile_text_alignment": "center",
@@ -900,7 +948,11 @@
           "settings": {}
         }
       },
-      "block_order": ["heading", "paragraph", "email"],
+      "block_order": [
+        "heading",
+        "paragraph",
+        "email"
+      ],
       "settings": {
         "text_alignment": "center",
         "mobile_text_alignment": "center",

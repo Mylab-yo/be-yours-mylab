@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": false,
+      "settings": {
+        "narrow": true,
+        "padding_top": 60,
+        "padding_bottom": 72
+      }
+    },
+    "ml_profit_calculator_8VmpgH": {
+      "type": "ml-profit-calculator",
+      "blocks": {
+        "product_UKWQmV": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "label": "Shampoing Nourrissant",
+            "volume": "200 ml",
+            "retail_price": 15,
+            "tiers_json": "[{\"qty\":6,\"price\":700},{\"qty\":12,\"price\":665},{\"qty\":24,\"price\":630},{\"qty\":48,\"price\":560},{\"qty\":96,\"price\":500}]",
+            "max_qty": 250
+          }
+        },
+        "product_j7dzUt": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "label": "Shampoing Nourrissant",
+            "volume": "500 ml",
+            "retail_price": 28,
+            "tiers_json": "[{\"qty\":6,\"price\":1490},{\"qty\":14,\"price\":1340},{\"qty\":28,\"price\":1265},{\"qty\":42,\"price\":1190},{\"qty\":54,\"price\":1065}]",
+            "max_qty": 125
+          }
+        },
+        "product_6QUbkT": {
+          "type": "product",
+          "settings": {
+            "product": "",
+            "label": "Shampoing Nourrissant",
+            "volume": "1000 ml",
+            "retail_price": 45,
+            "tiers_json": "[{\"qty\":1,\"price\":2490},{\"qty\":3,\"price\":2365},{\"qty\":6,\"price\":2100},{\"qty\":9,\"price\":1990},{\"qty\":12,\"price\":1865}]",
+            "max_qty": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_UKWQmV",
+        "product_j7dzUt",
+        "product_6QUbkT"
+      ],
+      "name": "Calculateur de profit",
+      "settings": {
+        "eyebrow": "Pour les professionnels",
+        "title": "Calculez votre profit",
+        "description": "Estimez votre retour sur investissement selon les volumes commandés. Plus vous commandez, plus le prix unitaire baisse.",
+        "cta_label": "Commander maintenant",
+        "cta_link": "shopify://pages/la-boutique-my-lab",
+        "cta_label_guest": "Obtenir mon dossier cosmétologique",
+        "cta_link_guest": "shopify://products/creation-du-dossier-cosmetologique",
+        "footnote": "Le PVC conseillé est indicatif. Vous êtes libre de fixer vos prix de revente.",
+        "retail_multiplier": 2.5,
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main",
+    "ml_profit_calculator_8VmpgH"
+  ]
+}

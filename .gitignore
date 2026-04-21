@@ -32,3 +32,6 @@ scripts/.sync_takemoto_checkpoint.json
 scripts/sync_takemoto.log
 scripts/sync_takemoto_report.csv
 __pycache__/
+
+# Audit fix debug snapshots (temporary inspection files)
+scripts/audit_fixes/live_*.json
