@@ -203,5 +203,27 @@
         })();
       </script>
     {%- endif -%}
+
+    {%- comment -%} Smooth scroll global pour les ancres internes {%- endcomment -%}
+    <script>
+      (function () {
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest('a[href*="#"]');
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          var hashIdx = href.indexOf('#');
+          if (hashIdx < 0) return;
+          var id = href.slice(hashIdx + 1);
+          if (!id) return;
+          var linkPath = a.pathname || location.pathname;
+          if (linkPath && linkPath !== location.pathname) return;
+          var target = document.getElementById(id);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          try { history.replaceState(null, '', '#' + id); } catch (_) {}
+        }, true);
+      })();
+    </script>
   </body>
 </html>

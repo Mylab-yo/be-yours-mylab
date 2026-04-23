@@ -1,0 +1,753 @@
+{
+  "sections": {
+    "banner": {
+      "type": "image-banner",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "EXTENSION DE GAMME CAPILLAIRE",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Votre shampoing marque blanche à <strong>3,90 €<\/strong> l'unité dès <strong>250 pièces<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h1",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Ajoutez une ligne capillaire à votre marque cosmétique dès 50 kg par référence. Flaconnage exclusif, Made in France, CPNP inclus, livré en 15-20 jours.<\/p>",
+            "text_size": "typeset2"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Simuler mon devis en 5 clics",
+            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": false,
+            "button_alt_label": "Réserver 15 min avec l'équipe",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_height": "medium",
+        "desktop_text_position": "center",
+        "show_text_box": true,
+        "mobile_text_position": "center",
+        "colors_overlay_opacity": 48,
+        "colors_overlay": "#000000",
+        "colors_text": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_button_label": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "POUR LES MARQUES COSMÉTIQUES QUI TESTENT LE CAPILLAIRE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Testez le marché capillaire <strong>sans immobiliser votre trésorerie<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous êtes déjà en skincare, solaire, corps ou parfumerie&nbsp;? MY.LAB coordonne pour vous une filière de façonniers français qualifiés pour créer votre ligne capillaire MDD <strong>dès 250 unités<\/strong> par référence. Pas d'engagement, flaconnage exclusif, dossier cosmétologique (CPNP&nbsp;+&nbsp;PIF 10 ans) inclus.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "chiffres_cles": {
+      "type": "guarantees",
+      "blocks": {
+        "c1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "price-tag",
+            "icon_size": "medium",
+            "title": "3,90 € / unité",
+            "title_size": "h3",
+            "text": "<p>Prix marque blanche dès 50 kg (vs 7 € catalogue, -44%).<\/p>"
+          }
+        },
+        "c2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "box",
+            "icon_size": "medium",
+            "title": "250 unités",
+            "title_size": "h3",
+            "text": "<p>Soit 50 kg minimum par référence. Testez petit, commandez plus ensuite.<\/p>"
+          }
+        },
+        "c3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "timer",
+            "icon_size": "medium",
+            "title": "15-20 jours",
+            "title_size": "h3",
+            "text": "<p>Délai de production standard. 6 mois chez les gros labos, ici 20 jours.<\/p>"
+          }
+        },
+        "c4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "title": "96% naturel",
+            "title_size": "h3",
+            "text": "<p>Formules propres, sans sulfates, sans silicones, non testées sur animaux.<\/p>"
+          }
+        },
+        "c5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "check",
+            "icon_size": "medium",
+            "title": "CPNP inclus",
+            "title_size": "h3",
+            "text": "<p>Dossier cosmétologique complet + PIF 10 ans. Aucune structure réglementaire à monter.<\/p>"
+          }
+        },
+        "c6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "title": "Made in France",
+            "title_size": "h3",
+            "text": "<p>Façonniers français qualifiés, coordonnés par MY.LAB à Cavaillon (84).<\/p>"
+          }
+        }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "Ce qui fait la <strong>différence<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "prix_comparatif": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRIX DÉGRESSIFS DÈS LE 1ER PALIER",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Un tarif marque blanche <strong>dès 50&nbsp;kg<\/strong>, pas à 2&nbsp;000&nbsp;unités",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Nos tarifs sont dégressifs par palier de contenance. Exemple sur un shampoing 200&nbsp;ml&nbsp;:<\/p><p><strong>• Prix catalogue pro :<\/strong> 7,00 € l'unité<br><strong>• Dès 50&nbsp;kg (250 unités) :<\/strong> 3,90 € l'unité — <em>-44%<\/em><br><strong>• Dès 200&nbsp;kg (1&nbsp;000 unités) :<\/strong> prix sur devis, meilleur palier<\/p><p>Aucun engagement sur la durée. Vous recommandez quand vous voulez, au palier que vous voulez.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Simuler mon devis en 5 clics",
+            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+
+    "process_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PROCESS EN 4 ÉTAPES",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "De la simulation à la <strong>réception<\/strong> en 3 semaines",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        }
+      },
+      "block_order": ["sub", "heading"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "process_steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "p1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "01 — Simulez votre devis",
+            "title_size": "h3",
+            "text": "<p>5 clics sur notre configurateur&nbsp;: choisissez vos formules, format, flaconnage, quantité. Vous voyez le prix en temps réel.<\/p>",
+            "button_label": "Lancer la simulation",
+            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": false
+          }
+        },
+        "p2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Devis validé en 24h",
+            "title_size": "h3",
+            "text": "<p>Notre équipe confirme les délais, le flaconnage disponible et vous envoie la proposition commerciale formelle par email.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "p3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "03 — Vous validez",
+            "title_size": "h3",
+            "text": "<p>Bon à tirer étiquettes, acompte (si applicable), dépôt CPNP par nos soins. Vous n'avez rien d'autre à faire côté réglementaire.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "p4": {
+          "type": "column",
+          "settings": {
+            "background_color": "#c5a467",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "04 — Production & livraison",
+            "title_size": "h3",
+            "text": "<p>15 à 20 jours chez nos façonniers français. Expédition DPD dans toute la France et l'Europe.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 4,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "inclus_section": {
+      "type": "guarantees",
+      "blocks": {
+        "i1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "flask",
+            "icon_size": "medium",
+            "title": "Formulation éprouvée",
+            "title_size": "h4",
+            "text": "<p>Formules MY.LAB prêtes à l'emploi, ou adaptations possibles sur devis.<\/p>"
+          }
+        },
+        "i2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "box",
+            "icon_size": "medium",
+            "title": "Flaconnage Takemoto",
+            "title_size": "h4",
+            "text": "<p>8 familles de fermetures au choix (pump, spray, flip-top, dropper, nozzle, disc, twist-cap, screw-cap), 4 matériaux, personnalisation couleur.<\/p>"
+          }
+        },
+        "i3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "title": "CPNP + PIF 10 ans",
+            "title_size": "h4",
+            "text": "<p>MY.LAB est responsable qualifié au sens du règlement CE&nbsp;1223/2009. Le dossier cosmétologique est notre job, pas le vôtre.<\/p>"
+          }
+        },
+        "i4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "title": "Made in France",
+            "title_size": "h4",
+            "text": "<p>Filière française&nbsp;: façonniers sélectionnés pour leur expertise shampoings, masques, crèmes ou sérums.<\/p>"
+          }
+        },
+        "i5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "heart",
+            "icon_size": "medium",
+            "title": "96% naturel · Sans tests animaux",
+            "title_size": "h4",
+            "text": "<p>Ingrédients propres, vegan-friendly sur la majorité des formules. Cruelty-free.<\/p>"
+          }
+        },
+        "i6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "recycle",
+            "icon_size": "medium",
+            "title": "Pas d'engagement",
+            "title_size": "h4",
+            "text": "<p>Commandez au palier qui vous convient, quand vous voulez. Les tarifs dégressifs vous suivent dès le 1er palier.<\/p>"
+          }
+        }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "Ce qui est <strong>inclus<\/strong> dans votre ligne capillaire MDD",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "formules_dispo": {
+      "type": "guarantees",
+      "blocks": {
+        "f1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "flask",
+            "icon_size": "medium",
+            "title": "Shampoings",
+            "title_size": "h4",
+            "text": "<p>Nourrissant, volume, couleur, hydratant, anti-pelliculaire, clarifiant…<\/p>"
+          }
+        },
+        "f2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "title": "Après-shampoings",
+            "title_size": "h4",
+            "text": "<p>Démêlants, nourrissants, protecteurs de couleur.<\/p>"
+          }
+        },
+        "f3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "heart",
+            "icon_size": "medium",
+            "title": "Masques",
+            "title_size": "h4",
+            "text": "<p>Réparateurs, hydratants, sublimateurs — application hebdomadaire.<\/p>"
+          }
+        },
+        "f4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "title": "Crèmes de coiffage",
+            "title_size": "h4",
+            "text": "<p>Sans rinçage, pour une mise en forme et un soin longue durée.<\/p>"
+          }
+        },
+        "f5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "drop",
+            "icon_size": "medium",
+            "title": "Sérums & huiles",
+            "title_size": "h4",
+            "text": "<p>Soins légers 50 ml — finition, brillance, protection thermique.<\/p>"
+          }
+        },
+        "f6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "star",
+            "icon_size": "medium",
+            "title": "Sprays & soins ciblés",
+            "title_size": "h4",
+            "text": "<p>Repigmentants, déjaunisseurs platine, coloristeurs cuivre, sprays texturisants.<\/p>"
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "Votre gamme, à <strong>la carte<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "title": "Quel est le MOQ exact par référence ?",
+            "text": "<p>50 kg par référence, soit environ 250 unités en 200&nbsp;ml (ou équivalents selon la contenance choisie). Pour les sérums/huiles 50&nbsp;ml, on raisonne en paliers d'unités (250 u / 500 u).<\/p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "title": "Puis-je mélanger plusieurs formules dans la même commande ?",
+            "text": "<p>Oui. Le MOQ de 50&nbsp;kg s'applique par référence, pas à la commande totale. Vous pouvez donc combiner shampoing + masque + crème dans une même commande, chacun avec son propre palier.<\/p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "title": "Le flaconnage est-il personnalisable ?",
+            "text": "<p>Oui. Le catalogue Takemoto propose 8 familles de fermetures (pump, spray, flip-top, dropper, nozzle, disc, twist-cap, screw-cap) et 4 matériaux. Personnalisation couleur également possible selon les modèles.<\/p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "title": "Comment gérez-vous la réglementation CPNP ?",
+            "text": "<p>MY.LAB est responsable qualifié au sens du règlement CE&nbsp;1223/2009. Nous déposons la notification CPNP à votre nom et gérons le PIF (Product Information File) pendant 10 ans. Vous n'avez rien à structurer de votre côté.<\/p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "title": "Quel délai entre la validation du devis et la réception ?",
+            "text": "<p>15 à 20 jours ouvrés pour la production, expédition DPD sous 24-48h. Soit environ 3 semaines total de la validation à la réception en France métropolitaine.<\/p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "title": "Y a-t-il un engagement sur la durée ou le volume ?",
+            "text": "<p>Aucun engagement. Vous commandez au palier qui vous convient, quand vous voulez. Les tarifs dégressifs s'appliquent dès le 1er palier de chaque commande.<\/p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "title": "Livrez-vous en Europe ?",
+            "text": "<p>Oui, via DPD&nbsp;: France métropolitaine, Belgique, Allemagne, Espagne, Italie, Pays-Bas, Luxembourg et autres pays européens. Frais de port offerts dès 500&nbsp;€&nbsp;HT en France.<\/p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "title": "Les formules sont-elles déjà testées ?",
+            "text": "<p>Oui. Toutes nos formules sont éprouvées et déjà commercialisées sous d'autres marques clientes. Possibilité d'adaptations mineures (parfum, colorant, etc.) sur devis selon les volumes.<\/p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "heading": "Questions <strong>fréquentes<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "layout": "accordion",
+        "open_first_item": false,
+        "colors_highlight": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À LANCER VOTRE LIGNE CAPILLAIRE ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Votre devis en <strong>5 clics<\/strong>, ou un RDV de <strong>15 minutes<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pas de formulaire interminable. Soit vous simulez directement votre devis au palier qui vous intéresse, soit on en discute ensemble en visio 15 minutes pour vous projeter sereinement.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "large",
+            "button_label": "Simuler mon devis maintenant",
+            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": false,
+            "button_alt_label": "Réserver 15 min avec l'équipe",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+
+    "fallback": {
+      "type": "rich-text",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous préférez nous écrire directement&nbsp;? <a href=\"mailto:contact@mylab-shop.com\">contact@mylab-shop.com<\/a> — réponse sous 24h ouvrées.<\/p>",
+            "text_size": "typeset",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 20,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "intro",
+    "chiffres_cles",
+    "prix_comparatif",
+    "process_titre",
+    "process_steps",
+    "inclus_section",
+    "formules_dispo",
+    "faq",
+    "cta_final",
+    "fallback"
+  ]
+}

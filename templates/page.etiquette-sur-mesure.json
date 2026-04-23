@@ -1,0 +1,747 @@
+{
+  "sections": {
+    "banner": {
+      "type": "image-banner",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "OPTION 03 — SUR MESURE",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Une étiquette <strong>100% signée<\/strong> à votre image",
+            "heading_size": "h0",
+            "heading_tag": "h1",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Notre studio crée votre étiquette depuis une page blanche, à partir de votre brief et de votre univers de marque. Design original, itérations jusqu'à validation, livrable pro prêt à imprimer.<\/p>",
+            "text_size": "typeset2"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Demander un devis",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Prendre rendez-vous 15 min",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_height": "medium",
+        "desktop_text_position": "center",
+        "show_text_box": true,
+        "mobile_text_position": "center",
+        "colors_overlay_opacity": 48,
+        "colors_overlay": "#000000",
+        "colors_text": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_button_label": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "POUR LES MARQUES QUI VEULENT SE DIFFÉRENCIER",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Quand <strong>choisir le sur mesure<\/strong>&nbsp;?",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous avez une direction artistique précise, un univers de marque déjà défini, ou vous voulez une signature visuelle exclusive impossible à dupliquer&nbsp;? Le sur mesure est fait pour vous. On part de votre brief, pas d'un modèle existant. Chaque détail (typographie, palette, iconographie, composition) est pensé pour votre marque.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "inclus": {
+      "type": "guarantees",
+      "blocks": {
+        "i1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "palette",
+            "icon_size": "medium",
+            "title": "Brief créatif approfondi",
+            "title_size": "h3",
+            "text": "<p>Entretien initial pour comprendre votre marque, vos références, votre positionnement, vos contraintes.<\/p>"
+          }
+        },
+        "i2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "sparkles",
+            "icon_size": "medium",
+            "title": "2-3 pistes créatives",
+            "title_size": "h3",
+            "text": "<p>Plusieurs directions artistiques présentées, avec mockups flacons pour visualiser concrètement.<\/p>"
+          }
+        },
+        "i3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "edit",
+            "icon_size": "medium",
+            "title": "Itérations jusqu'à validation",
+            "title_size": "h3",
+            "text": "<p>Retours intégrés sur la piste choisie jusqu'à obtenir une étiquette qui correspond parfaitement à votre vision.<\/p>"
+          }
+        },
+        "i4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "file",
+            "icon_size": "medium",
+            "title": "Livrable pro vectoriel",
+            "title_size": "h3",
+            "text": "<p>Fichiers AI, PDF et PNG haute définition, prêts à imprimer et à utiliser sur tous vos supports de communication.<\/p>"
+          }
+        },
+        "i5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "infinity",
+            "icon_size": "medium",
+            "title": "Adapté à toute votre gamme",
+            "title_size": "h3",
+            "text": "<p>Déclinaison automatique sur shampoings, masques, crèmes, sérums, sprays — cohérence visuelle sur toute la ligne.<\/p>"
+          }
+        },
+        "i6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "title": "Droits d'utilisation illimités",
+            "title_size": "h3",
+            "text": "<p>Vous possédez le design final. Réutilisez-le sur votre site, vos réseaux sociaux, vos PLV, vos goodies.<\/p>"
+          }
+        }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5", "i6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "Ce qui est <strong>inclus<\/strong> dans le sur mesure",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "process_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PROCESS EN 4 ÉTAPES",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "De votre brief à <strong>l'étiquette finale<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        }
+      },
+      "block_order": ["sub", "heading"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "process_steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "p1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "01 — Brief créatif",
+            "title_size": "h3",
+            "text": "<p>Entretien de 45 min avec notre studio. Vous nous partagez votre univers de marque, vos références esthétiques, vos contraintes.<\/p>",
+            "button_label": "Démarrer avec un RDV",
+            "button_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_style_secondary": false
+          }
+        },
+        "p2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Exploration",
+            "title_size": "h3",
+            "text": "<p>Notre studio travaille 2 à 3 directions artistiques distinctes, avec mockups flacons. Vous recevez les pistes sous 7-10 jours.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "p3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#c5a467",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "03 — Itérations",
+            "title_size": "h3",
+            "text": "<p>Vous choisissez la piste, nous intégrons vos retours en 2 allers-retours max. Validation finale sous 7 jours.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "p4": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "04 — Livrables & impression",
+            "title_size": "h3",
+            "text": "<p>Vous recevez les fichiers AI / PDF / PNG. L'étiquette est appliquée à vos produits à la commande suivante.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["p1", "p2", "p3", "p4"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 4,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "univers_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "UNIVERS ESTHÉTIQUES",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Aucun style <strong>n'est hors de portée<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Notre studio travaille sur tous les univers capillaires haut de gamme. Quelques exemples des directions artistiques que nous pouvons explorer pour votre marque&nbsp;:<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "univers": {
+      "type": "guarantees",
+      "blocks": {
+        "u1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "star",
+            "icon_size": "medium",
+            "title": "Luxe & Prestige",
+            "title_size": "h4",
+            "text": "<p>Or, noir, typographies classiques, détails dorés. Pour des marques premium et haut de gamme.<\/p>"
+          }
+        },
+        "u2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "title": "Naturel & Botanique",
+            "title_size": "h4",
+            "text": "<p>Illustrations végétales, tons terreux, papiers texturés. Pour des marques clean beauty et bio.<\/p>"
+          }
+        },
+        "u3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "check",
+            "icon_size": "medium",
+            "title": "Minimaliste & Épuré",
+            "title_size": "h4",
+            "text": "<p>Typographies sans-serif, composition aérée, palette sobre. Pour des DNVB modernes et directes.<\/p>"
+          }
+        },
+        "u4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "heart",
+            "icon_size": "medium",
+            "title": "K-Beauty & Pastel",
+            "title_size": "h4",
+            "text": "<p>Rose poudré, lavande, crème, illustrations douces. Pour des marques à l'esthétique Asie de l'Est.<\/p>"
+          }
+        },
+        "u5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "recycle",
+            "icon_size": "medium",
+            "title": "Artisanal & Authentique",
+            "title_size": "h4",
+            "text": "<p>Kraft, tampons, éléments dessinés main. Pour des marques artisanales et apothicaires.<\/p>"
+          }
+        },
+        "u6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "title": "Bold & Graphique",
+            "title_size": "h4",
+            "text": "<p>Couleurs vives, compositions audacieuses, typographies statement. Pour des marques affirmées et énergiques.<\/p>"
+          }
+        }
+      },
+      "block_order": ["u1", "u2", "u3", "u4", "u5", "u6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "tarifs_delais": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "TARIFS & DÉLAIS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Transparent sur les <em>coûts<\/em> et les <em>timings<\/em>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Tarif :<\/strong> sur devis, à partir de <strong>1 200 € HT<\/strong> selon la complexité du brief, le nombre d'itérations souhaitées et le périmètre (étiquette seule ou gamme complète).<\/p><p><strong>Délai :<\/strong> entre <strong>3 et 5 semaines<\/strong> du brief initial à la validation finale.<\/p><p><strong>Paiement :<\/strong> 50% à la commande, 50% à la livraison des fichiers finaux.<\/p><p><strong>Ce qui impacte le tarif :<\/strong> nombre de déclinaisons, complexité iconographique, retouches photo, création de motif ou pattern, charte graphique étendue.<\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Demander un devis",
+            "button_link": "shopify:\/\/pages\/contact",
+            "button_style_secondary": false,
+            "button_alt_label": "Prendre rendez-vous",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+
+    "comparaison": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PAS SÛR DE L'OPTION ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Les <strong>3 possibilités<\/strong> en un coup d'œil",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>• <strong>01 — Design MY.LAB<\/strong> — gratuit, logo noir, prêt en 2 minutes. Idéal pour démarrer ou tester.<br>• <strong>02 — Les modèles<\/strong> — 99 €&nbsp;/ modèle + 250 €&nbsp;/ an impression. 11 styles de graphistes à personnaliser (couleurs + logo).<br>• <strong>03 — Sur mesure<\/strong> — dès 1 200 € HT. Design 100% exclusif, itérations illimitées, pour se différencier durablement.<\/p><p>Quelle que soit l'option choisie au démarrage, vous pouvez basculer vers une autre à tout moment.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Option 01 — Gratuit",
+            "button_link": "shopify:\/\/pages\/etiquettes-standard",
+            "button_style_secondary": false,
+            "button_alt_label": "Option 02 — Les 11 modèles",
+            "button_alt_link": "\/pages\/modeles-etiquettes#galerie-modeles",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "title": "À partir de quel volume de commande c'est rentable ?",
+            "text": "<p>Le sur mesure est pertinent si vous envisagez au moins une gamme de 4-5 références avec des volumes récurrents. Sur une petite série unique, les modèles à 99 € sont souvent plus cohérents économiquement.<\/p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "title": "Combien d'itérations sont incluses ?",
+            "text": "<p>2-3 pistes créatives initiales + 2 tours de retours sur la piste choisie. Des itérations supplémentaires sont possibles sur devis.<\/p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "title": "Je possède bien les droits du design ?",
+            "text": "<p>Oui. Une fois le solde réglé, vous êtes propriétaire du design final et pouvez l'utiliser sans restriction sur tous vos supports (produits, site, réseaux, communication, packaging secondaire).<\/p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "title": "Quels livrables je reçois exactement ?",
+            "text": "<p>Fichier AI (source, modifiable), PDF haute définition (impression), PNG haute définition (digital). Une version pour chaque déclinaison de contenance (200&nbsp;ml, 500&nbsp;ml, 1000&nbsp;ml).<\/p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "title": "Vous travaillez à partir d'un moodboard que je fournis ?",
+            "text": "<p>Oui, vos références esthétiques (moodboard, Pinterest, inspirations concurrentes) sont les bienvenues et nous aident à cadrer la direction. Vous restez libre de refuser une piste qui ne correspondrait pas.<\/p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "title": "Et si aucune des 3 pistes ne me plaît ?",
+            "text": "<p>Ça arrive rarement (nous cadrons bien le brief en amont), mais dans ce cas nous retravaillons une 4e piste sans frais supplémentaires. Si toujours bloquant, remboursement de 50% du devis.<\/p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "title": "Le sur mesure inclut-il le logo ?",
+            "text": "<p>Non, le devis porte sur l'étiquette produit. Si vous n'avez pas encore de logo, on peut vous orienter vers un partenaire ou ajouter la création de logo au devis en option.<\/p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "title": "Vous gérez aussi le packaging secondaire (étui, coffret) ?",
+            "text": "<p>Oui, sur devis. L'étiquette produit reste le cœur du sur mesure, mais nous pouvons étendre au packaging secondaire, PLV, carte de visite, etc. pour garantir la cohérence visuelle de la marque.<\/p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6", "q7", "q8"],
+      "settings": {
+        "heading": "Questions <strong>fréquentes<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "layout": "accordion",
+        "open_first_item": false,
+        "colors_highlight": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À LANCER VOTRE PROJET SUR MESURE ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Parlons de votre <strong>projet de marque<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Le plus simple&nbsp;: un rendez-vous de 15 minutes avec l'équipe MY.LAB pour cadrer votre brief, discuter des références esthétiques et obtenir un devis ajusté à votre périmètre.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "large",
+            "button_label": "Prendre rendez-vous 15 min",
+            "button_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_style_secondary": false,
+            "button_alt_label": "Demander un devis par email",
+            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "intro",
+    "inclus",
+    "process_titre",
+    "process_steps",
+    "univers_titre",
+    "univers",
+    "tarifs_delais",
+    "comparaison",
+    "faq",
+    "cta_final"
+  ]
+}

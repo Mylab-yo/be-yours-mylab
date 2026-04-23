@@ -1,6 +1,405 @@
 {
   "sections": {
-    "main": {
+    "banner": {
+      "type": "image-banner",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "MYLAB CONFIGURATEUR",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Personnalisez vos étiquettes en <strong>quelques clics<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h1",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>3 façons de créer l'identité visuelle de votre marque capillaire&nbsp;: design MY.LAB gratuit, modèles personnalisables, ou étiquette 100% sur mesure.<\/p>",
+            "text_size": "typeset2"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Lancer le configurateur",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir les 3 possibilités",
+            "button_alt_link": "#les-3-possibilites",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_height": "medium",
+        "desktop_text_position": "center",
+        "show_text_box": true,
+        "mobile_text_position": "center",
+        "colors_overlay_opacity": 48,
+        "colors_overlay": "#000000",
+        "colors_text": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_button_label": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+
+    "intro_configurateur": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "UN OUTIL, TOUTES LES POSSIBILITÉS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Visualisez votre marque <strong>en temps réel<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Notre configurateur vous permet de&nbsp;: <strong>choisir un style d'étiquette<\/strong>, <strong>appliquer votre logo et votre nom de marque<\/strong>, et <strong>prévisualiser le rendu 3D<\/strong> directement sur nos flacons avant de commander. Pas de surprise, pas d'allers-retours. Accessible sans compétence graphique.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "anchor_3_possibilites": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"les-3-possibilites\"></div>",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+
+    "trois_possibilites_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "LES 3 POSSIBILITÉS DE PERSONNALISATION",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Du <strong>gratuit<\/strong> au <strong>sur mesure<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Choisissez l'option qui correspond à l'étape de votre projet et à votre budget. Toutes les options sont compatibles avec le configurateur pour prévisualiser votre marque.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "trois_possibilites": {
+      "type": "multicolumn",
+      "blocks": {
+        "opt_1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "01 — Design MY.LAB",
+            "title_size": "h3",
+            "text": "<p><strong>Gratuit<\/strong>. Votre logo imprimé en noir sur l'étiquette MY.LAB. Simple, rapide, sans frais supplémentaires. Idéal pour démarrer ou tester le marché.<\/p><p><strong>SANS FRAIS<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "Découvrir l'option gratuite",
+            "button_link": "shopify:\/\/pages\/etiquettes-standard",
+            "button_style_secondary": false
+          }
+        },
+        "opt_2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Les modèles",
+            "title_size": "h3",
+            "text": "<p>11 modèles d'étiquettes signés par nos graphistes. Personnalisation de vos couleurs et de votre logo. Prêts à l'impression en qualité professionnelle.<\/p><p><strong>99 € par modèle<\/strong><br><em>+ forfait impression 250 €&nbsp;/ an (illimité)<\/em><\/p>",
+            "show_popup": false,
+            "button_label": "Découvrir les 11 modèles",
+            "button_link": "#galerie-modeles",
+            "button_style_secondary": true
+          }
+        },
+        "opt_3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#c5a467",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "03 — Sur mesure",
+            "title_size": "h3",
+            "text": "<p>Design 100% unique, créé par notre studio à partir de votre brief. Parfait pour les marques qui veulent se différencier avec une signature visuelle exclusive.<\/p><p><strong>DÈS 1 200 € HT<\/strong><\/p>",
+            "show_popup": false,
+            "button_label": "Découvrir le sur mesure",
+            "button_link": "shopify:\/\/pages\/etiquette-sur-mesure",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["opt_1", "opt_2", "opt_3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "use_custom_colors": true,
+        "colors_background": "#f5f0eb",
+        "padding_top": 20,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "option_1_detail": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "OPTION 01 — DÉTAIL",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le design <em>MY.LAB<\/em> gratuit",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>La solution la plus rapide pour démarrer&nbsp;: votre logo imprimé en noir sur l'étiquette MY.LAB, sans modification d'emplacement ou de typographie. <strong>Aucun frais supplémentaire<\/strong>.<\/p><p>• Logo noir uniquement (pas de couleur)<br>• Emplacement et structure fixés<br>• Textes, pictogrammes et mentions légales gérés par MY.LAB<br>• Cohérence visuelle sur toute votre gamme<\/p><p><strong>Prêt en 2 minutes via le configurateur.<\/strong><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Personnaliser gratuitement",
+            "button_link": "shopify:\/\/pages\/etiquettes-standard",
+            "button_style_secondary": false,
+            "button_alt_label": "Lancer le configurateur",
+            "button_alt_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=standard",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "option_2_detail": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "OPTION 02 — DÉTAIL",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Les <em>modèles<\/em> signés par nos graphistes",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>11 modèles d'étiquettes conçus par nos graphistes, prêts à accueillir votre logo et vos couleurs de marque. Chaque modèle est décliné automatiquement sur toute votre gamme.<\/p><p>• 11 styles disponibles (Black &amp; Yellow, Green Floral, Aquarel, Finesse, Zebra, Golden Line, Prestige, Oliver, Fresh, Number, Azul)<br>• Personnalisation couleurs + logo<br>• Couleurs adaptées à la gamme (volume, boucles, lissant, etc.)<br>• Impression pro haute définition<\/p><p><strong>99 €<\/strong> par modèle (valable pour toutes les références)<br><strong>250 €&nbsp;/ an<\/strong> forfait impression interne illimité.<\/p><p><a href=\"#galerie-modeles\"><strong>↓ Retrouvez les 11 modèles juste en dessous<\/strong><\/a><\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Essayer dans le configurateur",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=template",
+            "button_style_secondary": false,
+            "button_alt_label": "",
+            "button_alt_link": "",
+            "button_alt_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "text_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "gradient_background": "",
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+
+    "anchor_galerie": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div id=\"galerie-modeles\"></div>",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+
+    "galerie_modeles": {
       "type": "ml-modeles-etiquettes",
       "blocks": {
         "m_01": {
@@ -83,29 +482,30 @@
       },
       "block_order": ["m_01", "m_02", "m_03", "m_04", "m_05", "m_06", "m_07", "m_08", "m_09", "m_10", "m_11"],
       "settings": {
-        "subheading": "PERSONNALISATION",
-        "heading": "<p>Personnalisez les étiquettes de vos <em>produits cosmétiques<\/em><\/p>",
+        "subheading": "GALERIE DES 11 MODÈLES",
+        "heading": "<p>Trouvez le <em>style<\/em> de votre marque<\/p>",
         "price_etiquette": "99 €",
         "price_etiquette_label": "par modèle — valable pour toutes les références",
-        "price_impression": "250 € \/ an",
+        "price_impression": "250 € / an",
         "price_impression_label": "forfait impression interne illimité",
-        "note": "Toutes les étiquettes ont des couleurs variables selon la gamme.",
+        "note": "Toutes les étiquettes ont des couleurs variables selon la gamme (volume, boucles, lissant, HA repulpe…).",
         "columns_desktop": 3,
         "columns_mobile": 2,
         "accent_color": "#c5a467",
         "text_color": "#1a1a1a",
         "card_bg": "#f5f0eb",
-        "padding_top": 60,
+        "padding_top": 40,
         "padding_bottom": 20
       }
     },
-    "cta": {
-      "type": "rich-text",
+
+    "option_3_detail": {
+      "type": "image-with-text",
       "blocks": {
         "sub": {
           "type": "subheading",
           "settings": {
-            "subheading": "ENVIE D'UNE ÉTIQUETTE UNIQUE ?",
+            "subheading": "OPTION 03 — DÉTAIL",
             "subheading_size": "h5",
             "secondary_color": true,
             "enable_highlight": false,
@@ -115,7 +515,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Créez votre étiquette <strong>sur mesure<\/strong>",
+            "heading": "Une étiquette <em>100% sur mesure<\/em>",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -125,8 +525,8 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Aucun modèle ne vous correspond ? Notre équipe crée une étiquette entièrement personnalisée à votre image.<\/p>",
-            "text_size": "typeset2",
+            "text": "<p>Vous avez une direction artistique précise, un univers de marque déjà défini, ou vous voulez vous différencier avec une signature visuelle unique&nbsp;? Notre studio crée votre étiquette entièrement personnalisée à partir de votre brief.<\/p><p>• Création originale (pas un modèle repris)<br>• Brief créatif + 2-3 propositions<br>• Itérations jusqu'à validation<br>• Livrable prêt à imprimer, adapté à toutes les gammes<\/p><p><strong>Sur devis<\/strong> — à partir de votre brief.<\/p>",
+            "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -136,11 +536,171 @@
           "type": "button",
           "settings": {
             "button_size": "medium",
-            "button_label": "Nous contacter",
-            "button_link": "shopify:\/\/pages\/contact",
+            "button_label": "Découvrir le sur mesure",
+            "button_link": "shopify:\/\/pages\/etiquette-sur-mesure",
             "button_style_secondary": false,
-            "button_alt_label": "Les étapes de création",
-            "button_alt_link": "shopify:\/\/pages\/les-etapes-de-creation-de-marque",
+            "button_alt_label": "Prendre rendez-vous",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": false,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "configurateur_fonctionnalites": {
+      "type": "multicolumn",
+      "blocks": {
+        "fc_standard": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Mode Standard",
+            "title_size": "h4",
+            "text": "<p>Générez votre gamme complète en ajoutant votre nom de marque. Prévisualisation 3D instantanée.<\/p>",
+            "show_popup": false,
+            "button_label": "Mode standard",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=standard",
+            "button_style_secondary": false
+          }
+        },
+        "fc_modeles": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Modèles pro",
+            "title_size": "h4",
+            "text": "<p>Parcourez la bibliothèque de modèles signés par nos graphistes et adaptez-les à votre marque.<\/p>",
+            "show_popup": false,
+            "button_label": "Voir les modèles",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=template",
+            "button_style_secondary": false
+          }
+        },
+        "fc_ia": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Studio IA",
+            "title_size": "h4",
+            "text": "<p>Notre IA génère des designs exclusifs en 30 secondes à partir d'une direction artistique.<\/p>",
+            "show_popup": false,
+            "button_label": "Générer un design",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=studio",
+            "button_style_secondary": false
+          }
+        },
+        "fc_import": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Import design",
+            "title_size": "h4",
+            "text": "<p>Importez vos propres visuels (PNG, JPG, PDF, AI) pour les mettre en situation sur nos flacons.<\/p>",
+            "show_popup": false,
+            "button_label": "Importer",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=import",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": ["fc_standard", "fc_modeles", "fc_ia", "fc_import"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 4,
+        "heading": "Les <strong>4 modes<\/strong> du configurateur",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "use_custom_colors": true,
+        "colors_background": "#f5f0eb",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À CRÉER VOS ÉTIQUETTES ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Lancez le configurateur et <strong>visualisez votre marque<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aucune compétence graphique requise. Prévisualisation 3D sur flacon en temps réel. Vous pouvez changer de mode à tout moment sans repartir de zéro.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "large",
+            "button_label": "Lancer le configurateur",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur",
+            "button_style_secondary": false,
+            "button_alt_label": "Prendre rendez-vous",
+            "button_alt_link": "https:\/\/cal.eu\/yoann-durand-xyj75z\/etude-projet-marque-capillaire",
             "button_alt_style_secondary": true
           }
         }
@@ -165,7 +725,17 @@
     }
   },
   "order": [
-    "main",
-    "cta"
+    "banner",
+    "intro_configurateur",
+    "anchor_3_possibilites",
+    "trois_possibilites_titre",
+    "trois_possibilites",
+    "option_1_detail",
+    "option_2_detail",
+    "anchor_galerie",
+    "galerie_modeles",
+    "option_3_detail",
+    "configurateur_fonctionnalites",
+    "cta_final"
   ]
 }

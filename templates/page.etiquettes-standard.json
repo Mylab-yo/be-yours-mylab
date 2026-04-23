@@ -1,92 +1,624 @@
 {
   "sections": {
-    "main": {
-      "type": "ml-etiquettes-standard",
+    "banner": {
+      "type": "image-banner",
       "blocks": {
-        "adv_1": {
-          "type": "advantage",
+        "sub": {
+          "type": "subheading",
           "settings": {
-            "icon": "check",
-            "title": "100% gratuit",
-            "text": "Aucun coût supplémentaire pour la personnalisation standard"
+            "subheading": "OPTION 01 — DESIGN MY.LAB",
+            "subheading_size": "h5",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
           }
         },
-        "adv_2": {
-          "type": "advantage",
+        "heading": {
+          "type": "heading",
           "settings": {
-            "icon": "timer",
-            "title": "Prêt en 2 minutes",
-            "text": "Pas besoin de compétences graphiques"
+            "heading": "Votre logo sur nos étiquettes, <strong>gratuitement<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h1",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
           }
         },
-        "adv_3": {
-          "type": "advantage",
+        "text": {
+          "type": "text",
           "settings": {
-            "icon": "star",
-            "title": "Rendu professionnel",
-            "text": "Étiquettes harmonisées avec nos gammes"
+            "text": "<p>Ajoutez votre logo en noir sur nos étiquettes MY.LAB et créez votre marque capillaire en 2 minutes. Sans frais, sans compétence graphique, sans engagement.<\/p>",
+            "text_size": "typeset2"
           }
         },
-        "adv_4": {
-          "type": "advantage",
+        "button": {
+          "type": "button",
           "settings": {
-            "icon": "infinity",
-            "title": "Votre marque, partout",
-            "text": "Cohérence visuelle sur tous vos produits"
-          }
-        },
-        "ex_1": {
-          "type": "example",
-          "settings": {
-            "name": "Salon Elegance",
-            "subtitle": "Gamme Lissant"
-          }
-        },
-        "ex_2": {
-          "type": "example",
-          "settings": {
-            "name": "Studio Hair",
-            "subtitle": "Gamme Volume"
-          }
-        },
-        "ex_3": {
-          "type": "example",
-          "settings": {
-            "name": "Maison de Beauté",
-            "subtitle": "Gamme HA Repulpe"
+            "button_label": "Personnaliser mes étiquettes",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=standard",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir les autres options",
+            "button_alt_link": "shopify:\/\/pages\/modeles-etiquettes",
+            "button_alt_style_secondary": true
           }
         }
       },
-      "block_order": [
-        "adv_1",
-        "adv_2",
-        "adv_3",
-        "adv_4",
-        "ex_1",
-        "ex_2",
-        "ex_3"
-      ],
+      "block_order": ["sub", "heading", "text", "button"],
       "settings": {
-        "hero_title": "Vos produits à votre image, en 3 clics",
-        "hero_text": "Ajoutez votre logo sur nos étiquettes professionnelles. Gratuit, rapide, sans engagement.",
-        "hero_cta_text": "Personnaliser mes étiquettes",
-        "steps_title": "Comment ça marche",
-        "step_1_title": "Choisissez vos gammes",
-        "step_1_text": "Sélectionnez parmi nos gammes professionnelles : Volume, Lissant, Boucles, HA Repulpe, Homme…",
-        "step_2_title": "Uploadez votre logo",
-        "step_2_text": "Importez le logo de votre salon. On l'applique automatiquement sur l'étiquette.",
-        "step_3_title": "Téléchargez votre récap",
-        "step_3_text": "Recevez un récapitulatif PDF avec vos visuels personnalisés. Passez commande quand vous êtes prêt.",
-        "advantages_title": "Avantages",
-        "examples_title": "Exemples de réalisations",
-        "examples_columns": 3,
-        "cta_title": "Prêt à personnaliser vos produits ?",
-        "cta_button_text": "Commencer maintenant — C'est gratuit",
-        "cta_sub_text": "Vous cherchez plus de personnalisation ? Découvrez nos modèles d'étiquettes ou notre studio de création.",
+        "image_height": "medium",
+        "desktop_text_position": "center",
+        "show_text_box": true,
+        "mobile_text_position": "center",
+        "colors_overlay_opacity": 48,
+        "colors_overlay": "#000000",
+        "colors_text": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_button_label": "#ffffff",
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+
+    "intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "POUR QUI — POUR QUOI",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Une identité visuelle <strong>en quelques clics<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Vous venez de démarrer votre marque, vous testez le marché, ou vous voulez une cohérence visuelle immédiate sans engager de budget design&nbsp;? L'option <strong>Design MY.LAB gratuit<\/strong> applique votre logo en noir sur nos étiquettes professionnelles pré-mises en page. C'est la façon la plus simple d'avoir votre gamme à votre nom dès la première commande.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+
+    "avantages": {
+      "type": "guarantees",
+      "blocks": {
+        "a1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "check",
+            "icon_size": "medium",
+            "title": "100% gratuit",
+            "title_size": "h3",
+            "text": "<p>Aucun frais de personnalisation. L'impression de votre logo est incluse dans le prix des produits.<\/p>"
+          }
+        },
+        "a2": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "timer",
+            "icon_size": "medium",
+            "title": "Prêt en 2 minutes",
+            "title_size": "h3",
+            "text": "<p>Uploadez votre logo, validez. Aucune compétence graphique requise, aucun échange créatif à gérer.<\/p>"
+          }
+        },
+        "a3": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "star",
+            "icon_size": "medium",
+            "title": "Rendu professionnel",
+            "title_size": "h3",
+            "text": "<p>Étiquettes mises en page par nos graphistes. Vos produits ont l'air premium dès le premier jour.<\/p>"
+          }
+        },
+        "a4": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "infinity",
+            "icon_size": "medium",
+            "title": "Cohérence de gamme",
+            "title_size": "h3",
+            "text": "<p>Votre logo s'applique automatiquement à toutes les références (shampoings, masques, crèmes, sérums, sprays).<\/p>"
+          }
+        },
+        "a5": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "title": "Zéro engagement",
+            "title_size": "h3",
+            "text": "<p>Vous pouvez basculer vers un modèle 99 € ou un design sur mesure plus tard, sans repartir de zéro.<\/p>"
+          }
+        },
+        "a6": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "title": "Mentions légales gérées",
+            "title_size": "h3",
+            "text": "<p>INCI, pictogrammes, responsabilité CPNP, PIF 10 ans — on s'occupe de tout le réglementaire.<\/p>"
+          }
+        }
+      },
+      "block_order": ["a1", "a2", "a3", "a4", "a5", "a6"],
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "columns_desktop": 3,
+        "heading": "Pourquoi choisir le <strong>design gratuit<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "use_custom_colors": true,
+        "colors_icon": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "process_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PROCESS EN 3 ÉTAPES",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "De votre logo à vos <strong>produits étiquetés<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        }
+      },
+      "block_order": ["sub", "heading"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "process_steps": {
+      "type": "multicolumn",
+      "blocks": {
+        "s1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "01 — Choisissez vos gammes",
+            "title_size": "h3",
+            "text": "<p>Sélectionnez dans le configurateur les formules MY.LAB que vous voulez intégrer à votre marque&nbsp;: volume, lissant, boucles, HA repulpe, homme, réparateur…<\/p>",
+            "button_label": "Lancer le configurateur",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=standard",
+            "button_style_secondary": false
+          }
+        },
+        "s2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "02 — Uploadez votre logo",
+            "title_size": "h3",
+            "text": "<p>Importez votre logo (PNG, JPG, AI, PDF). Il est appliqué automatiquement en noir sur toutes les étiquettes de votre gamme. Prévisualisation 3D instantanée.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "s3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#c5a467",
+            "heading_color": "#ffffff",
+            "text_color": "#ffffff",
+            "title": "03 — Validez et commandez",
+            "title_size": "h3",
+            "text": "<p>Téléchargez votre récapitulatif PDF haute définition et passez commande quand vous êtes prêt. Notre équipe imprime vos étiquettes.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "exemples_titre": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "EXEMPLES DE RÉALISATIONS",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Des marques qui ont démarré <strong>avec l'option gratuite<\/strong>",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        }
+      },
+      "block_order": ["sub", "heading"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": false,
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+
+    "exemples": {
+      "type": "multicolumn",
+      "blocks": {
+        "e1": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Salon Elegance",
+            "title_size": "h4",
+            "text": "<p>Gamme Lissant — shampoing, après-shampoing, masque, sérum. Logo noir sur étiquette MY.LAB.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "e2": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Studio Hair",
+            "title_size": "h4",
+            "text": "<p>Gamme Volume — shampoing 500ml, crème de coiffage, spray texturisant. Cohérence parfaite.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        },
+        "e3": {
+          "type": "column",
+          "settings": {
+            "background_color": "#ffffff",
+            "heading_color": "#c5a467",
+            "text_color": "#1a1a1a",
+            "title": "Maison de Beauté",
+            "title_size": "h4",
+            "text": "<p>Gamme HA Repulpe — shampoing, masque, sérum 50ml. Lancement en 15 jours, sans design custom.<\/p>",
+            "button_label": "",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": ["e1", "e2", "e3"],
+      "settings": {
+        "image_ratio": "adapt",
+        "text_alignment": "center",
+        "image_width": "full",
+        "columns_desktop": 3,
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "colors_highlight": "#c5a467",
+        "use_custom_colors": true,
+        "colors_background": "#f5f0eb",
+        "padding_top": 0,
+        "padding_bottom": 60,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "comparaison": {
+      "type": "image-with-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "BESOIN DE PLUS DE PERSONNALISATION ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Le design gratuit ne vous suffit pas&nbsp;?",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>L'option gratuite est idéale pour démarrer, mais si vous voulez une signature visuelle plus forte, vous avez deux autres possibilités&nbsp;:<\/p><p>• <strong>Les 11 modèles MY.LAB<\/strong> signés par nos graphistes — personnalisation couleurs + logo, à partir de <strong>99 €<\/strong> par modèle.<br>• <strong>Le sur mesure<\/strong> — création originale par notre studio, sur devis à partir de votre brief.<\/p><p>Vous pouvez basculer vers ces options à tout moment, sans repartir de zéro.<\/p>",
+            "text_size": "typeset",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "medium",
+            "button_label": "Découvrir les 11 modèles (99 €)",
+            "button_link": "\/pages\/modeles-etiquettes#galerie-modeles",
+            "button_style_secondary": false,
+            "button_alt_label": "Découvrir le sur mesure",
+            "button_alt_link": "shopify:\/\/pages\/etiquette-sur-mesure",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "image_position": "center center",
+        "layout": "image_first",
+        "text_box_position": "middle",
+        "text_alignment": "left",
+        "image_ratio": "500px",
+        "enlarge_content": false,
+        "full_width": false,
+        "show_divider": false,
+        "image_behavior": "none",
+        "mobile_layout": "image_first",
+        "mobile_text_alignment": "left",
+        "mobile_image_ratio": "250px",
+        "enable_video_looping": false,
+        "video_url": "",
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "title": "Le design MY.LAB gratuit est-il vraiment sans frais ?",
+            "text": "<p>Oui. Zéro frais de personnalisation&nbsp;: ni création, ni impression de votre logo. Vous payez uniquement les produits.<\/p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "title": "Je peux changer d'option plus tard ?",
+            "text": "<p>Oui, à tout moment. Vous pouvez basculer vers un <strong>modèle 99 €<\/strong> ou un <strong>design sur mesure<\/strong> sur votre prochaine commande, sans engagement sur l'option gratuite.<\/p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "title": "Mon logo peut-il être en couleur ?",
+            "text": "<p>Non. L'option gratuite imprime votre logo <strong>en noir uniquement<\/strong>. Pour garder votre palette de couleurs, il faut passer sur l'option <strong>modèles<\/strong> (99 €) ou <strong>sur mesure<\/strong>.<\/p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "title": "Quel format de logo fournir ?",
+            "text": "<p>Vectoriel idéalement (AI, SVG, PDF) pour une qualité d'impression optimale. Sinon PNG haute définition (300 DPI, fond transparent). Le configurateur accepte aussi JPG.<\/p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "title": "Le réglementaire est-il inclus ?",
+            "text": "<p>Oui. Les mentions légales (INCI, pictogrammes, responsable), la notification CPNP et le PIF 10 ans sont gérés par MY.LAB — aucune démarche réglementaire à votre charge.<\/p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "title": "Combien de références puis-je étiqueter ?",
+            "text": "<p>Toutes les références de votre gamme. Votre logo est appliqué automatiquement sur shampoings, après-shampoings, masques, crèmes, sérums, huiles, sprays — toutes contenances confondues.<\/p>"
+          }
+        }
+      },
+      "block_order": ["q1", "q2", "q3", "q4", "q5", "q6"],
+      "settings": {
+        "heading": "Questions <strong>fréquentes<\/strong>",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "heading_alignment": "center",
+        "layout": "accordion",
+        "open_first_item": false,
+        "colors_highlight": "#c5a467",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+
+    "cta_final": {
+      "type": "rich-text",
+      "blocks": {
+        "sub": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "PRÊT À PERSONNALISER VOS ÉTIQUETTES ?",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Lancez le configurateur et <strong>visualisez votre gamme<\/strong>",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Aucune compétence graphique requise. Prévisualisation 3D instantanée. Export PDF haute définition. Vous pouvez changer d'option à tout moment.<\/p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_size": "large",
+            "button_label": "Personnaliser mes étiquettes — gratuit",
+            "button_link": "https:\/\/mylab-configurateur.vercel.app\/configurateur?mode=standard",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir les 3 possibilités",
+            "button_alt_link": "shopify:\/\/pages\/modeles-etiquettes",
+            "button_alt_style_secondary": true
+          }
+        }
+      },
+      "block_order": ["sub", "heading", "text", "button"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#c5a467",
+        "colors_text": "#ffffff",
+        "colors_background": "#1a1a1a",
+        "colors_highlight": "#c5a467",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "banner",
+    "intro",
+    "avantages",
+    "process_titre",
+    "process_steps",
+    "exemples_titre",
+    "exemples",
+    "comparaison",
+    "faq",
+    "cta_final"
+  ]
 }
