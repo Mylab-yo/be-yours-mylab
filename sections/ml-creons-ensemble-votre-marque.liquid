@@ -1,0 +1,2626 @@
+{%- comment -%}
+  Parcours unifié "Créons ensemble votre marque"
+  Section mono-fichier — hero + 4 étapes + récap sticky + JS state manager
+{%- endcomment -%}
+
+{%- liquid
+  assign pro_col   = collections[section.settings.products_collection]
+  assign forfait_couleur_variant = 55418356793678
+  assign forfait_couleur_plan    = 690138775886
+  assign forfait_noire_variant   = 55418362003790
+  assign forfait_noire_plan      = 690138743118
+-%}
+
+{%- style -%}
+
+  /* ═══════ ZOOM TYPO DESKTOP +20% ═══════ */
+  @media screen and (min-width: 750px) {
+    .ml-cem { font-size: 1.2em; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    padding: 0;
+    --cem-gold: #c5a467;
+    --cem-gold-dark: #755a25;
+    --cem-dark: #1a1a1a;
+    --cem-cream: #f5f0eb;
+    --cem-cream-2: #fefaf7;
+    --cem-line: #e5e5e5;
+    --cem-mid: #555;
+    --cem-muted: #888;
+    --cem-success: #2d7a45;
+  }
+
+  .ml-cem { font-family: 'DM Sans', var(--font-body-family), sans-serif; color: var(--cem-dark); }
+  .ml-cem *, .ml-cem *::before, .ml-cem *::after { box-sizing: border-box; }
+  .ml-cem em, .ml-cem__h em {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-style: italic;
+    color: var(--cem-dark);
+    font-weight: 500;
+  }
+  .ml-cem__h {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .ml-cem__eyebrow {
+    font-size: 1.152rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cem-dark);
+    margin: 0 0 0.8rem;
+  }
+  .ml-cem__btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.6rem;
+    padding: 1.1rem 2.6rem;
+    border-radius: 999px;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: transform 0.18s, opacity 0.2s, background 0.25s, color 0.25s;
+    min-height: 52px;
+  }
+  .ml-cem__btn:hover { opacity: 0.92; }
+  .ml-cem__btn:active { transform: scale(0.97); }
+  .ml-cem__btn--primary { background: var(--cem-dark); color: #fff; box-shadow: 0 12px 28px rgba(17,17,17,0.18); }
+  .ml-cem__btn--gold { background: linear-gradient(135deg, var(--cem-gold-dark) 0%, var(--cem-gold) 100%); color: #fff; box-shadow: 0 12px 28px rgba(117,90,37,0.22); }
+  .ml-cem__btn--ghost { background: transparent; color: var(--cem-dark); border: 1.5px solid var(--cem-dark); }
+  .ml-cem__btn[disabled] { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+  /* ═══════════════════════════════════════ FADE-UP SCROLL REVEAL ═══════════════════════════════════════ */
+  @media (prefers-reduced-motion: no-preference) {
+    .ml-cem [data-ml-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transition-delay: var(--ml-reveal-delay, 0ms);
+    }
+    .ml-cem [data-ml-reveal].is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ═══════════════════════════════════════ TWEAKS PANEL ═══════════════════════════════════════ */
+  .ml-cem__tweaks {
+    position: fixed; bottom: 5.5rem; right: 1rem;
+    width: 260px; max-width: calc(100vw - 2rem);
+    background: #fff;
+    border: 1px solid rgba(117,90,37,0.25);
+    border-radius: 2px;
+    padding: 1rem 1rem 1.1rem;
+    box-shadow: 0 18px 44px -14px rgba(17,17,17,0.25);
+    z-index: 9998;
+    font-family: 'DM Sans', sans-serif;
+    display: none;
+  }
+  .ml-cem__tweaks::before,
+  .ml-cem__tweaks::after {
+    content: ''; position: absolute;
+    width: 10px; height: 10px;
+    border: 1px solid var(--cem-gold);
+  }
+  .ml-cem__tweaks::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .ml-cem__tweaks::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  @media screen and (min-width: 1024px) {
+    .ml-cem__tweaks { bottom: 1.5rem; right: 1.5rem; }
+  }
+  .ml-cem__tweaks[data-open="true"] { display: block; }
+  .ml-cem__tweaks-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.238rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cem-dark); font-weight: 600;
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(117,90,37,0.15);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .ml-cem__tweaks-close {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.32rem; line-height: 1; color: var(--cem-mid);
+    padding: 0 0.2rem;
+  }
+  .ml-cem__tweaks-row {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    margin-bottom: 0.8rem;
+  }
+  .ml-cem__tweaks-row:last-child { margin-bottom: 0; }
+  .ml-cem__tweaks-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cem-mid);
+  }
+  .ml-cem__tweaks-seg {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(117,90,37,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .ml-cem__tweaks-seg button {
+    border: none; background: transparent;
+    padding: 0.5rem 0.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.123rem; font-weight: 500;
+    color: var(--cem-mid); cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ml-cem__tweaks-seg button + button {
+    border-left: 1px solid rgba(117,90,37,0.2);
+  }
+  .ml-cem__tweaks-seg button[data-active="true"] {
+    background: var(--cem-dark); color: #fff;
+  }
+  .ml-cem__tweaks-toggle-btn {
+    position: fixed; bottom: 5.5rem; right: 1rem;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--cem-dark); color: var(--cem-gold);
+    border: 1px solid var(--cem-gold);
+    cursor: pointer;
+    z-index: 9997;
+    display: none;
+    align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.1em;
+    box-shadow: 0 8px 20px -6px rgba(0,0,0,0.3);
+  }
+  @media screen and (min-width: 1024px) {
+    .ml-cem__tweaks-toggle-btn { bottom: 1.5rem; right: 1.5rem; }
+  }
+  .ml-cem[data-tweaks-on="true"] .ml-cem__tweaks-toggle-btn { display: flex; }
+
+  /* ═══════════════════════════════════════ HERO — split Oribe ═══════════════════════════════════════ */
+  .ml-cem__hero {
+    position: relative;
+    background: var(--cem-cream);
+    color: var(--cem-dark);
+    overflow: hidden;
+    padding: 5.2rem 1.25rem 2.6rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    text-align: left;
+    min-height: auto;
+  }
+  /* millésime — coin haut-droit, discret monospace */
+  .ml-cem__hero::before {
+    content: 'N° 01 — MMXXVI';
+    position: absolute; top: 1.4rem; right: 1.25rem;
+    font-family: 'DM Mono', ui-monospace, 'SFMono-Regular', monospace;
+    font-size: 1.094rem; letter-spacing: 0.2em;
+    color: var(--cem-dark); opacity: 0.78;
+    z-index: 3;
+  }
+  /* mention PARIS · LAB — coin bas-gauche */
+  .ml-cem__hero::after {
+    content: 'PARIS · LAB';
+    position: absolute; bottom: 1.2rem; left: 1.4rem;
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.238rem; letter-spacing: 0.22em;
+    color: var(--cem-dark); opacity: 0.75;
+    z-index: 3;
+  }
+  .ml-cem__hero-bg {
+    position: relative;
+    order: -1;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 24px 48px -20px rgba(26,26,26,0.25);
+  }
+  .ml-cem__hero-bg video, .ml-cem__hero-bg img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    filter: saturate(0.88) contrast(1.02);
+  }
+  .ml-cem__hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(175deg, transparent 55%, rgba(26,26,26,0.18) 100%);
+  }
+  .ml-cem__hero-content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    gap: 1.1rem;
+    padding: 0 0.2rem;
+    max-width: 34rem;
+  }
+  .ml-cem__hero-eyebrow {
+    font-size: 1.152rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 700;
+    color: var(--cem-dark);
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .ml-cem__hero-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 28px; height: 1px; background: var(--cem-gold);
+  }
+  .ml-cem__hero-title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 500;
+    font-size: clamp(2.4rem, 6.2vw, 4.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--cem-dark);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .ml-cem__hero-title em {
+    font-style: italic;
+    color: var(--cem-dark);
+    font-weight: 400;
+  }
+  /* filet signature sous le titre */
+  .ml-cem__hero-title::after {
+    content: ''; display: block;
+    width: 48px; height: 1px;
+    background: var(--cem-gold);
+    margin-top: 1.2rem;
+  }
+  .ml-cem__hero-sub {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-style: italic;
+    font-size: clamp(1.15rem, 4.2vw, 1.35rem);
+    line-height: 1.45;
+    color: var(--cem-mid);
+    max-width: 32rem;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .ml-cem__hero-ctas {
+    display: flex; gap: 0.7rem; flex-wrap: wrap;
+    margin-top: 0.4rem;
+  }
+  /* CTA primaire = dark plein (dominant), CTA alt = ghost dark */
+  .ml-cem__hero .ml-cem__btn--gold {
+    background: var(--cem-dark);
+    color: #fff;
+    box-shadow: 0 12px 28px -10px rgba(26,26,26,0.35);
+    padding: 1rem 1.8rem;
+    font-size: 1.181rem;
+  }
+  .ml-cem__hero .ml-cem__btn--gold:hover {
+    background: #000; opacity: 1;
+    box-shadow: 0 16px 36px -12px rgba(26,26,26,0.45);
+  }
+  .ml-cem__hero-cta-secondary {
+    background: transparent;
+    color: var(--cem-dark);
+    border: 1px solid var(--cem-dark);
+    padding: 1rem 1.6rem;
+    font-size: 1.181rem;
+    font-weight: 600;
+  }
+  .ml-cem__hero-cta-secondary:hover {
+    background: var(--cem-dark); color: #fff; opacity: 1;
+  }
+  .ml-cem__trust {
+    position: relative; z-index: 1;
+    display: flex; flex-wrap: wrap;
+    gap: 0.3rem 1.6rem;
+    margin-top: 1.4rem;
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(117,90,37,0.18);
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.123rem; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cem-dark);
+  }
+  .ml-cem__trust-item {
+    display: inline-flex; align-items: center;
+    gap: 0.5rem;
+  }
+  .ml-cem__trust-item::before {
+    content: ''; display: inline-block;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--cem-gold);
+    margin: 0;
+    font-size: inherit;
+  }
+  .ml-cem__trust-item:first-child::before { display: inline-block; }
+
+  /* Desktop : split 2 colonnes — uniquement >= 1024px pour garder titre + image confortables */
+  @media screen and (min-width: 1024px) {
+    .ml-cem__hero {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 3.2rem;
+      padding: 7rem 3rem 5rem;
+      align-items: center;
+    }
+    .ml-cem__hero::before { top: 2rem; right: 3rem; font-size: 1.181rem; }
+    .ml-cem__hero::after { bottom: 2rem; left: 3rem; font-size: 1.152rem; }
+    .ml-cem__hero-bg {
+      order: 1;
+      aspect-ratio: 4 / 5;
+      max-height: 72vh;
+    }
+    .ml-cem__hero-content {
+      padding: 1rem 0 1rem 2rem;
+      border-left: 1px solid rgba(117,90,37,0.22);
+    }
+  }
+  @media screen and (min-width: 1280px) {
+    .ml-cem__hero {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+      padding: 8rem 4.5rem 6rem;
+      gap: 4.5rem;
+    }
+    .ml-cem__hero-title { font-size: clamp(3.4rem, 4.8vw, 5rem); }
+  }
+
+  /* Tablette intermédiaire 750-1023px : conserve layout empilé mais avec hauteur image réduite */
+  @media screen and (min-width: 750px) and (max-width: 1023px) {
+    .ml-cem__hero {
+      padding: 5rem 3rem 4rem;
+    }
+    .ml-cem__hero-title { font-size: clamp(3rem, 6vw, 4rem); }
+    .ml-cem__hero-bg {
+      aspect-ratio: 16 / 9;
+      max-height: 480px;
+    }
+  }
+
+  /* Variante hero B (Tweaks) : overlay La Bouche Rouge — image plein fond, bloc texte ancré */
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+    min-height: 72vh;
+    color: #fff;
+    background: #1a1a1a;
+    align-items: stretch;
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-bg {
+    position: absolute; inset: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    box-shadow: none;
+    order: 0;
+    max-height: none;
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-bg img,
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-bg video {
+    object-position: center 30%;
+    filter: saturate(0.85) contrast(1) brightness(0.92);
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-bg::after {
+    background:
+      linear-gradient(90deg, rgba(26,26,26,0.78) 0%, rgba(26,26,26,0.45) 45%, rgba(26,26,26,0.25) 100%),
+      linear-gradient(180deg, rgba(26,26,26,0.35) 0%, rgba(26,26,26,0.55) 100%);
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-content {
+    position: relative; z-index: 2;
+    align-self: end;
+    justify-self: start;
+    padding: 2rem 1.5rem 5rem;
+    border-left: none;
+    max-width: 40rem;
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-eyebrow,
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero::before,
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero::after {
+    color: #e8c685;
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-title { color: #fff; }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-title em { color: #e8c685; }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-title::after { background: #e8c685; }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-sub { color: rgba(255,255,255,0.82); }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero .ml-cem__btn--gold {
+    background: #fff; color: var(--cem-dark); box-shadow: 0 12px 28px -8px rgba(0,0,0,0.45);
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-cta-secondary {
+    color: #fff; border-color: rgba(255,255,255,0.55);
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__hero-cta-secondary:hover {
+    background: #fff; color: var(--cem-dark);
+  }
+  .ml-cem[data-hero-variant="B"] .ml-cem__trust {
+    border-top-color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.75);
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem[data-hero-variant="B"] .ml-cem__hero { padding: 0; }
+    .ml-cem[data-hero-variant="B"] .ml-cem__hero-content {
+      padding: 3rem 4rem 6rem;
+      max-width: 50rem;
+    }
+  }
+
+  /* ═══════════════════════════════════════ ÉTAPES — shell commun ═══════════════════════════════════════ */
+  .ml-cem__step {
+    padding: 4.5rem 1.25rem;
+    scroll-margin-top: 80px;
+    position: relative;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__step { padding: 6.5rem 3rem; }
+  }
+  @media screen and (min-width: 1100px) {
+    .ml-cem__step { padding: 7.5rem 4.5rem; }
+  }
+  .ml-cem__step-inner {
+    max-width: 88rem; margin: 0 auto;
+  }
+  .ml-cem__step--produits .ml-cem__step-inner,
+  .ml-cem__step--recap .ml-cem__step-inner {
+    max-width: 96rem;
+  }
+  .ml-cem__step-head {
+    text-align: left; max-width: 100%;
+    margin: 0 0 2.4rem;
+    display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start;
+  }
+  .ml-cem__step-head h2 {
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+  }
+  .ml-cem__step-intro {
+    font-size: 1rem; line-height: 1.6; color: var(--cem-mid); margin: 0;
+  }
+
+  /* ═══════════════════════════════════════ ÉTAPE 1 — DOSSIER ═══════════════════════════════════════ */
+  .ml-cem__step--dossier { background: var(--cem-cream); position: relative; }
+  /* ornement : filet + numéro étape monospace en haut */
+  .ml-cem__step--dossier .ml-cem__step-head { position: relative; text-align: left; max-width: 100%; margin: 0 0 2.4rem; align-items: flex-start; }
+  .ml-cem__step--dossier .ml-cem__step-head::before {
+    content: 'ÉTAPE 01 / 04';
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    color: var(--cem-dark);
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 0.6rem;
+  }
+  .ml-cem__step--dossier .ml-cem__eyebrow { color: var(--cem-dark); font-size: 1.181rem; letter-spacing: 0.2em; }
+  .ml-cem__step--dossier .ml-cem__h {
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+  .ml-cem__step--dossier .ml-cem__step-intro {
+    font-size: 1rem; line-height: 1.6;
+    max-width: 36rem;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.38rem;
+  }
+  .ml-cem__pillars {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 2.4rem;
+    border-top: 1px solid rgba(117,90,37,0.2);
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__pillars { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  }
+  .ml-cem__pillar {
+    position: relative;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(117,90,37,0.2);
+    border-radius: 0;
+    padding: 1.8rem 0 1.8rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 1.4rem;
+    row-gap: 0.35rem;
+    align-items: baseline;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__pillar {
+      grid-template-columns: 1fr;
+      border-bottom: none;
+      border-right: 1px solid rgba(117,90,37,0.2);
+      padding: 2.2rem 1.8rem 2.2rem 0;
+    }
+    .ml-cem__pillar + .ml-cem__pillar { padding-left: 1.8rem; }
+    .ml-cem__pillar:last-child { border-right: none; padding-right: 0; }
+  }
+  /* numéro XXL Cormorant en outline or */
+  .ml-cem__pillar::before {
+    content: attr(data-step-n);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 3.4rem;
+    font-weight: 500;
+    line-height: 0.9;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--cem-gold);
+    grid-row: span 4;
+    align-self: start;
+    margin-top: 0.2rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__pillar::before {
+      font-size: 4.2rem;
+      grid-row: auto;
+      margin-bottom: 0.6rem;
+    }
+  }
+  .ml-cem__pillar-icon { display: none; } /* icônes retirées — les numéros portent l'identité */
+  .ml-cem__pillar-name {
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cem-dark); font-weight: 600;
+    margin-bottom: 0.1rem;
+  }
+  .ml-cem__pillar-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500; font-style: italic;
+    font-size: 1.5rem;
+    margin: 0; line-height: 1.15;
+    color: var(--cem-dark);
+  }
+  .ml-cem__pillar-text {
+    font-size: 1.325rem; line-height: 1.55;
+    color: var(--cem-mid); margin: 0.4rem 0 0;
+  }
+
+  /* bandeau preuve — signature pharmacien + mentions réglementaires */
+  .ml-cem__dossier-proof {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 1.2rem 2rem;
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(117,90,37,0.2);
+    border-bottom: 1px solid rgba(117,90,37,0.2);
+    margin: 0 0 2rem;
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.094rem; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cem-dark);
+  }
+  .ml-cem__dossier-proof span { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .ml-cem__dossier-proof span::before {
+    content: ''; width: 14px; height: 1px; background: var(--cem-gold);
+  }
+  .ml-cem__dossier-details {
+    background: #fff; border-radius: 14px; padding: 1.2rem 1.6rem;
+    border: 1px solid var(--cem-line);
+  }
+  .ml-cem__dossier-details summary {
+    cursor: pointer; list-style: none;
+    font-weight: 600; display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0;
+  }
+  .ml-cem__dossier-details summary::-webkit-details-marker { display: none; }
+  .ml-cem__dossier-details[open] summary::after { transform: rotate(45deg); }
+  .ml-cem__dossier-details summary::after {
+    content: '+'; font-size: 1.4rem; color: var(--cem-gold);
+    transition: transform 0.25s;
+  }
+  .ml-cem__dossier-list {
+    list-style: none; padding: 1rem 0 0.4rem 0; margin: 0;
+    display: grid; grid-template-columns: 1fr; gap: 0.6rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__dossier-list { grid-template-columns: 1fr 1fr; gap: 0.8rem 2rem; }
+  }
+  .ml-cem__dossier-list li {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 1.368rem; line-height: 1.5; color: var(--cem-mid);
+  }
+  .ml-cem__dossier-list li::before {
+    content: ''; flex-shrink: 0;
+    width: 18px; height: 18px; margin-top: 2px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c5a467' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg>") no-repeat center / contain;
+  }
+  .ml-cem__dossier-hint {
+    text-align: center; margin-top: 1.6rem;
+    font-size: 1.368rem; color: var(--cem-mid); font-style: italic;
+  }
+
+  /* ═══════════════════════════════════════ ÉTAPE 2 — ÉTIQUETTE ═══════════════════════════════════════ */
+  .ml-cem__step--label { background: var(--cem-cream-2); }
+  .ml-cem__step--label .ml-cem__step-head::before {
+    content: 'ÉTAPE 02 / 04';
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    color: var(--cem-dark);
+    display: block; margin-bottom: 0.6rem;
+  }
+  .ml-cem__step--label .ml-cem__step-head {
+    text-align: left; max-width: 100%; align-items: flex-start;
+    margin: 0 0 2.4rem;
+  }
+  .ml-cem__step--label .ml-cem__h { font-size: clamp(2.2rem, 7vw, 3.4rem); max-width: 22ch; }
+  .ml-cem__step--label .ml-cem__step-intro {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.38rem; max-width: 36rem;
+  }
+  .ml-cem__options {
+    display: grid; grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media screen and (min-width: 950px) {
+    .ml-cem__options { grid-template-columns: repeat(3, 1fr); gap: 1.2rem; align-items: stretch; }
+  }
+  .ml-cem__option {
+    position: relative;
+    border: 1px solid rgba(117,90,37,0.2);
+    border-radius: 4px;
+    background: #fff;
+    padding: 1.8rem 1.4rem 1.4rem;
+    display: flex; flex-direction: column; gap: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    text-align: left;
+  }
+  .ml-cem__option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -14px rgba(26,26,26,0.15);
+    border-color: var(--cem-gold);
+  }
+  .ml-cem__option[data-selected="true"] {
+    border-color: var(--cem-gold-dark);
+    box-shadow: 0 20px 42px -14px rgba(197,164,103,0.28);
+  }
+  .ml-cem__option[data-selected="true"]::after {
+    content: '✓ Sélectionné';
+    position: absolute; top: -10px; right: 1.2rem;
+    background: var(--cem-gold-dark); color: #fff;
+    padding: 0.28rem 0.7rem; border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.238rem; font-weight: 600; letter-spacing: 0.14em;
+  }
+  .ml-cem__option-badge {
+    align-self: flex-start;
+    background: transparent; color: var(--cem-dark);
+    padding: 0; border-radius: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.094rem; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .ml-cem__option-badge::before {
+    content: ''; display: inline-block;
+    width: 20px; height: 1px; background: var(--cem-gold);
+  }
+  .ml-cem__option-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem; font-weight: 500; font-style: normal;
+    margin: 0; line-height: 1.1;
+  }
+  .ml-cem__option-title em {
+    font-style: italic; color: var(--cem-dark);
+  }
+  .ml-cem__option-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 500; font-style: italic;
+    color: var(--cem-dark);
+    display: flex; align-items: baseline; gap: 0.35rem;
+    margin: 0.1rem 0 0.2rem;
+    line-height: 1;
+  }
+  .ml-cem__option-price small {
+    font-size: 1.123rem; font-family: 'DM Sans', sans-serif;
+    color: var(--cem-mid); font-weight: 400; font-style: normal;
+    letter-spacing: 0.02em;
+  }
+  .ml-cem__option-meta {
+    display: flex; flex-direction: column; gap: 0.55rem;
+    font-size: 1.267rem; color: var(--cem-mid);
+    padding: 1rem 0;
+    border-top: 1px dashed rgba(117,90,37,0.3);
+    border-bottom: 1px dashed rgba(117,90,37,0.3);
+  }
+  .ml-cem__option-meta span { display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.4; }
+  .ml-cem__option-meta span::before {
+    content: ''; flex-shrink: 0;
+    width: 4px; height: 4px; margin-top: 0.55rem;
+    background: var(--cem-gold); border-radius: 0;
+    transform: rotate(45deg);
+  }
+  .ml-cem__option-best {
+    font-size: 1.238rem; font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cem-mid); margin: 0;
+    line-height: 1.45;
+  }
+  .ml-cem__option-cta {
+    margin-top: auto;
+    background: var(--cem-dark); color: #fff;
+    padding: 0.95rem 1.2rem; border-radius: 999px;
+    font-size: 1.123rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    text-align: center; border: none; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ml-cem__option-cta:hover { background: var(--cem-gold-dark); }
+  .ml-cem__option[data-selected="true"] .ml-cem__option-cta { background: var(--cem-success); }
+  .ml-cem__option-more {
+    display: inline-block;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cem-mid);
+    text-decoration: none;
+    padding-top: 0.4rem;
+    border-top: none;
+    transition: color 0.2s;
+  }
+  .ml-cem__option-more:hover { color: var(--cem-dark); }
+
+  /* Option 02 — sweet-spot : fond cream + badge "Le plus choisi" en micro */
+  .ml-cem__option[data-label-option="modeles"] {
+    background: var(--cem-cream);
+    border-color: rgba(117,90,37,0.3);
+  }
+  .ml-cem__option[data-label-option="modeles"]::before {
+    content: 'LE PLUS CHOISI';
+    position: absolute; top: -10px; left: 1.4rem;
+    background: var(--cem-gold);
+    color: #fff;
+    padding: 0.28rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; font-weight: 600; letter-spacing: 0.2em;
+    border-radius: 999px;
+  }
+
+  /* Option 03 — premium : carte dark + liseré or + badge Collection privée */
+  .ml-cem__option[data-label-option="sur-mesure"] {
+    background: var(--cem-dark);
+    color: #fff;
+    border-color: var(--cem-gold-dark);
+    box-shadow: inset 0 0 0 1px rgba(197,164,103,0.25);
+  }
+  .ml-cem__option[data-label-option="sur-mesure"]::before {
+    content: 'COLLECTION PRIVÉE';
+    position: absolute; top: -10px; left: 1.4rem;
+    background: var(--cem-dark);
+    color: var(--cem-gold);
+    border: 1px solid var(--cem-gold);
+    padding: 0.28rem 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; font-weight: 600; letter-spacing: 0.2em;
+    border-radius: 999px;
+  }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-badge { color: var(--cem-gold); }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-badge::before { background: var(--cem-gold); }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-title { color: #fff; }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-title em { color: var(--cem-gold); }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-price { color: #fff; }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-price small { color: rgba(255,255,255,0.65); }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-meta {
+    color: rgba(255,255,255,0.78);
+    border-top-color: rgba(197,164,103,0.3);
+    border-bottom-color: rgba(197,164,103,0.3);
+  }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-best { color: rgba(255,255,255,0.68); }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-cta {
+    background: var(--cem-gold); color: var(--cem-dark);
+  }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-cta:hover {
+    background: #fff;
+  }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-more {
+    color: rgba(255,255,255,0.55);
+  }
+  .ml-cem__option[data-label-option="sur-mesure"] .ml-cem__option-more:hover { color: var(--cem-gold); }
+  .ml-cem__option[data-label-option="sur-mesure"]:hover { border-color: var(--cem-gold); }
+
+  .ml-cem__option--dual:hover { /* overrides réduits — hover fin */ }
+  .ml-cem__option--dual:hover .ml-cem__option-cta { background: var(--cem-gold-dark); }
+
+  /* ═══════════════════════════════════════ ÉTAPE 2.5 — FORFAIT ═══════════════════════════════════════ */
+  .ml-cem__step--forfait { background: #fff; position: relative; }
+  .ml-cem__step--forfait::before {
+    content: ''; position: absolute; left: 50%; top: 0;
+    width: 1px; height: 48px;
+    background: linear-gradient(180deg, transparent, var(--cem-gold));
+  }
+  .ml-cem__step--forfait .ml-cem__step-head {
+    text-align: left; max-width: 100%; align-items: flex-start;
+    margin: 0 0 2.2rem;
+  }
+  .ml-cem__step--forfait .ml-cem__step-head::before {
+    content: 'ÉTAPE 02 · EXTENSION';
+    font-family: 'DM Mono', ui-monospace, monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    color: var(--cem-dark);
+    display: block; margin-bottom: 0.6rem;
+  }
+  .ml-cem__step--forfait .ml-cem__h { font-size: clamp(2rem, 6.5vw, 3rem); max-width: 22ch; }
+  .ml-cem__step--forfait .ml-cem__step-intro {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.32rem; max-width: 36rem;
+  }
+  /* piliers forfait : pattern différent du dossier — liste indexée */
+  .ml-cem__step--forfait .ml-cem__pillars {
+    border-top: none;
+    display: flex; flex-direction: column;
+    gap: 0;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__step--forfait .ml-cem__pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+  .ml-cem__step--forfait .ml-cem__pillar {
+    background: var(--cem-cream-2);
+    border: 1px solid rgba(117,90,37,0.15);
+    border-radius: 2px;
+    padding: 1.6rem 1.4rem;
+    display: flex; flex-direction: column; gap: 0.4rem;
+    grid-template-columns: 1fr;
+  }
+  .ml-cem__step--forfait .ml-cem__pillar::before { display: none; }
+  .ml-cem__step--forfait .ml-cem__pillar-name { color: var(--cem-dark); }
+  .ml-cem__step--forfait .ml-cem__pillar-title { font-size: 1.3rem; }
+
+  .ml-cem__forfait-callout {
+    margin-top: 2rem;
+    background: var(--cem-dark);
+    color: #fff;
+    border: none;
+    border-left: none;
+    border-radius: 2px;
+    padding: 1.4rem 1.6rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+    transition: background 0.3s;
+    overflow: hidden;
+  }
+  .ml-cem__forfait-callout::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--cem-gold);
+  }
+  .ml-cem__forfait-callout[data-state="active"] {
+    background: var(--cem-dark);
+  }
+  .ml-cem__forfait-callout[data-state="active"]::before { background: var(--cem-gold); }
+  .ml-cem__forfait-callout[data-state="skipped"] {
+    background: rgba(45, 122, 69, 0.08);
+    color: var(--cem-dark);
+  }
+  .ml-cem__forfait-callout[data-state="skipped"]::before { background: var(--cem-success); }
+  .ml-cem__forfait-callout-inner { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 0; }
+  .ml-cem__forfait-callout-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.094rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cem-gold); font-weight: 600;
+  }
+  .ml-cem__forfait-callout[data-state="skipped"] .ml-cem__forfait-callout-tag { color: var(--cem-success); }
+  .ml-cem__forfait-callout-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 500; font-style: italic;
+    line-height: 1.3;
+    color: inherit;
+  }
+  .ml-cem__forfait-callout-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500; font-style: italic; font-size: 1.7rem;
+    color: var(--cem-gold);
+  }
+  .ml-cem__forfait-callout-price small {
+    font-size: 1.181rem; font-family: 'DM Mono', monospace;
+    color: rgba(255,255,255,0.6); font-weight: 400; font-style: normal;
+    letter-spacing: 0.12em;
+  }
+  .ml-cem__forfait-callout[data-state="skipped"] .ml-cem__forfait-callout-price {
+    color: var(--cem-success);
+    font-size: 1.296rem; font-family: 'DM Mono', monospace;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; font-style: normal;
+  }
+  /* UX retournement empty : on "prépare" au lieu de "déterminer" */
+  .ml-cem__forfait-callout[data-state="empty"] .ml-cem__forfait-callout-tag::after {
+    content: ' → étape suivante'; opacity: 0.6;
+  }
+
+  /* ═══════════════════════════════════════ ÉTAPE 3 — PRODUITS ═══════════════════════════════════════ */
+  .ml-cem__step--products { background: var(--cem-cream); }
+  .ml-cem__step--products .ml-cem__step-head {
+    text-align: left; max-width: 100%; align-items: flex-start;
+    margin: 0 0 2rem;
+  }
+  .ml-cem__step--products .ml-cem__step-head::before {
+    content: 'ÉTAPE 03 / 04';
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    color: var(--cem-dark);
+    display: block; margin-bottom: 0.6rem;
+  }
+  .ml-cem__step--products .ml-cem__h { font-size: clamp(2.2rem, 7vw, 3.4rem); max-width: 22ch; }
+  .ml-cem__step--products .ml-cem__step-intro {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.38rem; max-width: 36rem;
+  }
+  .ml-cem__tabs {
+    display: flex; gap: 0.4rem; flex-wrap: nowrap;
+    margin: 0 -1.25rem 2rem;
+    padding: 0 1.25rem 0.6rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ml-cem__tabs::-webkit-scrollbar { display: none; }
+  @media screen and (min-width: 950px) {
+    .ml-cem__tabs { flex-wrap: wrap; justify-content: flex-start; margin: 0 0 2.4rem; padding: 0; }
+  }
+  .ml-cem__tab {
+    flex-shrink: 0;
+    border: 1px solid rgba(117,90,37,0.25);
+    background: transparent;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--cem-mid); cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .ml-cem__tab:hover { border-color: var(--cem-gold-dark); color: var(--cem-dark); }
+  .ml-cem__tab[data-active="true"] {
+    background: var(--cem-dark); color: #fff; border-color: var(--cem-dark);
+  }
+  .ml-cem__products-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  @media screen and (min-width: 620px) {
+    .ml-cem__products-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+  }
+  @media screen and (min-width: 950px) {
+    .ml-cem__products-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .ml-cem__product {
+    background: #fff;
+    border: 1px solid rgba(117,90,37,0.15);
+    border-radius: 2px;
+    padding: 1rem 1rem 1.1rem;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .ml-cem__product:hover {
+    border-color: var(--cem-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px -12px rgba(26,26,26,0.12);
+  }
+  .ml-cem__product-img {
+    aspect-ratio: 4 / 5;
+    background: var(--cem-cream-2);
+    border-radius: 0;
+    overflow: hidden;
+    margin-bottom: 0.2rem;
+    position: relative;
+  }
+  .ml-cem__product-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(135deg, transparent 0 12px, rgba(197,164,103,0.04) 12px 13px);
+    pointer-events: none;
+  }
+  .ml-cem__product-img img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1; }
+  .ml-cem__product-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.44rem; font-weight: 500; line-height: 1.2; margin: 0;
+    color: var(--cem-dark);
+  }
+  .ml-cem__product-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+    gap: 0.35rem;
+    margin: 0.4rem 0 0.2rem;
+  }
+  .ml-cem__tier {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.1rem;
+    padding: 0.55rem 0.25rem;
+    border: 1px solid rgba(117,90,37,0.2);
+    border-radius: 2px;
+    background: var(--cem-cream-2);
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 48px;
+  }
+  .ml-cem__tier:hover { border-color: var(--cem-gold); }
+  .ml-cem__tier[data-active="true"] {
+    background: var(--cem-dark);
+    border-color: var(--cem-dark);
+    color: #fff;
+  }
+  .ml-cem__tier-qty {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 500; font-style: italic;
+    letter-spacing: 0; line-height: 1;
+  }
+  .ml-cem__tier-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; text-transform: uppercase; letter-spacing: 0.08em;
+    opacity: 0.65; line-height: 1;
+  }
+  .ml-cem__tier-badge {
+    position: absolute;
+    top: -7px; right: -4px;
+    background: var(--cem-gold-dark); color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; font-weight: 600;
+    padding: 0.1rem 0.36rem; border-radius: 999px;
+    letter-spacing: 0.04em;
+  }
+  .ml-cem__tier[data-active="true"] .ml-cem__tier-badge { background: var(--cem-gold); color: var(--cem-dark); }
+  .ml-cem__product-price-row {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 0.5rem; margin-top: 0.5rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed rgba(117,90,37,0.3);
+  }
+  .ml-cem__product-price-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; color: var(--cem-mid);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ml-cem__product-price-unit span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 500; font-style: italic;
+    color: var(--cem-dark); text-transform: none; letter-spacing: 0;
+  }
+  .ml-cem__product-price-unit small { font-size: 1.181rem; color: var(--cem-mid); }
+  .ml-cem__product-price-total {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500; font-style: italic; font-size: 1.4rem;
+    color: var(--cem-dark);
+  }
+  .ml-cem__product-price-total small {
+    font-size: 1.181rem; color: var(--cem-mid); font-weight: 400; font-style: normal;
+    font-family: 'DM Mono', monospace; letter-spacing: 0.1em;
+  }
+  .ml-cem__product-add {
+    background: var(--cem-dark); color: #fff; border: none;
+    padding: 0.7rem 1rem; border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 0.3rem;
+  }
+  .ml-cem__product-add:hover { background: var(--cem-gold-dark); }
+  .ml-cem__product-add[data-added="true"] { background: var(--cem-success); }
+
+  /* ═══════════════════════════════════════ ÉTAPE 4 — RÉCAP ═══════════════════════════════════════ */
+  .ml-cem__step--recap {
+    background: var(--cem-dark); color: #fff;
+    position: relative;
+  }
+  .ml-cem__step--recap::before {
+    content: 'N° 01 — MMXXVI · PARIS';
+    position: absolute; top: 1.6rem; right: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.22em;
+    color: rgba(232,198,133,0.55);
+  }
+  .ml-cem__step--recap .ml-cem__step-head {
+    text-align: left; max-width: 100%; align-items: flex-start;
+    margin: 0 0 2.2rem;
+  }
+  .ml-cem__step--recap .ml-cem__step-head::before {
+    content: 'ÉTAPE 04 / 04 · PRÊTS À LANCER';
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; letter-spacing: 0.22em;
+    color: #e8c685;
+    display: block; margin-bottom: 0.6rem;
+  }
+  .ml-cem__step--recap h2 { color: #fff; font-size: clamp(2.4rem, 7.5vw, 3.8rem); max-width: 22ch; }
+  .ml-cem__step--recap h2 em { color: #e8c685; }
+  .ml-cem__step--recap .ml-cem__step-intro {
+    color: rgba(255,255,255,0.7);
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.38rem; max-width: 36rem;
+  }
+  .ml-cem__timeline {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    justify-content: flex-start;
+    margin-bottom: 2.4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(232,198,133,0.2);
+  }
+  .ml-cem__tl-step {
+    display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.55rem 1rem; border-radius: 999px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.18);
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+  }
+  .ml-cem__tl-step[data-done="true"] {
+    background: transparent;
+    border-color: var(--cem-gold);
+    color: #e8c685;
+  }
+  .ml-cem__tl-icon {
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.12);
+    font-size: 1.094rem; font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .ml-cem__tl-step[data-done="true"] .ml-cem__tl-icon {
+    background: var(--cem-gold); color: var(--cem-dark);
+  }
+  .ml-cem__recap-box {
+    background: transparent;
+    border: 1px solid rgba(232,198,133,0.25);
+    border-radius: 2px;
+    padding: 1.8rem 1.4rem;
+    max-width: 100%;
+    margin: 0;
+    position: relative;
+  }
+  /* coins dorés — feel "document notarié" */
+  .ml-cem__recap-box::before,
+  .ml-cem__recap-box::after {
+    content: ''; position: absolute;
+    width: 16px; height: 16px;
+    border: 1px solid var(--cem-gold);
+  }
+  .ml-cem__recap-box::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+  }
+  .ml-cem__recap-box::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem__recap-box { padding: 2.8rem 2.6rem; max-width: 48rem; }
+  }
+  .ml-cem__recap-lines {
+    list-style: none; padding: 0; margin: 0 0 1.6rem;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .ml-cem__recap-line {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px dashed rgba(232,198,133,0.2);
+    gap: 1rem;
+  }
+  .ml-cem__recap-line:last-child { border-bottom: none; padding-bottom: 0.2rem; }
+  .ml-cem__recap-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .ml-cem__recap-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: #e8c685;
+    font-size: 1.32rem;
+    text-align: right;
+  }
+  .ml-cem__recap-empty {
+    color: rgba(255,255,255,0.38);
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+  }
+  .ml-cem__recap-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 1.4rem; margin-top: 0.4rem;
+    border-top: 2px solid var(--cem-gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    gap: 1rem;
+  }
+  .ml-cem__recap-total .val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    font-weight: 500; font-style: italic;
+    color: #fff;
+    letter-spacing: -0.01em;
+    text-transform: none;
+  }
+  .ml-cem__recap-cta {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    margin-top: 1.8rem;
+  }
+  @media screen and (min-width: 620px) {
+    .ml-cem__recap-cta { flex-direction: row; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  }
+  /* CTA primaire validation = gold plein, dominant */
+  .ml-cem__recap-cta .ml-cem__btn--primary {
+    background: var(--cem-gold);
+    color: var(--cem-dark);
+    box-shadow: 0 14px 32px -10px rgba(197,164,103,0.4);
+    padding: 1.1rem 2rem;
+    font-size: 1.181rem; letter-spacing: 0.14em;
+    flex: 1 1 auto;
+  }
+  .ml-cem__recap-cta .ml-cem__btn--primary:hover {
+    background: #fff; opacity: 1;
+  }
+  /* CTA secondaire = lien texte discret pour ne plus rivaliser */
+  .ml-cem__recap-cta .ml-cem__btn--ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.75);
+    border: none;
+    padding: 0.8rem 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.14em;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    box-shadow: none;
+  }
+  .ml-cem__recap-cta .ml-cem__btn--ghost:hover {
+    background: transparent; color: var(--cem-gold);
+  }
+  /* mention post-clic rassurance */
+  .ml-cem__recap-box::after { /* keep */ }
+  .ml-cem__step--recap .ml-cem__recap-box + .ml-cem__recap-aftermath {
+    margin: 1.6rem 0 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.123rem; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    max-width: 48rem;
+    line-height: 1.7;
+  }
+
+  /* ═══════════════════════════════════════ STICKY SIDEBAR ═══════════════════════════════════════ */
+  .ml-cem__sticky {
+    position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+    width: 280px; max-width: calc(100vw - 3rem);
+    background: #fff;
+    border: 1px solid rgba(117,90,37,0.2);
+    border-radius: 2px;
+    padding: 1.3rem 1.3rem 1.4rem;
+    box-shadow: 0 18px 44px -18px rgba(17,17,17,0.18);
+    z-index: 50;
+    display: none;
+    font-family: 'DM Sans', sans-serif;
+    position: fixed;
+  }
+  .ml-cem__sticky::before,
+  .ml-cem__sticky::after {
+    content: ''; position: absolute;
+    width: 12px; height: 12px;
+    border: 1px solid var(--cem-gold);
+  }
+  .ml-cem__sticky::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .ml-cem__sticky::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  @media screen and (min-width: 1024px) {
+    .ml-cem__sticky { display: block; }
+  }
+  .ml-cem__sticky-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.094rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cem-dark); font-weight: 600;
+    margin: 0 0 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(117,90,37,0.15);
+  }
+  .ml-cem__sticky-steps { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .ml-cem__sticky-step {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 1.224rem;
+    color: var(--cem-mid);
+    transition: color 0.3s;
+  }
+  .ml-cem__sticky-step[data-done="true"] { color: var(--cem-dark); font-weight: 500; }
+  .ml-cem__sticky-step-circle {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    border: 1px solid rgba(117,90,37,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.123rem; color: var(--cem-muted);
+    background: var(--cem-cream-2);
+    transition: all 0.3s;
+  }
+  .ml-cem__sticky-step[data-done="true"] .ml-cem__sticky-step-circle {
+    background: var(--cem-gold); border-color: var(--cem-gold); color: var(--cem-dark);
+    animation: ml-cem-pulse 0.6s ease-out;
+  }
+  @keyframes ml-cem-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.18); box-shadow: 0 0 0 6px rgba(197,164,103,0.2); }
+    100% { transform: scale(1); }
+  }
+  .ml-cem__sticky-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-top: 0.9rem;
+    border-top: 1px dashed rgba(117,90,37,0.3);
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--cem-mid);
+    margin-bottom: 0.9rem;
+  }
+  .ml-cem__sticky-total strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; color: var(--cem-dark);
+    font-weight: 500; font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .ml-cem__sticky .ml-cem__btn--primary {
+    width: 100%; padding: 0.85rem 1rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; min-height: 44px; letter-spacing: 0.14em;
+  }
+
+  /* Bottom bar mobile */
+  .ml-cem__bottombar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #fff;
+    border-top: 1px solid rgba(117,90,37,0.2);
+    padding: 0.7rem 1rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+    z-index: 50;
+    box-shadow: 0 -8px 24px -8px rgba(0,0,0,0.08);
+    padding-bottom: calc(0.7rem + env(safe-area-inset-bottom, 0));
+  }
+  @media screen and (min-width: 1024px) {
+    .ml-cem__bottombar { display: none; }
+  }
+  .ml-cem__bottombar-info { display: flex; flex-direction: column; gap: 0.1rem; }
+  .ml-cem__bottombar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.181rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--cem-dark);
+  }
+  .ml-cem__bottombar-total {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 500; font-style: italic;
+    line-height: 1;
+  }
+  .ml-cem__bottombar .ml-cem__btn {
+    padding: 0.7rem 1.2rem; min-height: 42px;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.152rem; letter-spacing: 0.14em;
+  }
+  /* Bouton finaliser : ghost tant qu'incomplet, gold quand complet */
+  .ml-cem__bottombar .ml-cem__btn--gold {
+    background: var(--cem-dark); color: #fff;
+    box-shadow: none;
+  }
+  .ml-cem[data-complete="true"] .ml-cem__bottombar .ml-cem__btn--gold {
+    background: linear-gradient(135deg, var(--cem-gold-dark) 0%, var(--cem-gold) 100%);
+    color: #fff;
+    box-shadow: 0 8px 20px -8px rgba(117,90,37,0.5);
+  }
+
+  /* Toast */
+  .ml-cem__toast {
+    position: fixed; bottom: 6rem; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--cem-dark); color: #fff;
+    padding: 0.8rem 1.4rem; border-radius: 999px;
+    font-size: 1.296rem; font-weight: 500;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+  .ml-cem__toast[data-show="true"] { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media screen and (min-width: 1200px) {
+    .ml-cem__toast { bottom: 2rem; }
+  }
+
+  /* Configurateur iframe modal */
+  .ml-cem__modal {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(17,17,17,0.78);
+    display: none;
+    align-items: stretch; justify-content: center;
+  }
+  .ml-cem__modal[data-open="true"] { display: flex; }
+  .ml-cem__modal-frame {
+    position: relative;
+    width: 100%; height: 100%;
+    background: #fff;
+    display: flex; flex-direction: column;
+  }
+  @media screen and (min-width: 960px) {
+    .ml-cem__modal { padding: 2.5rem; }
+    .ml-cem__modal-frame { border-radius: 14px; overflow: hidden; max-width: 1280px; max-height: 100%; }
+  }
+  .ml-cem__modal-close {
+    position: absolute; top: 0.7rem; right: 0.8rem; z-index: 2;
+    appearance: none; border: none; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 999px;
+    background: rgba(255,255,255,0.95); color: #1a1a1a;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; line-height: 1;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  }
+  .ml-cem__modal-close:hover { background: #fff; }
+  .ml-cem__modal-iframe { flex: 1 1 auto; width: 100%; border: 0; display: block; }
+  .ml-cem__modal-loader {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    background: #fff; color: var(--cem-mid); font-size: 1.296rem;
+    transition: opacity 0.2s;
+  }
+  .ml-cem__modal-loader[hidden] { display: none; }
+  .ml-cem__modal-error {
+    position: absolute; inset: 0; display: none; flex-direction: column; gap: 0.8rem;
+    align-items: center; justify-content: center; text-align: center; padding: 2rem;
+    background: #fff;
+  }
+  .ml-cem__modal-error[data-show="true"] { display: flex; }
+  body[data-ml-cem-modal-open="true"] { overflow: hidden; }
+
+  /* Card post-design preview */
+  .ml-cem__option[data-design-ready="true"] .ml-cem__option-cta { background: var(--cem-success); color: #fff; }
+  .ml-cem__option-preview {
+    display: none;
+    margin: 0.8rem 0 0.4rem;
+    padding: 0.6rem;
+    border: 1px solid var(--cem-line);
+    border-radius: 10px;
+    background: #fff;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .ml-cem__option[data-design-ready="true"] .ml-cem__option-preview { display: flex; }
+  .ml-cem__option-preview-thumb {
+    width: 52px; height: 52px; flex-shrink: 0;
+    background: #f5f0eb center/contain no-repeat;
+    border-radius: 8px; border: 1px solid var(--cem-line);
+  }
+  .ml-cem__option-preview-meta { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; flex: 1; }
+  .ml-cem__option-preview-ref {
+    font-family: 'DM Sans', sans-serif; font-size: 1.181rem; letter-spacing: 0.08em;
+    color: var(--cem-dark); font-weight: 600; text-transform: uppercase;
+  }
+  .ml-cem__option-preview-label { font-size: 1.238rem; font-weight: 600; color: var(--cem-dark); }
+  .ml-cem__option-preview-edit {
+    background: none; border: none; color: var(--cem-mid); cursor: pointer;
+    font-size: 1.123rem; text-decoration: underline; padding: 0.3rem 0.5rem;
+  }
+  .ml-cem__option-preview-edit:hover { color: var(--cem-dark); }
+
+  /* ═══════════════════════════════════════ TWEAK VARIANTS A/B ═══════════════════════════════════════ */
+  /* Hero variant B — overlay sur image au lieu de split */
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-grid {
+    display: block;
+    position: relative;
+    min-height: 88vh;
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-media {
+    position: absolute; inset: 0;
+    height: 100%;
+    z-index: 0;
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-media::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(17,17,17,0.82) 0%, rgba(17,17,17,0.55) 45%, rgba(17,17,17,0.1) 85%);
+    z-index: 1;
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-text {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    padding: 5rem 1.5rem;
+    max-width: 38rem;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-text { padding: 8rem 4rem; }
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-text h1,
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-text p,
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-eyebrow,
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-millesime { color: #fff; }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-eyebrow,
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-millesime { color: rgba(255,255,255,0.75); }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__hero-text h1 em { color: #e8c685; font-style: italic; }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__btn--primary {
+    background: #fff; color: var(--cem-dark);
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__btn--ghost {
+    border-color: rgba(255,255,255,0.55); color: #fff;
+  }
+  .ml-cem[data-tweak-hero-variant="B"] .ml-cem__btn--ghost:hover {
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Label variant B — une seule carte Sur-mesure dominante, autres compressées */
+  .ml-cem[data-tweak-label-variant="B"] .ml-cem__options {
+    grid-template-columns: 1fr;
+    max-width: 36rem;
+    margin-left: auto; margin-right: auto;
+  }
+  @media screen and (min-width: 900px) {
+    .ml-cem[data-tweak-label-variant="B"] .ml-cem__options {
+      grid-template-columns: 1fr 1.5fr;
+      max-width: 62rem;
+      align-items: start;
+    }
+    .ml-cem[data-tweak-label-variant="B"] .ml-cem__option--premium { grid-row: span 2; }
+  }
+  .ml-cem[data-tweak-label-variant="B"] .ml-cem__option--nu,
+  .ml-cem[data-tweak-label-variant="B"] .ml-cem__option--dual {
+    padding: 1.4rem 1.6rem;
+  }
+  .ml-cem[data-tweak-label-variant="B"] .ml-cem__option--nu .ml-cem__option-title,
+  .ml-cem[data-tweak-label-variant="B"] .ml-cem__option--dual .ml-cem__option-title {
+    font-size: 1.5rem;
+  }
+
+  /* Products variant B — fond blanc au lieu de cream */
+  .ml-cem[data-tweak-products-variant="B"] .ml-cem__step--produits {
+    background: #fff;
+  }
+
+  /* Motion off */
+  .ml-cem[data-tweak-motion="off"] [data-ml-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+{%- endstyle -%}
+
+<div class="ml-cem" id="ml-cem" data-section-id="{{ section.id }}" data-hero-variant="B">
+
+  {%- comment -%} ══════════════════ HERO ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__hero">
+    <div class="ml-cem__hero-bg">
+      {%- if section.settings.hero_video != blank -%}
+        <video autoplay muted loop playsinline {% if section.settings.hero_image != blank %}poster="{{ section.settings.hero_image | image_url: width: 1600 }}"{% endif %}>
+          <source src="{{ section.settings.hero_video.sources[1].url | default: section.settings.hero_video.sources[0].url }}" type="video/mp4">
+        </video>
+      {%- elsif section.settings.hero_image != blank -%}
+        <img src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="" loading="eager">
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <div class="ml-cem__hero-content">
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <span class="ml-cem__hero-eyebrow">{{ section.settings.hero_eyebrow }}</span>
+      {%- endif -%}
+      <h1 class="ml-cem__hero-title">{{ section.settings.hero_title }}</h1>
+      {%- if section.settings.hero_sub != blank -%}
+        <p class="ml-cem__hero-sub">{{ section.settings.hero_sub }}</p>
+      {%- endif -%}
+      <div class="ml-cem__hero-ctas">
+        <a href="#etape-dossier" class="ml-cem__btn ml-cem__btn--gold" data-smooth>{{ section.settings.hero_cta_primary | default: "Commençons notre projet" }}</a>
+        {%- if section.settings.hero_cta_alt_link != blank -%}
+          <a href="{{ section.settings.hero_cta_alt_link }}" class="ml-cem__btn ml-cem__hero-cta-secondary">{{ section.settings.hero_cta_alt | default: "Prendre rendez-vous" }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.trust_1 != blank or section.settings.trust_2 != blank or section.settings.trust_3 != blank -%}
+      <div class="ml-cem__trust">
+        {%- if section.settings.trust_1 != blank -%}<div class="ml-cem__trust-item">{{ section.settings.trust_1 }}</div>{%- endif -%}
+        {%- if section.settings.trust_2 != blank -%}<div class="ml-cem__trust-item">{{ section.settings.trust_2 }}</div>{%- endif -%}
+        {%- if section.settings.trust_3 != blank -%}<div class="ml-cem__trust-item">{{ section.settings.trust_3 }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+  </section>
+
+  {%- comment -%} ══════════════════ ÉTAPE 1 — DOSSIER ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__step ml-cem__step--dossier" id="etape-dossier" data-step="dossier">
+    <div class="ml-cem__step-inner">
+      <div class="ml-cem__step-head">
+        <p class="ml-cem__eyebrow">Pilier obligatoire · Inclus dans notre accompagnement</p>
+        <h2 class="ml-cem__h">Le dossier cosmétologique, <em>on s'en occupe</em></h2>
+        <p class="ml-cem__step-intro">Chaque produit cosmétique vendu au public en Europe doit avoir son dossier réglementaire. On s'en charge intégralement — vous signez, nous déposons.</p>
+      </div>
+
+      <div class="ml-cem__pillars" data-ml-reveal-stagger>
+        <div class="ml-cem__pillar" data-step-n="01" data-ml-reveal>
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></div>
+          <span class="ml-cem__pillar-name">DIP</span>
+          <h3 class="ml-cem__pillar-title">Dossier d'information produit</h3>
+          <p class="ml-cem__pillar-text">Le bouquet complet exigé par la réglementation européenne : formule, tests, évaluation toxicologique, étiquetage conforme.</p>
+        </div>
+        <div class="ml-cem__pillar" data-step-n="02" data-ml-reveal>
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15 8.5 22 9 17 14 18.2 21 12 17.8 5.8 21 7 14 2 9 9 8.5 12 2"/></svg></div>
+          <span class="ml-cem__pillar-name">CPNP</span>
+          <h3 class="ml-cem__pillar-title">Notification européenne</h3>
+          <p class="ml-cem__pillar-text">Enregistrement de vos produits au portail Cosmetic Products Notification Portal, obligatoire avant la mise sur le marché.</p>
+        </div>
+        <div class="ml-cem__pillar" data-step-n="03" data-ml-reveal>
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><path d="M10 2v7.5a4 4 0 0 1-1.172 2.828L3.5 17.5A3 3 0 0 0 5.621 22.5h12.758A3 3 0 0 0 20.5 17.5l-5.328-5.172A4 4 0 0 1 14 9.5V2"/><line x1="8" y1="2" x2="16" y2="2"/></svg></div>
+          <span class="ml-cem__pillar-name">TESTS</span>
+          <h3 class="ml-cem__pillar-title">Stabilité & compatibilité</h3>
+          <p class="ml-cem__pillar-text">Tests de stabilité accélérée, compatibilité contenant/contenu, challenge test microbiologique : tout ce qui garantit la qualité du produit fini.</p>
+        </div>
+      </div>
+
+      <div class="ml-cem__dossier-proof" data-ml-reveal>
+        <span>Évaluation pharmacien toxicologue</span>
+        <span>Notification CPNP Europe</span>
+        <span>Règlement CE 1223 / 2009</span>
+      </div>
+
+      <details class="ml-cem__dossier-details">
+        <summary>Ce qui est dans votre dossier</summary>
+        <ul class="ml-cem__dossier-list">
+          <li>Formule qualitative et quantitative (conforme Annexe I Règlement CE 1223/2009)</li>
+          <li>Évaluation de la sécurité par un pharmacien toxicologue</li>
+          <li>Tests de stabilité 3 mois (conditions accélérées)</li>
+          <li>Challenge test — efficacité du conservateur</li>
+          <li>Compatibilité contenant/contenu selon packaging</li>
+          <li>Notification CPNP (Europe)</li>
+          <li>Étiquetage conforme (INCI, DLUO, précautions)</li>
+          <li>Fiche de données de sécurité transport</li>
+        </ul>
+      </details>
+
+      <p class="ml-cem__dossier-hint">Délai : 3 semaines. Validité : tant que la formule reste identique.</p>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ ÉTAPE 2 — ÉTIQUETTE ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__step ml-cem__step--label" id="etape-etiquette" data-step="etiquette">
+    <div class="ml-cem__step-inner">
+      <div class="ml-cem__step-head">
+        <p class="ml-cem__eyebrow">Étape 02 · Votre identité visuelle</p>
+        <h2 class="ml-cem__h">Choisissons <em>votre habillage</em></h2>
+        <p class="ml-cem__step-intro">Trois chemins, un même objectif : une étiquette qui vous ressemble. Vous pouvez évoluer d'une option à l'autre à tout moment.</p>
+      </div>
+
+      <div class="ml-cem__options">
+
+        <div class="ml-cem__option ml-cem__option--dual" data-label-option="standard" data-variant-id="59231350554958" data-price-cents="0">
+          <span class="ml-cem__option-badge">Option 01 · Gratuit</span>
+          <h3 class="ml-cem__option-title">Design <em>MY.LAB</em></h3>
+          <div class="ml-cem__option-price">Gratuit</div>
+          <div class="ml-cem__option-meta">
+            <span>Votre logo sur nos étiquettes signature</span>
+            <span>Logo en noir uniquement</span>
+            <span>Prêt en 2 minutes</span>
+          </div>
+          <p class="ml-cem__option-best">Idéal pour tester l'idée, lancer une petite série, valider le marché.</p>
+          <div class="ml-cem__option-preview" data-preview>
+            <span class="ml-cem__option-preview-thumb" data-preview-thumb></span>
+            <span class="ml-cem__option-preview-meta">
+              <span class="ml-cem__option-preview-ref" data-preview-ref></span>
+              <span class="ml-cem__option-preview-label" data-preview-label></span>
+            </span>
+            <button type="button" class="ml-cem__option-preview-edit" data-preview-edit>Modifier</button>
+          </div>
+          <button type="button" class="ml-cem__option-cta" data-option-add>Ajouter au panier — Gratuit</button>
+          <a href="/pages/etiquettes-standard" class="ml-cem__option-more">En savoir plus sur le design standard →</a>
+        </div>
+
+        <div class="ml-cem__option ml-cem__option--dual" data-label-option="modeles" data-variant-id="{{ section.settings.modele_default_product.selected_or_first_available_variant.id | default: 55418309083470 }}" data-price-cents="9900">
+          <span class="ml-cem__option-badge">Option 02 · 99 €</span>
+          <h3 class="ml-cem__option-title">Modèles <em>graphiques</em></h3>
+          <div class="ml-cem__option-price">99<small>€ / modèle</small></div>
+          <div class="ml-cem__option-meta">
+            <span>11 designs créés par notre studio</span>
+            <span>Personnalisation couleurs + logo</span>
+            <span>Prêt sous 24h</span>
+          </div>
+          <p class="ml-cem__option-best">Démarrer pro sans budget design, avec une identité déjà forte.</p>
+          <div class="ml-cem__option-preview" data-preview>
+            <span class="ml-cem__option-preview-thumb" data-preview-thumb></span>
+            <span class="ml-cem__option-preview-meta">
+              <span class="ml-cem__option-preview-ref" data-preview-ref></span>
+              <span class="ml-cem__option-preview-label" data-preview-label></span>
+            </span>
+            <button type="button" class="ml-cem__option-preview-edit" data-preview-edit>Modifier</button>
+          </div>
+          <button type="button" class="ml-cem__option-cta" data-option-add>Ajouter au panier — 99&nbsp;€</button>
+          <a href="/pages/modeles-etiquettes#galerie-modeles" class="ml-cem__option-more">Voir les 11 modèles →</a>
+        </div>
+
+        <div class="ml-cem__option ml-cem__option--dual" data-label-option="sur-mesure" data-variant-id="55418346242382" data-price-cents="39000">
+          <span class="ml-cem__option-badge">Option 03 · à partir de 390 €</span>
+          <h3 class="ml-cem__option-title">Sur <em>mesure</em></h3>
+          <div class="ml-cem__option-price">390<small>€ de brief</small></div>
+          <div class="ml-cem__option-meta">
+            <span>Design 100% exclusif à votre marque</span>
+            <span>Brief studio + 2-3 itérations</span>
+            <span>Prêt en 3 à 5 semaines</span>
+          </div>
+          <p class="ml-cem__option-best">Construire une marque différenciée avec une direction artistique forte.</p>
+          <div class="ml-cem__option-preview" data-preview>
+            <span class="ml-cem__option-preview-thumb" data-preview-thumb></span>
+            <span class="ml-cem__option-preview-meta">
+              <span class="ml-cem__option-preview-ref" data-preview-ref></span>
+              <span class="ml-cem__option-preview-label" data-preview-label></span>
+            </span>
+            <button type="button" class="ml-cem__option-preview-edit" data-preview-edit>Modifier</button>
+          </div>
+          <button type="button" class="ml-cem__option-cta" data-option-add>Ajouter au panier — 390&nbsp;€</button>
+          <a href="/pages/etiquette-sur-mesure" class="ml-cem__option-more">En savoir plus sur le sur mesure →</a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ ÉTAPE 2.5 — FORFAIT IMPRESSION ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__step ml-cem__step--forfait" id="etape-forfait" data-step="forfait">
+    <div class="ml-cem__step-inner">
+      <div class="ml-cem__step-head">
+        <p class="ml-cem__eyebrow">Inclus dans notre accompagnement · Ajouté automatiquement</p>
+        <h2 class="ml-cem__h">L'impression, <em>c'est en abonnement</em></h2>
+        <p class="ml-cem__step-intro">Pour imprimer vos étiquettes sur chacune de vos commandes, un abonnement annuel simple, ajouté automatiquement à votre panier selon le design choisi au-dessus.</p>
+      </div>
+
+      <div class="ml-cem__pillars">
+        <div class="ml-cem__pillar">
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <span class="ml-cem__pillar-name">1 an d'impressions</span>
+          <h3 class="ml-cem__pillar-title">Illimité en quantité</h3>
+          <p class="ml-cem__pillar-text">Nous imprimons vos étiquettes sur chacune de vos commandes pendant 12 mois, sans surcoût à l'unité.</p>
+        </div>
+        <div class="ml-cem__pillar">
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+          <span class="ml-cem__pillar-name">Reconduction tacite</span>
+          <h3 class="ml-cem__pillar-title">Zéro friction</h3>
+          <p class="ml-cem__pillar-text">Votre forfait se renouvelle automatiquement chaque année. Résiliation à tout moment depuis votre espace client, sans pénalité.</p>
+        </div>
+        <div class="ml-cem__pillar">
+          <div class="ml-cem__pillar-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <span class="ml-cem__pillar-name">2 formules</span>
+          <h3 class="ml-cem__pillar-title">Adapté à votre design</h3>
+          <p class="ml-cem__pillar-text"><strong>Noire&nbsp;: 99&nbsp;€/an</strong> pour le design MY.LAB standard.<br><strong>Couleur&nbsp;: 250&nbsp;€/an</strong> pour les modèles graphiques et le sur mesure.</p>
+        </div>
+      </div>
+
+      <div class="ml-cem__forfait-callout" data-forfait-callout data-state="empty">
+        <div class="ml-cem__forfait-callout-inner">
+          <span class="ml-cem__forfait-callout-tag">Votre forfait</span>
+          <span class="ml-cem__forfait-callout-name" data-forfait-name>À déterminer selon votre choix d'étiquette</span>
+        </div>
+        <div class="ml-cem__forfait-callout-price" data-forfait-price>—</div>
+      </div>
+
+      <details class="ml-cem__dossier-details" style="margin-top:1.6rem;">
+        <summary>Questions fréquentes sur le forfait</summary>
+        <ul class="ml-cem__dossier-list">
+          <li><strong>Que couvre le forfait&nbsp;?</strong> L'impression de vos étiquettes personnalisées sur tous les flacons de vos commandes pendant 12 mois.</li>
+          <li><strong>Est-ce que je peux changer de design en cours d'année&nbsp;?</strong> Oui, votre design est modifiable gratuitement. Un changement majeur peut rebasculer vers la formule Couleur.</li>
+          <li><strong>Comment résilier&nbsp;?</strong> Depuis votre espace client en 2 clics, ou en nous écrivant. Aucun frais de sortie.</li>
+          <li><strong>Et si je passe de noire à couleur en cours d'année&nbsp;?</strong> On bascule votre abonnement, vous ne payez que la différence au prorata.</li>
+          <li><strong>Le renouvellement est-il imposé&nbsp;?</strong> Non. Reconduction tacite mais désactivable à tout moment.</li>
+          <li><strong>Est-ce inclus dans le dossier cosmétologique&nbsp;?</strong> Non, c'est une prestation distincte. Le dossier couvre la partie réglementaire, le forfait couvre l'impression.</li>
+        </ul>
+      </details>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ ÉTAPE 3 — PRODUITS ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__step ml-cem__step--products" id="etape-produits" data-step="produits">
+    <div class="ml-cem__step-inner">
+      <div class="ml-cem__step-head">
+        <p class="ml-cem__eyebrow">Étape 03 · Votre gamme</p>
+        <h2 class="ml-cem__h">Composons <em>votre ligne</em></h2>
+        <p class="ml-cem__step-intro">Sélectionnez les produits et contenances de votre marque. Les prix baissent automatiquement selon les paliers de quantité.</p>
+      </div>
+
+      {%- liquid
+        assign extra = section.settings.extra_products
+        assign pro_size = pro_col.products.size | default: 0
+        assign extra_size = extra.size | default: 0
+        assign total_size = pro_size | plus: extra_size
+      -%}
+
+      {%- if total_size > 0 -%}
+        {%- comment -%} Tabs dynamiques — regroupe par type détecté sur le titre {%- endcomment -%}
+        <div class="ml-cem__tabs" role="tablist">
+          <button type="button" class="ml-cem__tab" data-filter="all" data-active="true">Tous</button>
+          <button type="button" class="ml-cem__tab" data-filter="shampoing">Shampoings</button>
+          <button type="button" class="ml-cem__tab" data-filter="shampoing-repigmentant">Shampoings repigmentants</button>
+          <button type="button" class="ml-cem__tab" data-filter="soin-repigmentant">Soins repigmentants</button>
+          <button type="button" class="ml-cem__tab" data-filter="masque">Masques</button>
+          <button type="button" class="ml-cem__tab" data-filter="creme">Crèmes</button>
+          <button type="button" class="ml-cem__tab" data-filter="finition">Finition</button>
+          <button type="button" class="ml-cem__tab" data-filter="gamme-homme">Gamme Homme</button>
+          <button type="button" class="ml-cem__tab" data-filter="bac-1000">Format bac 1000ml</button>
+        </div>
+
+        <div class="ml-cem__products-grid">
+          {%- if pro_size > 0 -%}
+            {%- for p in pro_col.products limit: 150 -%}
+              {%- render 'ml-cem-product-card', p: p -%}
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if extra_size > 0 -%}
+            {%- for p in extra -%}
+              {%- render 'ml-cem-product-card', p: p -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <p style="text-align:center;color:var(--cem-mid);">Aucun produit disponible pour le moment. Vérifiez la configuration de la section dans le Theme Editor.</p>
+      {%- endif -%}
+    </div>
+  </section>
+
+
+  {%- comment -%} ══════════════════ ÉTAPE 4 — RÉCAP ══════════════════ {%- endcomment -%}
+  <section class="ml-cem__step ml-cem__step--recap" id="etape-recap" data-step="recap">
+    <div class="ml-cem__step-inner">
+      <div class="ml-cem__step-head">
+        <p class="ml-cem__eyebrow" style="color:#e8c685;">Étape 04 · Prêts à lancer</p>
+        <h2 class="ml-cem__h">Votre marque <em>prend forme</em></h2>
+        <p class="ml-cem__step-intro">Voici la synthèse de notre projet commun. Vous pouvez encore ajuster avant de valider le panier.</p>
+      </div>
+
+      <div class="ml-cem__timeline">
+        <div class="ml-cem__tl-step" data-tl="dossier" data-done="true"><span class="ml-cem__tl-icon">✓</span>Dossier cosmétologique</div>
+        <div class="ml-cem__tl-step" data-tl="label"><span class="ml-cem__tl-icon">2</span>Étiquette</div>
+        <div class="ml-cem__tl-step" data-tl="products"><span class="ml-cem__tl-icon">3</span>Produits</div>
+      </div>
+
+      <div class="ml-cem__recap-box">
+        <ul class="ml-cem__recap-lines" data-recap-lines>
+          <li class="ml-cem__recap-line"><span class="ml-cem__recap-label">Dossier cosmétologique</span><span class="ml-cem__recap-value">389,90 €</span></li>
+          <li class="ml-cem__recap-line" data-recap-label><span class="ml-cem__recap-label">Étiquette</span><span class="ml-cem__recap-value ml-cem__recap-empty">à choisir</span></li>
+          <li class="ml-cem__recap-line" data-recap-products><span class="ml-cem__recap-label">Produits</span><span class="ml-cem__recap-value ml-cem__recap-empty">0 article</span></li>
+        </ul>
+        <div class="ml-cem__recap-total">
+          <span>Total estimé HT</span>
+          <span class="val" data-recap-total>389,90 €</span>
+        </div>
+        <div class="ml-cem__recap-cta">
+          <button type="button" class="ml-cem__btn ml-cem__btn--primary" data-validate>Valider notre projet →</button>
+          <a href="https://cal.eu/yoann-durand-xyj75z/etude-projet-marque-capillaire" target="_blank" rel="noopener" class="ml-cem__btn ml-cem__btn--ghost">Réserver 15 min avec un expert</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} ══════════════════ STICKY SIDEBAR + BOTTOM BAR ══════════════════ {%- endcomment -%}
+  <aside class="ml-cem__sticky" aria-label="Récapitulatif de votre projet">
+    <p class="ml-cem__sticky-title">Notre projet</p>
+    <ul class="ml-cem__sticky-steps">
+      <li class="ml-cem__sticky-step" data-sticky="dossier" data-done="true">
+        <span class="ml-cem__sticky-step-circle">✓</span>Dossier cosmétologique
+      </li>
+      <li class="ml-cem__sticky-step" data-sticky="label">
+        <span class="ml-cem__sticky-step-circle">2</span>Étiquette
+      </li>
+      <li class="ml-cem__sticky-step" data-sticky="products">
+        <span class="ml-cem__sticky-step-circle">3</span>Produits
+      </li>
+    </ul>
+    <div class="ml-cem__sticky-total">
+      <span>Total HT</span>
+      <strong data-sticky-total>389,90 €</strong>
+    </div>
+    <button type="button" class="ml-cem__btn ml-cem__btn--primary" data-validate>Finaliser →</button>
+  </aside>
+
+  <div class="ml-cem__bottombar">
+    <div class="ml-cem__bottombar-info">
+      <span class="ml-cem__bottombar-label" data-bottombar-steps>1/3 étape</span>
+      <span class="ml-cem__bottombar-total" data-sticky-total>389,90 €</span>
+    </div>
+    <button type="button" class="ml-cem__btn ml-cem__btn--gold" data-validate>Finaliser</button>
+  </div>
+
+  <div class="ml-cem__toast" data-toast></div>
+
+  {%- comment -%} ══════════════════ TWEAKS PANEL (A/B variantes design) ══════════════════ {%- endcomment -%}
+  <button type="button" class="ml-cem__tweaks-toggle-btn" data-ml-tweaks-open aria-label="Ouvrir panneau Tweaks">A/B</button>
+  <div class="ml-cem__tweaks" data-ml-tweaks role="dialog" aria-label="Tweaks">
+    <div class="ml-cem__tweaks-title">
+      <span>Tweaks</span>
+      <button type="button" class="ml-cem__tweaks-close" data-ml-tweaks-close aria-label="Fermer">×</button>
+    </div>
+    <div class="ml-cem__tweaks-row">
+      <span class="ml-cem__tweaks-label">Hero</span>
+      <div class="ml-cem__tweaks-seg" data-tweak="hero-variant">
+        <button type="button" data-value="A" data-active="true">Split Oribe</button>
+        <button type="button" data-value="B">Overlay</button>
+      </div>
+    </div>
+    <div class="ml-cem__tweaks-row">
+      <span class="ml-cem__tweaks-label">Étape 2 — Étiquette</span>
+      <div class="ml-cem__tweaks-seg" data-tweak="label-variant">
+        <button type="button" data-value="A" data-active="true">3 tiers</button>
+        <button type="button" data-value="B">Premium focus</button>
+      </div>
+    </div>
+    <div class="ml-cem__tweaks-row">
+      <span class="ml-cem__tweaks-label">Étape 3 — Produits</span>
+      <div class="ml-cem__tweaks-seg" data-tweak="products-variant">
+        <button type="button" data-value="A" data-active="true">Cream</button>
+        <button type="button" data-value="B">Blanc</button>
+      </div>
+    </div>
+    <div class="ml-cem__tweaks-row">
+      <span class="ml-cem__tweaks-label">Animations</span>
+      <div class="ml-cem__tweaks-seg" data-tweak="motion">
+        <button type="button" data-value="on" data-active="true">Fade-up</button>
+        <button type="button" data-value="off">Off</button>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ══════════════════ CONFIGURATEUR MODAL ══════════════════ {%- endcomment -%}
+  <div class="ml-cem__modal" id="ml-cem-modal" data-modal role="dialog" aria-label="Configurateur de design" aria-modal="true" inert>
+    <div class="ml-cem__modal-frame">
+      <button type="button" class="ml-cem__modal-close" data-modal-close aria-label="Fermer le configurateur">×</button>
+      <div class="ml-cem__modal-loader" data-modal-loader>Chargement du configurateur…</div>
+      <div class="ml-cem__modal-error" data-modal-error>
+        <p>Impossible de charger le configurateur.</p>
+        <a href="https://mylab-configurateur.vercel.app/configurateur" target="_blank" rel="noopener" class="ml-cem__btn ml-cem__btn--primary">Ouvrir dans un nouvel onglet</a>
+      </div>
+      <iframe class="ml-cem__modal-iframe" data-modal-iframe title="Configurateur MY.LAB" allow="clipboard-write; fullscreen" loading="lazy"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    'use strict';
+    var root = document.getElementById('ml-cem');
+    if (!root) return;
+
+    var state = {
+      dossierVariant: 59234431041870,
+      dossierPriceCents: 38990,
+      label: null,              // { option, variantId, priceCents, alreadyInCart }
+      products: {},             // { handle: { variantId, qty, unitPriceCents, title } }
+    };
+
+    // Mapping forfait impression par type d'étiquette — doit matcher ml-forfait-gate.js
+    var FORFAITS = {
+      'standard':   { variantId: 55418362003790, sellingPlanId: 690138743118, priceCents: 9900,  name: "Forfait d'impression noire",   tag: 'abo-impression-noire' },
+      'modeles':    { variantId: 55418356793678, sellingPlanId: 690138775886, priceCents: 25000, name: "Forfait d'impression couleur", tag: 'abo-impression-couleur' },
+      'sur-mesure': { variantId: 55418356793678, sellingPlanId: 690138775886, priceCents: 25000, name: "Forfait d'impression couleur", tag: 'abo-impression-couleur' }
+    };
+
+    function customerHasTag(tag) {
+      var tags = (window.MylabForfaitGate && window.MylabForfaitGate.customerTags) || [];
+      return tags.indexOf(tag) >= 0;
+    }
+
+    function activeForfait() {
+      if (!state.label) return null;
+      var f = FORFAITS[state.label.option];
+      if (!f) return null;
+      if (customerHasTag(f.tag)) return { skipped: true };
+      return f;
+    }
+
+    var toastEl = root.querySelector('[data-toast]');
+    var toastTimer;
+    function toast(msg) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.setAttribute('data-show', 'true');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function(){ toastEl.removeAttribute('data-show'); }, 2400);
+    }
+
+    function eur(cents) {
+      var v = cents / 100;
+      return v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    }
+
+    function total() {
+      var t = state.dossierPriceCents;
+      if (state.label) t += state.label.priceCents;
+      var fa = activeForfait();
+      if (fa && !fa.skipped) t += fa.priceCents;
+      Object.keys(state.products).forEach(function(h){
+        t += state.products[h].lineCents;
+      });
+      return t;
+    }
+
+    function productCount() {
+      var n = 0;
+      Object.keys(state.products).forEach(function(h){ n += state.products[h].qty; });
+      return n;
+    }
+
+    function updateForfaitCallout() {
+      var callout = root.querySelector('[data-forfait-callout]');
+      if (!callout) return;
+      var nameEl = callout.querySelector('[data-forfait-name]');
+      var priceEl = callout.querySelector('[data-forfait-price]');
+
+      if (!state.label) {
+        callout.setAttribute('data-state', 'empty');
+        if (nameEl) nameEl.textContent = "À déterminer selon votre choix d'étiquette";
+        if (priceEl) priceEl.textContent = '—';
+        return;
+      }
+      var f = FORFAITS[state.label.option];
+      if (!f) {
+        callout.setAttribute('data-state', 'empty');
+        return;
+      }
+      if (customerHasTag(f.tag)) {
+        callout.setAttribute('data-state', 'skipped');
+        if (nameEl) nameEl.textContent = "Vous êtes déjà abonné·e à " + f.name.toLowerCase() + " — rien à ajouter";
+        if (priceEl) priceEl.textContent = '✓ déjà actif';
+        return;
+      }
+      callout.setAttribute('data-state', 'active');
+      if (nameEl) nameEl.textContent = f.name + " · ajouté à la validation";
+      if (priceEl) priceEl.innerHTML = (f.priceCents/100) + '<small>&nbsp;€ / an</small>';
+    }
+
+    function renderRecap() {
+      var labelEl = root.querySelector('[data-recap-label] .ml-cem__recap-value');
+      if (labelEl) {
+        if (state.label) {
+          var names = { 'standard': 'Design MY.LAB (gratuit)', 'modeles': 'Modèle graphique (99 €)', 'sur-mesure': 'Sur mesure (390 € + solde)' };
+          labelEl.textContent = names[state.label.option] || state.label.option;
+          labelEl.classList.remove('ml-cem__recap-empty');
+        } else {
+          labelEl.textContent = 'à choisir';
+          labelEl.classList.add('ml-cem__recap-empty');
+        }
+      }
+
+      // Ajoute/maj une ligne récap "Forfait impression" si pertinent
+      var linesEl = root.querySelector('[data-recap-lines]');
+      if (linesEl) {
+        var existingForfait = linesEl.querySelector('[data-recap-forfait]');
+        var fa = activeForfait();
+        if (fa && !fa.skipped) {
+          if (!existingForfait) {
+            existingForfait = document.createElement('li');
+            existingForfait.className = 'ml-cem__recap-line';
+            existingForfait.setAttribute('data-recap-forfait', '');
+            existingForfait.innerHTML = '<span class="ml-cem__recap-label"></span><span class="ml-cem__recap-value"></span>';
+            linesEl.appendChild(existingForfait);
+          }
+          existingForfait.querySelector('.ml-cem__recap-label').textContent = fa.name + ' (1 an)';
+          existingForfait.querySelector('.ml-cem__recap-value').textContent = eur(fa.priceCents);
+        } else if (existingForfait) {
+          existingForfait.remove();
+        }
+      }
+
+      var prodEl = root.querySelector('[data-recap-products] .ml-cem__recap-value');
+      if (prodEl) {
+        var n = productCount();
+        if (n > 0) {
+          var prodTotal = 0;
+          Object.keys(state.products).forEach(function(h){
+            prodTotal += state.products[h].lineCents;
+          });
+          prodEl.textContent = n + ' article' + (n > 1 ? 's' : '') + ' — ' + eur(prodTotal);
+          prodEl.classList.remove('ml-cem__recap-empty');
+        } else {
+          prodEl.textContent = '0 article';
+          prodEl.classList.add('ml-cem__recap-empty');
+        }
+      }
+
+      root.querySelectorAll('[data-recap-total]').forEach(function(el){ el.textContent = eur(total()); });
+      root.querySelectorAll('[data-sticky-total]').forEach(function(el){ el.textContent = eur(total()); });
+
+      root.querySelectorAll('[data-sticky="label"]').forEach(function(el){
+        el.setAttribute('data-done', state.label ? 'true' : 'false');
+      });
+      root.querySelectorAll('[data-sticky="products"]').forEach(function(el){
+        el.setAttribute('data-done', productCount() > 0 ? 'true' : 'false');
+      });
+
+      root.querySelectorAll('[data-tl="label"]').forEach(function(el){
+        el.setAttribute('data-done', state.label ? 'true' : 'false');
+        var ic = el.querySelector('.ml-cem__tl-icon');
+        if (ic) ic.textContent = state.label ? '✓' : '2';
+      });
+      root.querySelectorAll('[data-tl="products"]').forEach(function(el){
+        var done = productCount() > 0;
+        el.setAttribute('data-done', done ? 'true' : 'false');
+        var ic = el.querySelector('.ml-cem__tl-icon');
+        if (ic) ic.textContent = done ? '✓' : '3';
+      });
+
+      var completed = 1 + (state.label ? 1 : 0) + (productCount() > 0 ? 1 : 0);
+      root.setAttribute('data-complete', completed === 3 ? 'true' : 'false');
+      var bbSteps = root.querySelector('[data-bottombar-steps]');
+      if (bbSteps) bbSteps.textContent = completed + '/3 étape' + (completed > 1 ? 's' : '');
+
+      updateForfaitCallout();
+    }
+
+    // ─── Étape 2 : sélection d'option étiquette ───
+    function selectLabel(card, opts) {
+      opts = opts || {};
+      var option = card.getAttribute('data-label-option');
+      var variantId = card.getAttribute('data-variant-id');
+      var priceCents = parseInt(card.getAttribute('data-price-cents'), 10) || 0;
+
+      state.label = { option: option, variantId: variantId, priceCents: priceCents };
+      root.querySelectorAll('[data-label-option]').forEach(function(c){
+        c.setAttribute('data-selected', c === card ? 'true' : 'false');
+      });
+      renderRecap();
+
+      if (!opts.silent) {
+        toast('Option étiquette enregistrée : ' + card.querySelector('.ml-cem__option-title').textContent.trim());
+      }
+    }
+
+    // ─── Configurateur embed modal ───
+    var CONFIGURATEUR_URL = 'https://mylab-configurateur.vercel.app/configurateur';
+    var MODE_MAP = { 'standard': 'standard', 'modeles': 'template', 'sur-mesure': 'studio' };
+    var CONFIGURATEUR_ORIGIN = 'https://mylab-configurateur.vercel.app';
+
+    var modalEl     = root.querySelector('[data-modal]');
+    var modalIframe = root.querySelector('[data-modal-iframe]');
+    var modalClose  = root.querySelector('[data-modal-close]');
+    var modalLoader = root.querySelector('[data-modal-loader]');
+    var modalError  = root.querySelector('[data-modal-error]');
+    var openingCard = null;   // the label card that triggered the modal
+    var loadTimer   = null;
+
+    function openConfigModal(card) {
+      if (!modalEl || !modalIframe) return;
+      var option = card.getAttribute('data-label-option');
+      var mode = MODE_MAP[option];
+      if (!mode) return;
+      openingCard = card;
+
+      var parentOrigin = window.location.origin;
+      var url = CONFIGURATEUR_URL
+        + '?embed=1&mode=' + encodeURIComponent(mode)
+        + '&parentOrigin=' + encodeURIComponent(parentOrigin);
+
+      modalLoader.hidden = false;
+      modalError.removeAttribute('data-show');
+      modalIframe.src = url;
+      modalEl.setAttribute('data-open', 'true');
+      modalEl.removeAttribute('inert');
+      document.body.setAttribute('data-ml-cem-modal-open', 'true');
+
+      clearTimeout(loadTimer);
+      loadTimer = setTimeout(function(){
+        // Iframe didn't reach onload within 12s — surface the error fallback.
+        if (!modalLoader.hidden) modalError.setAttribute('data-show', 'true');
+      }, 12000);
+    }
+
+    function closeConfigModal() {
+      if (!modalEl) return;
+      modalEl.removeAttribute('data-open');
+      modalEl.setAttribute('inert', '');
+      document.body.removeAttribute('data-ml-cem-modal-open');
+      modalIframe.src = 'about:blank';
+      clearTimeout(loadTimer);
+      openingCard = null;
+    }
+
+    if (modalIframe) {
+      modalIframe.addEventListener('load', function(){
+        if (modalIframe.src === 'about:blank') return;
+        modalLoader.hidden = true;
+      });
+    }
+    if (modalClose) modalClose.addEventListener('click', closeConfigModal);
+    if (modalEl) modalEl.addEventListener('click', function(e){
+      if (e.target === modalEl) closeConfigModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && modalEl && modalEl.getAttribute('data-open') === 'true') closeConfigModal();
+    });
+
+    function applyDesignToCard(card, design) {
+      // design: { mode, reference, variantId, cartLabel, templateName, previewImageUrl, logoUrl, rangeNames }
+      card.setAttribute('data-design-ready', 'true');
+      if (design.variantId) card.setAttribute('data-variant-id', String(design.variantId));
+
+      var thumb = card.querySelector('[data-preview-thumb]');
+      var refEl = card.querySelector('[data-preview-ref]');
+      var labelEl = card.querySelector('[data-preview-label]');
+      if (thumb && design.previewImageUrl) thumb.style.backgroundImage = 'url(' + design.previewImageUrl + ')';
+      if (refEl) refEl.textContent = design.reference || '';
+      if (labelEl) labelEl.textContent = design.templateName || design.cartLabel || 'Design validé';
+
+      var addBtn = card.querySelector('[data-option-add]');
+      if (addBtn) {
+        addBtn.textContent = '✓ Design validé';
+        addBtn.disabled = false;
+      }
+    }
+
+    window.addEventListener('message', function(event){
+      if (event.origin !== CONFIGURATEUR_ORIGIN) return;
+      var data = event.data;
+      if (!data || typeof data !== 'object' || data.type !== 'design:ready') return;
+      if (!openingCard) return;
+
+      var card = openingCard;
+      // Update state.label with the resolved variant + embedded design payload
+      var priceCents = parseInt(card.getAttribute('data-price-cents'), 10) || 0;
+      state.label = {
+        option: card.getAttribute('data-label-option'),
+        variantId: data.variantId || card.getAttribute('data-variant-id'),
+        priceCents: priceCents,
+        design: {
+          reference: data.reference || null,
+          mode: data.mode || null,
+          templateName: data.templateName || null,
+          previewImageUrl: data.previewImageUrl || null,
+          logoUrl: data.logoUrl || null,
+          rangeNames: data.rangeNames || [],
+          cartLabel: data.cartLabel || null
+        }
+      };
+      root.querySelectorAll('[data-label-option]').forEach(function(c){
+        c.setAttribute('data-selected', c === card ? 'true' : 'false');
+      });
+      applyDesignToCard(card, data);
+      renderRecap();
+      toast('Design validé — ' + (data.reference || 'enregistré'));
+      closeConfigModal();
+    });
+
+    // ─── Cards étiquette — click = ouvrir le configurateur ───
+    root.querySelectorAll('[data-label-option].ml-cem__option--dual').forEach(function(card){
+      var addBtn = card.querySelector('[data-option-add]');
+      if (addBtn) {
+        addBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          openConfigModal(card);
+        });
+      }
+      var editBtn = card.querySelector('[data-preview-edit]');
+      if (editBtn) {
+        editBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          openConfigModal(card);
+        });
+      }
+    });
+
+    // ─── Étape 3 : paliers (boutons tier) + ajout produit ───
+    root.querySelectorAll('[data-category]').forEach(function(card){
+      var tiersContainer = card.querySelector('[data-tiers]');
+      var unitDisplay = card.querySelector('[data-unit-display]');
+      var totalDisplay = card.querySelector('[data-total-display]');
+      var addBtn = card.querySelector('[data-product-add]');
+      if (!tiersContainer || !addBtn) return;
+
+      function getActiveTier() {
+        var active = card.querySelector('.ml-cem__tier[data-active="true"]');
+        if (!active) active = card.querySelector('.ml-cem__tier');
+        return {
+          qty: parseInt(active.getAttribute('data-qty'), 10),
+          unitCents: parseInt(active.getAttribute('data-unit-cents'), 10)
+        };
+      }
+
+      // Click palier
+      card.querySelectorAll('.ml-cem__tier').forEach(function(tier){
+        tier.addEventListener('click', function(e){
+          e.stopPropagation();
+          card.querySelectorAll('.ml-cem__tier').forEach(function(t){ t.setAttribute('data-active', 'false'); });
+          tier.setAttribute('data-active', 'true');
+          var t = getActiveTier();
+          if (unitDisplay) unitDisplay.textContent = eur(t.unitCents);
+          if (totalDisplay) totalDisplay.textContent = eur(t.unitCents * t.qty);
+        });
+      });
+
+      addBtn.addEventListener('click', function(){
+        var t = getActiveTier();
+        var handle = card.getAttribute('data-handle');
+        var variantId = card.getAttribute('data-variant-id');
+        var title = card.querySelector('.ml-cem__product-title').textContent.trim();
+
+        state.products[handle] = {
+          variantId: variantId,
+          qty: t.qty,
+          unitPriceCents: t.unitCents,
+          lineCents: t.unitCents * t.qty,
+          title: title
+        };
+
+        addBtn.setAttribute('data-added', 'true');
+        addBtn.textContent = 'Ajouté ✓';
+        setTimeout(function(){
+          addBtn.removeAttribute('data-added');
+          addBtn.textContent = 'Mettre à jour';
+        }, 1800);
+
+        renderRecap();
+        toast(title + ' · ' + t.qty + ' unités à ' + eur(t.unitCents) + ' / u');
+      });
+    });
+
+    // ─── Filtres tabs ───
+    function matchesFilter(card, filter) {
+      if (filter === 'all') return true;
+      var cat = card.getAttribute('data-category');
+      var gamme = card.getAttribute('data-gamme');
+      var format = card.getAttribute('data-format');
+      if (filter === 'shampoing-repigmentant') return cat === 'shampoing' && gamme === 'dejaunisseur';
+      if (filter === 'soin-repigmentant') return gamme === 'dejaunisseur';
+      if (filter === 'gamme-homme') return gamme === 'homme';
+      if (filter === 'finition') return cat === 'finition' || cat === 'serum';
+      if (filter === 'bac-1000') return format === '1000';
+      // "Shampoings" et "Masques" n'affichent que les produits neutres (pas repigmentant ni homme)
+      if (filter === 'shampoing' || filter === 'masque') return cat === filter && !gamme;
+      return filter === cat;
+    }
+
+    root.querySelectorAll('.ml-cem__tab').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        var filter = tab.getAttribute('data-filter');
+        root.querySelectorAll('.ml-cem__tab').forEach(function(t){
+          t.setAttribute('data-active', t === tab ? 'true' : 'false');
+        });
+        root.querySelectorAll('[data-category]').forEach(function(card){
+          card.style.display = matchesFilter(card, filter) ? '' : 'none';
+        });
+      });
+    });
+
+    // ─── Smooth scroll pour liens internes ───
+    root.querySelectorAll('[data-smooth]').forEach(function(link){
+      link.addEventListener('click', function(e){
+        var href = link.getAttribute('href');
+        if (href && href.charAt(0) === '#') {
+          e.preventDefault();
+          var target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ─── Fade-up reveal via IntersectionObserver (stagger 80ms) ───
+    (function initReveal(){
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || !('IntersectionObserver' in window)) {
+        root.querySelectorAll('[data-ml-reveal]').forEach(function(el){ el.classList.add('is-in'); });
+        return;
+      }
+      // Appliquer un stagger delay pour les groupes (parent a data-ml-reveal-stagger)
+      root.querySelectorAll('[data-ml-reveal-stagger]').forEach(function(group){
+        var kids = group.querySelectorAll('[data-ml-reveal]');
+        kids.forEach(function(k, i){
+          if (!k.style.getPropertyValue('--ml-reveal-delay')) {
+            k.style.setProperty('--ml-reveal-delay', (i * 80) + 'ms');
+          }
+        });
+      });
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      root.querySelectorAll('[data-ml-reveal]').forEach(function(el){ io.observe(el); });
+    })();
+
+    // ─── Tweaks panel (A/B variants par zone) ───
+    (function initTweaks(){
+      var panel = root.querySelector('[data-ml-tweaks]');
+      var openBtn = root.querySelector('[data-ml-tweaks-open]');
+      var closeBtn = root.querySelector('[data-ml-tweaks-close]');
+      if (!panel || !openBtn) return;
+
+      root.setAttribute('data-tweaks-on', 'true');
+
+      function applyTweak(key, value){
+        root.setAttribute('data-tweak-' + key, value);
+      }
+      // défauts
+      applyTweak('hero-variant', 'A');
+      applyTweak('label-variant', 'A');
+      applyTweak('products-variant', 'A');
+      applyTweak('motion', 'on');
+
+      openBtn.addEventListener('click', function(){
+        var open = panel.getAttribute('data-open') === 'true';
+        panel.setAttribute('data-open', open ? 'false' : 'true');
+      });
+      if (closeBtn) closeBtn.addEventListener('click', function(){ panel.setAttribute('data-open', 'false'); });
+
+      panel.querySelectorAll('[data-tweak]').forEach(function(seg){
+        var key = seg.getAttribute('data-tweak');
+        seg.querySelectorAll('button[data-value]').forEach(function(btn){
+          btn.addEventListener('click', function(){
+            seg.querySelectorAll('button[data-value]').forEach(function(b){ b.setAttribute('data-active', 'false'); });
+            btn.setAttribute('data-active', 'true');
+            applyTweak(key, btn.getAttribute('data-value'));
+          });
+        });
+      });
+    })();
+
+    // ─── Validation finale : ajoute tout au cart, dédup avec /cart.js ───
+    function validate() {
+      var btns = root.querySelectorAll('[data-validate]');
+      btns.forEach(function(b){ b.disabled = true; b.textContent = 'Ajout au panier…'; });
+
+      fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+        .then(function(r){ return r.json(); })
+        .then(function(cart){
+          var existing = {};
+          (cart.items || []).forEach(function(i){ existing[i.variant_id] = i; });
+
+          var items = [];
+          // Dossier (toujours — ml-dossier-gate force qty=1 si doublon)
+          if (!existing[state.dossierVariant]) {
+            items.push({ id: state.dossierVariant, quantity: 1 });
+          }
+          // Étiquette (avec les infos de design validées dans le configurateur)
+          if (state.label && state.label.variantId) {
+            var lvid = parseInt(state.label.variantId, 10);
+            if (!existing[lvid]) {
+              var labelItem = { id: lvid, quantity: 1 };
+              var d = state.label.design;
+              if (d) {
+                var props = {};
+                if (d.reference)       props['Référence design'] = d.reference;
+                if (d.templateName)    props['Modèle']           = d.templateName;
+                if (d.previewImageUrl) props['Aperçu']           = d.previewImageUrl;
+                if (d.logoUrl)         props['Logo']             = d.logoUrl;
+                if (d.rangeNames && d.rangeNames.length) props['Gammes'] = d.rangeNames.join(', ');
+                if (Object.keys(props).length) labelItem.properties = props;
+              }
+              items.push(labelItem);
+            }
+          }
+          // Forfait impression (avec selling_plan)
+          var fa = activeForfait();
+          if (fa && !fa.skipped && !existing[fa.variantId]) {
+            items.push({ id: fa.variantId, quantity: 1, selling_plan: fa.sellingPlanId });
+          }
+          // Produits
+          Object.keys(state.products).forEach(function(h){
+            var p = state.products[h];
+            var vid = parseInt(p.variantId, 10);
+            if (!existing[vid]) {
+              items.push({ id: vid, quantity: p.qty });
+            }
+          });
+
+          if (items.length === 0) {
+            window.location.href = '/cart';
+            return;
+          }
+
+          return fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ items: items })
+          }).then(function(r){
+            if (!r.ok) return r.json().then(function(e){ throw new Error(e.description || e.message || 'Erreur panier'); });
+            return r.json();
+          }).then(function(){
+            window.location.href = '/cart';
+          });
+        })
+        .catch(function(err){
+          toast('Erreur : ' + err.message);
+          btns.forEach(function(b){ b.disabled = false; b.textContent = 'Valider notre projet →'; });
+        });
+    }
+    root.querySelectorAll('[data-validate]').forEach(function(b){
+      b.addEventListener('click', validate);
+    });
+
+    renderRecap();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "ML Parcours marque",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Vidéo de fond (muette, en boucle)"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Image de fond / poster (fallback)"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Surtitre",
+      "default": "COSMÉTIQUES CAPILLAIRES B2B · FABRIQUÉS EN FRANCE"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Titre (utiliser <em> pour dorer le mot)",
+      "default": "Créons <em>ensemble</em> votre marque"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_sub",
+      "label": "Sous-titre",
+      "default": "On s'occupe de la formulation, de la réglementation et de l'impression. Vous gardez la vision."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_primary",
+      "label": "CTA principal",
+      "default": "Commençons notre projet"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_alt",
+      "label": "CTA alternatif",
+      "default": "Prendre rendez-vous"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_alt_link",
+      "label": "Lien CTA alternatif"
+    },
+    {
+      "type": "text",
+      "id": "trust_1",
+      "label": "Badge confiance 1",
+      "default": "Formules 96% naturelles"
+    },
+    {
+      "type": "text",
+      "id": "trust_2",
+      "label": "Badge confiance 2",
+      "default": "Façonniers français"
+    },
+    {
+      "type": "text",
+      "id": "trust_3",
+      "label": "Badge confiance 3",
+      "default": "Accompagnement de A à Z"
+    },
+    {
+      "type": "header",
+      "content": "Étape 2 — Modèle par défaut"
+    },
+    {
+      "type": "product",
+      "id": "modele_default_product",
+      "label": "Modèle ajouté par le bouton 'Ajouter au panier'",
+      "info": "Le client pourra changer via le lien 'Voir les 11 modèles'. Par défaut : Aquarel."
+    },
+    {
+      "type": "header",
+      "content": "Étape 3 — Produits"
+    },
+    {
+      "type": "collection",
+      "id": "products_collection",
+      "label": "Collection à afficher",
+      "info": "Par défaut : boutique-adherents (produits pros)"
+    },
+    {
+      "type": "product_list",
+      "id": "extra_products",
+      "label": "Produits bac 1000ml (hors catalogue)",
+      "info": "Ajoute des produits non répertoriés (ex : bac 1000ml) qui ne sont pas dans la collection principale.",
+      "limit": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Parcours marque",
+      "settings": {
+        "products_collection": "boutique-adherents"
+      }
+    }
+  ]
+}
+{% endschema %}

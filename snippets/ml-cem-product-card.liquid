@@ -1,0 +1,148 @@
+{%- comment -%}
+  Carte produit pour la section ml-creons-ensemble-votre-marque étape 3.
+  Extrait pour éviter le bug concat sur pro_col.products (LazyList paginé).
+  Paramètre requis : p = product drop
+{%- endcomment -%}
+{%- liquid
+  assign title_lc = p.title | downcase
+  assign tag_str = p.tags | join: ' ' | downcase
+  assign ptype = 'other'
+  if title_lc contains 'shampoing' or tag_str contains 'shampoing'
+    assign ptype = 'shampoing'
+  elsif title_lc contains 'masque' or tag_str contains 'masque'
+    assign ptype = 'masque'
+  elsif title_lc contains 'crème' or title_lc contains 'creme' or tag_str contains 'creme'
+    assign ptype = 'creme'
+  elsif title_lc contains 'sérum' or title_lc contains 'serum' or tag_str contains 'serum'
+    assign ptype = 'serum'
+  elsif title_lc contains 'spray' or title_lc contains 'cire' or title_lc contains 'huile' or title_lc contains 'baume' or title_lc contains 'pâte' or title_lc contains 'finition'
+    assign ptype = 'finition'
+  endif
+
+  assign ml_t = ''
+  if tag_str contains 'shampoing' or title_lc contains 'shampoing'
+    assign ml_t = 'shampoing'
+  elsif title_lc contains 'spray' and title_lc contains 'masque'
+    assign ml_t = 'spray_reparateur'
+  elsif tag_str contains 'masque' or title_lc contains 'masque'
+    assign ml_t = 'masque'
+  elsif tag_str contains 'creme' or tag_str contains 'crème' or title_lc contains 'crème'
+    assign ml_t = 'creme'
+  elsif tag_str contains 'serum' or tag_str contains 'sérum' or title_lc contains 'sérum'
+    assign ml_t = 'serum'
+  elsif tag_str contains 'huile' or title_lc contains 'huile' or title_lc contains 'bain miraculeux'
+    assign ml_t = 'huile'
+  elsif tag_str contains 'cire' or title_lc contains 'cire'
+    assign ml_t = 'cire'
+  endif
+
+  assign ml_f = ''
+  if tag_str contains '1000ml' or tag_str contains '1l' or title_lc contains '1000'
+    assign ml_f = '1000'
+  elsif tag_str contains '500ml' or title_lc contains '500'
+    assign ml_f = '500'
+  elsif tag_str contains '400ml' or title_lc contains '400'
+    assign ml_f = '400'
+  elsif tag_str contains '200ml' or title_lc contains '200'
+    assign ml_f = '200'
+  elsif tag_str contains '50ml' or title_lc contains '50ml'
+    assign ml_f = '50'
+  endif
+
+  assign ml_g = ''
+  if tag_str contains 'dejauniss' or tag_str contains 'colorist' or title_lc contains 'colorist' or title_lc contains 'dejauniss' or title_lc contains 'déjauniss' or title_lc contains 'repigment'
+    assign ml_g = 'dejaunisseur'
+  elsif tag_str contains 'homme' or tag_str contains 'herborist' or title_lc contains 'herborist' or title_lc contains 'barbe' or title_lc contains 'gel douche' or title_lc contains 'masque intense'
+    assign ml_g = 'homme'
+  endif
+
+  assign ml_tier_data = ''
+  if ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '200'
+    assign ml_tier_data = '6:750,12:710,24:675,48:600,96:540'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '200'
+    assign ml_tier_data = '6:960,12:910,24:860,48:765,96:690'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '1000'
+    assign ml_tier_data = '1:2890,3:2745,6:2450,12:2160'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '1000'
+    assign ml_tier_data = '1:3490,3:3315,6:2965,12:2615'
+  elsif ml_g == 'homme' and ml_t == 'masque' and ml_f == '500'
+    assign ml_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+  elsif ml_t == 'spray_reparateur'
+    assign ml_tier_data = '6:990,12:940,24:890,48:790,96:710'
+  elsif ml_t == 'shampoing' and ml_f == '200'
+    assign ml_tier_data = '6:700,12:665,24:630,48:560,96:500'
+  elsif ml_t == 'shampoing' and ml_f == '500'
+    assign ml_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+  elsif ml_t == 'shampoing' and ml_f == '1000'
+    assign ml_tier_data = '1:2490,3:2365,6:2100,12:1865'
+  elsif ml_t == 'masque' and ml_f == '200'
+    assign ml_tier_data = '6:950,12:900,24:855,48:760,96:680'
+  elsif ml_t == 'masque' and ml_f == '400'
+    assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+  elsif ml_t == 'masque' and ml_f == '1000'
+    assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+  elsif ml_t == 'creme' and ml_f == '200'
+    assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+  elsif ml_t == 'creme' and ml_f == '400'
+    assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+  elsif ml_t == 'creme' and ml_f == '1000'
+    assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+  elsif ml_t == 'serum'
+    assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+  elsif ml_t == 'huile'
+    assign ml_tier_data = '6:950,12:900,24:850,48:760,96:680'
+  elsif ml_t == 'cire'
+    assign ml_tier_data = '6:690,12:660,24:630,48:600'
+  endif
+-%}
+<article class="ml-cem__product" data-category="{{ ptype }}" data-gamme="{{ ml_g }}" data-format="{{ ml_f }}" data-handle="{{ p.handle }}" data-variant-id="{{ p.selected_or_first_available_variant.id }}" data-tier-data="{{ ml_tier_data }}">
+  <div class="ml-cem__product-img">
+    {%- if p.featured_image != blank -%}
+      <img src="{{ p.featured_image | image_url: width: 500 }}" alt="{{ p.title | escape }}" loading="lazy">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+  <h3 class="ml-cem__product-title">{{ p.title }}</h3>
+
+  {%- if ml_tier_data != '' -%}
+    {%- assign tier_items = ml_tier_data | split: ',' -%}
+    {%- assign first_tier = tier_items | first | split: ':' -%}
+    {%- assign base_qty = first_tier[0] | plus: 0 -%}
+    {%- assign base_unit_c = first_tier[1] | plus: 0 -%}
+    <div class="ml-cem__product-tiers" data-tiers>
+      {%- for ti in tier_items -%}
+        {%- assign tp = ti | split: ':' -%}
+        {%- assign tq = tp[0] | plus: 0 -%}
+        {%- assign tu = tp[1] | plus: 0 -%}
+        {%- if forloop.first -%}
+          {%- assign max_unit = tu -%}
+        {%- endif -%}
+        {%- assign pct = max_unit | minus: tu | times: 100 | divided_by: max_unit -%}
+        <button type="button" class="ml-cem__tier" data-qty="{{ tq }}" data-unit-cents="{{ tu }}" data-active="{% if forloop.first %}true{% else %}false{% endif %}">
+          <span class="ml-cem__tier-qty">{{ tq }}</span>
+          <span class="ml-cem__tier-unit">unités</span>
+          {%- if pct > 0 -%}
+            <span class="ml-cem__tier-badge">-{{ pct }}%</span>
+          {%- endif -%}
+        </button>
+      {%- endfor -%}
+    </div>
+    <div class="ml-cem__product-price-row">
+      <div class="ml-cem__product-price-unit">
+        <span data-unit-display>{{ base_unit_c | money }}</span><small> / unité HT</small>
+      </div>
+      <div class="ml-cem__product-price-total">
+        <span data-total-display>{{ base_unit_c | times: base_qty | money }}</span><small>&nbsp;HT</small>
+      </div>
+    </div>
+  {%- else -%}
+    <div class="ml-cem__product-price-row">
+      <div class="ml-cem__product-price-total">
+        <span>{{ p.price | money_without_trailing_zeros }}</span><small>&nbsp;HT</small>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <button type="button" class="ml-cem__product-add" data-product-add>Ajouter à notre ligne</button>
+</article>
