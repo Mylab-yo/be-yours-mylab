@@ -130,6 +130,38 @@
         }
       };
     </script>
+
+    {%- comment -%} ML Forfait Gate — auto-ajout de l'abonnement Appstle forfait d'impression {%- endcomment -%}
+    {%- assign ml_ctags = '' -%}
+    {%- if customer -%}{%- assign ml_ctags = customer.tags | join: ',' -%}{%- endif -%}
+    <script>
+      window.MylabForfaitGate = {
+        customerTags: {{ ml_ctags | split: ',' | json }},
+        noireHandles: ['etiquettes-standards'],
+        couleurHandles: [
+          {%- assign ml_labels_col = collections['modeles-detiquettes'] -%}
+          {%- if ml_labels_col -%}
+            {%- for p in ml_labels_col.products -%}
+              {%- unless p.handle == 'etiquettes-standards' or p.handle contains 'impression' -%}
+                {{ p.handle | json }},
+              {%- endunless -%}
+            {%- endfor -%}
+          {%- endif -%}
+          "frais-de-creation-design-etiquette"
+        ],
+        forfaitNoire: {
+          handle: 'forfait-dimpression-standard',
+          variantId: 55418362003790,
+          sellingPlanId: 690138743118
+        },
+        forfaitCouleur: {
+          handle: 'forfait-dimpression',
+          variantId: 55418356793678,
+          sellingPlanId: 690138775886
+        }
+      };
+    </script>
+    <script src="{{ 'ml-forfait-gate.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="template-{{ request.page_type }}{% if template.suffix %} template-{{ template.suffix }}{% endif %}{% if request.design_mode %} shopify-design-mode{% endif %}"

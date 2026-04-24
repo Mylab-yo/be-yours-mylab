@@ -381,6 +381,27 @@
                         </div>
                       </div>
                     {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
+                      {%- assign ml_page_is_fixed_qty = false -%}
+                      {%- assign ml_page_fixed_msg = '' -%}
+                      {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_page_is_dossier_valide == false -%}
+                        {%- assign ml_page_is_fixed_qty = true -%}
+                        {%- assign ml_page_fixed_msg = "Le dossier cosmétologique est unique et ne peut être commandé qu'une seule fois." -%}
+                      {%- elsif item.product.handle == 'forfait-dimpression-standard' or item.product.handle == 'forfait-dimpression' -%}
+                        {%- assign ml_page_is_fixed_qty = true -%}
+                        {%- assign ml_page_fixed_msg = "Abonnement annuel — 1 par compte client." -%}
+                      {%- elsif item.product.handle == 'frais-de-creation-design-etiquette' -%}
+                        {%- assign ml_page_is_fixed_qty = true -%}
+                        {%- assign ml_page_fixed_msg = "Création sur mesure : frais unique, non multipliable." -%}
+                      {%- endif -%}
+                      {%- if ml_page_is_fixed_qty -%}
+                        <div class="cart-item__quantity-wrapper">
+                          <span class="ml-dossier-required">Quantité : 1</span>
+                        </div>
+                        <div class="ml-dossier-gate-msg ml-dossier-gate-msg--page">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                          {{ ml_page_fixed_msg }}
+                        </div>
+                      {%- else -%}
                       <quantity-popover>
                         <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                           <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
@@ -509,6 +530,7 @@
                           </div>
                         {%- endif -%}
                       </quantity-popover>
+                      {%- endif -%}
                     {%- else -%}
                       <gift-quantity class="quantity"
                         cart-items-size="{{ cart.items.size }}"

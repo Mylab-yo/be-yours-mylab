@@ -65,105 +65,202 @@
           {%- assign ml_show_steps = false -%}
         {%- endif -%}
       {%- endif -%}
-      {%- if ml_show_steps and cart != empty -%}
-        {%- assign ml_has_dossier = false -%}
-        {%- assign ml_has_etiquettes = false -%}
-        {%- assign ml_has_pro = false -%}
-        {%- for item in cart.items -%}
-          {%- if item.product.handle == 'creation-du-dossier-cosmetologique' -%}
-            {%- assign ml_has_dossier = true -%}
+      {%- assign ml_has_dossier = false -%}
+      {%- assign ml_has_etiquettes = false -%}
+      {%- assign ml_has_pro = false -%}
+      {%- assign ml_has_forfait = false -%}
+      {%- for item in cart.items -%}
+        {%- if item.product.handle == 'creation-du-dossier-cosmetologique' -%}
+          {%- assign ml_has_dossier = true -%}
+        {%- endif -%}
+        {%- if item.product.handle contains 'impression' -%}
+          {%- assign ml_has_forfait = true -%}
+        {%- endif -%}
+        {%- for col in item.product.collections -%}
+          {%- if col.handle == 'modeles-detiquettes' -%}
+            {%- assign ml_has_etiquettes = true -%}
           {%- endif -%}
-          {%- for col in item.product.collections -%}
-            {%- if col.handle == 'modeles-detiquettes' -%}
-              {%- assign ml_has_etiquettes = true -%}
-            {%- endif -%}
-            {%- if col.handle == 'boutique-adherents' -%}
-              {%- assign ml_has_pro = true -%}
-            {%- endif -%}
-          {%- endfor -%}
+          {%- if col.handle == 'boutique-adherents' -%}
+            {%- assign ml_has_pro = true -%}
+          {%- endif -%}
         {%- endfor -%}
+      {%- endfor -%}
+      {%- assign ml_trigger = false -%}
+      {%- if ml_has_dossier or ml_has_etiquettes or ml_has_pro or ml_has_forfait -%}
+        {%- assign ml_trigger = true -%}
+      {%- endif -%}
+      {%- assign ml_blocker_in_cart = false -%}
+      {%- if ml_has_dossier or ml_has_etiquettes or ml_has_pro -%}
+        {%- assign ml_blocker_in_cart = true -%}
+      {%- endif -%}
+      {%- assign ml_checkout_blocked = false -%}
+      {%- if ml_show_steps and ml_blocker_in_cart -%}
+        {%- unless ml_has_dossier and ml_has_etiquettes and ml_has_pro -%}
+          {%- assign ml_checkout_blocked = true -%}
+        {%- endunless -%}
+      {%- endif -%}
+      <style>
+        /* ── Mini-cart footer compact (toujours appliqué) ── */
+        .mini-cart__footer .mini-cart__subtotal { font-size: 1.2rem; }
+        .mini-cart__footer .mini-cart__subtotal small { font-size: 1rem; }
+        .mini-cart__footer .mini-cart__subtotal .price { font-size: 1.6rem; }
+        .mini-cart__footer .tax-note,
+        .mini-cart__footer .rte { font-size: 1rem; line-height: 1.3; }
+
+        .mini-cart__actions .button {
+          font-family: 'DM Sans', var(--font-body-family), sans-serif;
+          font-size: 1.1rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          padding: 0.9rem 1.2rem;
+          min-height: 44px;
+          border-radius: 50px;
+          flex: 1;
+        }
+        .mini-cart__actions { display: flex; gap: 0.8rem; }
+
+        @media screen and (max-width: 749px) {
+          .mini-cart__actions { padding: 0.5rem 0 !important; }
+          .mini-cart__action summary > span { font-size: 0.8rem !important; column-gap: 0.4rem !important; letter-spacing: 0.03em !important; }
+          .mini-cart__action summary .icon { height: 1rem !important; }
+
+          .mini-cart__footer .subtotal { margin: 0.8rem 0 !important; }
+          .mini-cart__footer .subtotal > * { font-size: 1.3rem !important; }
+          .mini-cart__footer #mini-cart-subtotal { font-size: 1.5rem !important; }
+          .cart-drawer .taxes-discounts { margin-top: 0.3rem !important; margin-bottom: 0.3rem !important; font-size: 0.95rem !important; }
+          .cart-drawer .subtotal + .taxes-discounts { margin-top: -0.3rem !important; }
+
+          .mini-cart__footer .button-container { display: flex !important; gap: 0.6rem; flex-wrap: nowrap !important; }
+          .mini-cart__footer .button-container .button {
+            min-height: 3.6rem !important;
+            font-size: 1rem !important;
+            padding: 0.6rem 0.8rem !important;
+            width: 50% !important;
+            border-radius: 50px !important;
+            transform: none !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0 !important;
+          }
+          .mini-cart__footer .button-container .button + .button {
+            border: 1px solid #111 !important;
+            box-shadow: none !important;
+            background: #fff !important;
+            color: #111 !important;
+            text-decoration: none !important;
+          }
+          .mini-cart__footer { padding: 0 1.2rem 1rem !important; }
+        }
+      </style>
+
+      {%- comment -%} ── Portal des bulles parcours/bloqueur hors du cart-drawer ──
+           .cart-drawer a un transform → crée un containing block + overflow:hidden clippe
+           les enfants position:fixed. On déplace les bulles vers <body> pour qu'elles
+           soient relatives au viewport. Script toujours rendu (hors du if) pour installer
+           les listeners au premier chargement, même si panier vide. {%- endcomment -%}
+      <script>
+        (function(){
+          if (window.__mlBubblePortal) return;
+          window.__mlBubblePortal = true;
+          function portal() {
+            // Supprime les bulles déjà portées (évite les doublons après re-render section)
+            document.querySelectorAll('body > .ml-steps, body > .ml-parcours-bubble:not(.ml-parcours-bubble--page)').forEach(function(el){ el.remove(); });
+            // Déplace vers body les bulles fraîchement rendues (hors main-cart-footer)
+            document.querySelectorAll('.ml-steps, .ml-parcours-bubble:not(.ml-parcours-bubble--page)').forEach(function(el){
+              if (el.parentNode !== document.body) document.body.appendChild(el);
+            });
+          }
+          if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', portal);
+          else portal();
+          document.addEventListener('cart:refresh', portal);
+          document.addEventListener('mylab:cart:refresh', portal);
+          window.addEventListener('resize', portal);
+          // Re-portal quand le drawer s'ouvre (au cas où la section a été re-render pendant drawer fermé)
+          document.addEventListener('click', function(e){
+            if (e.target.closest('[href="#cart-drawer"], .header__icon--cart, [data-ml-cart-toggle]')) {
+              setTimeout(portal, 50);
+            }
+          }, true);
+        })();
+      </script>
+
+      {%- if ml_show_steps and ml_trigger -%}
         <style>
-          .ml-steps { padding: 0.6rem 1.6rem; margin-bottom: 0.3rem; }
-          .ml-steps__title { font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem; }
+          .ml-steps { padding: 0.6rem 1.6rem; margin-bottom: 0.3rem; background: #fff; font-family: 'DM Sans', var(--font-body-family), sans-serif; }
+          .ml-steps__title { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem; }
           .ml-steps__list { display: flex; flex-direction: column; gap: 0.3rem; }
-          .ml-steps__link { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-family: 'DM Sans', var(--font-body-family), sans-serif; font-size: 1.05rem; min-height: 26px; }
+          .ml-steps__link { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; font-size: 1.05rem; min-height: 26px; padding: 0.2rem 0.3rem; border-radius: 6px; transition: background 0.15s; }
+          .ml-steps__link:hover { background: rgba(0,0,0,0.03); }
           .ml-steps__link--done { color: #2d7a45; }
-          .ml-steps__link--pending { color: #c0392b; }
-          .ml-steps__circle { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; }
+          .ml-steps__link--pending { color: #1a1a1a; }
+          .ml-steps__circle { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; }
           .ml-steps__circle--done { background: #2d7a45; }
-          .ml-steps__circle--pending { background: #fdecea; border: 2px solid #c0392b; }
-          .ml-steps__num { font-size: 0.85rem; font-weight: 700; color: #c0392b; }
+          .ml-steps__circle--pending { background: #fdf6ea; border: 1.5px solid #c5a467; }
+          .ml-steps__num { font-size: 0.82rem; font-weight: 700; color: #c5a467; }
           .ml-steps__label--done { font-weight: 600; }
           .ml-steps__label--pending { font-weight: 500; }
-          .ml-steps__required { display: inline-block; font-size: 0.85rem; font-weight: 600; color: #c0392b; margin-left: 0.2rem; }
+          .ml-steps__required { display: inline-block; font-size: 0.82rem; font-weight: 600; color: #c5a467; margin-left: 0.2rem; letter-spacing: 0.02em; text-transform: uppercase; }
 
-          /* ── Mini-cart footer compact ── */
-          .mini-cart__footer .mini-cart__subtotal { font-size: 1.2rem; }
-          .mini-cart__footer .mini-cart__subtotal small { font-size: 1rem; }
-          .mini-cart__footer .mini-cart__subtotal .price { font-size: 1.6rem; }
-          .mini-cart__footer .tax-note,
-          .mini-cart__footer .rte { font-size: 1rem; line-height: 1.3; }
+          /* Desktop : bulle sortie en body via JS, fixée à gauche du drawer */
+          @media screen and (min-width: 750px) {
+            body > .ml-steps {
+              position: fixed;
+              right: calc(45rem + 1.2rem);
+              top: 8rem;
+              width: 320px;
+              max-width: calc(100vw - 46.5rem);
+              padding: 1.2rem 1.4rem;
+              background: #fff;
+              border: 1px solid #e5e5e5;
+              border-left: 3px solid #c5a467;
+              border-radius: 16px;
+              box-shadow: 0 14px 38px rgba(17, 17, 17, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+              z-index: 101;
+              margin: 0;
+              visibility: hidden;
+              opacity: 0;
+              transform: translateX(8px);
+              transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.3s;
+            }
+            body.mini-cart--open > .ml-steps,
+            body.mini-cart--opening > .ml-steps {
+              visibility: visible;
+              opacity: 1;
+              transform: translateX(0);
+              transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+            }
+            body > .ml-steps::after {
+              content: '';
+              position: absolute;
+              right: -8px;
+              top: 2.4rem;
+              transform: rotate(45deg);
+              width: 14px;
+              height: 14px;
+              background: #fff;
+              border-right: 1px solid #e5e5e5;
+              border-top: 1px solid #e5e5e5;
+            }
+            body > .ml-steps .ml-steps__title {
+              font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+              font-weight: 600; font-style: italic;
+              font-size: 1.25rem; letter-spacing: 0;
+              text-transform: none;
+              color: #1a1a1a;
+              margin-bottom: 0.9rem;
+            }
+            body > .ml-steps .ml-steps__list { gap: 0.45rem; }
+            body > .ml-steps .ml-steps__link { font-size: 0.98rem; padding: 0.45rem 0.5rem; }
+          }
 
-          /* ── Buttons harmonieux ── */
-          .mini-cart__actions .button {
-            font-family: 'DM Sans', var(--font-body-family), sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            padding: 0.9rem 1.2rem;
-            min-height: 44px;
-            border-radius: 50px;
-            flex: 1;
-          }
-          .mini-cart__actions {
-            display: flex;
-            gap: 0.8rem;
-          }
-          /* ── Mobile compact footer ── */
           @media screen and (max-width: 749px) {
             .ml-steps { padding: 0.5rem 1.2rem; }
             .ml-steps__title { font-size: 0.85rem; margin-bottom: 0.4rem; }
             .ml-steps__link { font-size: 0.95rem; }
             .ml-steps__circle { width: 18px; height: 18px; }
-            .ml-steps__required { font-size: 0.8rem; }
-
-            /* Tabs bar compact */
-            .mini-cart__actions { padding: 0.5rem 0 !important; }
-            .mini-cart__action summary > span { font-size: 0.8rem !important; column-gap: 0.4rem !important; letter-spacing: 0.03em !important; }
-            .mini-cart__action summary .icon { height: 1rem !important; }
-
-            /* Subtotal compact */
-            .mini-cart__footer .subtotal { margin: 0.8rem 0 !important; }
-            .mini-cart__footer .subtotal > * { font-size: 1.3rem !important; }
-            .mini-cart__footer #mini-cart-subtotal { font-size: 1.5rem !important; }
-            .cart-drawer .taxes-discounts { margin-top: 0.3rem !important; margin-bottom: 0.3rem !important; font-size: 0.95rem !important; }
-            .cart-drawer .subtotal + .taxes-discounts { margin-top: -0.3rem !important; }
-
-            /* Buttons side by side */
-            .mini-cart__footer .button-container { display: flex !important; gap: 0.6rem; flex-wrap: nowrap !important; }
-            .mini-cart__footer .button-container .button {
-              min-height: 3.6rem !important;
-              font-size: 1rem !important;
-              padding: 0.6rem 0.8rem !important;
-              width: 50% !important;
-              border-radius: 50px !important;
-              transform: none !important;
-              display: flex !important;
-              align-items: center;
-              justify-content: center;
-              margin-top: 0 !important;
-            }
-            .mini-cart__footer .button-container .button + .button {
-              border: 1px solid #111 !important;
-              box-shadow: none !important;
-              background: #fff !important;
-              color: #111 !important;
-              text-decoration: none !important;
-            }
-
-            /* Footer padding */
-            .mini-cart__footer { padding: 0 1.2rem 1rem !important; }
+            .ml-steps__required { font-size: 0.75rem; }
           }
         </style>
         <div class="ml-steps">
@@ -175,7 +272,7 @@
               </span>
               <span class="{% if ml_has_dossier %}ml-steps__label--done{% else %}ml-steps__label--pending{% endif %}">Dossier cosmétologique{%- unless ml_has_dossier -%}<span class="ml-steps__required">— Requis</span>{%- endunless -%}</span>
             </a>
-            <a href="/pages/https-mylab-configurateur-vercel-app-configurateur" class="ml-steps__link {% if ml_has_etiquettes %}ml-steps__link--done{% else %}ml-steps__link--pending{% endif %}">
+            <a href="/pages/modeles-etiquettes" class="ml-steps__link {% if ml_has_etiquettes %}ml-steps__link--done{% else %}ml-steps__link--pending{% endif %}">
               <span class="ml-steps__circle {% if ml_has_etiquettes %}ml-steps__circle--done{% else %}ml-steps__circle--pending{% endif %}">
                 {%- if ml_has_etiquettes -%}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L19 7"/></svg>{%- else -%}<span class="ml-steps__num">2</span>{%- endif -%}
               </span>
@@ -691,18 +788,26 @@
                     {%- elsif gift_wrap_id == nil or item.id != gift_wrap_id -%}
                       {%- comment -%} ── NATIVE QUANTITY ── {%- endcomment -%}
                       {%- assign ml_is_dossier_native = false -%}
+                      {%- assign ml_fixed_qty_msg = '' -%}
                       {%- if item.product.handle == 'creation-du-dossier-cosmetologique' and ml_is_dossier_valide == false -%}
                         {%- assign ml_is_dossier_native = true -%}
+                        {%- assign ml_fixed_qty_msg = "Le dossier cosmétologique est unique et ne peut être commandé qu'une seule fois." -%}
+                      {%- elsif item.product.handle == 'forfait-dimpression-standard' or item.product.handle == 'forfait-dimpression' -%}
+                        {%- assign ml_is_dossier_native = true -%}
+                        {%- assign ml_fixed_qty_msg = "Abonnement annuel — 1 par compte client." -%}
+                      {%- elsif item.product.handle == 'frais-de-creation-design-etiquette' -%}
+                        {%- assign ml_is_dossier_native = true -%}
+                        {%- assign ml_fixed_qty_msg = "Création sur mesure : frais unique, non multipliable." -%}
                       {%- endif -%}
 
                       {%- if ml_is_dossier_native -%}
-                        {%- comment -%} ── DOSSIER : quantité fixe à 1, pas de +/- ── {%- endcomment -%}
+                        {%- comment -%} ── Dossier / Forfait : quantité fixe à 1, pas de +/- ── {%- endcomment -%}
                         <div class="cart-item__quantity-wrapper">
                           <span class="ml-dossier-required">Quantité : 1</span>
                         </div>
                         <div class="ml-dossier-gate-msg">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                          Le dossier cosmétologique est unique et ne peut être commandé qu'une seule fois.
+                          {{ ml_fixed_qty_msg }}
                         </div>
                       {%- else -%}
                       <quantity-popover>
@@ -1150,8 +1255,111 @@
         </small>
       </div>
 
+      {%- if ml_checkout_blocked -%}
+        <aside class="ml-parcours-bubble" role="complementary" aria-label="Parcours de création de marque à compléter">
+          <div class="ml-parcours-bubble__header">
+            <span class="ml-parcours-bubble__icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </span>
+            <span class="ml-parcours-bubble__eyebrow">Panier à compléter</span>
+          </div>
+          <h3 class="ml-parcours-bubble__title">Finalisez votre <em>parcours de marque</em></h3>
+          <p class="ml-parcours-bubble__intro">Pour valider votre commande, ajoutez les étapes manquantes&nbsp;:</p>
+          <ul class="ml-parcours-bubble__steps">
+            {%- unless ml_has_dossier -%}
+              <li><a href="/products/creation-du-dossier-cosmetologique"><span class="ml-parcours-bubble__num">1</span><span>Dossier cosmétologique</span></a></li>
+            {%- endunless -%}
+            {%- unless ml_has_etiquettes -%}
+              <li><a href="/pages/modeles-etiquettes"><span class="ml-parcours-bubble__num">2</span><span>Modèle d'étiquette</span></a></li>
+            {%- endunless -%}
+            {%- unless ml_has_pro -%}
+              <li><a href="/pages/la-boutique-my-lab"><span class="ml-parcours-bubble__num">3</span><span>Produit de la boutique pro</span></a></li>
+            {%- endunless -%}
+          </ul>
+          <p class="ml-parcours-bubble__contact">Une question&nbsp;? <a href="/pages/contact">Contactez-nous</a> à tout moment, nous sommes là pour vous accompagner.</p>
+        </aside>
+        <style>
+          .ml-parcours-bubble {
+            background: #fefaf7;
+            border: 1px solid #ead7d1;
+            border-left: 3px solid #b85c4e;
+            border-radius: 16px;
+            padding: 1.3rem 1.5rem;
+            margin-bottom: 0.8rem;
+            font-family: 'DM Sans', var(--font-body-family), sans-serif;
+            box-shadow: 0 14px 38px rgba(184, 92, 78, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
+          }
+          .ml-parcours-bubble__header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; color: #b85c4e; }
+          .ml-parcours-bubble__icon { display: inline-flex; flex-shrink: 0; }
+          .ml-parcours-bubble__eyebrow { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+          .ml-parcours-bubble__title {
+            font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.005em;
+            color: #1a1a1a;
+            margin: 0 0 0.6rem 0;
+          }
+          .ml-parcours-bubble__title em { font-style: italic; color: #b85c4e; font-weight: 500; }
+          .ml-parcours-bubble__intro { font-size: 0.92rem; color: #555; margin: 0 0 0.7rem 0; line-height: 1.5; }
+          .ml-parcours-bubble__steps { list-style: none; padding: 0; margin: 0 0 0.9rem 0; display: flex; flex-direction: column; gap: 0.35rem; }
+          .ml-parcours-bubble__steps a { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: #1a1a1a; font-weight: 600; font-size: 0.95rem; padding: 0.45rem 0.55rem; border-radius: 8px; transition: background 0.15s, transform 0.15s; }
+          .ml-parcours-bubble__steps a:hover { background: #f5e9e4; transform: translateX(2px); }
+          .ml-parcours-bubble__num {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 24px; height: 24px; border-radius: 50%;
+            background: transparent; color: #c5a467;
+            font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+            font-size: 1rem; font-weight: 600;
+            flex-shrink: 0; border: 1.5px solid #c5a467;
+          }
+          .ml-parcours-bubble__contact { font-size: 0.85rem; color: #777; margin: 0; line-height: 1.5; border-top: 1px solid #ead7d1; padding-top: 0.7rem; }
+          .ml-parcours-bubble__contact a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+          .ml-parcours-bubble__contact a:hover { color: #c5a467; }
+
+          /* Desktop : bulle portée en body + affichée à gauche du drawer, sous la bulle étapes */
+          @media screen and (min-width: 750px) {
+            body > .ml-parcours-bubble {
+              position: fixed;
+              right: calc(45rem + 1.2rem);
+              top: auto;
+              bottom: 4rem;
+              width: 320px;
+              max-width: calc(100vw - 46.5rem);
+              z-index: 101;
+              margin-bottom: 0;
+              visibility: hidden;
+              opacity: 0;
+              transform: translateX(8px);
+              transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.3s;
+            }
+            body.mini-cart--open > .ml-parcours-bubble,
+            body.mini-cart--opening > .ml-parcours-bubble {
+              visibility: visible;
+              opacity: 1;
+              transform: translateX(0);
+              transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+            }
+            body > .ml-parcours-bubble::after {
+              content: '';
+              position: absolute;
+              right: -8px;
+              top: 2.4rem;
+              transform: rotate(45deg);
+              width: 14px;
+              height: 14px;
+              background: #fefaf7;
+              border-right: 1px solid #ead7d1;
+              border-top: 1px solid #ead7d1;
+            }
+          }
+
+          .button[disabled].ml-checkout-disabled { opacity: 0.5; cursor: not-allowed; }
+        </style>
+      {%- endif -%}
       <div class="button-container">
-        <button class="button" name="checkout" type="submit">
+        <button class="button{% if ml_checkout_blocked %} ml-checkout-disabled{% endif %}" name="checkout" type="submit"{% if ml_checkout_blocked %} disabled aria-disabled="true"{% endif %}>
           {{ 'sections.cart.checkout' | t }}
           {%- if settings.disable_view_cart -%}
             <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span>

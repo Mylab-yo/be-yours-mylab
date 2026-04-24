@@ -13,6 +13,37 @@
     assign items_in_cart = cart.item_count | minus: gift_wraps_in_cart
   endif
 
+  assign ml_show_steps = true
+  if customer
+    if customer.tags contains 'dossier-valide' or customer.tags contains 'pro'
+      assign ml_show_steps = false
+    endif
+  endif
+  assign ml_has_dossier = false
+  assign ml_has_etiquettes = false
+  assign ml_has_pro = false
+  for item in cart.items
+    if item.product.handle == 'creation-du-dossier-cosmetologique'
+      assign ml_has_dossier = true
+    endif
+    for col in item.product.collections
+      if col.handle == 'modeles-detiquettes'
+        assign ml_has_etiquettes = true
+      endif
+      if col.handle == 'boutique-adherents'
+        assign ml_has_pro = true
+      endif
+    endfor
+  endfor
+  assign ml_checkout_blocked = false
+  if ml_show_steps
+    if ml_has_dossier or ml_has_etiquettes or ml_has_pro
+      unless ml_has_dossier and ml_has_etiquettes and ml_has_pro
+        assign ml_checkout_blocked = true
+      endunless
+    endif
+  endif
+
   assign ml_ht_subtotal_footer = 0
   for item in cart.items
     assign ml_tier_data = ''
@@ -310,6 +341,47 @@
               </small>
             </div>
           {%- when 'buttons' -%}
+            {%- if ml_checkout_blocked -%}
+              <aside class="ml-parcours-bubble ml-parcours-bubble--page" role="complementary" {{ block.shopify_attributes }}>
+                <div class="ml-parcours-bubble__header">
+                  <span class="ml-parcours-bubble__icon" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  </span>
+                  <span class="ml-parcours-bubble__eyebrow">Panier à compléter</span>
+                </div>
+                <h3 class="ml-parcours-bubble__title">Finalisez votre <em>parcours de marque</em></h3>
+                <p class="ml-parcours-bubble__intro">Pour valider votre commande, ajoutez les étapes manquantes&nbsp;:</p>
+                <ul class="ml-parcours-bubble__steps">
+                  {%- unless ml_has_dossier -%}
+                    <li><a href="/products/creation-du-dossier-cosmetologique"><span class="ml-parcours-bubble__num">1</span><span>Dossier cosmétologique</span></a></li>
+                  {%- endunless -%}
+                  {%- unless ml_has_etiquettes -%}
+                    <li><a href="/pages/modeles-etiquettes"><span class="ml-parcours-bubble__num">2</span><span>Modèle d'étiquette</span></a></li>
+                  {%- endunless -%}
+                  {%- unless ml_has_pro -%}
+                    <li><a href="/pages/la-boutique-my-lab"><span class="ml-parcours-bubble__num">3</span><span>Produit de la boutique pro</span></a></li>
+                  {%- endunless -%}
+                </ul>
+                <p class="ml-parcours-bubble__contact">Une question&nbsp;? <a href="/pages/contact">Contactez-nous</a> à tout moment, nous sommes là pour vous accompagner.</p>
+              </aside>
+              <style>
+                .ml-parcours-bubble { background: #fefaf7; border: 1px solid #ead7d1; border-left: 3px solid #b85c4e; border-radius: 16px; padding: 1.3rem 1.5rem; margin-bottom: 1rem; font-family: 'DM Sans', var(--font-body-family), sans-serif; box-shadow: 0 14px 38px rgba(184, 92, 78, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04); }
+                .ml-parcours-bubble__header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; color: #b85c4e; }
+                .ml-parcours-bubble__icon { display: inline-flex; flex-shrink: 0; }
+                .ml-parcours-bubble__eyebrow { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+                .ml-parcours-bubble__title { font-family: 'Cormorant Garamond', var(--font-heading-family), serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; letter-spacing: -0.005em; color: #1a1a1a; margin: 0 0 0.6rem 0; }
+                .ml-parcours-bubble__title em { font-style: italic; color: #b85c4e; font-weight: 500; }
+                .ml-parcours-bubble__intro { font-size: 0.92rem; color: #555; margin: 0 0 0.7rem 0; line-height: 1.5; }
+                .ml-parcours-bubble__steps { list-style: none; padding: 0; margin: 0 0 0.9rem 0; display: flex; flex-direction: column; gap: 0.35rem; }
+                .ml-parcours-bubble__steps a { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; color: #1a1a1a; font-weight: 600; font-size: 0.95rem; padding: 0.45rem 0.55rem; border-radius: 8px; transition: background 0.15s, transform 0.15s; }
+                .ml-parcours-bubble__steps a:hover { background: #f5e9e4; transform: translateX(2px); }
+                .ml-parcours-bubble__num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: transparent; color: #c5a467; font-family: 'Cormorant Garamond', var(--font-heading-family), serif; font-size: 1rem; font-weight: 600; flex-shrink: 0; border: 1.5px solid #c5a467; }
+                .ml-parcours-bubble__contact { font-size: 0.85rem; color: #777; margin: 0; line-height: 1.5; border-top: 1px solid #ead7d1; padding-top: 0.7rem; }
+                .ml-parcours-bubble__contact a { color: #1a1a1a; text-decoration: underline; text-underline-offset: 2px; font-weight: 600; }
+                .ml-parcours-bubble__contact a:hover { color: #c5a467; }
+                .cart__checkout-button[disabled] { opacity: 0.5; cursor: not-allowed; }
+              </style>
+            {%- endif -%}
             <div class="cart__ctas" {{ block.shopify_attributes }}>
               <noscript>
                 <button type="submit" class="cart__update-button button button--secondary" form="cart">
@@ -317,12 +389,12 @@
                 </button>
               </noscript>
 
-              <button type="submit" class="cart__checkout-button button" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+              <button type="submit" class="cart__checkout-button button" name="checkout"{% if cart == empty or ml_checkout_blocked %} disabled aria-disabled="true"{% endif %} form="cart">
                 {{ 'sections.cart.checkout' | t }}
               </button>
             </div>
 
-            {%- if additional_checkout_buttons and block.settings.show_dynamic_checkout -%}
+            {%- if additional_checkout_buttons and block.settings.show_dynamic_checkout and ml_checkout_blocked == false -%}
               <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
                 {{ content_for_additional_checkout_buttons }}
               </div>

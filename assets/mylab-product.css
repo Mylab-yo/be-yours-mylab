@@ -691,15 +691,16 @@ dd.price .ml-ht-label {
 /* --- Icône supprimer (drawer) --- */
 .cart-drawer .mini-cart__navigation .delete-product,
 .cart-drawer .mini-cart__navigation cart-remove-button a {
-  color: var(--ml-light, #aaa);
-  transition: color 0.2s;
+  color: #111;
+  transition: color 0.2s, opacity 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .cart-drawer .mini-cart__navigation .delete-product:hover,
 .cart-drawer .mini-cart__navigation cart-remove-button a:hover {
-  color: var(--ml-black, #111);
+  color: #111;
+  opacity: 0.6;
 }
 .cart-drawer .mini-cart__navigation .delete-product .icon,
 .cart-drawer .mini-cart__navigation cart-remove-button .icon {
@@ -910,12 +911,13 @@ body .cart__checkout-button.button:hover {
 /* --- Lien Supprimer tableau --- */
 .cart-item__totals cart-remove-button a,
 .cart-item__totals cart-remove-button .button--tertiary {
-  color: var(--ml-light, #aaa);
-  transition: color 0.2s;
+  color: #111;
+  transition: color 0.2s, opacity 0.2s;
 }
 .cart-item__totals cart-remove-button a:hover,
 .cart-item__totals cart-remove-button .button--tertiary:hover {
-  color: var(--ml-black, #111);
+  color: #111;
+  opacity: 0.6;
 }
 .cart-item__totals cart-remove-button .icon {
   width: 1.6rem;
