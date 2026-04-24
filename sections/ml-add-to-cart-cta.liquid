@@ -1,0 +1,353 @@
+{%- liquid
+  assign prod = section.settings.product
+  assign variant_id = prod.selected_or_first_available_variant.id
+  assign price_num = prod.price | default: 0
+  assign theme = section.settings.color_theme
+  assign line_item_name = section.settings.line_item_name
+  assign line_item_value = section.settings.line_item_value
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .ml-atc {
+    --ml-gold: #c5a467;
+    --ml-gold-dark: #755a25;
+    --ml-dark: #1a1a1a;
+    --ml-cream: #f5f0eb;
+    --ml-line: #e5e5e5;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  }
+
+  .ml-atc__box {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 3.5rem 2rem;
+    border-radius: 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  @media screen and (min-width: 750px) {
+    .ml-atc__box { padding: 4.5rem 3rem; }
+  }
+
+  .ml-atc__box--cream { background: var(--ml-cream); color: var(--ml-dark); }
+  .ml-atc__box--dark  { background: var(--ml-dark); color: #fff; }
+  .ml-atc__box--gold  { background: linear-gradient(135deg, var(--ml-gold-dark) 0%, var(--ml-gold) 100%); color: #fff; }
+  .ml-atc__box--white { background: #fff; border: 1px solid var(--ml-line); color: var(--ml-dark); }
+
+  .ml-atc__bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0.10; z-index: 0;
+  }
+  .ml-atc__content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+    max-width: 44rem;
+  }
+
+  .ml-atc__eyebrow {
+    font-size: 0.85rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--ml-gold);
+    margin: 0;
+  }
+  .ml-atc__box--dark .ml-atc__eyebrow,
+  .ml-atc__box--gold .ml-atc__eyebrow { color: #e7cf98; }
+
+  .ml-atc__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 600; font-style: italic;
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    line-height: 1.1; letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .ml-atc__sub {
+    font-size: 1.05rem; line-height: 1.6; margin: 0;
+    opacity: 0.85;
+  }
+
+  .ml-atc__price {
+    display: inline-flex; align-items: baseline; gap: 0.4rem;
+    margin: 0.3rem 0;
+  }
+  .ml-atc__price-num {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 5vw, 3.2rem);
+    line-height: 1;
+  }
+  .ml-atc__price-ht { font-size: 0.95rem; opacity: 0.75; letter-spacing: 0.04em; }
+
+  .ml-atc__button {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.6rem;
+    background: var(--ml-dark); color: #fff;
+    padding: 1.2rem 3rem;
+    font-size: 1.1rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    text-decoration: none; border: none; cursor: pointer;
+    border-radius: 50px; min-height: 52px;
+    box-shadow: 0 12px 28px rgba(17,17,17,0.18);
+    transition: transform 0.18s, opacity 0.2s, background 0.25s;
+  }
+  .ml-atc__button:hover { opacity: 0.92; }
+  .ml-atc__button:active { transform: scale(0.97); }
+  .ml-atc__button[disabled] { cursor: wait; opacity: 0.8; }
+  .ml-atc__button--added { background: #2d7a45; }
+  .ml-atc__box--gold .ml-atc__button,
+  .ml-atc__box--dark .ml-atc__button {
+    background: #fff; color: var(--ml-dark);
+  }
+  .ml-atc__box--gold .ml-atc__button--added,
+  .ml-atc__box--dark .ml-atc__button--added { background: #2d7a45; color: #fff; }
+
+  .ml-atc__trust {
+    font-size: 0.9rem; opacity: 0.75;
+    margin: 0.4rem 0 0; line-height: 1.5;
+  }
+  .ml-atc__error {
+    color: #c0392b; font-size: 0.95rem; margin: 0; min-height: 1.5rem;
+  }
+  .ml-atc__box--dark .ml-atc__error,
+  .ml-atc__box--gold .ml-atc__error { color: #ffcdc8; }
+{%- endstyle -%}
+
+<div class="ml-atc">
+  <div class="ml-atc__box ml-atc__box--{{ theme }}">
+    {%- if section.settings.background_image != blank -%}
+      <div class="ml-atc__bg" style="background-image:url('{{ section.settings.background_image | image_url: width: 1600 }}');"></div>
+    {%- endif -%}
+
+    <div class="ml-atc__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ml-atc__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      <h2 class="ml-atc__title">{{ section.settings.title }}</h2>
+
+      {%- if section.settings.subtitle != blank -%}
+        <p class="ml-atc__sub">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+
+      {%- if prod != blank and section.settings.show_price -%}
+        <div class="ml-atc__price">
+          {%- if price_num > 0 -%}
+            <span class="ml-atc__price-num">{{ price_num | money_without_trailing_zeros }}</span>
+            {%- if section.settings.price_ht_suffix -%}
+              <span class="ml-atc__price-ht">HT</span>
+            {%- endif -%}
+          {%- else -%}
+            <span class="ml-atc__price-num">Gratuit</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if prod != blank -%}
+        <button
+          type="button"
+          class="ml-atc__button"
+          data-variant-id="{{ variant_id }}"
+          data-prop-name="{{ line_item_name | escape }}"
+          data-prop-value="{{ line_item_value | escape }}"
+          onclick="mlAtcAdd(this)"
+        >
+          {{ section.settings.button_label | default: 'Mettre au panier' }}
+        </button>
+        <p class="ml-atc__error" data-atc-error></p>
+      {%- else -%}
+        <p class="ml-atc__trust"><em>Aucun produit sélectionné — configurer dans le Theme Editor.</em></p>
+      {%- endif -%}
+
+      {%- if section.settings.trust != blank -%}
+        <p class="ml-atc__trust">{{ section.settings.trust }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  if (!window.mlAtcAdd) {
+    window.mlAtcAdd = function (btn) {
+      if (btn.disabled) return;
+      var variantId = parseInt(btn.getAttribute('data-variant-id'), 10);
+      if (!variantId) return;
+      var propName = btn.getAttribute('data-prop-name');
+      var propValue = btn.getAttribute('data-prop-value');
+      var originalLabel = btn.textContent.trim();
+      var errEl = btn.parentNode.querySelector('[data-atc-error]');
+      if (errEl) errEl.textContent = '';
+
+      btn.disabled = true;
+      btn.textContent = 'Ajout…';
+
+      var item = { id: variantId, quantity: 1 };
+      if (propName && propValue) {
+        item.properties = {};
+        item.properties[propName] = propValue;
+      }
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [item] })
+      })
+        .then(function (r) {
+          if (!r.ok) return r.json().then(function (e) { throw new Error(e.description || e.message || 'Erreur panier'); });
+          return r.json();
+        })
+        .then(function () {
+          btn.classList.add('ml-atc__button--added');
+          btn.textContent = 'Ajouté ✓';
+
+          document.dispatchEvent(new CustomEvent('cart:refresh'));
+          document.dispatchEvent(new CustomEvent('mylab:cart:refresh', { detail: { open: true } }));
+          if (window.MylabCart && typeof window.MylabCart.open === 'function') {
+            try { window.MylabCart.open(); } catch (e) { /* noop */ }
+          }
+          var drawer = document.getElementById('ml-drawer') || document.querySelector('.ml-cart-drawer');
+          if (drawer && !drawer.classList.contains('is-open')) drawer.classList.add('is-open');
+
+          setTimeout(function () {
+            btn.classList.remove('ml-atc__button--added');
+            btn.textContent = originalLabel;
+            btn.disabled = false;
+          }, 2200);
+        })
+        .catch(function (err) {
+          btn.textContent = originalLabel;
+          btn.disabled = false;
+          if (errEl) errEl.textContent = err.message || 'Erreur lors de l\'ajout au panier.';
+        });
+    };
+  }
+</script>
+
+{% schema %}
+{
+  "name": "ML Add to Cart CTA",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Produit à ajouter au panier"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Surtitre (eyebrow)",
+      "default": "PASSEZ À L'ÉTAPE SUIVANTE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Ajoutez votre étiquette au panier"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Validez votre choix pour démarrer votre projet de marque."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Afficher le prix",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "price_ht_suffix",
+      "label": "Ajouter « HT » après le prix",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Libellé du bouton",
+      "default": "Mettre au panier"
+    },
+    {
+      "type": "textarea",
+      "id": "trust",
+      "label": "Ligne de réassurance",
+      "default": "Paiement sécurisé · Pas d'engagement · Support dédié"
+    },
+    {
+      "type": "header",
+      "content": "Ligne panier personnalisée (optionnel)"
+    },
+    {
+      "type": "text",
+      "id": "line_item_name",
+      "label": "Clé de propriété",
+      "info": "Ex. « Modèle choisi ». Laisser vide pour aucune."
+    },
+    {
+      "type": "text",
+      "id": "line_item_value",
+      "label": "Valeur de propriété",
+      "info": "Ex. « Standard Design MY.LAB »"
+    },
+    {
+      "type": "header",
+      "content": "Apparence"
+    },
+    {
+      "type": "select",
+      "id": "color_theme",
+      "label": "Thème de couleur",
+      "options": [
+        { "value": "cream", "label": "Crème" },
+        { "value": "dark",  "label": "Noir" },
+        { "value": "gold",  "label": "Or" },
+        { "value": "white", "label": "Blanc" }
+      ],
+      "default": "cream"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Image de fond (opacité 10%)"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Marge haute",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Marge basse",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Add to Cart CTA",
+      "settings": {
+        "color_theme": "cream"
+      }
+    }
+  ]
+}
+{% endschema %}
