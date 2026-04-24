@@ -1,0 +1,37 @@
+{%- comment -%}
+  MY.LAB logo block — remplace le bloc <td class="shop-name__cell"> dans le header.
+
+  HOW TO APPLY:
+  1. Dans le template "Confirmation de commande", chercher :
+       <td class="shop-name__cell">
+         {%- if shop.email_logo_url %}
+           <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+         {%- else %}
+           <h1 class="shop-name__text">
+             <a href="{{shop.url}}">{{ shop.name }}</a>
+           </h1>
+         {%- endif %}
+       </td>
+  2. Remplacer par le bloc ci-dessous.
+
+  LOGIQUE :
+  - Priorité 1 : shop.email_logo_url (si renseigné dans Notifications → Personnaliser)
+  - Priorité 2 : shop.brand.logo (le logo de l'identité de marque — celui déjà uploadé)
+  - Fallback : texte "MY.LAB" stylé
+{%- endcomment -%}
+
+<td class="shop-name__cell">
+  {%- if shop.email_logo_url %}
+    <a href="{{ shop.url }}" style="text-decoration: none;">
+      <img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width | default: 160 }}" style="max-width: 180px; height: auto; display: block;">
+    </a>
+  {%- elsif shop.brand.logo %}
+    <a href="{{ shop.url }}" style="text-decoration: none;">
+      <img src="{{ shop.brand.logo | image_url: width: 360 }}" alt="{{ shop.name }}" width="140" style="max-width: 140px; height: auto; display: block;">
+    </a>
+  {%- else %}
+    <h1 class="shop-name__text" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0.02em; margin: 0;">
+      <a href="{{ shop.url }}" style="color: #111111; text-decoration: none;">MY.LAB</a>
+    </h1>
+  {%- endif %}
+</td>

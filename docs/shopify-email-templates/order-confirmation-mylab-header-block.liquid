@@ -1,0 +1,76 @@
+{%- comment -%}
+  MY.LAB header block — logo centré + numéro de commande centré en dessous.
+
+  Remplace le fichier order-confirmation-mylab-logo-block.liquid pour ceux
+  qui veulent le logo centré.
+
+  HOW TO APPLY:
+  1. Dans le template "Confirmation de commande", localiser le bloc :
+       <table class="row">
+         <tr>
+           <td class="shop-name__cell">
+             {%- if shop.email_logo_url %}
+               <img src="{{shop.email_logo_url}}" alt="{{ shop.name }}" width="{{ shop.email_logo_width }}">
+             {%- else %}
+               <h1 class="shop-name__text">
+                 <a href="{{shop.url}}">{{ shop.name }}</a>
+               </h1>
+             {%- endif %}
+           </td>
+             <td>
+               <table class="order-po-number__container">
+                 <tr>
+                   <td class="order-number__cell">
+                     <span class="order-number__text">
+                       Commande {{ order_name }}
+                     </span>
+                   </td>
+                 </tr>
+                 {%- if po_number %}
+                     <tr>
+                       <td class="po-number__cell">
+                         <span class="po-number__text">
+                           Bon de commande nº {{ po_number }}
+                         </span>
+                       </td>
+                     </tr>
+                 {%- endif %}
+               </table>
+             </td>
+         </tr>
+       </table>
+  2. Remplacer intégralement par le bloc ci-dessous.
+{%- endcomment -%}
+
+<table class="row" width="100%">
+  <tr>
+    <td align="center" style="text-align: center; padding: 8px 0 16px;">
+      {%- if shop.email_logo_url %}
+        <a href="{{ shop.url }}" style="text-decoration: none;">
+          <img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width | default: 160 }}" style="max-width: 180px; height: auto; display: inline-block;">
+        </a>
+      {%- elsif shop.brand.logo %}
+        <a href="{{ shop.url }}" style="text-decoration: none;">
+          <img src="{{ shop.brand.logo | image_url: width: 360 }}" alt="{{ shop.name }}" width="140" style="max-width: 140px; height: auto; display: inline-block;">
+        </a>
+      {%- else %}
+        <h1 style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0.02em; margin: 0;">
+          <a href="{{ shop.url }}" style="color: #111111; text-decoration: none;">MY.LAB</a>
+        </h1>
+      {%- endif %}
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="text-align: center; padding: 0 0 8px;">
+      <span class="order-number__text" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #555555; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase;">
+        Commande {{ order_name }}
+      </span>
+      {%- if po_number %}
+        <br>
+        <span class="po-number__text" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; color: #888888; font-size: 12px; letter-spacing: 0.3px;">
+          Bon de commande nº {{ po_number }}
+        </span>
+      {%- endif %}
+    </td>
+  </tr>
+</table>

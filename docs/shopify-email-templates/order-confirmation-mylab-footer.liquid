@@ -1,0 +1,55 @@
+{%- comment -%}
+  MY.LAB footer override for Shopify email notifications.
+
+  HOW TO APPLY:
+  1. Shopify Admin > Paramètres > Notifications > Commandes > Confirmation de commande > Modifier le code.
+  2. Chercher le bloc footer existant (généralement en bas, avant </body>). Il ressemble à :
+       <table class="row footer">
+         <tr>
+           <td class="footer__cell">
+             <center>
+               ...
+             </center>
+           </td>
+         </tr>
+       </table>
+  3. Remplacer tout ce bloc par celui ci-dessous.
+
+  NOTE : si le template ne contient pas de <table class="row footer"> mais un bloc commenté
+  ou inline, il suffit d'ajouter ce bloc juste avant </body>.
+{%- endcomment -%}
+
+<table class="row footer">
+  <tr>
+    <td class="footer__cell">
+      <center>
+        <table class="container">
+          <tr>
+            <td style="text-align: center; padding: 20px 20px 12px;">
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; color: #FFFFFF; margin: 0 0 10px; font-weight: 700; letter-spacing: 0.01em;">
+                MY.LAB
+              </p>
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; color: #a0a0b0; margin: 0 0 18px; line-height: 1.6;">
+                Fabricant de cosmétiques français &middot; Marque blanche B2B
+              </p>
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; color: #a0a0b0; margin: 0 0 4px; opacity: 0.7;">
+                Contactez-nous :
+              </p>
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; margin: 0 0 14px;">
+                <a href="mailto:contact@mylab-shop.com" style="color: #d0d0e0; text-decoration: none; font-weight: 500;">contact@mylab-shop.com</a>
+              </p>
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; margin: 0 0 18px;">
+                <a href="https://mylab-shop.com" style="color: #d0d0e0; text-decoration: none; margin: 0 10px;">mylab-shop.com</a>
+                <a href="https://www.instagram.com/mylab.france" style="color: #d0d0e0; text-decoration: none; margin: 0 10px;">Instagram</a>
+                <a href="https://www.facebook.com/mylabfrance" style="color: #d0d0e0; text-decoration: none; margin: 0 10px;">Facebook</a>
+              </p>
+              <p style="font-family: 'DM Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; color: #a0a0b0; margin: 0; line-height: 1.6; opacity: 0.5;">
+                &copy; {{ 'now' | date: "%Y" }} MY.LAB &middot; SARL STARTEC &middot; Tous droits réservés
+              </p>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
