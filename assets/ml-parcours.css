@@ -591,6 +591,19 @@ body.is-parcours {
   text-align:center;
 }
 .ml-parcours__product-card-qty[data-qty-display].is-set{color:var(--mlp-ink);font-weight:500}
+.ml-parcours__product-card-btn{
+  margin-top:14px;width:100%;
+  padding:12px 16px;border-radius:999px;
+  background:var(--mlp-ink);color:#fff;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  cursor:pointer;
+  transition:background 200ms var(--mlp-ease),opacity 200ms var(--mlp-ease);
+}
+.ml-parcours__product-card-btn:hover:not(:disabled){background:#000}
+.ml-parcours__product-card-btn:disabled{opacity:.35;cursor:not-allowed}
+.ml-parcours__product-card-btn.is-added{background:#0c5e2a;cursor:default}
+.ml-parcours__product-card-btn.is-added:hover{background:#0c5e2a}
 
 /* ============ STEP 4 — RÉCAP ============ */
 .ml-parcours__recap-final{

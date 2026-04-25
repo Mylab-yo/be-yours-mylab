@@ -64,15 +64,44 @@
     return (cents / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
-  // Tier selector — adds or updates the cart line for that variant + updates qty display
+  // Step 1 — Tier click: just selects visually + previews price (no cart yet)
   document.querySelectorAll('.ml-parcours__product-card').forEach(card => {
     const display = card.querySelector('[data-qty-display]');
+    const addBtn = card.querySelector('[data-add-product]');
     card.querySelectorAll('.ml-parcours__tier').forEach(tier => {
-      tier.addEventListener('click', async () => {
-        const variantId = card.dataset.variantId;
+      tier.addEventListener('click', () => {
         const qty = parseInt(tier.dataset.qty, 10);
         const unitCents = parseInt(tier.dataset.unitCents, 10);
+        if (!qty) return;
+        card.querySelectorAll('.ml-parcours__tier').forEach(t => t.classList.remove('is-active'));
+        tier.classList.add('is-active');
+        if (display) {
+          if (unitCents) {
+            const total = unitCents * qty;
+            display.textContent = qty + ' × ' + fmtMoney(unitCents) + ' = ' + fmtMoney(total) + ' HT';
+          } else {
+            display.textContent = qty + ' unité' + (qty > 1 ? 's' : '');
+          }
+          display.classList.add('is-set');
+        }
+        if (addBtn) {
+          addBtn.disabled = false;
+          addBtn.classList.remove('is-added');
+          addBtn.textContent = 'Ajouter à mon projet';
+        }
+      });
+    });
+
+    // Step 2 — Add button: actually performs cart mutation
+    if (addBtn) {
+      addBtn.addEventListener('click', async () => {
+        const activeTier = card.querySelector('.ml-parcours__tier.is-active');
+        if (!activeTier) return;
+        const variantId = card.dataset.variantId;
+        const qty = parseInt(activeTier.dataset.qty, 10);
         if (!variantId || !qty) return;
+        addBtn.disabled = true;
+        addBtn.textContent = 'Ajout en cours…';
         try {
           const cartRes = await fetch('/cart.js', { credentials: 'same-origin' });
           if (!cartRes.ok) throw new Error('cart fetch failed: ' + cartRes.status);
@@ -95,23 +124,16 @@
             });
           }
           if (!res.ok) throw new Error('cart update failed: ' + res.status);
-          card.querySelectorAll('.ml-parcours__tier').forEach(t => t.classList.remove('is-active'));
-          tier.classList.add('is-active');
-          if (display) {
-            if (unitCents) {
-              const total = unitCents * qty;
-              display.textContent = qty + ' × ' + fmtMoney(unitCents) + ' = ' + fmtMoney(total) + ' HT';
-            } else {
-              display.textContent = qty + ' unité' + (qty > 1 ? 's' : '');
-            }
-            display.classList.add('is-set');
-          }
+          addBtn.classList.add('is-added');
+          addBtn.textContent = '✓ Ajouté à votre projet';
           document.dispatchEvent(new CustomEvent('cart:refresh'));
         } catch (err) {
-          console.error('[ml-parcours-produits] tier update error', err);
+          console.error('[ml-parcours-produits] add error', err);
+          addBtn.disabled = false;
+          addBtn.textContent = 'Erreur — réessayer';
         }
       });
-    });
+    }
   });
 })();
 </script>
