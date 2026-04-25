@@ -225,15 +225,24 @@
     document.querySelectorAll('[data-ml-exit-parcours]').forEach(link => {
       link.addEventListener('click', async e => {
         e.preventDefault();
+        let state;
+        try {
+          state = await readState();
+        } catch (err) {
+          console.error('[ml-parcours] exit readState failed', err);
+          showToast('Erreur de lecture du panier.');
+          return;
+        }
+        const items = state.cart.items || [];
+        const dossierItem = items.find(it => it.handle === CONFIG.handles.dossier);
+        const dossierPrice = dossierItem ? fmt(dossierItem.line_price) : '389,90 €';
         const ok = window.confirm(
           'Voulez-vous abandonner votre projet ?\n\n' +
-          'Le dossier cosmétologique (389,90 €), l\'étiquette et le forfait d\'impression seront retirés du panier. ' +
+          'Le dossier cosmétologique (' + dossierPrice + '), l\'étiquette et le forfait d\'impression seront retirés du panier. ' +
           'Les produits ajoutés à l\'étape 03 restent dans votre panier.'
         );
         if (!ok) return;
         try {
-          const state = await readState();
-          const items = state.cart.items || [];
           const toRemove = items.filter(it =>
             it.handle === CONFIG.handles.dossier ||
             it.handle === CONFIG.handles.forfaitStandard ||
