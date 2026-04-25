@@ -1,0 +1,105 @@
+{% comment %} ml-parcours-dossier.liquid — Étape 01 — Dossier cosmétologique {% endcomment %}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__container ml-parcours__container--narrow">
+    <div class="ml-parcours__kicker">Étape 01 / 04 — Dossier</div>
+    <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+    <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+
+    <div class="ml-parcours__pillars">
+      {% for block in section.blocks %}
+        {% if block.type == 'pillar' %}
+          <div class="ml-parcours__pillar" {{ block.shopify_attributes }}>
+            <div class="ml-parcours__pillar-icon">{{ block.settings.icon }}</div>
+            <div class="ml-parcours__pillar-title">{{ block.settings.title }}</div>
+            <div class="ml-parcours__pillar-desc">{{ block.settings.desc }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ml-parcours__eyebrow">Ce que contient votre dossier</div>
+    <h2 class="ml-parcours__section-title">{{ section.settings.docs_heading }}</h2>
+
+    <div class="ml-parcours__accordion">
+      {% for block in section.blocks %}
+        {% if block.type == 'doc' %}
+          <div class="ml-parcours__accordion-item" {{ block.shopify_attributes }}>
+            <button type="button" class="ml-parcours__accordion-header">
+              <span>{{ block.settings.title }}</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
+            <div class="ml-parcours__accordion-body"><div class="ml-parcours__accordion-body-inner">{{ block.settings.body }}</div></div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ml-parcours__page-footer">
+      <a href="/pages/creons-ensemble-votre-marque" class="ml-parcours__page-footer-back">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'accueil
+      </a>
+      <a href="/pages/parcours-etiquette" class="ml-parcours__btn ml-parcours__btn--primary">
+        J'ai compris, étape suivante
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  document.querySelectorAll('.ml-parcours__accordion-item').forEach(item => {
+    item.querySelector('.ml-parcours__accordion-header').addEventListener('click', () => {
+      item.classList.toggle('is-open');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Parcours · Dossier",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Le socle de votre <em>marque</em>.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Pas de mise sur le marché sans dossier réglementaire. Le vôtre est inclus d'office et déjà ajouté à votre projet." },
+    { "type": "text", "id": "docs_heading", "label": "Titre section docs", "default": "8 documents prêts à l'emploi." }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pilier",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Lettre/icône", "default": "D" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "DIP" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Dossier d'Information Produit complet, validé par notre responsable qualifié CPNP." }
+      ]
+    },
+    {
+      "type": "doc",
+      "name": "Document",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Formules & INCI" },
+        { "type": "textarea", "id": "body", "label": "Contenu", "default": "Liste complète des ingrédients pour chaque produit, formatée pour l'étiquette et la déclaration CPNP." }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Parcours · Dossier",
+      "blocks": [
+        { "type": "pillar", "settings": { "icon": "D", "title": "DIP", "desc": "Dossier d'Information Produit complet, validé par notre responsable qualifié CPNP." } },
+        { "type": "pillar", "settings": { "icon": "C", "title": "CPNP", "desc": "Notification européenne déposée à votre nom, pour une mise en marché conforme." } },
+        { "type": "pillar", "settings": { "icon": "T", "title": "Tests", "desc": "Stabilité, compatibilité packaging, microbiologie : tout est compris." } },
+        { "type": "doc", "settings": { "title": "Formules & INCI", "body": "Liste complète des ingrédients pour chaque produit, formatée pour l'étiquette et la déclaration CPNP." } },
+        { "type": "doc", "settings": { "title": "Évaluation de la sécurité", "body": "Évaluation par notre responsable qualifié, conforme au règlement (CE) n°1223/2009." } },
+        { "type": "doc", "settings": { "title": "Tests de stabilité", "body": "Tests sur 3 mois en conditions accélérées pour valider la durée de vie minimale." } },
+        { "type": "doc", "settings": { "title": "Compatibilité packaging", "body": "Vérification que la formule reste stable au contact du contenant choisi." } },
+        { "type": "doc", "settings": { "title": "Tests microbiologiques (Challenge Test)", "body": "Vérification de l'efficacité du système conservateur contre les contaminations." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
