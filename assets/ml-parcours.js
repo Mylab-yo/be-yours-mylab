@@ -41,6 +41,7 @@
   // Read cart and build state
   async function readState() {
     const res = await fetch('/cart.js', { credentials: 'same-origin' });
+    if (!res.ok) throw new Error('cart fetch failed: ' + res.status);
     const cart = await res.json();
     const items = cart.items || [];
     return {
@@ -54,6 +55,11 @@
       ),
       total: items.reduce((sum, it) => sum + it.line_price, 0)
     };
+  }
+
+  // Format cents → "12,34 €"
+  function fmt(cents) {
+    return (cents / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
   function isEtiquette(item) {
@@ -93,39 +99,63 @@
     });
   }
 
-  // Sync the recap drawer content
+  // Sync the recap drawer content. Builds lines via createElement to avoid
+  // injecting cart-sourced strings through innerHTML.
   function syncRecap(state) {
     const root = document.querySelector('[data-ml-parcours-recap]');
     if (!root) return;
 
-    const fmt = cents => (cents / 100).toFixed(2).replace('.', ',') + ' €';
+    const items = state.cart.items || [];
+    const dossierItem = items.find(it => it.handle === CONFIG.handles.dossier);
+    const etiquetteItems = items.filter(it => isEtiquette(it));
+    const produitItems = items.filter(it => isProduit(it));
+    const sumPrice = arr => arr.reduce((sum, it) => sum + it.line_price, 0);
+
     const lines = [
-      { name: 'Dossier cosmétologique', done: state.hasDossier, value: state.hasDossier ? '389,90 €' : '—' },
-      { name: 'Étiquette & impression', done: state.hasEtiquette, value: state.hasEtiquette ? '✓' : '—' },
-      { name: 'Produits sélectionnés', done: state.hasProduits, value: state.hasProduits ? '✓' : '—' }
+      { name: 'Dossier cosmétologique', done: state.hasDossier, value: dossierItem ? fmt(dossierItem.line_price) : '—' },
+      { name: 'Étiquette & impression', done: state.hasEtiquette, value: etiquetteItems.length ? fmt(sumPrice(etiquetteItems)) : '—' },
+      { name: 'Produits sélectionnés', done: state.hasProduits, value: produitItems.length ? fmt(sumPrice(produitItems)) : '—' }
     ];
+
     const linesEl = root.querySelector('[data-ml-recap-lines]');
     if (linesEl) {
-      linesEl.innerHTML = lines.map(l => `
-        <div class="ml-parcours__recap-line ${l.done ? 'is-done' : 'is-pending'}">
-          <span class="ml-parcours__recap-line-icon">${l.done ? '✓' : '·'}</span>
-          <span class="ml-parcours__recap-line-label">${l.name}</span>
-          <span class="ml-parcours__recap-line-value">${l.value}</span>
-        </div>
-      `).join('');
+      linesEl.textContent = '';
+      lines.forEach(l => {
+        const row = document.createElement('div');
+        row.className = 'ml-parcours__recap-line ' + (l.done ? 'is-done' : 'is-pending');
+        const icon = document.createElement('span');
+        icon.className = 'ml-parcours__recap-line-icon';
+        icon.textContent = l.done ? '✓' : '·';
+        const label = document.createElement('span');
+        label.className = 'ml-parcours__recap-line-label';
+        label.textContent = l.name;
+        const value = document.createElement('span');
+        value.className = 'ml-parcours__recap-line-value';
+        value.textContent = l.value;
+        row.append(icon, label, value);
+        linesEl.appendChild(row);
+      });
     }
 
     const totalEl = root.querySelector('[data-ml-recap-total]');
     if (totalEl) totalEl.textContent = fmt(state.total);
   }
 
-  // Toast feedback
+  // Toast feedback. Used for confirmations (e.g. exit failures); the start CTA
+  // redirects too fast to render a toast on the source page.
   function showToast(msg) {
     let t = document.querySelector('.ml-parcours__toast');
     if (!t) {
       t = document.createElement('div');
       t.className = 'ml-parcours__toast';
-      t.innerHTML = '<span class="ml-parcours__toast-icon">✓</span><span class="ml-parcours__toast-message"></span>';
+      t.setAttribute('role', 'status');
+      t.setAttribute('aria-live', 'polite');
+      const icon = document.createElement('span');
+      icon.className = 'ml-parcours__toast-icon';
+      icon.textContent = '✓';
+      const message = document.createElement('span');
+      message.className = 'ml-parcours__toast-message';
+      t.append(icon, message);
       document.body.appendChild(t);
     }
     t.querySelector('.ml-parcours__toast-message').textContent = msg;
@@ -170,7 +200,7 @@
         try {
           const state = await readState();
           if (!state.hasDossier && window.MylabParcours?.dossierVariantId) {
-            await fetch('/cart/add.js', {
+            const res = await fetch('/cart/add.js', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               credentials: 'same-origin',
@@ -178,10 +208,12 @@
                 items: [{ id: window.MylabParcours.dossierVariantId, quantity: 1 }]
               })
             });
+            if (!res.ok) throw new Error('cart add failed: ' + res.status);
           }
           window.location.href = CONFIG.paths.dossier;
         } catch (err) {
           console.error('[ml-parcours] start error', err);
+          showToast('Erreur lors du démarrage. Réessayez.');
           btn.disabled = false;
         }
       });
@@ -199,43 +231,64 @@
           'Les produits ajoutés à l\'étape 03 restent dans votre panier.'
         );
         if (!ok) return;
-        const state = await readState();
-        const items = state.cart.items || [];
-        const toRemove = items.filter(it =>
-          it.handle === CONFIG.handles.dossier ||
-          it.handle === CONFIG.handles.forfaitStandard ||
-          it.handle === CONFIG.handles.forfaitCouleur ||
-          isEtiquette(it)
-        );
-        for (const it of toRemove) {
-          await fetch('/cart/change.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'same-origin',
-            body: JSON.stringify({ id: it.key, quantity: 0 })
-          });
+        try {
+          const state = await readState();
+          const items = state.cart.items || [];
+          const toRemove = items.filter(it =>
+            it.handle === CONFIG.handles.dossier ||
+            it.handle === CONFIG.handles.forfaitStandard ||
+            it.handle === CONFIG.handles.forfaitCouleur ||
+            isEtiquette(it)
+          );
+          for (const it of toRemove) {
+            const res = await fetch('/cart/change.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({ id: it.key, quantity: 0 })
+            });
+            if (!res.ok) throw new Error('cart change failed: ' + res.status);
+          }
+          window.location.href = '/';
+        } catch (err) {
+          console.error('[ml-parcours] exit error', err);
+          showToast('Erreur lors du retrait. Réessayez.');
         }
-        window.location.href = '/';
       });
     });
   }
 
-  // Init
+  // Init — guarded against double-binding if init() runs twice
+  let initialized = false;
   async function init() {
+    if (initialized) return;
+    initialized = true;
     document.body.classList.add('is-parcours');
-    const state = await readState();
-    syncStepper(state);
-    syncRecap(state);
+    try {
+      const state = await readState();
+      syncStepper(state);
+      syncRecap(state);
+    } catch (err) {
+      console.error('[ml-parcours] init readState failed', err);
+    }
     bindRecapToggle();
     bindStepperNav();
     bindStartCta();
     bindExitParcours();
 
-    // Listen to cart updates
-    document.addEventListener('cart:refresh', async () => {
-      const s = await readState();
-      syncStepper(s);
-      syncRecap(s);
+    // Listen to cart updates (debounced 200ms to coalesce bursts)
+    let refreshTimer = null;
+    document.addEventListener('cart:refresh', () => {
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(async () => {
+        try {
+          const s = await readState();
+          syncStepper(s);
+          syncRecap(s);
+        } catch (err) {
+          console.error('[ml-parcours] cart:refresh sync failed', err);
+        }
+      }, 200);
     });
   }
 
