@@ -114,26 +114,8 @@
   }
 
   document.querySelectorAll('[data-open-config]').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const mode = btn.dataset.openConfig;
-      if (mode === 'standard') {
-        const variantId = btn.dataset.defaultVariant;
-        if (!variantId) return;
-        try {
-          const res = await fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'same-origin',
-            body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
-          });
-          if (!res.ok) throw new Error('cart add failed: ' + res.status);
-          document.dispatchEvent(new CustomEvent('cart:refresh'));
-        } catch (err) {
-          console.error('[ml-parcours-etiquette] standard add error', err);
-        }
-        return;
-      }
-      openConfig(mode);
+    btn.addEventListener('click', () => {
+      openConfig(btn.dataset.openConfig);
     });
   });
 
