@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "parcours_produits": {
+      "type": "ml-parcours-produits"
+    }
+  },
+  "order": ["parcours_produits"]
+}

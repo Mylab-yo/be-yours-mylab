@@ -1,0 +1,42 @@
+{% comment %} ml-parcours-product-card.liquid — Card produit avec paliers de quantité {% endcomment %}
+
+{% liquid
+  assign cat = 'shampoing'
+  if product.tags contains 'masque' or product.title contains 'Masque' or product.title contains 'masque'
+    assign cat = 'masque'
+  elsif product.tags contains 'creme' or product.title contains 'Crème'
+    assign cat = 'creme'
+  elsif product.tags contains 'finition' or product.title contains 'Sérum' or product.title contains 'serum'
+    assign cat = 'finition'
+  elsif product.tags contains 'homme' or product.tags contains 'herborist' or product.title contains 'Barbe' or product.title contains 'Gel Douche'
+    assign cat = 'homme'
+  elsif product.tags contains 'dejaunisseur' or product.title contains 'jaune' or product.title contains 'Repigmentant'
+    assign cat = 'shampoing-rep'
+  endif
+
+  assign variant = product.variants.first
+  assign tiers = '6,12,24,48,96' | split: ','
+%}
+
+<div class="ml-parcours__product-card" data-variant-id="{{ variant.id }}" data-cat="{{ cat }}">
+  <div class="ml-parcours__product-card-img">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
+    {% else %}
+      {{ product.title }}
+    {% endif %}
+  </div>
+  <div class="ml-parcours__product-card-body">
+    <div class="ml-parcours__product-card-title">{{ product.title }}</div>
+    <div class="ml-parcours__product-card-sub">{{ product.metafields.custom.contenance | default: '200 ml' }}</div>
+    <div class="ml-parcours__product-card-tiers">
+      {% for q in tiers %}
+        <div class="ml-parcours__tier" data-qty="{{ q }}">{{ q }}</div>
+      {% endfor %}
+    </div>
+    <div class="ml-parcours__product-card-qty">
+      {% if extra %}<small>Hors catalogue</small><br>{% endif %}
+      <span data-qty-display>Aucune sélection</span>
+    </div>
+  </div>
+</div>

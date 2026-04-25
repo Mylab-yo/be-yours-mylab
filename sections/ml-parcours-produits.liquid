@@ -1,0 +1,114 @@
+{% comment %} ml-parcours-produits.liquid — Étape 03 — Produits avec tabs + paliers {% endcomment %}
+
+{% liquid
+  assign pro_col = collections['boutique-adherents']
+  assign extra_products = section.settings.extra_products
+%}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__container">
+    <div class="ml-parcours__kicker">Étape 03 / 04 — Produits</div>
+    <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+    <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+
+    <div class="ml-parcours__product-tabs">
+      <button type="button" class="ml-parcours__product-tab is-active" data-cat="all">Tous</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="shampoing">Shampoings</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="shampoing-rep">Repigmentants</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="masque">Masques</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="creme">Crèmes</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="finition">Finition</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="homme">Gamme Homme</button>
+      <button type="button" class="ml-parcours__product-tab" data-cat="bac1000">Format 1000ml</button>
+    </div>
+
+    <div class="ml-parcours__product-grid">
+      {% for p in pro_col.products %}
+        {% render 'ml-parcours-product-card', product: p %}
+      {% endfor %}
+      {% for p in extra_products %}
+        {% render 'ml-parcours-product-card', product: p, extra: true %}
+      {% endfor %}
+    </div>
+
+    <div class="ml-parcours__page-footer">
+      <a href="/pages/parcours-etiquette" class="ml-parcours__page-footer-back">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'étape précédente
+      </a>
+      <a href="/pages/parcours-recap" class="ml-parcours__btn ml-parcours__btn--primary">
+        Voir le récap final
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+
+  // Tab filter
+  document.querySelectorAll('.ml-parcours__product-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+      document.querySelectorAll('.ml-parcours__product-tab').forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      document.querySelectorAll('.ml-parcours__product-card').forEach(card => {
+        card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // Tier selector — adds or updates the cart line for that variant
+  document.querySelectorAll('.ml-parcours__product-card').forEach(card => {
+    card.querySelectorAll('.ml-parcours__tier').forEach(tier => {
+      tier.addEventListener('click', async () => {
+        const variantId = card.dataset.variantId;
+        const qty = parseInt(tier.dataset.qty, 10);
+        if (!variantId || !qty) return;
+        try {
+          const cartRes = await fetch('/cart.js', { credentials: 'same-origin' });
+          if (!cartRes.ok) throw new Error('cart fetch failed: ' + cartRes.status);
+          const cart = await cartRes.json();
+          const existing = (cart.items || []).find(it => String(it.variant_id) === String(variantId));
+          let res;
+          if (existing) {
+            res = await fetch('/cart/change.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({ id: existing.key, quantity: qty })
+            });
+          } else {
+            res = await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'same-origin',
+              body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: qty }] })
+            });
+          }
+          if (!res.ok) throw new Error('cart update failed: ' + res.status);
+          card.querySelectorAll('.ml-parcours__tier').forEach(t => t.classList.remove('is-active'));
+          tier.classList.add('is-active');
+          document.dispatchEvent(new CustomEvent('cart:refresh'));
+        } catch (err) {
+          console.error('[ml-parcours-produits] tier update error', err);
+        }
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Parcours · Produits",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Composez votre <em>gamme</em>.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Sélectionnez vos références et vos quantités. Plus vous prenez, moins ça coûte par flacon. Aucune obligation de tout choisir d'un coup." },
+    { "type": "product_list", "id": "extra_products", "label": "Produits hors catalogue (bac 1000ml)", "limit": 50 }
+  ],
+  "presets": [{ "name": "Parcours · Produits" }]
+}
+{% endschema %}
