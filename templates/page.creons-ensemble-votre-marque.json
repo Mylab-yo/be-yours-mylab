@@ -1,119 +1,15 @@
 {
   "sections": {
-    "parcours": {
-      "type": "ml-cem-parcours",
-      "settings": {
-        "products_collection": "boutique-adherents",
-        "hero_eyebrow": "COSMÉTIQUES CAPILLAIRES B2B · FABRIQUÉS EN FRANCE",
-        "hero_title": "Créons <em>ensemble</em> votre marque capillaire",
-        "hero_sub": "On s'occupe de la formulation, de la réglementation et de l'impression. Vous gardez la vision.",
-        "hero_cta_primary": "Commençons notre projet",
-        "hero_cta_alt": "Prendre rendez-vous",
-        "hero_cta_alt_link": "https://cal.eu/yoann-durand-xyj75z/etude-projet-marque-capillaire"
-      }
-    },
-    "faq_questions": {
-      "type": "faq",
+    "parcours_landing": {
+      "type": "ml-parcours-landing",
       "blocks": {
-        "q1": {
-          "type": "question",
-          "settings": {
-            "question": "Combien de temps pour lancer ma marque ?",
-            "answer": "<p>Comptez 3 semaines pour le dossier cosmétologique (DIP + CPNP + tests). Pour les étiquettes : 2 min avec le design MY.LAB, 24 h avec un modèle graphique, 3-5 semaines pour un sur-mesure. La première commande peut être expédiée dès validation du dossier.</p>"
-          }
-        },
-        "q2": {
-          "type": "question",
-          "settings": {
-            "question": "Quel est le minimum de commande ?",
-            "answer": "<p>À partir de 6 unités par référence (200/500 ml) ou 1 unité en format bac 1000 ml. Les prix baissent automatiquement selon les paliers de quantité.</p>"
-          }
-        },
-        "q3": {
-          "type": "question",
-          "settings": {
-            "question": "L'abonnement d'impression est-il obligatoire ?",
-            "answer": "<p>Oui, c'est ce qui nous permet d'imprimer vos étiquettes personnalisées sur chacune de vos commandes pendant 12 mois sans surcoût à l'unité. Reconduction tacite, résiliation à tout moment depuis votre espace client.</p>"
-          }
-        },
-        "q4": {
-          "type": "question",
-          "settings": {
-            "question": "Qui est responsable du dossier réglementaire ?",
-            "answer": "<p>MY.LAB prend en charge intégralement le dossier (DIP, CPNP, tests de stabilité, étiquetage conforme CE 1223/2009). Notre pharmacien toxicologue est la personne responsable qualifiée (PRQ). Vous signez, nous déposons.</p>"
-          }
-        },
-        "q5": {
-          "type": "question",
-          "settings": {
-            "question": "Je peux faire évoluer ma gamme après le lancement ?",
-            "answer": "<p>Oui, vous pouvez ajouter des références, changer de design d'étiquette (gratuit si c'est sur le modèle MY.LAB, facturé au prorata si c'est un changement vers Couleur), élargir les contenances à tout moment depuis votre espace.</p>"
-          }
-        }
+        "s1": { "type": "step_card", "settings": { "kicker": "Étape 01", "title": "Dossier cosmétologique", "desc": "DIP, CPNP et tests : la base réglementaire, prête à utiliser.", "chip": "Inclus d'office" } },
+        "s2": { "type": "step_card", "settings": { "kicker": "Étape 02", "title": "Étiquette & impression", "desc": "Standard, Modèles ou Sur-mesure. Forfait d'impression annuel.", "chip": "3 options" } },
+        "s3": { "type": "step_card", "settings": { "kicker": "Étape 03", "title": "Produits", "desc": "Shampoings, masques, soins. Quantités flexibles, paliers dégressifs.", "chip": "+50 références", "chip_invert": true } },
+        "s4": { "type": "step_card", "settings": { "kicker": "Étape 04", "title": "Récap & validation", "desc": "Vue d'ensemble de votre projet, total HT, devis ou paiement.", "chip": "Engagement final" } }
       },
-      "block_order": [
-        "q1",
-        "q2",
-        "q3",
-        "q4",
-        "q5"
-      ],
-      "settings": {
-        "heading": "Questions fréquentes",
-        "heading_size": "h1"
-      }
-    },
-    "cta_final": {
-      "type": "rich-text",
-      "blocks": {
-        "caption": {
-          "type": "caption",
-          "settings": {
-            "caption": "ON SE PARLE ?",
-            "caption_size": "medium"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Prêts à lancer <em>votre marque</em> ?",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Un appel de 15 minutes avec l'équipe MY.LAB pour valider votre projet, chiffrer votre lancement et verrouiller les délais.</p>"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Réserver 15 min avec un expert",
-            "button_link_1": "https://cal.eu/yoann-durand-xyj75z/etude-projet-marque-capillaire",
-            "button_label_2": "Nous écrire",
-            "button_link_2": "mailto:contact@mylab-shop.com",
-            "button_style_secondary_2": true
-          }
-        }
-      },
-      "block_order": [
-        "caption",
-        "heading",
-        "text",
-        "button"
-      ],
-      "settings": {
-        "color_scheme": "scheme-3",
-        "full_width": true,
-        "padding_top": 72,
-        "padding_bottom": 72
-      }
+      "block_order": ["s1", "s2", "s3", "s4"]
     }
   },
-  "order": [
-    "parcours",
-    "faq_questions",
-    "cta_final"
-  ]
+  "order": ["parcours_landing"]
 }

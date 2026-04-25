@@ -1,0 +1,84 @@
+{% comment %} ml-parcours-landing.liquid — Hero + 4 cards preview + CTA {% endcomment %}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__landing-hero">
+    <div class="ml-parcours__landing-hero-inner">
+      <div class="ml-parcours__eyebrow">{{ section.settings.eyebrow }}</div>
+      <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+      <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+      <button type="button" class="ml-parcours__btn ml-parcours__btn--primary ml-parcours__btn--big" data-ml-start-parcours>
+        {{ section.settings.cta_label | default: 'Démarrer mon projet' }}
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="ml-parcours__landing-hero-meta">
+        <span><b>4 étapes</b> · validation guidée</span>
+        <span><b>Sauvegarde auto</b> · à chaque étape</span>
+        <span><b>Pas d'engagement</b> · jusqu'au paiement</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-parcours__landing-steps">
+    <div class="ml-parcours__landing-steps-grid">
+      {% for block in section.blocks %}
+        <div class="ml-parcours__landing-step" {{ block.shopify_attributes }}>
+          <div class="ml-parcours__landing-step-num">{{ block.settings.kicker }}</div>
+          <div class="ml-parcours__landing-step-title">{{ block.settings.title }}</div>
+          <div class="ml-parcours__landing-step-desc">{{ block.settings.desc }}</div>
+          {% if block.settings.chip != blank %}
+            <span class="ml-parcours__landing-step-chip {% if block.settings.chip_invert %}ml-parcours__landing-step-chip--invert{% endif %}">{{ block.settings.chip }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="ml-parcours__landing-cta">
+    <h2>{{ section.settings.bottom_heading }}</h2>
+    <p>{{ section.settings.bottom_text }}</p>
+    <button type="button" class="ml-parcours__btn ml-parcours__btn--ink ml-parcours__btn--big" data-ml-start-parcours>
+      {{ section.settings.bottom_cta | default: 'Je commence' }}
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Parcours · Landing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Parcours guidé · 15 minutes" },
+    { "type": "richtext", "id": "heading", "label": "Titre principal", "default": "<p>Créons ensemble<br/>votre <em>marque</em>.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Un parcours en 4 étapes pour assembler votre dossier cosmétologique, choisir vos étiquettes, sélectionner vos produits et lancer votre ligne capillaire en marque blanche." },
+    { "type": "text", "id": "cta_label", "label": "CTA principal", "default": "Démarrer mon projet" },
+    { "type": "text", "id": "bottom_heading", "label": "Titre bas de page", "default": "Prêt à donner vie à votre ligne ?" },
+    { "type": "textarea", "id": "bottom_text", "label": "Texte bas de page", "default": "Vous gardez la main à chaque étape. Rien n'est confirmé tant que vous ne validez pas l'étape 4." },
+    { "type": "text", "id": "bottom_cta", "label": "CTA bas de page", "default": "Je commence" }
+  ],
+  "blocks": [
+    {
+      "type": "step_card",
+      "name": "Card étape",
+      "settings": [
+        { "type": "text", "id": "kicker", "label": "Kicker", "default": "Étape 01" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Dossier cosmétologique" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "DIP, CPNP et tests : la base réglementaire, prête à utiliser." },
+        { "type": "text", "id": "chip", "label": "Chip (optionnel)", "default": "Inclus d'office" },
+        { "type": "checkbox", "id": "chip_invert", "label": "Chip inversée (fond noir)", "default": false }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Parcours · Landing",
+      "blocks": [
+        { "type": "step_card", "settings": { "kicker": "Étape 01", "title": "Dossier cosmétologique", "desc": "DIP, CPNP et tests : la base réglementaire, prête à utiliser.", "chip": "Inclus d'office" } },
+        { "type": "step_card", "settings": { "kicker": "Étape 02", "title": "Étiquette & impression", "desc": "Standard, Modèles ou Sur-mesure. Forfait d'impression annuel.", "chip": "3 options" } },
+        { "type": "step_card", "settings": { "kicker": "Étape 03", "title": "Produits", "desc": "Shampoings, masques, soins. Quantités flexibles, paliers dégressifs.", "chip": "+50 références", "chip_invert": true } },
+        { "type": "step_card", "settings": { "kicker": "Étape 04", "title": "Récap & validation", "desc": "Vue d'ensemble de votre projet, total HT, devis ou paiement.", "chip": "Engagement final" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
