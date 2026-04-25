@@ -767,3 +767,18 @@ body.is-parcours {
     border-radius: 0;
   }
 }
+
+/* ============ HIDE BE YOURS STANDARD HEADER ON PARCOURS PAGES ============ */
+body.is-parcours .header,
+body.is-parcours [data-section-type="header"],
+body.is-parcours sticky-header,
+body.is-parcours .shopify-section-group-header-group {
+  display: none !important;
+}
+
+/* Also hide any cart icon bubble that might leak through */
+body.is-parcours .header__icon--cart,
+body.is-parcours cart-icon-bubble,
+body.is-parcours [aria-controls="cart-drawer"] {
+  display: none !important;
+}

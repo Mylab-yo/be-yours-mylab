@@ -71,9 +71,10 @@
       if (!r.ok) return r.json().then(function (e) { throw new Error(e.description || 'Forfait add failed'); });
       return r.json();
     }).then(function () {
-      // Sur la page parcours "Créons ensemble votre marque", on ne doit pas ouvrir
-      // automatiquement le drawer — l'user reste dans le flow de configuration.
-      var silentOpen = /\/pages\/creons-ensemble-votre-marque/i.test(window.location.pathname);
+      // Sur les pages parcours "Créons ensemble votre marque" (legacy + multi-pages),
+      // on ne doit pas ouvrir automatiquement le drawer — l'user reste dans le flow
+      // de configuration.
+      var silentOpen = /\/pages\/(creons-ensemble-votre-marque|parcours-(dossier|etiquette|produits|recap))\/?$/i.test(window.location.pathname);
       document.dispatchEvent(new CustomEvent('cart:refresh'));
       document.dispatchEvent(new CustomEvent('mylab:cart:refresh', { detail: { open: !silentOpen } }));
     }).finally(function () {
