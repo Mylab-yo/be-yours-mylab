@@ -1,0 +1,119 @@
+{% comment %}
+  ml-parcours-shell.liquid — Topbar, stepper, récap drawer, mobile CTA
+  Inclus globalement par theme.liquid sur les paths du parcours.
+  Hydrate window.MylabParcours avec les handles produits/étiquettes pour le JS.
+{% endcomment %}
+
+{% liquid
+  assign etiquettes_col = collections['modeles-detiquettes']
+  assign produits_col = collections['boutique-adherents']
+  assign dossier_product = all_products['creation-du-dossier-cosmetologique']
+%}
+
+{{ 'ml-parcours.css' | asset_url | stylesheet_tag }}
+
+<script>
+  window.MylabParcours = {
+    dossierVariantId: {{ dossier_product.variants.first.id | default: 'null' }},
+    dossierPrice: {{ dossier_product.variants.first.price | default: 38990 }},
+    etiquetteHandles: [
+      {%- for p in etiquettes_col.products -%}
+        "{{ p.handle }}"{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    produitHandles: [
+      {%- for p in produits_col.products -%}
+        "{{ p.handle }}"{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+  };
+</script>
+
+<header class="ml-parcours__topbar">
+  <a href="/" class="ml-parcours__brand">MY<b>.</b>LAB <small>· Création de marque</small></a>
+  <div class="ml-parcours__topbar-right">
+    <a href="#" class="ml-parcours__topbar-exit" data-ml-exit-parcours>Quitter le parcours</a>
+  </div>
+</header>
+
+<nav class="ml-parcours__stepper" aria-label="Progression du parcours">
+  <div class="ml-parcours__stepper-inner">
+    <button type="button" class="ml-parcours__step" data-go="dossier">
+      <span class="ml-parcours__step-num">
+        <span class="ml-parcours__step-digit">1</span>
+        <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="ml-parcours__step-label">
+        <span class="ml-parcours__step-kicker">Étape 01</span>
+        <span class="ml-parcours__step-name">Dossier</span>
+      </span>
+    </button>
+    <span class="ml-parcours__step-line"></span>
+    <button type="button" class="ml-parcours__step" data-go="etiquette">
+      <span class="ml-parcours__step-num">
+        <span class="ml-parcours__step-digit">2</span>
+        <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="ml-parcours__step-label">
+        <span class="ml-parcours__step-kicker">Étape 02</span>
+        <span class="ml-parcours__step-name">Étiquette</span>
+      </span>
+    </button>
+    <span class="ml-parcours__step-line"></span>
+    <button type="button" class="ml-parcours__step" data-go="produits">
+      <span class="ml-parcours__step-num">
+        <span class="ml-parcours__step-digit">3</span>
+        <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="ml-parcours__step-label">
+        <span class="ml-parcours__step-kicker">Étape 03</span>
+        <span class="ml-parcours__step-name">Produits</span>
+      </span>
+    </button>
+    <span class="ml-parcours__step-line"></span>
+    <button type="button" class="ml-parcours__step" data-go="recap">
+      <span class="ml-parcours__step-num">
+        <span class="ml-parcours__step-digit">4</span>
+        <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="ml-parcours__step-label">
+        <span class="ml-parcours__step-kicker">Étape 04</span>
+        <span class="ml-parcours__step-name">Récap</span>
+      </span>
+    </button>
+  </div>
+  <div class="ml-parcours__stepper-toggle-wrap">
+    <button type="button" class="ml-parcours__stepper-toggle" data-ml-recap-toggle aria-expanded="false" aria-controls="ml-parcours-recap-drawer">
+      <span data-ml-recap-toggle-label>Voir mon projet en cours</span>
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<aside class="ml-parcours__recap" id="ml-parcours-recap-drawer" data-ml-parcours-recap aria-label="Récapitulatif du projet">
+  <div class="ml-parcours__recap-inner">
+    <div class="ml-parcours__recap-section">
+      <div class="ml-parcours__recap-title">État de votre projet</div>
+      <div data-ml-recap-lines></div>
+    </div>
+    <div class="ml-parcours__recap-section ml-parcours__recap-section--total">
+      <div class="ml-parcours__recap-title">Total à ce stade</div>
+      <div class="ml-parcours__recap-total" data-ml-recap-total>0,00 €</div>
+    </div>
+    <div class="ml-parcours__recap-quit">
+      <a href="#" data-ml-exit-parcours>Abandonner et vider mon projet</a>
+    </div>
+  </div>
+</aside>
+
+<div class="ml-parcours__mobile-cta">
+  <div class="ml-parcours__mobile-cta-inner">
+    <div class="ml-parcours__mobile-cta-progress">
+      <span>{% case template.suffix %}{% when 'dossier' %}Étape 01 / 04{% when 'etiquette' %}Étape 02 / 04{% when 'produits' %}Étape 03 / 04{% when 'recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
+      <b>{% case template.suffix %}{% when 'dossier' %}Dossier cosmétologique{% when 'etiquette' %}Étiquette & impression{% when 'produits' %}Produits{% when 'recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
+    </div>
+    <button type="button" class="ml-parcours__mobile-cta-btn" data-ml-recap-toggle>Voir récap</button>
+  </div>
+</div>
+
+<script src="{{ 'ml-parcours.js' | asset_url }}" defer></script>

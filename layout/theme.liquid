@@ -182,6 +182,17 @@
     <div class="transition-body">
       {% sections 'header-group' %}
 
+      {%- comment -%} Parcours multi-pages MY.LAB — render shell sur les paths concernés {%- endcomment -%}
+      {%- assign is_parcours_page = false -%}
+      {%- if template == 'page' -%}
+        {%- if page.handle == 'creons-ensemble-votre-marque' or page.handle == 'parcours-dossier' or page.handle == 'parcours-etiquette' or page.handle == 'parcours-produits' or page.handle == 'parcours-recap' -%}
+          {%- assign is_parcours_page = true -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if is_parcours_page -%}
+        {% render 'ml-parcours-shell' %}
+      {%- endif -%}
+
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
           {{ content_for_layout }}
