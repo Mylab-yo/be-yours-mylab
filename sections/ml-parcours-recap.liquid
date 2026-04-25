@@ -1,0 +1,164 @@
+{% comment %} ml-parcours-recap.liquid — Étape 04 — Récap final + validation {% endcomment %}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__container">
+    <div class="ml-parcours__kicker">Étape 04 / 04 — Validation</div>
+    <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+    <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+
+    <div class="ml-parcours__recap-final">
+      <h2>{{ section.settings.recap_heading }}</h2>
+      <div class="ml-parcours__timeline">
+        {% for block in section.blocks %}
+          <div class="ml-parcours__timeline-item" {{ block.shopify_attributes }}>
+            <div class="ml-parcours__timeline-item-dot"></div>
+            <h4>{{ block.settings.label }}</h4>
+            <p>{{ block.settings.desc }}</p>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="ml-parcours__recap-table" data-recap-table>
+        <div class="ml-parcours__recap-row" data-empty>
+          <span class="ml-parcours__recap-row-label">Votre projet est vide</span>
+          <span class="ml-parcours__recap-row-value">—</span>
+        </div>
+      </div>
+
+      <div class="ml-parcours__recap-total-final">
+        <span class="ml-parcours__recap-total-label">Total HT</span>
+        <span class="ml-parcours__recap-total-value" data-recap-total-value>0,00 €</span>
+      </div>
+
+      <div class="ml-parcours__recap-actions">
+        <button type="button" class="ml-parcours__btn ml-parcours__btn--big" style="background:#fff;color:var(--mlp-ink)" data-validate-project disabled>
+          Valider notre projet
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="button" class="ml-parcours__btn ml-parcours__btn--ghost ml-parcours__btn--big" style="border-color:#bdb3a3;color:#fff" data-request-quote>
+          Recevoir le devis PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="ml-parcours__page-footer">
+      <a href="/pages/parcours-produits" class="ml-parcours__page-footer-back">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Modifier mes produits
+      </a>
+      <a href="/pages/contact" class="ml-parcours__contact-link">Une question ? Prendre RDV</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+
+  function fmtMoney(cents) {
+    return (cents / 100).toFixed(2).replace('.', ',') + ' €';
+  }
+
+  // Safely build a recap row using DOM API (no innerHTML)
+  function buildRow(label, value) {
+    const row = document.createElement('div');
+    row.className = 'ml-parcours__recap-row';
+    const labelEl = document.createElement('span');
+    labelEl.className = 'ml-parcours__recap-row-label';
+    labelEl.textContent = label;
+    const valueEl = document.createElement('span');
+    valueEl.className = 'ml-parcours__recap-row-value';
+    valueEl.textContent = value;
+    row.append(labelEl, valueEl);
+    return row;
+  }
+
+  async function renderRecap() {
+    const table = document.querySelector('[data-recap-table]');
+    const totalEl = document.querySelector('[data-recap-total-value]');
+    const validateBtn = document.querySelector('[data-validate-project]');
+    if (!table || !totalEl || !validateBtn) return;
+
+    let cart;
+    try {
+      const res = await fetch('/cart.js', { credentials: 'same-origin' });
+      if (!res.ok) throw new Error('cart fetch failed: ' + res.status);
+      cart = await res.json();
+    } catch (err) {
+      console.error('[ml-parcours-recap] readCart failed', err);
+      return;
+    }
+
+    const items = cart.items || [];
+
+    table.textContent = '';
+    if (items.length === 0) {
+      table.appendChild(buildRow('Votre projet est vide', '—'));
+      totalEl.textContent = '0,00 €';
+      validateBtn.disabled = true;
+      return;
+    }
+
+    items.forEach(it => {
+      const label = it.product_title + (it.quantity > 1 ? ' · ' + it.quantity + 'u' : '');
+      table.appendChild(buildRow(label, fmtMoney(it.line_price)));
+    });
+    totalEl.textContent = fmtMoney(cart.total_price);
+
+    const hasDossier = items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
+    const etiquetteHandles = (window.MylabParcours && window.MylabParcours.etiquetteHandles) || [];
+    const produitHandles = (window.MylabParcours && window.MylabParcours.produitHandles) || [];
+    const hasEtiquette = items.some(it => etiquetteHandles.indexOf(it.handle) !== -1);
+    const hasProduits = items.some(it => produitHandles.indexOf(it.handle) !== -1);
+    validateBtn.disabled = !(hasDossier && hasEtiquette && hasProduits);
+  }
+
+  const validateBtn = document.querySelector('[data-validate-project]');
+  if (validateBtn) {
+    validateBtn.addEventListener('click', () => {
+      window.location.href = '/checkout';
+    });
+  }
+  const quoteBtn = document.querySelector('[data-request-quote]');
+  if (quoteBtn) {
+    quoteBtn.addEventListener('click', () => {
+      window.location.href = '/pages/contact?subject=devis-parcours';
+    });
+  }
+
+  renderRecap();
+  document.addEventListener('cart:refresh', renderRecap);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Parcours · Récap",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Votre <em>projet</em>, en un coup d'œil.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Vérifiez chaque ligne. Une fois validé, votre devis est envoyé et votre projet entre en production sous 7 jours ouvrés." },
+    { "type": "richtext", "id": "recap_heading", "label": "Titre du bloc récap dark", "default": "<p>Le lancement de votre <em>marque</em>, prêt à signer.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "timeline_step",
+      "name": "Jalon timeline",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "J0 — Validation" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Devis envoyé. Acompte 30%. Coup d'envoi de la production." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Parcours · Récap",
+      "blocks": [
+        { "type": "timeline_step", "settings": { "label": "J0 — Validation", "desc": "Devis envoyé. Acompte 30%. Coup d'envoi de la production." } },
+        { "type": "timeline_step", "settings": { "label": "J+7 — Étiquettes", "desc": "Bon à tirer envoyé. Vous validez le rendu avant impression." } },
+        { "type": "timeline_step", "settings": { "label": "J+21 — Livraison", "desc": "Vos cartons arrivent en boutique. Solde réglé à la livraison." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
