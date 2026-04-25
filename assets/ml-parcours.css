@@ -82,16 +82,32 @@ body.is-parcours {
   background:transparent;border:none;box-shadow:none;border-radius:0;cursor:pointer;
   transition:opacity 200ms var(--mlp-ease);
 }
-.ml-parcours__stepper-toggle{
-  background:transparent;border:none;box-shadow:none;cursor:pointer;
-}
-.ml-parcours__mobile-cta-btn,
-.ml-parcours__product-tab,
+
+/* Hard reset Be Yours theme button defaults on all neutral parcours buttons.
+   CTA buttons (.btn--primary, .btn--ink, .label-card-btn, .modal-close,
+   .mobile-cta-btn, .tier.is-active, .product-tab.is-active) keep their own bg. */
+.ml-parcours__step,
+.ml-parcours__stepper-toggle,
 .ml-parcours__accordion-header,
+.ml-parcours__topbar-exit,
+.ml-parcours__page-footer-back,
+.ml-parcours__contact-link,
+.ml-parcours__product-tab:not(.is-active),
+.ml-parcours__recap-quit a{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  border-radius:0 !important;
+}
+.ml-parcours__product-tab.is-active,
+.ml-parcours__tier,
+.ml-parcours__tier.is-active,
 .ml-parcours__label-card-btn,
 .ml-parcours__modal-close,
-.ml-parcours__tier{
-  border:none;box-shadow:none;
+.ml-parcours__mobile-cta-btn,
+.ml-parcours__btn{
+  border:none !important;
+  box-shadow:none !important;
 }
 .ml-parcours__step-num{
   width:30px;height:30px;border-radius:50%;
