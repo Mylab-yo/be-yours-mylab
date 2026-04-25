@@ -109,8 +109,8 @@
 <div class="ml-parcours__mobile-cta">
   <div class="ml-parcours__mobile-cta-inner">
     <div class="ml-parcours__mobile-cta-progress">
-      <span>{% case template.suffix %}{% when 'dossier' %}Étape 01 / 04{% when 'etiquette' %}Étape 02 / 04{% when 'produits' %}Étape 03 / 04{% when 'recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
-      <b>{% case template.suffix %}{% when 'dossier' %}Dossier cosmétologique{% when 'etiquette' %}Étiquette & impression{% when 'produits' %}Produits{% when 'recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
+      <span>{% case page.handle %}{% when 'parcours-dossier' %}Étape 01 / 04{% when 'parcours-etiquette' %}Étape 02 / 04{% when 'parcours-produits' %}Étape 03 / 04{% when 'parcours-recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
+      <b>{% case page.handle %}{% when 'parcours-dossier' %}Dossier cosmétologique{% when 'parcours-etiquette' %}Étiquette & impression{% when 'parcours-produits' %}Produits{% when 'parcours-recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
     </div>
     <button type="button" class="ml-parcours__mobile-cta-btn" data-ml-recap-toggle>Voir récap</button>
   </div>
