@@ -57,8 +57,6 @@
   }
 
   function isEtiquette(item) {
-    if (!item.product_type) return false;
-    // We rely on the collection injected via ml-parcours-shell data attributes
     const etiquetteHandles = window.MylabParcours?.etiquetteHandles || [];
     return etiquetteHandles.includes(item.handle);
   }
