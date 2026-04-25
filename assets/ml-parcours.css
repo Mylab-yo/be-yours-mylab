@@ -708,3 +708,62 @@ body.is-parcours {
   .ml-parcours__landing-steps{padding:60px 0}
   .ml-parcours__landing-cta{padding:60px 20px 80px}
 }
+
+/* ============ CONFIGURATEUR MODAL (Étape 02) ============ */
+.ml-parcours__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+}
+.ml-parcours__modal.is-open {
+  display: block;
+}
+.ml-parcours__modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 26, 26, 0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.ml-parcours__modal-panel {
+  position: absolute;
+  inset: 24px;
+  background: #fff;
+  border-radius: var(--mlp-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--mlp-shadow-lg);
+}
+.ml-parcours__modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--mlp-ink);
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  font-weight: 400;
+  cursor: pointer;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  transition: background 200ms var(--mlp-ease);
+}
+.ml-parcours__modal-close:hover {
+  background: #000;
+}
+.ml-parcours__modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+@media (max-width: 880px) {
+  .ml-parcours__modal-panel {
+    inset: 0;
+    border-radius: 0;
+  }
+}

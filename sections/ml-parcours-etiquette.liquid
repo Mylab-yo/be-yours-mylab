@@ -1,0 +1,188 @@
+{% comment %} ml-parcours-etiquette.liquid — Étape 02 — Étiquette & forfait + configurateur Vercel iframe {% endcomment %}
+
+{% liquid
+  assign default_modele = section.settings.modele_default_product
+  assign default_modele_variant_id = '55418309083470'
+  if default_modele != blank and default_modele.variants.size > 0
+    assign default_modele_variant_id = default_modele.variants.first.id
+  endif
+%}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__container">
+    <div class="ml-parcours__kicker">Étape 02 / 04 — Étiquette & impression</div>
+    <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+    <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+
+    <div class="ml-parcours__label-cards">
+      <div class="ml-parcours__label-card" data-mode="standard">
+        <div class="ml-parcours__label-card-visual">Aperçu Standard</div>
+        <div class="ml-parcours__label-card-title">Standard</div>
+        <div class="ml-parcours__label-card-price">Gratuit</div>
+        <div class="ml-parcours__label-card-desc">Étiquette neutre noire, votre logo en bichromie. Idéal pour démarrer rapidement.</div>
+        <div class="ml-parcours__label-card-actions">
+          <button type="button" class="ml-parcours__label-card-btn" data-open-config="standard" data-default-variant="55418362003790">Choisir Standard</button>
+          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+        </div>
+      </div>
+      <div class="ml-parcours__label-card ml-parcours__label-card--featured" data-mode="template">
+        <span class="ml-parcours__label-card-badge">Recommandé</span>
+        <div class="ml-parcours__label-card-visual">Aperçu Modèles</div>
+        <div class="ml-parcours__label-card-title">Modèles</div>
+        <div class="ml-parcours__label-card-price">99 €</div>
+        <div class="ml-parcours__label-card-desc">11 designs prêts à personnaliser dans le configurateur. Couleurs, typographies, finitions.</div>
+        <div class="ml-parcours__label-card-actions">
+          <button type="button" class="ml-parcours__label-card-btn" data-open-config="template" data-default-variant="{{ default_modele_variant_id }}">Ouvrir le configurateur</button>
+          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+        </div>
+      </div>
+      <div class="ml-parcours__label-card" data-mode="studio">
+        <div class="ml-parcours__label-card-visual">Aperçu Sur-mesure</div>
+        <div class="ml-parcours__label-card-title">Sur-mesure</div>
+        <div class="ml-parcours__label-card-price">390 €</div>
+        <div class="ml-parcours__label-card-desc">Création unique avec notre studio. Brief, allers-retours, design exclusif.</div>
+        <div class="ml-parcours__label-card-actions">
+          <button type="button" class="ml-parcours__label-card-btn" data-open-config="studio" data-default-variant="">Démarrer le brief</button>
+          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ml-parcours__forfait">
+      <div class="ml-parcours__forfait-head">
+        <h3>Forfait d'impression annuel</h3>
+        <span class="ml-parcours__forfait-chip">Inclus selon votre étiquette</span>
+      </div>
+      <div class="ml-parcours__forfait-pillars">
+        <div class="ml-parcours__forfait-pillar">
+          <h4>1 an d'impressions illimitées</h4>
+          <p>Imprimez à la demande, sans seuil minimum, avec votre design validé.</p>
+        </div>
+        <div class="ml-parcours__forfait-pillar">
+          <h4>Reconduction tacite</h4>
+          <p>Renouvelé automatiquement chaque année. Annulable à tout moment.</p>
+        </div>
+        <div class="ml-parcours__forfait-pillar">
+          <h4>Noir & blanc ou couleur</h4>
+          <p>99 €/an pour étiquettes noires standards · 250 €/an pour étiquettes couleur.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ml-parcours__page-footer">
+      <a href="/pages/parcours-dossier" class="ml-parcours__page-footer-back">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'étape précédente
+      </a>
+      <a href="/pages/parcours-produits" class="ml-parcours__btn ml-parcours__btn--primary">
+        Valider et choisir mes produits
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="ml-parcours__modal" id="ml-parcours-config-modal" inert aria-modal="true" aria-label="Configurateur d'étiquette">
+  <div class="ml-parcours__modal-backdrop" data-close-config></div>
+  <div class="ml-parcours__modal-panel">
+    <button type="button" class="ml-parcours__modal-close" data-close-config aria-label="Fermer le configurateur">×</button>
+    <iframe class="ml-parcours__modal-iframe" data-config-iframe title="Configurateur"></iframe>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  const modal = document.getElementById('ml-parcours-config-modal');
+  if (!modal) return;
+  const iframe = modal.querySelector('[data-config-iframe]');
+  const allowedOrigin = 'https://mylab-configurateur.vercel.app';
+
+  function openConfig(mode) {
+    const parentOrigin = encodeURIComponent(window.location.origin);
+    iframe.src = allowedOrigin + '/configurateur?embed=1&mode=' + encodeURIComponent(mode) + '&parentOrigin=' + parentOrigin;
+    modal.removeAttribute('inert');
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeConfig() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('inert', '');
+    iframe.src = 'about:blank';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-open-config]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const mode = btn.dataset.openConfig;
+      if (mode === 'standard') {
+        const variantId = btn.dataset.defaultVariant;
+        if (!variantId) return;
+        try {
+          const res = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ items: [{ id: parseInt(variantId, 10), quantity: 1 }] })
+          });
+          if (!res.ok) throw new Error('cart add failed: ' + res.status);
+          document.dispatchEvent(new CustomEvent('cart:refresh'));
+        } catch (err) {
+          console.error('[ml-parcours-etiquette] standard add error', err);
+        }
+        return;
+      }
+      openConfig(mode);
+    });
+  });
+
+  document.querySelectorAll('[data-close-config]').forEach(el => {
+    el.addEventListener('click', closeConfig);
+  });
+
+  window.addEventListener('message', async (event) => {
+    if (event.origin !== allowedOrigin) return;
+    if (!event.data || event.data.type !== 'design:ready') return;
+    const { variantId, reference, templateName, previewImageUrl, logoUrl, rangeNames } = event.data;
+    if (!variantId) return;
+    try {
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          items: [{
+            id: parseInt(variantId, 10),
+            quantity: 1,
+            properties: {
+              'Référence design': reference || '',
+              'Modèle': templateName || '',
+              'Aperçu': previewImageUrl || '',
+              'Logo': logoUrl || '',
+              'Gammes': (rangeNames || []).join(', ')
+            }
+          }]
+        })
+      });
+      if (!res.ok) throw new Error('cart add failed: ' + res.status);
+    } catch (err) {
+      console.error('[ml-parcours-etiquette] design:ready add error', err);
+    }
+    closeConfig();
+    document.dispatchEvent(new CustomEvent('cart:refresh'));
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Parcours · Étiquette",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>L'identité de votre <em>flacon</em>.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Trois options selon votre niveau d'investissement créatif. Le forfait d'impression annuel est inclus dans le choix de votre étiquette." },
+    { "type": "product", "id": "modele_default_product", "label": "Produit modèle par défaut (Modèles card)" }
+  ],
+  "presets": [{ "name": "Parcours · Étiquette" }]
+}
+{% endschema %}
