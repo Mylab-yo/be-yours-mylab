@@ -2,7 +2,9 @@
 
 {% liquid
   assign cat = 'shampoing'
-  if product.tags contains 'masque' or product.title contains 'Masque' or product.title contains 'masque'
+  if extra
+    assign cat = 'bac1000'
+  elsif product.tags contains 'masque' or product.title contains 'Masque' or product.title contains 'masque'
     assign cat = 'masque'
   elsif product.tags contains 'creme' or product.title contains 'Crème'
     assign cat = 'creme'
