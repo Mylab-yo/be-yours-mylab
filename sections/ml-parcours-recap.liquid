@@ -36,7 +36,7 @@
           <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
         <button type="button" class="ml-parcours__btn ml-parcours__btn--ghost ml-parcours__btn--big" style="border-color:#bdb3a3;color:#fff" data-request-quote>
-          Recevoir le devis PDF
+          Recevoir le récapitulatif par mail
         </button>
       </div>
     </div>
@@ -50,6 +50,36 @@
     </div>
   </div>
 </section>
+
+<div class="ml-parcours__quote-modal" id="ml-quote-modal" inert aria-modal="true" aria-label="Recevoir le récapitulatif par mail">
+  <div class="ml-parcours__quote-modal-backdrop" data-close-quote></div>
+  <div class="ml-parcours__quote-modal-panel">
+    <button type="button" class="ml-parcours__quote-modal-close" data-close-quote aria-label="Fermer">×</button>
+    <div class="ml-parcours__quote-modal-body">
+      <div class="ml-parcours__eyebrow">Récapitulatif par mail</div>
+      <h3 class="ml-parcours__quote-modal-title">Recevez votre projet par email</h3>
+      <p class="ml-parcours__quote-modal-lede">Vous recevrez un lien sécurisé pour valider et payer votre projet quand vous serez prêt. Le forfait d'impression est inclus dans le devis.</p>
+      <form class="ml-parcours__quote-form" data-quote-form>
+        <label class="ml-parcours__quote-field">
+          <span>Email professionnel <em>*</em></span>
+          <input type="email" name="email" required autocomplete="email" placeholder="vous@votresalon.fr">
+        </label>
+        <label class="ml-parcours__quote-field">
+          <span>Nom complet <em>*</em></span>
+          <input type="text" name="name" required autocomplete="name" placeholder="Prénom Nom">
+        </label>
+        <label class="ml-parcours__quote-field">
+          <span>Nom de votre marque / salon</span>
+          <input type="text" name="company" autocomplete="organization" placeholder="Optionnel">
+        </label>
+        <button type="submit" class="ml-parcours__btn ml-parcours__btn--primary ml-parcours__btn--big" data-quote-submit>
+          Envoyer le récapitulatif
+        </button>
+        <div class="ml-parcours__quote-feedback" data-quote-feedback></div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -119,12 +149,76 @@
       window.location.href = '/checkout';
     });
   }
-  const quoteBtn = document.querySelector('[data-request-quote]');
-  if (quoteBtn) {
-    quoteBtn.addEventListener('click', () => {
-      window.location.href = '/pages/contact?subject=devis-parcours';
-    });
+  // Modal "Recevoir le récapitulatif par mail" — POST cart to n8n webhook
+  const quoteModal = document.getElementById('ml-quote-modal');
+  function openQuote() {
+    quoteModal.removeAttribute('inert');
+    quoteModal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      const emailInput = quoteModal.querySelector('input[name="email"]');
+      if (emailInput) emailInput.focus();
+    }, 150);
   }
+  function closeQuote() {
+    quoteModal.classList.remove('is-open');
+    quoteModal.setAttribute('inert', '');
+    document.body.style.overflow = '';
+  }
+  const quoteBtn = document.querySelector('[data-request-quote]');
+  if (quoteBtn) quoteBtn.addEventListener('click', openQuote);
+  quoteModal.querySelectorAll('[data-close-quote]').forEach(el => el.addEventListener('click', closeQuote));
+
+  document.querySelector('[data-quote-form]').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const submit = form.querySelector('[data-quote-submit]');
+    const feedback = form.querySelector('[data-quote-feedback]');
+    const email = form.querySelector('input[name="email"]').value.trim();
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const company = form.querySelector('input[name="company"]').value.trim();
+    if (!email || !name) return;
+
+    submit.disabled = true;
+    submit.textContent = 'Envoi en cours…';
+    feedback.textContent = '';
+    feedback.classList.remove('is-error', 'is-success');
+
+    try {
+      const cartRes = await fetch('/cart.js', { credentials: 'same-origin' });
+      if (!cartRes.ok) throw new Error('cart fetch failed');
+      const cart = await cartRes.json();
+      const items = (cart.items || []).map(it => ({
+        variant_id: it.variant_id,
+        quantity: it.quantity,
+        selling_plan_id: (it.selling_plan_allocation && it.selling_plan_allocation.selling_plan && it.selling_plan_allocation.selling_plan.id) || null,
+        product_title: it.product_title,
+        line_price: it.line_price,
+        properties: it.properties || {}
+      }));
+
+      const webhookUrl = (window.MylabParcours && window.MylabParcours.quoteWebhookUrl) || '';
+      if (!webhookUrl) throw new Error('webhook URL not configured');
+
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, company, items, total: cart.total_price })
+      });
+      if (!res.ok) throw new Error('webhook failed: ' + res.status);
+
+      feedback.textContent = '✓ Récapitulatif envoyé à ' + email + '. Vérifiez votre boîte mail (et les spams).';
+      feedback.classList.add('is-success');
+      submit.textContent = 'Envoyé';
+      setTimeout(closeQuote, 3000);
+    } catch (err) {
+      console.error('[ml-parcours-recap] quote send error', err);
+      feedback.textContent = 'Une erreur est survenue. Réessayez ou contactez-nous directement.';
+      feedback.classList.add('is-error');
+      submit.disabled = false;
+      submit.textContent = 'Envoyer le récapitulatif';
+    }
+  });
 
   renderRecap();
   document.addEventListener('cart:refresh', renderRecap);

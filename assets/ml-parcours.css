@@ -829,3 +829,70 @@ body.is-parcours cart-icon-bubble,
 body.is-parcours [aria-controls="cart-drawer"] {
   display: none !important;
 }
+
+/* ============ QUOTE MODAL (Étape 04) ============ */
+.ml-parcours__quote-modal{
+  position:fixed;inset:0;z-index:1000;display:none;
+}
+.ml-parcours__quote-modal.is-open{display:block}
+.ml-parcours__quote-modal-backdrop{
+  position:absolute;inset:0;
+  background:rgba(26,26,26,.7);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.ml-parcours__quote-modal-panel{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:min(540px,calc(100% - 32px));
+  background:var(--mlp-cream);
+  border-radius:var(--mlp-radius-lg);
+  box-shadow:var(--mlp-shadow-lg);
+  overflow:hidden;
+}
+.ml-parcours__quote-modal-close{
+  position:absolute;top:14px;right:14px;
+  width:36px;height:36px;border-radius:50%;
+  background:var(--mlp-ink) !important;color:#fff;
+  font-size:20px;font-weight:400;cursor:pointer;
+  display:grid;place-items:center;
+  border:none !important;
+  z-index:1;
+}
+.ml-parcours__quote-modal-body{padding:48px 40px}
+.ml-parcours__quote-modal-title{
+  font-size:28px;font-weight:700;letter-spacing:-.015em;
+  margin:8px 0 12px;
+}
+.ml-parcours__quote-modal-lede{
+  font-size:14px;line-height:1.55;color:var(--mlp-ink-soft);
+  margin-bottom:28px;
+}
+.ml-parcours__quote-form{display:flex;flex-direction:column;gap:18px}
+.ml-parcours__quote-field{display:flex;flex-direction:column;gap:6px}
+.ml-parcours__quote-field span{
+  font-family:'DM Mono',monospace;
+  font-size:11px;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--mlp-muted);
+}
+.ml-parcours__quote-field span em{color:var(--mlp-ink);font-style:normal;font-weight:600}
+.ml-parcours__quote-field input{
+  font-family:'DM Sans',sans-serif;font-size:15px;
+  padding:14px 16px;
+  background:#fff;color:var(--mlp-ink);
+  border:1px solid var(--mlp-line);border-radius:8px;
+  transition:border-color 200ms var(--mlp-ease);
+}
+.ml-parcours__quote-field input:focus{
+  outline:none;border-color:var(--mlp-ink);
+}
+.ml-parcours__quote-feedback{
+  font-size:13px;line-height:1.5;text-align:center;
+  margin-top:4px;min-height:1.5em;
+}
+.ml-parcours__quote-feedback.is-success{color:#0c5e2a}
+.ml-parcours__quote-feedback.is-error{color:#a02828}
+@media (max-width:880px){
+  .ml-parcours__quote-modal-body{padding:36px 24px}
+  .ml-parcours__quote-modal-title{font-size:22px}
+}

@@ -16,6 +16,7 @@
   window.MylabParcours = {
     dossierVariantId: {{ dossier_product.variants.first.id | default: 'null' }},
     dossierPrice: {{ dossier_product.variants.first.price | default: 38990 }},
+    quoteWebhookUrl: "https://n8n.startec-paris.com/webhook/parcours-quote",
     etiquetteHandles: [
       {%- for p in etiquettes_col.products -%}
         "{{ p.handle }}"{%- unless forloop.last -%},{%- endunless -%}
