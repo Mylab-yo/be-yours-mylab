@@ -1,44 +1,144 @@
-{% comment %} ml-parcours-product-card.liquid — Card produit avec paliers de quantité {% endcomment %}
+{% comment %}
+  ml-parcours-product-card.liquid — Card produit avec paliers de quantité tarifés.
+  Logique tier_data portée depuis snippets/ml-cem-product-card.liquid : prix en cents par
+  combinaison type × format × gamme. Chaque pastille affiche qty + prix/unité.
+  Paramètres : product (drop), extra (bool, optionnel — produits hors catalogue bac1000)
+{% endcomment %}
 
-{% liquid
+{%- liquid
+  assign title_lc = product.title | downcase
+  assign tag_str = product.tags | join: ' ' | downcase
+
+  assign ml_t = ''
+  if tag_str contains 'shampoing' or title_lc contains 'shampoing'
+    assign ml_t = 'shampoing'
+  elsif title_lc contains 'spray' and title_lc contains 'masque'
+    assign ml_t = 'spray_reparateur'
+  elsif tag_str contains 'masque' or title_lc contains 'masque'
+    assign ml_t = 'masque'
+  elsif tag_str contains 'creme' or tag_str contains 'crème' or title_lc contains 'crème'
+    assign ml_t = 'creme'
+  elsif tag_str contains 'serum' or tag_str contains 'sérum' or title_lc contains 'sérum'
+    assign ml_t = 'serum'
+  elsif tag_str contains 'huile' or title_lc contains 'huile' or title_lc contains 'bain miraculeux'
+    assign ml_t = 'huile'
+  elsif tag_str contains 'cire' or title_lc contains 'cire'
+    assign ml_t = 'cire'
+  endif
+
+  assign ml_f = ''
+  if tag_str contains '1000ml' or tag_str contains '1l' or title_lc contains '1000'
+    assign ml_f = '1000'
+  elsif tag_str contains '500ml' or title_lc contains '500'
+    assign ml_f = '500'
+  elsif tag_str contains '400ml' or title_lc contains '400'
+    assign ml_f = '400'
+  elsif tag_str contains '200ml' or title_lc contains '200'
+    assign ml_f = '200'
+  elsif tag_str contains '50ml' or title_lc contains '50ml'
+    assign ml_f = '50'
+  endif
+
+  assign ml_g = ''
+  if tag_str contains 'dejauniss' or tag_str contains 'colorist' or title_lc contains 'colorist' or title_lc contains 'dejauniss' or title_lc contains 'déjauniss' or title_lc contains 'repigment'
+    assign ml_g = 'dejaunisseur'
+  elsif tag_str contains 'homme' or tag_str contains 'herborist' or title_lc contains 'herborist' or title_lc contains 'barbe' or title_lc contains 'gel douche' or title_lc contains 'masque intense'
+    assign ml_g = 'homme'
+  endif
+
+  assign ml_tier_data = ''
+  if ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '200'
+    assign ml_tier_data = '6:750,12:710,24:675,48:600,96:540'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '200'
+    assign ml_tier_data = '6:960,12:910,24:860,48:765,96:690'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'shampoing' and ml_f == '1000'
+    assign ml_tier_data = '1:2890,3:2745,6:2450,12:2160'
+  elsif ml_g == 'dejaunisseur' and ml_t == 'masque' and ml_f == '1000'
+    assign ml_tier_data = '1:3490,3:3315,6:2965,12:2615'
+  elsif ml_g == 'homme' and ml_t == 'masque' and ml_f == '500'
+    assign ml_tier_data = '6:1990,12:1790,24:1690,48:1590,96:1430'
+  elsif ml_t == 'spray_reparateur'
+    assign ml_tier_data = '6:990,12:940,24:890,48:790,96:710'
+  elsif ml_t == 'shampoing' and ml_f == '200'
+    assign ml_tier_data = '6:700,12:665,24:630,48:560,96:500'
+  elsif ml_t == 'shampoing' and ml_f == '500'
+    assign ml_tier_data = '6:1490,12:1340,24:1265,48:1190,96:1065'
+  elsif ml_t == 'shampoing' and ml_f == '1000'
+    assign ml_tier_data = '1:2490,3:2365,6:2100,12:1865'
+  elsif ml_t == 'masque' and ml_f == '200'
+    assign ml_tier_data = '6:950,12:900,24:855,48:760,96:680'
+  elsif ml_t == 'masque' and ml_f == '400'
+    assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+  elsif ml_t == 'masque' and ml_f == '1000'
+    assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+  elsif ml_t == 'creme' and ml_f == '200'
+    assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+  elsif ml_t == 'creme' and ml_f == '400'
+    assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+  elsif ml_t == 'creme' and ml_f == '1000'
+    assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
+  elsif ml_t == 'serum'
+    assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
+  elsif ml_t == 'huile'
+    assign ml_tier_data = '6:950,12:900,24:850,48:760,96:680'
+  elsif ml_t == 'cire'
+    assign ml_tier_data = '6:690,12:660,24:630,48:600'
+  endif
+
   assign cat = 'shampoing'
   if extra
     assign cat = 'bac1000'
-  elsif product.tags contains 'masque' or product.title contains 'Masque' or product.title contains 'masque'
+  elsif tag_str contains 'masque' or title_lc contains 'masque'
     assign cat = 'masque'
-  elsif product.tags contains 'creme' or product.title contains 'Crème'
+  elsif tag_str contains 'creme' or tag_str contains 'crème' or title_lc contains 'crème'
     assign cat = 'creme'
-  elsif product.tags contains 'finition' or product.title contains 'Sérum' or product.title contains 'serum'
+  elsif tag_str contains 'finition' or title_lc contains 'sérum' or title_lc contains 'serum'
     assign cat = 'finition'
-  elsif product.tags contains 'homme' or product.tags contains 'herborist' or product.title contains 'Barbe' or product.title contains 'Gel Douche'
+  elsif tag_str contains 'homme' or tag_str contains 'herborist' or title_lc contains 'barbe' or title_lc contains 'gel douche'
     assign cat = 'homme'
-  elsif product.tags contains 'dejaunisseur' or product.title contains 'jaune' or product.title contains 'Repigmentant'
+  elsif tag_str contains 'dejauniss' or title_lc contains 'jaune' or title_lc contains 'repigment'
     assign cat = 'shampoing-rep'
   endif
 
   assign variant = product.variants.first
-  assign tiers = '6,12,24,48,96' | split: ','
-%}
+-%}
 
-<div class="ml-parcours__product-card" data-variant-id="{{ variant.id }}" data-cat="{{ cat }}">
+<div class="ml-parcours__product-card" data-variant-id="{{ variant.id }}" data-cat="{{ cat }}" data-tier-data="{{ ml_tier_data }}">
   <div class="ml-parcours__product-card-img">
-    {% if product.featured_image %}
+    {%- if product.featured_image -%}
       <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
-    {% else %}
+    {%- else -%}
       {{ product.title }}
-    {% endif %}
+    {%- endif -%}
   </div>
   <div class="ml-parcours__product-card-body">
     <div class="ml-parcours__product-card-title">{{ product.title }}</div>
-    <div class="ml-parcours__product-card-sub">{{ product.metafields.custom.contenance | default: '200 ml' }}</div>
-    <div class="ml-parcours__product-card-tiers">
-      {% for q in tiers %}
-        <div class="ml-parcours__tier" data-qty="{{ q }}">{{ q }}</div>
-      {% endfor %}
-    </div>
-    <div class="ml-parcours__product-card-qty">
-      {% if extra %}<small>Hors catalogue</small><br>{% endif %}
-      <span data-qty-display>Aucune sélection</span>
-    </div>
+    <div class="ml-parcours__product-card-sub">{{ product.metafields.custom.contenance | default: '200 ml' }}{% if extra %} · Hors catalogue{% endif %}</div>
+
+    {%- if ml_tier_data != '' -%}
+      {%- assign tier_items = ml_tier_data | split: ',' -%}
+      <div class="ml-parcours__product-card-tiers">
+        {%- for ti in tier_items -%}
+          {%- assign tp = ti | split: ':' -%}
+          {%- assign tq = tp[0] | plus: 0 -%}
+          {%- assign tu = tp[1] | plus: 0 -%}
+          <button type="button" class="ml-parcours__tier" data-qty="{{ tq }}" data-unit-cents="{{ tu }}">
+            <span class="ml-parcours__tier-qty">{{ tq }}</span>
+            <span class="ml-parcours__tier-unit">{{ tu | money }}/u</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="ml-parcours__product-card-qty" data-qty-display>Sélectionnez un palier</div>
+    {%- else -%}
+      <div class="ml-parcours__product-card-tiers">
+        {%- assign default_tiers = '6,12,24,48,96' | split: ',' -%}
+        {%- for q in default_tiers -%}
+          <button type="button" class="ml-parcours__tier" data-qty="{{ q }}">
+            <span class="ml-parcours__tier-qty">{{ q }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="ml-parcours__product-card-qty" data-qty-display>{{ product.price | money }}</div>
+    {%- endif -%}
   </div>
 </div>

@@ -573,18 +573,24 @@ body.is-parcours {
   margin-bottom:14px;
 }
 .ml-parcours__tier{
-  padding:8px 4px;border-radius:6px;
+  padding:10px 4px;border-radius:6px;
   background:var(--mlp-cream-2);
   font-family:'DM Mono',monospace;
-  font-size:11px;font-weight:500;text-align:center;letter-spacing:.02em;
-  transition:all 200ms var(--mlp-ease);
+  text-align:center;letter-spacing:.02em;cursor:pointer;
+  transition:background 200ms var(--mlp-ease),color 200ms var(--mlp-ease);
+  display:flex;flex-direction:column;align-items:center;gap:2px;
 }
+.ml-parcours__tier-qty{font-size:13px;font-weight:600;letter-spacing:0;font-family:'DM Sans',sans-serif}
+.ml-parcours__tier-unit{font-size:10px;font-weight:400;opacity:.75;letter-spacing:0}
 .ml-parcours__tier:hover{background:var(--mlp-cream-3)}
 .ml-parcours__tier.is-active{background:var(--mlp-ink);color:#fff}
+.ml-parcours__tier.is-active .ml-parcours__tier-unit{opacity:.85}
 .ml-parcours__product-card-qty{
-  font-size:11px;color:var(--mlp-muted);
+  font-family:'DM Mono',monospace;
+  font-size:12px;color:var(--mlp-muted);letter-spacing:.04em;
   text-align:center;
 }
+.ml-parcours__product-card-qty[data-qty-display].is-set{color:var(--mlp-ink);font-weight:500}
 
 /* ============ STEP 4 — RÉCAP ============ */
 .ml-parcours__recap-final{
