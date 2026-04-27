@@ -45,12 +45,22 @@ body.is-parcours {
   padding:0 32px;
 }
 .ml-parcours__brand{
+  display:inline-flex;align-items:center;gap:10px;
   font-weight:700;letter-spacing:.18em;font-size:14px;
   text-transform:uppercase;
+  color:var(--mlp-ink);
+  text-decoration:none;
 }
-.ml-parcours__brand b{color:var(--mlp-ink)}
+.ml-parcours__brand:hover,
+.ml-parcours__brand:focus,
+.ml-parcours__brand:visited{color:var(--mlp-ink);text-decoration:none}
+.ml-parcours__brand-logo{
+  height:42px;width:auto;display:block;
+}
+.ml-parcours__brand-text{color:var(--mlp-ink)}
+.ml-parcours__brand-text b{color:var(--mlp-ink)}
 .ml-parcours__brand small{
-  margin-left:10px;color:var(--mlp-muted);
+  color:var(--mlp-muted);
   font-weight:400;letter-spacing:.04em;text-transform:none;
   font-size:12px;
 }

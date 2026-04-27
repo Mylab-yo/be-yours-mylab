@@ -13,7 +13,20 @@
 -%}
 
 <header class="ml-parcours__topbar">
-  <a href="/" class="ml-parcours__brand">MY<b>.</b>LAB <small>· {{ topbar_kicker }}</small></a>
+  <a href="/" class="ml-parcours__brand">
+    {%- if shop.brand.logo -%}
+      <img src="{{ shop.brand.logo | image_url: height: 84 }}"
+           srcset="{{ shop.brand.logo | image_url: height: 84 }} 1x, {{ shop.brand.logo | image_url: height: 168 }} 2x"
+           alt="{{ shop.name | escape }}"
+           class="ml-parcours__brand-logo"
+           width="{{ shop.brand.logo.width }}"
+           height="{{ shop.brand.logo.height }}"
+           loading="eager">
+    {%- else -%}
+      <span class="ml-parcours__brand-text">MY<b>.</b>LAB</span>
+    {%- endif -%}
+    <small>· {{ topbar_kicker }}</small>
+  </a>
   <div class="ml-parcours__topbar-right">
     {%- if exit_action == 'data-ml-exit-parcours' -%}
       <a href="#" class="ml-parcours__topbar-exit" data-ml-exit-parcours>{{ topbar_exit_label }}</a>
