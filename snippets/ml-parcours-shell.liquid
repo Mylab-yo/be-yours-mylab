@@ -30,12 +30,7 @@
   };
 </script>
 
-<header class="ml-parcours__topbar">
-  <a href="/" class="ml-parcours__brand">MY<b>.</b>LAB <small>· Création de marque</small></a>
-  <div class="ml-parcours__topbar-right">
-    <a href="#" class="ml-parcours__topbar-exit" data-ml-exit-parcours>Quitter le parcours</a>
-  </div>
-</header>
+{% render 'ml-parcours-topbar', kicker: 'Création de marque', exit_label: 'Quitter le parcours', exit_action: 'data-ml-exit-parcours' %}
 
 <nav class="ml-parcours__stepper" aria-label="Progression du parcours">
   <div class="ml-parcours__stepper-inner">

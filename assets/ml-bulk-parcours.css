@@ -1,0 +1,465 @@
+/* ============================================================================
+   ml-bulk-parcours.css — Harmonie visuelle parcours sur la page bulk-order.
+   Charge APRÈS ml-parcours.css (tokens) et bulk-order.css (layout).
+   Override les éléments visuels pour matcher la grammaire parcours :
+   cream bg, DM Sans, headings dark + em surligné, boutons pills, kickers
+   DM Mono, cards rondes, stepper circulaire ink.
+   ============================================================================ */
+
+/* ── BASE / PAGE ───────────────────────────────────────────────────────── */
+body.template-bulk-order {
+  background: var(--mlp-cream);
+  color: var(--mlp-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+body.template-bulk-order .header,
+body.template-bulk-order [data-section-type="header"],
+body.template-bulk-order sticky-header,
+body.template-bulk-order .shopify-section-group-header-group {
+  display: none !important;
+}
+body.template-bulk-order .header__icon--cart,
+body.template-bulk-order cart-icon-bubble,
+body.template-bulk-order [aria-controls="cart-drawer"] {
+  display: none !important;
+}
+
+.bulk-order {
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+  color: var(--mlp-ink) !important;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 64px 32px 140px !important;
+}
+
+/* ── STEPPER (rendu dynamique par bulk-order-core.js) ──────────────────── */
+.bulk-order__stepper {
+  max-width: 880px;
+  margin: 0 auto 56px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--mlp-line);
+}
+.bulk-stepper__item::after {
+  background: var(--mlp-line) !important;
+  height: 1.5px;
+}
+.bulk-stepper__item--done::after,
+.bulk-stepper__item--active::after {
+  background: var(--mlp-ink) !important;
+}
+.bulk-stepper__circle {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  background: var(--mlp-cream) !important;
+  color: var(--mlp-ink) !important;
+  border: 1.5px solid var(--mlp-ink) !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.bulk-stepper__item--active .bulk-stepper__circle {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+  border-color: var(--mlp-ink) !important;
+  box-shadow: 0 0 0 5px rgba(26, 26, 26, 0.1);
+  transform: scale(1.08);
+}
+.bulk-stepper__item--done .bulk-stepper__circle {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+  border-color: var(--mlp-ink) !important;
+}
+.bulk-stepper__item--done .bulk-stepper__circle::before {
+  content: '✓';
+  font-size: 13px;
+  font-weight: 700;
+}
+.bulk-stepper__item--done .bulk-stepper__circle {
+  font-size: 0 !important; /* hide digit */
+}
+.bulk-stepper__label {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--mlp-muted) !important;
+  margin-top: 8px !important;
+  letter-spacing: 0;
+}
+.bulk-stepper__item--active .bulk-stepper__label {
+  color: var(--mlp-ink) !important;
+  font-weight: 600 !important;
+}
+.bulk-stepper__item--done .bulk-stepper__label {
+  color: var(--mlp-ink) !important;
+  font-weight: 500 !important;
+}
+
+/* ── STEP TITLES & LEDE ────────────────────────────────────────────────── */
+.bulk-step__title {
+  font-family: 'DM Sans', sans-serif !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: clamp(40px, 6vw, 64px) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.02em !important;
+  color: var(--mlp-ink) !important;
+  margin: 0 0 20px !important;
+  text-align: left !important;
+  max-width: 16ch;
+}
+.bulk-step__title em {
+  font-style: normal;
+  font-weight: 700;
+  background: var(--mlp-ink);
+  color: #fff;
+  padding: 0.04em 0.28em 0.12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.bulk-step__desc {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 18px !important;
+  line-height: 1.55 !important;
+  color: var(--mlp-ink-soft) !important;
+  text-align: left !important;
+  max-width: 56ch !important;
+  margin: 0 0 48px !important;
+}
+
+/* Kicker chip in front of titles (added by markup) */
+.bulk-step__kicker {
+  display: inline-block;
+  background: var(--mlp-ink);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 0.7rem 1.1rem;
+  margin-bottom: 24px;
+}
+
+/* ── BUTTONS (next / prev / actions) ───────────────────────────────────── */
+.bulk-order__btn {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  border-radius: 999px !important;
+  padding: 18px 32px !important;
+  border: 1.5px solid transparent !important;
+  transition: transform 0.25s var(--mlp-ease), background 0.25s var(--mlp-ease), box-shadow 0.25s var(--mlp-ease) !important;
+  min-height: 0 !important;
+}
+.bulk-order__btn--next {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+}
+.bulk-order__btn--next:hover:not(:disabled) {
+  background: #000 !important;
+  transform: translateY(-2px);
+  box-shadow: var(--mlp-shadow-md);
+}
+.bulk-order__btn--next:disabled {
+  background: var(--mlp-cream-3) !important;
+  color: var(--mlp-muted) !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+.bulk-order__btn--prev {
+  background: transparent !important;
+  color: var(--mlp-ink) !important;
+  border-color: var(--mlp-ink) !important;
+}
+.bulk-order__btn--prev:hover:not(:disabled) {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+}
+
+.bulk-order__nav {
+  margin-top: 64px !important;
+  padding-top: 40px !important;
+  border-top: 1px solid var(--mlp-line);
+}
+
+/* ── FILTERS & CHIPS ───────────────────────────────────────────────────── */
+.bulk-filters__label {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--mlp-muted) !important;
+  font-weight: 400 !important;
+}
+.bulk-chip {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+  border: 1px solid var(--mlp-line) !important;
+  color: var(--mlp-ink-soft) !important;
+  padding: 10px 18px !important;
+  border-radius: 999px !important;
+  min-height: 0 !important;
+  transition: all 0.2s var(--mlp-ease) !important;
+}
+.bulk-chip:hover {
+  border-color: var(--mlp-ink) !important;
+  color: var(--mlp-ink) !important;
+  background: var(--mlp-cream-2) !important;
+}
+.bulk-chip--active {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+  border-color: var(--mlp-ink) !important;
+  font-weight: 600 !important;
+}
+
+/* ── CARDS (formules, formats, flacons) ────────────────────────────────── */
+.bulk-card,
+.bulk-format-card,
+.bulk-bottle {
+  background: var(--mlp-cream-2) !important;
+  border: 1px solid var(--mlp-line) !important;
+  border-radius: var(--mlp-radius) !important;
+  transition: transform 0.3s var(--mlp-ease), box-shadow 0.3s var(--mlp-ease), border-color 0.3s var(--mlp-ease) !important;
+}
+.bulk-card:hover,
+.bulk-format-card:hover,
+.bulk-bottle:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--mlp-shadow-md) !important;
+  border-color: var(--mlp-ink) !important;
+}
+.bulk-card--selected,
+.bulk-format-card--selected,
+.bulk-bottle--selected {
+  border-color: var(--mlp-ink) !important;
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+  box-shadow: var(--mlp-shadow-md) !important;
+}
+.bulk-card--selected .bulk-card__name,
+.bulk-card--selected .bulk-card__gamme-label {
+  color: #fff !important;
+}
+.bulk-card--selected .bulk-card__check {
+  background: #fff !important;
+  border-color: #fff !important;
+  color: var(--mlp-ink) !important;
+}
+.bulk-card__name {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.005em !important;
+  color: var(--mlp-ink) !important;
+}
+.bulk-card__gamme-label {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--mlp-muted) !important;
+  font-weight: 400 !important;
+}
+
+/* ── SELECTION BAR (sticky bottom) ─────────────────────────────────────── */
+.bulk-selection-bar {
+  background: var(--mlp-ink) !important;
+  border-top: none !important;
+  box-shadow: var(--mlp-shadow-lg) !important;
+}
+.bulk-selection-bar__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px 32px !important;
+}
+.bulk-selection-bar__label,
+.bulk-selection-bar__count {
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.bulk-selection-bar__count {
+  background: #fff !important;
+  color: var(--mlp-ink) !important;
+  border-radius: 999px !important;
+  padding: 4px 12px !important;
+  font-weight: 700 !important;
+}
+.bulk-selection-bar .bulk-order__btn--next {
+  background: #fff !important;
+  color: var(--mlp-ink) !important;
+}
+.bulk-selection-bar .bulk-order__btn--next:hover:not(:disabled) {
+  background: var(--mlp-cream) !important;
+  color: var(--mlp-ink) !important;
+}
+
+/* ── INPUTS / NUMBER FIELDS ────────────────────────────────────────────── */
+body.template-bulk-order input[type="number"],
+body.template-bulk-order input[type="text"],
+body.template-bulk-order input[type="email"],
+body.template-bulk-order textarea,
+body.template-bulk-order select {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 15px !important;
+  background: #fff !important;
+  border: 1px solid var(--mlp-line) !important;
+  border-radius: 8px !important;
+  color: var(--mlp-ink) !important;
+  padding: 14px 16px !important;
+  transition: border-color 0.2s var(--mlp-ease) !important;
+}
+body.template-bulk-order input:focus,
+body.template-bulk-order textarea:focus,
+body.template-bulk-order select:focus {
+  outline: none !important;
+  border-color: var(--mlp-ink) !important;
+}
+
+/* ── SUMMARY (étape 5) — match recap final dark card ───────────────────── */
+.bulk-summary {
+  background: var(--mlp-ink) !important;
+  color: #fff !important;
+  border-radius: var(--mlp-radius-lg) !important;
+  padding: 56px 48px !important;
+}
+.bulk-summary h2,
+.bulk-summary h3,
+.bulk-summary .bulk-step__title {
+  color: #fff !important;
+}
+.bulk-summary .bulk-step__title em {
+  background: #fff !important;
+  color: var(--mlp-ink) !important;
+}
+.bulk-summary__brand {
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+}
+.bulk-summary__meta {
+  color: #bdb3a3 !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 12px !important;
+  letter-spacing: 0.04em !important;
+}
+.bulk-summary__validity {
+  background: rgba(45, 122, 69, 0.18) !important;
+  color: #6fc787 !important;
+  border: 1px solid rgba(111, 199, 135, 0.4) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+}
+
+/* Table — cream foreground on dark background */
+.bulk-summary__table {
+  color: #d6cdbe !important;
+}
+.bulk-summary__table th {
+  color: #bdb3a3 !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  border-bottom-color: #3a3a3a !important;
+}
+.bulk-summary__table td {
+  color: #d6cdbe !important;
+  border-bottom-color: #3a3a3a !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 14px !important;
+}
+.bulk-summary__table .bulk-summary__row--subtotal td {
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-top: 1px solid #3a3a3a !important;
+}
+.bulk-summary__table .bulk-summary__row--tva td {
+  color: #bdb3a3 !important;
+}
+.bulk-summary__table .bulk-summary__row--total td {
+  color: #fff !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+  border-top: 2px solid #fff !important;
+  padding-top: 16px !important;
+}
+
+/* Conditions block — subtle card inside dark recap */
+.bulk-summary__conditions {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid #3a3a3a !important;
+  border-radius: var(--mlp-radius) !important;
+}
+.bulk-summary__conditions-title {
+  color: #fff !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 600 !important;
+}
+.bulk-summary__conditions-list li {
+  color: #d6cdbe !important;
+  font-family: 'DM Sans', sans-serif !important;
+}
+.bulk-summary__conditions-list li::before {
+  color: #bdb3a3 !important;
+}
+
+/* Form block — keep light card on dark surface so inputs stay readable */
+.bulk-summary__form-wrap {
+  background: var(--mlp-cream) !important;
+  border: none !important;
+  color: var(--mlp-ink) !important;
+}
+.bulk-summary__form-title {
+  color: var(--mlp-ink) !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-weight: 700 !important;
+}
+.bulk-summary__form-desc {
+  color: var(--mlp-muted) !important;
+}
+.bulk-summary__form label {
+  color: var(--mlp-ink) !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+}
+
+/* Generic legacy classes that may also need rescue on dark bg */
+.bulk-summary__row,
+.bulk-summary__line {
+  border-color: #3a3a3a !important;
+  color: #d6cdbe !important;
+}
+.bulk-summary__total {
+  border-top: 2px solid #fff !important;
+  color: #fff !important;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────────────────────── */
+@media (max-width: 880px) {
+  .bulk-order {
+    padding: 48px 20px 140px !important;
+  }
+  .bulk-step__title {
+    font-size: clamp(32px, 8vw, 44px) !important;
+  }
+  .bulk-stepper__label {
+    display: none;
+  }
+  .bulk-summary {
+    padding: 40px 24px !important;
+  }
+}

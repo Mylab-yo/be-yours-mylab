@@ -1,0 +1,24 @@
+{%- comment -%}
+  ml-parcours-topbar.liquid — Topbar partagée des pages parcours.
+  Params :
+    kicker      — sous-titre après MY.LAB (défaut : "Création de marque")
+    exit_label  — libellé du lien sortie (défaut : "Quitter le parcours")
+    exit_action — "data-ml-exit-parcours" pour brancher le confirm JS,
+                  sinon lien direct vers /
+{%- endcomment -%}
+
+{%- liquid
+  assign topbar_kicker = kicker | default: 'Création de marque'
+  assign topbar_exit_label = exit_label | default: 'Quitter le parcours'
+-%}
+
+<header class="ml-parcours__topbar">
+  <a href="/" class="ml-parcours__brand">MY<b>.</b>LAB <small>· {{ topbar_kicker }}</small></a>
+  <div class="ml-parcours__topbar-right">
+    {%- if exit_action == 'data-ml-exit-parcours' -%}
+      <a href="#" class="ml-parcours__topbar-exit" data-ml-exit-parcours>{{ topbar_exit_label }}</a>
+    {%- else -%}
+      <a href="/" class="ml-parcours__topbar-exit">{{ topbar_exit_label }}</a>
+    {%- endif -%}
+  </div>
+</header>

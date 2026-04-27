@@ -185,6 +185,8 @@
       {%- comment -%} Parcours multi-pages MY.LAB — render shell sur les paths concernés {%- endcomment -%}
       {%- if page.handle == 'creons-ensemble-votre-marque' or page.handle == 'parcours-dossier' or page.handle == 'parcours-etiquette' or page.handle == 'parcours-produits' or page.handle == 'parcours-recap' -%}
         {% render 'ml-parcours-shell' %}
+      {%- elsif page.handle == 'vous-cherchez-a-commander-en-gros-volume-cest-par-ici' or template.suffix == 'bulk-order' -%}
+        {% render 'ml-bulk-shell' %}
       {%- endif -%}
 
       <div class="transition-content">

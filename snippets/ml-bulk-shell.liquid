@@ -1,0 +1,14 @@
+{%- comment -%}
+  ml-bulk-shell.liquid — Shell parcours pour la page commande gros volume.
+  Charge ml-parcours.css/js → tokens visuels + body.is-parcours qui masque
+  le header Be Yours. Le configurateur bulk garde son propre stepper et
+  son récap interne, donc on n'inclut pas le stepper 4 étapes ni la recap
+  drawer du parcours création de marque.
+{%- endcomment -%}
+
+{{ 'ml-parcours.css' | asset_url | stylesheet_tag }}
+{{ 'ml-bulk-parcours.css' | asset_url | stylesheet_tag }}
+
+{% render 'ml-parcours-topbar', kicker: 'Commande gros volume', exit_label: 'Quitter le configurateur' %}
+
+<script src="{{ 'ml-parcours.js' | asset_url }}" defer></script>
