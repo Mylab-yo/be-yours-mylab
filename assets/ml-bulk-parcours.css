@@ -113,7 +113,7 @@ body.template-bulk-order [aria-controls="cart-drawer"] {
   font-weight: 700;
   background: var(--mlp-ink);
   color: #fff;
-  padding: 0.04em 0.28em 0.12em;
+  padding: 0.02em 0.14em 0.06em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -264,6 +264,47 @@ body.template-bulk-order [aria-controls="cart-drawer"] {
   text-transform: uppercase !important;
   color: var(--mlp-muted) !important;
   font-weight: 400 !important;
+}
+
+/* Quantité par set sur les cards flacon */
+.bulk-bottle__moq {
+  display: inline-flex !important;
+  align-items: baseline;
+  gap: 4px;
+  padding: 6px 12px !important;
+  background: var(--mlp-cream-3) !important;
+  border-radius: 999px !important;
+  margin-top: 6px !important;
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 12px !important;
+  color: var(--mlp-ink-soft) !important;
+  font-style: normal !important;
+}
+.bulk-bottle__moq-qty {
+  color: var(--mlp-ink) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+.bulk-bottle__moq-total {
+  color: var(--mlp-muted) !important;
+  font-weight: 400 !important;
+}
+.bulk-bottle__moq--unit {
+  background: transparent !important;
+  padding: 4px 0 !important;
+  color: var(--mlp-muted) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em;
+}
+.bulk-bottle--selected .bulk-bottle__moq {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.bulk-bottle--selected .bulk-bottle__moq-qty,
+.bulk-bottle--selected .bulk-bottle__moq-total {
+  color: #fff !important;
+}
+.bulk-bottle--selected .bulk-bottle__moq--unit {
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 /* ── SELECTION BAR (sticky bottom) ─────────────────────────────────────── */

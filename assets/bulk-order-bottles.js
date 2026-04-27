@@ -174,10 +174,15 @@
       }
 
       var moqHtml = '';
-      if (b.min_order_qty) {
-        var setTotal = b.price_estimate ? (b.price_estimate / 100) * b.min_order_qty : 0;
-        moqHtml = '<div class="bulk-bottle__moq">Minimum : ' + b.min_order_qty + ' unités (1 set)' +
-          (setTotal > 0 ? '<br>Set complet : ' + B.fmtPrice(setTotal) : '') + '</div>';
+      var moqQty = b.min_order_qty || 0;
+      if (moqQty > 1) {
+        var setTotal = b.price_estimate ? (b.price_estimate / 100) * moqQty : 0;
+        moqHtml = '<div class="bulk-bottle__moq">' +
+          '<strong class="bulk-bottle__moq-qty">' + moqQty + ' flacons / set</strong>' +
+          (setTotal > 0 ? '<span class="bulk-bottle__moq-total"> · ' + B.fmtPrice(setTotal) + ' le set</span>' : '') +
+          '</div>';
+      } else if (moqQty === 1) {
+        moqHtml = '<div class="bulk-bottle__moq bulk-bottle__moq--unit">Vendu à l\'unité</div>';
       }
 
       var linkHtml = b.takemoto_url

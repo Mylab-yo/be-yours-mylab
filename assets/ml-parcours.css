@@ -265,7 +265,7 @@ body.is-parcours {
 .ml-parcours__display em{
   font-style:normal;font-weight:700;
   background:var(--mlp-ink);color:#fff;
-  padding:.04em .28em .12em;
+  padding:.02em .14em .06em;
   box-decoration-break:clone;
   -webkit-box-decoration-break:clone;
 }
