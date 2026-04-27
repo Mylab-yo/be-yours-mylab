@@ -89,17 +89,80 @@
     return (cents / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
-  // Safely build a recap row using DOM API (no innerHTML)
-  function buildRow(label, value) {
+  // Build an empty-state row (no controls)
+  function buildEmptyRow() {
     const row = document.createElement('div');
     row.className = 'ml-parcours__recap-row';
     const labelEl = document.createElement('span');
     labelEl.className = 'ml-parcours__recap-row-label';
-    labelEl.textContent = label;
+    labelEl.textContent = 'Votre projet est vide';
     const valueEl = document.createElement('span');
     valueEl.className = 'ml-parcours__recap-row-value';
-    valueEl.textContent = value;
+    valueEl.textContent = '—';
     row.append(labelEl, valueEl);
+    return row;
+  }
+
+  // Build a cart-item row with qty +/- (products only) and delete button.
+  // Parcours-critical lines (dossier / étiquette / forfait) only get a delete:
+  // their quantity is canonically 1 and changing it has no business meaning.
+  function buildItemRow(item, isProduct) {
+    const row = document.createElement('div');
+    row.className = 'ml-parcours__recap-row ml-parcours__recap-row--item';
+    row.dataset.itemKey = item.key;
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'ml-parcours__recap-row-label';
+    labelEl.textContent = item.product_title;
+
+    const right = document.createElement('div');
+    right.className = 'ml-parcours__recap-row-right';
+
+    if (isProduct) {
+      const stepper = document.createElement('div');
+      stepper.className = 'ml-parcours__recap-qty';
+
+      const minus = document.createElement('button');
+      minus.type = 'button';
+      minus.className = 'ml-parcours__recap-qty-btn';
+      minus.dataset.action = 'decrease';
+      minus.setAttribute('aria-label', 'Diminuer la quantité');
+      minus.textContent = '−';
+
+      const qtyVal = document.createElement('span');
+      qtyVal.className = 'ml-parcours__recap-qty-val';
+      qtyVal.textContent = item.quantity;
+
+      const plus = document.createElement('button');
+      plus.type = 'button';
+      plus.className = 'ml-parcours__recap-qty-btn';
+      plus.dataset.action = 'increase';
+      plus.setAttribute('aria-label', 'Augmenter la quantité');
+      plus.textContent = '+';
+
+      stepper.append(minus, qtyVal, plus);
+      right.appendChild(stepper);
+    } else if (item.quantity > 1) {
+      const qtyTag = document.createElement('span');
+      qtyTag.className = 'ml-parcours__recap-qty-static';
+      qtyTag.textContent = '×' + item.quantity;
+      right.appendChild(qtyTag);
+    }
+
+    const price = document.createElement('span');
+    price.className = 'ml-parcours__recap-row-value';
+    price.textContent = fmtMoney(item.line_price);
+    right.appendChild(price);
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'ml-parcours__recap-row-remove';
+    remove.dataset.action = 'remove';
+    remove.setAttribute('aria-label', 'Retirer cet article');
+    remove.textContent = '×';
+    right.appendChild(remove);
+
+    row.append(labelEl, right);
     return row;
   }
 
@@ -120,27 +183,67 @@
     }
 
     const items = cart.items || [];
+    const produitHandles = (window.MylabParcours && window.MylabParcours.produitHandles) || [];
 
     table.textContent = '';
     if (items.length === 0) {
-      table.appendChild(buildRow('Votre projet est vide', '—'));
+      table.appendChild(buildEmptyRow());
       totalEl.textContent = '0,00 €';
       validateBtn.disabled = true;
       return;
     }
 
     items.forEach(it => {
-      const label = it.product_title + (it.quantity > 1 ? ' · ' + it.quantity + 'u' : '');
-      table.appendChild(buildRow(label, fmtMoney(it.line_price)));
+      const isProduct = produitHandles.indexOf(it.handle) !== -1;
+      table.appendChild(buildItemRow(it, isProduct));
     });
     totalEl.textContent = fmtMoney(cart.total_price);
 
     const hasDossier = items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
     const etiquetteHandles = (window.MylabParcours && window.MylabParcours.etiquetteHandles) || [];
-    const produitHandles = (window.MylabParcours && window.MylabParcours.produitHandles) || [];
     const hasEtiquette = items.some(it => etiquetteHandles.indexOf(it.handle) !== -1);
     const hasProduits = items.some(it => produitHandles.indexOf(it.handle) !== -1);
     validateBtn.disabled = !(hasDossier && hasEtiquette && hasProduits);
+  }
+
+  // Delegated click handler for qty / remove. Single in-flight mutation at a
+  // time — concurrent /cart/change.js calls can race on Shopify's side and
+  // leave the cart out of sync with what we render.
+  let cartBusy = false;
+  async function handleRowAction(e) {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const row = btn.closest('[data-item-key]');
+    if (!row || cartBusy) return;
+    const key = row.dataset.itemKey;
+    const action = btn.dataset.action;
+
+    let newQty;
+    if (action === 'remove') {
+      newQty = 0;
+    } else {
+      const qtyEl = row.querySelector('.ml-parcours__recap-qty-val');
+      const current = parseInt(qtyEl ? qtyEl.textContent : '1', 10) || 1;
+      newQty = action === 'increase' ? current + 1 : Math.max(0, current - 1);
+    }
+
+    cartBusy = true;
+    row.classList.add('is-busy');
+    try {
+      const res = await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ id: key, quantity: newQty })
+      });
+      if (!res.ok) throw new Error('cart change failed: ' + res.status);
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+    } catch (err) {
+      console.error('[ml-parcours-recap] cart change failed', err);
+      row.classList.remove('is-busy');
+    } finally {
+      cartBusy = false;
+    }
   }
 
   const validateBtn = document.querySelector('[data-validate-project]');
@@ -219,6 +322,9 @@
       submit.textContent = 'Envoyer le récapitulatif';
     }
   });
+
+  const recapTable = document.querySelector('[data-recap-table]');
+  if (recapTable) recapTable.addEventListener('click', handleRowAction);
 
   renderRecap();
   document.addEventListener('cart:refresh', renderRecap);

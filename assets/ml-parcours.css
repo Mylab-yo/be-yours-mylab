@@ -662,8 +662,45 @@ body.is-parcours {
   font-size:14px;
 }
 .ml-parcours__recap-row:last-child{border-bottom:none}
-.ml-parcours__recap-row-label{color:#d6cdbe}
-.ml-parcours__recap-row-value{font-weight:600}
+.ml-parcours__recap-row-label{color:#d6cdbe;flex:1 1 auto;min-width:0}
+.ml-parcours__recap-row-value{font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+.ml-parcours__recap-row-right{display:flex;align-items:center;gap:18px;flex:0 0 auto}
+.ml-parcours__recap-row.is-busy{opacity:.5;pointer-events:none}
+.ml-parcours__recap-qty{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.04);
+  border:1px solid #3a3a3a;border-radius:999px;padding:2px;
+}
+.ml-parcours__recap-qty-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:transparent;border:none;color:#d6cdbe;
+  font-size:16px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;
+  transition:background 150ms,color 150ms;
+}
+.ml-parcours__recap-qty-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.ml-parcours__recap-qty-val{
+  min-width:22px;text-align:center;
+  color:#fff;font-weight:600;font-size:13px;font-variant-numeric:tabular-nums;
+}
+.ml-parcours__recap-qty-static{
+  color:#bdb3a3;font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.04em;
+}
+.ml-parcours__recap-row-remove{
+  width:28px;height:28px;border-radius:50%;
+  background:transparent;border:1px solid #3a3a3a;color:#bdb3a3;
+  font-size:18px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;
+  transition:background 150ms,color 150ms,border-color 150ms;
+}
+.ml-parcours__recap-row-remove:hover{
+  background:rgba(220,80,80,.12);border-color:rgba(220,80,80,.5);color:#ff8a8a;
+}
+@media (max-width:600px){
+  .ml-parcours__recap-row{flex-wrap:wrap;gap:10px}
+  .ml-parcours__recap-row-right{width:100%;justify-content:space-between;gap:10px}
+  .ml-parcours__recap-table{padding:20px}
+}
 .ml-parcours__recap-total-final{
   display:flex;justify-content:space-between;align-items:baseline;
   margin-top:24px;padding-top:24px;border-top:2px solid #fff;
