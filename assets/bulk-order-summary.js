@@ -308,6 +308,9 @@
       elSummaryOk.style.display = '';
       elSummaryOk.querySelector('p').textContent = 'Devis envoyé à ' + client.email + ' et à notre équipe. Nous vous recontacterons dans les 48h.';
       window.scrollTo({ top: elSummaryOk.offsetTop - 100, behavior: 'smooth' });
+      // Notifie le cache pour qu'il vide la sélection — le projet a été soumis,
+      // un retour ultérieur doit repartir d'une page vierge.
+      document.dispatchEvent(new CustomEvent('bulk-order:submitted'));
     })
     .catch(function (err) {
       console.error('Send error:', err);
