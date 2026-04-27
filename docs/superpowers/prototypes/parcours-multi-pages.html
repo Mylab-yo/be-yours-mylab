@@ -1,0 +1,1368 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MY.LAB · Parcours multi-pages — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f5f0eb;
+    --cream-2:#ede6dd;
+    --cream-3:#e0d6c8;
+    --ink:#1a1a1a;
+    --ink-soft:#333333;
+    --muted:#6b665e;
+    --line:rgba(26,26,26,.10);
+    --line-soft:rgba(26,26,26,.06);
+    --line-strong:rgba(26,26,26,.20);
+    --shadow-sm:0 1px 0 rgba(26,26,26,.04);
+    --shadow-md:0 12px 40px -16px rgba(26,26,26,.18);
+    --shadow-lg:0 30px 80px -30px rgba(26,26,26,.25);
+    --radius:14px;
+    --radius-lg:24px;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    line-height:1.5;
+  }
+  body{min-height:100vh;overflow-x:hidden}
+  a{color:inherit}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+  /* ============ TOPBAR ============ */
+  .topbar{
+    position:sticky;top:0;z-index:60;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    height:64px;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 32px;
+  }
+  .brand{
+    font-weight:700;letter-spacing:.18em;font-size:14px;
+    text-transform:uppercase;
+  }
+  .brand b{color:var(--ink)}
+  .brand small{
+    margin-left:10px;color:var(--muted);
+    font-weight:400;letter-spacing:.04em;text-transform:none;
+    font-size:12px;
+  }
+  .topbar__right{display:flex;align-items:center;gap:18px}
+  .topbar__exit{
+    font-size:12px;color:var(--muted);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    padding-bottom:2px;
+    transition:color 200ms var(--ease),border-color 200ms var(--ease);
+  }
+  .topbar__exit:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* ============ STEPPER ============ */
+  .stepper{
+    position:sticky;top:64px;z-index:50;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    padding:18px 32px 16px;
+  }
+  .stepper-inner{
+    max-width:1120px;margin:0 auto;
+    display:flex;align-items:center;gap:0;
+  }
+  .step{
+    flex:1;display:flex;align-items:center;gap:12px;
+    padding:6px 0;text-align:left;
+    font-family:inherit;
+    transition:opacity 200ms var(--ease);
+  }
+  .step__num{
+    width:30px;height:30px;border-radius:50%;
+    border:1.5px solid var(--ink);
+    background:var(--cream);
+    display:grid;place-items:center;
+    font-size:12px;font-weight:600;
+    flex-shrink:0;
+    transition:all 250ms var(--ease);
+  }
+  .step__check{display:none}
+  .step--done .step__num{
+    background:var(--ink);color:#fff;border-color:var(--ink);
+  }
+  .step--done .step__digit{display:none}
+  .step--done .step__check{display:block}
+  .step--current .step__num{
+    background:var(--ink);color:#fff;border-color:var(--ink);
+    box-shadow:0 0 0 5px rgba(26,26,26,.10);
+    transform:scale(1.08);
+    font-weight:700;
+  }
+  .step--locked{opacity:.5}
+  .step--locked .step__num{
+    border-color:var(--line);
+    color:var(--muted);
+  }
+  .step__label{
+    display:flex;flex-direction:column;line-height:1.15;
+    white-space:nowrap;
+  }
+  .step__kicker{
+    font-family:'DM Mono',monospace;
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;
+  }
+  .step__name{
+    font-size:13px;font-weight:600;color:var(--ink);
+    margin-top:2px;
+  }
+  .step--locked .step__name{color:var(--muted);font-weight:500}
+  .step__line{
+    flex:1;height:1.5px;background:var(--line);
+    margin:0 14px;position:relative;border-radius:2px;
+  }
+  .step__line::after{
+    content:"";position:absolute;inset:0;
+    background:var(--ink);width:0;border-radius:2px;
+    transition:width 600ms var(--ease);
+  }
+  .step__line.is-filled::after{width:100%}
+
+  .stepper__toggle{
+    margin:8px auto 0;display:flex;align-items:center;gap:8px;
+    font-size:12px;color:var(--muted);
+    padding:6px 12px;border-radius:999px;
+    transition:color 200ms var(--ease),background 200ms var(--ease);
+  }
+  .stepper__toggle:hover{color:var(--ink);background:var(--cream-2)}
+  .stepper__toggle svg{transition:transform 300ms var(--ease)}
+  .stepper__toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+
+  /* ============ RECAP DRAWER ============ */
+  .recap{
+    position:sticky;top:160px;z-index:40;
+    background:var(--cream-2);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    max-height:0;
+    transition:max-height 400ms var(--ease);
+  }
+  .recap.is-open{max-height:420px}
+  .recap-inner{
+    max-width:1120px;margin:0 auto;
+    padding:28px 32px 32px;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;
+  }
+  .recap__title{
+    font-family:'DM Mono',monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;margin-bottom:12px;
+  }
+  .recap__line{
+    display:flex;align-items:center;gap:10px;
+    padding:8px 0;border-bottom:1px solid var(--line-soft);
+    font-size:14px;
+  }
+  .recap__line:last-child{border-bottom:none}
+  .recap__line-icon{
+    width:18px;height:18px;border-radius:50%;
+    display:grid;place-items:center;flex-shrink:0;
+    font-size:11px;
+  }
+  .recap__line--done .recap__line-icon{background:var(--ink);color:#fff}
+  .recap__line--pending .recap__line-icon{
+    background:transparent;border:1.5px solid var(--line);color:var(--muted);
+  }
+  .recap__line-label{flex:1;font-weight:500;color:var(--ink-soft)}
+  .recap__line--pending .recap__line-label{color:var(--muted)}
+  .recap__line-value{font-weight:600;font-size:13px;color:var(--ink)}
+  .recap__total{
+    margin-top:14px;padding-top:14px;border-top:2px solid var(--ink);
+    display:flex;justify-content:space-between;align-items:baseline;
+  }
+  .recap__total-label{
+    font-family:'DM Mono',monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;
+  }
+  .recap__total-value{font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .recap__total-value small{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);font-weight:400;margin-left:6px;letter-spacing:.08em}
+
+  .recap__quit{
+    grid-column:1/-1;
+    display:flex;justify-content:flex-end;
+    margin-top:8px;
+  }
+  .recap__quit a{
+    font-size:11px;color:var(--muted);text-decoration:none;
+    border-bottom:1px solid var(--line);padding-bottom:2px;
+    letter-spacing:.04em;
+    transition:color 200ms var(--ease),border-color 200ms var(--ease);
+  }
+  .recap__quit a:hover{color:var(--ink);border-color:var(--ink)}
+
+  /* ============ PAGES ============ */
+  .page{
+    display:none;
+    animation:pageIn 500ms var(--ease) both;
+  }
+  .page.is-active{display:block}
+  @keyframes pageIn{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .container{
+    max-width:1120px;margin:0 auto;
+    padding:64px 32px 120px;
+  }
+  .container--narrow{max-width:880px}
+
+  .page-kicker{
+    display:inline-block;
+    background:var(--ink);color:#fff;
+    font-family:'DM Mono',monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+    padding:.7rem 1.1rem;
+    margin-bottom:32px;
+  }
+  h1.display{
+    font-weight:700;font-size:clamp(40px,7vw,84px);
+    line-height:1.02;letter-spacing:-.02em;
+    margin-bottom:24px;
+    max-width:14ch;
+  }
+  h1.display em{
+    font-style:normal;font-weight:700;
+    background:var(--ink);color:#fff;
+    padding:.04em .28em .12em;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  h2.section-title{
+    font-weight:700;font-size:clamp(28px,4vw,44px);
+    line-height:1.1;letter-spacing:-.015em;
+    margin-bottom:20px;
+    max-width:18ch;
+  }
+  .lede{
+    font-size:18px;line-height:1.55;color:var(--ink-soft);
+    max-width:48ch;
+    margin-bottom:48px;
+  }
+  .eyebrow{
+    font-family:'DM Mono',monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;
+    margin-bottom:12px;
+  }
+
+  /* ===== Buttons ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:18px 32px;
+    font-size:14px;font-weight:600;letter-spacing:.04em;
+    border-radius:999px;
+    transition:transform 250ms var(--ease),background 250ms var(--ease),box-shadow 250ms var(--ease);
+    border:1.5px solid transparent;
+  }
+  .btn--primary{
+    background:var(--ink);color:#fff;
+  }
+  .btn--primary:hover{background:#000;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .btn--ghost{
+    background:transparent;color:var(--ink);border-color:var(--ink);
+  }
+  .btn--ghost:hover{background:var(--ink);color:#fff}
+  .btn--ink{
+    background:var(--ink);color:#fff;
+  }
+  .btn--ink:hover{background:#000;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .btn--big{padding:22px 40px;font-size:15px}
+
+  /* ============ LANDING ============ */
+  .landing-hero{
+    position:relative;
+    background:var(--cream);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .landing-hero::before{
+    content:"";position:absolute;
+    right:-220px;top:-220px;
+    width:640px;height:640px;
+    border-radius:50%;
+    background:var(--cream-2);
+    opacity:.6;pointer-events:none;
+    filter:blur(20px);
+  }
+  .landing-hero__inner{
+    position:relative;
+    max-width:1120px;margin:0 auto;
+    padding:90px 32px 110px;
+  }
+  .landing-hero__meta{
+    display:flex;gap:32px;margin-top:48px;flex-wrap:wrap;
+    font-family:'DM Mono',monospace;
+    font-size:12px;color:var(--muted);
+    letter-spacing:.04em;
+  }
+  .landing-hero__meta span b{color:var(--ink);font-weight:500}
+
+  .landing-steps{
+    background:var(--cream-2);
+    padding:90px 32px;
+  }
+  .landing-steps__grid{
+    max-width:1120px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid var(--ink);
+  }
+  .landing-step{
+    border-bottom:1px solid var(--ink);
+    border-right:1px solid var(--ink);
+    padding:36px 28px 40px;
+    position:relative;
+    transition:background 300ms var(--ease);
+  }
+  .landing-step:last-child{border-right:none}
+  .landing-step:hover{background:var(--cream)}
+  .landing-step__num{
+    font-family:'DM Mono',monospace;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);font-weight:400;margin-bottom:36px;
+  }
+  .landing-step__title{
+    font-size:22px;font-weight:600;letter-spacing:-.01em;
+    margin-bottom:10px;
+  }
+  .landing-step__desc{
+    font-size:14px;color:var(--ink-soft);line-height:1.5;
+    margin-bottom:24px;
+  }
+  .landing-step__chip{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 14px;border-radius:999px;
+    background:var(--cream-3);
+    font-family:'DM Mono',monospace;
+    font-size:11px;font-weight:400;
+    letter-spacing:.10em;text-transform:uppercase;
+  }
+  .landing-step__chip--invert{background:var(--ink);color:#fff}
+
+  .landing-cta{
+    text-align:center;
+    padding:90px 32px 120px;
+  }
+  .landing-cta h2{
+    font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-.015em;
+    margin-bottom:18px;
+  }
+  .landing-cta p{
+    font-size:16px;color:var(--ink-soft);
+    margin-bottom:40px;
+  }
+
+  /* ============ STEP 1 — DOSSIER ============ */
+  .pillars{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin-bottom:64px;
+  }
+  .pillar{
+    padding:36px 28px;
+    background:var(--cream-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    transition:transform 300ms var(--ease),box-shadow 300ms var(--ease);
+  }
+  .pillar:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .pillar__icon{
+    width:46px;height:46px;border-radius:50%;
+    background:var(--ink);color:#fff;
+    display:grid;place-items:center;
+    font-size:18px;font-weight:700;
+    margin-bottom:24px;
+  }
+  .pillar__title{
+    font-size:20px;font-weight:600;letter-spacing:-.01em;
+    margin-bottom:8px;
+  }
+  .pillar__desc{
+    font-size:14px;color:var(--ink-soft);line-height:1.55;
+  }
+
+  .accordion{
+    border-top:1px solid var(--line);
+    margin-bottom:48px;
+  }
+  .accordion__item{border-bottom:1px solid var(--line)}
+  .accordion__header{
+    width:100%;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 4px;font-size:15px;font-weight:500;
+    text-align:left;
+  }
+  .accordion__header svg{
+    transition:transform 300ms var(--ease);color:var(--muted);
+  }
+  .accordion__item.is-open .accordion__header svg{transform:rotate(45deg)}
+  .accordion__body{
+    max-height:0;overflow:hidden;
+    transition:max-height 350ms var(--ease);
+  }
+  .accordion__body-inner{
+    padding:0 4px 22px;
+    font-size:14px;color:var(--ink-soft);line-height:1.6;
+  }
+  .accordion__item.is-open .accordion__body{max-height:200px}
+
+  /* ============ STEP 2 — ÉTIQUETTE + FORFAIT ============ */
+  .label-cards{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin-bottom:80px;
+  }
+  .label-card{
+    background:var(--cream-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:32px 28px;
+    display:flex;flex-direction:column;
+    position:relative;
+    transition:transform 350ms var(--ease),box-shadow 350ms var(--ease),border-color 350ms var(--ease);
+  }
+  .label-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:var(--ink)}
+  .label-card--featured{
+    background:var(--ink);color:#fff;border-color:var(--ink);
+  }
+  .label-card--featured:hover{background:#000;border-color:#000}
+  .label-card--featured .label-card__price{color:#fff}
+  .label-card--featured .label-card__desc{color:#bdb3a3}
+  .label-card__badge{
+    position:absolute;top:-12px;left:24px;
+    background:#fff;color:var(--ink);
+    border:1.5px solid var(--ink);
+    font-family:'DM Mono',monospace;
+    font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+    padding:6px 12px;border-radius:999px;
+  }
+  .label-card__visual{
+    aspect-ratio:1.4/1;background:var(--cream-3);border-radius:8px;
+    margin-bottom:24px;
+    display:grid;place-items:center;
+    font-family:'DM Mono',monospace;
+    font-size:10px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-weight:400;
+  }
+  .label-card--featured .label-card__visual{background:#2a2a2a;color:#888}
+  .label-card__title{
+    font-size:22px;font-weight:600;letter-spacing:-.01em;
+    margin-bottom:6px;
+  }
+  .label-card__price{
+    font-size:14px;font-weight:600;color:var(--ink);
+    margin-bottom:14px;
+  }
+  .label-card__desc{
+    font-size:13px;line-height:1.5;color:var(--ink-soft);
+    margin-bottom:24px;flex:1;
+  }
+  .label-card__actions{display:flex;flex-direction:column;gap:10px}
+  .label-card__btn{
+    padding:14px 20px;border-radius:999px;
+    background:var(--ink);color:#fff;
+    font-size:13px;font-weight:600;letter-spacing:.04em;
+    text-align:center;
+    transition:background 250ms var(--ease);
+  }
+  .label-card--featured .label-card__btn{background:var(--ink)}
+  .label-card__btn:hover{background:var(--ink)}
+  .label-card__link{
+    font-size:12px;color:var(--muted);text-align:center;
+    text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px;
+    align-self:center;
+  }
+  .label-card--featured .label-card__link{color:#bdb3a3;border-color:#3a3a3a}
+
+  .forfait{
+    background:var(--cream-2);
+    border-radius:var(--radius-lg);
+    padding:56px 48px;
+    margin-top:48px;
+  }
+  .forfait__head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px;flex-wrap:wrap;gap:16px}
+  .forfait__head h3{font-size:28px;font-weight:600;letter-spacing:-.015em}
+  .forfait__chip{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;border-radius:999px;
+    background:var(--ink);color:#fff;
+    font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+    font-family:'DM Mono',monospace;
+  }
+  .forfait__pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .forfait__pillar{padding:0}
+  .forfait__pillar h4{font-size:14px;font-weight:600;margin-bottom:8px;letter-spacing:-.005em}
+  .forfait__pillar p{font-size:13px;color:var(--ink-soft);line-height:1.55}
+
+  /* ============ STEP 3 — PRODUITS ============ */
+  .product-tabs{
+    display:flex;gap:6px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    margin-bottom:40px;padding-bottom:8px;
+  }
+  .product-tab{
+    padding:10px 18px;border-radius:999px;
+    font-size:13px;font-weight:500;
+    color:var(--muted);
+    transition:all 200ms var(--ease);
+  }
+  .product-tab.is-active{background:var(--ink);color:#fff;font-weight:600}
+  .product-tab:hover:not(.is-active){color:var(--ink);background:var(--cream-2)}
+
+  .product-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    margin-bottom:48px;
+  }
+  .product-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;flex-direction:column;
+    transition:transform 300ms var(--ease),box-shadow 300ms var(--ease);
+  }
+  .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .product-card__img{
+    aspect-ratio:1/1;background:var(--cream-2);
+    display:grid;place-items:center;
+    font-family:'DM Mono',monospace;
+    font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:400;
+  }
+  .product-card__body{padding:20px}
+  .product-card__title{font-size:15px;font-weight:600;margin-bottom:4px}
+  .product-card__sub{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .product-card__tiers{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;
+    margin-bottom:14px;
+  }
+  .tier{
+    padding:8px 4px;border-radius:6px;
+    background:var(--cream-2);
+    font-family:'DM Mono',monospace;
+    font-size:11px;font-weight:500;text-align:center;letter-spacing:.02em;
+    transition:all 200ms var(--ease);
+  }
+  .tier:hover{background:var(--cream-3)}
+  .tier.is-active{background:var(--ink);color:#fff}
+  .product-card__qty{
+    font-size:11px;color:var(--muted);
+    text-align:center;
+  }
+
+  /* ============ STEP 4 — RÉCAP ============ */
+  .recap-final{
+    background:var(--ink);color:#fff;
+    border-radius:var(--radius-lg);
+    padding:64px 56px;
+    margin-bottom:48px;
+  }
+  .recap-final h2{
+    font-size:clamp(32px,4.5vw,52px);font-weight:600;letter-spacing:-.02em;
+    margin-bottom:32px;
+    max-width:18ch;
+  }
+  .recap-final h2 em{
+    font-style:normal;font-weight:700;
+    background:#fff;color:var(--ink);
+    padding:.04em .28em .12em;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .timeline{
+    display:flex;gap:0;align-items:flex-start;
+    margin-bottom:48px;
+  }
+  .timeline-item{
+    flex:1;position:relative;padding-right:24px;
+  }
+  .timeline-item__dot{
+    width:14px;height:14px;border-radius:50%;
+    background:#fff;margin-bottom:16px;
+    position:relative;
+  }
+  .timeline-item__dot::after{
+    content:"";position:absolute;
+    left:14px;top:6px;height:1.5px;width:calc(100% + 14px);
+    background:rgba(255,255,255,.2);
+  }
+  .timeline-item:last-child .timeline-item__dot::after{display:none}
+  .timeline-item h4{
+    font-family:'DM Mono',monospace;
+    font-size:13px;font-weight:400;letter-spacing:.04em;
+    margin-bottom:8px;color:#fff;
+  }
+  .timeline-item p{font-size:13px;color:#bdb3a3;line-height:1.55}
+
+  .recap-table{
+    background:#2a2a2a;
+    border-radius:var(--radius);
+    padding:32px;
+    margin-bottom:32px;
+  }
+  .recap-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid #3a3a3a;
+    font-size:14px;
+  }
+  .recap-row:last-child{border-bottom:none}
+  .recap-row__label{color:#d6cdbe}
+  .recap-row__value{font-weight:600}
+  .recap-total{
+    display:flex;justify-content:space-between;align-items:baseline;
+    margin-top:24px;padding-top:24px;border-top:2px solid #fff;
+  }
+  .recap-total__label{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#bdb3a3;font-weight:600;font-family:'DM Mono',monospace}
+  .recap-total__value{font-size:42px;font-weight:700;letter-spacing:-.02em;color:#fff;font-family:'DM Sans',sans-serif}
+
+  /* ============ FOOTER NAV ============ */
+  .page-footer{
+    margin-top:80px;padding-top:48px;
+    border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:24px;
+  }
+  .page-footer__back{
+    font-size:13px;color:var(--muted);text-decoration:none;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:color 200ms var(--ease);
+  }
+  .page-footer__back:hover{color:var(--ink)}
+
+  /* ============ TOAST ============ */
+  .toast{
+    position:fixed;bottom:32px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    background:var(--ink);color:#fff;
+    padding:16px 24px;border-radius:999px;
+    font-size:13px;font-weight:500;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:var(--shadow-lg);
+    z-index:100;
+    transition:transform 400ms var(--ease);
+  }
+  .toast.is-visible{transform:translateX(-50%) translateY(0)}
+  .toast__icon{
+    width:22px;height:22px;border-radius:50%;
+    background:#fff;color:var(--ink);
+    display:grid;place-items:center;
+    font-weight:700;font-size:13px;
+  }
+
+  /* ============ MOBILE BOTTOMBAR ============ */
+  .mobile-cta{
+    display:none;
+    position:fixed;bottom:0;left:0;right:0;
+    background:var(--cream);
+    border-top:1px solid var(--line);
+    padding:14px 20px calc(14px + env(safe-area-inset-bottom));
+    z-index:55;
+    box-shadow:0 -8px 30px -16px rgba(26,26,26,.18);
+  }
+  .mobile-cta__inner{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .mobile-cta__progress{
+    font-family:'DM Mono',monospace;
+    font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+    line-height:1.2;
+  }
+  .mobile-cta__progress b{display:block;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--ink);font-weight:600;margin-top:3px;letter-spacing:0;text-transform:none}
+  .mobile-cta__btn{
+    flex:0 0 auto;padding:14px 20px;
+    background:var(--ink);color:#fff;
+    border-radius:999px;font-size:13px;font-weight:600;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:880px){
+    .topbar{padding:0 20px}
+    .stepper{padding:14px 12px 12px}
+    .step__label{display:none}
+    .step__line{margin:0 6px}
+    .recap{top:130px}
+    .recap-inner{grid-template-columns:1fr;gap:24px;padding:24px 20px}
+    .container{padding:48px 20px 140px}
+    .pillars,.label-cards,.forfait__pillars,.product-grid{grid-template-columns:1fr;gap:16px}
+    .landing-steps__grid{grid-template-columns:1fr}
+    .landing-step{border-right:none}
+    .timeline{flex-direction:column;gap:24px}
+    .timeline-item__dot::after{display:none}
+    .recap-final{padding:40px 28px}
+    .forfait{padding:32px 24px}
+    .mobile-cta{display:block}
+    body{padding-bottom:80px}
+    .landing-hero__inner{padding:60px 20px 70px}
+    .landing-steps{padding:60px 0}
+    .landing-cta{padding:60px 20px 80px}
+  }
+
+  /* ============ DEMO TOOLBAR (prototype only) ============ */
+  .demo-info{
+    position:fixed;bottom:14px;right:14px;
+    background:rgba(26,26,26,.9);color:#fff;
+    padding:10px 14px;border-radius:8px;
+    font-size:11px;font-family:ui-monospace,monospace;
+    z-index:200;letter-spacing:.04em;
+    pointer-events:none;
+  }
+  .demo-info b{color:#fff}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="brand">MY<b>.</b>LAB <small>· Création de marque</small></div>
+  <div class="topbar__right">
+    <a href="#" class="topbar__exit">Quitter le parcours</a>
+  </div>
+</header>
+
+<!-- ============ STEPPER ============ -->
+<nav class="stepper" aria-label="Progression du parcours">
+  <div class="stepper-inner">
+    <button class="step step--done" data-go="dossier">
+      <span class="step__num"><span class="step__digit">1</span><svg class="step__check" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="step__label"><span class="step__kicker">Étape 01</span><span class="step__name">Dossier</span></span>
+    </button>
+    <span class="step__line is-filled"></span>
+    <button class="step step--current" data-go="etiquette">
+      <span class="step__num"><span class="step__digit">2</span></span>
+      <span class="step__label"><span class="step__kicker">Étape 02</span><span class="step__name">Étiquette</span></span>
+    </button>
+    <span class="step__line"></span>
+    <button class="step step--locked" data-go="produits">
+      <span class="step__num"><span class="step__digit">3</span></span>
+      <span class="step__label"><span class="step__kicker">Étape 03</span><span class="step__name">Produits</span></span>
+    </button>
+    <span class="step__line"></span>
+    <button class="step step--locked" data-go="recap">
+      <span class="step__num"><span class="step__digit">4</span></span>
+      <span class="step__label"><span class="step__kicker">Étape 04</span><span class="step__name">Récap</span></span>
+    </button>
+  </div>
+  <div style="text-align:center">
+    <button class="stepper__toggle" id="recap-toggle" aria-expanded="false" aria-controls="recap-drawer">
+      Voir mon projet en cours
+      <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ RECAP DRAWER ============ -->
+<aside class="recap" id="recap-drawer" aria-label="Récapitulatif du projet">
+  <div class="recap-inner">
+    <div>
+      <div class="recap__title">Validé</div>
+      <div class="recap__line recap__line--done">
+        <span class="recap__line-icon">✓</span>
+        <span class="recap__line-label">Dossier cosmétologique</span>
+        <span class="recap__line-value">389,90 €</span>
+      </div>
+    </div>
+    <div>
+      <div class="recap__title">En cours</div>
+      <div class="recap__line recap__line--pending">
+        <span class="recap__line-icon">2</span>
+        <span class="recap__line-label">Étiquette &amp; impression</span>
+        <span class="recap__line-value">—</span>
+      </div>
+    </div>
+    <div>
+      <div class="recap__title">Total estimé</div>
+      <div class="recap__total" style="margin-top:0;padding-top:0;border:none">
+        <span class="recap__total-label">À ce stade</span>
+        <span class="recap__total-value">389,90 <small>€ HT</small></span>
+      </div>
+    </div>
+    <div class="recap__quit">
+      <a href="#">Abandonner et vider mon projet</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ============ PAGE: LANDING ============ -->
+<section class="page is-active" data-page="landing">
+  <div class="landing-hero">
+    <div class="landing-hero__inner">
+      <div class="eyebrow">Parcours guidé · 15 minutes</div>
+      <h1 class="display">Créons ensemble<br/>votre <em>marque</em>.</h1>
+      <p class="lede">Un parcours en 4 étapes pour assembler votre dossier cosmétologique, choisir vos étiquettes, sélectionner vos produits et lancer votre ligne capillaire en marque blanche.</p>
+      <button class="btn btn--primary btn--big" data-go="dossier">
+        Démarrer mon projet
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="landing-hero__meta">
+        <span><b>4 étapes</b> · validation guidée</span>
+        <span><b>Sauvegarde auto</b> · à chaque étape</span>
+        <span><b>Pas d'engagement</b> · jusqu'au paiement</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-steps">
+    <div class="landing-steps__grid">
+      <div class="landing-step">
+        <div class="landing-step__num">Étape 01</div>
+        <div class="landing-step__title">Dossier cosmétologique</div>
+        <div class="landing-step__desc">DIP, CPNP et tests : la base réglementaire, prête à utiliser.</div>
+        <span class="landing-step__chip">Inclus d'office</span>
+      </div>
+      <div class="landing-step">
+        <div class="landing-step__num">Étape 02</div>
+        <div class="landing-step__title">Étiquette &amp; impression</div>
+        <div class="landing-step__desc">Standard, Modèles ou Sur-mesure. Forfait d'impression annuel.</div>
+        <span class="landing-step__chip">3 options</span>
+      </div>
+      <div class="landing-step">
+        <div class="landing-step__num">Étape 03</div>
+        <div class="landing-step__title">Produits</div>
+        <div class="landing-step__desc">Shampoings, masques, soins. Quantités flexibles, paliers dégressifs.</div>
+        <span class="landing-step__chip landing-step__chip--invert">+50 références</span>
+      </div>
+      <div class="landing-step">
+        <div class="landing-step__num">Étape 04</div>
+        <div class="landing-step__title">Récap &amp; validation</div>
+        <div class="landing-step__desc">Vue d'ensemble de votre projet, total HT, devis ou paiement.</div>
+        <span class="landing-step__chip">Engagement final</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="landing-cta">
+    <h2>Prêt à donner vie à votre ligne ?</h2>
+    <p>Vous gardez la main à chaque étape. Rien n'est confirmé tant que vous ne validez pas l'étape 4.</p>
+    <button class="btn btn--ink btn--big" data-go="dossier">
+      Je commence
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============ PAGE 1: DOSSIER ============ -->
+<section class="page" data-page="dossier">
+  <div class="container container--narrow">
+    <div class="page-kicker">Étape 01 / 04 — Dossier</div>
+    <h1 class="display">Le socle de votre <em>marque</em>.</h1>
+    <p class="lede">Pas de mise sur le marché sans dossier réglementaire. Le vôtre est inclus d'office et déjà ajouté à votre projet.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar__icon">D</div>
+        <div class="pillar__title">DIP</div>
+        <div class="pillar__desc">Dossier d'Information Produit complet, validé par notre responsable qualifié CPNP.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__icon">C</div>
+        <div class="pillar__title">CPNP</div>
+        <div class="pillar__desc">Notification européenne déposée à votre nom, pour une mise en marché conforme.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar__icon">T</div>
+        <div class="pillar__title">Tests</div>
+        <div class="pillar__desc">Stabilité, compatibilité packaging, microbiologie : tout est compris.</div>
+      </div>
+    </div>
+
+    <div class="eyebrow">Ce que contient votre dossier</div>
+    <h2 class="section-title">8 documents prêts à l'emploi.</h2>
+
+    <div class="accordion">
+      <div class="accordion__item is-open">
+        <button class="accordion__header">
+          <span>Formules &amp; INCI</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body">
+          <div class="accordion__body-inner">Liste complète des ingrédients pour chaque produit, formatée pour l'étiquette et la déclaration CPNP.</div>
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__header">
+          <span>Évaluation de la sécurité</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body"><div class="accordion__body-inner">Évaluation par notre responsable qualifié, conforme au règlement (CE) n°1223/2009.</div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__header">
+          <span>Tests de stabilité</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body"><div class="accordion__body-inner">Tests sur 3 mois en conditions accélérées pour valider la durée de vie minimale.</div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__header">
+          <span>Compatibilité packaging</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body"><div class="accordion__body-inner">Vérification que la formule reste stable au contact du contenant choisi.</div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__header">
+          <span>Tests microbiologiques (Challenge Test)</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body"><div class="accordion__body-inner">Vérification de l'efficacité du système conservateur contre les contaminations.</div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__header">
+          <span>+ 3 documents complémentaires</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="accordion__body"><div class="accordion__body-inner">PIF, fiches techniques, attestations BPF.</div></div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <a href="#" class="page-footer__back" data-go="landing">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'accueil
+      </a>
+      <button class="btn btn--primary" data-validate="dossier" data-go="etiquette">
+        J'ai compris, étape suivante
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 2: ÉTIQUETTE + FORFAIT ============ -->
+<section class="page" data-page="etiquette">
+  <div class="container">
+    <div class="page-kicker">Étape 02 / 04 — Étiquette &amp; impression</div>
+    <h1 class="display">L'identité de votre <em>flacon</em>.</h1>
+    <p class="lede">Trois options selon votre niveau d'investissement créatif. Le forfait d'impression annuel est inclus dans le choix de votre étiquette.</p>
+
+    <div class="label-cards">
+      <div class="label-card">
+        <div class="label-card__visual">Aperçu Standard</div>
+        <div class="label-card__title">Standard</div>
+        <div class="label-card__price">Gratuit</div>
+        <div class="label-card__desc">Étiquette neutre noire, votre logo en bichromie. Idéal pour démarrer rapidement.</div>
+        <div class="label-card__actions">
+          <button class="label-card__btn">Choisir Standard</button>
+          <a href="#" class="label-card__link">En savoir plus</a>
+        </div>
+      </div>
+      <div class="label-card label-card--featured">
+        <span class="label-card__badge">Recommandé</span>
+        <div class="label-card__visual">Aperçu Modèles</div>
+        <div class="label-card__title">Modèles</div>
+        <div class="label-card__price">99 €</div>
+        <div class="label-card__desc">11 designs prêts à personnaliser dans le configurateur. Couleurs, typographies, finitions.</div>
+        <div class="label-card__actions">
+          <button class="label-card__btn">Ouvrir le configurateur</button>
+          <a href="#" class="label-card__link">En savoir plus</a>
+        </div>
+      </div>
+      <div class="label-card">
+        <div class="label-card__visual">Aperçu Sur-mesure</div>
+        <div class="label-card__title">Sur-mesure</div>
+        <div class="label-card__price">390 €</div>
+        <div class="label-card__desc">Création unique avec notre studio. Brief, allers-retours, design exclusif.</div>
+        <div class="label-card__actions">
+          <button class="label-card__btn">Démarrer le brief</button>
+          <a href="#" class="label-card__link">En savoir plus</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="forfait">
+      <div class="forfait__head">
+        <h3>Forfait d'impression annuel</h3>
+        <span class="forfait__chip">Inclus selon votre étiquette</span>
+      </div>
+      <div class="forfait__pillars">
+        <div class="forfait__pillar">
+          <h4>1 an d'impressions illimitées</h4>
+          <p>Imprimez à la demande, sans seuil minimum, avec votre design validé.</p>
+        </div>
+        <div class="forfait__pillar">
+          <h4>Reconduction tacite</h4>
+          <p>Renouvelé automatiquement chaque année. Annulable à tout moment.</p>
+        </div>
+        <div class="forfait__pillar">
+          <h4>Noir &amp; blanc ou couleur</h4>
+          <p>99 €/an pour étiquettes noires standards · 250 €/an pour étiquettes couleur.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <a href="#" class="page-footer__back" data-go="dossier">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'étape précédente
+      </a>
+      <button class="btn btn--primary" data-validate="etiquette" data-go="produits">
+        Valider et choisir mes produits
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 3: PRODUITS ============ -->
+<section class="page" data-page="produits">
+  <div class="container">
+    <div class="page-kicker">Étape 03 / 04 — Produits</div>
+    <h1 class="display">Composez votre <em>gamme</em>.</h1>
+    <p class="lede">Sélectionnez vos références et vos quantités. Plus vous prenez, moins ça coûte par flacon. Aucune obligation de tout choisir d'un coup.</p>
+
+    <div class="product-tabs">
+      <button class="product-tab is-active">Tous</button>
+      <button class="product-tab">Shampoings</button>
+      <button class="product-tab">Repigmentants</button>
+      <button class="product-tab">Masques</button>
+      <button class="product-tab">Crèmes</button>
+      <button class="product-tab">Finition</button>
+      <button class="product-tab">Gamme Homme</button>
+      <button class="product-tab">Format 1000ml</button>
+    </div>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card__img">Shampoing Nourrissant</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Shampoing Nourrissant</div>
+          <div class="product-card__sub">200 ml · Gamme Soin</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier is-active">12</div>
+            <div class="tier">24</div>
+            <div class="tier">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">12 flacons · 6,30 € HT/u</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__img">Masque Réparateur</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Masque Réparateur</div>
+          <div class="product-card__sub">200 ml · Gamme Soin</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier">12</div>
+            <div class="tier is-active">24</div>
+            <div class="tier">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">24 flacons · 7,80 € HT/u</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__img">Sérum Brillance</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Sérum Brillance</div>
+          <div class="product-card__sub">100 ml · Finition</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier">12</div>
+            <div class="tier">24</div>
+            <div class="tier">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">Aucune sélection</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__img">Crème Capillaire</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Crème Capillaire</div>
+          <div class="product-card__sub">200 ml · Coiffage</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier is-active">12</div>
+            <div class="tier">24</div>
+            <div class="tier">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">12 flacons · 8,40 € HT/u</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__img">Shampoing Repigmentant</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Repigmentant Anti-jaunissement</div>
+          <div class="product-card__sub">200 ml · Gamme déjaunisseur</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier">12</div>
+            <div class="tier">24</div>
+            <div class="tier">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">Aucune sélection</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card__img">Gel Barbe</div>
+        <div class="product-card__body">
+          <div class="product-card__title">Gel Modelage Barbe</div>
+          <div class="product-card__sub">100 ml · Gamme Homme</div>
+          <div class="product-card__tiers">
+            <div class="tier">6</div>
+            <div class="tier">12</div>
+            <div class="tier">24</div>
+            <div class="tier is-active">48</div>
+            <div class="tier">96</div>
+          </div>
+          <div class="product-card__qty">48 flacons · 5,90 € HT/u</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <a href="#" class="page-footer__back" data-go="etiquette">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour à l'étape précédente
+      </a>
+      <button class="btn btn--primary" data-validate="produits" data-go="recap">
+        Voir le récap final
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4: RÉCAP ============ -->
+<section class="page" data-page="recap">
+  <div class="container">
+    <div class="page-kicker">Étape 04 / 04 — Validation</div>
+    <h1 class="display">Votre <em>projet</em>, en un coup d'œil.</h1>
+    <p class="lede">Vérifiez chaque ligne. Une fois validé, votre devis est envoyé et votre projet entre en production sous 7 jours ouvrés.</p>
+
+    <div class="recap-final">
+      <h2>Le lancement de votre <em>marque</em>, prêt à signer.</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-item__dot"></div>
+          <h4>J0 — Validation</h4>
+          <p>Devis envoyé. Acompte 30%. Coup d'envoi de la production.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-item__dot"></div>
+          <h4>J+7 — Étiquettes</h4>
+          <p>Bon à tirer envoyé. Vous validez le rendu avant impression.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-item__dot"></div>
+          <h4>J+21 — Livraison</h4>
+          <p>Vos cartons arrivent en boutique. Solde réglé à la livraison.</p>
+        </div>
+      </div>
+
+      <div class="recap-table">
+        <div class="recap-row">
+          <span class="recap-row__label">Dossier cosmétologique</span>
+          <span class="recap-row__value">389,90 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Étiquette · Modèles (Golden Line)</span>
+          <span class="recap-row__value">99,00 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Forfait impression couleur · 1 an</span>
+          <span class="recap-row__value">250,00 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Shampoing Nourrissant · 12u</span>
+          <span class="recap-row__value">75,60 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Masque Réparateur · 24u</span>
+          <span class="recap-row__value">187,20 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Crème Capillaire · 12u</span>
+          <span class="recap-row__value">100,80 €</span>
+        </div>
+        <div class="recap-row">
+          <span class="recap-row__label">Gel Modelage Barbe · 48u</span>
+          <span class="recap-row__value">283,20 €</span>
+        </div>
+      </div>
+
+      <div class="recap-total">
+        <span class="recap-total__label">Total HT</span>
+        <span class="recap-total__value">1 385,70 €</span>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap">
+        <button class="btn btn--big" style="background:#fff;color:var(--ink)">
+          Valider notre projet
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn--ghost btn--big" style="border-color:#bdb3a3;color:#fff">
+          Recevoir le devis PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <a href="#" class="page-footer__back" data-go="produits">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Modifier mes produits
+      </a>
+      <a href="#" style="font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px">Une question ? Prendre RDV</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MOBILE BOTTOMBAR ============ -->
+<div class="mobile-cta">
+  <div class="mobile-cta__inner">
+    <div class="mobile-cta__progress">
+      <span>Étape 02 / 04</span>
+      <b>Étiquette &amp; impression</b>
+    </div>
+    <button class="mobile-cta__btn" id="mobile-recap">
+      Voir récap
+    </button>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast">
+  <span class="toast__icon">✓</span>
+  <span id="toast-message">Étape validée</span>
+</div>
+
+<!-- ============ DEMO INFO ============ -->
+<div class="demo-info">prototype · cliquez le stepper ou les CTA pour naviguer · <b>cmd-click</b> sur stepper pour forcer une étape</div>
+
+<script>
+(function(){
+  'use strict';
+  const pages = document.querySelectorAll('.page');
+  const steps = document.querySelectorAll('.step');
+  const lines = document.querySelectorAll('.step__line');
+
+  // Map: page name → index
+  const order = ['landing','dossier','etiquette','produits','recap'];
+  // Steps only show pages 1-4 (no landing in stepper)
+  const stepOrder = ['dossier','etiquette','produits','recap'];
+
+  // State: which steps are validated
+  let validated = new Set(['dossier']); // dossier auto-add à l'entrée
+  let currentPage = 'landing';
+
+  function go(pageName){
+    if(!order.includes(pageName)) return;
+    pages.forEach(p=>p.classList.toggle('is-active', p.dataset.page===pageName));
+    currentPage = pageName;
+    syncStepper();
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function syncStepper(){
+    steps.forEach((step,i)=>{
+      const stepName = stepOrder[i];
+      step.classList.remove('step--done','step--current','step--locked');
+      if(validated.has(stepName) && stepName !== currentPage){
+        step.classList.add('step--done');
+      } else if(stepName === currentPage){
+        step.classList.add('step--current');
+      } else {
+        // Locked if no previous step validated
+        const prevIdx = i-1;
+        if(prevIdx>=0 && !validated.has(stepOrder[prevIdx])){
+          step.classList.add('step--locked');
+        }
+      }
+    });
+    // Lines: filled if step before AND after are done (or current)
+    lines.forEach((line,i)=>{
+      const before = stepOrder[i];
+      line.classList.toggle('is-filled', validated.has(before));
+    });
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    document.getElementById('toast-message').textContent = msg || 'Étape validée';
+    t.classList.add('is-visible');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(()=>t.classList.remove('is-visible'), 2400);
+  }
+
+  // Click handlers
+  document.querySelectorAll('[data-go]').forEach(el=>{
+    el.addEventListener('click', e=>{
+      e.preventDefault();
+      const target = el.dataset.go;
+      // If validating, mark step
+      if(el.dataset.validate){
+        validated.add(el.dataset.validate);
+        showToast('✓ ' + ({
+          dossier: 'Dossier confirmé',
+          etiquette: 'Étiquette validée',
+          produits: 'Sélection produits validée'
+        }[el.dataset.validate] || 'Étape validée'));
+      }
+      go(target);
+    });
+  });
+
+  // Recap drawer toggle
+  const recap = document.getElementById('recap-drawer');
+  const recapToggle = document.getElementById('recap-toggle');
+  recapToggle.addEventListener('click', ()=>{
+    const isOpen = recap.classList.toggle('is-open');
+    recapToggle.setAttribute('aria-expanded', isOpen?'true':'false');
+    recapToggle.querySelector('span').textContent = isOpen ? 'Masquer mon projet' : 'Voir mon projet en cours';
+  });
+
+  // Mobile recap btn
+  document.getElementById('mobile-recap').addEventListener('click', ()=>{
+    recapToggle.click();
+    recap.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // Accordion
+  document.querySelectorAll('.accordion__item').forEach(item=>{
+    item.querySelector('.accordion__header').addEventListener('click', ()=>{
+      item.classList.toggle('is-open');
+    });
+  });
+
+  // Tier selector demo
+  document.querySelectorAll('.product-card__tiers').forEach(group=>{
+    group.querySelectorAll('.tier').forEach(t=>{
+      t.addEventListener('click', ()=>{
+        group.querySelectorAll('.tier').forEach(x=>x.classList.remove('is-active'));
+        t.classList.add('is-active');
+      });
+    });
+  });
+
+  // Tabs demo
+  document.querySelectorAll('.product-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.product-tab').forEach(x=>x.classList.remove('is-active'));
+      tab.classList.add('is-active');
+    });
+  });
+
+  // Init
+  syncStepper();
+})();
+</script>
+
+</body>
+</html>
