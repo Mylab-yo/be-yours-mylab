@@ -679,6 +679,10 @@ body.is-parcours {
   transition:background 150ms,color 150ms;
 }
 .ml-parcours__recap-qty-btn:hover{background:rgba(255,255,255,.08);color:#fff}
+.ml-parcours__recap-qty-btn:disabled,
+.ml-parcours__recap-qty-btn[disabled]{opacity:.3;cursor:not-allowed}
+.ml-parcours__recap-qty-btn:disabled:hover,
+.ml-parcours__recap-qty-btn[disabled]:hover{background:transparent;color:#d6cdbe}
 .ml-parcours__recap-qty-val{
   min-width:22px;text-align:center;
   color:#fff;font-weight:600;font-size:13px;font-variant-numeric:tabular-nums;

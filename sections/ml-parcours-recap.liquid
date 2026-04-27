@@ -89,6 +89,35 @@
     return (cents / 100).toFixed(2).replace('.', ',') + ' €';
   }
 
+  // Tiered B2B pricing — quantity steppers must jump between paliers, never +/-1.
+  // Tier source of truth is assets/ml-product-map.json, accessed via MylabUtils
+  // (loaded as a deferred script in theme.liquid). Poll briefly so first render
+  // doesn't lose tier info if our inline script runs before the deferred loader.
+  let productMap = null;
+  async function ensureProductMap() {
+    if (productMap) return productMap;
+    for (let i = 0; i < 50 && !window.MylabUtils; i++) {
+      await new Promise(r => setTimeout(r, 50));
+    }
+    if (!window.MylabUtils) return null;
+    try {
+      productMap = await window.MylabUtils.loadProductMap();
+      return productMap;
+    } catch (err) {
+      console.error('[ml-parcours-recap] loadProductMap failed', err);
+      return null;
+    }
+  }
+
+  function getTierQtys(handle) {
+    if (!productMap || !window.MylabUtils) return null;
+    const tierStr = window.MylabUtils.findTiers(handle, productMap);
+    if (!tierStr) return null;
+    const tiers = window.MylabUtils.parseTierString(tierStr);
+    if (!tiers || !tiers.length) return null;
+    return tiers.map(t => t.qty).sort((a, b) => a - b);
+  }
+
   // Build an empty-state row (no controls)
   function buildEmptyRow() {
     const row = document.createElement('div');
@@ -122,12 +151,18 @@
       const stepper = document.createElement('div');
       stepper.className = 'ml-parcours__recap-qty';
 
+      const tierQtys = getTierQtys(item.handle);
+      if (tierQtys) {
+        row.dataset.tiers = tierQtys.join(',');
+      }
+
       const minus = document.createElement('button');
       minus.type = 'button';
       minus.className = 'ml-parcours__recap-qty-btn';
       minus.dataset.action = 'decrease';
-      minus.setAttribute('aria-label', 'Diminuer la quantité');
+      minus.setAttribute('aria-label', 'Palier inférieur');
       minus.textContent = '−';
+      if (tierQtys && item.quantity <= tierQtys[0]) minus.disabled = true;
 
       const qtyVal = document.createElement('span');
       qtyVal.className = 'ml-parcours__recap-qty-val';
@@ -137,8 +172,9 @@
       plus.type = 'button';
       plus.className = 'ml-parcours__recap-qty-btn';
       plus.dataset.action = 'increase';
-      plus.setAttribute('aria-label', 'Augmenter la quantité');
+      plus.setAttribute('aria-label', 'Palier supérieur');
       plus.textContent = '+';
+      if (tierQtys && item.quantity >= tierQtys[tierQtys.length - 1]) plus.disabled = true;
 
       stepper.append(minus, qtyVal, plus);
       right.appendChild(stepper);
@@ -174,9 +210,12 @@
 
     let cart;
     try {
-      const res = await fetch('/cart.js', { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('cart fetch failed: ' + res.status);
-      cart = await res.json();
+      const [cartRes] = await Promise.all([
+        fetch('/cart.js', { credentials: 'same-origin' }),
+        ensureProductMap()
+      ]);
+      if (!cartRes.ok) throw new Error('cart fetch failed: ' + cartRes.status);
+      cart = await cartRes.json();
     } catch (err) {
       console.error('[ml-parcours-recap] readCart failed', err);
       return;
@@ -224,7 +263,28 @@
     } else {
       const qtyEl = row.querySelector('.ml-parcours__recap-qty-val');
       const current = parseInt(qtyEl ? qtyEl.textContent : '1', 10) || 1;
-      newQty = action === 'increase' ? current + 1 : Math.max(0, current - 1);
+      const tiers = row.dataset.tiers
+        ? row.dataset.tiers.split(',').map(Number).filter(n => n > 0)
+        : null;
+      if (tiers && tiers.length) {
+        // Step strictly between paliers — × handles removal, no +/-1.
+        if (action === 'increase') {
+          newQty = tiers.find(q => q > current) ?? tiers[tiers.length - 1];
+        } else {
+          let prev = null;
+          for (const q of tiers) {
+            if (q < current) prev = q;
+            else break;
+          }
+          newQty = prev !== null ? prev : tiers[0];
+        }
+        if (newQty === current) {
+          // No-op (already at boundary) — bail without touching the cart.
+          return;
+        }
+      } else {
+        newQty = action === 'increase' ? current + 1 : Math.max(0, current - 1);
+      }
     }
 
     cartBusy = true;
