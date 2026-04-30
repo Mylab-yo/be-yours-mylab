@@ -55,7 +55,7 @@ body.is-parcours {
 .ml-parcours__brand:focus,
 .ml-parcours__brand:visited{color:var(--mlp-ink);text-decoration:none}
 .ml-parcours__brand-logo{
-  height:42px;width:auto;display:block;
+  height:63px;width:auto;display:block;
 }
 .ml-parcours__brand-text{color:var(--mlp-ink)}
 .ml-parcours__brand-text b{color:var(--mlp-ink)}
