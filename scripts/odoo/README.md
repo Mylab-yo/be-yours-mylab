@@ -37,3 +37,34 @@ Tous les scripts sont **idempotents** : relançables sans effet de bord.
 - `templates/bl_deliveryslip.xml` : source QWeb du BL (lu par step04_)
 
 Pour modifier l'action ou le template, éditer le fichier source puis relancer le script de déploiement correspondant.
+
+## Paiement en ligne devis (step20-step24)
+
+Setup pour permettre aux clients de payer leur devis depuis le portail Odoo (lien email) — Stripe (CB) + virement bancaire, avec acompte conditionnel selon montant.
+
+```bash
+# 20. Diagnostic read-only de l'instance (already run, see output in chat)
+python -m scripts.odoo.step20_probe_payment_setup
+python -m scripts.odoo.step20b_probe_stripe_module
+python -m scripts.odoo.step20c_probe_prepayment
+python -m scripts.odoo.step20d_probe_providers_and_company
+
+# 21. Installer le module payment_stripe (15-30s, irreversible-ish)
+python -m scripts.odoo.step21_install_payment_stripe
+
+# 22. Créer le provider Virement bancaire (state=disabled, à activer manuellement)
+python -m scripts.odoo.step22_create_wire_transfer_provider
+
+# 23. Règle automatisée acompte conditionnel
+#     < 1000 € → prepayment_percent = 100%
+#     ≥ 1000 € → prepayment_percent = 50%
+python -m scripts.odoo.step23_acompte_threshold_rule
+
+# 24. Test : crée 2 devis dummy (500€ + 2000€), vérifie, supprime
+python -m scripts.odoo.step24_test_thresholds
+```
+
+**Étapes manuelles complémentaires** (UI Odoo, après step21+22) :
+1. Coller les clés Stripe live (`pk_live_...` / `sk_live_...`) sur le provider Stripe → State = Enabled
+2. Vérifier l'IBAN dans le pending_msg du provider Virement → State = Enabled
+3. Settings → Sales : cocher *Online Payment* + *Online Signature*
