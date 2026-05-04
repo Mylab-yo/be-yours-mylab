@@ -87,12 +87,12 @@ upsert_template(
     name="mylab_devis_relance_l1",
     model_id=sale_model,
     subject="Votre devis MY.LAB {{ object.name }} — toujours d'actualité ?",
-    body="""<p>Bonjour {{ object.partner_id.name }},</p>
-<p>Il y a une semaine, je vous ai transmis le devis <strong>{{ object.name }}</strong> pour un montant de {{ object.amount_total }} € TTC.</p>
+    body="""<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>Il y a une semaine, je vous ai transmis le devis <strong><t t-out="object.name"/></strong> pour un montant de <t t-out="format_amount(object.amount_total, object.currency_id)"/> TTC.</p>
 <p>Je voulais simplement m'assurer qu'il vous est bien parvenu et savoir où ça en est de votre côté.</p>
 <p>Vous pouvez consulter et valider votre devis directement via ce lien :</p>
 <p style="text-align: center; margin: 24px 0;">
-  <a href="{{ object.get_portal_url() }}" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Voir mon devis</a>
+  <a t-att-href="object.get_portal_url()" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Voir mon devis</a>
 </p>
 <p>Si une question reste en suspens, n'hésitez pas à me répondre directement à ce mail.</p>
 <p>Bonne journée,<br/>Service Comptabilité — MY.LAB</p>""",
@@ -106,12 +106,12 @@ upsert_template(
     name="mylab_devis_relance_l2",
     model_id=sale_model,
     subject="Devis {{ object.name }} — un point bloque ?",
-    body="""<p>Bonjour {{ object.partner_id.name }},</p>
-<p>Je reviens vers vous concernant le devis <strong>{{ object.name }}</strong> que je vous ai envoyé il y a deux semaines.</p>
+    body="""<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>Je reviens vers vous concernant le devis <strong><t t-out="object.name"/></strong> que je vous ai envoyé il y a deux semaines.</p>
 <p>Si un point n'est pas clair ou si vous avez besoin d'un ajustement (quantités, gammes, packaging…), je suis disponible pour en discuter de vive voix : <a href="https://cal.com/mylab-shop/15min" style="color: #c5a467;">réservez 15 min</a>.</p>
 <p>Sinon, vous pouvez consulter le devis ici :</p>
 <p style="text-align: center; margin: 24px 0;">
-  <a href="{{ object.get_portal_url() }}" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Voir mon devis</a>
+  <a t-att-href="object.get_portal_url()" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Voir mon devis</a>
 </p>
 <p>Dans l'attente de votre retour,<br/>Service Comptabilité — MY.LAB</p>""",
     email_from='"Service Comptabilité MY.LAB" <yoann@mylab-shop.com>',
@@ -124,11 +124,11 @@ upsert_template(
     name="mylab_facture_relance_l1",
     model_id=move_model,
     subject="Facture {{ object.name }} — petit rappel",
-    body="""<p>Bonjour {{ object.partner_id.name }},</p>
-<p>Petit rappel amical : votre facture <strong>{{ object.name }}</strong> d'un montant de <strong>{{ object.amount_total }} €</strong> était arrivée à échéance le {{ format_date(object.invoice_date_due) }}.</p>
+    body="""<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>Petit rappel amical : votre facture <strong><t t-out="object.name"/></strong> d'un montant de <strong><t t-out="format_amount(object.amount_total, object.currency_id)"/></strong> était arrivée à échéance le <t t-out="format_date(object.invoice_date_due)"/>.</p>
 <p>Si vous l'avez déjà réglée dans les derniers jours, merci d'ignorer ce message. Sinon, vous pouvez procéder au règlement par virement (IBAN dans la facture jointe) ou directement en ligne :</p>
 <p style="text-align: center; margin: 24px 0;">
-  <a href="{{ object.get_portal_url() }}" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Régler en ligne</a>
+  <a t-att-href="object.get_portal_url()" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Régler en ligne</a>
 </p>
 <p>Bonne journée,<br/>Service Comptabilité — MY.LAB</p>""",
     email_from='"Service Comptabilité MY.LAB" <yoann@mylab-shop.com>',
@@ -141,11 +141,11 @@ upsert_template(
     name="mylab_facture_relance_l2",
     model_id=move_model,
     subject="Facture {{ object.name }} en retard de paiement",
-    body="""<p>Bonjour {{ object.partner_id.name }},</p>
-<p>Sauf erreur de ma part, votre facture <strong>{{ object.name }}</strong> d'un montant de <strong>{{ object.amount_total }} €</strong> est toujours en attente de règlement (échéance dépassée depuis le {{ format_date(object.invoice_date_due) }}).</p>
+    body="""<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>Sauf erreur de ma part, votre facture <strong><t t-out="object.name"/></strong> d'un montant de <strong><t t-out="format_amount(object.amount_total, object.currency_id)"/></strong> est toujours en attente de règlement (échéance dépassée depuis le <t t-out="format_date(object.invoice_date_due)"/>).</p>
 <p>Merci de procéder au règlement <strong>sous huitaine</strong>, ou de me revenir si un point bloque ou si vous avez besoin d'un échéancier.</p>
 <p style="text-align: center; margin: 24px 0;">
-  <a href="{{ object.get_portal_url() }}" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Régler maintenant</a>
+  <a t-att-href="object.get_portal_url()" style="display: inline-block; background: #1a1a1a; color: #fff; padding: 12px 28px; text-decoration: none; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; font-size: 12px;">Régler maintenant</a>
 </p>
 <p>Cordialement,<br/>Service Comptabilité — MY.LAB</p>""",
     email_from='"Service Comptabilité MY.LAB" <yoann@mylab-shop.com>',
@@ -158,8 +158,8 @@ upsert_template(
     name="mylab_facture_relance_l3",
     model_id=move_model,
     subject="MISE EN DEMEURE — Facture {{ object.name }} impayée",
-    body="""<p>Bonjour {{ object.partner_id.name }},</p>
-<p>Malgré nos précédentes relances, votre facture <strong>{{ object.name }}</strong> d'un montant de <strong>{{ object.amount_total }} €</strong> reste impayée à ce jour, soit plus de 30 jours après son échéance ({{ format_date(object.invoice_date_due) }}).</p>
+    body="""<p>Bonjour <t t-out="object.partner_id.name"/>,</p>
+<p>Malgré nos précédentes relances, votre facture <strong><t t-out="object.name"/></strong> d'un montant de <strong><t t-out="format_amount(object.amount_total, object.currency_id)"/></strong> reste impayée à ce jour, soit plus de 30 jours après son échéance (<t t-out="format_date(object.invoice_date_due)"/>).</p>
 <p>Conformément à l'article L441-10 du Code de commerce, je vous mets en demeure de procéder au règlement intégral de cette somme dans un <strong>délai de 8 jours</strong> à réception de la présente.</p>
 <p>À défaut de règlement dans ce délai, je serai contraint de transférer votre dossier à notre service de recouvrement, lequel appliquera de plein droit :</p>
 <ul>
