@@ -1,8 +1,0 @@
-{
-  "sections": {
-    "parcours_etiquette": {
-      "type": "ml-parcours-etiquette"
-    }
-  },
-  "order": ["parcours_etiquette"]
-}
