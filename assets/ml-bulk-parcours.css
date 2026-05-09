@@ -237,18 +237,12 @@ body.template-bulk-order [aria-controls="cart-drawer"] {
 .bulk-format-card--selected,
 .bulk-bottle--selected {
   border-color: var(--mlp-ink) !important;
-  background: var(--mlp-ink) !important;
-  color: #fff !important;
   box-shadow: var(--mlp-shadow-md) !important;
 }
-.bulk-card--selected .bulk-card__name,
-.bulk-card--selected .bulk-card__gamme-label {
-  color: #fff !important;
-}
 .bulk-card--selected .bulk-card__check {
-  background: #fff !important;
-  border-color: #fff !important;
-  color: var(--mlp-ink) !important;
+  background: var(--mlp-ink) !important;
+  border-color: var(--mlp-ink) !important;
+  color: #fff !important;
 }
 .bulk-card__name {
   font-family: 'DM Sans', sans-serif !important;
@@ -361,38 +355,39 @@ body.template-bulk-order select:focus {
   border-color: var(--mlp-ink) !important;
 }
 
-/* ── SUMMARY (étape 5) — match recap final dark card ───────────────────── */
+/* ── SUMMARY (étape 5) — cream card pour lisibilité ────────────────────── */
 .bulk-summary {
-  background: var(--mlp-ink) !important;
-  color: #fff !important;
+  background: var(--mlp-cream-2) !important;
+  color: var(--mlp-ink) !important;
+  border: 1px solid var(--mlp-line) !important;
   border-radius: var(--mlp-radius-lg) !important;
   padding: 56px 48px !important;
 }
 .bulk-summary h2,
 .bulk-summary h3,
 .bulk-summary .bulk-step__title {
-  color: #fff !important;
-}
-.bulk-summary .bulk-step__title em {
-  background: #fff !important;
   color: var(--mlp-ink) !important;
 }
-.bulk-summary__brand {
+.bulk-summary .bulk-step__title em {
+  background: var(--mlp-ink) !important;
   color: #fff !important;
+}
+.bulk-summary__brand {
+  color: var(--mlp-ink) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 700 !important;
   letter-spacing: 0.18em !important;
 }
 .bulk-summary__meta {
-  color: #bdb3a3 !important;
+  color: var(--mlp-muted) !important;
   font-family: 'DM Mono', monospace !important;
   font-size: 12px !important;
   letter-spacing: 0.04em !important;
 }
 .bulk-summary__validity {
-  background: rgba(45, 122, 69, 0.18) !important;
-  color: #6fc787 !important;
-  border: 1px solid rgba(111, 199, 135, 0.4) !important;
+  background: rgba(45, 122, 69, 0.1) !important;
+  color: #2d7a45 !important;
+  border: 1px solid rgba(45, 122, 69, 0.35) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-size: 11px !important;
   font-weight: 600 !important;
@@ -401,65 +396,65 @@ body.template-bulk-order select:focus {
   border-radius: 999px !important;
 }
 
-/* Table — cream foreground on dark background */
+/* Table — ink foreground on cream background */
 .bulk-summary__table {
-  color: #d6cdbe !important;
+  color: var(--mlp-ink) !important;
 }
 .bulk-summary__table th {
-  color: #bdb3a3 !important;
+  color: var(--mlp-muted) !important;
   font-family: 'DM Mono', monospace !important;
   font-size: 11px !important;
   font-weight: 400 !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
-  border-bottom-color: #3a3a3a !important;
+  border-bottom-color: var(--mlp-line) !important;
 }
 .bulk-summary__table td {
-  color: #d6cdbe !important;
-  border-bottom-color: #3a3a3a !important;
+  color: var(--mlp-ink) !important;
+  border-bottom-color: var(--mlp-line) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-size: 14px !important;
 }
 .bulk-summary__table .bulk-summary__row--subtotal td {
-  color: #fff !important;
+  color: var(--mlp-ink) !important;
   font-weight: 600 !important;
-  border-top: 1px solid #3a3a3a !important;
+  border-top: 1px solid var(--mlp-line) !important;
 }
 .bulk-summary__table .bulk-summary__row--tva td {
-  color: #bdb3a3 !important;
+  color: var(--mlp-muted) !important;
 }
 .bulk-summary__table .bulk-summary__row--total td {
-  color: #fff !important;
+  color: var(--mlp-ink) !important;
   font-size: 22px !important;
   font-weight: 700 !important;
   letter-spacing: -0.01em !important;
-  border-top: 2px solid #fff !important;
+  border-top: 2px solid var(--mlp-ink) !important;
   padding-top: 16px !important;
 }
 
-/* Conditions block — subtle card inside dark recap */
+/* Conditions block — subtle card sur fond cream */
 .bulk-summary__conditions {
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid #3a3a3a !important;
+  background: var(--mlp-cream) !important;
+  border: 1px solid var(--mlp-line) !important;
   border-radius: var(--mlp-radius) !important;
 }
 .bulk-summary__conditions-title {
-  color: #fff !important;
+  color: var(--mlp-ink) !important;
   font-family: 'DM Sans', sans-serif !important;
   font-weight: 600 !important;
 }
 .bulk-summary__conditions-list li {
-  color: #d6cdbe !important;
+  color: var(--mlp-ink) !important;
   font-family: 'DM Sans', sans-serif !important;
 }
 .bulk-summary__conditions-list li::before {
-  color: #bdb3a3 !important;
+  color: var(--mlp-muted) !important;
 }
 
-/* Form block — keep light card on dark surface so inputs stay readable */
+/* Form block — card cream légèrement plus claire pour distinguer */
 .bulk-summary__form-wrap {
   background: var(--mlp-cream) !important;
-  border: none !important;
+  border: 1px solid var(--mlp-line) !important;
   color: var(--mlp-ink) !important;
 }
 .bulk-summary__form-title {
@@ -478,15 +473,15 @@ body.template-bulk-order select:focus {
   text-transform: uppercase !important;
 }
 
-/* Generic legacy classes that may also need rescue on dark bg */
+/* Generic legacy classes */
 .bulk-summary__row,
 .bulk-summary__line {
-  border-color: #3a3a3a !important;
-  color: #d6cdbe !important;
+  border-color: var(--mlp-line) !important;
+  color: var(--mlp-ink) !important;
 }
 .bulk-summary__total {
-  border-top: 2px solid #fff !important;
-  color: #fff !important;
+  border-top: 2px solid var(--mlp-ink) !important;
+  color: var(--mlp-ink) !important;
 }
 
 /* ── RESPONSIVE ────────────────────────────────────────────────────────── */

@@ -9,7 +9,12 @@
   {%- comment -%} En-tête devis {%- endcomment -%}
   <div class="bulk-summary__header">
     <div class="bulk-summary__logo">
-      {%- if section.settings.logo != blank -%}
+      {%- if shop.brand.logo -%}
+        <img src="{{ shop.brand.logo | image_url: height: 120 }}"
+             srcset="{{ shop.brand.logo | image_url: height: 120 }} 1x, {{ shop.brand.logo | image_url: height: 240 }} 2x"
+             alt="{{ shop.name | escape }}"
+             width="60" height="60" loading="lazy">
+      {%- elsif section.settings.logo != blank -%}
         <img src="{{ section.settings.logo | image_url: width: 120 }}" alt="{{ shop.name }}" width="60" height="60" loading="lazy">
       {%- else -%}
         <span class="bulk-summary__brand">MY.LAB</span>
@@ -20,7 +25,7 @@
       <div class="bulk-summary__meta">
         <span id="bulk-summary-ref">Réf. : —</span>
         <span id="bulk-summary-date">Date : —</span>
-        <span class="bulk-summary__validity">Devis valable 3 mois</span>
+        <span class="bulk-summary__validity">Devis valable 1 mois à la date d'envoi</span>
       </div>
     </div>
   </div>
