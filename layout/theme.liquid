@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#1a1a1a">
+    <meta name="google-site-verification" content="2KLrp9CpaNjlqNbAeiqj10KHgH5LOCLl_1I21tZcROA">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
@@ -182,8 +183,8 @@
     <div class="transition-body">
       {% sections 'header-group' %}
 
-      {%- comment -%} Parcours MY.LAB — render shell sur les paths concernés {%- endcomment -%}
-      {%- if page.handle == 'creons-ensemble-votre-marque' -%}
+      {%- comment -%} Parcours multi-pages MY.LAB — render shell sur les paths concernés {%- endcomment -%}
+      {%- if page.handle == 'creons-ensemble-votre-marque' or page.handle == 'parcours-dossier' or page.handle == 'parcours-etiquette' or page.handle == 'parcours-produits' or page.handle == 'parcours-recap' -%}
         {% render 'ml-parcours-shell' %}
       {%- elsif page.handle == 'vous-cherchez-a-commander-en-gros-volume-cest-par-ici' or template.suffix == 'bulk-order' -%}
         {% render 'ml-bulk-shell' %}

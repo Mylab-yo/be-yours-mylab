@@ -85,25 +85,30 @@
     assign ml_tier_data = '6:690,12:660,24:630,48:600'
   endif
 
-  assign cat = 'shampoing'
+  assign primary_cat = 'shampoing'
   if extra
-    assign cat = 'bac1000'
+    assign primary_cat = 'bac1000'
+  elsif tag_str contains 'dejauniss' or tag_str contains 'coloristeur' or title_lc contains 'coloristeur' or title_lc contains 'déjauniss' or title_lc contains 'jaune' or title_lc contains 'repigment'
+    assign primary_cat = 'shampoing-rep'
+  elsif tag_str contains 'homme' or tag_str contains 'herborist' or tag_str contains 'barber' or title_lc contains 'barbe' or title_lc contains 'gel douche'
+    assign primary_cat = 'homme'
   elsif tag_str contains 'masque' or title_lc contains 'masque'
-    assign cat = 'masque'
-  elsif tag_str contains 'creme' or tag_str contains 'crème' or title_lc contains 'crème'
-    assign cat = 'creme'
-  elsif tag_str contains 'finition' or title_lc contains 'sérum' or title_lc contains 'serum'
-    assign cat = 'finition'
-  elsif tag_str contains 'homme' or tag_str contains 'herborist' or title_lc contains 'barbe' or title_lc contains 'gel douche'
-    assign cat = 'homme'
-  elsif tag_str contains 'dejauniss' or title_lc contains 'jaune' or title_lc contains 'repigment'
-    assign cat = 'shampoing-rep'
+    assign primary_cat = 'masque'
+  elsif tag_str contains 'crème' or tag_str contains 'creme' or title_lc contains 'crème' or title_lc contains 'creme'
+    assign primary_cat = 'creme'
+  elsif tag_str contains 'finition' or tag_str contains 'sérum' or tag_str contains 'serum' or tag_str contains 'huile' or tag_str contains 'cire' or tag_str contains 'spray' or title_lc contains 'sérum' or title_lc contains 'serum' or title_lc contains 'huile' or title_lc contains 'cire' or title_lc contains 'spray' or title_lc contains 'bain'
+    assign primary_cat = 'finition'
+  endif
+
+  assign cat_list = primary_cat
+  if ml_f == '1000' and primary_cat != 'bac1000'
+    assign cat_list = primary_cat | append: ' bac1000'
   endif
 
   assign variant = product.variants.first
 -%}
 
-<div class="ml-parcours__product-card" data-variant-id="{{ variant.id }}" data-cat="{{ cat }}" data-tier-data="{{ ml_tier_data }}">
+<div class="ml-parcours__product-card" data-handle="{{ product.handle }}" data-variant-id="{{ variant.id }}" data-cat="{{ cat_list }}" data-tier-data="{{ ml_tier_data }}">
   <div class="ml-parcours__product-card-img">
     {%- if product.featured_image -%}
       <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}" loading="lazy">
