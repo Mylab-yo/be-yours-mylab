@@ -1,0 +1,429 @@
+{
+  "today": "2026-05-06",
+  "expiry_cutoff": "2025-05-06",
+  "forfait_standard_active": [
+    [
+      "blandine01bur@gmail.com",
+      "2026-01-27",
+      "shipped"
+    ],
+    [
+      "contact@beauty-by-rs.fr",
+      "2026-04-13",
+      "shipped"
+    ],
+    [
+      "flavyiec@gmail.com",
+      "2025-12-15",
+      "partial-shipped"
+    ],
+    [
+      "jade.pratberthomier@gmail.com",
+      "2026-04-09",
+      "shipped"
+    ],
+    [
+      "lamiaalkhadir@icloud.com",
+      "2026-01-05",
+      "completed"
+    ],
+    [
+      "latelier.maisoncapillaire@gmail.com",
+      "2026-03-10",
+      "completed"
+    ],
+    [
+      "nellie-bon-13@hotmail.fr",
+      "2026-02-11",
+      "shipped"
+    ],
+    [
+      "zakia.seraiche@gmail.com",
+      "2026-03-26",
+      "partial-shipped"
+    ]
+  ],
+  "forfait_standard_expired": [],
+  "forfait_standard_undated": [],
+  "forfait_couleur_active": [
+    [
+      "a.arjonilla@laposte.net",
+      "2025-10-14",
+      "delivered"
+    ],
+    [
+      "anais.harpers@gmail.com",
+      "2025-11-12",
+      "delivered"
+    ],
+    [
+      "coleenverret@gmail.com",
+      "2025-08-06",
+      "delivered"
+    ],
+    [
+      "falcobarbersas@gmail.com",
+      "2025-10-27",
+      "completed"
+    ],
+    [
+      "fev.vieiraa@gmail.com",
+      "2025-08-05",
+      "on-hold"
+    ],
+    [
+      "groupearikana@gmail.com",
+      "2026-02-05",
+      "shipped"
+    ],
+    [
+      "joslayhair@gmail.com",
+      "2025-10-31",
+      "completed"
+    ],
+    [
+      "justineflahat56@hotmail.com",
+      "2025-09-09",
+      "completed"
+    ],
+    [
+      "maarionvienne95@hotmail.fr",
+      "2025-10-29",
+      "partial-shipped"
+    ],
+    [
+      "maisonsourdeau@gmail.com",
+      "2025-08-26",
+      "delivered"
+    ],
+    [
+      "mariam.aboudou.bikele@gmail.com",
+      "2025-11-18",
+      "completed"
+    ],
+    [
+      "martinezcaroline.pro06@gmail.com",
+      "2025-12-30",
+      "shipped"
+    ],
+    [
+      "middasfj@gmail.com",
+      "2025-11-12",
+      "completed"
+    ],
+    [
+      "stancoiffure78@gmail.com",
+      "2025-09-12",
+      "partial-shipped"
+    ],
+    [
+      "steffyreynaud@hotmail.com",
+      "2025-10-08",
+      "delivered"
+    ],
+    [
+      "yannick.rob1@free.fr",
+      "2025-12-13",
+      "completed"
+    ]
+  ],
+  "forfait_couleur_expired": [],
+  "forfait_couleur_undated": [],
+  "tagging_plan": {
+    "a.arjonilla@laposte.net": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339910320462",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "anais.harpers@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339910058318",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "blandine01bur@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339913335118",
+        "existing_tags": [
+          "customer",
+          "dossier-valide"
+        ]
+      }
+    },
+    "coleenverret@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339916251470",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "contact@beauty-by-rs.fr": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339937124686",
+        "existing_tags": [
+          "customer"
+        ]
+      }
+    },
+    "falcobarbersas@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339918807374",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "fev.vieiraa@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339918971214",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "flavyiec@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339919987022",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "groupearikana@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339921199438",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "jade.pratberthomier@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": false
+      }
+    },
+    "joslayhair@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339924181326",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "justineflahat56@hotmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339924705614",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "lamiaalkhadir@icloud.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339926114638",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "latelier.maisoncapillaire@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339937485134",
+        "existing_tags": [
+          "customer"
+        ]
+      }
+    },
+    "maarionvienne95@hotmail.fr": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339930472782",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "maisonsourdeau@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339929260366",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "mariam.aboudou.bikele@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": false
+      }
+    },
+    "martinezcaroline.pro06@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339914187086",
+        "existing_tags": [
+          "customer",
+          "dossier-valide"
+        ]
+      }
+    },
+    "middasfj@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339931783502",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "nellie-bon-13@hotmail.fr": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339932963150",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "stancoiffure78@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339922411854",
+        "existing_tags": [
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    },
+    "steffyreynaud@hotmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339937780046",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "yannick.rob1@free.fr": {
+      "tags_to_add_merge": [
+        "abo-impression-couleur"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339940335950",
+        "existing_tags": [
+          "pro"
+        ]
+      }
+    },
+    "zakia.seraiche@gmail.com": {
+      "tags_to_add_merge": [
+        "abo-impression-noire"
+      ],
+      "shopify": {
+        "exists": true,
+        "id": "gid://shopify/Customer/10339917791566",
+        "existing_tags": [
+          "customer",
+          "dossier-valide",
+          "pro"
+        ]
+      }
+    }
+  }
+}

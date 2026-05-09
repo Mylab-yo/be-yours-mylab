@@ -1,0 +1,32 @@
+
+=== Run 2026-05-09 09:42:16 DRY-RUN ===
+
+=== Run 2026-05-09 09:42:21 DRY-RUN ===
+SUMMARY: {'NOOP': 3, 'CREATE': 13, 'REPLACE': 11, 'KEEP_EXISTING': 3, 'TODO_MANUAL': 0, 'ERROR': 0}
+
+=== Run 2026-05-09 09:42:32 APPLY ===
+REPLACE /laboratoire-cosmetique-marque-blanche: / → /pages/laboratoire-cosmetique-marque-blanche
+REPLACE /testez-les-produits: /pages/boutique-testeurs → /pages/testez-les-produits
+REPLACE /laboratoire-cosmetique-lyon: /pages/contact → /pages/laboratoire-cosmetique-lyon
+REPLACE /creme-capillaire-professionnelle-marque-blanche: /pages/boutique-testeurs → /pages/creme-capillaire-professionnelle-marque-blanche
+REPLACE /laboratoire-cosmetique-a-marseille: /pages/contact → /pages/laboratoire-cosmetique-a-marseille
+CREATE /contact → /pages/contact
+REPLACE /shampoing-en-marque-blanche: /pages/boutique-testeurs → /pages/shampoing-en-marque-blanche
+REPLACE /produit-de-finition-coiffure-marque-blanche: /pages/boutique-testeurs → /pages/produit-de-finition-coiffure-marque-blanche
+CREATE /laboratoire-cosmetique-paca → /pages/laboratoire-cosmetique-paca
+CREATE /huile-seche-cheveux-marque-blanche → /pages/huile-seche-cheveux-marque-blanche
+REPLACE /serum-cheveux-marque-blanche: /pages/boutique-testeurs → /pages/serum-cheveux-marque-blanche
+REPLACE /laboratoire-cosmetique-aix-en-provence: /pages/contact → /pages/laboratoire-cosmetique-aix-en-provence
+CREATE /catalogue-prix-et-formules-mylab → /pages/catalogue-prix-et-formules-mylab
+CREATE /rejoignez-nous → /pages/rejoignez-nous
+CREATE /produit/shampoing-protecteur-de-couleur-testeur → /products/shampoing-protecteur-de-couleur-testeur
+CREATE /produit/shampoing-purifiant-testeur → /products/shampoing-purifiant-testeur
+CREATE /produit/shampoing-boucles-testeur → /products/shampoing-boucles-testeur
+CREATE /produit/shampoing-lissant-testeur → /products/shampoing-lissant-testeur
+CREATE /produit/masque-intense-testeur → /products/masque-intense-testeur
+REPLACE /notre-histoire-mylab: /pages/les-etapes-de-creation-de-marque → /pages/notre-histoire-mylab
+CREATE /les-accessoires-my-lab → /pages/les-accessoires-my-lab
+REPLACE /masque-capillaire-professionnel-marque-blanche: /pages/boutique-testeurs → /pages/masque-capillaire-professionnel-marque-blanche
+CREATE /produit/creme-volume → /products/creme-volume
+CREATE /produit/frais-dimpression-etiquettes → /products/frais-dimpression-etiquettes
+SUMMARY: {'NOOP': 3, 'CREATE': 13, 'REPLACE': 11, 'KEEP_EXISTING': 3, 'TODO_MANUAL': 0, 'ERROR': 0}

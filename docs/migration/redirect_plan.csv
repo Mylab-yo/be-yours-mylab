@@ -1,0 +1,219 @@
+priority,action,kind,wp_path,gsc_clicks,gsc_impressions,existing_redirect,suggested_target,needs_yoann,note
+P1_HOT,REPLACE,page,/laboratoire-cosmetique-marque-blanche,146,4892,/,/pages/laboratoire-cosmetique-marque-blanche,NO,
+P1_HOT,KEEP_EXISTING,page,/creer-sa-marque-de-cosmetique-capillaire-profesionnel-en-ligne,125,2288,/pages/les-etapes-de-creation-de-marque,,YES,WP page without Shopify equivalent
+P1_HOT,REPLACE,page,/testez-les-produits,46,1136,/pages/boutique-testeurs,/pages/testez-les-produits,NO,
+P1_HOT,REPLACE,page,/laboratoire-cosmetique-lyon,35,1634,/pages/contact,/pages/laboratoire-cosmetique-lyon,NO,
+P1_HOT,REPLACE,page,/creme-capillaire-professionnelle-marque-blanche,33,1112,/pages/boutique-testeurs,/pages/creme-capillaire-professionnelle-marque-blanche,NO,
+P1_HOT,REPLACE,page,/laboratoire-cosmetique-a-marseille,22,596,/pages/contact,/pages/laboratoire-cosmetique-a-marseille,NO,
+P1_HOT,CREATE,page,/contact,15,504,,/pages/contact,NO,
+P1_HOT,REPLACE,page,/shampoing-en-marque-blanche,11,278,/pages/boutique-testeurs,/pages/shampoing-en-marque-blanche,NO,
+P1_HOT,REPLACE,page,/produit-de-finition-coiffure-marque-blanche,11,626,/pages/boutique-testeurs,/pages/produit-de-finition-coiffure-marque-blanche,NO,
+P1_HOT,CREATE,page,/laboratoire-cosmetique-paca,11,387,,/pages/laboratoire-cosmetique-paca,NO,
+P1_HOT,CREATE,page,/huile-seche-cheveux-marque-blanche,10,2540,,/pages/huile-seche-cheveux-marque-blanche,NO,
+P1_HOT,REPLACE,page,/serum-cheveux-marque-blanche,10,362,/pages/boutique-testeurs,/pages/serum-cheveux-marque-blanche,NO,
+P1_HOT,NOOP,page,/la-boutique-my-lab,10,564,/pages/la-boutique-my-lab,/pages/la-boutique-my-lab,NO,
+P1_HOT,KEEP_EXISTING,product,/la-boutique-my-lab,10,564,/pages/la-boutique-my-lab,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/huile-a-barbe-au-cbd,8,217,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,REPLACE,page,/laboratoire-cosmetique-aix-en-provence,6,541,/pages/contact,/pages/laboratoire-cosmetique-aix-en-provence,NO,
+P2_RANKED,TODO_MANUAL,page,/temoignages-clients-2,5,94,,,YES,WP page without Shopify equivalent
+P2_RANKED,CREATE,page,/catalogue-prix-et-formules-mylab,5,60,,/pages/catalogue-prix-et-formules-mylab,NO,
+P2_RANKED,TODO_MANUAL,product_cat,/categorie-produit/gamme-barber,5,151,,,YES,WP category without direct Shopify collection match
+P2_RANKED,TODO_MANUAL,product,/produit/pack-barber,4,620,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-blond-vanille-testeur-2,3,265,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,CREATE,page,/rejoignez-nous,2,96,,/pages/rejoignez-nous,NO,
+P2_RANKED,NOOP,page,/faq-my-lab,2,131,/pages/faq-my-lab,/pages/faq-my-lab,NO,
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-volume-2,2,9,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,NOOP,page,/modeles-etiquettes,1,1704,/pages/modeles-etiquettes,/pages/modeles-etiquettes,NO,
+P2_RANKED,KEEP_EXISTING,page,/les-etapes-pour-creer-sa-marque-de-cosmetique-capillaire,1,107,/pages/les-etapes-de-creation-de-marque,,YES,WP page without Shopify equivalent
+P2_RANKED,TODO_MANUAL,product,/produit/baume-matifiant-a-largile-verte-testeur,1,62,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-chocolat-testeur,1,134,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-harepulpe-testeur,1,11,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,CREATE,product,/produit/shampoing-protecteur-de-couleur-testeur,1,16,,/products/shampoing-protecteur-de-couleur-testeur,NO,
+P2_RANKED,CREATE,product,/produit/shampoing-purifiant-testeur,1,14,,/products/shampoing-purifiant-testeur,NO,
+P2_RANKED,CREATE,product,/produit/shampoing-boucles-testeur,1,12,,/products/shampoing-boucles-testeur,NO,
+P2_RANKED,CREATE,product,/produit/shampoing-lissant-testeur,1,13,,/products/shampoing-lissant-testeur,NO,
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-boucles-1l,1,5,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/creme-lissante-2,1,5,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/creme-ha-repulpe-2,1,70,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/shampoing-1l-coloristeur-blond-vanille,1,16,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,TODO_MANUAL,product,/produit/masque-capillaire-pour-homme-au-cbd,1,11,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P2_RANKED,CREATE,product,/produit/masque-intense-testeur,1,6,,/products/masque-intense-testeur,NO,
+P2_RANKED,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/cremes,1,1,,,YES,WP category without direct Shopify collection match
+P2_RANKED,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-ha-repulpe,1,1,,,YES,WP category without direct Shopify collection match
+P3_INDEXED,REPLACE,page,/notre-histoire-mylab,0,64,/pages/les-etapes-de-creation-de-marque,/pages/notre-histoire-mylab,NO,
+P3_INDEXED,CREATE,page,/les-accessoires-my-lab,0,100,,/pages/les-accessoires-my-lab,NO,
+P3_INDEXED,REPLACE,page,/masque-capillaire-professionnel-marque-blanche,0,126,/pages/boutique-testeurs,/pages/masque-capillaire-professionnel-marque-blanche,NO,
+P3_INDEXED,TODO_MANUAL,product,/produit/shampoing-dejaunisseur-platine-2,0,59,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P3_INDEXED,TODO_MANUAL,product,/produit/pate-texturisante-50ml,0,50,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P3_INDEXED,CREATE,product,/produit/creme-volume,0,68,,/products/creme-volume,NO,
+P3_INDEXED,CREATE,product,/produit/frais-dimpression-etiquettes,0,64,,/products/frais-dimpression-etiquettes,NO,
+P3_INDEXED,TODO_MANUAL,product,/produit/shampoing-cuivre-intense-testeur,0,185,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,page,/commander,0,0,,,YES,WP page without Shopify equivalent
+P4_LONGTAIL,TODO_MANUAL,page,/mon-compte,0,0,,,YES,WP page without Shopify equivalent
+P4_LONGTAIL,CREATE,page,/partez-a-la-decouverte-de-votre-marque,0,0,,/pages/partez-a-la-decouverte-de-votre-marque,NO,
+P4_LONGTAIL,TODO_MANUAL,page,/pack-technique,0,0,,,YES,WP page without Shopify equivalent
+P4_LONGTAIL,TODO_MANUAL,page,/request-quote,0,0,,,YES,WP page without Shopify equivalent
+P4_LONGTAIL,TODO_MANUAL,page,/design-editor,0,0,,,YES,WP page without Shopify equivalent
+P4_LONGTAIL,CREATE,page,/creation-dossier-cosmetologique,0,0,,/pages/creation-dossier-cosmetologique,NO,
+P4_LONGTAIL,CREATE,product,/produit/fresh,0,16,,/products/fresh,NO,
+P4_LONGTAIL,CREATE,product,/produit/number,0,13,,/products/number,NO,
+P4_LONGTAIL,CREATE,product,/produit/azul,0,4,,/products/azul,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/gel-a-raser,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/coffret-decouverte-barber,0,15,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/baume-apaisant,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-finesse,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/duo-purifiant,0,4,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-protecteur-de-couleur,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-lissant,0,4,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-boucles,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-nourrissant,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-volume,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/trio-ha-repulpe,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-and-yellow,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-prestige,0,4,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-aquarel,0,9,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-green-floral,0,3,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-gentleman,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-feuillage-graphique,0,15,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-zebra,0,6,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/pack-de-revente,0,10,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/offre-pack-complet,0,25,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/video-promo,0,3,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/catalogue-personnalise,0,0,,/products/catalogue-personnalise,NO,
+P4_LONGTAIL,CREATE,product,/produit/shampoing-gel-douche-testeur,0,43,,/products/shampoing-gel-douche-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/cire-brillante-de-finition-en-50-ml,0,3,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/baume-matifiant,0,21,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/cire-mat-50ml,0,19,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/pate-texturisante-a-largile-blanche-testeur,0,23,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/cire-gummy-50ml,0,6,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/creation-de-codes-barres-professionnels,0,28,,/products/creation-de-codes-barres-professionnels,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/coffret-decouverte,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-cuivre-intense-testeur,0,2,,/products/masque-cuivre-intense-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-chocolat-testeur,0,0,,/products/masque-chocolat-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/forfait-dimpression-standard,0,0,,/products/forfait-dimpression-standard,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-coloristeur-cuivre-intense,0,3,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-coloristeur-marron-noisette,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-coloristeur-chocolat,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-coloristeur-blond-vanillle,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-coloristeur-blond-soleil,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-1l-dejaunisseur-platine,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-1l-coloristeur-chocolat,0,8,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-coloristeur-chocolat,0,0,,/products/masque-coloristeur-chocolat,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-coloristeur-marron-noisette,0,0,,/products/masque-coloristeur-marron-noisette,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-coloristeur-cuivre,0,7,,/products/masque-coloristeur-cuivre,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-coloristeur-chocolat,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/shampoing-coloristeur-blond-soleil,0,13,,/products/shampoing-coloristeur-blond-soleil,NO,
+P4_LONGTAIL,CREATE,product,/produit/creme-lissante-testeur,0,1,,/products/creme-lissante-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/creme-ha-repulpe-testeur,0,8,,/products/creme-ha-repulpe-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/spray-texturisant-testeur,0,16,,/products/spray-texturisant-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/nourrissante-testeur,0,14,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/creme-boucles-testeur,0,2,,/products/creme-boucles-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/creme-protecteur-de-couleur-testeur,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/shampoing-nourrissant-testeur,0,6,,/products/shampoing-nourrissant-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/creme-volume-testeur,0,5,,/products/creme-volume-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/shampoing-volume-testeur,0,5,,/products/shampoing-volume-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-nourrissant-testeur,0,1,,/products/masque-nourrissant-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-boucles-testeur,0,4,,/products/masque-boucles-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-lissant-testeur,0,3,,/products/masque-lissant-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-protecteur-de-couleur-testeur,0,0,,/products/masque-protecteur-de-couleur-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-ha-repulpe-testeur,0,6,,/products/masque-ha-repulpe-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/duo-produits-de-finition,0,17,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,NOOP,product,/produit/shampoing-nourrissant,0,0,/products/shampoing-nourrissant,/products/shampoing-nourrissant,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/forfait-impression-couleur,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-dejaunisseur-platine,0,0,,/products/masque-dejaunisseur-platine,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/adhesion-mylab,0,14,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquettes-sur-mesure,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-blond-soleil-testeur,0,1,,/products/masque-blond-soleil-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-platine-testeur,0,8,,/products/masque-platine-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-coloristeur-blond-soleil,0,3,,/products/masque-coloristeur-blond-soleil,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-coloristeur-blond-vanille,0,15,,/products/masque-coloristeur-blond-vanille,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-ha-repulpe-1-l,0,6,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-nourrissant-1-l,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-nourrissant-1-l,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-volume-1-l,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-boucles-1-l,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-ha-repulpe-1l,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-protecteur-de-couleur-1-l,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-lissant-1-l,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-lissant-1l,0,3,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-purifiant-1l,0,7,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/spray-texturisant-2,0,12,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/creme-nourrissante,0,5,,/products/creme-nourrissante,NO,
+P4_LONGTAIL,CREATE,product,/produit/creme-protectrice-de-couleur,0,43,,/products/creme-protectrice-de-couleur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/masque-protecteur,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/shampoing-purifiant,0,0,,/products/shampoing-purifiant,NO,
+P4_LONGTAIL,REPLACE,product,/produit/shampoing-lissant,0,1,/products/shampoing-lissant-testeur,/products/shampoing-lissant,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/creme-boucle,0,7,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-volume-1l,0,12,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,REPLACE,product,/produit/masque-nourrissant,0,2,/products/masque-nourrissant-testeur,/products/masque-nourrissant,NO,
+P4_LONGTAIL,REPLACE,product,/produit/masque-lissant,0,11,/products/masque-lissant-testeur,/products/masque-lissant,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-boucles,0,2,,/products/masque-boucles,NO,
+P4_LONGTAIL,CREATE,product,/produit/huile-a-barbe-testeur,0,22,,/products/huile-a-barbe-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/bain-miraculeux,0,11,,/products/bain-miraculeux,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/etiquette-ornement,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-reparateur-sans-rincage,0,0,,/products/masque-reparateur-sans-rincage,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-reparateur-sans-rincage-testeur,0,16,,/products/masque-reparateur-sans-rincage-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/shampoing-dejaunisseur-platine,0,8,,/products/shampoing-dejaunisseur-platine,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-blond-vanille-testeur,0,4,,/products/masque-blond-vanille-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/shampoing-coloristeur-blond-vanille,0,25,,/products/shampoing-coloristeur-blond-vanille,NO,
+P4_LONGTAIL,CREATE,product,/produit/shampoing-blond-vanille-testeur,0,1,,/products/shampoing-blond-vanille-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-1l-coloristeur-blond-soleil,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-marron-noisette-testeur,0,24,,/products/masque-marron-noisette-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-coloristeur-marron-noisette,0,12,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-1l-coloristeur-marron-noisette,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-marron-noisette-testeur,0,2,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-1l-coloristeur-cuivre,0,0,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-coloristeur-cuivre,0,41,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-protecteur-de-couleur-1l,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-volume,0,21,,/products/masque-volume,NO,
+P4_LONGTAIL,CREATE,product,/produit/masque-volume-testeur,0,2,,/products/masque-volume-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-1l-dejaunisseur-platine,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/masque-ha-repulpe,0,17,,/products/masque-ha-repulpe,NO,
+P4_LONGTAIL,CREATE,product,/produit/serum-finition-ultime-testeur,0,8,,/products/serum-finition-ultime-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/serum-finition-ultime,0,3,,/products/serum-finition-ultime,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-repulpe,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-boucle,0,1,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/shampoing-protecteur-de-couleur,0,4,,/products/shampoing-protecteur-de-couleur,NO,
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-gel-douche-1-l,0,4,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,TODO_MANUAL,product,/produit/shampoing-gel-douche-homme,0,14,,,YES,WP product without direct Shopify handle match — needs Yoann mapping
+P4_LONGTAIL,CREATE,product,/produit/serum-barbe-testeur,0,21,,/products/serum-barbe-testeur,NO,
+P4_LONGTAIL,CREATE,product,/produit/serum-barbe,0,9,,/products/serum-barbe,NO,
+P4_LONGTAIL,CREATE,product,/produit/bain-miraculeux-testeur,0,8,,/products/bain-miraculeux-testeur,NO,
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/coloristeur,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/coloristeur-masque-1l,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/coloristeur-masque-200-ml,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/coloristeur-shampoing-1l,0,3,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/coloristeur-shampoing-200-ml,0,2,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/etiquette-personnalisable,0,1,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte,0,2,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/huiles,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/le-gel-apres-rasage,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/les-baumes,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/les-cires,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-produit,0,4,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/masque-1l,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/produits-de-finitions,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/serums,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/shampoing-1l,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-coloristeur-masque,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-coloristeur-shampoing,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-creme,0,27,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-masque,0,2,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-shampoing,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/testeur-soin,0,5,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-boucles,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-protecteurs-de-couleur,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-lissants,0,1,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-nourrissants,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-purifiants,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-sprays,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/les-volumes,0,5,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/marketing-personnalisable,0,9,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/masques,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,KEEP_EXISTING,product_cat,/categorie-produit/pack-de-lancement,0,27,/collections/all,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_cat,/categorie-produit/gamme-mixte/shampoings,0,0,,,YES,WP category without direct Shopify collection match
+P4_LONGTAIL,TODO_MANUAL,product_tag,/etiquette-produit/200ml,0,0,,,YES,WP tag — usually map to /collections/all or thematic collection
+P4_LONGTAIL,TODO_MANUAL,product_tag,/etiquette-produit/50ml,0,18,,,YES,WP tag — usually map to /collections/all or thematic collection
+P4_LONGTAIL,CREATE,product_tag,/etiquette-produit/coiffants,0,0,,/collections/coiffants,NO,
+P4_LONGTAIL,TODO_MANUAL,product_tag,/etiquette-produit/masque-1l,0,0,,,YES,WP tag — usually map to /collections/all or thematic collection
+P4_LONGTAIL,TODO_MANUAL,product_tag,/etiquette-produit/shampoing-1l,0,25,,,YES,WP tag — usually map to /collections/all or thematic collection

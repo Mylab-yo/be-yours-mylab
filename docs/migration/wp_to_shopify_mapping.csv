@@ -1,0 +1,220 @@
+kind,wp_path,gsc_clicks,gsc_impressions,shopify_handle_match,suggested_target,existing_redirect,status,action
+page,/,435,8822,,/,,homepage,"NONE (homepage, DNS swap handles it)"
+page,/laboratoire-cosmetique-marque-blanche,146,4892,laboratoire-cosmetique-marque-blanche,/pages/laboratoire-cosmetique-marque-blanche,/,page_match,"CONFLICT — exists pointing to /, recommend /pages/laboratoire-cosmetique-marque-blanche"
+page,/creer-sa-marque-de-cosmetique-capillaire-profesionnel-en-ligne,125,2288,creer-sa-marque-de-cosmetique-capillaire-profesionnel-en-ligne,,/pages/les-etapes-de-creation-de-marque,page_missing,KEEP existing → /pages/les-etapes-de-creation-de-marque
+page,/testez-les-produits,46,1136,testez-les-produits,/pages/testez-les-produits,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/testez-les-produits"
+page,/laboratoire-cosmetique-lyon,35,1634,laboratoire-cosmetique-lyon,/pages/laboratoire-cosmetique-lyon,/pages/contact,page_match,"CONFLICT — exists pointing to /pages/contact, recommend /pages/laboratoire-cosmetique-lyon"
+page,/creme-capillaire-professionnelle-marque-blanche,33,1112,creme-capillaire-professionnelle-marque-blanche,/pages/creme-capillaire-professionnelle-marque-blanche,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/creme-capillaire-professionnelle-marque-blanche"
+page,/laboratoire-cosmetique-a-marseille,22,596,laboratoire-cosmetique-a-marseille,/pages/laboratoire-cosmetique-a-marseille,/pages/contact,page_match,"CONFLICT — exists pointing to /pages/contact, recommend /pages/laboratoire-cosmetique-a-marseille"
+page,/contact,15,504,contact,/pages/contact,,page_match,CREATE → /pages/contact
+page,/laboratoire-cosmetique-paca,11,387,laboratoire-cosmetique-paca,/pages/laboratoire-cosmetique-paca,,page_match,CREATE → /pages/laboratoire-cosmetique-paca
+page,/produit-de-finition-coiffure-marque-blanche,11,626,produit-de-finition-coiffure-marque-blanche,/pages/produit-de-finition-coiffure-marque-blanche,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/produit-de-finition-coiffure-marque-blanche"
+page,/shampoing-en-marque-blanche,11,278,shampoing-en-marque-blanche,/pages/shampoing-en-marque-blanche,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/shampoing-en-marque-blanche"
+page,/huile-seche-cheveux-marque-blanche,10,2540,huile-seche-cheveux-marque-blanche,/pages/huile-seche-cheveux-marque-blanche,,page_match,CREATE → /pages/huile-seche-cheveux-marque-blanche
+page,/la-boutique-my-lab,10,564,la-boutique-my-lab,/pages/la-boutique-my-lab,/pages/la-boutique-my-lab,page_match,OK
+page,/serum-cheveux-marque-blanche,10,362,serum-cheveux-marque-blanche,/pages/serum-cheveux-marque-blanche,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/serum-cheveux-marque-blanche"
+product,/la-boutique-my-lab,10,564,,,/pages/la-boutique-my-lab,unknown,KEEP existing → /pages/la-boutique-my-lab
+product,/produit/huile-a-barbe-au-cbd,8,217,huile-a-barbe-au-cbd,/products/huile-a-barbe-au-cbd,,product_missing,CREATE → /products/huile-a-barbe-au-cbd
+page,/laboratoire-cosmetique-aix-en-provence,6,541,laboratoire-cosmetique-aix-en-provence,/pages/laboratoire-cosmetique-aix-en-provence,/pages/contact,page_match,"CONFLICT — exists pointing to /pages/contact, recommend /pages/laboratoire-cosmetique-aix-en-provence"
+page,/catalogue-prix-et-formules-mylab,5,60,catalogue-prix-et-formules-mylab,/pages/catalogue-prix-et-formules-mylab,,page_match,CREATE → /pages/catalogue-prix-et-formules-mylab
+page,/temoignages-clients-2,5,94,temoignages-clients-2,,,page_missing,INVESTIGATE — no target found
+product_cat,/categorie-produit/gamme-barber,5,151,gamme-barber,/collections/gamme-barber,,collection_missing,CREATE → /collections/gamme-barber
+product,/produit/pack-barber,4,620,pack-barber,/products/pack-barber,,product_missing,CREATE → /products/pack-barber
+product,/produit/shampoing-blond-vanille-testeur-2,3,265,shampoing-blond-vanille-testeur-2,/products/shampoing-blond-vanille-testeur-2,,product_missing,CREATE → /products/shampoing-blond-vanille-testeur-2
+page,/faq-my-lab,2,131,faq-my-lab,/pages/faq-my-lab,/pages/faq-my-lab,page_match,OK
+page,/rejoignez-nous,2,96,rejoignez-nous,/pages/rejoignez-nous,,page_match,CREATE → /pages/rejoignez-nous
+product,/produit/shampoing-volume-2,2,9,shampoing-volume-2,/products/shampoing-volume-2,,product_missing,CREATE → /products/shampoing-volume-2
+page,/les-etapes-pour-creer-sa-marque-de-cosmetique-capillaire,1,107,les-etapes-pour-creer-sa-marque-de-cosmetique-capillaire,,/pages/les-etapes-de-creation-de-marque,page_missing,KEEP existing → /pages/les-etapes-de-creation-de-marque
+page,/modeles-etiquettes,1,1704,modeles-etiquettes,/pages/modeles-etiquettes,/pages/modeles-etiquettes,page_match,OK
+product,/produit/baume-matifiant-a-largile-verte-testeur,1,62,baume-matifiant-a-largile-verte-testeur,/products/baume-matifiant-a-largile-verte-testeur,,product_missing,CREATE → /products/baume-matifiant-a-largile-verte-testeur
+product,/produit/creme-ha-repulpe-2,1,70,creme-ha-repulpe-2,/products/creme-ha-repulpe-2,,product_missing,CREATE → /products/creme-ha-repulpe-2
+product,/produit/creme-lissante-2,1,5,creme-lissante-2,/products/creme-lissante-2,,product_missing,CREATE → /products/creme-lissante-2
+product,/produit/masque-capillaire-pour-homme-au-cbd,1,11,masque-capillaire-pour-homme-au-cbd,/products/masque-capillaire-pour-homme-au-cbd,,product_missing,CREATE → /products/masque-capillaire-pour-homme-au-cbd
+product,/produit/masque-intense-testeur,1,6,masque-intense-testeur,/products/masque-intense-testeur,,product_match,CREATE → /products/masque-intense-testeur
+product,/produit/shampoing-1l-coloristeur-blond-vanille,1,16,shampoing-1l-coloristeur-blond-vanille,/products/shampoing-1l-coloristeur-blond-vanille,,product_missing,CREATE → /products/shampoing-1l-coloristeur-blond-vanille
+product,/produit/shampoing-boucles-1l,1,5,shampoing-boucles-1l,/products/shampoing-boucles-1l,,product_missing,CREATE → /products/shampoing-boucles-1l
+product,/produit/shampoing-boucles-testeur,1,12,shampoing-boucles-testeur,/products/shampoing-boucles-testeur,,product_match,CREATE → /products/shampoing-boucles-testeur
+product,/produit/shampoing-chocolat-testeur,1,134,shampoing-chocolat-testeur,/products/shampoing-chocolat-testeur,,product_missing,CREATE → /products/shampoing-chocolat-testeur
+product,/produit/shampoing-harepulpe-testeur,1,11,shampoing-harepulpe-testeur,/products/shampoing-harepulpe-testeur,,product_missing,CREATE → /products/shampoing-harepulpe-testeur
+product,/produit/shampoing-lissant-testeur,1,13,shampoing-lissant-testeur,/products/shampoing-lissant-testeur,,product_match,CREATE → /products/shampoing-lissant-testeur
+product,/produit/shampoing-protecteur-de-couleur-testeur,1,16,shampoing-protecteur-de-couleur-testeur,/products/shampoing-protecteur-de-couleur-testeur,,product_match,CREATE → /products/shampoing-protecteur-de-couleur-testeur
+product,/produit/shampoing-purifiant-testeur,1,14,shampoing-purifiant-testeur,/products/shampoing-purifiant-testeur,,product_match,CREATE → /products/shampoing-purifiant-testeur
+product_cat,/categorie-produit/gamme-mixte/cremes,1,1,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-ha-repulpe,1,1,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+page,/commander,0,0,commander,,,page_missing,INVESTIGATE — no target found
+page,/creation-dossier-cosmetologique,0,0,creation-dossier-cosmetologique,/pages/creation-dossier-cosmetologique,,page_match,CREATE → /pages/creation-dossier-cosmetologique
+page,/design-editor,0,0,design-editor,,,page_missing,INVESTIGATE — no target found
+page,/les-accessoires-my-lab,0,100,les-accessoires-my-lab,/pages/les-accessoires-my-lab,,page_match,CREATE → /pages/les-accessoires-my-lab
+page,/masque-capillaire-professionnel-marque-blanche,0,126,masque-capillaire-professionnel-marque-blanche,/pages/masque-capillaire-professionnel-marque-blanche,/pages/boutique-testeurs,page_match,"CONFLICT — exists pointing to /pages/boutique-testeurs, recommend /pages/masque-capillaire-professionnel-marque-blanche"
+page,/mon-compte,0,0,mon-compte,,,page_missing,INVESTIGATE — no target found
+page,/notre-histoire-mylab,0,64,notre-histoire-mylab,/pages/notre-histoire-mylab,/pages/les-etapes-de-creation-de-marque,page_match,"CONFLICT — exists pointing to /pages/les-etapes-de-creation-de-marque, recommend /pages/notre-histoire-mylab"
+page,/pack-technique,0,0,pack-technique,,,page_missing,INVESTIGATE — no target found
+page,/partez-a-la-decouverte-de-votre-marque,0,0,partez-a-la-decouverte-de-votre-marque,/pages/partez-a-la-decouverte-de-votre-marque,,page_match,CREATE → /pages/partez-a-la-decouverte-de-votre-marque
+page,/request-quote,0,0,request-quote,,,page_missing,INVESTIGATE — no target found
+product,/produit/adhesion-mylab,0,14,adhesion-mylab,/products/adhesion-mylab,,product_missing,CREATE → /products/adhesion-mylab
+product,/produit/azul,0,4,azul,/products/azul,,product_match,CREATE → /products/azul
+product,/produit/bain-miraculeux,0,11,bain-miraculeux,/products/bain-miraculeux,,product_match,CREATE → /products/bain-miraculeux
+product,/produit/bain-miraculeux-testeur,0,8,bain-miraculeux-testeur,/products/bain-miraculeux-testeur,,product_match,CREATE → /products/bain-miraculeux-testeur
+product,/produit/baume-apaisant,0,0,baume-apaisant,/products/baume-apaisant,,product_missing,CREATE → /products/baume-apaisant
+product,/produit/baume-matifiant,0,21,baume-matifiant,/products/baume-matifiant,,product_missing,CREATE → /products/baume-matifiant
+product,/produit/catalogue-personnalise,0,0,catalogue-personnalise,/products/catalogue-personnalise,,product_match,CREATE → /products/catalogue-personnalise
+product,/produit/cire-brillante-de-finition-en-50-ml,0,3,cire-brillante-de-finition-en-50-ml,/products/cire-brillante-de-finition-en-50-ml,,product_missing,CREATE → /products/cire-brillante-de-finition-en-50-ml
+product,/produit/cire-gummy-50ml,0,6,cire-gummy-50ml,/products/cire-gummy-50ml,,product_missing,CREATE → /products/cire-gummy-50ml
+product,/produit/cire-mat-50ml,0,19,cire-mat-50ml,/products/cire-mat-50ml,,product_missing,CREATE → /products/cire-mat-50ml
+product,/produit/coffret-decouverte,0,2,coffret-decouverte,/products/coffret-decouverte,,product_missing,CREATE → /products/coffret-decouverte
+product,/produit/coffret-decouverte-barber,0,15,coffret-decouverte-barber,/products/coffret-decouverte-barber,,product_missing,CREATE → /products/coffret-decouverte-barber
+product,/produit/creation-de-codes-barres-professionnels,0,28,creation-de-codes-barres-professionnels,/products/creation-de-codes-barres-professionnels,,product_match,CREATE → /products/creation-de-codes-barres-professionnels
+product,/produit/creme-boucle,0,7,creme-boucle,/products/creme-boucle,,product_missing,CREATE → /products/creme-boucle
+product,/produit/creme-boucles-testeur,0,2,creme-boucles-testeur,/products/creme-boucles-testeur,,product_match,CREATE → /products/creme-boucles-testeur
+product,/produit/creme-ha-repulpe-testeur,0,8,creme-ha-repulpe-testeur,/products/creme-ha-repulpe-testeur,,product_match,CREATE → /products/creme-ha-repulpe-testeur
+product,/produit/creme-lissante-testeur,0,1,creme-lissante-testeur,/products/creme-lissante-testeur,,product_match,CREATE → /products/creme-lissante-testeur
+product,/produit/creme-nourrissante,0,5,creme-nourrissante,/products/creme-nourrissante,,product_match,CREATE → /products/creme-nourrissante
+product,/produit/creme-protecteur-de-couleur-testeur,0,1,creme-protecteur-de-couleur-testeur,/products/creme-protecteur-de-couleur-testeur,,product_missing,CREATE → /products/creme-protecteur-de-couleur-testeur
+product,/produit/creme-protectrice-de-couleur,0,43,creme-protectrice-de-couleur,/products/creme-protectrice-de-couleur,,product_match,CREATE → /products/creme-protectrice-de-couleur
+product,/produit/creme-volume,0,68,creme-volume,/products/creme-volume,,product_match,CREATE → /products/creme-volume
+product,/produit/creme-volume-testeur,0,5,creme-volume-testeur,/products/creme-volume-testeur,,product_match,CREATE → /products/creme-volume-testeur
+product,/produit/duo-produits-de-finition,0,17,duo-produits-de-finition,/products/duo-produits-de-finition,,product_missing,CREATE → /products/duo-produits-de-finition
+product,/produit/duo-purifiant,0,4,duo-purifiant,/products/duo-purifiant,,product_missing,CREATE → /products/duo-purifiant
+product,/produit/etiquette-and-yellow,0,0,etiquette-and-yellow,/products/etiquette-and-yellow,,product_missing,CREATE → /products/etiquette-and-yellow
+product,/produit/etiquette-aquarel,0,9,etiquette-aquarel,/products/etiquette-aquarel,,product_missing,CREATE → /products/etiquette-aquarel
+product,/produit/etiquette-feuillage-graphique,0,15,etiquette-feuillage-graphique,/products/etiquette-feuillage-graphique,,product_missing,CREATE → /products/etiquette-feuillage-graphique
+product,/produit/etiquette-finesse,0,1,etiquette-finesse,/products/etiquette-finesse,,product_missing,CREATE → /products/etiquette-finesse
+product,/produit/etiquette-gentleman,0,0,etiquette-gentleman,/products/etiquette-gentleman,,product_missing,CREATE → /products/etiquette-gentleman
+product,/produit/etiquette-green-floral,0,3,etiquette-green-floral,/products/etiquette-green-floral,,product_missing,CREATE → /products/etiquette-green-floral
+product,/produit/etiquette-ornement,0,2,etiquette-ornement,/products/etiquette-ornement,,product_missing,CREATE → /products/etiquette-ornement
+product,/produit/etiquette-prestige,0,4,etiquette-prestige,/products/etiquette-prestige,,product_missing,CREATE → /products/etiquette-prestige
+product,/produit/etiquette-zebra,0,6,etiquette-zebra,/products/etiquette-zebra,,product_missing,CREATE → /products/etiquette-zebra
+product,/produit/etiquettes-sur-mesure,0,0,etiquettes-sur-mesure,/products/etiquettes-sur-mesure,,product_missing,CREATE → /products/etiquettes-sur-mesure
+product,/produit/forfait-dimpression-standard,0,0,forfait-dimpression-standard,/products/forfait-dimpression-standard,,product_match,CREATE → /products/forfait-dimpression-standard
+product,/produit/forfait-impression-couleur,0,0,forfait-impression-couleur,/products/forfait-impression-couleur,,product_missing,CREATE → /products/forfait-impression-couleur
+product,/produit/frais-dimpression-etiquettes,0,64,frais-dimpression-etiquettes,/products/frais-dimpression-etiquettes,,product_match,CREATE → /products/frais-dimpression-etiquettes
+product,/produit/fresh,0,16,fresh,/products/fresh,,product_match,CREATE → /products/fresh
+product,/produit/gel-a-raser,0,2,gel-a-raser,/products/gel-a-raser,,product_missing,CREATE → /products/gel-a-raser
+product,/produit/huile-a-barbe-testeur,0,22,huile-a-barbe-testeur,/products/huile-a-barbe-testeur,,product_match,CREATE → /products/huile-a-barbe-testeur
+product,/produit/masque-1l-coloristeur-blond-soleil,0,0,masque-1l-coloristeur-blond-soleil,/products/masque-1l-coloristeur-blond-soleil,,product_missing,CREATE → /products/masque-1l-coloristeur-blond-soleil
+product,/produit/masque-1l-coloristeur-blond-vanillle,0,0,masque-1l-coloristeur-blond-vanillle,/products/masque-1l-coloristeur-blond-vanillle,,product_missing,CREATE → /products/masque-1l-coloristeur-blond-vanillle
+product,/produit/masque-1l-coloristeur-chocolat,0,0,masque-1l-coloristeur-chocolat,/products/masque-1l-coloristeur-chocolat,,product_missing,CREATE → /products/masque-1l-coloristeur-chocolat
+product,/produit/masque-1l-coloristeur-cuivre-intense,0,3,masque-1l-coloristeur-cuivre-intense,/products/masque-1l-coloristeur-cuivre-intense,,product_missing,CREATE → /products/masque-1l-coloristeur-cuivre-intense
+product,/produit/masque-1l-coloristeur-marron-noisette,0,0,masque-1l-coloristeur-marron-noisette,/products/masque-1l-coloristeur-marron-noisette,,product_missing,CREATE → /products/masque-1l-coloristeur-marron-noisette
+product,/produit/masque-1l-dejaunisseur-platine,0,1,masque-1l-dejaunisseur-platine,/products/masque-1l-dejaunisseur-platine,,product_missing,CREATE → /products/masque-1l-dejaunisseur-platine
+product,/produit/masque-blond-soleil-testeur,0,1,masque-blond-soleil-testeur,/products/masque-blond-soleil-testeur,,product_match,CREATE → /products/masque-blond-soleil-testeur
+product,/produit/masque-blond-vanille-testeur,0,4,masque-blond-vanille-testeur,/products/masque-blond-vanille-testeur,,product_match,CREATE → /products/masque-blond-vanille-testeur
+product,/produit/masque-boucles,0,2,masque-boucles,/products/masque-boucles,,product_match,CREATE → /products/masque-boucles
+product,/produit/masque-boucles-1-l,0,0,masque-boucles-1-l,/products/masque-boucles-1-l,,product_missing,CREATE → /products/masque-boucles-1-l
+product,/produit/masque-boucles-testeur,0,4,masque-boucles-testeur,/products/masque-boucles-testeur,,product_match,CREATE → /products/masque-boucles-testeur
+product,/produit/masque-chocolat-testeur,0,0,masque-chocolat-testeur,/products/masque-chocolat-testeur,,product_match,CREATE → /products/masque-chocolat-testeur
+product,/produit/masque-coloristeur-blond-soleil,0,3,masque-coloristeur-blond-soleil,/products/masque-coloristeur-blond-soleil,,product_match,CREATE → /products/masque-coloristeur-blond-soleil
+product,/produit/masque-coloristeur-blond-vanille,0,15,masque-coloristeur-blond-vanille,/products/masque-coloristeur-blond-vanille,,product_match,CREATE → /products/masque-coloristeur-blond-vanille
+product,/produit/masque-coloristeur-chocolat,0,0,masque-coloristeur-chocolat,/products/masque-coloristeur-chocolat,,product_match,CREATE → /products/masque-coloristeur-chocolat
+product,/produit/masque-coloristeur-cuivre,0,7,masque-coloristeur-cuivre,/products/masque-coloristeur-cuivre,,product_match,CREATE → /products/masque-coloristeur-cuivre
+product,/produit/masque-coloristeur-marron-noisette,0,0,masque-coloristeur-marron-noisette,/products/masque-coloristeur-marron-noisette,,product_match,CREATE → /products/masque-coloristeur-marron-noisette
+product,/produit/masque-cuivre-intense-testeur,0,2,masque-cuivre-intense-testeur,/products/masque-cuivre-intense-testeur,,product_match,CREATE → /products/masque-cuivre-intense-testeur
+product,/produit/masque-dejaunisseur-platine,0,0,masque-dejaunisseur-platine,/products/masque-dejaunisseur-platine,,product_match,CREATE → /products/masque-dejaunisseur-platine
+product,/produit/masque-ha-repulpe,0,17,masque-ha-repulpe,/products/masque-ha-repulpe,,product_match,CREATE → /products/masque-ha-repulpe
+product,/produit/masque-ha-repulpe-1l,0,1,masque-ha-repulpe-1l,/products/masque-ha-repulpe-1l,,product_missing,CREATE → /products/masque-ha-repulpe-1l
+product,/produit/masque-ha-repulpe-testeur,0,6,masque-ha-repulpe-testeur,/products/masque-ha-repulpe-testeur,,product_match,CREATE → /products/masque-ha-repulpe-testeur
+product,/produit/masque-lissant,0,11,masque-lissant,/products/masque-lissant,/products/masque-lissant-testeur,product_match,"CONFLICT — exists pointing to /products/masque-lissant-testeur, recommend /products/masque-lissant"
+product,/produit/masque-lissant-1-l,0,0,masque-lissant-1-l,/products/masque-lissant-1-l,,product_missing,CREATE → /products/masque-lissant-1-l
+product,/produit/masque-lissant-testeur,0,3,masque-lissant-testeur,/products/masque-lissant-testeur,,product_match,CREATE → /products/masque-lissant-testeur
+product,/produit/masque-marron-noisette-testeur,0,24,masque-marron-noisette-testeur,/products/masque-marron-noisette-testeur,,product_match,CREATE → /products/masque-marron-noisette-testeur
+product,/produit/masque-nourrissant,0,2,masque-nourrissant,/products/masque-nourrissant,/products/masque-nourrissant-testeur,product_match,"CONFLICT — exists pointing to /products/masque-nourrissant-testeur, recommend /products/masque-nourrissant"
+product,/produit/masque-nourrissant-1-l,0,0,masque-nourrissant-1-l,/products/masque-nourrissant-1-l,,product_missing,CREATE → /products/masque-nourrissant-1-l
+product,/produit/masque-nourrissant-testeur,0,1,masque-nourrissant-testeur,/products/masque-nourrissant-testeur,,product_match,CREATE → /products/masque-nourrissant-testeur
+product,/produit/masque-platine-testeur,0,8,masque-platine-testeur,/products/masque-platine-testeur,,product_match,CREATE → /products/masque-platine-testeur
+product,/produit/masque-protecteur,0,1,masque-protecteur,/products/masque-protecteur,,product_missing,CREATE → /products/masque-protecteur
+product,/produit/masque-protecteur-de-couleur-1-l,0,2,masque-protecteur-de-couleur-1-l,/products/masque-protecteur-de-couleur-1-l,,product_missing,CREATE → /products/masque-protecteur-de-couleur-1-l
+product,/produit/masque-protecteur-de-couleur-testeur,0,0,masque-protecteur-de-couleur-testeur,/products/masque-protecteur-de-couleur-testeur,,product_match,CREATE → /products/masque-protecteur-de-couleur-testeur
+product,/produit/masque-reparateur-sans-rincage,0,0,masque-reparateur-sans-rincage,/products/masque-reparateur-sans-rincage,,product_match,CREATE → /products/masque-reparateur-sans-rincage
+product,/produit/masque-reparateur-sans-rincage-testeur,0,16,masque-reparateur-sans-rincage-testeur,/products/masque-reparateur-sans-rincage-testeur,,product_match,CREATE → /products/masque-reparateur-sans-rincage-testeur
+product,/produit/masque-volume,0,21,masque-volume,/products/masque-volume,,product_match,CREATE → /products/masque-volume
+product,/produit/masque-volume-1-l,0,0,masque-volume-1-l,/products/masque-volume-1-l,,product_missing,CREATE → /products/masque-volume-1-l
+product,/produit/masque-volume-testeur,0,2,masque-volume-testeur,/products/masque-volume-testeur,,product_match,CREATE → /products/masque-volume-testeur
+product,/produit/nourrissante-testeur,0,14,nourrissante-testeur,/products/nourrissante-testeur,,product_missing,CREATE → /products/nourrissante-testeur
+product,/produit/number,0,13,number,/products/number,,product_match,CREATE → /products/number
+product,/produit/offre-pack-complet,0,25,offre-pack-complet,/products/offre-pack-complet,,product_missing,CREATE → /products/offre-pack-complet
+product,/produit/pack-de-revente,0,10,pack-de-revente,/products/pack-de-revente,,product_missing,CREATE → /products/pack-de-revente
+product,/produit/pate-texturisante-50ml,0,50,pate-texturisante-50ml,/products/pate-texturisante-50ml,,product_missing,CREATE → /products/pate-texturisante-50ml
+product,/produit/pate-texturisante-a-largile-blanche-testeur,0,23,pate-texturisante-a-largile-blanche-testeur,/products/pate-texturisante-a-largile-blanche-testeur,,product_missing,CREATE → /products/pate-texturisante-a-largile-blanche-testeur
+product,/produit/serum-barbe,0,9,serum-barbe,/products/serum-barbe,,product_match,CREATE → /products/serum-barbe
+product,/produit/serum-barbe-testeur,0,21,serum-barbe-testeur,/products/serum-barbe-testeur,,product_match,CREATE → /products/serum-barbe-testeur
+product,/produit/serum-finition-ultime,0,3,serum-finition-ultime,/products/serum-finition-ultime,,product_match,CREATE → /products/serum-finition-ultime
+product,/produit/serum-finition-ultime-testeur,0,8,serum-finition-ultime-testeur,/products/serum-finition-ultime-testeur,,product_match,CREATE → /products/serum-finition-ultime-testeur
+product,/produit/shampoing-1l-coloristeur-blond-soleil,0,0,shampoing-1l-coloristeur-blond-soleil,/products/shampoing-1l-coloristeur-blond-soleil,,product_missing,CREATE → /products/shampoing-1l-coloristeur-blond-soleil
+product,/produit/shampoing-1l-coloristeur-chocolat,0,8,shampoing-1l-coloristeur-chocolat,/products/shampoing-1l-coloristeur-chocolat,,product_missing,CREATE → /products/shampoing-1l-coloristeur-chocolat
+product,/produit/shampoing-1l-coloristeur-cuivre,0,0,shampoing-1l-coloristeur-cuivre,/products/shampoing-1l-coloristeur-cuivre,,product_missing,CREATE → /products/shampoing-1l-coloristeur-cuivre
+product,/produit/shampoing-1l-coloristeur-marron-noisette,0,1,shampoing-1l-coloristeur-marron-noisette,/products/shampoing-1l-coloristeur-marron-noisette,,product_missing,CREATE → /products/shampoing-1l-coloristeur-marron-noisette
+product,/produit/shampoing-1l-dejaunisseur-platine,0,1,shampoing-1l-dejaunisseur-platine,/products/shampoing-1l-dejaunisseur-platine,,product_missing,CREATE → /products/shampoing-1l-dejaunisseur-platine
+product,/produit/shampoing-blond-vanille-testeur,0,1,shampoing-blond-vanille-testeur,/products/shampoing-blond-vanille-testeur,,product_match,CREATE → /products/shampoing-blond-vanille-testeur
+product,/produit/shampoing-boucle,0,1,shampoing-boucle,/products/shampoing-boucle,,product_missing,CREATE → /products/shampoing-boucle
+product,/produit/shampoing-coloristeur-blond-soleil,0,13,shampoing-coloristeur-blond-soleil,/products/shampoing-coloristeur-blond-soleil,,product_match,CREATE → /products/shampoing-coloristeur-blond-soleil
+product,/produit/shampoing-coloristeur-blond-vanille,0,25,shampoing-coloristeur-blond-vanille,/products/shampoing-coloristeur-blond-vanille,,product_match,CREATE → /products/shampoing-coloristeur-blond-vanille
+product,/produit/shampoing-coloristeur-chocolat,0,0,shampoing-coloristeur-chocolat,/products/shampoing-coloristeur-chocolat,,product_missing,CREATE → /products/shampoing-coloristeur-chocolat
+product,/produit/shampoing-coloristeur-cuivre,0,41,shampoing-coloristeur-cuivre,/products/shampoing-coloristeur-cuivre,,product_missing,CREATE → /products/shampoing-coloristeur-cuivre
+product,/produit/shampoing-coloristeur-marron-noisette,0,12,shampoing-coloristeur-marron-noisette,/products/shampoing-coloristeur-marron-noisette,,product_missing,CREATE → /products/shampoing-coloristeur-marron-noisette
+product,/produit/shampoing-cuivre-intense-testeur,0,185,shampoing-cuivre-intense-testeur,/products/shampoing-cuivre-intense-testeur,,product_missing,CREATE → /products/shampoing-cuivre-intense-testeur
+product,/produit/shampoing-dejaunisseur-platine,0,8,shampoing-dejaunisseur-platine,/products/shampoing-dejaunisseur-platine,,product_match,CREATE → /products/shampoing-dejaunisseur-platine
+product,/produit/shampoing-dejaunisseur-platine-2,0,59,shampoing-dejaunisseur-platine-2,/products/shampoing-dejaunisseur-platine-2,,product_missing,CREATE → /products/shampoing-dejaunisseur-platine-2
+product,/produit/shampoing-gel-douche-1-l,0,4,shampoing-gel-douche-1-l,/products/shampoing-gel-douche-1-l,,product_missing,CREATE → /products/shampoing-gel-douche-1-l
+product,/produit/shampoing-gel-douche-homme,0,14,shampoing-gel-douche-homme,/products/shampoing-gel-douche-homme,,product_missing,CREATE → /products/shampoing-gel-douche-homme
+product,/produit/shampoing-gel-douche-testeur,0,43,shampoing-gel-douche-testeur,/products/shampoing-gel-douche-testeur,,product_match,CREATE → /products/shampoing-gel-douche-testeur
+product,/produit/shampoing-ha-repulpe-1-l,0,6,shampoing-ha-repulpe-1-l,/products/shampoing-ha-repulpe-1-l,,product_missing,CREATE → /products/shampoing-ha-repulpe-1-l
+product,/produit/shampoing-lissant,0,1,shampoing-lissant,/products/shampoing-lissant,/products/shampoing-lissant-testeur,product_match,"CONFLICT — exists pointing to /products/shampoing-lissant-testeur, recommend /products/shampoing-lissant"
+product,/produit/shampoing-lissant-1l,0,3,shampoing-lissant-1l,/products/shampoing-lissant-1l,,product_missing,CREATE → /products/shampoing-lissant-1l
+product,/produit/shampoing-marron-noisette-testeur,0,2,shampoing-marron-noisette-testeur,/products/shampoing-marron-noisette-testeur,,product_missing,CREATE → /products/shampoing-marron-noisette-testeur
+product,/produit/shampoing-nourrissant,0,0,shampoing-nourrissant,/products/shampoing-nourrissant,/products/shampoing-nourrissant,product_match,OK
+product,/produit/shampoing-nourrissant-1-l,0,2,shampoing-nourrissant-1-l,/products/shampoing-nourrissant-1-l,,product_missing,CREATE → /products/shampoing-nourrissant-1-l
+product,/produit/shampoing-nourrissant-testeur,0,6,shampoing-nourrissant-testeur,/products/shampoing-nourrissant-testeur,,product_match,CREATE → /products/shampoing-nourrissant-testeur
+product,/produit/shampoing-protecteur-de-couleur,0,4,shampoing-protecteur-de-couleur,/products/shampoing-protecteur-de-couleur,,product_match,CREATE → /products/shampoing-protecteur-de-couleur
+product,/produit/shampoing-protecteur-de-couleur-1l,0,1,shampoing-protecteur-de-couleur-1l,/products/shampoing-protecteur-de-couleur-1l,,product_missing,CREATE → /products/shampoing-protecteur-de-couleur-1l
+product,/produit/shampoing-purifiant,0,0,shampoing-purifiant,/products/shampoing-purifiant,,product_match,CREATE → /products/shampoing-purifiant
+product,/produit/shampoing-purifiant-1l,0,7,shampoing-purifiant-1l,/products/shampoing-purifiant-1l,,product_missing,CREATE → /products/shampoing-purifiant-1l
+product,/produit/shampoing-repulpe,0,1,shampoing-repulpe,/products/shampoing-repulpe,,product_missing,CREATE → /products/shampoing-repulpe
+product,/produit/shampoing-volume-1l,0,12,shampoing-volume-1l,/products/shampoing-volume-1l,,product_missing,CREATE → /products/shampoing-volume-1l
+product,/produit/shampoing-volume-testeur,0,5,shampoing-volume-testeur,/products/shampoing-volume-testeur,,product_match,CREATE → /products/shampoing-volume-testeur
+product,/produit/spray-texturisant-2,0,12,spray-texturisant-2,/products/spray-texturisant-2,,product_missing,CREATE → /products/spray-texturisant-2
+product,/produit/spray-texturisant-testeur,0,16,spray-texturisant-testeur,/products/spray-texturisant-testeur,,product_match,CREATE → /products/spray-texturisant-testeur
+product,/produit/trio-boucles,0,0,trio-boucles,/products/trio-boucles,,product_missing,CREATE → /products/trio-boucles
+product,/produit/trio-ha-repulpe,0,2,trio-ha-repulpe,/products/trio-ha-repulpe,,product_missing,CREATE → /products/trio-ha-repulpe
+product,/produit/trio-lissant,0,4,trio-lissant,/products/trio-lissant,,product_missing,CREATE → /products/trio-lissant
+product,/produit/trio-nourrissant,0,2,trio-nourrissant,/products/trio-nourrissant,,product_missing,CREATE → /products/trio-nourrissant
+product,/produit/trio-protecteur-de-couleur,0,0,trio-protecteur-de-couleur,/products/trio-protecteur-de-couleur,,product_missing,CREATE → /products/trio-protecteur-de-couleur
+product,/produit/trio-volume,0,0,trio-volume,/products/trio-volume,,product_missing,CREATE → /products/trio-volume
+product,/produit/video-promo,0,3,video-promo,/products/video-promo,,product_missing,CREATE → /products/video-promo
+product_cat,/categorie-produit/coloristeur,0,0,coloristeur,/collections/coloristeur,,collection_missing,CREATE → /collections/coloristeur
+product_cat,/categorie-produit/coloristeur-masque-1l,0,0,coloristeur-masque-1l,/collections/coloristeur-masque-1l,,collection_missing,CREATE → /collections/coloristeur-masque-1l
+product_cat,/categorie-produit/coloristeur-masque-200-ml,0,0,coloristeur-masque-200-ml,/collections/coloristeur-masque-200-ml,,collection_missing,CREATE → /collections/coloristeur-masque-200-ml
+product_cat,/categorie-produit/coloristeur-shampoing-1l,0,3,coloristeur-shampoing-1l,/collections/coloristeur-shampoing-1l,,collection_missing,CREATE → /collections/coloristeur-shampoing-1l
+product_cat,/categorie-produit/coloristeur-shampoing-200-ml,0,2,coloristeur-shampoing-200-ml,/collections/coloristeur-shampoing-200-ml,,collection_missing,CREATE → /collections/coloristeur-shampoing-200-ml
+product_cat,/categorie-produit/etiquette-personnalisable,0,1,etiquette-personnalisable,/collections/etiquette-personnalisable,,collection_missing,CREATE → /collections/etiquette-personnalisable
+product_cat,/categorie-produit/gamme-mixte,0,2,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-boucles,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-lissants,0,1,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-nourrissants,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-protecteurs-de-couleur,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-purifiants,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-sprays,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/les-volumes,0,5,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/masque-1l,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/masques,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/produits-de-finitions,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/shampoing-1l,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/gamme-mixte/shampoings,0,0,gamme-mixte,/collections/gamme-mixte,,collection_missing,CREATE → /collections/gamme-mixte
+product_cat,/categorie-produit/huiles,0,0,huiles,/collections/huiles,,collection_missing,CREATE → /collections/huiles
+product_cat,/categorie-produit/le-gel-apres-rasage,0,0,le-gel-apres-rasage,/collections/le-gel-apres-rasage,,collection_missing,CREATE → /collections/le-gel-apres-rasage
+product_cat,/categorie-produit/les-baumes,0,0,les-baumes,/collections/les-baumes,,collection_missing,CREATE → /collections/les-baumes
+product_cat,/categorie-produit/les-cires,0,0,les-cires,/collections/les-cires,,collection_missing,CREATE → /collections/les-cires
+product_cat,/categorie-produit/marketing-personnalisable,0,9,marketing-personnalisable,/collections/marketing-personnalisable,,collection_missing,CREATE → /collections/marketing-personnalisable
+product_cat,/categorie-produit/pack-de-lancement,0,27,pack-de-lancement,/collections/pack-de-lancement,/collections/all,collection_missing,"CONFLICT — exists pointing to /collections/all, recommend /collections/pack-de-lancement"
+product_cat,/categorie-produit/serums,0,0,serums,/collections/serums,,collection_missing,CREATE → /collections/serums
+product_cat,/categorie-produit/testeur-coloristeur-masque,0,0,testeur-coloristeur-masque,/collections/testeur-coloristeur-masque,,collection_missing,CREATE → /collections/testeur-coloristeur-masque
+product_cat,/categorie-produit/testeur-coloristeur-shampoing,0,0,testeur-coloristeur-shampoing,/collections/testeur-coloristeur-shampoing,,collection_missing,CREATE → /collections/testeur-coloristeur-shampoing
+product_cat,/categorie-produit/testeur-creme,0,27,testeur-creme,/collections/testeur-creme,,collection_missing,CREATE → /collections/testeur-creme
+product_cat,/categorie-produit/testeur-masque,0,2,testeur-masque,/collections/testeur-masque,,collection_missing,CREATE → /collections/testeur-masque
+product_cat,/categorie-produit/testeur-produit,0,4,testeur-produit,/collections/testeur-produit,,collection_missing,CREATE → /collections/testeur-produit
+product_cat,/categorie-produit/testeur-shampoing,0,0,testeur-shampoing,/collections/testeur-shampoing,,collection_missing,CREATE → /collections/testeur-shampoing
+product_cat,/categorie-produit/testeur-soin,0,5,testeur-soin,/collections/testeur-soin,,collection_missing,CREATE → /collections/testeur-soin
+product_tag,/etiquette-produit/200ml,0,0,,,,unknown,INVESTIGATE — no target found
+product_tag,/etiquette-produit/50ml,0,18,,,,unknown,INVESTIGATE — no target found
+product_tag,/etiquette-produit/coiffants,0,0,,,,unknown,INVESTIGATE — no target found
+product_tag,/etiquette-produit/masque-1l,0,0,,,,unknown,INVESTIGATE — no target found
+product_tag,/etiquette-produit/shampoing-1l,0,25,,,,unknown,INVESTIGATE — no target found

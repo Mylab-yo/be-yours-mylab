@@ -1,0 +1,67 @@
+{% comment %}
+  Bandeau d'information sur la conservation des visuels MyLab.
+  À placer au-dessus de la section "MyLab Visuels" sur la page compte client.
+{% endcomment %}
+
+{% if customer %}
+  <div class="mylab-visuals-notice" style="padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;">
+    <div class="page-width">
+      <div style="display: flex; align-items: flex-start; gap: 12px; padding: 16px 20px; background: #fffbeb; border: 1px solid rgba(217, 170, 0, 0.2); border-radius: 12px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 1px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div>
+          <p style="font-size: 14px; font-weight: 500; color: #92400e; margin: 0 0 4px;">{{ section.settings.title }}</p>
+          <p style="font-size: 13px; color: rgba(146, 64, 14, 0.7); margin: 0; line-height: 1.5;">{{ section.settings.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "MyLab — Info visuels",
+  "tag": "section",
+  "class": "section-mylab-visuals-notice",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["customers/account"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Conservation limitée à 30 jours"
+    },
+    {
+      "type": "textarea",
+      "id": "message",
+      "label": "Message",
+      "default": "Vos visuels personnalisés sont automatiquement supprimés après 30 jours. Pensez à les télécharger sur votre appareil pour ne pas les perdre."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "MyLab — Info visuels"
+    }
+  ]
+}
+{% endschema %}

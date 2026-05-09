@@ -1,0 +1,915 @@
+{
+  "products": {
+    "aquarel": {
+      "id": 10898483675470,
+      "title": "Aquarel"
+    },
+    "azul": {
+      "id": 10898484887886,
+      "title": "Azul"
+    },
+    "bain-miraculeux": {
+      "id": 10898491015502,
+      "title": "Bain Miraculeux 50ml"
+    },
+    "bain-miraculeux-testeur": {
+      "id": 10898486788430,
+      "title": "Bain Miraculeux testeur"
+    },
+    "black-and-yellow": {
+      "id": 10898483773774,
+      "title": "Black and Yellow"
+    },
+    "catalogue-personnalise": {
+      "id": 10898482954574,
+      "title": "Catalogue personnalisé"
+    },
+    "creation-de-codes-barres-professionnels": {
+      "id": 10898488459598,
+      "title": "Création de codes-barres professionnels"
+    },
+    "creation-du-dossier-cosmetologique": {
+      "id": 10898482921806,
+      "title": "Création du dossier cosmétologique"
+    },
+    "creme-boucles": {
+      "id": 10898488525134,
+      "title": "Crème Boucles"
+    },
+    "creme-boucles-500ml": {
+      "id": 10901242675534,
+      "title": "Crème Boucles 500ml"
+    },
+    "creme-boucles-testeur": {
+      "id": 10898486329678,
+      "title": "Crème Boucles testeur"
+    },
+    "creme-ha-repulpe": {
+      "id": 10898489966926,
+      "title": "Crème HA repulpe"
+    },
+    "creme-ha-repulpe-testeur": {
+      "id": 10898486657358,
+      "title": "Crème HA Repulpe testeur"
+    },
+    "creme-lissante": {
+      "id": 10898490327374,
+      "title": "Crème Lissante"
+    },
+    "creme-lissante-testeur": {
+      "id": 10898486722894,
+      "title": "Crème Lissante testeur"
+    },
+    "creme-nourrissante": {
+      "id": 10898489573710,
+      "title": "Crème Nourrissante"
+    },
+    "creme-nourrissante-testeur": {
+      "id": 10898486427982,
+      "title": "Crème Nourrissante testeur"
+    },
+    "creme-protectrice-de-couleur": {
+      "id": 10898489278798,
+      "title": "Crème Protectrice de Couleur"
+    },
+    "creme-protectrice-de-couleur-testeur": {
+      "id": 10898486395214,
+      "title": "Crème Protectrice de Couleur testeur"
+    },
+    "creme-volume": {
+      "id": 10893339885902,
+      "title": "Crème Volume"
+    },
+    "creme-volume-testeur": {
+      "id": 10898486264142,
+      "title": "Crème Volume testeur"
+    },
+    "etiquettes-standards": {
+      "id": 15725501055310,
+      "title": "Etiquettes standards"
+    },
+    "finesse": {
+      "id": 10898484658510,
+      "title": "Finesse"
+    },
+    "forfait-dimpression": {
+      "id": 10898488426830,
+      "title": "Forfait d’impression couleur"
+    },
+    "forfait-dimpression-standard": {
+      "id": 10898488492366,
+      "title": "Forfait d’impression standard (noir uniquement)"
+    },
+    "frais-dimpression-etiquettes": {
+      "id": 10898484003150,
+      "title": "Frais d'impression étiquettes"
+    },
+    "frais-de-creation-design-etiquette": {
+      "id": 10898487116110,
+      "title": "Frais de création design étiquette"
+    },
+    "fresh": {
+      "id": 10898485117262,
+      "title": "Fresh"
+    },
+    "golden-line-2b27dd17-96f5-42ef-9e86-bc34cff01b5d": {
+      "id": 15706251886926,
+      "title": "Golden Line"
+    },
+    "green-floral": {
+      "id": 10898483708238,
+      "title": "Green Floral"
+    },
+    "huile-a-barbe": {
+      "id": 10898489868622,
+      "title": "Huile à barbe 50ml"
+    },
+    "huile-a-barbe-testeur": {
+      "id": 10898487476558,
+      "title": "Huile à barbe testeur"
+    },
+    "masque-blond-soleil-testeur": {
+      "id": 10898488131918,
+      "title": "Masque Blond Soleil Testeur"
+    },
+    "masque-blond-vanille-testeur": {
+      "id": 10898488099150,
+      "title": "Masque Blond Vanille Testeur"
+    },
+    "masque-boucles": {
+      "id": 10898489508174,
+      "title": "Masque Boucles"
+    },
+    "masque-boucles-1000ml": {
+      "id": 10898491769166,
+      "title": "Masque Boucles 1000ml"
+    },
+    "masque-boucles-400ml": {
+      "id": 10901250507086,
+      "title": "Masque Boucles 400ml"
+    },
+    "masque-boucles-testeur": {
+      "id": 10898485936462,
+      "title": "Masque Boucles testeur"
+    },
+    "masque-chocolat-testeur": {
+      "id": 10898488361294,
+      "title": "Masque Chocolat Testeur"
+    },
+    "masque-coloristeur-blond-soleil": {
+      "id": 10898493866318,
+      "title": "Masque Coloristeur Blond Soleil"
+    },
+    "masque-1000ml-coloristeur-blond-soleil": {
+      "id": 10898494882126,
+      "title": "Masque Coloristeur Blond Soleil 1000ml"
+    },
+    "masque-coloristeur-blond-vanille": {
+      "id": 10898493833550,
+      "title": "Masque Coloristeur Blond Vanille"
+    },
+    "masque-1000ml-coloristeur-blond-vanille": {
+      "id": 10898494685518,
+      "title": "Masque Coloristeur Blond Vanille 1000ml"
+    },
+    "masque-coloristeur-chocolat": {
+      "id": 10898493931854,
+      "title": "Masque Coloristeur Chocolat"
+    },
+    "masque-1000ml-coloristeur-chocolat": {
+      "id": 10898494947662,
+      "title": "Masque Coloristeur Chocolat 1000ml"
+    },
+    "masque-coloristeur-cuivre": {
+      "id": 10898493800782,
+      "title": "Masque Coloristeur Cuivré"
+    },
+    "masque-1000ml-coloristeur-cuivre": {
+      "id": 10898494980430,
+      "title": "Masque Coloristeur Cuivré Intense 1000ml"
+    },
+    "masque-coloristeur-marron-noisette": {
+      "id": 10898493899086,
+      "title": "Masque Coloristeur Marron Noisette"
+    },
+    "masque-1000ml-coloristeur-marron-noisette": {
+      "id": 10898494914894,
+      "title": "Masque Coloristeur Marron noisette 1000ml"
+    },
+    "masque-cuivre-intense-testeur": {
+      "id": 10898488394062,
+      "title": "Masque Cuivré Intense Testeur"
+    },
+    "masque-dejaunisseur-platine": {
+      "id": 10898494128462,
+      "title": "Masque Déjaunisseur Platine"
+    },
+    "masque-1000ml-dejaunisseur-platine": {
+      "id": 10898494652750,
+      "title": "Masque Déjaunisseur Platine 1000ml"
+    },
+    "masque-ha-repulpe": {
+      "id": 10898489311566,
+      "title": "Masque HA Repulpe"
+    },
+    "masque-ha-repulpe-1000ml": {
+      "id": 10898491736398,
+      "title": "Masque HA Repulpe 1000ml"
+    },
+    "masque-ha-repulpe-400ml": {
+      "id": 10901251096910,
+      "title": "Masque HA Repulpe 400ml"
+    },
+    "masque-ha-repulpe-testeur": {
+      "id": 10898485903694,
+      "title": "Masque HA Repulpe testeur"
+    },
+    "masque-intense": {
+      "id": 10898489672014,
+      "title": "Masque intense 200ml"
+    },
+    "masque-intense-testeur": {
+      "id": 10898487378254,
+      "title": "Masque intense testeur"
+    },
+    "masque-lissant": {
+      "id": 10898489540942,
+      "title": "Masque Lissant"
+    },
+    "masque-lissant-1000ml": {
+      "id": 10898491867470,
+      "title": "Masque Lissant 1000ml"
+    },
+    "masque-lissant-400ml": {
+      "id": 10901250081102,
+      "title": "Masque Lissant 400ml"
+    },
+    "masque-lissant-testeur": {
+      "id": 10898485969230,
+      "title": "Masque Lissant testeur"
+    },
+    "masque-marron-noisette-testeur": {
+      "id": 10898488164686,
+      "title": "Masque Marron Noisette Testeur"
+    },
+    "masque-nourrissant": {
+      "id": 10898489934158,
+      "title": "Masque Nourrissant"
+    },
+    "masque-nourrissant-1000ml": {
+      "id": 10898491998542,
+      "title": "Masque Nourrissant 1000ml"
+    },
+    "masque-nourrissant-400ml": {
+      "id": 10901248672078,
+      "title": "Masque Nourrissant 400ml"
+    },
+    "masque-nourrissant-testeur": {
+      "id": 10898486198606,
+      "title": "Masque Nourrissant testeur"
+    },
+    "masque-platine-testeur": {
+      "id": 10898488066382,
+      "title": "Masque Platine Testeur"
+    },
+    "masque-protecteur-de-couleur": {
+      "id": 10898489213262,
+      "title": "Masque Protecteur de Couleur"
+    },
+    "masque-protecteur-de-couleur-1000ml": {
+      "id": 10898491638094,
+      "title": "Masque Protecteur de Couleur 1000ml"
+    },
+    "masque-protecteur-de-couleur-400ml": {
+      "id": 10901251522894,
+      "title": "Masque Protecteur de Couleur 400ml"
+    },
+    "masque-protecteur-de-couleur-testeur": {
+      "id": 10898485838158,
+      "title": "Masque Protecteur de Couleur testeur"
+    },
+    "masque-reparateur-sans-rincage": {
+      "id": 10898492293454,
+      "title": "Masque Réparateur sans rinçage 200ml"
+    },
+    "masque-reparateur-sans-rincage-testeur": {
+      "id": 10898486755662,
+      "title": "Masque Réparateur sans rinçage testeur"
+    },
+    "masque-volume": {
+      "id": 10898489606478,
+      "title": "Masque Volume"
+    },
+    "masque-volume-1000ml": {
+      "id": 10898491933006,
+      "title": "Masque Volume 1000ml"
+    },
+    "masque-volume-400ml": {
+      "id": 10901249655118,
+      "title": "Masque Volume 400ml"
+    },
+    "masque-volume-testeur": {
+      "id": 10898486165838,
+      "title": "Masque Volume testeur"
+    },
+    "number": {
+      "id": 10898484822350,
+      "title": "Number"
+    },
+    "oliver": {
+      "id": 10898483413326,
+      "title": "Oliver"
+    },
+    "prestige": {
+      "id": 10898483806542,
+      "title": "Prestige"
+    },
+    "sac-personnalise": {
+      "id": 10898483052878,
+      "title": "Sac personnalisé"
+    },
+    "serum-barbe": {
+      "id": 10898490655054,
+      "title": "Sérum barbe 50ml"
+    },
+    "serum-barbe-testeur": {
+      "id": 10898487443790,
+      "title": "Sérum barbe testeur"
+    },
+    "serum-finition-ultime": {
+      "id": 10898490982734,
+      "title": "Sérum Finition Ultime 50ml"
+    },
+    "serum-finition-ultime-testeur": {
+      "id": 10898486985038,
+      "title": "Sérum Finition Ultime testeur"
+    },
+    "shampoing-gel-douche": {
+      "id": 10898489639246,
+      "title": "Shampoing - Gel douche"
+    },
+    "shampoing-gel-douche-500ml": {
+      "id": 10901058912590,
+      "title": "Shampoing - Gel douche 500ml"
+    },
+    "shampoing-gel-douche-testeur": {
+      "id": 10898487148878,
+      "title": "Shampoing - Gel douche testeur"
+    },
+    "shampoing-blond-soleil-testeur": {
+      "id": 10898487542094,
+      "title": "Shampoing Blond Soleil Testeur"
+    },
+    "shampoing-blond-vanille-testeur": {
+      "id": 10898487574862,
+      "title": "Shampoing Blond Vanille Testeur"
+    },
+    "shampoing-boucles": {
+      "id": 10898488820046,
+      "title": "Shampoing Boucles"
+    },
+    "shampoing-boucles-1000ml": {
+      "id": 10898491310414,
+      "title": "Shampoing Boucles 1000ml"
+    },
+    "shampoing-boucles-500ml": {
+      "id": 10901059502414,
+      "title": "Shampoing Boucles 500ml"
+    },
+    "shampoing-boucles-testeur": {
+      "id": 10898485510478,
+      "title": "Shampoing Boucles testeur"
+    },
+    "shampoing-coloristeur-blond-soleil": {
+      "id": 10898493505870,
+      "title": "Shampoing Coloristeur Blond Soleil"
+    },
+    "shampoing-1000ml-coloristeur-blond-soleil": {
+      "id": 10898494259534,
+      "title": "Shampoing Coloristeur Blond Soleil 1000ml"
+    },
+    "shampoing-coloristeur-blond-vanille": {
+      "id": 10898492588366,
+      "title": "Shampoing Coloristeur Blond Vanille"
+    },
+    "shampoing-1000ml-coloristeur-blond-vanille": {
+      "id": 10898494226766,
+      "title": "Shampoing Coloristeur Blond Vanille 1000ml"
+    },
+    "shampoing-dejaunisseur-platine": {
+      "id": 10898493702478,
+      "title": "Shampoing Déjaunisseur Platine"
+    },
+    "shampoing-1000ml-dejaunisseur-platine": {
+      "id": 10898494587214,
+      "title": "Shampoing Déjaunisseur Platine 1000ml"
+    },
+    "shampoing-gel-douche-1000ml": {
+      "id": 10898492490062,
+      "title": "Shampoing Gel douche 1000ml"
+    },
+    "shampoing-ha-repulpe": {
+      "id": 10898488852814,
+      "title": "Shampoing HA Repulpe"
+    },
+    "shampoing-ha-repulpe-1000ml": {
+      "id": 10898492227918,
+      "title": "Shampoing Ha Repulpe 1000ml"
+    },
+    "shampoing-ha-repulpe-500ml": {
+      "id": 10901059273038,
+      "title": "Shampoing HA Repulpe 500ml"
+    },
+    "shampoing-ha-repulpe-testeur": {
+      "id": 10898485543246,
+      "title": "Shampoing HA Repulpe testeur"
+    },
+    "shampoing-lissant": {
+      "id": 10898488721742,
+      "title": "Shampoing Lissant"
+    },
+    "shampoing-lissant-1000ml": {
+      "id": 10898491277646,
+      "title": "Shampoing Lissant 1000ml"
+    },
+    "shampoing-lissant-500ml": {
+      "id": 10901059961166,
+      "title": "Shampoing Lissant 500ml"
+    },
+    "shampoing-lissant-testeur": {
+      "id": 10898485281102,
+      "title": "Shampoing Lissant testeur"
+    },
+    "shampoing-nourrissant": {
+      "id": 10898490523982,
+      "title": "Shampoing nourrissant"
+    },
+    "shampoing-nourrissant-1000ml": {
+      "id": 10898492195150,
+      "title": "Shampoing Nourrissant 1000ml"
+    },
+    "shampoing-nourrissant-500ml": {
+      "id": 10899068879182,
+      "title": "Shampoing nourrissant 500ml"
+    },
+    "shampoing-nourrissant-testeur": {
+      "id": 10898485805390,
+      "title": "Shampoing Nourrissant testeur"
+    },
+    "shampoing-platine-testeur": {
+      "id": 10898487869774,
+      "title": "Shampoing Platine Testeur"
+    },
+    "shampoing-protecteur-de-couleur": {
+      "id": 10898489180494,
+      "title": "Shampoing Protecteur de Couleur"
+    },
+    "shampoing-protecteur-de-couleur-1000ml": {
+      "id": 10898491408718,
+      "title": "Shampoing Protecteur de Couleur 1000ml"
+    },
+    "shampoing-protecteur-de-couleur-500ml": {
+      "id": 10901059076430,
+      "title": "Shampoing Protecteur de Couleur 500ml"
+    },
+    "shampoing-protecteur-de-couleur-testeur": {
+      "id": 10898485576014,
+      "title": "Shampoing Protecteur de Couleur testeur"
+    },
+    "shampoing-purifiant": {
+      "id": 10898488787278,
+      "title": "Shampoing Purifiant"
+    },
+    "shampoing-purifiant-1000ml": {
+      "id": 10898491212110,
+      "title": "Shampoing Purifiant 1000ml"
+    },
+    "shampoing-purifiant-500ml": {
+      "id": 10901059862862,
+      "title": "Shampoing Purifiant 500ml"
+    },
+    "shampoing-purifiant-testeur": {
+      "id": 10898485477710,
+      "title": "Shampoing Purifiant testeur"
+    },
+    "shampoing-volume": {
+      "id": 10898489901390,
+      "title": "Shampoing volume"
+    },
+    "shampoing-volume-1000ml": {
+      "id": 10898491343182,
+      "title": "Shampoing Volume 1000ml"
+    },
+    "shampoing-volume-500ml": {
+      "id": 10901058552142,
+      "title": "Shampoing volume 500ml"
+    },
+    "shampoing-volume-testeur": {
+      "id": 10898485608782,
+      "title": "Shampoing Volume testeur"
+    },
+    "spray-texturisant": {
+      "id": 10898490163534,
+      "title": "Spray Texturisant 200ml"
+    },
+    "spray-texturisant-testeur": {
+      "id": 10898486690126,
+      "title": "Spray Texturisant testeur"
+    },
+    "zebra": {
+      "id": 10898483609934,
+      "title": "Zebra"
+    }
+  },
+  "collections": {
+    "abonnements-forfaits-dimpression": {
+      "id": 688061612366,
+      "title": "Abonnements forfaits d'impression",
+      "kind": "custom"
+    },
+    "boutique-adherents": {
+      "id": 655594291534,
+      "title": "Boutique Adhérents",
+      "kind": "custom"
+    },
+    "coffrets-decouverte": {
+      "id": 655654453582,
+      "title": "Coffrets découverte",
+      "kind": "custom"
+    },
+    "coiffants": {
+      "id": 655493431630,
+      "title": "Coiffants",
+      "kind": "custom"
+    },
+    "cremes-de-coiffage-sans-rincage": {
+      "id": 654861369678,
+      "title": "Crèmes des coiffage sans rinçage",
+      "kind": "custom"
+    },
+    "cremes-de-coiffage-sans-rincage-testeurs": {
+      "id": 684284117326,
+      "title": "Crèmes des coiffage sans rinçage testeurs",
+      "kind": "custom"
+    },
+    "gamme-homme": {
+      "id": 655493693774,
+      "title": "Gamme homme",
+      "kind": "custom"
+    },
+    "gamme-homme-testeurs": {
+      "id": 655654388046,
+      "title": "Gamme homme testeurs",
+      "kind": "custom"
+    },
+    "masques-neutres": {
+      "id": 655492809038,
+      "title": "Masques neutres",
+      "kind": "custom"
+    },
+    "masques-neutres-testeurs": {
+      "id": 655654027598,
+      "title": "Masques neutres testeurs",
+      "kind": "custom"
+    },
+    "masques-repigmentants": {
+      "id": 655467708750,
+      "title": "Masques repigmentants",
+      "kind": "custom"
+    },
+    "masques-repigmentants-testeurs": {
+      "id": 655653863758,
+      "title": "Masques repigmentants testeurs",
+      "kind": "custom"
+    },
+    "modeles-detiquettes": {
+      "id": 684405391694,
+      "title": "Modèles d'étiquettes",
+      "kind": "custom"
+    },
+    "frontpage": {
+      "id": 654841413966,
+      "title": "Page d’accueil",
+      "kind": "custom"
+    },
+    "produits-de-finition": {
+      "id": 655492645198,
+      "title": "Produits de finition",
+      "kind": "custom"
+    },
+    "produits-de-finition-testeurs": {
+      "id": 655654256974,
+      "title": "Produits de finition testeurs",
+      "kind": "custom"
+    },
+    "shampoings-neutres": {
+      "id": 655465873742,
+      "title": "Shampoings neutres",
+      "kind": "custom"
+    },
+    "shampoings-neutres-testeurs": {
+      "id": 655653962062,
+      "title": "Shampoings neutres testeurs",
+      "kind": "custom"
+    },
+    "shampoings-repigmentants": {
+      "id": 655467675982,
+      "title": "Shampoings repigmentants",
+      "kind": "custom"
+    },
+    "testeurs": {
+      "id": 655493562702,
+      "title": "Tous les testeurs",
+      "kind": "custom"
+    },
+    "boutique-decouverte": {
+      "id": 655594357070,
+      "title": "Boutique Découverte",
+      "kind": "smart"
+    }
+  },
+  "pages": {
+    "ajouter-une-ligne-capillaire-a-votre-marque": {
+      "id": 740455383374,
+      "title": "Ajouter une ligne capillaire à votre marque"
+    },
+    "calculez-vos-marges-en-1-clic": {
+      "id": 738380054862,
+      "title": "Calculateur de marges en 1 clic"
+    },
+    "catalogue-prix-et-formules-mylab": {
+      "id": 152622760270,
+      "title": "Catalogue & Tarifs Produits MY.LAB"
+    },
+    "modeles-etiquettes": {
+      "id": 152623022414,
+      "title": "Choisissez vos étiquettes personnalisées en 1 clic"
+    },
+    "commande-express": {
+      "id": 738905817422,
+      "title": "Commande Express"
+    },
+    "testez-les-produits": {
+      "id": 152623153486,
+      "title": "Commander échantillons"
+    },
+    "configurateur": {
+      "id": 739497345358,
+      "title": "Configurateur"
+    },
+    "contact": {
+      "id": 151868768590,
+      "title": "Contactez MY.LAB | Laboratoire Capillaire Marque Blanche"
+    },
+    "creation-dossier-cosmetologique": {
+      "id": 152622334286,
+      "title": "Créer votre dossier cosmétologique"
+    },
+    "les-etapes-de-creation-de-marque": {
+      "id": 152484675918,
+      "title": "Créer votre marque en 4 Étapes avec MY.LAB"
+    },
+    "creme-capillaire-professionnelle-marque-blanche": {
+      "id": 152622891342,
+      "title": "Crème capillaire en marque blanche"
+    },
+    "creons-ensemble-votre-marque": {
+      "id": 740527898958,
+      "title": "Créons ensemble votre marque"
+    },
+    "etiquettes-standard": {
+      "id": 740461805902,
+      "title": "Design MY.LAB gratuit"
+    },
+    "boutique-testeurs": {
+      "id": 152642093390,
+      "title": "Essayez nos formules en marque blanche"
+    },
+    "etiquette-sur-mesure": {
+      "id": 740463018318,
+      "title": "Étiquette sur mesure"
+    },
+    "faq-my-lab": {
+      "id": 152622367054,
+      "title": "FAQ — Vos questions les plus fréquentes"
+    },
+    "huile-seche-cheveux-marque-blanche": {
+      "id": 152623219022,
+      "title": "Huile sèche cheveux marque blanche"
+    },
+    "laboratoire-cosmetique-aix-en-provence": {
+      "id": 152623284558,
+      "title": "Laboratoire cosmétique Aix-en-Provence"
+    },
+    "laboratoire-cosmetique-lyon": {
+      "id": 152623317326,
+      "title": "Laboratoire cosmétique Lyon"
+    },
+    "laboratoire-cosmetique-paca": {
+      "id": 152623350094,
+      "title": "Laboratoire cosmétique PACA"
+    },
+    "laboratoire-cosmetique-a-marseille": {
+      "id": 152622825806,
+      "title": "Laboratoire cosmétique à Marseille"
+    },
+    "les-accessoires-my-lab": {
+      "id": 152622989646,
+      "title": "Les accessoires"
+    },
+    "masque-capillaire-professionnel-marque-blanche": {
+      "id": 152622924110,
+      "title": "Masque capillaire en marque blanche"
+    },
+    "mentions-legales": {
+      "id": 152622596430,
+      "title": "Mentions légales"
+    },
+    "llms-txt": {
+      "id": 740427465038,
+      "title": "MY.LAB — llms.txt"
+    },
+    "mylab-laboratoire-cosmetique-fabrication-de-produits-capillaires": {
+      "id": 152622498126,
+      "title": "MyLab : Laboratoire Cosmétique, Fabrication de produits Capillaires"
+    },
+    "nos-realisations": {
+      "id": 152622432590,
+      "title": "Nos réalisations"
+    },
+    "la-boutique-my-lab": {
+      "id": 152623055182,
+      "title": "Notre gamme de produits professionnels en marque blanche"
+    },
+    "notre-histoire-mylab": {
+      "id": 152622727502,
+      "title": "Notre histoire"
+    },
+    "partez-a-la-decouverte-de-votre-marque": {
+      "id": 152623120718,
+      "title": "Partez à la découverte de votre marque"
+    },
+    "personnalisation-flacon": {
+      "id": 738392998222,
+      "title": "Personnalisation flacon"
+    },
+    "prise-de-rendez-vous": {
+      "id": 152622399822,
+      "title": "Prise de Rendez-vous"
+    },
+    "produit-de-finition-coiffure-marque-blanche": {
+      "id": 152623186254,
+      "title": "Produit de finition coiffure marque blanche"
+    },
+    "laboratoire-cosmetique-marque-blanche": {
+      "id": 152622858574,
+      "title": "Produits en marque blanche"
+    },
+    "rejoignez-nous": {
+      "id": 152623087950,
+      "title": "Rejoignez-nous"
+    },
+    "serum-cheveux-marque-blanche": {
+      "id": 152623251790,
+      "title": "Sérum cheveux marque blanche"
+    },
+    "shampoing-en-marque-blanche": {
+      "id": 152622956878,
+      "title": "Shampoing en marque blanche"
+    },
+    "temoignages": {
+      "id": 152623415630,
+      "title": "Témoignages clients MY.LAB"
+    },
+    "vous-cherchez-a-commander-en-gros-volume-cest-par-ici": {
+      "id": 738977481038,
+      "title": "Vous cherchez à commander en gros volume ? c'est par ici !"
+    }
+  },
+  "redirects": {
+    "/products/shampoing-nourrissant-1-l": "/products/shampoing-nourrissant-1000-ml",
+    "/collections/shampoings-repigmentants-1": "/collections/shampoings-repigmentants",
+    "/collections/cremes-des-coiffage-sans-rincage-copie": "/collections/cremes-des-coiffage-sans-rincage-testeurs",
+    "/pages/temoignages-clients-2": "/pages/temoignages",
+    "/products/shampoing-1l-dejaunisseur-platine": "/products/shampoing-1000ml-dejaunisseur-platine",
+    "/products/shampoing-1l-coloristeur-cuivre": "/products/shampoing-1000ml-coloristeur-cuivre",
+    "/products/shampoing-1l-coloristeur-chocolat": "/products/shampoing-1000ml-coloristeur-chocolat",
+    "/products/shampoing-1l-coloristeur-marron-noisette": "/products/shampoing-1000ml-coloristeur-marron-noisette",
+    "/products/shampoing-1l-coloristeur-blond-soleil": "/products/shampoing-1000ml-coloristeur-blond-soleil",
+    "/products/shampoing-1l-coloristeur-blond-vanille": "/products/shampoing-1000ml-coloristeur-blond-vanille",
+    "/products/masque-1l-coloristeur-cuivre-intense": "/products/masque-1000ml-coloristeur-cuivre-intense",
+    "/products/masque-1l-coloristeur-chocolat": "/products/masque-1000ml-coloristeur-chocolat",
+    "/products/masque-1l-coloristeur-marron-noisette": "/products/masque-1000ml-coloristeur-marron-noisette",
+    "/products/masque-1l-coloristeur-blond-soleil": "/products/masque-1000ml-coloristeur-blond-soleil",
+    "/products/masque-1l-coloristeur-blond-vanille": "/products/masque-1000ml-coloristeur-blond-vanille",
+    "/products/masque-1l-dejaunisseur-platine": "/products/masque-1000ml-dejaunisseur-platine",
+    "/products/masque-1000ml-coloristeur-cuivre-intense": "/products/masque-1000ml-coloristeur-cuivre",
+    "/products/masque-protecteur-de-couleur-1-l": "/products/masque-protecteur-de-couleur-1000ml",
+    "/products/masque-nourrissant-1l": "/products/masque-nourrissant-1000ml",
+    "/products/masque-volume-1l": "/products/masque-volume-1000ml",
+    "/products/masque-lissant-1-l": "/products/masque-lissant-1000ml",
+    "/products/masque-boucles-1-l": "/products/masque-boucles-1000ml",
+    "/products/masque-ha-repulpe-1-l": "/products/masque-ha-repulpe-1000ml",
+    "/products/shampoing-gel-douche-1-l": "/products/shampoing-gel-douche-1000ml",
+    "/products/shampoing-ha-repulpe-1-l": "/products/shampoing-ha-repulpe-1000ml",
+    "/products/shampoing-nourrissant-1000-ml": "/products/shampoing-nourrissant-1000ml",
+    "/products/shampoing-protecteur-de-couleur-1-l": "/products/shampoing-protecteur-de-couleur-1000ml",
+    "/products/shampoing-volume-1-l": "/products/shampoing-volume-1000ml",
+    "/products/shampoing-boucles-1-l": "/products/shampoing-boucles-1000ml",
+    "/products/shampoing-lissant-1l": "/products/shampoing-lissant-1000ml",
+    "/products/shampoing-purifiant-1-l": "/products/shampoing-purifiant-1000ml",
+    "/products/shampoing-lissant-copie": "/products/shampoing-lissant-500ml",
+    "/laboratoire-cosmetique-marque-blanche": "/",
+    "/shampoing-en-marque-blanche": "/pages/boutique-testeurs",
+    "/creme-capillaire-professionnelle-marque-blanche": "/pages/boutique-testeurs",
+    "/masque-capillaire-professionnel-marque-blanche": "/pages/boutique-testeurs",
+    "/serum-cheveux-marque-blanche": "/pages/boutique-testeurs",
+    "/produit-de-finition-coiffure-marque-blanche": "/pages/boutique-testeurs",
+    "/creer-sa-marque-de-cosmetique-capillaire-profesionnel-en-ligne": "/pages/les-etapes-de-creation-de-marque",
+    "/les-etapes-pour-creer-sa-marque-de-cosmetique-capillaire": "/pages/les-etapes-de-creation-de-marque",
+    "/testez-les-produits": "/pages/boutique-testeurs",
+    "/modeles-etiquettes": "/pages/modeles-etiquettes",
+    "/la-boutique-my-lab": "/pages/la-boutique-my-lab",
+    "/faq-my-lab": "/pages/faq-my-lab",
+    "/notre-histoire-mylab": "/pages/les-etapes-de-creation-de-marque",
+    "/categorie-produit/pack-de-lancement": "/collections/all",
+    "/laboratoire-cosmetique-a-marseille": "/pages/contact",
+    "/laboratoire-cosmetique-lyon": "/pages/contact",
+    "/laboratoire-cosmetique-aix-en-provence": "/pages/contact",
+    "/produit/masque-nourrissant": "/products/masque-nourrissant-testeur",
+    "/produit/masque-lissant": "/products/masque-lissant-testeur",
+    "/produit/shampoing-nourrissant": "/products/shampoing-nourrissant",
+    "/produit/shampoing-lissant": "/products/shampoing-lissant-testeur",
+    "/pages/creation-ia-premium": "/pages/https-mylab-configurateur-vercel-app-configurateur-mode-studio",
+    "/pages/personnalisation-detiquettes": "/pages/https-mylab-configurateur-vercel-app-configurateur-mode-template",
+    "/pages/modeles-detiquettes": "/pages/https-mylab-configurateur-vercel-app-configurateur-mode-template-1",
+    "/pages/configurateur-mylab": "/pages/https-mylab-configurateur-vercel-app-configurateur",
+    "/pages/https-mylab-configurateur-vercel-app-configurateur": "/pages/configurateur",
+    "/collections/all": "/pages/la-boutique-my-lab",
+    "/pages/creer-sa-marque-de-cosmetique-capillaire-profesionnel-en-ligne": "/pages/creer-sa-marque-de-cosmetique-capillaire-professionnel-en-ligne",
+    "/collections/cremes-des-coiffage-sans-rincage": "/collections/cremes-de-coiffage-sans-rincage",
+    "/collections/cremes-des-coiffage-sans-rincage-testeurs": "/collections/cremes-de-coiffage-sans-rincage-testeurs",
+    "/products/dossier-cosmetologique": "/products/creation-du-dossier-cosmetologique",
+    "/llms.txt": "/pages/llms-txt",
+    "/products/shampooing-gel-douche": "/products/shampoing-gel-douche",
+    "/products/shampooing-gel-douche-500ml": "/products/shampoing-gel-douche-500ml",
+    "/products/shampooing-gel-douche-testeur": "/products/shampoing-gel-douche-testeur",
+    "/products/shampooing-blond-soleil-testeur": "/products/shampoing-blond-soleil-testeur",
+    "/products/shampooing-blond-vanille-testeur": "/products/shampoing-blond-vanille-testeur",
+    "/products/shampooing-boucles": "/products/shampoing-boucles",
+    "/products/shampooing-boucles-1000ml": "/products/shampoing-boucles-1000ml",
+    "/products/shampooing-boucles-500ml": "/products/shampoing-boucles-500ml",
+    "/products/shampooing-boucles-testeur": "/products/shampoing-boucles-testeur",
+    "/products/shampooing-chocolat-testeur": "/products/shampoing-chocolat-testeur",
+    "/products/shampooing-coloristeur-blond-soleil": "/products/shampoing-coloristeur-blond-soleil",
+    "/products/shampooing-1000ml-coloristeur-blond-soleil": "/products/shampoing-1000ml-coloristeur-blond-soleil",
+    "/products/shampooing-coloristeur-blond-vanille": "/products/shampoing-coloristeur-blond-vanille",
+    "/products/shampooing-1000ml-coloristeur-blond-vanille": "/products/shampoing-1000ml-coloristeur-blond-vanille",
+    "/products/shampooing-coloristeur-chocolat": "/products/shampoing-coloristeur-chocolat",
+    "/products/shampooing-1000ml-coloristeur-chocolat": "/products/shampoing-1000ml-coloristeur-chocolat",
+    "/products/shampooing-coloristeur-cuivre": "/products/shampoing-coloristeur-cuivre",
+    "/products/shampooing-1000ml-coloristeur-cuivre": "/products/shampoing-1000ml-coloristeur-cuivre",
+    "/products/shampooing-coloristeur-marron-noisette": "/products/shampoing-coloristeur-marron-noisette",
+    "/products/shampooing-1000ml-coloristeur-marron-noisette": "/products/shampoing-1000ml-coloristeur-marron-noisette",
+    "/products/shampooing-cuivre-intense-testeur": "/products/shampoing-cuivre-intense-testeur",
+    "/products/shampooing-dejaunisseur-platine": "/products/shampoing-dejaunisseur-platine",
+    "/products/shampooing-1000ml-dejaunisseur-platine": "/products/shampoing-1000ml-dejaunisseur-platine",
+    "/products/shampooing-gel-douche-1000ml": "/products/shampoing-gel-douche-1000ml",
+    "/products/shampooing-ha-repulpe": "/products/shampoing-ha-repulpe",
+    "/products/shampooing-ha-repulpe-1000ml": "/products/shampoing-ha-repulpe-1000ml",
+    "/products/shampooing-ha-repulpe-500ml": "/products/shampoing-ha-repulpe-500ml",
+    "/products/shampooing-ha-repulpe-testeur": "/products/shampoing-ha-repulpe-testeur",
+    "/products/shampooing-lissant": "/products/shampoing-lissant",
+    "/products/shampooing-lissant-1000ml": "/products/shampoing-lissant-1000ml",
+    "/products/shampooing-lissant-500ml": "/products/shampoing-lissant-500ml",
+    "/products/shampooing-lissant-testeur": "/products/shampoing-lissant-testeur",
+    "/products/shampooing-marron-noisette-testeur": "/products/shampoing-marron-noisette-testeur",
+    "/products/shampooing-nourrissant": "/products/shampoing-nourrissant",
+    "/products/shampooing-nourrissant-1000ml": "/products/shampoing-nourrissant-1000ml",
+    "/products/shampooing-nourrissant-500ml": "/products/shampoing-nourrissant-500ml",
+    "/products/shampooing-nourrissant-testeur": "/products/shampoing-nourrissant-testeur",
+    "/products/shampooing-platine-testeur": "/products/shampoing-platine-testeur",
+    "/products/shampooing-protecteur-de-couleur": "/products/shampoing-protecteur-de-couleur",
+    "/products/shampooing-protecteur-de-couleur-1000ml": "/products/shampoing-protecteur-de-couleur-1000ml",
+    "/products/shampooing-protecteur-de-couleur-500ml": "/products/shampoing-protecteur-de-couleur-500ml",
+    "/products/shampooing-protecteur-de-couleur-testeur": "/products/shampoing-protecteur-de-couleur-testeur",
+    "/products/shampooing-purifiant": "/products/shampoing-purifiant",
+    "/products/shampooing-purifiant-1000ml": "/products/shampoing-purifiant-1000ml",
+    "/products/shampooing-purifiant-500ml": "/products/shampoing-purifiant-500ml",
+    "/products/shampooing-purifiant-testeur": "/products/shampoing-purifiant-testeur",
+    "/products/shampooing-volume": "/products/shampoing-volume",
+    "/products/shampooing-volume-1000ml": "/products/shampoing-volume-1000ml",
+    "/products/shampooing-volume-500ml": "/products/shampoing-volume-500ml",
+    "/products/shampooing-volume-testeur": "/products/shampoing-volume-testeur",
+    "/products/shampooing": "/pages/la-boutique-my-lab",
+    "/collections/shampooings-neutres": "/collections/shampoings-neutres",
+    "/collections/shampooings-neutres-testeurs": "/collections/shampoings-neutres-testeurs",
+    "/collections/shampooings-repigmentants": "/collections/shampoings-repigmentants",
+    "/pages/etiquette-modele": "/pages/modeles-etiquettes#galerie-modeles",
+    "/pages/parcours-dossier": "/pages/creons-ensemble-votre-marque",
+    "/pages/parcours-etiquette": "/pages/creons-ensemble-votre-marque",
+    "/pages/parcours-produits": "/pages/creons-ensemble-votre-marque",
+    "/pages/parcours-recap": "/pages/creons-ensemble-votre-marque",
+    "/pages/les-etapes-pour-creer-sa-marque-de-cosmetique-capillair": "/pages/les-etapes-de-creation-de-marque"
+  }
+}
