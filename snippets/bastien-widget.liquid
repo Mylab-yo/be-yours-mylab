@@ -186,9 +186,10 @@
     border: 1px solid rgba(0,0,0,0.12);
     border-radius: 24px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px; /* 16px+ pour éviter zoom auto iOS */
     outline: none;
     background: #faf6f0;
+    -webkit-appearance: none;
   }
   .bastien-input:focus { border-color: #1a1a1a; }
   .bastien-send {
@@ -216,17 +217,54 @@
     background: #fff;
   }
 
-  @media (max-width: 480px) {
+  /* === MOBILE / SMALL TABLET === */
+  @media (max-width: 768px) {
+    .bastien-launcher {
+      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+      right: 16px;
+      width: 56px;
+      height: 56px;
+    }
+    .bastien-launcher svg { width: 28px; height: 28px; }
+
     .bastien-panel {
       bottom: 0;
       right: 0;
+      left: 0;
+      top: 0;
       width: 100%;
       max-width: 100%;
-      height: 100%;
-      max-height: 100%;
+      height: 100vh;
+      height: 100dvh; /* dynamic vh = correctement ajusté avec barre browser mobile */
+      max-height: 100dvh;
       border-radius: 0;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-sizing: border-box;
     }
-    .bastien-launcher { bottom: 16px; right: 16px; }
+    .bastien-header {
+      padding: 14px 16px;
+      padding-top: max(14px, env(safe-area-inset-top, 14px));
+    }
+    .bastien-messages {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding: 12px;
+    }
+    .bastien-msg { font-size: 15px; max-width: 88%; }
+    .bastien-input-row {
+      padding: 10px 12px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom, 10px));
+    }
+    .bastien-send { width: 44px; height: 44px; } /* tap target Apple HIG */
+    .bastien-close { padding: 8px 12px; font-size: 26px; } /* easier tap */
+    .bastien-footer { display: none; } /* gain de place */
+  }
+
+  /* Quand le chat est ouvert sur mobile, lock body scroll */
+  body.bastien-open { overflow: hidden; position: fixed; width: 100%; }
+  @media (min-width: 769px) {
+    body.bastien-open { position: static; overflow: auto; } /* desktop : scroll OK */
   }
 </style>
 
@@ -325,22 +363,46 @@
   }
 
   // === Open / close ===
+  let _bodyScrollY = 0;
+  function isMobile() { return window.matchMedia('(max-width: 768px)').matches; }
+
   function openPanel() {
     panel.classList.add('open');
     launcher.style.display = 'none';
-    input.focus();
+    if (isMobile()) {
+      _bodyScrollY = window.scrollY;
+      document.body.classList.add('bastien-open');
+      document.body.style.top = '-' + _bodyScrollY + 'px';
+    }
+    // Focus seulement en desktop (sur mobile ça force l'ouverture du clavier non désirée)
+    if (!isMobile()) input.focus();
     if (!localStorage.getItem(STORAGE_OPENED)) {
       localStorage.setItem(STORAGE_OPENED, '1');
-      // Welcome on first open
       renderMessage('bot', "Bonjour 👋 Je suis Bastien, l'assistant MY.LAB. Comment puis-je vous aider ?");
       const hist = loadHistory();
       hist.push({ role: 'bot', text: "Bonjour 👋 Je suis Bastien, l'assistant MY.LAB. Comment puis-je vous aider ?" });
       saveHistory(hist);
     }
+    // Force scroll messages au bas (utile au re-open)
+    setTimeout(() => { msgsEl.scrollTop = msgsEl.scrollHeight; }, 50);
   }
   function closePanel() {
     panel.classList.remove('open');
     launcher.style.display = 'flex';
+    if (document.body.classList.contains('bastien-open')) {
+      document.body.classList.remove('bastien-open');
+      document.body.style.top = '';
+      window.scrollTo(0, _bodyScrollY);
+    }
+  }
+
+  // Si le clavier mobile s'ouvre/ferme, garde le scroll en bas des messages
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function() {
+      if (panel.classList.contains('open')) {
+        setTimeout(() => { msgsEl.scrollTop = msgsEl.scrollHeight; }, 100);
+      }
+    });
   }
 
   // === Send message ===
