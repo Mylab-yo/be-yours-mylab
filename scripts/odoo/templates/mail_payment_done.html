@@ -1,0 +1,43 @@
+<div style="margin: 0; padding: 0; font-size: 13px; line-height: 1.55; color: #333;">
+<t t-set="partner" t-value="object.partner_id"/>
+<t t-set="contact_partner" t-value="partner"/>
+<t t-if="partner.is_company and partner.child_ids">
+  <t t-set="contacts" t-value="partner.child_ids.filtered(lambda c: c.type == 'contact')[:1]"/>
+  <t t-if="contacts">
+    <t t-set="contact_partner" t-value="contacts[0]"/>
+  </t>
+</t>
+<t t-set="is_person" t-value="not contact_partner.is_company"/>
+<t t-set="full_name" t-value="(contact_partner.name or '').strip() if is_person else ''"/>
+<t t-set="parts" t-value="full_name.split() if full_name else []"/>
+<t t-set="firstname_raw" t-value="parts[0] if parts else ''"/>
+<t t-set="firstname" t-value="firstname_raw.title() if firstname_raw.isupper() else firstname_raw"/>
+
+<t t-set="last_tx" t-value="object.transaction_ids and object.transaction_ids.sorted('create_date', reverse=True)[:1] or False"/>
+<t t-set="is_wire" t-value="last_tx and last_tx.state == 'pending'"/>
+
+<p style="margin: 0 0 1rem 0;">
+<t t-if="firstname">Bonjour <t t-out="firstname"/>,</t>
+<t t-else="">Bonjour Madame, Monsieur,</t>
+</p>
+
+<t t-if="is_wire">
+  <p style="margin: 0 0 1rem 0;">Merci pour votre commande <span style="font-weight: bold;" t-out="object.name or ''">S00001</span> d'un montant de <span style="font-weight: bold;" t-out="format_amount(object.amount_total, object.currency_id) or ''">0,00 €</span> TTC.</p>
+  <p style="margin: 0 0 1rem 0;">Vous avez choisi le <strong>virement bancaire</strong> comme moyen de paiement. Merci d'effectuer votre virement avec les coordonnées suivantes :</p>
+  <ul style="margin: 0 0 1rem 0; padding-left: 1.2rem; line-height: 1.7;">
+    <li>Bénéficiaire : <strong>SARL STARTEC</strong></li>
+    <li>IBAN : <span style="font-family: monospace; font-weight: 600;">FR58 3000 2028 8000 0007 1073 R40</span></li>
+    <li>BIC : <span style="font-family: monospace; font-weight: 600;">CRLYFRPP</span></li>
+    <li>Référence à indiquer en libellé : <strong t-out="object.name or ''">S00001</strong></li>
+  </ul>
+  <p style="margin: 0 0 1rem 0;"><strong>Votre commande sera traitée et expédiée dès réception du virement</strong> sur notre compte (généralement sous 1 à 2 jours ouvrés).</p>
+</t>
+<t t-else="">
+  <p style="margin: 0 0 1rem 0;">Nous avons bien reçu votre paiement pour la commande <span style="font-weight: bold;" t-out="object.name or ''">S00001</span> d'un montant de <span style="font-weight: bold;" t-out="format_amount(object.amount_total, object.currency_id) or ''">0,00 €</span> TTC.</p>
+  <p style="margin: 0 0 1rem 0;">Votre commande est en cours de préparation. Vous serez tenu(e) informé(e) de son avancement.</p>
+</t>
+
+<p style="margin: 1rem 0;">Pour toute question, je reste à votre entière disposition.</p>
+<p style="margin: 1rem 0 0 0;">Bien cordialement,</p>
+<t t-if="not is_html_empty(object.user_id.signature)" data-o-mail-quote-container="1"><br/><t t-out="object.user_id.signature or ''" data-o-mail-quote="1">--<br data-o-mail-quote="1"/>Yoann DURAND</t></t>
+</div>

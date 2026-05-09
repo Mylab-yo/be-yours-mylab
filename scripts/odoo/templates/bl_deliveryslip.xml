@@ -5,7 +5,7 @@
         <div class="page" style="font-family: 'DM Sans', sans-serif; font-size: 9pt; color: #1a1a1a;">
 
             <!-- ========== HEADER ========== -->
-            <div style="display: flex; justify-content: space-between; border-bottom: 2pt solid #c9a96e; padding-bottom: 8pt; margin-bottom: 10pt;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1pt solid #1a1a1a; padding-bottom: 8pt; margin-bottom: 10pt;">
                 <div>
                     <h2 style="margin: 0; color: #1a1a1a; font-family: 'Cormorant Garamond', serif;">Bon de livraison</h2>
                     <div style="font-size: 11pt; font-weight: bold;"><span t-field="doc.name"/></div>
@@ -19,10 +19,10 @@
             </div>
 
             <!-- ========== SUMMARY BADGE ========== -->
-            <t t-set="packages" t-value="doc.move_line_ids.mapped('result_package_id')"/>
+            <t t-set="packages" t-value="doc.move_line_ids.mapped('result_package_id').sorted(key=lambda p: int(p.name.split('/')[0].replace('Carton', '').strip()) if p.name and p.name.startswith('Carton ') and '/' in p.name else 9999)"/>
             <t t-set="nb_cartons" t-value="len(packages)"/>
             <t t-set="total_weight" t-value="sum(ml.product_id.weight * ml.quantity for ml in doc.move_line_ids)"/>
-            <div style="background: #1a1a1a; color: #c9a96e; padding: 6pt 10pt; border-radius: 3pt; display: inline-block; margin-bottom: 12pt; font-weight: bold;">
+            <div style="background: #f0f0f0; color: #1a1a1a; padding: 6pt 10pt; border-radius: 4pt; display: inline-block; margin-bottom: 12pt; font-weight: bold;">
                 <span t-esc="nb_cartons"/> cartons — <span t-esc="'%.2f' % total_weight"/> kg
                 <span t-if="doc.carrier_id"> — <t t-esc="doc.carrier_id.name"/></span>
             </div>
@@ -31,7 +31,7 @@
             <h3 style="color: #1a1a1a; font-family: 'Cormorant Garamond', serif; margin-top: 8pt; margin-bottom: 4pt;">Récapitulatif produits</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
                 <thead>
-                    <tr style="background: #f5f0e6; border-bottom: 1pt solid #c9a96e;">
+                    <tr style="background: #f0f0f0; border-bottom: 1pt solid #1a1a1a;">
                         <th style="text-align: left; padding: 4pt;">Référence</th>
                         <th style="text-align: left; padding: 4pt;">Désignation</th>
                         <th style="text-align: right; padding: 4pt;">Qté</th>
@@ -77,8 +77,8 @@
                 <t t-set="pkg_units" t-value="int(sum(ml.quantity for ml in pkg_mls))"/>
                 <t t-set="pkg_weight" t-value="sum(ml.quantity * (ml.product_id.weight or 0) for ml in pkg_mls)"/>
                 <t t-set="pkg_capacity" t-value="pkg_mls and (pkg_mls[0].product_id.x_carton_capacity or 0) or 0"/>
-                <div style="border: 0.5pt solid #c9a96e; margin-bottom: 5pt; page-break-inside: avoid;">
-                    <div style="background: #1a1a1a; color: #c9a96e; padding: 3pt 6pt; display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt;">
+                <div style="border: 0.5pt solid #e0e0e0; border-radius: 4pt; margin-bottom: 5pt; page-break-inside: avoid; overflow: hidden;">
+                    <div style="background: #f0f0f0; color: #1a1a1a; padding: 4pt 8pt; display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt;">
                         <span>☐ <t t-esc="pkg.name"/></span>
                         <span>
                             <t t-if="pkg_capacity &gt; 0"><t t-esc="pkg_units"/>/<t t-esc="pkg_capacity"/></t>
