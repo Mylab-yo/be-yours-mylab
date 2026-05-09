@@ -11,9 +11,8 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
+    <link rel="icon" type="image/png" href="{{ 'Logo-rond-noir-300x300.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'Logo-rond-noir-300x300.png' | asset_url }}">
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -265,5 +264,8 @@
         }, true);
       })();
     </script>
+
+    {%- comment -%} Bastien chat widget — bulle flottante en bas à droite {%- endcomment -%}
+    {% render 'bastien-widget' %}
   </body>
 </html>
