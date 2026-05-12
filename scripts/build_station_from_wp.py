@@ -27,6 +27,20 @@ COUNTRY_MAP = {
 
 NUM_RE = re.compile(r"^(\d+\s*[A-Za-z]?)[,\s]+(.+)$")
 
+# Patterns indicating a pickup-point / parcel-locker leak rather than a real company name.
+PICKUP_POINT_PATTERNS = [
+    re.compile(r"\(P\d{5}\)", re.IGNORECASE),       # (P85075) — Mondial Relay
+    re.compile(r"\bMONDIAL\s*RELAY\b", re.IGNORECASE),
+    re.compile(r"\bPOINT\s*RELAIS\b", re.IGNORECASE),
+    re.compile(r"\bRELAIS\s+COLIS\b", re.IGNORECASE),
+    re.compile(r"\bSHOP2SHOP\b", re.IGNORECASE),
+    re.compile(r"\bPICKUP\b", re.IGNORECASE),
+]
+
+
+def is_pickup_point(value):
+    return any(rx.search(value) for rx in PICKUP_POINT_PATTERNS) if value else False
+
 
 def parse_address(raw):
     raw = (raw or "").strip()
@@ -41,7 +55,9 @@ def parse_address(raw):
 def normalize_phone(raw):
     if not raw:
         return ""
-    p = re.sub(r"[\s\.\-\(\)]+", "", raw.strip())
+    # Excel CSV escapes phone-like values with a leading apostrophe; strip it.
+    p = raw.strip().lstrip("'").lstrip("=")
+    p = re.sub(r"[\s\.\-\(\)/]+", "", p)
     if p.startswith("+33") and len(p) >= 11:
         p = "0" + p[3:]
     elif p.startswith("0033") and len(p) >= 12:
@@ -49,11 +65,18 @@ def normalize_phone(raw):
     return p
 
 
+def clean_city(raw):
+    """Strip département suffixes like 'BAGNEUX (92)' -> 'BAGNEUX'."""
+    if not raw:
+        return ""
+    return re.sub(r"\s*\([^)]*\)\s*$", "", raw.strip())
+
+
 def load_existing(out_path: Path) -> set:
     if not out_path.exists():
         return set()
     keys = set()
-    with out_path.open("r", encoding="utf-8") as f:
+    with out_path.open("r", encoding="cp1252", errors="replace") as f:
         for line in f:
             cols = line.rstrip("\n").split("\t")
             if len(cols) < 14 or not cols[0]:
@@ -88,19 +111,40 @@ def main(in_path: Path, out_path: Path) -> int:
         for row in reader:
             first = pick(row, "billing_first_name", "shipping_first_name", "first_name")
             last = pick(row, "billing_last_name", "shipping_last_name", "last_name")
-            company = pick(row, "billing_company", "shipping_company")
+            # Prefer billing_company; only fall back to shipping_company if it isn't a pickup point.
+            company = pick(row, "billing_company")
+            if not company:
+                ship_co = pick(row, "shipping_company")
+                if ship_co and not is_pickup_point(ship_co):
+                    company = ship_co
+            if is_pickup_point(company):
+                company = ""
             phone = normalize_phone(pick(row, "billing_phone", "shipping_phone"))
-            addr1 = pick(row, "billing_address_1", "shipping_address_1")
-            addr2 = pick(row, "billing_address_2", "shipping_address_2")
+            email = pick(row, "billing_email", "user_email")
+            # Prefer billing_address_*; fall back to shipping_address_* only if not a pickup point.
+            addr1 = pick(row, "billing_address_1")
+            if not addr1:
+                ship_a1 = pick(row, "shipping_address_1")
+                if ship_a1 and not is_pickup_point(ship_a1):
+                    addr1 = ship_a1
+            if is_pickup_point(addr1):
+                skipped_empty += 1
+                continue
+            addr2 = pick(row, "billing_address_2")
+            if not addr2:
+                ship_a2 = pick(row, "shipping_address_2")
+                if ship_a2 and not is_pickup_point(ship_a2):
+                    addr2 = ship_a2
+            if is_pickup_point(addr2):
+                addr2 = ""
             cp = pick(row, "billing_postcode", "shipping_postcode")
-            ville = pick(row, "billing_city", "shipping_city")
+            ville = clean_city(pick(row, "billing_city", "shipping_city"))
             country_iso = pick(row, "billing_country", "shipping_country").upper()
 
-            full_addr = f"{addr1} {addr2}".strip() if addr2 else addr1
             person = f"{first} {last}".strip()
 
             # Need at least a name + a postal code + an address
-            if not (person or company) or not cp or not full_addr:
+            if not (person or company) or not cp or not addr1:
                 skipped_empty += 1
                 continue
 
@@ -111,12 +155,20 @@ def main(in_path: Path, out_path: Path) -> int:
                 else:
                     pays = "F"
 
-            # Raison sociale: company if present, else person
-            raison_src = company if company else person
-            raison = raison_src.upper()
-            commercial = (company if company else person).title()
+            # Station.NET layout: col 0/2 = main name (company if any, else person),
+            # col 3 = secondary descriptor (person when both exist).
+            if company and person:
+                main = company
+                secondary = person.title()
+            else:
+                main = company if company else person
+                secondary = ""
 
-            key = (raison, cp, ville.upper(), full_addr.upper())
+            raison = main.upper()
+            commercial = main.title()
+            num, voie = parse_address(addr1)
+
+            key = (raison, cp, ville.upper(), addr1.upper())
             if key in existing_keys:
                 continue
             existing = seen.get(key)
@@ -125,31 +177,35 @@ def main(in_path: Path, out_path: Path) -> int:
             if existing and not phone:
                 continue
 
-            num, voie = parse_address(full_addr)
-
             seen[key] = {
                 "raison": raison[:35],
                 "commercial": commercial[:35],
+                "societe": secondary[:35],
                 "pays": pays,
                 "cp": cp[:10],
                 "ville": ville.upper()[:35],
                 "voie": voie[:35],
                 "num": num[:10],
                 "tel": phone[:15],
+                "email": email[:80],
+                "complement": addr2[:35],
             }
 
     mode = "a" if existing_keys else "w"
-    with out_path.open(mode, encoding="utf-8", newline="") as f:
+    with out_path.open(mode, encoding="cp1252", errors="replace", newline="") as f:
         for rec in seen.values():
             cols = [""] * 26
             cols[0] = rec["raison"]
             cols[2] = rec["commercial"]
+            cols[3] = rec["societe"]
             cols[8] = rec["pays"]
             cols[9] = rec["cp"]
             cols[10] = rec["ville"]
             cols[12] = rec["voie"]
             cols[13] = rec["num"]
             cols[15] = rec["tel"]
+            cols[16] = rec["email"]
+            cols[17] = rec["complement"]
             f.write("\t".join(cols) + "\n")
 
     verb = "Appended" if existing_keys else "Wrote"
