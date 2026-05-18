@@ -1,0 +1,383 @@
+{% comment %}
+  Section "Notre périmètre" — qualification leads B2B sur la home.
+  Design éditorial aligné avec la DA MY.LAB. Utilise les variables et classes
+  du thème Be Yours (var(--font-*), classes .button) pour rester cohérent.
+  Couleurs et padding éditables dans Theme Editor.
+{% endcomment %}
+
+{%- liquid
+  assign accent = section.settings.colors_highlight
+  assign text_color = section.settings.colors_text
+  assign muted_color = section.settings.colors_muted
+  assign bg = section.settings.colors_background
+-%}
+
+<section
+  class="ml-perimeter"
+  id="section-{{ section.id }}"
+  style="
+    --mlp-bg: {{ bg }};
+    --mlp-text: {{ text_color }};
+    --mlp-accent: {{ accent }};
+    --mlp-muted: {{ muted_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: var(--mlp-bg);
+  "
+>
+  <div class="ml-perimeter__inner page-width">
+    {%- if section.settings.subheading != blank -%}
+      <div class="ml-perimeter__subheading">
+        <span class="ml-perimeter__subheading-rule" aria-hidden="true"></span>
+        <span>{{ section.settings.subheading }}</span>
+        <span class="ml-perimeter__subheading-rule" aria-hidden="true"></span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="ml-perimeter__heading h2">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.intro != blank -%}
+      <div class="ml-perimeter__intro rte">{{ section.settings.intro }}</div>
+    {%- endif -%}
+
+    <div class="ml-perimeter__grid">
+      <div class="ml-perimeter__col ml-perimeter__col--include">
+        <div class="ml-perimeter__col-head">
+          <span class="ml-perimeter__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </span>
+          <h3 class="ml-perimeter__col-title">{{ section.settings.left_title }}</h3>
+        </div>
+        <ul class="ml-perimeter__list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'include_item' -%}
+              <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="ml-perimeter__divider" aria-hidden="true"></div>
+
+      <div class="ml-perimeter__col ml-perimeter__col--exclude">
+        <div class="ml-perimeter__col-head">
+          <span class="ml-perimeter__icon ml-perimeter__icon--muted" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+              <line x1="6" y1="12" x2="18" y2="12"/>
+            </svg>
+          </span>
+          <h3 class="ml-perimeter__col-title">{{ section.settings.right_title }}</h3>
+        </div>
+        <ul class="ml-perimeter__list ml-perimeter__list--muted">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'exclude_item' -%}
+              <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+      <div class="ml-perimeter__cta">
+        <a href="{{ section.settings.cta_link }}" class="button {% if section.settings.cta_style == 'secondary' %}button--tertiary{% endif %}">
+          <span class="label">{{ section.settings.cta_label }}</span>
+          {% render 'icon', icon: 'arrow' %}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .ml-perimeter {
+    color: var(--mlp-text);
+    font-family: var(--font-body-family), sans-serif;
+    font-style: var(--font-body-style);
+    font-weight: var(--font-body-weight);
+  }
+  .ml-perimeter__inner { text-align: center; }
+
+  /* Subheading "· NOTRE MODÈLE ·" with accent rules */
+  .ml-perimeter__subheading {
+    display: inline-flex; align-items: center; gap: 0.9rem;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--mlp-accent); margin-bottom: 1.2rem;
+  }
+  .ml-perimeter__subheading-rule {
+    display: inline-block; width: 30px; height: 1px;
+    background: var(--mlp-accent); opacity: 0.65;
+  }
+
+  .ml-perimeter__heading {
+    font-family: var(--font-heading-family), sans-serif;
+    font-weight: var(--font-heading-weight, 600);
+    color: var(--mlp-text);
+    margin: 0 auto 1.6rem;
+    line-height: 1.18;
+    max-width: 800px;
+  }
+  .ml-perimeter__heading strong, .ml-perimeter__heading em {
+    font-style: normal;
+    color: var(--mlp-text);
+    background: linear-gradient(180deg, transparent 62%, rgb(from var(--mlp-accent) r g b / 0.35) 62%);
+    background: linear-gradient(180deg, transparent 62%, color-mix(in srgb, var(--mlp-accent) 35%, transparent) 62%);
+    padding: 0 0.12em;
+  }
+  .ml-perimeter__intro {
+    font-size: 1.02rem; line-height: 1.6; color: var(--mlp-muted);
+    max-width: 640px; margin: 0 auto 3.2rem;
+  }
+  .ml-perimeter__intro p { margin: 0; }
+
+  .ml-perimeter__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 3rem;
+    text-align: left;
+    margin-bottom: 0;
+    align-items: start;
+    max-width: 960px;
+    margin-left: auto; margin-right: auto;
+  }
+  .ml-perimeter__col { padding: 0; }
+  .ml-perimeter__divider {
+    width: 1px; align-self: stretch;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--mlp-accent) 45%, transparent) 20%,
+      color-mix(in srgb, var(--mlp-accent) 45%, transparent) 80%,
+      transparent 100%
+    );
+  }
+
+  .ml-perimeter__col-head {
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--mlp-accent) 25%, transparent);
+  }
+  .ml-perimeter__col-title {
+    font-family: var(--font-heading-family), sans-serif;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; margin: 0; color: var(--mlp-text);
+  }
+
+  .ml-perimeter__icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+    background: var(--mlp-accent); color: #ffffff;
+  }
+  .ml-perimeter__icon--muted {
+    background: transparent; color: var(--mlp-accent);
+    border: 1.5px solid var(--mlp-accent);
+  }
+
+  .ml-perimeter__list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.85rem;
+  }
+  .ml-perimeter__list li {
+    position: relative; padding-left: 1.4rem;
+    font-size: 1.02rem; line-height: 1.5; color: var(--mlp-text); font-weight: 500;
+  }
+  .ml-perimeter__list li::before {
+    content: ''; position: absolute; left: 0; top: 0.6rem;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--mlp-accent);
+  }
+  .ml-perimeter__list--muted li {
+    color: var(--mlp-muted); font-weight: 400;
+  }
+  .ml-perimeter__list--muted li::before {
+    background: transparent;
+    border: 1px solid var(--mlp-accent); opacity: 0.7;
+  }
+
+  .ml-perimeter__cta { text-align: center; margin-top: 2.8rem; }
+
+  @media screen and (max-width: 749px) {
+    .ml-perimeter__grid {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+    .ml-perimeter__divider {
+      width: auto; height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        color-mix(in srgb, var(--mlp-accent) 45%, transparent) 20%,
+        color-mix(in srgb, var(--mlp-accent) 45%, transparent) 80%,
+        transparent 100%
+      );
+    }
+    .ml-perimeter__intro { margin-bottom: 2.4rem; }
+    .ml-perimeter__subheading { font-size: 0.72rem; }
+    .ml-perimeter__subheading-rule { width: 20px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "MY.LAB · Notre périmètre",
+  "tag": "section",
+  "class": "ml-perimeter-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sur-titre",
+      "default": "NOTRE MODÈLE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Des formules <strong>expertes</strong>, prêtes à devenir vos produits"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Texte d'intro",
+      "default": "<p>Notre catalogue rassemble plus de 70 formules professionnelles développées par nos partenaires français. Vous choisissez, vous brandez, vous lancez sous 15 jours.</p>"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Titre colonne gauche (Inclus)",
+      "default": "Notre métier"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Titre colonne droite (Exclus)",
+      "default": "Hors périmètre"
+    },
+    {
+      "type": "header",
+      "content": "Bouton"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Libellé du bouton",
+      "default": "Voir le catalogue de formules"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Style du bouton",
+      "options": [
+        { "value": "primary", "label": "Primaire (foncé)" },
+        { "value": "secondary", "label": "Secondaire (contour)" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "colors_background",
+      "label": "Couleur de fond",
+      "default": "#f5f0eb"
+    },
+    {
+      "type": "color",
+      "id": "colors_text",
+      "label": "Couleur du texte principal",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "colors_muted",
+      "label": "Couleur du texte secondaire",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "color",
+      "id": "colors_highlight",
+      "label": "Couleur accent (or)",
+      "default": "#c5a467"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espace haut",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espace bas",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "include_item",
+      "name": "Élément inclus (✓)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Notre offre"
+        }
+      ]
+    },
+    {
+      "type": "exclude_item",
+      "name": "Élément exclu (—)",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Hors périmètre"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MY.LAB · Notre périmètre",
+      "category": "MY.LAB",
+      "blocks": [
+        { "type": "include_item", "settings": { "text": "Catalogue de 70+ formules 96% naturelles" } },
+        { "type": "include_item", "settings": { "text": "Personnalisation marque (logo, étiquette)" } },
+        { "type": "include_item", "settings": { "text": "Production de 6 à 1000+ unités" } },
+        { "type": "include_item", "settings": { "text": "Lancement sous 15 jours" } },
+        { "type": "exclude_item", "settings": { "text": "Modification de formule existante" } },
+        { "type": "exclude_item", "settings": { "text": "Création de formule sur-mesure" } },
+        { "type": "exclude_item", "settings": { "text": "Formulation à façon" } },
+        { "type": "exclude_item", "settings": { "text": "Études cliniques personnalisées" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

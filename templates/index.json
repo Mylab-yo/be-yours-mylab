@@ -6,47 +6,23 @@
         "slide_main": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/huile-goutte.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/huile-goutte.jpg",
+            "image": "shopify://shop_images/huile-goutte.jpg",
+            "image_mobile": "shopify://shop_images/huile-goutte.jpg",
             "image_position": "center center",
             "text_box_position": "middle-left",
             "subheading": "COSMÉTIQUES CAPILLAIRES B2B",
             "subheading_size": "h5",
-            "heading": "Créez votre <strong>propre marque<\/strong>",
+            "heading": "Créez votre <strong>propre marque</strong>",
             "heading_size": "h0",
             "heading_tag": "h1",
             "text": "Déposez votre logo et commandez vos futurs produits capillaires en quelques clics.",
             "text_size": "typeset2",
             "button_label": "Découvrir la boutique",
-            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
+            "button_link": "shopify://pages/la-boutique-my-lab",
             "button_size": "medium",
             "button_style_secondary": false,
             "button_alt_label": "Les étapes de création",
-            "button_alt_link": "shopify:\/\/pages\/etapes-creation",
-            "button_alt_size": "medium",
-            "button_alt_style_secondary": true,
-            "enable_highlight": false,
-            "highlight_style": "solid-color"
-          }
-        },
-        "slide_formules": {
-          "type": "image",
-          "settings": {
-            "image_position": "center center",
-            "text_box_position": "middle-center",
-            "subheading": "FORMULES PROFESSIONNELLES",
-            "subheading_size": "h5",
-            "heading": "Des soins <strong>sur mesure<\/strong>",
-            "heading_size": "h0",
-            "heading_tag": "h2",
-            "text": "Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.",
-            "text_size": "typeset2",
-            "button_label": "Voir les formules",
-            "button_link": "shopify:\/\/pages\/la-boutique-my-lab",
-            "button_size": "medium",
-            "button_style_secondary": false,
-            "button_alt_label": "Découvrir la gamme",
-            "button_alt_link": "shopify:\/\/pages\/catalogue-prix-et-formules-mylab",
+            "button_alt_link": "shopify://pages/etapes-creation",
             "button_alt_size": "medium",
             "button_alt_style_secondary": true,
             "enable_highlight": false,
@@ -56,23 +32,73 @@
         "slide_gros_volume": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/photo-bouteille-home-scaled.jpg",
-            "image_mobile": "shopify:\/\/shop_images\/photo-bouteille-home-scaled.jpg",
+            "image": "shopify://shop_images/photo-bouteille-home-scaled.jpg",
+            "image_mobile": "shopify://shop_images/photo-bouteille-home-scaled.jpg",
             "image_position": "center center",
             "text_box_position": "middle-right",
             "subheading": "COMMANDES GROS VOLUME",
             "subheading_size": "h5",
-            "heading": "Lancez votre <strong>production en série<\/strong>",
+            "heading": "Lancez votre <strong>production en série</strong>",
             "heading_size": "h0",
             "heading_tag": "h2",
             "text": "Dès 50 kg par référence. Packaging Takemoto, tarifs dégressifs, devis sous 72h.",
             "text_size": "typeset2",
             "button_label": "Configurer ma commande",
-            "button_link": "shopify:\/\/pages\/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_link": "shopify://pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
             "button_size": "medium",
             "button_style_secondary": false,
             "button_alt_label": "Parler à un conseiller",
-            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_link": "shopify://pages/contact",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
+        },
+        "slide_formules": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/laboratoire-scaled.jpg",
+            "image_mobile": "shopify://shop_images/laboratoire-scaled.jpg",
+            "image_position": "center center",
+            "text_box_position": "middle-center",
+            "subheading": "FORMULES PROFESSIONNELLES",
+            "subheading_size": "h5",
+            "heading": "Plus de <strong>70 références</strong> prêtes à brander",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "text": "Notre catalogue de soins capillaires développés en France. Sans modification de formule, juste votre marque.",
+            "text_size": "typeset2",
+            "button_label": "Voir les formules",
+            "button_link": "shopify://pages/la-boutique-my-lab",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "Découvrir la gamme",
+            "button_alt_link": "shopify://pages/catalogue-prix-et-formules-mylab",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
+        },
+        "slide_testeurs": {
+          "type": "image",
+          "settings": {
+            "image_position": "center center",
+            "text_box_position": "middle-left",
+            "subheading": "TESTEURS 200 ML — SANS ENGAGEMENT",
+            "subheading_size": "h5",
+            "heading": "Goûtez nos formules <strong>avant</strong> de lancer votre marque",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "text": "Recevez les shampoings, masques, crèmes, sérums et huiles MY.LAB en flacons de 200 ml. Validez avant de vous engager.",
+            "text_size": "typeset2",
+            "button_label": "Commander mes testeurs",
+            "button_link": "shopify://pages/boutique-testeurs",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir le catalogue",
+            "button_alt_link": "shopify://pages/catalogue-prix-et-formules-mylab",
             "button_alt_size": "medium",
             "button_alt_style_secondary": true,
             "enable_highlight": false,
@@ -82,6 +108,7 @@
       },
       "block_order": [
         "slide_main",
+        "slide_testeurs",
         "slide_gros_volume",
         "slide_formules"
       ],
@@ -107,6 +134,164 @@
         "colors_highlight": "#c5a467",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "perimeter_intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "NOTRE MODÈLE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Des formules <strong>expertes</strong>, prêtes à devenir vos produits",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Notre catalogue rassemble plus de 70 formules professionnelles développées par nos partenaires français. Vous choisissez, vous brandez, vous lancez sous 15 jours.</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["subheading", "heading", "text"],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "perimeter_columns": {
+      "type": "multicolumn",
+      "blocks": {
+        "col_include": {
+          "type": "column",
+          "settings": {
+            "title": "Notre métier",
+            "title_size": "h4",
+            "text": "<ul><li>Catalogue de 70+ formules 96% naturelles</li><li>Personnalisation marque (logo, étiquette)</li><li>Production de 6 à 1000+ unités</li><li>Lancement sous 15 jours</li></ul>",
+            "show_popup": false,
+            "justify_text": false,
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "col_exclude": {
+          "type": "column",
+          "settings": {
+            "title": "Hors périmètre",
+            "title_size": "h4",
+            "text": "<ul><li>Modification de formule existante</li><li>Création de formule sur-mesure</li><li>Formulation à façon</li><li>Études cliniques personnalisées</li></ul>",
+            "show_popup": false,
+            "justify_text": false,
+            "button_label": "Voir le catalogue de formules",
+            "button_link": "shopify://pages/catalogue-prix-et-formules-mylab",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": ["col_include", "col_exclude"],
+      "settings": {
+        "image_ratio": "adapt",
+        "image_position": "center center",
+        "text_alignment": "center",
+        "show_divider": true,
+        "image_width": "small",
+        "columns_desktop": 2,
+        "open_in_new_tab": false,
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "mobile_text_alignment": "center",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 20,
+        "padding_bottom": 72,
+        "card_border_radius": 16,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "stats_banner": {
+      "type": "ml-stats-banner",
+      "blocks": {
+        "stat_marques": {
+          "type": "stat",
+          "settings": {
+            "number": "500",
+            "accent_prefix": "+",
+            "accent_suffix": "",
+            "label_line_1": "MARQUES",
+            "label_line_2": "CRÉÉES",
+            "show_google_badge": false
+          }
+        },
+        "stat_experience": {
+          "type": "stat",
+          "settings": {
+            "number": "25",
+            "accent_prefix": "",
+            "accent_suffix": "ans",
+            "label_line_1": "D'EXPÉRIENCE",
+            "label_line_2": "CAPILLAIRE",
+            "show_google_badge": false
+          }
+        },
+        "stat_google": {
+          "type": "stat",
+          "settings": {
+            "number": "5",
+            "accent_prefix": "",
+            "accent_suffix": "/5",
+            "label_line_1": "SELON",
+            "label_line_2": "GOOGLE",
+            "show_google_badge": true
+          }
+        }
+      },
+      "block_order": [
+        "stat_marques",
+        "stat_experience",
+        "stat_google"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#c5a467",
+        "divider_color": "#c5a467",
+        "padding_top": 56,
+        "padding_bottom": 56
       }
     },
     "scrolling_values": {
@@ -216,7 +401,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Votre marque capillaire <strong>clé en main<\/strong>",
+            "heading": "Votre marque capillaire <strong>clé en main</strong>",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -226,7 +411,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>MY.LAB vous accompagne dans la création de votre propre marque de cosmétiques capillaires. Nos formules sont <strong>créées, conçues et fabriquées en France<\/strong> — vegan, sans sulfates, sans silicones, sans parabènes ni ingrédients controversés.<\/p>",
+            "text": "<p>MY.LAB vous accompagne dans la création de votre propre marque de cosmétiques capillaires. Nos formules sont <strong>créées, conçues et fabriquées en France</strong> — vegan, sans sulfates, sans silicones, sans parabènes ni ingrédients controversés.</p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
@@ -267,7 +452,7 @@
             "custom_icon": "",
             "title": "Laboratoire marque blanche",
             "title_size": "h4",
-            "text": "<p>Formules éthiques et responsables, alliant performance et respect de l'environnement.<\/p>",
+            "text": "<p>Formules éthiques et responsables, alliant performance et respect de l'environnement.</p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -280,7 +465,7 @@
             "custom_icon": "",
             "title": "Formules françaises",
             "title_size": "h4",
-            "text": "<p>Nos produits sont conçus avec soin en France, dans le respect des normes les plus exigeantes.<\/p>",
+            "text": "<p>Nos produits sont conçus avec soin en France, dans le respect des normes les plus exigeantes.</p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -293,7 +478,7 @@
             "custom_icon": "",
             "title": "25 ans d'expérience",
             "title_size": "h4",
-            "text": "<p>Nos experts mettent leur savoir-faire à disposition pour créer une marque à la hauteur de vos attentes.<\/p>",
+            "text": "<p>Nos experts mettent leur savoir-faire à disposition pour créer une marque à la hauteur de vos attentes.</p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -306,7 +491,7 @@
             "custom_icon": "",
             "title": "96% d'origine naturelle",
             "title_size": "h4",
-            "text": "<p>Sans parabène, sans sulfate, sans silicone et non testés sur les animaux.<\/p>",
+            "text": "<p>Sans parabène, sans sulfate, sans silicone et non testés sur les animaux.</p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -325,7 +510,7 @@
         "full_width": false,
         "show_divider": false,
         "columns_desktop": 4,
-        "heading": "Pourquoi choisir <strong>MY.LAB<\/strong> ?",
+        "heading": "Pourquoi choisir <strong>MY.LAB</strong> ?",
         "heading_size": "h1",
         "heading_tag": "h2",
         "columns_mobile": "2",
@@ -358,7 +543,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Le laboratoire <em>MY.LAB<\/em>",
+            "heading": "Le laboratoire <em>MY.LAB</em>",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -368,7 +553,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>MY.LAB est né de la volonté de rendre la création de marques capillaires accessible à tous les entrepreneurs. Notre laboratoire français formule des soins professionnels avec des ingrédients sélectionnés pour leur efficacité et leur respect du cheveu et du cuir chevelu.<\/p>",
+            "text": "<p>MY.LAB est né de la volonté de rendre la création de marques capillaires accessible à tous les entrepreneurs. Notre laboratoire français formule des soins professionnels avec des ingrédients sélectionnés pour leur efficacité et leur respect du cheveu et du cuir chevelu.</p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -380,10 +565,10 @@
           "settings": {
             "button_size": "medium",
             "button_label": "En savoir plus",
-            "button_link": "shopify:\/\/pages\/etapes-creation",
+            "button_link": "shopify://pages/etapes-creation",
             "button_style_secondary": false,
             "button_alt_label": "Nous contacter",
-            "button_alt_link": "shopify:\/\/pages\/contact",
+            "button_alt_link": "shopify://pages/contact",
             "button_alt_style_secondary": true
           }
         }
@@ -395,7 +580,7 @@
         "button"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/C9192EEC-8C75-4D77-BED5-619AF0A1ADCD_1_105_c.jpg",
+        "image": "shopify://shop_images/C9192EEC-8C75-4D77-BED5-619AF0A1ADCD_1_105_c.jpg",
         "image_position": "center center",
         "layout": "image_first",
         "text_box_position": "middle",
@@ -428,9 +613,10 @@
           "type": "timeline_item",
           "settings": {
             "date": "ÉTAPE 01",
-            "text": "<p><strong>Essayez nos produits<\/strong><\/p><p>Découvrez et testez nos formules capillaires via la boutique en ligne. Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.<\/p>",
+            "text": "<p><strong>Essayez nos produits</strong></p><p>Découvrez et testez nos formules capillaires via la boutique en ligne. Shampooings, après-shampooings, masques, soins… Trouvez les formules qui correspondent à votre projet.</p>",
+            "image": "shopify://shop_images/photo-3-etiquette-mylab-scaled.jpg",
             "image_alt": "",
-            "source_link": "shopify:\/\/pages\/la-boutique-my-lab",
+            "source_link": "shopify://pages/la-boutique-my-lab",
             "source_text": "Voir la boutique",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -440,7 +626,8 @@
           "type": "timeline_item",
           "settings": {
             "date": "ÉTAPE 02",
-            "text": "<p><strong>Dossier cosmétologique<\/strong><\/p><p>Notre équipe enregistre votre compte, dépose votre marque sur le CPNP et crée vos codes-barres pour une mise en conformité totale.<\/p>",
+            "text": "<p><strong>Dossier cosmétologique</strong></p><p>Notre équipe enregistre votre compte, dépose votre marque sur le CPNP et crée vos codes-barres pour une mise en conformité totale.</p>",
+            "image": "shopify://shop_images/dossier-cosmeto.png",
             "image_alt": "",
             "source_link": "",
             "source_text": "",
@@ -452,7 +639,8 @@
           "type": "timeline_item",
           "settings": {
             "date": "ÉTAPE 03",
-            "text": "<p><strong>Personnalisez votre étiquette<\/strong><\/p><p>3 options : le design MY.LAB gratuit, nos modèles personnalisables, ou une création sur mesure unique à votre image.<\/p>",
+            "text": "<p><strong>Personnalisez votre étiquette</strong></p><p>3 options : le design MY.LAB gratuit, nos modèles personnalisables, ou une création sur mesure unique à votre image.</p>",
+            "image": "shopify://shop_images/the-herborist-slide-boutique.jpg",
             "image_alt": "",
             "source_link": "",
             "source_text": "",
@@ -464,7 +652,8 @@
           "type": "timeline_item",
           "settings": {
             "date": "ÉTAPE 04",
-            "text": "<p><strong>Commandez en autonomie<\/strong><\/p><p>Accédez à la boutique professionnelle et constituez votre gamme à partir de 6 unités par référence. Simple, rapide et efficace.<\/p>",
+            "text": "<p><strong>Commandez en autonomie</strong></p><p>Accédez à la boutique professionnelle et constituez votre gamme à partir de 6 unités par référence. Simple, rapide et efficace.</p>",
+            "image": "shopify://shop_images/complet-visuel-V3-1.jpg",
             "image_alt": "",
             "source_link": "",
             "source_text": "",
@@ -505,7 +694,7 @@
             "text_color": "#333333",
             "title": "01 — Design MY.LAB",
             "title_size": "h3",
-            "text": "<p>Impression en noir de votre logo sur notre modèle standard.<\/p><p><strong>SANS FRAIS SUPPLÉMENTAIRES<\/strong><\/p>",
+            "text": "<p>Impression en noir de votre logo sur notre modèle standard.</p><p><strong>SANS FRAIS SUPPLÉMENTAIRES</strong></p>",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false,
@@ -524,7 +713,7 @@
             "text_color": "#ffffff",
             "title": "02 — Les modèles",
             "title_size": "h3",
-            "text": "<p>Choisissez parmi nos modèles d'étiquette et personnalisez-les avec vos couleurs et votre logo.<\/p>",
+            "text": "<p>Choisissez parmi nos modèles d'étiquette et personnalisez-les avec vos couleurs et votre logo.</p>",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false,
@@ -543,12 +732,12 @@
             "text_color": "#333333",
             "title": "03 — Soyez unique",
             "title_size": "h3",
-            "text": "<p>Création sur mesure de votre étiquette personnalisée. Donnez vie à votre vision.<\/p>",
+            "text": "<p>Création sur mesure de votre étiquette personnalisée. Donnez vie à votre vision.</p>",
             "show_popup": false,
             "popup_image_position": "top",
             "justify_text": false,
             "button_label": "Nous contacter",
-            "button_link": "shopify:\/\/pages\/contact",
+            "button_link": "shopify://pages/contact",
             "button_style_secondary": false,
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -568,7 +757,7 @@
         "image_width": "full",
         "columns_desktop": 3,
         "open_in_new_tab": false,
-        "heading": "Personnalisez votre <strong>étiquette<\/strong>",
+        "heading": "Personnalisez votre <strong>étiquette</strong>",
         "heading_size": "h1",
         "heading_alignment": "center",
         "heading_tag": "h2",
@@ -599,7 +788,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Prenez <em>rendez-vous<\/em> avec un conseiller",
+            "heading": "Prenez <em>rendez-vous</em> avec un conseiller",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -609,7 +798,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Vous avez des questions avant de vous lancer dans la création de votre marque de cosmétiques capillaires ? Prenez rendez-vous avec l'un de nos conseillers pour un échange de 15 minutes sur votre projet.<\/p><p><strong>04 85 69 33 47<\/strong><\/p>",
+            "text": "<p>Vous avez des questions avant de vous lancer dans la création de votre marque de cosmétiques capillaires ? Prenez rendez-vous avec l'un de nos conseillers pour un échange de 15 minutes sur votre projet.</p><p><strong>04 85 69 33 47</strong></p>",
             "text_size": "typeset",
             "secondary_color": false,
             "enable_highlight": false,
@@ -621,7 +810,7 @@
           "settings": {
             "button_size": "medium",
             "button_label": "Prendre un RDV",
-            "button_link": "shopify:\/\/pages\/contact",
+            "button_link": "shopify://pages/contact",
             "button_style_secondary": false,
             "button_alt_label": "Appeler maintenant",
             "button_alt_link": "",
@@ -636,7 +825,7 @@
         "button"
       ],
       "settings": {
-        "image": "shopify:\/\/shop_images\/conseiller-t-l-phone.png",
+        "image": "shopify://shop_images/conseiller-t-l-phone.png",
         "image_position": "center center",
         "layout": "text_first",
         "text_box_position": "middle",
@@ -669,7 +858,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>Créateur de Bonhomme Paris, il commercialise ses produits dans ses 7 salons. Une marque masculine forte, portée par des formules MY.LAB de qualité professionnelle.<\/p>",
+            "text": "<p>Créateur de Bonhomme Paris, il commercialise ses produits dans ses 7 salons. Une marque masculine forte, portée par des formules MY.LAB de qualité professionnelle.</p>",
             "author": "Aurélien — Fondateur de Bonhomme Paris",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -679,7 +868,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>Gérante de son salon de coiffure à Cannes, elle a développé sa marque depuis 2 ans. Une réussite qui montre qu'avec MY.LAB, créer sa propre gamme capillaire est accessible à tous les professionnels.<\/p>",
+            "text": "<p>Gérante de son salon de coiffure à Cannes, elle a développé sa marque depuis 2 ans. Une réussite qui montre qu'avec MY.LAB, créer sa propre gamme capillaire est accessible à tous les professionnels.</p>",
             "author": "Amandine — Salon de Coiffure, Cannes",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -689,7 +878,7 @@
           "type": "testimonial",
           "settings": {
             "icon": "5",
-            "text": "<p>Minh travaille tous les jours avec ses propres produits MY.LAB, et il en est absolument ravi. Une collaboration au quotidien qui prouve la qualité de nos formules professionnelles.<\/p>",
+            "text": "<p>Minh travaille tous les jours avec ses propres produits MY.LAB, et il en est absolument ravi. Une collaboration au quotidien qui prouve la qualité de nos formules professionnelles.</p>",
             "author": "Minh — Professionnel des Cheveux, Paris",
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -706,7 +895,7 @@
         "autorotate_speed": 7,
         "hide_images": true,
         "show_divider": false,
-        "heading": "Ce que disent nos <strong>clients<\/strong>",
+        "heading": "Ce que disent nos <strong>clients</strong>",
         "heading_size": "h1",
         "heading_alignment": "center",
         "heading_tag": "h2",
@@ -733,7 +922,7 @@
         "tv_heading": {
           "type": "heading",
           "settings": {
-            "heading": "Les témoignages de nos <strong>clients<\/strong>",
+            "heading": "Les témoignages de nos <strong>clients</strong>",
             "heading_size": "h1",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -743,7 +932,7 @@
         "tv_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.<\/p>",
+            "text": "<p>Découvrez les interviews vidéo d'Aurélien (Bonhomme Paris), Amandine (Salon à Cannes) et Minh — ils ont créé leur marque avec MY.LAB.</p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
@@ -755,7 +944,7 @@
           "settings": {
             "button_size": "medium",
             "button_label": "Découvrir les interviews →",
-            "button_link": "shopify:\/\/pages\/temoignages",
+            "button_link": "shopify://pages/temoignages",
             "button_style_secondary": false,
             "button_alt_label": "",
             "button_alt_link": "",
@@ -802,7 +991,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Lancez-vous dans <strong>l'aventure<\/strong> !",
+            "heading": "Lancez-vous dans <strong>l'aventure</strong> !",
             "heading_size": "h0",
             "heading_tag": "h2",
             "enable_highlight": true,
@@ -812,7 +1001,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Contactez l'un de nos conseillers ou commandez directement le coffret découverte pour tester nos formules capillaires professionnelles.<\/p>",
+            "text": "<p>Contactez l'un de nos conseillers ou commandez directement le coffret découverte pour tester nos formules capillaires professionnelles.</p>",
             "text_size": "typeset2",
             "secondary_color": false,
             "enable_highlight": false,
@@ -824,10 +1013,10 @@
           "settings": {
             "button_size": "medium",
             "button_label": "Nous contacter",
-            "button_link": "shopify:\/\/pages\/contact",
+            "button_link": "shopify://pages/contact",
             "button_style_secondary": false,
             "button_alt_label": "Découvrir la boutique",
-            "button_alt_link": "shopify:\/\/pages\/la-boutique-my-lab",
+            "button_alt_link": "shopify://pages/la-boutique-my-lab",
             "button_alt_style_secondary": true
           }
         }
@@ -870,7 +1059,7 @@
         "paragraph": {
           "type": "paragraph",
           "settings": {
-            "paragraph": "<p>Inscrivez-vous à notre newsletter pour recevoir nos actualités, nouveautés et conseils pour développer votre marque capillaire.<\/p>",
+            "paragraph": "<p>Inscrivez-vous à notre newsletter pour recevoir nos actualités, nouveautés et conseils pour développer votre marque capillaire.</p>",
             "enable_highlight": false,
             "highlight_style": "marker"
           }
@@ -904,7 +1093,10 @@
   },
   "order": [
     "slideshow_hero",
+    "stats_banner",
     "scrolling_values",
+    "perimeter_intro",
+    "perimeter_columns",
     "intro_text",
     "guarantees_section",
     "brand_story",
