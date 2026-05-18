@@ -44,9 +44,15 @@ scripts/audit_fixes/*.html
 node_modules/
 package-lock.json
 
-# Customer PII — DO NOT COMMIT
+# Customer PII / Secrets — DO NOT COMMIT
 import clients shopify vers dpd/
 docs/debug/exec-*.json
+docs/debug/wf-*.json
+docs/debug/wh-*.json
+docs/debug/verify-*.json
+docs/debug/patch-*-response.json
+docs/debug/shop-orders.json
+docs/debug/shopify-webhooks.json
 
 # Claude / internal
 .claude/scheduled_tasks.lock
