@@ -89,7 +89,7 @@
     {%- endif -%}
   {%- endfor -%}
 
-  <div class="section--padding ml-filterable" id="ml-filterable-{{ section.id }}">
+  <div class="section--padding ml-filterable" id="ml-filterable-{{ section.id }}" data-collection-handle="{{ section.settings.collection.handle }}">
     <div class="page-width">
 
       {%- if filter_tags != '' -%}
@@ -142,37 +142,112 @@
       if (!container) return;
 
       var buttons = container.querySelectorAll('.ml-filter-btn');
-      var items = container.querySelectorAll('.flex-grid__item[data-tags]');
+      var grid = container.querySelector('.product-grid');
       var emptyMsg = container.querySelector('.ml-filterable__empty');
+
+      function getActiveFilter() {
+        var active = container.querySelector('.ml-filter-btn--active');
+        return active ? active.getAttribute('data-filter') : 'all';
+      }
+
+      function applyFilter(filter) {
+        var items = container.querySelectorAll('.flex-grid__item[data-tags]');
+        var visibleCount = 0;
+        items.forEach(function(item) {
+          if (filter === 'all') {
+            item.classList.remove('ml-filterable-hidden');
+            visibleCount++;
+          } else {
+            var tags = item.getAttribute('data-tags').split(',');
+            if (tags.indexOf(filter) !== -1) {
+              item.classList.remove('ml-filterable-hidden');
+              visibleCount++;
+            } else {
+              item.classList.add('ml-filterable-hidden');
+            }
+          }
+        });
+        if (emptyMsg) {
+          emptyMsg.classList.toggle('ml-filterable__empty--visible', visibleCount === 0);
+        }
+      }
 
       buttons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var filter = btn.getAttribute('data-filter');
-
           buttons.forEach(function(b) { b.classList.remove('ml-filter-btn--active'); });
           btn.classList.add('ml-filter-btn--active');
-
-          var visibleCount = 0;
-          items.forEach(function(item) {
-            if (filter === 'all') {
-              item.classList.remove('ml-filterable-hidden');
-              visibleCount++;
-            } else {
-              var tags = item.getAttribute('data-tags').split(',');
-              if (tags.indexOf(filter) !== -1) {
-                item.classList.remove('ml-filterable-hidden');
-                visibleCount++;
-              } else {
-                item.classList.add('ml-filterable-hidden');
-              }
-            }
-          });
-
-          if (emptyMsg) {
-            emptyMsg.classList.toggle('ml-filterable__empty--visible', visibleCount === 0);
-          }
+          applyFilter(filter);
         });
       });
+
+      // Lazy-load remaining products beyond Liquid's 50-cap (boutique-adherents has 73)
+      var collectionHandle = container.getAttribute('data-collection-handle');
+      if (!collectionHandle || !grid) return;
+
+      var existingHandles = {};
+      grid.querySelectorAll('a[href*="/products/"]').forEach(function(a) {
+        var m = a.getAttribute('href').match(/\/products\/([^/?#]+)/);
+        if (m) existingHandles[m[1]] = true;
+      });
+
+      function handleizeTag(t) {
+        return (t || '').toString().toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '');
+      }
+      function formatPrice(price) {
+        try { return parseFloat(price).toFixed(2).replace('.', ',') + ' \u20AC'; } catch(e) { return ''; }
+      }
+      function escAttr(s) {
+        return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+      function buildCard(p) {
+        var tagsHandleized = (p.tags || []).map(handleizeTag).filter(Boolean).join(',');
+        var img = (p.images && p.images.length && p.images[0].src) ? p.images[0].src : '';
+        var price = (p.variants && p.variants[0] && p.variants[0].price != null) ? formatPrice(p.variants[0].price) : '';
+        var titleEsc = escAttr(p.title);
+        var href = '/products/' + p.handle;
+        var li = document.createElement('li');
+        li.className = 'flex-grid__item';
+        li.setAttribute('data-tags', tagsHandleized);
+        li.innerHTML =
+          '<div class="card-wrapper">' +
+            '<div class="card card--product" tabindex="-1">' +
+              '<a href="' + href + '" class="card__media media-wrapper" tabindex="-1" aria-label="' + titleEsc + '">' +
+                '<div class="card--image-animate image-animate media media--portrait media--hover-effect">' +
+                  (img ? '<img src="' + img + '" alt="' + titleEsc + '" loading="lazy" class="motion-reduce">' : '') +
+                '</div>' +
+              '</a>' +
+              '<div class="card-information">' +
+                '<div class="card-information__wrapper">' +
+                  '<a href="' + href + '" class="card-information__text h4" tabindex="-1">' + titleEsc + '</a>' +
+                  (price ? '<div class="price"><div class="price__container"><div class="price__regular"><span class="price-item price-item--regular">' + price + '</span></div></div></div>' : '') +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        return li;
+      }
+
+      fetch('/collections/' + encodeURIComponent(collectionHandle) + '/products.json?limit=250')
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (!data || !data.products) return;
+          var frag = document.createDocumentFragment();
+          var appended = 0;
+          data.products.forEach(function(p) {
+            if (existingHandles[p.handle]) return;
+            frag.appendChild(buildCard(p));
+            appended++;
+          });
+          if (appended > 0) {
+            grid.appendChild(frag);
+            applyFilter(getActiveFilter());
+          }
+        })
+        .catch(function(e) { console.warn('ml-filterable lazy:', e); });
     })();
   </script>
 

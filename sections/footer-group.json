@@ -62,7 +62,12 @@
           }
         }
       },
-      "block_order": ["col1", "col2", "col3", "col4"],
+      "block_order": [
+        "col1",
+        "col2",
+        "col3",
+        "col4"
+      ],
       "settings": {
         "logo_width": 120,
         "show_social": true,
@@ -70,12 +75,12 @@
         "contact_email": "contact@mylab-shop.com",
         "copyright_text": "Tous droits réservés.",
         "payment_enable": true,
-        "bg_color": "#1a1a2e",
-        "text_color": "#a0a0b0",
-        "heading_color": "#ffffff",
-        "link_color": "#d0d0e0",
-        "link_hover_color": "#ffffff",
-        "border_color": "#2a2a3e"
+        "bg_color": "#f5f0eb",
+        "text_color": "#1a1a1a",
+        "heading_color": "#1a1a1a",
+        "link_color": "#1a1a1a",
+        "link_hover_color": "#c5a467",
+        "border_color": "#d8d2c8"
       }
     }
   },

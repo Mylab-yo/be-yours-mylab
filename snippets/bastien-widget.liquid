@@ -220,12 +220,13 @@
   /* === MOBILE / SMALL TABLET === */
   @media (max-width: 768px) {
     .bastien-launcher {
-      bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-      right: 16px;
-      width: 56px;
-      height: 56px;
+      /* Lifted above the mobile dock so it doesn't overlap the rightmost item (Compte). */
+      bottom: calc(var(--mobile-dock-height, 72px) + 12px);
+      right: 12px;
+      width: 52px;
+      height: 52px;
     }
-    .bastien-launcher svg { width: 28px; height: 28px; }
+    .bastien-launcher svg { width: 26px; height: 26px; }
 
     .bastien-panel {
       bottom: 0;
