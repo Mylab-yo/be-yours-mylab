@@ -1402,25 +1402,21 @@
       {%- endif -%}
       <div class="button-container">
         {%- comment -%}
-          Le bouton Paiement du drawer redirige vers /cart?go=checkout au lieu
-          de submit directement au checkout. Sinon BSS B2B Volume Pricing
-          ne s'applique pas (sa Function lit des cart attributes injectées
-          par le JS BSS uniquement quand /cart est chargé).
+          Pas de bouton Paiement direct dans le drawer : il faut passer par
+          /cart pour que BSS B2B Volume Pricing injecte ses cart attributes
+          (sans quoi la Function checkout ne sait pas quel tier appliquer).
           Voir [[project-bss-b2b-tier-pricing]].
         {%- endcomment -%}
         <a
           class="button{% if ml_checkout_blocked %} ml-checkout-disabled{% endif %}"
-          href="{{ routes.cart_url }}?go=checkout"
+          href="{{ routes.cart_url }}"
           {% if ml_checkout_blocked %}aria-disabled="true" tabindex="-1"{% endif %}
         >
-          {{ 'sections.cart.checkout' | t }}
+          {{ 'general.cart.view' | t }}
           {%- if settings.disable_view_cart -%}
             <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span>
           {%- endif -%}
         </a>
-        {%- unless settings.disable_view_cart -%}
-          <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
-        {%- endunless -%}
       </div>
     </div>
   </div>

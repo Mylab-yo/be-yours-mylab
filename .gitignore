@@ -39,3 +39,15 @@ scripts/audit_fixes/*.html
 
 # Backup files
 *.bak
+
+# Node modules (notably shopify-functions/*/node_modules)
+node_modules/
+package-lock.json
+
+# Customer PII — DO NOT COMMIT
+import clients shopify vers dpd/
+docs/debug/exec-*.json
+
+# Claude / internal
+.claude/scheduled_tasks.lock
+
