@@ -1,0 +1,21 @@
+{
+  "name": "mylab-tier-discount",
+  "version": "1.0.0",
+  "description": "Shopify Product Discount Function — applique les tarifs paliers MY.LAB au checkout depuis ml-product-map.json",
+  "main": "src/run.js",
+  "type": "module",
+  "scripts": {
+    "build:tier-map": "python ../../scripts/build_tier_map.py",
+    "shopify": "npm exec -- shopify",
+    "typegen": "npm exec -- shopify app function typegen",
+    "build": "javy build -C dynamic -o dist/function.wasm src/index.js",
+    "preview": "npm exec -- shopify app function run",
+    "deploy": "npm exec -- shopify app deploy"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.91.1",
+    "@shopify/shopify_function": "^1.0.0",
+    "@types/node": "^20.0.0",
+    "javy-cli": "^0.1.1"
+  }
+}
