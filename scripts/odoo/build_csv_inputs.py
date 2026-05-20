@@ -102,7 +102,7 @@ def build_finished_to_components():
             else:
                 flacon, bouchon = "", ""  # à compléter manuellement
             rows.append({
-                "finished_sku": handle,
+                "finished_sku": f"{key}-{contenance}-ml",  # format Odoo default_code (ex: shampoing-nourrissant-200-ml)
                 "bulk_sku": bulk_sku,
                 "bulk_qty_kg": BULK_KG.get(contenance, 0),
                 "flacon_sku": flacon,
