@@ -1,0 +1,39 @@
+bulk_sku,bulk_name,family,route,vendor,min_qty_kg,max_qty_kg
+BULK-shampoing-nourrissant,Bulk shampoing nourrissant,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-boucles,Bulk shampoing boucles,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-lissant,Bulk shampoing lissant,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-ha-repulpe,Bulk shampoing ha repulpe,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-volume,Bulk shampoing volume,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-purifiant,Bulk shampoing purifiant,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-protecteur-de-couleur,Bulk shampoing protecteur de couleur,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-gel-douche,Bulk shampoing gel douche,shampoings,Buy,FP Cosmetics,20,200
+BULK-masque-nourrissant,Bulk masque nourrissant,masques,Buy,FP Cosmetics,20,200
+BULK-masque-boucles,Bulk masque boucles,masques,Buy,FP Cosmetics,20,200
+BULK-masque-lissant,Bulk masque lissant,masques,Buy,FP Cosmetics,20,200
+BULK-masque-ha-repulpe,Bulk masque ha repulpe,masques,Buy,FP Cosmetics,20,200
+BULK-masque-volume,Bulk masque volume,masques,Buy,FP Cosmetics,20,200
+BULK-masque-protecteur-de-couleur,Bulk masque protecteur de couleur,masques,Buy,FP Cosmetics,20,200
+BULK-creme-boucles,Bulk creme boucles,shampoings,Buy,FP Cosmetics,20,200
+BULK-creme-ha-repulpe,Bulk creme ha repulpe,shampoings,Buy,FP Cosmetics,20,200
+BULK-creme-lissante,Bulk creme lissante,shampoings,Buy,FP Cosmetics,20,200
+BULK-creme-nourrissante,Bulk creme nourrissante,shampoings,Buy,FP Cosmetics,20,200
+BULK-creme-volume,Bulk creme volume,shampoings,Buy,FP Cosmetics,20,200
+BULK-masque-reparateur-sans-rincage,Bulk masque reparateur sans rincage,shampoings,Buy,FP Cosmetics,20,200
+BULK-spray-texturisant,Bulk spray texturisant,shampoings,Manufacture,,20,200
+BULK-serum-finition-ultime,Bulk serum finition ultime,serums_huiles,Manufacture,,20,200
+BULK-serum-barbe,Bulk serum barbe,serums_huiles,Manufacture,,20,200
+BULK-bain-miraculeux,Bulk bain miraculeux,serums_huiles,Manufacture,,20,200
+BULK-huile-a-barbe,Bulk huile a barbe,serums_huiles,Manufacture,,20,200
+BULK-masque-intense,Bulk masque intense,masques,Buy,FP Cosmetics,20,200
+BULK-shampoing-coloristeur-blond-soleil,Bulk shampoing coloristeur blond soleil,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-coloristeur-blond-vanille,Bulk shampoing coloristeur blond vanille,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-coloristeur-chocolat,Bulk shampoing coloristeur chocolat,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-coloristeur-cuivre,Bulk shampoing coloristeur cuivre,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-coloristeur-marron-noisette,Bulk shampoing coloristeur marron noisette,shampoings,Buy,FP Cosmetics,20,200
+BULK-shampoing-dejaunisseur-platine,Bulk shampoing dejaunisseur platine,shampoings,Buy,FP Cosmetics,20,200
+BULK-masque-coloristeur-blond-soleil,Bulk masque coloristeur blond soleil,masques,Buy,FP Cosmetics,20,200
+BULK-masque-coloristeur-blond-vanille,Bulk masque coloristeur blond vanille,masques,Buy,FP Cosmetics,20,200
+BULK-masque-coloristeur-chocolat,Bulk masque coloristeur chocolat,masques,Buy,FP Cosmetics,20,200
+BULK-masque-coloristeur-cuivre,Bulk masque coloristeur cuivre,masques,Buy,FP Cosmetics,20,200
+BULK-masque-coloristeur-marron-noisette,Bulk masque coloristeur marron noisette,masques,Buy,FP Cosmetics,20,200
+BULK-masque-dejaunisseur-platine,Bulk masque dejaunisseur platine,masques,Buy,FP Cosmetics,20,200
