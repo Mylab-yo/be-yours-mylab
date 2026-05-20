@@ -57,3 +57,6 @@ docs/debug/shopify-webhooks.json
 # Claude / internal
 .claude/scheduled_tasks.lock
 
+# Odoo scheduler toggle state (runtime, not to commit)
+scripts/odoo/.scheduler_ids
+
