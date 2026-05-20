@@ -21,8 +21,7 @@ TYPE_TO_FAMILY = {
     "masque": "masques",
     "serum": "serums_huiles",
     "huile": "serums_huiles",
-    "spray": "shampoings",  # spray texturisant : conditionné en flacon ambré 200ml
-    "bain": "serums_huiles",  # bain miraculeux : 50ml
+    "spray_reparateur": "shampoings",  # spray texturisant + masque-reparateur-sans-rincage : flacon ambré 200ml
 }
 
 # Produits fabriqués en interne (cf spec)
@@ -49,6 +48,7 @@ PACKAGING_MAP = {
 SPECIAL_COMPONENTS = {
     ("huile-a-barbe", "50"): ("BOUTEILLE-VERRE-AMBRE-50", "PIPETTE"),
     ("spray-texturisant", "200"): ("FLACON-AMBRE-200", "PULVERISATEUR-SPRAY"),
+    ("masque-reparateur-sans-rincage", "200"): ("FLACON-AMBRE-200", "PULVERISATEUR-SPRAY"),
 }
 
 # Poids bulk par contenance (kg) — yield 100%
@@ -65,7 +65,10 @@ def build_bulk_formulas():
     for key, data in MAP.items():
         if key.startswith("_"):
             continue
-        family = TYPE_TO_FAMILY.get(data.get("type", ""), "shampoings")
+        type_ = data.get("type", "")
+        if type_ not in TYPE_TO_FAMILY:
+            print(f"  WARNING: type '{type_}' for formula '{key}' not in TYPE_TO_FAMILY, defaulting to 'shampoings'")
+        family = TYPE_TO_FAMILY.get(type_, "shampoings")
         is_internal = _is_internal(key)
         rows.append({
             "bulk_sku": f"BULK-{key}",
@@ -85,7 +88,10 @@ def build_finished_to_components():
     for key, data in MAP.items():
         if key.startswith("_"):
             continue
-        family = TYPE_TO_FAMILY.get(data.get("type", ""), "shampoings")
+        type_ = data.get("type", "")
+        if type_ not in TYPE_TO_FAMILY:
+            print(f"  WARNING: type '{type_}' for formula '{key}' not in TYPE_TO_FAMILY, defaulting to 'shampoings'")
+        family = TYPE_TO_FAMILY.get(type_, "shampoings")
         bulk_sku = f"BULK-{key}"
         for contenance, handle in data.get("sizes", {}).items():
             # Préférer un mapping spécial si défini
@@ -123,6 +129,6 @@ if __name__ == "__main__":
     print("Building CSV inputs from ml-product-map.json...")
     write_csv(ROOT / "data" / "bulk_formulas.csv", build_bulk_formulas())
     write_csv(ROOT / "data" / "finished_to_components.csv", build_finished_to_components())
-    print("Done. Now manually create:")
-    print("  - data/packaging_vendors.csv (template provided in plan Task 0 Step 4)")
-    print("  - data/packaging_products.csv (template provided in plan Task 0 Step 5)")
+    print("Done.")
+    print("Note: data/packaging_vendors.csv and data/packaging_products.csv exist as templates.")
+    print("Edit them to fill in real vendor contacts (TBD@email.fr placeholders) before running step32+.")
