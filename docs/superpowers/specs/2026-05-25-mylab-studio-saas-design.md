@@ -1,15 +1,26 @@
-# MY.LAB Studio — Spec v2.1
+# MY.LAB Studio — Spec v2.2
 
 **Date** : 2026-05-25
 **Auteur** : Yoann Durand + Claude
-**Statut** : v2.1 — V2 Yoann + 6 corrections d'attention review, prête pour plan d'implémentation Sprint 0
+**Statut** : v2.2 — V2.1 + reports Plan B revu (§10 R1b) + D12 vidéo-fidélité (§12) ; repo `mylab-studio-worker` bootstrap commit 350f874
 **Type** : Nouveau produit (extension verticale du funnel MY.LAB)
 
 ---
 
 ## 0. Changelog
 
-### 0.1 v2 → v2.1 (cette révision — intègre la review de la V2)
+### 0.1 v2.1 → v2.2 (cette révision — reports issus du plan Sprint 0 v1.1)
+
+Deux reports identifiés pendant la review du plan Sprint 0 et intégrés ici dans la spec.
+
+| # | Report | Section |
+|---|---|---|
+| **E1** | **Plan B revu** : si la porte A1 du compositing échoue (R1b), le fallback n'est PAS "rajouter une LoRA" (qui approxime aussi l'étiquette et échoue pour la même raison). Le plan B réaliste est de **restreindre le répertoire de templates** aux compositions où le compositing est fiable, et de **redéfinir l'offre de lancement** en conséquence | §10 R1b mitigation |
+| **E2** | **D12 — Stratégie vidéo (vidéo-fidélité a/b/c)** : le compositing résout la fidélité produit en **image**, pas en **vidéo**. Incruster un PNG figé ne transfère pas directement (relight image-par-image, mouvement). Trois voies à arbitrer Sprint 1 : (a) composite statique + caméra/scène animée / (b) vidéo générative pleine avec fidélité dégradée / (c) animation de calques du composite | §12 D12 |
+
+**Note pratique :** le repo `mylab-studio-worker` est bootstrap (commit 350f874) avec Dockerfile, docker-compose, bench.py, cloud_smoke.py, configs et READMEs. Prêt à `git clone && docker compose up` dès que WSL2+Docker est setup côté Yoann.
+
+### 0.2 v2 → v2.1 (révision review — intègre la review de la V2)
 
 Ajustements introduits par la review pour durcir les zones les plus risquées. Aucun pivot d'architecture, six précisions chirurgicales.
 
@@ -22,7 +33,7 @@ Ajustements introduits par la review pour durcir les zones les plus risquées. A
 | **A5 — Compositing limite certains templates** | Templates "flacon flou bokeh", "flacon comme élément de scène (étagère bondée)" sont plus durs en compositing qu'en pure génération. **Ne tue pas C1**, mais restreint le repertoire R&D et peut nécessiter la LoRA en complément sur certains templates créatifs. | §4.2, §6.2 |
 | **A6 — ETP partiel Phase 2 dans P&L** | Onboarding 2-4 h/client × 50 clients = 100-200 h/mois ≈ 1 ETP partiel à budgéter dès Phase 2. Le setup 890 € absorbe (44 K€/an à 50 clients), mais ça doit apparaître dans le P&L sinon mauvaise surprise. | §3.3, §8 |
 
-### 0.2 v1 → v2 (la révision Yoann — pour mémoire)
+### 0.3 v1 → v2 (la révision Yoann — pour mémoire)
 
 | # | Changement | Pourquoi |
 |---|---|---|
@@ -437,7 +448,7 @@ La marge du setup (890 €) l'absorbe largement, mais **ne base pas l'argument d
 | # | Risque | Prob. | Impact | Mitigation |
 |---|---|---|---|---|
 | R1 | **Qualité visuels insuffisante / "AI slop", flacon mal rendu** | Moyenne | **Critique** | **Compositing du flacon réel (C1) → fidélité produit garantie.** Brand DNA strict. Validation Yoann 4 sem pilote. La barre cosmétique est haute → métrique "publié" (§11) comme juge de paix. |
-| **R1b** | **Harmonisation compositing ratée** (produit "collé", lumière incohérente, ombres absentes) | **Moyenne-Haute** *(A1)* | **Critique** *(A1)* | **Gating Sprint 0/1 : si test compositing bout-en-bout ne donne pas résultat acceptable sur 3-5 flacons variés, C1 entier à reconsidérer (plan B = approche hybride scène-par-template avec LoRA en complément).** Benchmark relight Sprint 1 (IC-Light + ombrage), itération templates avec zones de lumière maîtrisées, fallback LoRA pour cas durs. |
+| **R1b** | **Harmonisation compositing ratée** (produit "collé", lumière incohérente, ombres absentes) | **Moyenne-Haute** *(A1)* | **Critique** *(A1)* | **Gating Sprint 0/1 : si test compositing bout-en-bout ne donne pas résultat acceptable sur 3-5 flacons variés, C1 entier à reconsidérer.** Benchmark relight Sprint 1 (IC-Light + ombrage), itération templates avec zones de lumière maîtrisées. **Plan B revu *(E1)*** : restreindre le répertoire de templates aux compositions où le compositing est fiable (produit central, packshot/flat-lay, fond propre) et **renoncer au lancement** aux compositions difficiles (flacon flou en arrière-plan, scène chargée, vu de loin — cf. §A5). Documenter les archétypes de template qui passent → c'est ce qui définit l'offre de lancement réaliste. **PAS de fallback LoRA** : la LoRA approxime aussi l'étiquette et échoue pour la même raison que le compositing. |
 | **R1c** | **Détourage produit raté** (verre transparent, reflets, ombres complexes) *(A2)* | Élevée *(toutes les photos clients ne sont pas pro)* | Élevé | **Pipeline obligatoire : auto + écran validation client + re-upload + fallback manuel Yoann ~5 min/photo sur 10-15 % des cas.** Budgété dans 2-4 h/client onboarding. |
 | R2 | **Collision d'ambiance entre clients** | Faible-Moyenne | Élevé | Produit réel unique + Brand DNA distinct → collision pixel impossible. Détecteur quasi-doublon Phase 2 si besoin. |
 | R3 | **PC instable / mort GPU** | Moyenne | ~~Élevé~~ → **Faible** | **Failover cloud (C2) : PC down ⇒ jobs routés au cloud, service continu.** PC jetable, zéro donnée dessus (§7bis), remplaçable sans perte. UPS protège juste le job en cours. |
@@ -491,22 +502,25 @@ La marge du setup (890 €) l'absorbe largement, mais **ne base pas l'argument d
 | D9 | Favoris/collections dashboard | Nice-to-have | Phase 2 |
 | D10 | Édition post-génération (recadrage, overlay éditable) | Nice-to-have | Phase 2 |
 | **D11** | **Recrutement support/onboarding Phase 2** *(A6)* | À anticiper avant 30 clients actifs | Phase 2 |
+| **D12** | **Stratégie vidéo-fidélité** *(E2)* : le compositing résout la fidélité produit en image, **pas en vidéo**. Trois voies à arbitrer : **(a)** composite statique + caméra/scène animée autour (simple, fidélité conservée, mouvement limité), **(b)** vidéo générative pleine (mouvement riche, **fidélité produit dégradée à mesurer**), **(c)** animation de calques du composite (motion graphics). Impact direct sur le pitch produit : aujourd'hui « le flacon affiché = le flacon livré » ne tient strictement que pour l'image. | À trancher Sprint 1 (premier test vidéo) | Sprint 1 |
 
 ---
 
 ## 13. Prochaines étapes immédiates
 
-1. **Valider cette v2.1** (arbitrage compositing-first §6, failover cloud §7, et les 6 corrections d'attention §0.1).
-2. **Décider D3** (freelance dev élargi à SP2 + SP6 + SP7) et **D5** (provider cloud GPU).
-3. **Écrire le plan d'implémentation Sprint 0** (skill `writing-plans`) — qui contiendra :
-   - Setup hardware (UPS, drivers, etc.)
-   - Installation ComfyUI + modèles
-   - **Benchmark VRAM** *(A4)* avec critère de succès chiffré
-   - **Test compositing bout-en-bout** *(A1)* sur 3-5 flacons réels variés, avec critère d'acceptabilité défini ex-ante
-   - **Benchmark détourage** *(D1c)* sur photos cosmétiques réelles
-   - Gating : si A1 ou A4 échoue, escalade plan B avant Sprint 1
-4. **Préparer 5-10 pilotes MY.LAB chauds**, avec briefing de l'offre et mesure du taux de publication dès J1.
+1. ✅ Spec V2.2 validée (corrections C1-C5 + A1-A6 + E1-E2 intégrées).
+2. ✅ Plan Sprint 0 v1.1 écrit ([`docs/superpowers/plans/2026-05-25-mylab-studio-sprint-0.md`](../plans/2026-05-25-mylab-studio-sprint-0.md), commit 785aa62).
+3. ✅ Repo `mylab-studio-worker` bootstrap (commit 350f874 dans `D:\mylab-studio-worker\`) : Dockerfile, docker-compose, bench.py, cloud_smoke.py, configs, READMEs. Prêt à `git clone && docker compose up` dès que WSL2+Docker est setup.
+4. **Décider D3** (freelance dev élargi à SP2 + SP6 + SP7) et **D5** (provider cloud GPU).
+5. **Lancement Sprint 0 par Yoann** :
+   - Achat UPS (~120 €)
+   - Token HuggingFace + acceptation licences gated (IC-Light, FLUX si testé, HunyuanVideo)
+   - Bucket Cloudflare R2 + clés API
+   - 5 flacons test réels (variés selon §6.1 du plan)
+   - 2-3 pilotes MY.LAB cosmétiques contactés pour notation aveugle gate A1
+   - Setup WSL2 + Docker Desktop + NVIDIA Container Toolkit (cf. plan §3.1)
+6. **À la sortie du Sprint 0** : verdict GO/NO-GO compositing-first → soit on enchaîne Sprint 1 (pipeline core + API wrapper local), soit on applique le Plan B revu (§10 R1b : restreindre répertoire templates) et on adapte l'offre.
 
 ---
 
-**Fin de spec v2.1 — corrections C1-C5 (V2) + A1-A6 (review V2.1) intégrées, prête pour plan d'implémentation Sprint 0.**
+**Fin de spec v2.2 — corrections C1-C5 (V2) + A1-A6 (review V2.1) + E1-E2 (reports V2.2) intégrées. Repo worker bootstrap. Prête pour exécution Sprint 0.**
