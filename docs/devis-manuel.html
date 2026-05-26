@@ -495,14 +495,32 @@
 
       const email = document.getElementById('email').value.trim();
       const clientName = document.getElementById('clientName').value.trim();
-      const demande = document.getElementById('demande').value.trim();
+      const mode = document.querySelector('input[name="mode"]:checked').value;
 
-      if (!demande) {
-        alert('Veuillez saisir la demande produits.');
-        return;
+      let payload;
+      if (mode === 'text') {
+        const demande = demandeTextarea.value.trim();
+        if (!demande) {
+          alert('Veuillez saisir la demande produits.');
+          return;
+        }
+        payload = { email, client_name: clientName, demande };
+        loading.querySelector('p').textContent = 'Analyse de la demande et creation du devis dans Odoo...';
+      } else {
+        if (!uploadedFile) {
+          alert('Veuillez deposer un fichier PDF ou JPEG.');
+          return;
+        }
+        payload = {
+          email,
+          client_name: clientName,
+          file_base64: uploadedFile.base64,
+          file_mime: uploadedFile.mime,
+          file_name: uploadedFile.name
+        };
+        loading.querySelector('p').textContent = 'Lecture du document et creation du devis dans Odoo...';
       }
 
-      // UI: loading state
       submitBtn.disabled = true;
       loading.classList.add('visible');
       resultDiv.classList.remove('visible');
@@ -511,7 +529,7 @@
         const resp = await fetch(WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, client_name: clientName, demande })
+          body: JSON.stringify(payload)
         });
 
         if (!resp.ok) {
@@ -534,6 +552,12 @@
         return;
       }
 
+      // Cas special : 0 produit extrait du fichier → afficher raw_ocr + bouton copier
+      if (!data.success && data.raw_ocr) {
+        renderRawOcrFallback(data.raw_ocr);
+        return;
+      }
+
       const isPartial = data.unmatched && data.unmatched.length > 0;
       const statusClass = data.success
         ? (isPartial ? 'result-partial' : 'result-success')
@@ -542,6 +566,12 @@
       let html = `<div class="result-card ${statusClass}">`;
 
       if (data.success) {
+        // Banner d'avertissement si attachement Odoo a echoue
+        if (data.source === 'file' && data.file_attached === false) {
+          const errMsg = data.attachment_error ? ` (${esc(data.attachment_error)})` : '';
+          html += `<div class="attach-warning">Devis cree, mais l'attachement du fichier source a echoue${errMsg}. Le devis est valide ; verifie l'Odoo si besoin.</div>`;
+        }
+
         html += `
           <div class="devis-number">${esc(data.devis)}</div>
           <div class="devis-client">Client : ${esc(data.client)}</div>
@@ -596,7 +626,6 @@
         `;
       }
 
-      // Produits non trouves
       if (data.unmatched && data.unmatched.length > 0) {
         html += `
           <div class="warnings">
@@ -615,6 +644,38 @@
 
       resultDiv.innerHTML = html;
       resultDiv.classList.add('visible');
+    }
+
+    function renderRawOcrFallback(rawOcr) {
+      const safeOcr = esc(rawOcr);
+      const html = `
+        <div class="result-card result-error">
+          <h3>Document illisible par l'IA</h3>
+          <p class="error-msg">Aucun produit n'a pu etre extrait du document. Voici la transcription brute :</p>
+          <div class="raw-ocr-block">
+            <strong>Transcription :</strong>
+            <pre>${safeOcr}</pre>
+            <button class="btn-copy-text" id="btnCopyToText">Copier vers mode texte</button>
+          </div>
+          <button class="btn-reset" onclick="resetForm()" style="margin-left:8px;">Nouveau devis</button>
+        </div>
+      `;
+      resultDiv.innerHTML = html;
+      resultDiv.classList.add('visible');
+
+      document.getElementById('btnCopyToText').addEventListener('click', () => {
+        // Basculer en mode texte
+        document.querySelector('input[name="mode"][value="text"]').checked = true;
+        textMode.style.display = '';
+        fileMode.style.display = 'none';
+        // Pre-remplir le textarea
+        demandeTextarea.value = rawOcr;
+        // Reset resultat + focus
+        resultDiv.classList.remove('visible');
+        resultDiv.innerHTML = '';
+        demandeTextarea.focus();
+        demandeTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
     }
 
     function renderError(message) {
