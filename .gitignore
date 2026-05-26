@@ -52,6 +52,7 @@ docs/debug/wh-*.json
 docs/debug/verify-*.json
 docs/debug/patch-*-response.json
 docs/debug/patch-response.json
+docs/debug/put-*-response.json
 docs/debug/backup_*.json
 docs/debug/shop-orders.json
 docs/debug/shopify-webhooks.json

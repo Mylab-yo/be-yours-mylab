@@ -164,7 +164,18 @@
           total_ht: Math.round(shTotal * 100) / 100,
           tier: qsu.tier,
           pricing_mode: 'units',
-          moq: 0, qty_arrondie: qsu.units, qty_surplus: 0, cout_surplus: 0
+          moq: 0, qty_arrondie: qsu.units, qty_surplus: 0, cout_surplus: 0,
+          prices: {
+            is_serum_huile: true,
+            is_custom_bottle: false,
+            formule_unit: shPrice,
+            remplissage_unit: 0,
+            packaging_unit: 0,
+            etiquette_unit: 0,
+            pompe_unit: 0,
+            flacon_unit: 0,
+            qty_flacons: 0
+          }
         });
         return;
       }
@@ -200,7 +211,18 @@
         moq: calc.bottleMoq,
         qty_arrondie: calc.nbBottlesOrdered,
         qty_surplus: calc.bottleSurplus,
-        cout_surplus: Math.round(calc.bottleUnitPrice * calc.bottleSurplus * 100) / 100
+        cout_surplus: Math.round(calc.bottleUnitPrice * calc.bottleSurplus * 100) / 100,
+        prices: {
+          is_serum_huile: false,
+          is_custom_bottle: !!calc.isCustomBottle,
+          formule_unit: calc.pricing.formule,
+          remplissage_unit: calc.pricing.remplissage,
+          packaging_unit: calc.isCustomBottle ? 0 : calc.pricing.packaging,
+          etiquette_unit: calc.pricing.etiquette,
+          pompe_unit: calc.needsPump ? 0.45 : 0,
+          flacon_unit: calc.bottleUnitPrice || 0,
+          qty_flacons: calc.nbBottlesOrdered
+        }
       });
     });
 
