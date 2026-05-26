@@ -239,7 +239,8 @@
           moq: it.moq,
           qty_arrondie: it.qty_arrondie,
           qty_surplus: it.qty_surplus,
-          cout_surplus: it.cout_surplus
+          cout_surplus: it.cout_surplus,
+          prices: it.prices
         };
       }),
       sous_total_ht: raw.total_ht,
