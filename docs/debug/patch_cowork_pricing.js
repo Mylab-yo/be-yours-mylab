@@ -205,17 +205,17 @@ if (!isGV) {
         };
       }
       if (!isSH && (prices.pompe_unit || 0) > 0) {
-        // Produit Odoo générique id=2532 (Pompe 1L MY.LAB)
+        // Produit Odoo générique id=2578 (Pompe 1L MY.LAB)
         out.pompe = {
-          product_id: 2532,
+          product_id: 2578,
           name: 'Pompe 1L MY.LAB', qty: nbUnits, price: round2(prices.pompe_unit),
           match_method: 'générique'
         };
       }
       if (!isSH && (prices.packaging_unit || 0) > 0 && !prices.is_custom_bottle) {
-        // Produit Odoo générique id=2531 (Packaging MY.LAB Standard)
+        // Produit Odoo générique id=2577 (Packaging MY.LAB Standard)
         out.packaging = {
-          product_id: 2531,
+          product_id: 2577,
           name: 'Packaging MY.LAB Standard — ' + line.format, qty: nbUnits, price: round2(prices.packaging_unit),
           match_method: 'générique'
         };
