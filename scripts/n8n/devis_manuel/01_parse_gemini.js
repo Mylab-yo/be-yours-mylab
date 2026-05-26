@@ -123,8 +123,17 @@ const response = await this.helpers.httpRequest({
   }
 });
 
+if (!response.candidates || !response.candidates[0]?.content?.parts?.[0]?.text) {
+  return [{ json: { error: true, message: 'Reponse Gemini vide ou bloquee (quota, safety filter, ou format inattendu).' } }];
+}
 const text = response.candidates[0].content.parts[0].text;
-const parsed = JSON.parse(text);
+
+let parsed;
+try {
+  parsed = JSON.parse(text);
+} catch (e) {
+  return [{ json: { error: true, message: 'Reponse Gemini non-JSON : ' + (e.message || String(e)) } }];
+}
 
 return [{
   json: {
