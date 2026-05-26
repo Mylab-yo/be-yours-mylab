@@ -34,6 +34,7 @@
       activeFormulaId: null,
       selections: {},
       selectedColors: {},
+      selectedCapColors: {},
       filterMaterial: 'all',
       filterColor: 'all',
       filterEco: false,
@@ -80,9 +81,9 @@
       huile: ['dropper', 'pump', 'nozzle']
     },
 
-    COLOR_LABELS: { clear: 'Transparent', amber: 'Ambré', blush: 'Rose poudré', butter_yellow: 'Jaune beurre', mist: 'Fumé', teal: 'Bleu-vert', red: 'Rouge', white: 'Blanc', black: 'Noir', frosted: 'Givré' },
-    COLOR_DOTS: { clear: '#f0f0f0', amber: '#b5651d', blush: '#e8a0a0', butter_yellow: '#f5d67a', mist: '#c0c0c0', teal: '#008080', red: '#c0392b', white: '#ffffff', black: '#333333', frosted: '#d4e4f7' },
-    COLOR_ORDER: ['clear', 'amber', 'blush', 'butter_yellow', 'mist', 'teal', 'red', 'white', 'black', 'frosted'],
+    COLOR_LABELS: { clear: 'Transparent', amber: 'Ambré', blush: 'Rose poudré', butter_yellow: 'Jaune beurre', mist: 'Fumé', teal: 'Bleu-vert', red: 'Rouge', white: 'Blanc', black: 'Noir', frosted: 'Givré', carbon_free_black: 'Noir mat', milky_white: 'Blanc laiteux', silver: 'Argenté' },
+    COLOR_DOTS: { clear: '#f0f0f0', amber: '#b5651d', blush: '#e8a0a0', butter_yellow: '#f5d67a', mist: '#c0c0c0', teal: '#008080', red: '#c0392b', white: '#ffffff', black: '#333333', frosted: '#d4e4f7', carbon_free_black: '#1a1a1a', milky_white: '#f5f0e8', silver: '#c0c0c0' },
+    COLOR_ORDER: ['clear', 'amber', 'blush', 'butter_yellow', 'mist', 'teal', 'red', 'white', 'milky_white', 'black', 'carbon_free_black', 'silver', 'frosted'],
     MATERIAL_LABELS: { PET: 'PET', rPET: 'rPET', PCR: 'PCR', biomass_PET: 'Bio PET', glass: 'Verre' },
     CLOSURE_FILTER_LABELS: { screw_cap: '\uD83D\uDD12 Bouchon \u00e0 vis', flip_top: '\uD83D\uDD04 Bouchon clapet', pump: '\uD83E\uDDF4 Pompe cr\u00e8me', spray: '\uD83D\uDCA7 Spray', dropper: '\uD83D\uDC8A Pipette', nozzle: '\uD83D\uDD87 Bec verseur', disc: '\u25CE Disc top', twist_cap: '\uD83D\uDD04 Twist cap' },
     CLOSURE_ORDER: ['screw_cap', 'pump', 'spray', 'flip_top', 'twist_cap', 'nozzle', 'disc', 'dropper'],
@@ -155,6 +156,36 @@
     },
 
     /* ══════════════════════════════════════════════
+       BOTTLE NAME (shared formatter — includes bottle + cap colors)
+       ══════════════════════════════════════════════ */
+    fmtBottleName: function (bottleId) {
+      if (!bottleId || bottleId === 'standard') return 'MY.LAB Standard';
+      if (!this.bottlesData) return '';
+      var b = this.bottlesData.bottles.find(function (x) { return x.id === bottleId; });
+      if (!b) return '';
+      var name = b.name;
+      var pickedColor = this.bottleState.selectedColors && this.bottleState.selectedColors[bottleId];
+      var displayColor = pickedColor || (b.available_colors && b.available_colors[0]) || b.color;
+      if (displayColor) name += ' — ' + (this.COLOR_LABELS[displayColor] || displayColor);
+      var capOpt = b.accessory_options && b.accessory_options[0];
+      if (capOpt && capOpt.colors && capOpt.colors.length > 1) {
+        var pickedCap = this.bottleState.selectedCapColors && this.bottleState.selectedCapColors[bottleId];
+        var displayCap = pickedCap || capOpt.colors[0];
+        if (displayCap) name += ' · Capuchon ' + (this.COLOR_LABELS[displayCap] || displayCap);
+      }
+      return name;
+    },
+
+    capColorOptions: function (bottleId) {
+      if (!this.bottlesData) return null;
+      var b = this.bottlesData.bottles.find(function (x) { return x.id === bottleId; });
+      if (!b) return null;
+      var capOpt = b.accessory_options && b.accessory_options[0];
+      if (!capOpt || !capOpt.colors || capOpt.colors.length <= 1) return null;
+      return capOpt.colors;
+    },
+
+    /* ══════════════════════════════════════════════
        ORDER CALCULATION (shared by quantity & summary)
        ══════════════════════════════════════════════ */
     calculateOrder: function (formula, formatMl, kg, tierKey) {
@@ -195,10 +226,7 @@
       if (isCustomBottle && this.bottlesData) {
         var bObj = this.bottlesData.bottles.find(function (b) { return b.id === bottleId; });
         if (bObj) {
-          bottleName = bObj.name;
-          var pickedCol = this.bottleState.selectedColors && this.bottleState.selectedColors[bottleId];
-          var displayCol = pickedCol || (bObj.available_colors && bObj.available_colors[0]) || bObj.color;
-          if (displayCol) bottleName += ' — ' + (this.COLOR_LABELS[displayCol] || displayCol);
+          bottleName = this.fmtBottleName(bottleId);
           bottleMoq = bObj.min_order_qty || 0;
 
           if (bottleMoq > 0) {

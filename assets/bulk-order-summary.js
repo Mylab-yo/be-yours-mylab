@@ -77,16 +77,7 @@
       if (!calc) return;
 
       var bottleId = B.bottleState.selections[f.id] || 'standard';
-      var bottleName = 'MY.LAB Standard';
-      if (bottleId !== 'standard' && B.bottlesData) {
-        var bObj = B.bottlesData.bottles.find(function (b) { return b.id === bottleId; });
-        if (bObj) {
-          bottleName = bObj.name;
-          var pickedColor = B.bottleState.selectedColors && B.bottleState.selectedColors[bottleId];
-          var displayColor = pickedColor || (bObj.available_colors && bObj.available_colors[0]) || bObj.color;
-          if (displayColor) bottleName += ' — ' + (B.COLOR_LABELS[displayColor] || displayColor);
-        }
-      }
+      var bottleName = B.fmtBottleName(bottleId);
 
       totalHT += calc.grandTotal;
       totalUnits += calc.nbUnits;
@@ -185,16 +176,7 @@
       if (!calc) return;
 
       var bottleId = B.bottleState.selections[f.id] || 'standard';
-      var bottleName = 'MY.LAB Standard';
-      if (bottleId !== 'standard' && B.bottlesData) {
-        var bObj = B.bottlesData.bottles.find(function (b) { return b.id === bottleId; });
-        if (bObj) {
-          bottleName = bObj.name;
-          var pickedColor = B.bottleState.selectedColors && B.bottleState.selectedColors[bottleId];
-          var displayColor = pickedColor || (bObj.available_colors && bObj.available_colors[0]) || bObj.color;
-          if (displayColor) bottleName += ' — ' + (B.COLOR_LABELS[displayColor] || displayColor);
-        }
-      }
+      var bottleName = B.fmtBottleName(bottleId);
 
       totalHT += calc.grandTotal;
 
