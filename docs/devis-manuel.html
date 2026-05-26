@@ -692,8 +692,19 @@
     function resetForm() {
       resultDiv.classList.remove('visible');
       resultDiv.innerHTML = '';
-      document.getElementById('demande').value = '';
-      document.getElementById('demande').focus();
+      // Clear text mode
+      demandeTextarea.value = '';
+      // Clear file mode state
+      uploadedFile = null;
+      fileInput.value = '';
+      filePreview.classList.remove('visible');
+      filePreview.innerHTML = '';
+      // Restore default mode (text)
+      document.querySelector('input[name="mode"][value="text"]').checked = true;
+      textMode.style.display = '';
+      fileMode.style.display = 'none';
+      // Focus
+      demandeTextarea.focus();
     }
 
     function esc(str) {
