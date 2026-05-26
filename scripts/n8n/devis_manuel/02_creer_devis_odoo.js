@@ -246,8 +246,9 @@ if (input.file_base64 && result.success && result.devis_id) {
       company_id: COMPANY_ID
     }]);
 
+    const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     await odoo('sale.order', 'message_post', [[result.devis_id]], {
-      body: `<p>Devis genere automatiquement depuis un document uploade via le formulaire devis manuel.</p><p><b>Fichier source :</b> ${attachmentName}</p>`,
+      body: `<p>Devis genere automatiquement depuis un document uploade via le formulaire devis manuel.</p><p><b>Fichier source :</b> ${escapeHtml(attachmentName)}</p>`,
       attachment_ids: [attachmentId],
       message_type: 'comment',
       subtype_xmlid: 'mail.mt_note'
