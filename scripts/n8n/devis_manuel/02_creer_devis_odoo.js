@@ -16,6 +16,9 @@ if (input.error) {
 const { email, client_name, products, raw_demande } = input;
 
 async function odoo(model, method, args, kwargs) {
+  // Pack kwargs as 7th positional arg (Odoo JSON-RPC ignores params.kwargs for execute_kw).
+  const callArgs = [ODOO_DB, ODOO_UID, ODOO_KEY, model, method, args];
+  if (kwargs && Object.keys(kwargs).length > 0) callArgs.push(kwargs);
   const resp = await helpers.httpRequest({
     method: 'POST',
     url: ODOO_URL + '/jsonrpc',
@@ -27,8 +30,7 @@ async function odoo(model, method, args, kwargs) {
       params: {
         service: 'object',
         method: 'execute_kw',
-        args: [ODOO_DB, ODOO_UID, ODOO_KEY, model, method, args],
-        kwargs: kwargs || {}
+        args: callArgs
       }
     }
   });
@@ -246,9 +248,8 @@ if (input.file_base64 && result.success && result.devis_id) {
       company_id: COMPANY_ID
     }]);
 
-    const escapeHtml = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     await odoo('sale.order', 'message_post', [[result.devis_id]], {
-      body: `<p>Devis genere automatiquement depuis un document uploade via le formulaire devis manuel.</p><p><b>Fichier source :</b> ${escapeHtml(attachmentName)}</p>`,
+      body: `Devis genere automatiquement depuis un document uploade via le formulaire devis manuel. Fichier source : ${attachmentName}`,
       attachment_ids: [attachmentId],
       message_type: 'comment',
       subtype_xmlid: 'mail.mt_note'
