@@ -368,10 +368,25 @@
         </div>
 
         <div class="field">
+          <label>Source de la commande</label>
+          <div class="mode-toggle">
+            <label><input type="radio" name="mode" value="text" checked> Saisir le texte</label>
+            <label><input type="radio" name="mode" value="file"> Deposer un document</label>
+          </div>
+        </div>
+
+        <div class="field" id="textMode">
           <label for="demande">Demande produits</label>
-          <textarea id="demande" name="demande" required
+          <textarea id="demande" name="demande"
             placeholder="Collez ici la demande du client, par exemple :&#10;&#10;12 shampoings nourrissants 200ml&#10;6 masques boucles 400ml&#10;24 cremes lissantes&#10;12 serums finition ultime"></textarea>
           <div class="hint">L'IA reconnait les noms de produits meme en langage naturel, avec ou sans accents.</div>
+        </div>
+
+        <div class="field" id="fileMode" style="display:none;">
+          <label for="file">Document de commande</label>
+          <input type="file" id="file" name="file" accept="application/pdf,image/jpeg,image/jpg">
+          <div class="hint">PDF (toutes pages lues) ou JPEG. Max 10 Mo.</div>
+          <div id="filePreview" class="file-preview"></div>
         </div>
 
         <button type="submit" id="submitBtn">Generer le devis</button>
