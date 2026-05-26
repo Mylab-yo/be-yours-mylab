@@ -410,6 +410,86 @@
     const resultDiv = document.getElementById('result');
     const submitBtn = document.getElementById('submitBtn');
 
+    const fileInput = document.getElementById('file');
+    const filePreview = document.getElementById('filePreview');
+    const textMode = document.getElementById('textMode');
+    const fileMode = document.getElementById('fileMode');
+    const demandeTextarea = document.getElementById('demande');
+
+    // Etat du fichier upload (base64 strippe)
+    let uploadedFile = null;  // { base64, mime, name, size }
+
+    // Toggle mode texte / fichier
+    document.querySelectorAll('input[name="mode"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'text') {
+          textMode.style.display = '';
+          fileMode.style.display = 'none';
+        } else {
+          textMode.style.display = 'none';
+          fileMode.style.display = '';
+        }
+      });
+    });
+
+    // File input : validation + base64
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      uploadedFile = null;
+      filePreview.classList.remove('visible');
+      filePreview.innerHTML = '';
+
+      if (!file) return;
+
+      const allowedMimes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+      if (!allowedMimes.includes(file.type)) {
+        alert('Format non supporte. Utilisez PDF ou JPEG.');
+        fileInput.value = '';
+        return;
+      }
+
+      const MAX = 10 * 1024 * 1024;
+      if (file.size > MAX) {
+        alert('Fichier trop volumineux (max 10 Mo). Taille : ' + (file.size/1024/1024).toFixed(2) + ' Mo.');
+        fileInput.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        // ev.target.result = "data:application/pdf;base64,JVBERi..."
+        const base64 = ev.target.result.split(',')[1] || '';
+        uploadedFile = {
+          base64,
+          mime: file.type,
+          name: file.name,
+          size: file.size
+        };
+        renderFilePreview(file);
+      };
+      reader.onerror = () => {
+        alert('Erreur de lecture du fichier.');
+        fileInput.value = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function renderFilePreview(file) {
+      const sizeMb = (file.size / 1024 / 1024).toFixed(2);
+      let html = `
+        <div class="file-meta">
+          <span class="file-name">${esc(file.name)}</span>
+          <span class="file-size">${sizeMb} Mo</span>
+        </div>
+      `;
+      if (file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(file);
+        html += `<img src="${url}" alt="apercu">`;
+      }
+      filePreview.innerHTML = html;
+      filePreview.classList.add('visible');
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
