@@ -6,6 +6,7 @@
 
 <tr data-variant-id="{{ qo_product.variants.first.id }}"
     data-handle="{{ qo_product.handle }}"
+    data-available="{% if qo_product.variants.first.available %}true{% else %}false{% endif %}"
     {% if qo_tier_data != blank %}data-tier-data="{{ qo_tier_data }}"{% endif %}
     style="{% if qo_tier_data == blank %}display:none{% endif %}">
   <td class="ml-qo__check">

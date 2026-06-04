@@ -272,6 +272,53 @@
     border-bottom: 1px solid #eee;
   }
 
+  /* ── INFO BANNER (rupture de stock) ── */
+  .ml-qo__notice {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    margin: 0 0 1.2rem;
+    background: #fff7ed;
+    border: 1px solid #fde6c8;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #6b4517;
+    line-height: 1.45;
+  }
+  .ml-qo__notice-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ── OUT OF STOCK ROW ── */
+  .ml-qo__row--oos {
+    background: #fafafa;
+  }
+  .ml-qo__row--oos .ml-qo__product-name,
+  .ml-qo__row--oos .ml-qo__product-variant,
+  .ml-qo__row--oos .ml-qo__product-img {
+    opacity: 0.55;
+  }
+  .ml-qo__row--oos .ml-qo__check input {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+  .ml-qo__oos-badge {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8a3a00;
+    background: #fff0dc;
+    border: 1px solid #ffd9a8;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+
   /* ── RESPONSIVE ── */
   @media screen and (max-width: 749px) {
     .ml-qo__title {
@@ -339,6 +386,14 @@
     {%- assign collection = collections[section.settings.collection] -%}
 
     {% paginate collection.products by 250 %}
+    <div class="ml-qo__notice" role="status">
+      <svg class="ml-qo__notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>Les produits en rupture de stock s'affichent en grisé avec la mention <strong>« Rupture de stock »</strong> et ne peuvent pas être ajoutés au panier. Ils redeviendront commandables au prochain réapprovisionnement.</span>
+    </div>
     <div class="ml-qo__table-wrap">
       <table class="ml-qo__table" id="ml-qo-table">
         <thead>
@@ -517,7 +572,31 @@
         });
 
         /* ── CHARGEMENT DEPUIS ml-product-map.json ── */
+        function applyOosTreatment(tr) {
+          tr.dataset.oos = '1';
+          tr.classList.add('ml-qo__row--oos');
+          var checkbox = tr.querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.disabled = true;
+            var lbl = checkbox.getAttribute('aria-label') || '';
+            checkbox.setAttribute('aria-label', lbl + ' \u2014 rupture de stock');
+          }
+          var selectCell = tr.querySelector('.ml-qo__select-wrap');
+          if (selectCell) {
+            selectCell.outerHTML = '<span class="ml-qo__oos-badge" role="status">Rupture de stock</span>';
+          }
+          var unitEl = tr.querySelector('[data-qo-unit]');
+          var lineEl = tr.querySelector('[data-qo-line]');
+          if (unitEl) unitEl.textContent = '\u2014';
+          if (lineEl) lineEl.textContent = '\u2014';
+        }
+
         function populateSelect(tr, tierStr) {
+          if (tr.dataset.available === 'false') {
+            applyOosTreatment(tr);
+            return;
+          }
           var select = tr.querySelector('[data-qo-qty]');
           if (!select) return;
           /* Garder seulement l'option "—" */
@@ -535,20 +614,33 @@
         }
 
         function buildLinkedRow(product, tierStr, sizeLabel) {
+          var firstVar = product.variants && product.variants[0] ? product.variants[0] : null;
+          if (!firstVar) return '';
+          var isOos = firstVar.available === false;
           var imgSrc = product.images && product.images[0] ? product.images[0] : '';
           if (imgSrc) imgSrc = imgSrc.replace(/\.([^.]+)$/, '_100x100.$1');
           var img = imgSrc ? '<img class="ml-qo__product-img" src="' + imgSrc + '" width="50" height="50" loading="lazy">' : '';
-          var tiers = tierStr.split(',');
-          var options = '<option value="0">\u2014</option>';
-          tiers.forEach(function (t) {
-            var p = t.split(':');
-            options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unit\u00e9s</option>';
-          });
-          return '<tr data-variant-id="' + product.variants[0].id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '">'
-            + '<td class="ml-qo__check"><input type="checkbox" aria-label="S\u00e9lectionner ' + product.title.replace(/"/g,'&quot;') + '"></td>'
+          var safeTitle = product.title.replace(/"/g,'&quot;');
+          var qtyCell;
+          if (isOos) {
+            qtyCell = '<span class="ml-qo__oos-badge" role="status">Rupture de stock</span>';
+          } else {
+            var options = '<option value="0">\u2014</option>';
+            tierStr.split(',').forEach(function (t) {
+              var p = t.split(':');
+              options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unit\u00e9s</option>';
+            });
+            qtyCell = '<div class="ml-qo__select-wrap"><select class="ml-qo__select" data-qo-qty>' + options + '</select></div>';
+          }
+          var rowClass = isOos ? ' class="ml-qo__row--oos"' : '';
+          var checkboxAttrs = isOos ? ' disabled' : '';
+          var oosAttr = isOos ? ' data-oos="1"' : '';
+          var oosLbl = isOos ? ' \u2014 rupture de stock' : '';
+          return '<tr' + rowClass + ' data-variant-id="' + firstVar.id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '" data-available="' + (isOos ? 'false' : 'true') + '"' + oosAttr + '>'
+            + '<td class="ml-qo__check"><input type="checkbox"' + checkboxAttrs + ' aria-label="S\u00e9lectionner ' + safeTitle + oosLbl + '"></td>'
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
             + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
-            + '<td><div class="ml-qo__select-wrap"><select class="ml-qo__select" data-qo-qty>' + options + '</select></div></td>'
+            + '<td>' + qtyCell + '</td>'
             + '<td class="ml-qo__price"><span data-qo-unit>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '<td class="ml-qo__price"><span data-qo-line>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '</tr>';
