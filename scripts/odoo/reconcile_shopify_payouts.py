@@ -13,17 +13,22 @@ Usage:
   python reconcile_shopify_payouts.py --statement-id 1 --apply
 """
 import argparse
+import os
 import sys
 import xmlrpc.client
 from itertools import combinations
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-URL = "https://odoo.startec-paris.com"
-DB = "OdooYJ"
-UID = 8
-PWD = "e6d35b4261b948664841075e8fffc3510c8db437"
-COMPANY = 3
+URL = os.environ.get("ODOO_URL", "https://odoo.startec-paris.com")
+DB = os.environ.get("ODOO_DB", "OdooYJ")
+UID = int(os.environ.get("ODOO_UID", "8"))
+PWD = os.environ.get("ODOO_API_KEY")
+COMPANY = int(os.environ.get("ODOO_COMPANY_ID", "3"))
+
+if not PWD:
+    sys.exit("ERROR: env var ODOO_API_KEY not set. "
+             "Source d:/Configurateur Designs MyLab/mylab-configurateur/.env.local first.")
 
 JOURNAL_SHOP = 26               # SHOP journal (Shopify Payments en transit)
 JOURNAL_BANK = 14               # BNK1 (LCL)

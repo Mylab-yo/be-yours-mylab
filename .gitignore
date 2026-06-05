@@ -46,6 +46,11 @@ package-lock.json
 
 # Customer PII / Secrets — DO NOT COMMIT
 import clients shopify vers dpd/
+# Tout le dossier docs/debug/ — historiquement scripts d'inspection ad-hoc
+# avec clés API en dur (ODOO_API_KEY, shpat_ tokens). Ne jamais commiter quoi
+# que ce soit ici (sauf si explicitement reviewed pour absence de secrets).
+docs/debug/
+# Liste explicite des patterns connus pour rappel (couverts par docs/debug/) :
 docs/debug/exec-*.json
 docs/debug/wf-*.json
 docs/debug/wh-*.json
