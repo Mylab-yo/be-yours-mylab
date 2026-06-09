@@ -76,7 +76,7 @@
   "creme-boucles": {
     "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",
     "sizes": { "200": "creme-boucles", "500": "creme-boucles-500ml" },
-    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610,250:510,500:480", "500": "6:1490,12:1340,24:1265,48:1190,96:1065,100:1060,200:1000" }
+    "tiers": { "200": "6:850,12:805,24:765,48:680,96:610,250:510,500:480", "500": "6:1790,14:1550,28:1440,42:1360" }
   },
   "creme-ha-repulpe": {
     "type": "creme", "prefix": "", "gamme": "Crèmes de coiffage sans rinçage",

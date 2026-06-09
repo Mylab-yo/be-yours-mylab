@@ -13,14 +13,11 @@ class SearchModal extends HTMLElement {
       'click',
       this.onSummaryClick.bind(this)
     );
-    this.querySelector('button[type="button"]').addEventListener(
-      'click',
-      this.close.bind(this)
-    );
-    this.querySelector('button[type="reset"]').addEventListener(
-      'click',
-      this.reset.bind(this)
-    );
+    const closeButton = this.querySelector('button[type="button"]');
+    if (closeButton) closeButton.addEventListener('click', this.close.bind(this));
+
+    const resetButton = this.querySelector('button[type="reset"]');
+    if (resetButton) resetButton.addEventListener('click', this.reset.bind(this));
 
     this.summaryToggle.setAttribute('role', 'button');
   }

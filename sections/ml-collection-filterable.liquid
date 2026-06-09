@@ -49,7 +49,8 @@
   }
 
   /* ── HIDE FILTERED ITEMS ── */
-  .ml-filterable-hidden {
+  .ml-filterable-hidden,
+  .ml-volume-hidden {
     display: none !important;
   }
   .ml-filterable__empty {
@@ -89,7 +90,7 @@
     {%- endif -%}
   {%- endfor -%}
 
-  <div class="section--padding ml-filterable" id="ml-filterable-{{ section.id }}" data-collection-handle="{{ section.settings.collection.handle }}">
+  <div class="section--padding ml-filterable" id="ml-filterable-{{ section.id }}" data-collection-handle="{{ section.settings.collection.handle }}"{% if section.settings.hide_volume_duplicates %} data-product-map-url="{{ 'ml-product-map.json' | asset_url }}"{% endif %}>
     <div class="page-width">
 
       {%- if filter_tags != '' -%}
@@ -181,6 +182,39 @@
         });
       });
 
+      // Volume-duplicate hiding: load ml-product-map.json, mark handles that are
+      // size variants of a hub (sizes[X] !== hubKey) to hide them from the grid.
+      var productMapUrl = container.getAttribute('data-product-map-url');
+      var hideHandles = Object.create(null);
+      var mapLoaded = Promise.resolve();
+      if (productMapUrl) {
+        mapLoaded = fetch(productMapUrl).then(function(r) { return r.ok ? r.json() : null; })
+          .then(function(map) {
+            if (!map) return;
+            Object.keys(map).forEach(function(hubKey) {
+              if (hubKey === '_doc') return;
+              var entry = map[hubKey];
+              if (entry && entry.sizes) {
+                Object.keys(entry.sizes).forEach(function(size) {
+                  var h = entry.sizes[size];
+                  if (h && h !== hubKey) hideHandles[h] = true;
+                });
+              }
+            });
+          })
+          .catch(function(e) { console.warn('ml-product-map load failed:', e); });
+      }
+      function hideVariantCards() {
+        if (!Object.keys(hideHandles).length) return;
+        grid.querySelectorAll('.flex-grid__item').forEach(function(c) {
+          var link = c.querySelector('a[href*="/products/"]');
+          if (!link) return;
+          var m = link.getAttribute('href').match(/\/products\/([^/?#]+)/);
+          if (m && hideHandles[m[1]]) c.classList.add('ml-volume-hidden');
+        });
+      }
+      mapLoaded.then(hideVariantCards);
+
       // Lazy-load remaining products beyond Liquid's 50-cap (boutique-adherents has 73)
       var collectionHandle = container.getAttribute('data-collection-handle');
       if (!collectionHandle || !grid) return;
@@ -231,14 +265,17 @@
         return li;
       }
 
-      fetch('/collections/' + encodeURIComponent(collectionHandle) + '/products.json?limit=250')
-        .then(function(r) { return r.ok ? r.json() : null; })
+      mapLoaded.then(function() {
+        return fetch('/collections/' + encodeURIComponent(collectionHandle) + '/products.json?limit=250');
+      })
+        .then(function(r) { return r && r.ok ? r.json() : null; })
         .then(function(data) {
           if (!data || !data.products) return;
           var frag = document.createDocumentFragment();
           var appended = 0;
           data.products.forEach(function(p) {
             if (existingHandles[p.handle]) return;
+            if (hideHandles[p.handle]) return;
             frag.appendChild(buildCard(p));
             appended++;
           });
@@ -337,6 +374,13 @@
       "id": "hide_multivariant",
       "label": "Masquer produits avec variants",
       "info": "Cache les produits ayant plus d'un variant (ex: produits pro avec contenances)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_volume_duplicates",
+      "label": "Masquer les variantes par contenance",
+      "info": "Cache les produits qui sont des variantes de contenance d'un hub (selon ml-product-map.json). Les produits standalone (sans hub) restent visibles.",
       "default": false
     },
     {
