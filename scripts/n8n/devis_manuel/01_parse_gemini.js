@@ -24,12 +24,12 @@ const catalogue = `CATALOGUE PRODUITS MY.LAB (cosmetiques capillaires profession
 SHAMPOINGS - 200ml, 500ml, 1000ml :
 nourrissant | boucles | lissant | HA repulpe | volume | purifiant | protecteur de couleur
 Gloss (200ml et 1000ml uniquement)
-Homme : shampoing gel douche (200ml/500ml/1000ml)
+Homme : shampoing gel douche (200ml/500ml/1000ml) - NOM ODOO EXACT = "shampoing gel douche 200ml" SANS suffixe "homme"
 
 MASQUES CAPILLAIRES - 200ml, 400ml, 1000ml :
 nourrissant | boucles | lissant | HA repulpe | volume | protecteur de couleur
 Gloss (200ml et 1000ml uniquement)
-Homme : masque intense (200ml seulement)
+Homme : masque intense (200ml seulement) - NOM ODOO EXACT = "masque intense 200ml" SANS suffixe "homme"
 
 CREMES SANS RINCAGE - 200ml (boucles aussi en 500ml) :
 boucles | HA repulpe | lissante | nourrissante | volume
@@ -39,15 +39,25 @@ masque reparateur sans rincage | spray texturisant
 ATTENTION : le nom Odoo est "masque reparateur sans rincage 200ml" SANS le prefixe "spray".
 
 SERUMS - 50ml :
-serum finition ultime | serum barbe (homme)
+serum finition ultime | serum barbe (homme - NOM ODOO EXACT = "serum barbe 50ml" SANS suffixe "homme")
 
 HUILES - 50ml :
-bain miraculeux (NOM ODOO: "bain miraculeux", PAS "huile bain miraculeux") | huile a barbe (homme)
+bain miraculeux (NOM ODOO: "bain miraculeux", PAS "huile bain miraculeux") | huile a barbe (homme - NOM ODOO EXACT = "huile a barbe 50ml" SANS suffixe "homme")
 
 COLORISTEURS/DEJAUNISSEURS - shampoings ET masques - 200ml, 1000ml :
 blond soleil | blond vanille | chocolat | cuivre | marron noisette | dejaunisseur platine
 Tulipe noire : MASQUE uniquement (shampoing tulipe noire n'existe plus)
 ATTENTION masque cuivre : nom Odoo = "masque coloristeur cuivre intense" (avec "intense"). Shampoing cuivre = "shampoing coloristeur cuivre" (sans "intense").
+
+FRAIS / SERVICES (PAS de contenance, quantite par defaut = 1) :
+- search_name "creation du dossier cosmetologique" — Odoo "Creation du dossier cosmetologique" (389,90 EUR)
+  Alias clients : "dossier cosmetologique", "DIP", "PIF", "creation dossier"
+- search_name "frais de creation design etiquette" — Odoo "Frais de creation design etiquette" (390,00 EUR)
+  Alias clients : "creation d etiquettes sur mesure", "design etiquette", "creation etiquette"
+- search_name "forfait d impression standard" — Odoo "Forfait d'impression standard" (99,00 EUR)
+  Alias clients : "forfait impression noir", "forfait impression standard", "impression noir et blanc"
+- search_name "forfait d impression couleur" — Odoo "Forfait d'impression couleur" (250,00 EUR)
+  Alias clients : "forfait impression couleur", "impression couleur"
 
 PRODUITS DISCONTINUES (TOUJOURS RETOURNER search_name = "INCONNU") :
 - shampoing cerise (toutes contenances)
@@ -65,6 +75,10 @@ NOMS COMMERCIAUX (alias utilises par les clients) :
 - "spray masque reparateur" = "masque reparateur sans rincage" (PAS de prefixe "spray" dans Odoo)
 - "1L" ou "1 litre" = 1000ml
 - "demi-litre" ou "0.5L" = 500ml
+- "dossier cosmetologique" / "DIP" / "PIF" = creation du dossier cosmetologique (PAS de contenance, quantite 1 par defaut)
+- "creation d etiquettes sur mesure" / "design etiquette" = frais de creation design etiquette (PAS de contenance, quantite 1 par defaut)
+- "forfait impression noir" / "forfait impression standard" = forfait d impression standard (PAS de contenance, quantite 1 par defaut)
+- "forfait impression couleur" = forfait d impression couleur (PAS de contenance, quantite 1 par defaut)
 
 ATTENTION creme protectrice de couleur : le nom Odoo est "creme protectrice de couleur" (pas "creme protecteur")`;
 
@@ -73,7 +87,7 @@ const introText = fileB64
   : `Analyse cette demande client MY.LAB et extrais les produits et quantites.`;
 
 const extraRule = fileB64
-  ? `\n10. Inclus aussi un champ "raw_ocr" en string contenant la transcription textuelle brute des elements de commande visibles dans le document (lignes produits, quantites, en-tete si present). Sert de fallback si aucun produit n'est extrait.`
+  ? `\n11. Inclus aussi un champ "raw_ocr" en string contenant la transcription textuelle brute des elements de commande visibles dans le document (lignes produits, quantites, en-tete si present). Sert de fallback si aucun produit n'est extrait.`
   : '';
 
 const prompt = `${introText}
@@ -87,8 +101,9 @@ REGLES :
    Exemples : "shampoing nourrissant 200ml", "masque boucles 400ml", "creme lissante 200ml",
    "serum finition ultime 50ml", "shampoing coloristeur blond soleil 200ml"
 4. display_name = nom lisible avec majuscules
-5. Contenance par defaut si non precisee : 200ml (50ml pour serums/huiles)
-6. Quantite par defaut si non precisee : 6 (minimum B2B)
+5. Contenance par defaut si non precisee : 200ml (50ml pour serums/huiles).
+   EXCEPTION : pour les FRAIS / SERVICES (dossier cosmetologique, design etiquette, forfaits impression), AUCUNE contenance dans search_name.
+6. Quantite par defaut si non precisee : 6 (minimum B2B). EXCEPTION FRAIS / SERVICES : quantite par defaut = 1.
 7. Si un produit demande n existe pas dans le catalogue, search_name = "INCONNU"
 8. search_name doit etre le NOM EXACT tel que dans Odoo, SANS prefixe de type
    Correct: "bain miraculeux 50ml", "serum finition ultime 50ml"
@@ -104,7 +119,14 @@ REGLES :
    "masque roucou 1L" -> "masque coloristeur cuivre intense 1000ml"
    "masque tulipe noire 1L" -> "masque coloristeur tulipe noire 1000ml"
    "spray masque reparateur sans rincage" -> "masque reparateur sans rincage 200ml"
-   "spray volume & detox" -> "spray texturisant 200ml"${extraRule}
+   "spray volume & detox" -> "spray texturisant 200ml"
+10. INTERDICTION ABSOLUE d'ajouter "homme" dans search_name (meme si le document mentionne "homme" / "gamme homme" / "men").
+    Les produits homme sont identifies par leur nom de base, JAMAIS par un suffixe.
+    "shampoing gel douche homme 200ml" -> "shampoing gel douche 200ml"
+    "shampoing gel douche homme 1L" -> "shampoing gel douche 1000ml"
+    "huile a barbe homme 50ml" -> "huile a barbe 50ml"
+    "serum barbe homme 50ml" -> "serum barbe 50ml"
+    "masque intense homme 200ml" -> "masque intense 200ml"${extraRule}
 
 ${demande ? 'DEMANDE :\n' + demande : ''}`;
 

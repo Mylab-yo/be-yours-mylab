@@ -69,6 +69,29 @@ const PRODUCT_ALIASES = {
   'masque tulipe noire 200ml': 'masque coloristeur tulipe noire 200ml',
   'masque tulipe noire 1000ml': 'masque coloristeur tulipe noire 1000ml',
   'spray masque reparateur sans rincage 200ml': 'masque reparateur sans rincage 200ml',
+  'shampoing gel douche homme 200ml': 'shampoing gel douche 200ml',
+  'shampoing gel douche homme 500ml': 'shampoing gel douche 500ml',
+  'shampoing gel douche homme 1000ml': 'shampoing gel douche 1000ml',
+  'huile a barbe homme 50ml': 'huile a barbe 50ml',
+  'serum barbe homme 50ml': 'serum barbe 50ml',
+  'masque intense homme 200ml': 'masque intense 200ml',
+  'dossier cosmetologique': 'creation du dossier cosmetologique',
+  'dip': 'creation du dossier cosmetologique',
+  'pif': 'creation du dossier cosmetologique',
+  'creation dossier': 'creation du dossier cosmetologique',
+  'creation d etiquettes sur mesure': 'frais de creation design etiquette',
+  'design etiquette': 'frais de creation design etiquette',
+  'creation etiquette': 'frais de creation design etiquette',
+  // Forfaits impression : noms Odoo contiennent apostrophe typographique (U+2019) qui casse le ilike.
+  // On mappe vers un substring distinctif qui matche via unaccent + ilike.
+  'forfait d impression standard': 'impression standard',
+  "forfait d'impression standard": 'impression standard',
+  'forfait impression standard': 'impression standard',
+  'forfait impression noir': 'impression standard',
+  'impression noir et blanc': 'impression standard',
+  'forfait d impression couleur': 'impression couleur',
+  "forfait d'impression couleur": 'impression couleur',
+  'forfait impression couleur': 'impression couleur',
 };
 
 // 1. Chercher ou creer le client
