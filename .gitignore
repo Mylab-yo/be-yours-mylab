@@ -27,6 +27,9 @@ api/n8n-devis-gros-volumes.json
 .gstack/
 .env*
 
+# Google Drive desktop sync staging
+.tmp.driveupload/
+
 # sync_takemoto runtime artefacts
 scripts/.sync_takemoto_checkpoint.json
 scripts/sync_takemoto.log
