@@ -37,6 +37,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -107,6 +108,10 @@ def api_request(method: str, path: str, api_key: str, body: dict | None = None, 
         raise APIError(f"timed out after {timeout}s on {method} {path}") from e
     except urllib.error.URLError as e:
         raise APIError(f"URL error on {method} {path}: {e.reason}") from e
+    except (ConnectionResetError, ConnectionAbortedError, ConnectionRefusedError, BrokenPipeError) as e:
+        raise APIError(f"connection lost ({type(e).__name__}) on {method} {path}") from e
+    except Exception as e:
+        raise APIError(f"unexpected {type(e).__name__} on {method} {path}: {e}") from e
 
 
 # ---------------------------------------------------------------------------
@@ -207,6 +212,126 @@ def update_embeddings_batch(adds: list[str], deletes: list[str], api_key: str, t
     )
 
 
+def list_workspace_docs(api_key: str) -> set[str]:
+    """Return the set of locations currently attached to the workspace."""
+    resp = api_request("GET", f"/workspace/{WORKSPACE_SLUG}", api_key, timeout=15)
+    ws = resp.get("workspace") or resp
+    if isinstance(ws, list) and ws:
+        ws = ws[0]
+    docs = ws.get("documents") or []
+    out = set()
+    for d in docs:
+        loc = d.get("docpath") or d.get("location")
+        if loc:
+            out.add(loc)
+    return out
+
+
+def attach_one(loc: str, api_key: str, timeout: float = 15) -> tuple[str, bool, str]:
+    """Single-doc attach. Returns (loc, ok, error_msg)."""
+    try:
+        update_embeddings_batch([loc], [], api_key, timeout=timeout)
+        return loc, True, ""
+    except APIError as e:
+        return loc, False, str(e)[:100]
+
+
+def attach_parallel(locations: list[str], api_key: str, workers: int = 4,
+                    timeout: float = 15, verbose: bool = False) -> dict[str, bool]:
+    """Fire N concurrent attach requests. Returns {loc: ok_or_not}.
+    NOTE: AnythingLLM Desktop tends to crash under parallel load.
+    Prefer attach_sequential for the initial seed."""
+    results: dict[str, bool] = {}
+    t0 = time.time()
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futures = {ex.submit(attach_one, loc, api_key, timeout): loc for loc in locations}
+        done = 0
+        for fut in as_completed(futures):
+            loc, ok, err = fut.result()
+            results[loc] = ok
+            done += 1
+            if verbose and done % 20 == 0:
+                rate = done / max(time.time() - t0, 0.1)
+                print(f"  fired {done}/{len(locations)} ({rate:.1f}/s, {sum(results.values())} OK)")
+    return results
+
+
+def wait_server_up(api_key: str, max_wait: float = 60, verbose: bool = False) -> bool:
+    """Block until /api/ping returns 200 or max_wait elapsed. Returns True if up."""
+    t0 = time.time()
+    while time.time() - t0 < max_wait:
+        try:
+            urllib.request.urlopen("http://127.0.0.1:3001/api/ping", timeout=2).read()
+            return True
+        except Exception:
+            time.sleep(2)
+    return False
+
+
+def attach_sequential(locations: list[str], api_key: str,
+                      callback,
+                      timeout: float = 60, pause: float = 0.3,
+                      verbose: bool = False) -> dict[str, bool]:
+    """Sequential single-doc attach. Survives server crashes (waits for restart).
+    callback(loc, ok) is called after each attempt — use it to update state."""
+    results: dict[str, bool] = {}
+    t0 = time.time()
+    for i, loc in enumerate(locations, 1):
+        # Soft pause between requests to not flood the server
+        if pause > 0:
+            time.sleep(pause)
+        # Check server is up before firing
+        try:
+            urllib.request.urlopen("http://127.0.0.1:3001/api/ping", timeout=2).read()
+        except Exception:
+            if verbose:
+                print(f"  serveur down, attente jusqu'à 60s...", file=sys.stderr)
+            if not wait_server_up(api_key, max_wait=60, verbose=verbose):
+                print(f"  serveur toujours down après 60s, abandon à {i-1}/{len(locations)}",
+                      file=sys.stderr)
+                break
+        loc_, ok, err = attach_one(loc, api_key, timeout)
+        results[loc] = ok
+        callback(loc, ok)
+        if verbose and (i % 10 == 0 or i == len(locations)):
+            n_ok = sum(results.values())
+            rate = i / max(time.time() - t0, 0.1)
+            eta = (len(locations) - i) / max(rate, 0.01)
+            print(f"  [{i}/{len(locations)}] {n_ok} OK, {rate:.2f}/s, ETA {eta:.0f}s")
+    return results
+
+
+def wait_for_attach_settle(api_key: str, initial_count: int,
+                           target_count: int | None = None,
+                           verbose: bool = False) -> int:
+    """Server may still be processing after our client timeouts.
+    Poll workspace docs until count stable for STABLE_POLLS rounds.
+    Returns final count."""
+    POLL_INTERVAL = 15
+    STABLE_POLLS = 4  # 60s of no progress = settled
+    last = initial_count
+    stable = 0
+    while True:
+        time.sleep(POLL_INTERVAL)
+        try:
+            cur = len(list_workspace_docs(api_key))
+        except APIError:
+            cur = last
+        if cur == last:
+            stable += 1
+            if verbose:
+                print(f"  poll : {cur} (stable {stable}/{STABLE_POLLS})")
+            if stable >= STABLE_POLLS:
+                return cur
+        else:
+            if verbose:
+                print(f"  poll : {cur} (+{cur - last})")
+            stable = 0
+            last = cur
+        if target_count and cur >= target_count:
+            return cur
+
+
 def remove_from_system(locations: list[str], api_key: str):
     """Permanently remove documents from AnythingLLM (not just the workspace)."""
     if not locations:
@@ -305,46 +430,72 @@ def sync(dry_run: bool = False, verbose: bool = False):
     for rel, _ in removed:
         new_state["files"].pop(rel, None)
 
-    # Attach to workspace ONE doc at a time. Empirically, AnythingLLM Desktop
-    # processes multi-doc batches much slower than serial single-doc calls
-    # (probable internal lock or O(n²) re-indexing). Single-doc calls return
-    # in 0.1-3s each thanks to per-call caching.
+    # Attach to workspace: parallel fire + server-side settle + reconcile.
+    # AnythingLLM Desktop tends to time out client-side on big docs while
+    # finishing the work server-side. So we:
+    #   1) Fire all requests in parallel with short timeout (don't care about errors)
+    #   2) Poll workspace until count stops growing
+    #   3) Read the actual workspace doc list and update state from ground truth
+    #   4) Retry pass for any still-missing docs
     deletes = to_delete_old_loc + [loc for _, loc in removed]
-    PER_CALL_TIMEOUT = 30
-    if pending_attach:
-        if verbose:
-            print(f"Attach au workspace : {len(pending_attach)} docs, 1 par appel")
-        # Handle deletes first (single call)
-        if deletes:
-            try:
-                update_embeddings_batch([], deletes, api_key, timeout=PER_CALL_TIMEOUT)
-            except APIError as e:
-                print(f"  ! deletes initiaux : {e}", file=sys.stderr)
-
-        loc_to_rel = {info["location"]: rel for rel, info in new_state["files"].items() if info.get("location")}
-        t_start = time.time()
-        for i, loc in enumerate(pending_attach, 1):
-            try:
-                update_embeddings_batch([loc], [], api_key, timeout=PER_CALL_TIMEOUT)
-            except APIError as e:
-                print(f"  ! {loc[:80]} : {e}", file=sys.stderr)
-                continue
-            rel = loc_to_rel.get(loc)
-            if rel and rel in new_state["files"]:
-                new_state["files"][rel]["attached"] = True
-            # Save state every 10 docs to limit IO without losing too much progress
-            if i % 10 == 0:
-                save_state(new_state)
-                if verbose:
-                    rate = i / max(time.time() - t_start, 0.1)
-                    eta = (len(pending_attach) - i) / max(rate, 0.01)
-                    print(f"  attaché {i}/{len(pending_attach)} ({rate:.1f}/s, ETA {eta:.0f}s)")
-        save_state(new_state)
-    elif deletes:
+    if deletes:
         try:
-            update_embeddings_batch([], deletes, api_key, timeout=PER_CALL_TIMEOUT)
+            update_embeddings_batch([], deletes, api_key, timeout=60)
         except APIError as e:
-            print(f"  ! update-embeddings deletes : {e}", file=sys.stderr)
+            print(f"  ! deletes initiaux : {e}", file=sys.stderr)
+
+    if pending_attach:
+        loc_to_rel = {info["location"]: rel for rel, info in new_state["files"].items()
+                      if info.get("location")}
+
+        # Initial state for delta tracking
+        try:
+            initial_attached = list_workspace_docs(api_key)
+        except APIError:
+            initial_attached = set()
+        if verbose:
+            print(f"Attach au workspace : {len(pending_attach)} pending, "
+                  f"{len(initial_attached)} déjà attachés. Mode séquentiel (1 worker, robuste).")
+
+        # Callback to update state.json after each successful attach
+        def on_attach(loc, ok):
+            if not ok:
+                return
+            for rel, info in new_state["files"].items():
+                if info.get("location") == loc:
+                    info["attached"] = True
+                    break
+            # Save state every 5 successful attaches to keep checkpoints fresh
+            n = sum(1 for f in new_state["files"].values() if f.get("attached"))
+            if n % 5 == 0:
+                save_state(new_state)
+
+        # Pass 1 : sequential fire, survives server crashes
+        attach_sequential(pending_attach, api_key, on_attach,
+                          timeout=60, pause=0.3, verbose=verbose)
+        save_state(new_state)
+
+        # Pass 2 : poll until server-side processing settles
+        if verbose:
+            print("Poll du workspace en attendant settle...")
+        final_count = wait_for_attach_settle(
+            api_key, len(initial_attached),
+            target_count=len(initial_attached) + len(pending_attach),
+            verbose=verbose,
+        )
+        if verbose:
+            print(f"Workspace stable à {final_count} docs.")
+
+        # Pass 3 : reconcile state from ground truth (catches docs that attached
+        # server-side after a client timeout)
+        try:
+            attached_set = list_workspace_docs(api_key)
+            for rel, info in new_state["files"].items():
+                if info.get("location") in attached_set:
+                    info["attached"] = True
+            save_state(new_state)
+        except APIError as e:
+            print(f"  ! reconcile : {e}", file=sys.stderr)
 
     # Permanently remove obsolete docs from the system
     if deletes:
@@ -363,11 +514,39 @@ def sync(dry_run: bool = False, verbose: bool = False):
     )
 
 
+def reconcile():
+    """Read the workspace's actual attached docs and update state.json."""
+    api_key = load_api_key()
+    state = load_state()
+    files = state.get("files") or {}
+    if not files:
+        print("State vide, rien à reconcilier.")
+        return
+    attached_set = list_workspace_docs(api_key)
+    n_now_attached = 0
+    n_now_detached = 0
+    for rel, info in files.items():
+        loc = info.get("location")
+        was = bool(info.get("attached"))
+        is_ = loc in attached_set
+        info["attached"] = is_
+        if is_ and not was:
+            n_now_attached += 1
+        elif was and not is_:
+            n_now_detached += 1
+    save_state(state)
+    total_attached = sum(1 for f in files.values() if f.get("attached"))
+    print(f"Reconcile : {total_attached}/{len(files)} attachés "
+          f"(+{n_now_attached} découverts, -{n_now_detached} perdus)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--verbose", "-v", action="store_true")
     ap.add_argument("--reset", action="store_true", help="Vide le state local (force full re-sync)")
+    ap.add_argument("--reconcile", action="store_true",
+                    help="Met juste à jour state.json depuis l'état réel du workspace, sans rien upload/attach")
     args = ap.parse_args()
 
     if args.reset:
@@ -376,6 +555,10 @@ def main():
             print(f"State wiped: {STATE_FILE}")
         else:
             print("Pas de state à wipe.")
+        return
+
+    if args.reconcile:
+        reconcile()
         return
 
     sync(dry_run=args.dry_run, verbose=args.verbose)
