@@ -226,3 +226,71 @@ def claude_draft(system_prompt, conversation_text):
     r.raise_for_status()
     blocks = r.json().get("content", [])
     return "".join(b.get("text", "") for b in blocks if b.get("type") == "text").strip()
+
+
+def _load_text(path):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        return ""
+
+
+def _short_summary(html_body):
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html_body)).strip()[:160]
+
+
+def main():
+    system_prompt = _load_text(PROMPT_PATH)
+    signature = _load_text(SIGNATURE_PATH)
+    if not system_prompt:
+        print("⚠️ *Email responder* — prompt KB introuvable, run annulé")
+        return
+
+    token = refresh_access_token()
+    label_id = gmail_get_or_create_label(token, DRAFTED_LABEL)
+
+    seen, thread_ids = set(), []
+    for q in build_search_queries():
+        for tid in gmail_search(token, q, max_results=MAX_PER_RUN):
+            if tid not in seen:
+                seen.add(tid)
+                thread_ids.append(tid)
+
+    capped_remaining = max(0, len(thread_ids) - MAX_PER_RUN)
+    thread_ids = thread_ids[:MAX_PER_RUN]
+
+    results = []
+    for tid in thread_ids:
+        try:
+            parsed = parse_thread(gmail_get_thread(token, tid))
+            if not parsed or not parsed["from_email"]:
+                results.append({"status": "error", "from_email": "?", "error": "thread illisible"})
+                continue
+            html_body = claude_draft(system_prompt, parsed["conversation"])
+            if not html_body:
+                results.append({"status": "error", "from_email": parsed["from_email"],
+                                "error": "réponse Claude vide"})
+                continue
+            full_body = append_signature(html_body, signature)
+            summary = _short_summary(html_body)
+            if DRY_RUN:
+                results.append({"status": "drafted", "from_email": parsed["from_email"],
+                                "from_name": parsed["from_name"], "subject": parsed["subject"],
+                                "summary": "[DRY-RUN] " + summary})
+            else:
+                raw = build_reply_mime(parsed["from_email"], parsed["subject"], full_body,
+                                       parsed["message_id"], parsed["references"])
+                gmail_create_draft(token, tid, raw)
+                gmail_add_label(token, tid, label_id)
+                results.append({"status": "drafted", "from_email": parsed["from_email"],
+                                "from_name": parsed["from_name"], "subject": parsed["subject"],
+                                "summary": summary})
+        except Exception as e:
+            results.append({"status": "error", "from_email": "?", "error": str(e)})
+
+    print(format_telegram_summary(results, capped_remaining))
+
+
+if __name__ == "__main__":
+    main()
