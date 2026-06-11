@@ -31,7 +31,7 @@ SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
 
 LABEL_QUERIES = [
     'label:URGENT is:unread -label:Hermes-Drafted',
-    'label:"Commandes & Devis" is:unread -label:Hermes-Drafted',
+    'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted',
 ]
 
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"

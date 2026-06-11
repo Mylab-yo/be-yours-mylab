@@ -106,10 +106,11 @@ def main():
     print("\n[4/5] (Re)création du cron (idempotent)")
     run(ssh, f"docker exec hermes-gateway hermes cron remove {CRON_NAME} 2>/dev/null; true",
         label="remove ancien cron si présent")
+    # schedule est un argument POSITIONNEL (pas --schedule). --name porte le nom humain.
     run(ssh, f'docker exec hermes-gateway hermes cron create '
-             f'"Auto-draft emails pro MY.LAB" --no-agent '
+             f'"{CRON_SCHEDULE}" --no-agent '
              f'--script email_responder.py --deliver telegram '
-             f'--name {CRON_NAME} --schedule "{CRON_SCHEDULE}"',
+             f'--name {CRON_NAME}',
         label="cron create")
 
     print("\n[5/5] Vérif cron")

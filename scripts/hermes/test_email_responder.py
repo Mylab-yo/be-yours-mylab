@@ -5,7 +5,7 @@ def test_build_search_queries():
     qs = er.build_search_queries()
     assert qs == [
         'label:URGENT is:unread -label:Hermes-Drafted',
-        'label:"Commandes & Devis" is:unread -label:Hermes-Drafted',
+        'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted',
     ]
 
 def test_append_signature():
