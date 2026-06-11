@@ -244,7 +244,9 @@
       root: root,
       tiers: [],
       variantId: null,
-      selectedQty: null
+      selectedQty: null,
+      pump: null,
+      pumpChecked: false
     };
 
     var cartBtn = q(root, '#ml-btn-cart');
@@ -277,8 +279,16 @@
         ctx.tiers = tiers;
 
         /* ── ADD-ON POMPE ── */
+        /* Déduire le format : findProductEntry renvoie size=null pour les clés
+           top-level (= handles 200ml), donc on scanne entry.sizes nous-mêmes. */
         var foundEntry = U.findProductEntry(handle, map);
-        var format = foundEntry && foundEntry.size ? foundEntry.size : null;
+        var format = null;
+        if (foundEntry && foundEntry.entry && foundEntry.entry.sizes) {
+          var szKeys = Object.keys(foundEntry.entry.sizes);
+          for (var zi = 0; zi < szKeys.length; zi++) {
+            if (foundEntry.entry.sizes[szKeys[zi]] === handle) { format = szKeys[zi]; break; }
+          }
+        }
         var pumpCfg = U.getPumpForFormat(format, map);
         if (pumpCfg) {
           U.loadPumpProduct(pumpCfg.handle).then(function (pump) {

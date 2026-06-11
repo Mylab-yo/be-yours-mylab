@@ -760,9 +760,16 @@
                 var f = fetch('/products/' + linkedHandle + '.js')
                   .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
                   .then(function (product) {
-                    item.tr.insertAdjacentHTML('afterend', buildLinkedRow(product, linkedTierStr, size));
-                    var newTr = item.tr.nextElementSibling;
-                    if (newTr) fillPumpCell(newTr, size);
+                    /* Créer le nœud explicitement pour capturer une réf directe :
+                       2 fetches concurrents insèrent 'afterend' du même item.tr,
+                       donc nextElementSibling n'est pas fiable. */
+                    var tmp = document.createElement('tbody');
+                    tmp.innerHTML = buildLinkedRow(product, linkedTierStr, size);
+                    var newTr = tmp.firstElementChild;
+                    if (newTr) {
+                      item.tr.insertAdjacentElement('afterend', newTr);
+                      fillPumpCell(newTr, size);
+                    }
                   })
                   .catch(function () {});
                 allFetches.push(f);
