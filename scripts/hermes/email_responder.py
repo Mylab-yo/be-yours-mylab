@@ -34,10 +34,15 @@ SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
 
 # Nos propres adresses : un thread dont le dernier message vient de nous n'a rien à répondre.
 OWN_ADDRESSES = {"yoann@mylab-shop.com", "contact@mylab-shop.com", "fabien@mylab-shop.com"}
-# Expéditeurs automatiques / no-reply : pas de réponse à drafter (robots, notifs, bounces).
+# Expéditeurs automatiques / no-reply / plateformes : pas de réponse à drafter.
+# Matché en sous-chaîne sur l'adresse email (donc "shopify" couvre @*.shopify.com).
 NO_REPLY_SENDERS = ("mailer-daemon", "postmaster", "no-reply", "noreply", "donotreply",
                     "do-not-reply", "ne-pas-repondre", "nepasrepondre", "notification",
-                    "notifications", "root@", "@dpd")
+                    "notifications", "root@", "@dpd", "shopify", "boxtal", "mondialrelay",
+                    "stripe.com", "google.com", "googlemail.com")
+# Tokens cherchés dans le NOM AFFICHÉ de l'expéditeur (ex. "Boxtal - Ne pas répondre").
+NO_REPLY_NAME_TOKENS = ("ne pas repondre", "ne pas répondre", "no reply", "no-reply",
+                        "noreply", "do not reply", "notification", "automatique")
 BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
                    "mail delivery failed", "returned mail", "delivery incomplete")
 
@@ -70,6 +75,9 @@ def should_skip_thread(parsed):
     if sender in OWN_ADDRESSES:
         return True
     if any(b in sender for b in NO_REPLY_SENDERS):
+        return True
+    name = (parsed.get("from_name") or "").lower()
+    if any(t in name for t in NO_REPLY_NAME_TOKENS):
         return True
     subject = (parsed.get("subject") or "").lower()
     return any(s in subject for s in BOUNCE_SUBJECTS)
