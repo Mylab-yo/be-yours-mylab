@@ -44,7 +44,8 @@ def get_or_create_lot(product_id: int, lot_name: str) -> int | bool:
 
 def main():
     rows = list(csv.DictReader(CSV_PATH.open(encoding="utf-8")))
-    created, updated, missing, skipped_empty = 0, 0, 0, 0
+    created, updated, missing, skipped_empty, failed = 0, 0, 0, 0, 0
+    fails = []
     for r in rows:
         sku = r["sku"].strip()
         loc_name = r["location"].strip()
@@ -62,34 +63,43 @@ def main():
             print(f"  [MISSING] {sku}")
             missing += 1
             continue
-        loc_id = get_location_id(loc_name)
-        lot_id = get_or_create_lot(pid, lot_name) if lot_name else False
 
-        # Verifier si quant existe
-        domain = [("product_id", "=", pid), ("location_id", "=", loc_id)]
-        if lot_id:
-            domain.append(("lot_id", "=", lot_id))
-        else:
-            domain.append(("lot_id", "=", False))
-        existing = search_read("stock.quant", domain, ["id", "quantity"])
+        try:
+            loc_id = get_location_id(loc_name)
+            lot_id = get_or_create_lot(pid, lot_name) if lot_name else False
 
-        if existing:
-            write("stock.quant", [existing[0]["id"]], {"inventory_quantity": qty})
-            execute("stock.quant", "action_apply_inventory", [existing[0]["id"]])
-            print(f"  [UPDATE] {sku}@{loc_name}{f' lot={lot_name}' if lot_name else ''} -> {qty}")
-            updated += 1
-        else:
-            new_id = create("stock.quant", {
-                "product_id": pid,
-                "location_id": loc_id,
-                "lot_id": lot_id or False,
-                "inventory_quantity": qty,
-            })
-            execute("stock.quant", "action_apply_inventory", [new_id])
-            print(f"  [CREATE] {sku}@{loc_name}{f' lot={lot_name}' if lot_name else ''} = {qty}")
-            created += 1
+            # Verifier si quant existe
+            domain = [("product_id", "=", pid), ("location_id", "=", loc_id)]
+            if lot_id:
+                domain.append(("lot_id", "=", lot_id))
+            else:
+                domain.append(("lot_id", "=", False))
+            existing = search_read("stock.quant", domain, ["id", "quantity"])
 
-    print(f"\nDone. Created: {created}, Updated: {updated}, Skipped (empty): {skipped_empty}, Missing: {missing}")
+            if existing:
+                write("stock.quant", [existing[0]["id"]], {"inventory_quantity": qty})
+                execute("stock.quant", "action_apply_inventory", [existing[0]["id"]])
+                print(f"  [UPDATE] {sku}@{loc_name}{f' lot={lot_name}' if lot_name else ''} -> {qty}")
+                updated += 1
+            else:
+                new_id = create("stock.quant", {
+                    "product_id": pid,
+                    "location_id": loc_id,
+                    "lot_id": lot_id or False,
+                    "inventory_quantity": qty,
+                })
+                execute("stock.quant", "action_apply_inventory", [new_id])
+                print(f"  [CREATE] {sku}@{loc_name}{f' lot={lot_name}' if lot_name else ''} = {qty}")
+                created += 1
+        except Exception as exc:
+            print(f"  [FAILED] {sku}@{loc_name}: {str(exc)[:120]}")
+            fails.append(sku)
+            failed += 1
+
+    print(f"\nDone. Created: {created}, Updated: {updated}, Skipped (empty): {skipped_empty}, "
+          f"Missing: {missing}, Failed: {failed}")
+    if fails:
+        print("Echecs:", ", ".join(fails))
 
 
 if __name__ == "__main__":
