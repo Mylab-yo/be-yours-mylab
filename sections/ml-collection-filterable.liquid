@@ -9,6 +9,16 @@
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
   }
 
+  /* ── BADGE RUPTURE / SUR COMMANDE ── */
+  .ml-filterable .flex-grid__item { position: relative; }
+  .ml-card-badge {
+    position: absolute; top: 10px; left: 10px; z-index: 2; padding: 5px 11px;
+    font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+    border-radius: 50px; font-family: 'DM Sans', sans-serif;
+  }
+  .ml-card-badge--backorder { background: #fff0dc; color: #8a3a00; border: 1px solid #ffd9a8; }
+  .ml-card-badge--oos { background: #f2f2f2; color: #888; border: 1px solid #e0e0e0; }
+
   /* ── FILTER BAR ── */
   .ml-filter-bar {
     display: flex;
@@ -114,7 +124,21 @@
           {%- capture product_tags_handleized -%}
             {%- for tag in product.tags -%}{{ tag | handleize }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}
           {%- endcapture -%}
-          <li class="flex-grid__item" data-tags="{{ product_tags_handleized }}">
+          {%- liquid
+            assign cv = product.variants.first
+            assign card_oos = false
+            if cv.inventory_management == 'shopify' and cv.inventory_quantity <= 0
+              assign card_oos = true
+            endif
+            assign card_backorder = true
+            if product.tags contains 'no-backorder'
+              assign card_backorder = false
+            endif
+          -%}
+          <li class="flex-grid__item{% if card_oos %} ml-card-oos{% endif %}" data-tags="{{ product_tags_handleized }}">
+            {%- if card_oos -%}
+              <span class="ml-card-badge {% if card_backorder %}ml-card-badge--backorder{% else %}ml-card-badge--oos{% endif %}">{% if card_backorder %}Sur commande{% else %}Rupture{% endif %}</span>
+            {%- endif -%}
             {% render 'card-product',
               card_product: product,
               card_collection: collection,
