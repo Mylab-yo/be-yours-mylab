@@ -88,6 +88,7 @@ def main():
     print("  done (3 clés Gmail)")
 
     print("\n[2/5] Upload worker + prompt + signature")
+    run(ssh, f"mkdir -p {REMOTE_DIR}", label="ensure remote scripts dir")
     with sftp.open(f"{REMOTE_DIR}/email_responder.py", "w") as f:
         f.write(worker_src)
     sftp.chmod(f"{REMOTE_DIR}/email_responder.py", 0o755)
