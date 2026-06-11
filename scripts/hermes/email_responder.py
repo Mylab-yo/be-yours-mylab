@@ -141,3 +141,88 @@ def build_reply_mime(to_email, subject, html_body, in_reply_to, references):
         msg["References"] = (references + " " + in_reply_to).strip() if references else in_reply_to
     msg.set_content(html_body, subtype="html")
     return base64.urlsafe_b64encode(msg.as_bytes()).decode("ascii")
+
+
+def refresh_access_token():
+    import requests
+    data = {
+        "client_id": os.environ["GMAIL_CLIENT_ID"],
+        "client_secret": os.environ["GMAIL_CLIENT_SECRET"],
+        "refresh_token": os.environ["GMAIL_REFRESH_TOKEN"],
+        "grant_type": "refresh_token",
+    }
+    r = requests.post(TOKEN_URL, data=data, timeout=30)
+    r.raise_for_status()
+    return r.json()["access_token"]
+
+
+def _gh(token):
+    return {"Authorization": f"Bearer {token}"}
+
+
+def gmail_search(token, query, max_results=15):
+    import requests
+    r = requests.get(f"{GMAIL_API}/threads", headers=_gh(token),
+                     params={"q": query, "maxResults": max_results}, timeout=30)
+    r.raise_for_status()
+    return [t["id"] for t in r.json().get("threads", [])]
+
+
+def gmail_get_thread(token, thread_id):
+    import requests
+    r = requests.get(f"{GMAIL_API}/threads/{thread_id}", headers=_gh(token),
+                     params={"format": "full"}, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+
+def gmail_get_or_create_label(token, name):
+    import requests
+    r = requests.get(f"{GMAIL_API}/labels", headers=_gh(token), timeout=30)
+    r.raise_for_status()
+    for lbl in r.json().get("labels", []):
+        if lbl["name"] == name:
+            return lbl["id"]
+    r = requests.post(f"{GMAIL_API}/labels", headers=_gh(token),
+                      json={"name": name, "labelListVisibility": "labelShow",
+                            "messageListVisibility": "show"}, timeout=30)
+    r.raise_for_status()
+    return r.json()["id"]
+
+
+def gmail_create_draft(token, thread_id, raw_mime):
+    import requests
+    r = requests.post(f"{GMAIL_API}/drafts", headers=_gh(token),
+                      json={"message": {"threadId": thread_id, "raw": raw_mime}}, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+
+def gmail_add_label(token, thread_id, label_id):
+    import requests
+    r = requests.post(f"{GMAIL_API}/threads/{thread_id}/modify", headers=_gh(token),
+                      json={"addLabelIds": [label_id]}, timeout=30)
+    r.raise_for_status()
+    return r.json()
+
+
+def claude_draft(system_prompt, conversation_text):
+    import requests
+    headers = {
+        "x-api-key": os.environ["ANTHROPIC_API_KEY"],
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+    }
+    body = {
+        "model": MODEL,
+        "max_tokens": 1500,
+        "system": system_prompt,
+        "messages": [{"role": "user", "content":
+            "Voici le fil d'emails reçu. Rédige UNIQUEMENT le corps HTML de la réponse "
+            "(sans signature, sans balise <html>/<body>), en suivant les règles MY.LAB.\n\n"
+            + conversation_text}],
+    }
+    r = requests.post(ANTHROPIC_API, headers=headers, json=body, timeout=120)
+    r.raise_for_status()
+    blocks = r.json().get("content", [])
+    return "".join(b.get("text", "") for b in blocks if b.get("type") == "text").strip()
