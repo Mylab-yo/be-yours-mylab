@@ -209,6 +209,13 @@
     cursor: pointer;
   }
 
+  /* ── COLONNE POMPE ── */
+  .ml-qo__pump-col { text-align: center; }
+  .ml-qo__pump-cell { text-align: center; }
+  .ml-qo__pump-cell input { width: 18px; height: 18px; accent-color: #111; cursor: pointer; }
+  .ml-qo__pump-price { display: block; font-size: 1rem; color: #888; margin-top: 3px; white-space: nowrap; }
+  .ml-qo__pump-na { color: #ccc; font-size: 1.2rem; }
+
   /* ── FOOTER ── */
   .ml-qo__footer {
     display: flex;
@@ -401,6 +408,7 @@
             <th></th>
             <th>Produit</th>
             <th>Quantité</th>
+            <th class="ml-qo__pump-col">Pompe</th>
             <th>Prix unit. HT</th>
             <th>Total HT</th>
           </tr>
@@ -433,6 +441,7 @@
           <span class="ml-qo__total-label">Total :</span>
           <span id="ml-qo-total">0,00</span>
           <span class="ml-qo__total-ht">€ HT</span>
+          <span id="ml-qo-pumpnote" class="ml-qo__total-ht" style="color:#2D4A2D;"></span>
         </div>
       </div>
       <button type="button" class="ml-qo__submit" id="ml-qo-submit" disabled>
@@ -467,7 +476,7 @@
 
         function updateRow(tr) {
           var select = tr.querySelector('[data-qo-qty]');
-          var checkbox = tr.querySelector('input[type="checkbox"]');
+          var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
           var unitEl = tr.querySelector('[data-qo-unit]');
           var lineEl = tr.querySelector('[data-qo-line]');
           var qty = parseInt(select.value, 10);
@@ -489,21 +498,28 @@
         function updateTotal() {
           var rows = table.querySelectorAll('tbody tr[data-variant-id]:not([style*="display:none"])');
           var total = 0;
+          var pumpTotal = 0;
           var count = 0;
           rows.forEach(function (tr) {
             var select = tr.querySelector('[data-qo-qty]');
-            var checkbox = tr.querySelector('input[type="checkbox"]');
+            var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
             if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
               var opt = select.options[select.selectedIndex];
               var price = parseInt(opt.dataset.price, 10);
               var qty = parseInt(select.value, 10);
               total += price * qty;
               count++;
+              var pumpCheck = tr.querySelector('[data-pump]');
+              if (pumpCheck && pumpCheck.checked && tr.dataset.pumpUnit) {
+                pumpTotal += parseInt(tr.dataset.pumpUnit, 10) * qty;
+              }
             }
           });
-          totalEl.textContent = U.formatPriceRaw(total);
+          totalEl.textContent = U.formatPriceRaw(total + pumpTotal);
           countEl.textContent = count;
           submitBtn.disabled = count === 0;
+          var pumpNote = document.getElementById('ml-qo-pumpnote');
+          if (pumpNote) pumpNote.textContent = pumpTotal > 0 ? ('· dont ' + U.formatPriceRaw(pumpTotal) + ' € de pompes') : '';
         }
 
         /* Event delegation */
@@ -513,7 +529,7 @@
           if (e.target.matches('[data-qo-qty]')) {
             updateRow(tr);
           }
-          if (e.target.matches('input[type="checkbox"]')) {
+          if (e.target.matches('input[type="checkbox"]:not([data-pump])')) {
             var select = tr.querySelector('[data-qo-qty]');
             if (!e.target.checked) {
               select.value = '0';
@@ -524,19 +540,24 @@
             }
             updateTotal();
           }
+          if (e.target.matches('[data-pump]')) {
+            updateTotal();
+          }
         });
 
         /* Add to cart */
         submitBtn.addEventListener('click', function () {
           var items = [];
           table.querySelectorAll('tbody tr[data-variant-id]').forEach(function (tr) {
-            var checkbox = tr.querySelector('input[type="checkbox"]');
+            var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
             var select = tr.querySelector('[data-qo-qty]');
             if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
-              items.push({
-                id: parseInt(tr.dataset.variantId, 10),
-                quantity: parseInt(select.value, 10)
-              });
+              var qty = parseInt(select.value, 10);
+              items.push({ id: parseInt(tr.dataset.variantId, 10), quantity: qty });
+              var pumpCheck = tr.querySelector('[data-pump]');
+              if (pumpCheck && pumpCheck.checked && tr.dataset.pumpVariant) {
+                items.push({ id: parseInt(tr.dataset.pumpVariant, 10), quantity: qty });
+              }
             }
           });
           if (!items.length) return;
@@ -641,6 +662,7 @@
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
             + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
             + '<td>' + qtyCell + '</td>'
+            + '<td class="ml-qo__check ml-qo__pump-cell" data-pump-cell></td>'
             + '<td class="ml-qo__price"><span data-qo-unit>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '<td class="ml-qo__price"><span data-qo-line>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '</tr>';
@@ -650,6 +672,20 @@
           var tbody = table.querySelector('tbody');
           var rows = table.querySelectorAll('tbody tr[data-handle]');
           var gammeRows = {}; /* gamme → [tr, ...] */
+
+          function fillPumpCell(tr, format) {
+            var cell = tr.querySelector('[data-pump-cell]');
+            if (!cell) return;
+            var cfg = U.getPumpForFormat(format, map);
+            if (!cfg) { cell.innerHTML = '<span class="ml-qo__pump-na" title="Pas de pompe pour ce format">—</span>'; return; }
+            U.loadPumpProduct(cfg.handle).then(function (pump) {
+              if (!pump) { cell.innerHTML = '<span class="ml-qo__pump-na">—</span>'; return; }
+              tr.dataset.pumpVariant = pump.variantId;
+              tr.dataset.pumpUnit = pump.price;
+              cell.innerHTML = '<input type="checkbox" class="ml-qo__pump-check" data-pump aria-label="Ajouter une pompe">'
+                + '<span class="ml-qo__pump-price">+' + U.formatPriceRaw(pump.price) + ' €/u</span>';
+            });
+          }
 
           rows.forEach(function (tr) {
             var handle = tr.dataset.handle;
@@ -676,6 +712,16 @@
               }
             }
 
+            /* Colonne pompe (selon le format) */
+            var rowFormat = null;
+            if (entry.sizes) {
+              var fk = Object.keys(entry.sizes);
+              for (var fi = 0; fi < fk.length; fi++) {
+                if (entry.sizes[fk[fi]] === handle) { rowFormat = fk[fi]; break; }
+              }
+            }
+            fillPumpCell(tr, rowFormat);
+
             /* Grouper par gamme */
             var gamme = entry.type || 'autre';
             if (entry.prefix === 'homme') gamme = 'homme';
@@ -695,7 +741,7 @@
             /* En-tête de catégorie */
             var headerTr = document.createElement('tr');
             headerTr.className = 'ml-qo__category';
-            headerTr.innerHTML = '<td colspan="5">' + (GAMME_LABELS[gk] || gk) + '</td>';
+            headerTr.innerHTML = '<td colspan="6">' + (GAMME_LABELS[gk] || gk) + '</td>';
             tbody.appendChild(headerTr);
 
             group.forEach(function (item) {
@@ -715,6 +761,8 @@
                   .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
                   .then(function (product) {
                     item.tr.insertAdjacentHTML('afterend', buildLinkedRow(product, linkedTierStr, size));
+                    var newTr = item.tr.nextElementSibling;
+                    if (newTr) fillPumpCell(newTr, size);
                   })
                   .catch(function () {});
                 allFetches.push(f);
@@ -729,7 +777,7 @@
             if (!group || !group.length) return;
             var headerTr = document.createElement('tr');
             headerTr.className = 'ml-qo__category';
-            headerTr.innerHTML = '<td colspan="5">Autres produits</td>';
+            headerTr.innerHTML = '<td colspan="6">Autres produits</td>';
             tbody.appendChild(headerTr);
             group.forEach(function (item) { tbody.appendChild(item.tr); });
           });
