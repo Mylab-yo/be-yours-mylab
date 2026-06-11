@@ -13,6 +13,7 @@
   var prodEl = document.getElementById('ml-notify-prod');
   var msgEl = document.getElementById('ml-notify-msg');
   var form = document.getElementById('ml-notify-form');
+  var lastTrigger = null;
 
   function open(data) {
     handleEl.value = data.handle || '';
@@ -28,12 +29,14 @@
     modal.classList.remove('is-open');
     modal.setAttribute('inert', '');
     modal.setAttribute('aria-hidden', 'true');
+    if (lastTrigger && typeof lastTrigger.focus === 'function') { lastTrigger.focus(); lastTrigger = null; }
   }
 
   document.addEventListener('click', function (e) {
     var trigger = e.target.closest('[data-ml-notify-open]');
     if (trigger) {
       e.preventDefault();
+      lastTrigger = trigger;
       open({ handle: trigger.dataset.handle, variant: trigger.dataset.variant, title: trigger.dataset.title });
     }
     if (e.target.closest('[data-ml-notify-close]')) close();

@@ -646,7 +646,7 @@
           var nameCell = tr.querySelector('.ml-qo__product-variant');
           if (nameCell && !tr.querySelector('.ml-qo__notify-link')) {
             nameCell.insertAdjacentHTML('afterend',
-              '<a class="ml-qo__notify-link" href="/products/' + tr.dataset.handle + '">Prévenez-moi →</a>');
+              '<a class="ml-qo__notify-link" href="/products/' + tr.dataset.handle + '">Pr&eacute;venez-moi &rarr;</a>');
           }
         }
 
@@ -705,7 +705,7 @@
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
             + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div>'
             + (isBackorder ? '<span class="ml-qo__backorder-tag">sur commande</span>' : '')
-            + ((isOosNoBack && window.MlNotify && window.MlNotify.webhook) ? '<a class="ml-qo__notify-link" href="/products/' + handle + '">Prévenez-moi →</a>' : '')
+            + ((isOosNoBack && window.MlNotify && window.MlNotify.webhook) ? '<a class="ml-qo__notify-link" href="/products/' + handle + '">Pr&eacute;venez-moi &rarr;</a>' : '')
             + '</div></div></td>'
             + '<td>' + qtyCell + '</td>'
             + '<td class="ml-qo__check ml-qo__pump-cell" data-pump-cell></td>'
