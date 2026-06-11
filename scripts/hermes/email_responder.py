@@ -38,9 +38,12 @@ NO_REPLY_SENDERS = ("mailer-daemon", "postmaster", "no-reply", "noreply", "donot
 BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
                    "mail delivery failed", "returned mail", "delivery incomplete")
 
+# On re-balaie TOUS les non-lus à chaque passage (pas d'exclusion du label figé).
+# L'idempotence vient de la présence d'un brouillon dans le thread + du fait que le
+# dernier message vienne de nous (cf. main / should_skip_thread).
 LABEL_QUERIES = [
-    'label:URGENT is:unread -label:Hermes-Drafted -from:mailer-daemon',
-    'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted -from:mailer-daemon',
+    'label:URGENT is:unread -from:mailer-daemon',
+    'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon',
 ]
 
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
@@ -66,6 +69,14 @@ def should_skip_thread(parsed):
         return True
     subject = (parsed.get("subject") or "").lower()
     return any(s in subject for s in BOUNCE_SUBJECTS)
+
+
+def thread_has_draft(thread_json):
+    """True si un brouillon est déjà en attente dans le thread (évite les doublons)."""
+    for m in thread_json.get("messages", []):
+        if "DRAFT" in m.get("labelIds", []):
+            return True
+    return False
 
 
 def format_telegram_summary(results, capped_remaining=0):
@@ -282,7 +293,8 @@ def main():
     token = refresh_access_token()
     label_id = gmail_get_or_create_label(token, DRAFTED_LABEL)
 
-    fetch_limit = max(MAX_PER_RUN * len(LABEL_QUERIES), 30)
+    # Fetch généreux : on re-balaie tous les non-lus et on filtre au fil de l'eau.
+    fetch_limit = max(MAX_PER_RUN * 4, 50)
     seen, thread_ids = set(), []
     for q in build_search_queries():
         for tid in gmail_search(token, q, max_results=fetch_limit):
@@ -290,20 +302,25 @@ def main():
                 seen.add(tid)
                 thread_ids.append(tid)
 
-    capped_remaining = max(0, len(thread_ids) - MAX_PER_RUN)
-    thread_ids = thread_ids[:MAX_PER_RUN]
-
     results = []
-    for tid in thread_ids:
+    drafted_count = 0
+    capped_remaining = 0
+    for idx, tid in enumerate(thread_ids):
+        if drafted_count >= MAX_PER_RUN:
+            capped_remaining = len(thread_ids) - idx  # restants non examinés (cap atteint)
+            break
         from_email_ctx = "?"
         try:
-            parsed = parse_thread(gmail_get_thread(token, tid))
+            thread = gmail_get_thread(token, tid)
+            if thread_has_draft(thread):
+                continue  # brouillon déjà en attente dans ce thread : pas de doublon
+            parsed = parse_thread(thread)
             if not parsed or not parsed["from_email"]:
                 results.append({"status": "error", "from_email": "?", "error": "thread illisible"})
                 continue
             from_email_ctx = parsed["from_email"]
             if should_skip_thread(parsed):
-                continue  # bounce auto ou dernier message de nous : rien à répondre
+                continue  # bounce/no-reply, ou dernier message déjà de nous : rien à répondre
             html_body = claude_draft(system_prompt, parsed["conversation"])
             if not html_body:
                 results.append({"status": "error", "from_email": parsed["from_email"],
@@ -318,15 +335,12 @@ def main():
             else:
                 raw = build_reply_mime(parsed["from_email"], parsed["subject"], full_body,
                                        parsed["message_id"], parsed["references"])
-                # Draft first, then label. Deliberate: if labeling fails after a successful
-                # draft, the worst case is a duplicate draft on the next run (visible,
-                # harmless) rather than a silently missing reply — the safer failure mode
-                # for a human-review workflow.
                 gmail_create_draft(token, tid, raw)
-                gmail_add_label(token, tid, label_id)
+                gmail_add_label(token, tid, label_id)  # marqueur visuel "Hermes a drafté ici"
                 results.append({"status": "drafted", "from_email": parsed["from_email"],
                                 "from_name": parsed["from_name"], "subject": parsed["subject"],
                                 "summary": summary})
+            drafted_count += 1
         except Exception as e:
             results.append({"status": "error", "from_email": from_email_ctx, "error": str(e)})
 

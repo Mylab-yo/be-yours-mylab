@@ -4,9 +4,18 @@ import email_responder as er
 def test_build_search_queries():
     qs = er.build_search_queries()
     assert qs == [
-        'label:URGENT is:unread -label:Hermes-Drafted -from:mailer-daemon',
-        'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted -from:mailer-daemon',
+        'label:URGENT is:unread -from:mailer-daemon',
+        'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon',
     ]
+
+def test_thread_has_draft():
+    no_draft = {"messages": [{"labelIds": ["UNREAD", "INBOX"]},
+                             {"labelIds": ["SENT"]}]}
+    with_draft = {"messages": [{"labelIds": ["UNREAD", "INBOX"]},
+                              {"labelIds": ["DRAFT", "Label_7"]}]}
+    assert not er.thread_has_draft(no_draft)
+    assert er.thread_has_draft(with_draft)
+    assert not er.thread_has_draft({"messages": []})
 
 def test_should_skip_thread():
     # dernier message de nous → skip
@@ -126,6 +135,7 @@ def test_build_reply_mime_dedups_references():
 if __name__ == "__main__":
     test_build_search_queries()
     test_should_skip_thread()
+    test_thread_has_draft()
     test_append_signature()
     test_summary_empty()
     test_summary_drafted_and_error()
