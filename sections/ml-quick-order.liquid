@@ -326,6 +326,13 @@
     white-space: nowrap;
   }
 
+  /* ── BACKORDER / NOTIFY (commande express) ── */
+  .ml-qo__backorder-tag {
+    display: inline-block; margin-top: 3px; padding: 2px 8px; font-size: 1rem;
+    font-weight: 600; color: #8a3a00; background: #fff0dc; border: 1px solid #ffd9a8; border-radius: 50px;
+  }
+  .ml-qo__notify-link { display: inline-block; margin-top: 3px; font-size: 1.05rem; color: #555; text-decoration: underline; }
+
   /* ── RESPONSIVE ── */
   @media screen and (max-width: 749px) {
     .ml-qo__title {
@@ -449,11 +456,26 @@
       </button>
     </div>
 
+    <script>
+      window.MlOos = {};
+      window.MlNoBackorder = {};
+      {%- for product in collection.products -%}
+        {%- assign qv = product.variants.first -%}
+        {%- if qv.inventory_management == 'shopify' and qv.inventory_quantity <= 0 -%}
+          window.MlOos[{{ product.handle | json }}] = true;
+        {%- endif -%}
+        {%- if product.tags contains 'no-backorder' -%}
+          window.MlNoBackorder[{{ product.handle | json }}] = true;
+        {%- endif -%}
+      {%- endfor -%}
+    </script>
     <script src="{{ 'ml-utils.js' | asset_url }}"></script>
     <script>
       (function () {
         'use strict';
         var U = window.MylabUtils;
+        function mlIsOos(h) { return !!(window.MlOos && window.MlOos[h]); }
+        function mlNoBackorder(h) { return !!(window.MlNoBackorder && window.MlNoBackorder[h]); }
         var table = document.getElementById('ml-qo-table');
         var totalEl = document.getElementById('ml-qo-total');
         var countEl = document.getElementById('ml-qo-count');
@@ -613,9 +635,26 @@
           if (lineEl) lineEl.textContent = '\u2014';
         }
 
+        function appendBackorderTag(tr) {
+          var nameCell = tr.querySelector('.ml-qo__product-variant');
+          if (nameCell && !tr.querySelector('.ml-qo__backorder-tag')) {
+            nameCell.insertAdjacentHTML('afterend', '<span class="ml-qo__backorder-tag">sur commande</span>');
+          }
+        }
+        function appendNotifyLink(tr) {
+          if (!(window.MlNotify && window.MlNotify.webhook)) return;
+          var nameCell = tr.querySelector('.ml-qo__product-variant');
+          if (nameCell && !tr.querySelector('.ml-qo__notify-link')) {
+            nameCell.insertAdjacentHTML('afterend',
+              '<a class="ml-qo__notify-link" href="/products/' + tr.dataset.handle + '">Prévenez-moi →</a>');
+          }
+        }
+
         function populateSelect(tr, tierStr) {
-          if (tr.dataset.available === 'false') {
+          var handle = tr.dataset.handle;
+          if (mlIsOos(handle) && mlNoBackorder(handle)) {
             applyOosTreatment(tr);
+            appendNotifyLink(tr);
             return;
           }
           var select = tr.querySelector('[data-qo-qty]');
@@ -632,12 +671,16 @@
             select.appendChild(opt);
           });
           tr.setAttribute('data-tier-data', tierStr);
+          if (mlIsOos(handle)) appendBackorderTag(tr);
         }
 
         function buildLinkedRow(product, tierStr, sizeLabel) {
           var firstVar = product.variants && product.variants[0] ? product.variants[0] : null;
           if (!firstVar) return '';
-          var isOos = firstVar.available === false;
+          var handle = product.handle;
+          var isOosNoBack = mlIsOos(handle) && mlNoBackorder(handle);
+          var isBackorder = mlIsOos(handle) && !mlNoBackorder(handle);
+          var isOos = isOosNoBack; /* grisé/non-commandable uniquement si pas de backorder */
           var imgSrc = product.images && product.images[0] ? product.images[0] : '';
           if (imgSrc) imgSrc = imgSrc.replace(/\.([^.]+)$/, '_100x100.$1');
           var img = imgSrc ? '<img class="ml-qo__product-img" src="' + imgSrc + '" width="50" height="50" loading="lazy">' : '';
@@ -660,7 +703,10 @@
           return '<tr' + rowClass + ' data-variant-id="' + firstVar.id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '" data-available="' + (isOos ? 'false' : 'true') + '"' + oosAttr + '>'
             + '<td class="ml-qo__check"><input type="checkbox"' + checkboxAttrs + ' aria-label="S\u00e9lectionner ' + safeTitle + oosLbl + '"></td>'
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
-            + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
+            + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div>'
+            + (isBackorder ? '<span class="ml-qo__backorder-tag">sur commande</span>' : '')
+            + ((isOosNoBack && window.MlNotify && window.MlNotify.webhook) ? '<a class="ml-qo__notify-link" href="/products/' + handle + '">Prévenez-moi →</a>' : '')
+            + '</div></div></td>'
             + '<td>' + qtyCell + '</td>'
             + '<td class="ml-qo__check ml-qo__pump-cell" data-pump-cell></td>'
             + '<td class="ml-qo__price"><span data-qo-unit>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
