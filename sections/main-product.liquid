@@ -702,7 +702,18 @@
             <script src="{{ 'ml-volume-pricing.js' | asset_url }}" defer="defer"></script>
           {%- when 'mylab_pricing' -%}
             {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
-            <div data-mylab-pricing data-product-handle="{{ product.handle }}" {{ block.shopify_attributes }}>
+            {%- liquid
+              assign ml_v = product.variants.first
+              assign ml_oos = false
+              if ml_v.inventory_management == 'shopify' and ml_v.inventory_quantity <= 0
+                assign ml_oos = true
+              endif
+              assign ml_backorder = true
+              if product.tags contains 'no-backorder'
+                assign ml_backorder = false
+              endif
+            -%}
+            <div data-mylab-pricing data-product-handle="{{ product.handle }}" data-oos="{{ ml_oos }}" data-backorder="{{ ml_backorder }}" {{ block.shopify_attributes }}>
 
               {%- comment -%} ====== SÉLECTEUR CONTENANCE (rempli par JS depuis ml-product-map.json) ====== {%- endcomment -%}
               <div class="ml-option-group" id="ml-contenance-group" style="display:none;">
@@ -791,13 +802,27 @@
               <div class="ml-pump-line" id="ml-pump-line"></div>
 
               {%- comment -%} ====== CTA ====== {%- endcomment -%}
+              {%- if ml_oos -%}
+                <div class="ml-oos-banner">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span>{% if ml_backorder %}En rupture — expédié dès réapprovisionnement.{% else %}Produit momentanément en rupture.{% endif %}</span>
+                </div>
+              {%- endif -%}
               <div class="ml-cta">
-                <button class="ml-btn-cart" id="ml-btn-cart"
-                        data-variant-id="{{ product.variants.first.id }}"
-                        aria-label="Ajouter au panier">
-                  <span class="ml-btn-cart__text">Ajouter au panier</span>
-                  <span class="ml-btn-cart__pill" id="ml-cart-pill">—</span>
-                </button>
+                {%- unless ml_oos and ml_backorder == false -%}
+                  <button class="ml-btn-cart" id="ml-btn-cart"
+                          data-variant-id="{{ product.variants.first.id }}"
+                          aria-label="Ajouter au panier">
+                    <span class="ml-btn-cart__text">{% if ml_oos and ml_backorder %}Commander et recevoir dès retour en stock{% else %}Ajouter au panier{% endif %}</span>
+                    <span class="ml-btn-cart__pill" id="ml-cart-pill">—</span>
+                  </button>
+                {%- endunless -%}
+                {%- if ml_oos and settings.notify_webhook_url != blank -%}
+                  <button type="button" class="ml-notify-link" data-ml-notify-open
+                          data-handle="{{ product.handle }}" data-variant="{{ product.variants.first.id }}" data-title="{{ product.title | escape }}">
+                    {% if ml_backorder %}Ou être prévenu du retour{% else %}Prévenez-moi du retour{% endif %}
+                  </button>
+                {%- endif -%}
               </div>
 
               {%- comment -%} ====== TRUST BADGES ====== {%- endcomment -%}
