@@ -29,9 +29,16 @@ DRAFTED_LABEL = "Hermes-Drafted"
 PROMPT_PATH = "/opt/data/scripts/email_responder_prompt.md"
 SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
 
+# Nos propres adresses : un thread dont le dernier message vient de nous n'a rien à répondre.
+OWN_ADDRESSES = {"yoann@mylab-shop.com", "contact@mylab-shop.com", "fabien@mylab-shop.com"}
+# Filets anti-bruit (les bounces sont aussi exclus au niveau requête via -from:mailer-daemon).
+BOUNCE_SENDERS = ("mailer-daemon", "postmaster")
+BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
+                   "mail delivery failed", "returned mail", "delivery incomplete")
+
 LABEL_QUERIES = [
-    'label:URGENT is:unread -label:Hermes-Drafted',
-    'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted',
+    'label:URGENT is:unread -label:Hermes-Drafted -from:mailer-daemon',
+    'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted -from:mailer-daemon',
 ]
 
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
@@ -46,6 +53,17 @@ def build_search_queries():
 
 def append_signature(html_body, signature_html):
     return f"{html_body}<br><br>{signature_html}"
+
+
+def should_skip_thread(parsed):
+    """True si le thread ne mérite pas de réponse : dernier message de nous, ou bounce auto."""
+    sender = (parsed.get("from_email") or "").lower()
+    if sender in OWN_ADDRESSES:
+        return True
+    if any(b in sender for b in BOUNCE_SENDERS):
+        return True
+    subject = (parsed.get("subject") or "").lower()
+    return any(s in subject for s in BOUNCE_SUBJECTS)
 
 
 def format_telegram_summary(results, capped_remaining=0):
@@ -282,6 +300,8 @@ def main():
                 results.append({"status": "error", "from_email": "?", "error": "thread illisible"})
                 continue
             from_email_ctx = parsed["from_email"]
+            if should_skip_thread(parsed):
+                continue  # bounce auto ou dernier message de nous : rien à répondre
             html_body = claude_draft(system_prompt, parsed["conversation"])
             if not html_body:
                 results.append({"status": "error", "from_email": parsed["from_email"],

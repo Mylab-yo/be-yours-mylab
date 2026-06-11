@@ -4,9 +4,21 @@ import email_responder as er
 def test_build_search_queries():
     qs = er.build_search_queries()
     assert qs == [
-        'label:URGENT is:unread -label:Hermes-Drafted',
-        'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted',
+        'label:URGENT is:unread -label:Hermes-Drafted -from:mailer-daemon',
+        'label:"Commandes et Devis mylab" is:unread -label:Hermes-Drafted -from:mailer-daemon',
     ]
+
+def test_should_skip_thread():
+    # dernier message de nous → skip
+    assert er.should_skip_thread({"from_email": "yoann@mylab-shop.com", "subject": "Devis"})
+    assert er.should_skip_thread({"from_email": "Contact@MyLab-Shop.com", "subject": "x"})
+    # bounce par expéditeur → skip
+    assert er.should_skip_thread({"from_email": "mailer-daemon@googlemail.com", "subject": "x"})
+    # bounce par sujet → skip
+    assert er.should_skip_thread({"from_email": "x@y.fr", "subject": "Delivery Status Notification (Failure)"})
+    assert er.should_skip_thread({"from_email": "x@y.fr", "subject": "Undeliverable: Votre catalogue"})
+    # vrai client → on répond
+    assert not er.should_skip_thread({"from_email": "marie@salon.fr", "subject": "Demande de devis"})
 
 def test_append_signature():
     assert er.append_signature("<p>Bonjour</p>", "<table>SIG</table>") == \
@@ -111,6 +123,7 @@ def test_build_reply_mime_dedups_references():
 
 if __name__ == "__main__":
     test_build_search_queries()
+    test_should_skip_thread()
     test_append_signature()
     test_summary_empty()
     test_summary_drafted_and_error()
