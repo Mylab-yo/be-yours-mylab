@@ -81,6 +81,34 @@ def test_build_reply_mime_is_html_in_thread():
     assert "text/html" in decoded
     assert "<p>Bonjour</p>" in decoded
 
+def test_parse_thread_captures_references():
+    thread = {"id": "T4", "messages": [
+        {"payload": {"headers": [{"name": "From", "value": "a@x.fr"},
+                                 {"name": "References", "value": "<r1@mail>"},
+                                 {"name": "Message-ID", "value": "<m1@mail>"}],
+                     "mimeType": "text/plain", "body": {"data": _b64url("x")}}},
+    ]}
+    p = er.parse_thread(thread)
+    assert p["references"] == "<r1@mail>"
+
+def test_parse_thread_decodes_encoded_from_name():
+    from email.header import Header
+    enc = Header("Marie Hélène", "utf-8").encode()
+    thread = {"id": "T3", "messages": [
+        {"payload": {"headers": [{"name": "From", "value": f"{enc} <mh@x.fr>"}],
+                     "mimeType": "text/plain", "body": {"data": _b64url("hi")}}},
+    ]}
+    p = er.parse_thread(thread)
+    assert p["from_name"] == "Marie Hélène"
+    assert p["from_email"] == "mh@x.fr"
+
+def test_build_reply_mime_dedups_references():
+    import base64
+    raw = er.build_reply_mime("m@x.fr", "Devis", "<p>x</p>", "<a@mail>", "<prev@mail> <a@mail>")
+    decoded = base64.urlsafe_b64decode(raw + "===").decode("utf-8", "replace")
+    refs_line = [l for l in decoded.splitlines() if l.startswith("References:")][0]
+    assert refs_line.count("<a@mail>") == 1
+
 if __name__ == "__main__":
     test_build_search_queries()
     test_append_signature()
@@ -91,4 +119,7 @@ if __name__ == "__main__":
     test_parse_thread_multipart_prefers_plain()
     test_build_reply_subject()
     test_build_reply_mime_is_html_in_thread()
+    test_parse_thread_captures_references()
+    test_parse_thread_decodes_encoded_from_name()
+    test_build_reply_mime_dedups_references()
     print("OK email_responder helpers")

@@ -11,6 +11,7 @@ Lancé par : hermes cron, --no-agent --script email_responder.py --deliver teleg
 import base64
 import os
 import re
+from email.header import decode_header, make_header
 from email.message import EmailMessage
 from email.utils import parseaddr
 
@@ -98,6 +99,15 @@ def _extract_plaintext(payload):
     return re.sub(r"<[^>]+>", " ", "\n".join(htmls)).strip()
 
 
+def _decode_mime_words(s):
+    if not s:
+        return s
+    try:
+        return str(make_header(decode_header(s)))
+    except Exception:
+        return s
+
+
 def _header(headers, name):
     for h in headers:
         if h.get("name", "").lower() == name.lower():
@@ -112,6 +122,7 @@ def parse_thread(thread_json):
     last = msgs[-1]
     h = last.get("payload", {}).get("headers", [])
     from_name, from_email = parseaddr(_header(h, "From"))
+    from_name = _decode_mime_words(from_name)
     convo = []
     for m in msgs:
         mh = m.get("payload", {}).get("headers", [])
@@ -138,7 +149,8 @@ def build_reply_mime(to_email, subject, html_body, in_reply_to, references):
     msg["Subject"] = build_reply_subject(subject)
     if in_reply_to:
         msg["In-Reply-To"] = in_reply_to
-        msg["References"] = (references + " " + in_reply_to).strip() if references else in_reply_to
+        chain = (references + " " + in_reply_to) if references else in_reply_to
+        msg["References"] = " ".join(dict.fromkeys(chain.split()))
     msg.set_content(html_body, subtype="html")
     return base64.urlsafe_b64encode(msg.as_bytes()).decode("ascii")
 
@@ -250,9 +262,10 @@ def main():
     token = refresh_access_token()
     label_id = gmail_get_or_create_label(token, DRAFTED_LABEL)
 
+    fetch_limit = max(MAX_PER_RUN * len(LABEL_QUERIES), 30)
     seen, thread_ids = set(), []
     for q in build_search_queries():
-        for tid in gmail_search(token, q, max_results=MAX_PER_RUN):
+        for tid in gmail_search(token, q, max_results=fetch_limit):
             if tid not in seen:
                 seen.add(tid)
                 thread_ids.append(tid)
@@ -262,11 +275,13 @@ def main():
 
     results = []
     for tid in thread_ids:
+        from_email_ctx = "?"
         try:
             parsed = parse_thread(gmail_get_thread(token, tid))
             if not parsed or not parsed["from_email"]:
                 results.append({"status": "error", "from_email": "?", "error": "thread illisible"})
                 continue
+            from_email_ctx = parsed["from_email"]
             html_body = claude_draft(system_prompt, parsed["conversation"])
             if not html_body:
                 results.append({"status": "error", "from_email": parsed["from_email"],
@@ -281,13 +296,17 @@ def main():
             else:
                 raw = build_reply_mime(parsed["from_email"], parsed["subject"], full_body,
                                        parsed["message_id"], parsed["references"])
+                # Draft first, then label. Deliberate: if labeling fails after a successful
+                # draft, the worst case is a duplicate draft on the next run (visible,
+                # harmless) rather than a silently missing reply — the safer failure mode
+                # for a human-review workflow.
                 gmail_create_draft(token, tid, raw)
                 gmail_add_label(token, tid, label_id)
                 results.append({"status": "drafted", "from_email": parsed["from_email"],
                                 "from_name": parsed["from_name"], "subject": parsed["subject"],
                                 "summary": summary})
         except Exception as e:
-            results.append({"status": "error", "from_email": "?", "error": str(e)})
+            results.append({"status": "error", "from_email": from_email_ctx, "error": str(e)})
 
     print(format_telegram_summary(results, capped_remaining))
 
