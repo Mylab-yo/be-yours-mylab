@@ -4,13 +4,15 @@
 Prérequis (Task 0) : client OAuth 'Desktop app' dans le projet mylab-design-studio,
 Gmail API activée, yoann@mylab-shop.com en test user.
 
-Usage (PowerShell) :
+Usage (PowerShell) — au choix :
+  python scripts/hermes/gmail_oauth_setup.py "C:\\chemin\\client_secret_xxx.json"   # JSON OAuth téléchargé
   $env:GMAIL_CLIENT_ID="..."; $env:GMAIL_CLIENT_SECRET="..."; python scripts/hermes/gmail_oauth_setup.py
 
 Le script ouvre la page de consentement, reçoit le code sur localhost, et imprime
 le refresh token à coller dans .env.vps (poste) puis dans /root/.hermes/.env (Task 7).
 """
 import http.server
+import json
 import os
 import secrets
 import sys
@@ -18,8 +20,21 @@ import urllib.parse
 import urllib.request
 import webbrowser
 
-CLIENT_ID = os.environ["GMAIL_CLIENT_ID"]
-CLIENT_SECRET = os.environ["GMAIL_CLIENT_SECRET"]
+
+def _load_credentials():
+    """client_id + secret depuis le JSON OAuth (argv[1]) si fourni, sinon depuis l'env."""
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], encoding="utf-8") as f:
+            data = json.load(f)
+        cfg = data.get("installed") or data.get("web") or {}
+        cid, secret = cfg.get("client_id"), cfg.get("client_secret")
+        if not (cid and secret):
+            sys.exit(f"JSON invalide : 'client_id'/'client_secret' introuvables dans {sys.argv[1]}")
+        return cid, secret
+    return os.environ["GMAIL_CLIENT_ID"], os.environ["GMAIL_CLIENT_SECRET"]
+
+
+CLIENT_ID, CLIENT_SECRET = _load_credentials()
 SCOPE = "https://www.googleapis.com/auth/gmail.modify"
 PORT = int(os.environ.get("PORT", "8765"))
 REDIRECT = f"http://localhost:{PORT}/callback"
