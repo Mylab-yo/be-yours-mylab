@@ -32,6 +32,16 @@ def main():
                 "lot_name": "",
                 "note": "",
             })
+    # Produits finis (conditionnes) -> MYVO/Stock/Fini (gerent un lot)
+    with (DATA / "finished_to_components.csv").open(encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            rows.append({
+                "sku": r["finished_sku"],
+                "location": "MYVO/Stock/Fini",
+                "quantity": "",
+                "lot_name": "",
+                "note": "",
+            })
 
     out = DATA / "initial_inventory.csv"
     with out.open("w", newline="", encoding="utf-8") as f:
