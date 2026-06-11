@@ -47,6 +47,7 @@ BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
 LABEL_QUERIES = [
     f'label:URGENT is:unread -from:mailer-daemon newer_than:{RECENCY}',
     f'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon newer_than:{RECENCY}',
+    f'label:"Yoann MYLAB" is:unread -from:mailer-daemon newer_than:{RECENCY}',
 ]
 
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
