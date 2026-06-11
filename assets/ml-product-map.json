@@ -1,6 +1,12 @@
 {
   "_doc": "Source de vérité unique — contenances liées + paliers de prix. Clé = handle du produit 200ml dans la collection.",
 
+  "_pumps": {
+    "200":  { "handle": "pompe-200ml" },
+    "500":  { "handle": "pompe-500ml" },
+    "1000": { "handle": "pompe-1000ml" }
+  },
+
   "shampoing-nourrissant": {
     "type": "shampoing", "prefix": "", "gamme": "Shampoings",
     "sizes": { "200": "shampoing-nourrissant", "500": "shampoing-nourrissant-500ml", "1000": "shampoing-nourrissant-1000ml" },
@@ -106,7 +112,7 @@
   "spray-texturisant": {
     "type": "spray_reparateur", "prefix": "", "gamme": "Sprays réparateurs",
     "sizes": { "200": "spray-texturisant" },
-    "tiers": { "200": "6:990,12:940,24:890,48:790,96:710" }
+    "tiers": { "200": "6:790,12:750,24:700,48:650,96:600,196:530" }
   },
 
   "serum-finition-ultime": {
