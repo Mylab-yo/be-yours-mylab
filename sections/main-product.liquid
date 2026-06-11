@@ -758,6 +758,16 @@
                 <div class="ml-qty-btns" id="ml-qty-btns" role="group" aria-label="Sélectionner la quantité"></div>
               </div>
 
+              {%- comment -%} ====== ADD-ON POMPE (révélé par JS si le format a une pompe) ====== {%- endcomment -%}
+              <label class="ml-pump" id="ml-pump" hidden>
+                <input type="checkbox" class="ml-pump__check" id="ml-pump-check">
+                <span class="ml-pump__body">
+                  <span class="ml-pump__title">Ajouter une pompe doseuse <span id="ml-pump-fmt"></span></span>
+                  <span class="ml-pump__sub">1 pompe par flacon · s'aligne sur votre quantité</span>
+                </span>
+                <span class="ml-pump__price">+<span id="ml-pump-unit">—</span>&nbsp;€ <small>HT/u</small></span>
+              </label>
+
               {%- comment -%} ====== AFFICHAGE PRIX ====== {%- endcomment -%}
               <div class="ml-pricing-card">
                 <div class="ml-pricing-card__top">
@@ -778,6 +788,7 @@
                   <span id="ml-savings-text"></span>
                 </div>
               </div>
+              <div class="ml-pump-line" id="ml-pump-line"></div>
 
               {%- comment -%} ====== CTA ====== {%- endcomment -%}
               <div class="ml-cta">
