@@ -25,6 +25,9 @@ except Exception:
 MODEL = os.environ.get("EMAIL_RESPONDER_MODEL", "claude-opus-4-8")
 MAX_PER_RUN = int(os.environ.get("EMAIL_RESPONDER_MAX", "15"))
 DRY_RUN = os.environ.get("EMAIL_RESPONDER_DRY_RUN", "") == "1"
+# Fenêtre d'ancienneté : on ne drafte QUE les mails récents (un vieux non-lu jamais
+# traité — ex. un mail de 2025 — ne doit pas générer de réponse). Tunable via env.
+RECENCY = os.environ.get("EMAIL_RESPONDER_RECENCY", "14d")
 DRAFTED_LABEL = "Hermes-Drafted"
 PROMPT_PATH = "/opt/data/scripts/email_responder_prompt.md"
 SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
@@ -42,8 +45,8 @@ BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
 # L'idempotence vient de la présence d'un brouillon dans le thread + du fait que le
 # dernier message vienne de nous (cf. main / should_skip_thread).
 LABEL_QUERIES = [
-    'label:URGENT is:unread -from:mailer-daemon',
-    'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon',
+    f'label:URGENT is:unread -from:mailer-daemon newer_than:{RECENCY}',
+    f'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon newer_than:{RECENCY}',
 ]
 
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"

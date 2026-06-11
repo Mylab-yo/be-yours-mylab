@@ -4,8 +4,8 @@ import email_responder as er
 def test_build_search_queries():
     qs = er.build_search_queries()
     assert qs == [
-        'label:URGENT is:unread -from:mailer-daemon',
-        'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon',
+        'label:URGENT is:unread -from:mailer-daemon newer_than:14d',
+        'label:"Commandes et Devis mylab" is:unread -from:mailer-daemon newer_than:14d',
     ]
 
 def test_thread_has_draft():
