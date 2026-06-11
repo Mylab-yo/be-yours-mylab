@@ -69,3 +69,75 @@ def format_telegram_summary(results, capped_remaining=0):
     lines.append("")
     lines.append("_Brouillons à relire et envoyer — rien n'a été envoyé automatiquement._")
     return "\n".join(lines)
+
+
+def _decode_part(data_b64url):
+    return base64.urlsafe_b64decode(data_b64url + "===").decode("utf-8", "replace")
+
+
+def _walk_parts(payload):
+    """Yield (mimeType, text) pour chaque feuille porteuse de body.data."""
+    if "parts" in payload:
+        for p in payload["parts"]:
+            yield from _walk_parts(p)
+    else:
+        data = payload.get("body", {}).get("data")
+        if data:
+            yield payload.get("mimeType", ""), _decode_part(data)
+
+
+def _extract_plaintext(payload):
+    plains, htmls = [], []
+    for mime, txt in _walk_parts(payload):
+        if mime == "text/plain":
+            plains.append(txt)
+        elif mime == "text/html":
+            htmls.append(txt)
+    if plains:
+        return "\n".join(plains).strip()
+    return re.sub(r"<[^>]+>", " ", "\n".join(htmls)).strip()
+
+
+def _header(headers, name):
+    for h in headers:
+        if h.get("name", "").lower() == name.lower():
+            return h.get("value", "")
+    return ""
+
+
+def parse_thread(thread_json):
+    msgs = thread_json.get("messages", [])
+    if not msgs:
+        return None
+    last = msgs[-1]
+    h = last.get("payload", {}).get("headers", [])
+    from_name, from_email = parseaddr(_header(h, "From"))
+    convo = []
+    for m in msgs:
+        mh = m.get("payload", {}).get("headers", [])
+        convo.append(f"--- De: {_header(mh, 'From')} ---\n{_extract_plaintext(m.get('payload', {}))}")
+    return {
+        "thread_id": thread_json.get("id"),
+        "from_email": from_email,
+        "from_name": from_name,
+        "subject": _header(h, "Subject"),
+        "message_id": _header(h, "Message-ID"),
+        "references": _header(h, "References"),
+        "conversation": "\n\n".join(convo),
+    }
+
+
+def build_reply_subject(subject):
+    s = (subject or "").strip()
+    return s if s[:3].lower() == "re:" else f"Re: {s}"
+
+
+def build_reply_mime(to_email, subject, html_body, in_reply_to, references):
+    msg = EmailMessage()
+    msg["To"] = to_email
+    msg["Subject"] = build_reply_subject(subject)
+    if in_reply_to:
+        msg["In-Reply-To"] = in_reply_to
+        msg["References"] = (references + " " + in_reply_to).strip() if references else in_reply_to
+    msg.set_content(html_body, subtype="html")
+    return base64.urlsafe_b64encode(msg.as_bytes()).decode("ascii")

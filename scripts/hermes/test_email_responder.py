@@ -34,10 +34,61 @@ def test_summary_capped():
     out = er.format_telegram_summary(results, 3)
     assert "3 mail(s) restant" in out
 
+def _b64url(s):
+    import base64
+    return base64.urlsafe_b64encode(s.encode("utf-8")).decode("ascii")
+
+def test_parse_thread_extracts_last_sender_and_body():
+    thread = {"id": "T1", "messages": [
+        {"payload": {"headers": [{"name": "From", "value": "Marie <m@x.fr>"},
+                                 {"name": "Subject", "value": "Devis"},
+                                 {"name": "Message-ID", "value": "<a@mail>"}],
+                     "mimeType": "text/plain",
+                     "body": {"data": _b64url("Bonjour, vos prix ?")}}},
+    ]}
+    p = er.parse_thread(thread)
+    assert p["from_email"] == "m@x.fr"
+    assert p["from_name"] == "Marie"
+    assert p["subject"] == "Devis"
+    assert p["message_id"] == "<a@mail>"
+    assert "vos prix" in p["conversation"]
+
+def test_parse_thread_multipart_prefers_plain():
+    thread = {"id": "T2", "messages": [
+        {"payload": {"headers": [{"name": "From", "value": "p@x.fr"}],
+                     "mimeType": "multipart/alternative",
+                     "parts": [
+                         {"mimeType": "text/plain", "body": {"data": _b64url("texte brut")}},
+                         {"mimeType": "text/html", "body": {"data": _b64url("<p>html</p>")}},
+                     ]}},
+    ]}
+    p = er.parse_thread(thread)
+    assert "texte brut" in p["conversation"]
+
+def test_build_reply_subject():
+    assert er.build_reply_subject("Devis") == "Re: Devis"
+    assert er.build_reply_subject("Re: Devis") == "Re: Devis"
+    assert er.build_reply_subject("RE: Devis") == "RE: Devis"
+
+def test_build_reply_mime_is_html_in_thread():
+    raw = er.build_reply_mime("m@x.fr", "Devis", "<p>Bonjour</p>", "<a@mail>", "")
+    import base64
+    decoded = base64.urlsafe_b64decode(raw + "===").decode("utf-8", "replace")
+    assert "To: m@x.fr" in decoded
+    assert "Subject: Re: Devis" in decoded
+    assert "In-Reply-To: <a@mail>" in decoded
+    assert "References: <a@mail>" in decoded
+    assert "text/html" in decoded
+    assert "<p>Bonjour</p>" in decoded
+
 if __name__ == "__main__":
     test_build_search_queries()
     test_append_signature()
     test_summary_empty()
     test_summary_drafted_and_error()
     test_summary_capped()
+    test_parse_thread_extracts_last_sender_and_body()
+    test_parse_thread_multipart_prefers_plain()
+    test_build_reply_subject()
+    test_build_reply_mime_is_html_in_thread()
     print("OK email_responder helpers")
