@@ -31,8 +31,10 @@ SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
 
 # Nos propres adresses : un thread dont le dernier message vient de nous n'a rien à répondre.
 OWN_ADDRESSES = {"yoann@mylab-shop.com", "contact@mylab-shop.com", "fabien@mylab-shop.com"}
-# Filets anti-bruit (les bounces sont aussi exclus au niveau requête via -from:mailer-daemon).
-BOUNCE_SENDERS = ("mailer-daemon", "postmaster")
+# Expéditeurs automatiques / no-reply : pas de réponse à drafter (robots, notifs, bounces).
+NO_REPLY_SENDERS = ("mailer-daemon", "postmaster", "no-reply", "noreply", "donotreply",
+                    "do-not-reply", "ne-pas-repondre", "nepasrepondre", "notification",
+                    "notifications", "root@", "@dpd")
 BOUNCE_SUBJECTS = ("delivery status notification", "undeliverable",
                    "mail delivery failed", "returned mail", "delivery incomplete")
 
@@ -60,7 +62,7 @@ def should_skip_thread(parsed):
     sender = (parsed.get("from_email") or "").lower()
     if sender in OWN_ADDRESSES:
         return True
-    if any(b in sender for b in BOUNCE_SENDERS):
+    if any(b in sender for b in NO_REPLY_SENDERS):
         return True
     subject = (parsed.get("subject") or "").lower()
     return any(s in subject for s in BOUNCE_SUBJECTS)

@@ -12,8 +12,10 @@ def test_should_skip_thread():
     # dernier message de nous → skip
     assert er.should_skip_thread({"from_email": "yoann@mylab-shop.com", "subject": "Devis"})
     assert er.should_skip_thread({"from_email": "Contact@MyLab-Shop.com", "subject": "x"})
-    # bounce par expéditeur → skip
+    # expéditeurs automatiques → skip
     assert er.should_skip_thread({"from_email": "mailer-daemon@googlemail.com", "subject": "x"})
+    assert er.should_skip_thread({"from_email": "root@dpd013.dpd.fr", "subject": "Suivi colis"})
+    assert er.should_skip_thread({"from_email": "no-reply@shopify.com", "subject": "x"})
     # bounce par sujet → skip
     assert er.should_skip_thread({"from_email": "x@y.fr", "subject": "Delivery Status Notification (Failure)"})
     assert er.should_skip_thread({"from_email": "x@y.fr", "subject": "Undeliverable: Votre catalogue"})
