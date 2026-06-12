@@ -73,14 +73,15 @@ for t in tmpl_ids:
     candidates.append({'tmpl': t, 'name': tmpl['name'],
                        'variant': tmpl['product_variant_id'][0], 'bom': boms[0]})
 
-# Lier le candidat unique avant de continuer
-c = candidates[0]
-variant = c['variant']
+# 0 -> refus | >1 -> demander | 1 -> lier et continuer (jamais candidates[0] si vide)
+if len(candidates) == 1:
+    c = candidates[0]
+    variant = c['variant']
 ```
 
-- 0 candidat → « *{name}* n'est pas un produit fabriqué (pas de nomenclature). Je ne peux pas faire d'OF dessus. »
-- >1 candidat → lister les noms et demander lequel.
-- 1 candidat → continuer avec `c = candidates[0]`, `variant = c['variant']`.
+- 0 candidat → « *{name}* n'est pas un produit fabriqué (pas de nomenclature). Je ne peux pas faire d'OF dessus. » (ne pas exécuter la suite)
+- >1 candidat → lister les noms et demander lequel (ne pas exécuter la suite).
+- 1 candidat → `c`/`variant` sont liés, continuer.
 
 ## Étape 3 : Besoins composants + déduction du lot vrac (lecture seule)
 
@@ -121,7 +122,8 @@ Afficher (puis STOP, attendre la réponse) :
 
 ```
 🏭 OF — {nom produit} × {qty}
-Lot fini proposé : {finished_lot}   (vrac : {bulk_lot.name}{, autres lots: ...})
+Lot fini proposé : {finished_lot}
+{ligne vrac UNIQUEMENT si bulk_lot ≠ None : « Origine vrac : {bulk_lot['name']}{ ; autres lots dispo : ...} »}
 
 Composants consommés :
   • {comp.name} : {need} {uom}   (stock {avail} → {avail-need}){⚠️ si <0}
@@ -129,6 +131,9 @@ Composants consommés :
 
 Réponds « confirme » pour lancer, autre chose pour annuler.
 ```
+
+⚠️ N'afficher la ligne « Origine vrac » que si `bulk_lot` n'est pas `None` (cas où le
+lot vient d'un `lot X` fourni sans composant suivi par lot → pas de `bulk_lot.name`).
 
 Pour chaque composant où `avail - need < 0` : ajouter `⚠️ passera en négatif`. On
 **n'empêche pas** (négatifs tolérés sur composants `consu`), on prévient.
@@ -140,12 +145,13 @@ Pour chaque composant où `avail - need < 0` : ajouter `⚠️ passera en négat
 lot_ids = call('stock.lot', 'search',
                [('name', '=', finished_lot), ('product_id', '=', variant)])
 lot_id = lot_ids[0] if lot_ids else call('stock.lot', 'create',
-               [{'name': finished_lot, 'product_id': variant}])
+               {'name': finished_lot, 'product_id': variant})
 
 # 2. création + confirmation (explose la BoM, réserve, auto-assigne lots composants)
+# NB: passer un DICT à create (pas [dict]) — sinon batch-create -> renvoie une liste, casse mo_id
 mo_id = call('mrp.production', 'create',
-             [{'product_id': variant, 'product_qty': qty, 'bom_id': c['bom'],
-               'product_uom_id': 1}])
+             {'product_id': variant, 'product_qty': qty, 'bom_id': c['bom'],
+              'product_uom_id': 1})
 call('mrp.production', 'action_confirm', [mo_id])
 
 # 3. qté à produire + lot fini

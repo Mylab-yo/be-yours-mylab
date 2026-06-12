@@ -63,7 +63,7 @@ def main():
     run(ssh, f"docker exec hermes-gateway chown -R hermes:hermes {REMOTE_BASE} && echo ok",
         label="chown skills -> hermes")
     run(ssh, "cd /root/hermes && docker compose restart 2>&1", label="restart gateway")
-    run(ssh, "sleep 7 && docker exec hermes-gateway hermes skills list 2>&1 | grep -iE 'check-order|check-customer|installed|name' | head",
+    run(ssh, "sleep 7 && docker exec hermes-gateway hermes skills list 2>&1 | grep -iE 'check-order|check-customer|relance-impayes|faire-of|installed|name' | head",
         label="verify skills")
 
     sftp.close()
