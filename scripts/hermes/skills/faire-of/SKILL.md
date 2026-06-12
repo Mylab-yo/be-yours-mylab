@@ -45,20 +45,34 @@ FINISHED_LOCATION_ID = 47
 
 Format : `OF <produit> <qté>` ou `OF <produit> <qté> lot <numéro>`.
 
+⚠️ **Les noms produits contiennent un nombre** (la contenance : `200ml`, `500ml`,
+`1000ml`). La quantité est le **dernier nombre NON collé à une unité** — la contenance
+reste dans le nom. Ex. `OF masque volume 200ml 50` → produit=`masque volume 200ml`,
+qté=`50`. On peut lever toute ambiguïté avec un préfixe `x` : `OF ... 200ml x50`.
+
 ```python
 def parse(msg):
     m = re.search(r'\blot\s+(\S+)', msg, re.I)
     lot_override = m.group(1) if m else None
-    msg2 = re.sub(r'\blot\s+\S+', '', msg, flags=re.I)
-    qm = re.search(r'(\d+(?:[.,]\d+)?)', msg2)
-    qty = float(qm.group(1).replace(',', '.')) if qm else None
-    name = re.sub(r'\b(of|ordre de fabrication|produire|conditionner|fabriquer|lancer( une)? production)\b',
-                  '', msg2, flags=re.I)
-    name = re.sub(r'\d+(?:[.,]\d+)?', '', name).strip(' -:')
+    s = re.sub(r'\blot\s+\S+', '', msg, flags=re.I)
+    s = re.sub(r'\b(of|ordre de fabrication|produire|conditionner|fabriquer|lancer( une)? production)\b',
+               '', s, flags=re.I)
+    # qté = dernier nombre PAS suivi d'une unité (200ml = contenance -> reste dans le nom).
+    # Préfixe explicite x / * / qté accepté pour désambiguïser.
+    bare = list(re.finditer(r'(?:[x*]\s*|qt[ée]\s*)?(\d+(?:[.,]\d+)?)(?!\s*(?:ml|cl|l|g|kg)\b)',
+                            s, re.I))
+    if bare:
+        tok = bare[-1]
+        qty = float(tok.group(1).replace(',', '.'))
+        s = s[:tok.start()] + s[tok.end():]   # retire le token qté du nom
+    else:
+        qty = None
+    name = s.strip(' -:x*')
     return name, qty, lot_override
 ```
 
-Si `qty` manquante ou `name` vide → demander la précision (ne rien faire).
+Si `qty` manquante ou `name` vide → demander la précision (ne rien faire). Si le nom
+reste ambigu (plusieurs contenances matchent), l'Étape 2 listera et demandera.
 
 ## Étape 2 : Résoudre le produit fini + sa nomenclature (lecture seule)
 
@@ -88,8 +102,8 @@ if len(candidates) == 1:
 ```python
 bom = call('mrp.bom', 'read', [c['bom']], fields=['product_qty', 'bom_line_ids'])[0]
 ratio = qty / bom['product_qty']
-lines = call('mrp.bom.line', 'read', [bom['bom_line_ids']],
-             fields=['product_id', 'product_qty', 'product_uom_id'])
+lines = call('mrp.bom.line', 'read', bom['bom_line_ids'],
+             fields=['product_id', 'product_qty', 'product_uom_id'])  # déjà une liste d'ids, NE PAS re-wrapper
 comps = []          # {pid, name, need, avail, tracking, uom}
 bulk_lot = None     # lot proposé pour le fini
 for l in lines:
