@@ -20,6 +20,11 @@ async function safeExecute(model, method, args, kwargs = {}) {
   }
 }
 
+// n8n Code node: incoming data is exposed via $input, not a bare `input`.
+// Without this line the node throws "ReferenceError: input is not defined"
+// AFTER Create Invoice already committed the invoice -> invoice stuck not_paid.
+const input = $input.first().json;
+
 const out = { ...input };
 const invoice_ids = Array.isArray(input.invoice_ids) ? input.invoice_ids : [];
 
