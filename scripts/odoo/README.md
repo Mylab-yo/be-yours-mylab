@@ -68,3 +68,26 @@ python -m scripts.odoo.step24_test_thresholds
 1. Coller les clés Stripe live (`pk_live_...` / `sk_live_...`) sur le provider Stripe → State = Enabled
 2. Vérifier l'IBAN dans le pending_msg du provider Virement → State = Enabled
 3. Settings → Sales : cocher *Online Payment* + *Online Signature*
+
+## Note origine export Suisse sur facture (step40)
+
+Ajoute automatiquement sur les factures dont **l'adresse de livraison est en Suisse**
+(`o.partner_shipping_id.country_id.code == 'CH'`) une note douanière : numéro EORI,
+déclaration d'origine préférentielle CE, mention « PRODUITS CERTIFIÉS SANS COV » et
+signature Joseph DURAND, avec « Fait à Cavaillon, le `<date du jour d'édition>` ».
+
+```bash
+# Sonde l'arch du template facture standard (read-only) pour vérifier l'anchor xpath
+python -m scripts.odoo.probe_invoice_report_arch
+
+# Déploie la vue QWeb héritée (idempotent, upsert par key)
+python -m scripts.odoo.step40_create_invoice_ch_note
+
+# Vérifie le rendu : force une livraison CH en transaction + rollback (aucune modif DB)
+python -m scripts.odoo.verify_invoice_ch_note_render
+```
+
+- Source QWeb : `templates/invoice_ch_origin_note.xml` (vue héritée de `account.report_invoice_document`,
+  injectée via xpath après le bloc `name="comment"`).
+- Date dynamique via `context_timestamp(datetime.datetime.now())` → figée par le cache PDF
+  des factures *posted* à la 1ère génération (comportement voulu pour un document douanier).
