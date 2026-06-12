@@ -91,3 +91,61 @@ python -m scripts.odoo.verify_invoice_ch_note_render
   injectée via xpath après le bloc `name="comment"`).
 - Date dynamique via `context_timestamp(datetime.datetime.now())` → figée par le cache PDF
   des factures *posted* à la 1ère génération (comportement voulu pour un document douanier).
+
+## PDP / Facturation électronique 2026 — mise à jour Odoo + rollback
+
+**Contexte** : la réforme impose la *réception* de factures électroniques au **1er sept. 2026**
+et l'*émission* au **1er sept. 2027** (MY.LAB = PME). Odoo est **Plateforme Agréée (PA)** et
+fournit un module gratuit "French e-invoicing" (recherche "PDP"), compatible Community 18.
+Mais l'image du VPS (`18.0-20260324`) est **antérieure** à la sortie du module (juin 2026) :
+il faut donc d'abord bumper l'image `odoo:18.0`, puis installer le module + KYC/KYB.
+
+Egress vers `iap.odoo.com` vérifié OK (prérequis PA pour une instance self-hosted).
+
+### Procédure (fenêtre calme, aucun import n8n Shopify→Odoo en cours)
+
+```bash
+# 1. Backup intégral (sûr, lecture seule sur la prod) → /root/odoo-backups/<ts>/
+python -m scripts.odoo.pdp_step01_backup
+
+# 2. Voir le plan sans rien toucher
+python -m scripts.odoo.pdp_step02_update
+
+# 3. Exécuter le bump + -u all (downtime ~2-5 min)
+python -m scripts.odoo.pdp_step02_update --apply
+```
+
+Puis dans l'UI Odoo : Apps → *Update Apps List* → installer "French e-invoicing" (PDP) →
+Comptabilité → Config → Paramètres → *Facturation électronique française* → procédure KYC/KYB.
+
+### Rollback si un rapport custom casse ou la migration plante
+
+Les artefacts sont dans `/root/odoo-backups/<timestamp>/` (DB dump, filestore, compose,
+config, addons, `IMAGE_DIGEST.txt`).
+
+**Rollback image seule** (la DB n'a pas encore été migrée par `-u all`) :
+```bash
+# Pin le compose sur le digest d'avant (1re ligne de IMAGE_DIGEST.txt)
+#   image: odoo@sha256:<digest>
+cd /root/odoo && nano docker-compose.yml   # remplacer "image: odoo:18.0"
+docker compose up -d web
+```
+
+**Rollback complet** (la DB a été migrée et est cassée) :
+```bash
+cd /root/odoo
+docker compose stop web
+# restaurer la base dans une copie neuve puis basculer, OU droper/recréer OdooYJ :
+docker exec -i odoo-db-1 dropdb -U odoo OdooYJ
+docker exec -i odoo-db-1 createdb -U odoo OdooYJ
+docker cp /root/odoo-backups/<ts>/OdooYJ.dump odoo-db-1:/tmp/OdooYJ.dump
+docker exec odoo-db-1 pg_restore -U odoo -d OdooYJ --no-owner /tmp/OdooYJ.dump
+# restaurer le filestore
+docker cp /root/odoo-backups/<ts>/filestore.tgz odoo:/tmp/filestore.tgz
+docker exec odoo bash -c 'cd /var/lib/odoo/.local/share/Odoo && tar xzf /tmp/filestore.tgz'
+# re-pin l'image au digest d'avant (voir rollback image seule), puis :
+docker compose up -d web
+```
+
+Idempotence : `pdp_step01_backup` crée un dossier horodaté à chaque run (n'écrase rien).
+`pdp_step02_update` sans `--apply` est un dry-run pur.
