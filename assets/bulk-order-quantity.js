@@ -44,12 +44,19 @@
 
       /* ── Serum / Huile: unit-based pricing (50ml fixed) ── */
       if (B.isSerumOrHuile(f)) {
-        var pricingKey = f.category;
-        var shPricing = B.SERUM_HUILE_PRICING[pricingKey] || {};
-        if (!B.qtyState[f.id]) B.qtyState[f.id] = { units: 250, tier: '250u' };
+        var unitTiers = B.getUnitTiers(f);
+        var validUnits = unitTiers.map(function (t) { return t.units; });
+        if (!B.qtyState[f.id] || validUnits.indexOf(B.qtyState[f.id].units) === -1) {
+          var du = B.defaultUnits(f);
+          B.qtyState[f.id] = { units: du, tier: du + 'u' };
+        }
         var qsu = B.qtyState[f.id];
-        var unitPrice = shPricing[qsu.units] || 0;
+        var unitPrice = B.getUnitPrice(f, qsu.units);
         var totalHT = unitPrice * qsu.units;
+
+        var tierBtns = unitTiers.map(function (t) {
+          return '<button type="button" class="bulk-qty-tier' + (qsu.units === t.units ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + B.esc(f.id) + '" data-tier="' + t.units + 'u">' + t.units + ' unités <span class="bulk-qty-tier__price">' + B.fmtPrice(t.price) + '/u</span></button>';
+        }).join('');
 
         html += '<div class="bulk-qty-block" style="--gamme-color:' + B.esc(f.gammeColor) + '">' +
           '<div class="bulk-qty-block__header">' +
@@ -57,10 +64,7 @@
             '<span class="bulk-qty-block__label">' + B.esc(f.name) + '</span>' +
             '<span class="bulk-qty-block__detail">50 ml</span>' +
           '</div>' +
-          '<div class="bulk-qty-tiers">' +
-            '<button type="button" class="bulk-qty-tier' + (qsu.units === 250 ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + B.esc(f.id) + '" data-tier="250u">250 unités <span class="bulk-qty-tier__price">' + B.fmtPrice(shPricing[250] || 0) + '/u</span></button>' +
-            '<button type="button" class="bulk-qty-tier' + (qsu.units === 500 ? ' bulk-qty-tier--active' : '') + '" data-formula-qty="' + B.esc(f.id) + '" data-tier="500u">500 unités <span class="bulk-qty-tier__price">' + B.fmtPrice(shPricing[500] || 0) + '/u</span></button>' +
-          '</div>' +
+          '<div class="bulk-qty-tiers">' + tierBtns + '</div>' +
           '<table class="bulk-qty-table"><thead><tr><th>Composant</th><th>Prix unitaire</th><th>Quantité</th><th>Sous-total</th></tr></thead><tbody>' +
           '<tr><td>' + B.esc(f.name) + '</td><td>' + B.fmtPrice(unitPrice) + '</td><td>' + qsu.units + '</td><td>' + B.fmtPrice(totalHT) + '</td></tr>' +
           '<tr class="bulk-qty-row--total"><td colspan="3">Total HT</td><td>' + B.fmtPrice(totalHT) + '</td></tr>' +
@@ -214,7 +218,7 @@
         var fid = btn.dataset.formulaQty;
         var tier = btn.dataset.tier;
 
-        if (tier === '250u' || tier === '500u') {
+        if (/^\d+u$/.test(tier)) {
           var units = parseInt(tier, 10);
           B.qtyState[fid] = { units: units, tier: tier };
         } else {

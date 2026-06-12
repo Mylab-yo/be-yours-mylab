@@ -115,6 +115,27 @@
       return formula.category === 'serum' || formula.category === 'huile' || formula.pricing_mode === 'units';
     },
 
+    /* Unit-based tiers (sérum/huile, 50 ml). Source: formula.unit_tiers,
+       fallback to legacy SERUM_HUILE_PRICING keyed by catégorie. */
+    getUnitTiers: function (formula) {
+      if (formula && formula.unit_tiers && formula.unit_tiers.length) return formula.unit_tiers;
+      var m = (formula && this.SERUM_HUILE_PRICING[formula.category]) || {};
+      return Object.keys(m).map(function (u) { return { units: parseInt(u, 10), price: m[u] }; });
+    },
+
+    getUnitPrice: function (formula, units) {
+      var tiers = this.getUnitTiers(formula);
+      for (var i = 0; i < tiers.length; i++) {
+        if (tiers[i].units === units) return tiers[i].price;
+      }
+      return 0;
+    },
+
+    defaultUnits: function (formula) {
+      var tiers = this.getUnitTiers(formula);
+      return tiers.length ? tiers[0].units : 0;
+    },
+
     getSelectedFormulasWithFormat: function () {
       var self = this;
       return this.state.formulas.filter(function (f) {

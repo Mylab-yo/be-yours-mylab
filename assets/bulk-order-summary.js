@@ -54,8 +54,8 @@
 
       /* Serum / Huile: unit-based summary */
       if (B.isSerumOrHuile(f)) {
-        var qsu = B.qtyState[f.id] || { units: 250, tier: '250u' };
-        var shPrice = (B.SERUM_HUILE_PRICING[f.category] || {})[qsu.units] || 0;
+        var qsu = B.qtyState[f.id] || { units: B.defaultUnits(f), tier: B.defaultUnits(f) + 'u' };
+        var shPrice = B.getUnitPrice(f, qsu.units);
         var shTotal = shPrice * qsu.units;
         totalHT += shTotal;
         totalUnits += qsu.units;
@@ -149,8 +149,8 @@
       var format = B.state.formats[f.id];
 
       if (B.isSerumOrHuile(f)) {
-        var qsu = B.qtyState[f.id] || { units: 250, tier: '250u' };
-        var shPrice = (B.SERUM_HUILE_PRICING[f.category] || {})[qsu.units] || 0;
+        var qsu = B.qtyState[f.id] || { units: B.defaultUnits(f), tier: B.defaultUnits(f) + 'u' };
+        var shPrice = B.getUnitPrice(f, qsu.units);
         var shTotal = shPrice * qsu.units;
         totalHT += shTotal;
         items.push({
