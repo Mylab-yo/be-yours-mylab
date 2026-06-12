@@ -3840,44 +3840,20 @@
         {
           "id": "bain-miraculeux",
           "name": "Bain Miraculeux",
-          "category": "shampoing",
+          "category": "huile",
           "description": "Bain miraculeux professionnel",
           "actifs": [],
           "natural_pct": 97,
           "available_formats": [
-            100,
-            120,
-            150,
-            200,
-            300,
-            400,
-            500
+            50
           ],
-          "pricing": {
-            "50kg": {
-              "200ml": { "formule": 2.6, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 3.9 },
-              "500ml": { "formule": 6.5, "remplissage": 0.6, "packaging": 0.6, "etiquette": 0.2, "total": 7.9 },
-              "1000ml": { "formule": 13, "remplissage": 0.6, "packaging": 0.7, "etiquette": 0.2, "total": 14.5 },
-              "5000ml": { "formule": 65, "remplissage": 1.3, "packaging": 0, "etiquette": 0.2, "total": 66.5 },
-              "100ml": { "formule": 1.3, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 2.6 },
-              "120ml": { "formule": 1.56, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 2.86 },
-              "150ml": { "formule": 1.95, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 3.25 },
-              "300ml": { "formule": 3.9, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 5.2 },
-              "400ml": { "formule": 5.2, "remplissage": 0.6, "packaging": 0.5, "etiquette": 0.2, "total": 6.5 }
-            },
-            "100_200kg": {
-              "200ml": { "formule": 2.4, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 3.6 },
-              "500ml": { "formule": 6, "remplissage": 0.5, "packaging": 0.6, "etiquette": 0.2, "total": 7.3 },
-              "1000ml": { "formule": 12, "remplissage": 0.5, "packaging": 0.7, "etiquette": 0.2, "total": 13.4 },
-              "5000ml": { "formule": 60, "remplissage": 1.2, "packaging": 0, "etiquette": 0.2, "total": 61.4 },
-              "100ml": { "formule": 1.2, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 2.4 },
-              "120ml": { "formule": 1.44, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 2.64 },
-              "150ml": { "formule": 1.8, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 3 },
-              "300ml": { "formule": 3.6, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 4.8 },
-              "400ml": { "formule": 4.8, "remplissage": 0.5, "packaging": 0.5, "etiquette": 0.2, "total": 6 }
-            }
-          },
-          "packaging_notes": "* 200/500ml : Bouteille ambrée + bouchon noir. ** 1000ml : Bouteille ambrée + bouchon blanc (pompe en option 0.45€). 5000ml : packaging à votre charge."
+          "unit_tiers": [
+            { "units": 192, "price": 5.45 },
+            { "units": 384, "price": 5.05 },
+            { "units": 500, "price": 4.75 }
+          ],
+          "packaging_notes": "Flacon pipette ambré 50ml.",
+          "pricing_mode": "units"
         },
         {
           "id": "serum-finition-ultime",
