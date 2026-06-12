@@ -22,7 +22,7 @@ load_dotenv(ROOT / ".env.vps")
 LOCAL_SKILLS = Path(__file__).resolve().parent / "skills"
 REMOTE_BASE = "/opt/data/skills"
 
-SKILLS = ["check-order", "check-customer", "relance-impayes"]
+SKILLS = ["check-order", "check-customer", "relance-impayes", "faire-of"]
 
 
 def run(ssh, cmd, *, label=None, timeout=120):
