@@ -196,6 +196,14 @@
     var totalUnits = 0;
 
     formulas.forEach(function (f) {
+      /* Sérum / Huile : tarif à l'unité (pas de calculateOrder, comme le rendu par bloc) */
+      if (B.isSerumOrHuile(f)) {
+        var qsu = B.qtyState[f.id] || { units: B.defaultUnits(f), tier: B.defaultUnits(f) + 'u' };
+        total += B.getUnitPrice(f, qsu.units) * qsu.units;
+        totalUnits += qsu.units;
+        return;
+      }
+
       var qs = B.qtyState[f.id];
       if (!qs) return;
       var calc = B.calculateOrder(f, B.state.formats[f.id], qs.kg, qs.tier);

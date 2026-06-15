@@ -168,6 +168,8 @@
       var self = this;
       var formulas = this.getSelectedFormulasWithFormat();
       return formulas.every(function (f) {
+        /* Sérum / Huile : 50 ml flacon inclus, pas de MOQ Takemoto → toujours OK */
+        if (self.isSerumOrHuile(f)) return true;
         var qs = self.qtyState[f.id];
         if (!qs) return false;
         var calc = self.calculateOrder(f, self.state.formats[f.id], qs.kg, qs.tier);
