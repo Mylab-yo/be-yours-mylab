@@ -41,3 +41,9 @@ scripts/audit_fixes/*.html
 *.bak
 
 .tmp.driveupload/
+
+.tmp.drivedownload/
+bottle_images/
+Catalogue mylab/
+mockups/
+*.csv
