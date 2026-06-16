@@ -818,9 +818,9 @@
                   </button>
                 {%- endunless -%}
                 {%- if ml_oos and settings.notify_webhook_url != blank -%}
-                  <button type="button" class="ml-notify-link" data-ml-notify-open
+                  <button type="button" class="button button--full-width button--secondary ml-notify-cta" style="margin-top:10px;" data-ml-notify-open
                           data-handle="{{ product.handle }}" data-variant="{{ product.variants.first.id }}" data-title="{{ product.title | escape }}">
-                    {% if ml_backorder %}Ou être prévenu du retour{% else %}Prévenez-moi du retour{% endif %}
+                    <span>{% if ml_backorder %}Ou être prévenu du retour{% else %}Prévenez-moi du retour{% endif %}</span>
                   </button>
                 {%- endif -%}
               </div>
@@ -1002,9 +1002,9 @@
                 <span>Produit momentanément en rupture.</span>
               </div>
               {%- if settings.notify_webhook_url != blank -%}
-                <button type="button" class="ml-notify-link" data-ml-notify-open
+                <button type="button" class="button button--full-width button--secondary ml-notify-cta" style="margin-top:10px;" data-ml-notify-open
                         data-handle="{{ product.handle }}" data-variant="{{ ml_bb_v.id }}" data-title="{{ product.title | escape }}">
-                  Prévenez-moi du retour
+                  <span>Prévenez-moi du retour</span>
                 </button>
               {%- endif -%}
             {%- endif -%}
