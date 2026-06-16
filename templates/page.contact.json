@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -33,8 +42,10 @@
             "title": "Horaires",
             "line_1_label": "Lun – Ven",
             "line_1_value": "9h – 18h",
-            "line_2_label": "Samedi",
-            "line_2_value": "Sur rendez-vous"
+            "line_2_label": "",
+            "line_2_value": "",
+            "line_3_label": "",
+            "line_3_value": ""
           }
         },
         "social": {
@@ -44,13 +55,29 @@
           }
         }
       },
-      "block_order": ["email", "phone", "address", "hours", "social"],
+      "block_order": [
+        "email",
+        "phone",
+        "address",
+        "hours",
+        "social"
+      ],
       "settings": {
+        "logo": "shopify://shop_images/Logo-rond-noir-sans-fond.png",
+        "logo_width": 100,
+        "badge": "MyLab",
+        "heading": "Contactez-nous",
+        "subtitle": "Une question sur nos produits, nos formules ou votre commande ? Notre équipe est à votre écoute.",
+        "form_heading": "Envoyez-nous un message",
+        "form_desc": "Nous vous répondons sous 24h.",
+        "submit_label": "Envoyer le message",
         "show_subject": true,
         "padding_top": 60,
         "padding_bottom": 60
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
