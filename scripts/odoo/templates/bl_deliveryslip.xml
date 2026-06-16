@@ -94,6 +94,30 @@
                 </div>
             </t>
 
+            <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (si BL partiel) ========== -->
+            <t t-set="reliquat_moves" t-value="doc.backorder_ids.move_ids.filtered(lambda m: m.state != 'cancel' and m.product_uom_qty &gt; 0)"/>
+            <t t-if="reliquat_moves">
+                <h3 style="color: #1a1a1a; font-family: 'Cormorant Garamond', serif; margin-top: 14pt; margin-bottom: 4pt;">Produits en reliquat — expédiés dès réception du stock</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                    <thead>
+                        <tr style="background: #f0f0f0; border-bottom: 1pt solid #1a1a1a;">
+                            <th style="text-align: left; padding: 4pt;">Référence</th>
+                            <th style="text-align: left; padding: 4pt;">Désignation</th>
+                            <th style="text-align: right; padding: 4pt;">Qté à venir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="reliquat_moves" t-as="rm">
+                            <tr style="border-bottom: 0.5pt solid #e5e0d0;">
+                                <td style="padding: 3pt 4pt;"><span t-esc="rm.product_id.default_code or ''"/></td>
+                                <td style="padding: 3pt 4pt;"><span t-esc="rm.product_id.name"/></td>
+                                <td style="padding: 3pt 4pt; text-align: right;"><span t-esc="int(rm.product_uom_qty)"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+
             <!-- ========== SIGNATURE ========== -->
             <div style="margin-top: 20pt; border: 0.5pt solid #1a1a1a; padding: 8pt; font-size: 9pt;">
                 <div><strong>Reçu en bon état par :</strong> ____________________________</div>
