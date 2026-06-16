@@ -398,6 +398,8 @@
               </button>
             </div>
 
+            {%- render 'ml-sample-exit', blocked: ml_checkout_blocked -%}
+
             {%- if additional_checkout_buttons and block.settings.show_dynamic_checkout and ml_checkout_blocked == false -%}
               <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
                 {{ content_for_additional_checkout_buttons }}

@@ -1,0 +1,85 @@
+{%- comment -%}
+  Sortie « commander des échantillons » depuis le panier bloqué.
+  Param: blocked (bool) — ne rend rien si faux.
+  Calcule les line keys des articles marque-création (dossier + produits pro +
+  forfait impression + étiquettes), les expose en data-attribute pour retrait JS,
+  et redirige vers la boutique testeurs. Styles intégrés (le snippet s'affiche
+  aussi bien dans le drawer que sur /cart, où mylab-product.css n'est pas chargé).
+  Spec: docs/superpowers/specs/2026-06-16-parcours-echantillons-design.md
+{%- endcomment -%}
+{%- if blocked -%}
+  {%- assign ml_remove_keys = '' -%}
+  {%- for item in cart.items -%}
+    {%- assign ml_is_mc = false -%}
+    {%- if item.product.handle == 'creation-du-dossier-cosmetologique' -%}{%- assign ml_is_mc = true -%}{%- endif -%}
+    {%- if item.product.handle contains 'impression' -%}{%- assign ml_is_mc = true -%}{%- endif -%}
+    {%- if item.product.handle == 'frais-de-creation-design-etiquette' -%}{%- assign ml_is_mc = true -%}{%- endif -%}
+    {%- for col in item.product.collections -%}
+      {%- if col.handle == 'boutique-adherents' or col.handle == 'modeles-detiquettes' -%}{%- assign ml_is_mc = true -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if ml_is_mc -%}
+      {%- if ml_remove_keys == '' -%}
+        {%- assign ml_remove_keys = item.key -%}
+      {%- else -%}
+        {%- assign ml_remove_keys = ml_remove_keys | append: ',' | append: item.key -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  <div class="ml-sample-exit" data-ml-remove-keys="{{ ml_remove_keys }}" data-ml-redirect="/pages/boutique-testeurs">
+    <a href="/pages/boutique-testeurs" class="ml-sample-exit__link" data-ml-sample-trigger>
+      Vous vouliez seulement tester nos produits&nbsp;?
+      <span class="ml-sample-exit__cta">Commander des échantillons&nbsp;&rarr;</span>
+    </a>
+    <div class="ml-sample-exit__confirm" hidden>
+      <p class="ml-sample-exit__msg">Cela retirera vos produits pro du panier.</p>
+      <div class="ml-sample-exit__actions">
+        <button type="button" class="ml-sample-exit__go" data-ml-sample-confirm>Voir les testeurs</button>
+        <button type="button" class="ml-sample-exit__cancel" data-ml-sample-cancel>Annuler</button>
+      </div>
+      <p class="ml-sample-exit__error" hidden>Une erreur est survenue, réessayez.</p>
+    </div>
+  </div>
+  <style>
+    .ml-sample-exit {
+      margin-top: 1.2rem;
+      text-align: center;
+      font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    }
+    .ml-sample-exit__link {
+      display: inline-block;
+      font-size: 1.25rem;
+      line-height: 1.4;
+      color: rgba(var(--color-foreground), 0.7);
+      text-decoration: none;
+    }
+    .ml-sample-exit__cta {
+      font-weight: 600;
+      color: #1a1a1a;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      white-space: nowrap;
+    }
+    .ml-sample-exit__link:hover .ml-sample-exit__cta { color: #c5a467; }
+    .ml-sample-exit__confirm { margin-top: 0.4rem; }
+    .ml-sample-exit__msg {
+      font-size: 1.2rem;
+      color: rgba(var(--color-foreground), 0.7);
+      margin: 0 0 0.6rem;
+    }
+    .ml-sample-exit__actions { display: flex; gap: 0.8rem; justify-content: center; }
+    .ml-sample-exit__go,
+    .ml-sample-exit__cancel {
+      font-family: inherit;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      cursor: pointer;
+      min-height: 40px;
+    }
+    .ml-sample-exit__go { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+    .ml-sample-exit__go[aria-busy="true"] { opacity: 0.6; cursor: wait; }
+    .ml-sample-exit__cancel { background: transparent; color: #1a1a1a; border: 1px solid rgba(0, 0, 0, 0.2); }
+    .ml-sample-exit__error { color: #b85c4e; font-size: 1.1rem; margin: 0.5rem 0 0; }
+  </style>
+{%- endif -%}
