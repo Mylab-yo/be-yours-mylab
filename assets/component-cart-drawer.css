@@ -88,6 +88,15 @@
   --max-height: 100%;
 }
 
+/* Mobile : hauteur de viewport dynamique (dvh) pour que le pied du drawer
+   (bouton « Passer la commande ») ne soit pas masqué sous la barre d'outils
+   du navigateur mobile. Fallback 100% conservé pour les vieux navigateurs. */
+@supports (height: 100dvh) {
+  .cart-drawer {
+    --max-height: 100dvh;
+  }
+}
+
 .shopify-section-header-sticky.shopify-section-header-hidden .cart-drawer {
   height: 100vh;
 }
@@ -156,7 +165,7 @@ details[open].menu-opening > .cart-drawer {
 .mini-cart__inner {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100%;
   background-color: rgb(var(--color-background));
 }
@@ -179,6 +188,7 @@ details[open].menu-opening > .cart-drawer {
 
 .mini-cart__main {
   flex: 1 1 auto;
+  min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
@@ -447,6 +457,7 @@ details[open].menu-opening > .cart-drawer {
 }
 
 .mini-cart__footer {
+  flex-shrink: 0;
   padding: 0 2rem 2rem;
 }
 
