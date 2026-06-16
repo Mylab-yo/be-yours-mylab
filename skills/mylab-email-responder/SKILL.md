@@ -365,7 +365,7 @@ Principe de la dégressivité : plus le client commande de quantités par réfé
 **Conversion / RDV**
 - Commande d'échantillons : `<a href="https://www.mylab-shop.com/testez-les-produits/">Tester les produits ✨</a>`
 - Prise de RDV (générique) : `<a href="https://www.mylab-shop.com/prise-de-rendez-vous/">Prendre rendez-vous 📅</a>`
-- Étude projet extension de gamme (Cal.eu, créneaux directs Yoann) : `<a href="https://cal.eu/yoann-durand-xyj75z/etude-projet-marque-capillaire">Réserver un créneau étude projet 🎯</a>`
+- Étude projet extension de gamme (Cal.com, créneaux directs Yoann) : `<a href="https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire">Réserver un créneau étude projet 🎯</a>`
 
 **Pages parcours / création de marque**
 - Parcours unifié création de marque : `<a href="https://www.mylab-shop.com/pages/creons-ensemble-votre-marque">Créons ensemble votre marque 🚀</a>`
