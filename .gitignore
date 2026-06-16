@@ -48,3 +48,7 @@ Catalogue mylab/
 mockups/
 *.csv
 shopify-functions/tier-discount/node_modules/
+
+# Dumps de templates Odoo + scratch (artefacts régénérables)
+scripts/odoo/_*.html
+tmp/
