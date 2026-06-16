@@ -988,6 +988,26 @@
             {%- render 'sibling-products', block: block, product: product, section_id: section.id -%}
           {%- when 'buy_buttons' -%}
             {% render 'buy-buttons', block: block, product: product, section_id: section.id, product_form_id: product_form_id, show_pickup_availability: true %}
+            {%- comment -%} ====== RUPTURE + PRÉVENEZ-MOI (produits à bouton standard : testeurs, etc.) ====== {%- endcomment -%}
+            {%- liquid
+              assign ml_bb_v = product.variants.first
+              assign ml_bb_oos = false
+              if ml_bb_v.inventory_management == 'shopify' and ml_bb_v.inventory_quantity <= 0
+                assign ml_bb_oos = true
+              endif
+            -%}
+            {%- if ml_bb_oos -%}
+              <div class="ml-oos-banner" style="margin-top:14px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Produit momentanément en rupture.</span>
+              </div>
+              {%- if settings.notify_webhook_url != blank -%}
+                <button type="button" class="ml-notify-link" data-ml-notify-open
+                        data-handle="{{ product.handle }}" data-variant="{{ ml_bb_v.id }}" data-title="{{ product.title | escape }}">
+                  Prévenez-moi du retour
+                </button>
+              {%- endif -%}
+            {%- endif -%}
           {%- when 'rating' -%}
             {%- if product.metafields.reviews.rating.value != blank -%}
               {% liquid
