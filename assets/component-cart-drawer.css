@@ -167,7 +167,19 @@ details[open].menu-opening > .cart-drawer {
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
+  /* Filet de sécurité : si le contenu dépasse (footer B2B haut, bulle parcours
+     non sortie, ou chaîne height:100% non résolue), le panneau scrolle jusqu'au
+     bouton "Passer la commande" au lieu de le rogner sous le bord du drawer.
+     Cas normal (contenu qui tient) : aucun scroll, footer reste épinglé en bas. */
+  max-height: 100vh;
+  overflow-y: auto;
   background-color: rgb(var(--color-background));
+}
+
+@supports (height: 100dvh) {
+  .mini-cart__inner {
+    max-height: 100dvh;
+  }
 }
 
 .mini-cart__header {
