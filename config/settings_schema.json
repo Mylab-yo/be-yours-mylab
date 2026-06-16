@@ -987,5 +987,16 @@
         "default": false
       }
     ]
+  },
+  {
+    "name": "MyLab — Back in stock",
+    "settings": [
+      {
+        "type": "url",
+        "id": "notify_webhook_url",
+        "label": "Webhook n8n capture prévenez-moi",
+        "info": "URL du webhook n8n qui enregistre les demandes « prévenez-moi du retour en stock »."
+      }
+    ]
   }
 ]

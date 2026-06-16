@@ -2,10 +2,21 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "narrow": false,
         "padding_top": 100,
         "padding_bottom": 0
+      }
+    },
+    "intro_usps_pro": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>.ml-pro-intro{max-width:880px;margin:0 auto;padding:32px 20px 16px;text-align:center;font-family:'DM Sans',sans-serif;color:#1a1a1a}.ml-pro-intro__kicker{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#888;margin:0 0 12px}.ml-pro-intro__title{font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.15;margin:0 0 16px}.ml-pro-intro__title em{font-style:normal;background:linear-gradient(transparent 62%,#f5e7c6 62%);padding:0 .15em}.ml-pro-intro__text{font-size:17px;line-height:1.55;color:#333;margin:0 auto;max-width:680px}.ml-pro-usps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1180px;margin:32px auto 56px;padding:0 20px;font-family:'DM Sans',sans-serif}.ml-pro-usp{background:#fafaf8;border:1px solid #ececec;border-radius:14px;padding:24px 20px;text-align:center}.ml-pro-usp__title{font-size:16px;font-weight:600;color:#1a1a1a;margin:0 0 8px;letter-spacing:.01em}.ml-pro-usp__text{font-size:14px;line-height:1.5;color:#555;margin:0}@media (max-width:900px){.ml-pro-usps{grid-template-columns:repeat(2,1fr);gap:14px;margin:24px auto 40px}.ml-pro-usp{padding:18px 16px}}</style><div class=\"ml-pro-intro\"><p class=\"ml-pro-intro__kicker\">Catalogue pro — Marque blanche</p><h1 class=\"ml-pro-intro__title\">Toute la gamme MY.LAB pour <em>votre</em> marque capillaire</h1><p class=\"ml-pro-intro__text\">Shampoings, masques, crèmes, sérums, huiles, sprays, finitions, soins barbe — disponibles en 200 ml, 500 ml et 1 L. Formules MY.LAB façonnées en France, prêtes à recevoir votre étiquette.</p></div><div class=\"ml-pro-usps\"><div class=\"ml-pro-usp\"><h3 class=\"ml-pro-usp__title\">73 références prêtes</h3><p class=\"ml-pro-usp__text\">Catalogue complet — neutres et coloristeurs.</p></div><div class=\"ml-pro-usp\"><h3 class=\"ml-pro-usp__title\">Tarifs dégressifs</h3><p class=\"ml-pro-usp__text\">Prix avantageux dès 6 unités, paliers dégressifs au volume.</p></div><div class=\"ml-pro-usp\"><h3 class=\"ml-pro-usp__title\">Marque blanche</h3><p class=\"ml-pro-usp__text\">Vos étiquettes sur nos flacons standard. Personnalisation possible sur demande.</p></div><div class=\"ml-pro-usp\"><h3 class=\"ml-pro-usp__title\">Made in France</h3><p class=\"ml-pro-usp__text\">Formules développées par MY.LA. 96 % naturel, vegan-friendly.</p></div></div>",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 8,
+        "padding_bottom": 8
       }
     },
     "boutique": {
@@ -18,11 +29,25 @@
             "label": "Shampoings"
           }
         },
+        "f1b": {
+          "type": "filter",
+          "settings": {
+            "tag": "Coloristeur shampoing",
+            "label": "Shampoings repigmentants"
+          }
+        },
         "f2": {
           "type": "filter",
           "settings": {
             "tag": "masque",
             "label": "Masques"
+          }
+        },
+        "f2b": {
+          "type": "filter",
+          "settings": {
+            "tag": "Coloristeur masque",
+            "label": "Masques repigmentants"
           }
         },
         "f3": {
@@ -60,8 +85,74 @@
             "label": "Homme"
           }
         },
+        "f8": {
+          "type": "filter",
+          "settings": {
+            "tag": "volume",
+            "label": "Volume"
+          }
+        },
+        "f9": {
+          "type": "filter",
+          "settings": {
+            "tag": "boucles",
+            "label": "Boucles"
+          }
+        },
+        "f10": {
+          "type": "filter",
+          "settings": {
+            "tag": "lissant",
+            "label": "Lissant"
+          }
+        },
+        "f11": {
+          "type": "filter",
+          "settings": {
+            "tag": "ha-repulpe",
+            "label": "Réparateur"
+          }
+        },
+        "f12": {
+          "type": "filter",
+          "settings": {
+            "tag": "nourrissant",
+            "label": "Nourrissant"
+          }
+        },
+        "f13": {
+          "type": "filter",
+          "settings": {
+            "tag": "protecteur-couleur",
+            "label": "Protecteur couleur"
+          }
+        },
+        "f14": {
+          "type": "filter",
+          "settings": {
+            "tag": "purifiant",
+            "label": "Purifiant"
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7"],
+      "block_order": [
+        "f1",
+        "f1b",
+        "f2",
+        "f2b",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13",
+        "f14"
+      ],
       "settings": {
         "collection": "boutique-adherents",
         "products_to_show": 50,
@@ -74,12 +165,14 @@
         "enable_quick_view": false,
         "hide_multivariant": false,
         "padding_top": 0,
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "hide_volume_duplicates": true
       }
     }
   },
   "order": [
     "main",
+    "intro_usps_pro",
     "boutique"
   ]
 }

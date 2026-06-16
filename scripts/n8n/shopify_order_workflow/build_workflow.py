@@ -22,6 +22,7 @@ SNIPPETS = {
     "sale_order": HERE / "05_create_sale_order.js",
     "activity": HERE / "06_activity_on_picking.js",
     "log": HERE / "07_log_row.js",
+    "invoice": HERE / "08_create_invoice.js",
 }
 
 
@@ -44,6 +45,7 @@ def build_ts() -> str:
         "products": odoo_client_js + "\n\n" + parts["products"],
         "sale_order": odoo_client_js + "\n\n" + parts["sale_order"],
         "activity": odoo_client_js + "\n\n" + parts["activity"],
+        "invoice": odoo_client_js + "\n\n" + parts["invoice"],
     }
 
     def block(js: str) -> str:
@@ -64,6 +66,8 @@ const PRODUCTS_JS = `{block(with_odoo['products'])}`;
 const SALE_ORDER_JS = `{block(with_odoo['sale_order'])}`;
 
 const ACTIVITY_JS = `{block(with_odoo['activity'])}`;
+
+const INVOICE_JS = `{block(with_odoo['invoice'])}`;
 
 const LOG_ROW_JS = `{block(parts['log'])}`;
 
@@ -138,6 +142,20 @@ const saleOrderNode = node({{
   }},
 }});
 
+const invoiceNode = node({{
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {{
+    name: 'Create Invoice',
+    position: [1230, 300],
+    parameters: {{
+      mode: 'runOnceForAllItems',
+      language: 'javaScript',
+      jsCode: INVOICE_JS,
+    }},
+  }},
+}});
+
 const activityNode = node({{
   type: 'n8n-nodes-base.code',
   version: 2,
@@ -172,6 +190,7 @@ export default workflow('mylab-shopify-order', 'MY.LAB - Shopify → Commande Od
   .to(partnerNode)
   .to(productsNode)
   .to(saleOrderNode)
+  .to(invoiceNode)
   .to(activityNode)
   .to(logRowNode);
 """

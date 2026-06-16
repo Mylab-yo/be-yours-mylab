@@ -209,6 +209,13 @@
     cursor: pointer;
   }
 
+  /* ── COLONNE POMPE ── */
+  .ml-qo__pump-col { text-align: center; }
+  .ml-qo__pump-cell { text-align: center; }
+  .ml-qo__pump-cell input { width: 18px; height: 18px; accent-color: #111; cursor: pointer; }
+  .ml-qo__pump-price { display: block; font-size: 1rem; color: #888; margin-top: 3px; white-space: nowrap; }
+  .ml-qo__pump-na { color: #ccc; font-size: 1.2rem; }
+
   /* ── FOOTER ── */
   .ml-qo__footer {
     display: flex;
@@ -271,6 +278,60 @@
     padding: 0.8rem 1.2rem;
     border-bottom: 1px solid #eee;
   }
+
+  /* ── INFO BANNER (rupture de stock) ── */
+  .ml-qo__notice {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1.2rem;
+    margin: 0 0 1.2rem;
+    background: #fff7ed;
+    border: 1px solid #fde6c8;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #6b4517;
+    line-height: 1.45;
+  }
+  .ml-qo__notice-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ── OUT OF STOCK ROW ── */
+  .ml-qo__row--oos {
+    background: #fafafa;
+  }
+  .ml-qo__row--oos .ml-qo__product-name,
+  .ml-qo__row--oos .ml-qo__product-variant,
+  .ml-qo__row--oos .ml-qo__product-img {
+    opacity: 0.55;
+  }
+  .ml-qo__row--oos .ml-qo__check input {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+  .ml-qo__oos-badge {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #8a3a00;
+    background: #fff0dc;
+    border: 1px solid #ffd9a8;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+
+  /* ── BACKORDER / NOTIFY (commande express) ── */
+  .ml-qo__backorder-tag {
+    display: inline-block; margin-top: 3px; padding: 2px 8px; font-size: 1rem;
+    font-weight: 600; color: #8a3a00; background: #fff0dc; border: 1px solid #ffd9a8; border-radius: 50px;
+  }
+  .ml-qo__notify-link { display: inline-block; margin-top: 3px; font-size: 1.05rem; color: #555; text-decoration: underline; }
 
   /* ── RESPONSIVE ── */
   @media screen and (max-width: 749px) {
@@ -339,6 +400,14 @@
     {%- assign collection = collections[section.settings.collection] -%}
 
     {% paginate collection.products by 250 %}
+    <div class="ml-qo__notice" role="status">
+      <svg class="ml-qo__notice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>Les produits en rupture de stock sont marqués <strong>« sur commande »</strong> : vous pouvez les commander dès maintenant, ils seront expédiés dès leur réapprovisionnement. Les rares produits non réapprovisionnés s'affichent en grisé.</span>
+    </div>
     <div class="ml-qo__table-wrap">
       <table class="ml-qo__table" id="ml-qo-table">
         <thead>
@@ -346,6 +415,7 @@
             <th></th>
             <th>Produit</th>
             <th>Quantité</th>
+            <th class="ml-qo__pump-col">Pompe</th>
             <th>Prix unit. HT</th>
             <th>Total HT</th>
           </tr>
@@ -378,6 +448,7 @@
           <span class="ml-qo__total-label">Total :</span>
           <span id="ml-qo-total">0,00</span>
           <span class="ml-qo__total-ht">€ HT</span>
+          <span id="ml-qo-pumpnote" class="ml-qo__total-ht" style="color:#2D4A2D;"></span>
         </div>
       </div>
       <button type="button" class="ml-qo__submit" id="ml-qo-submit" disabled>
@@ -385,11 +456,26 @@
       </button>
     </div>
 
+    <script>
+      window.MlOos = {};
+      window.MlNoBackorder = {};
+      {%- for product in collection.products -%}
+        {%- assign qv = product.variants.first -%}
+        {%- if qv.inventory_management == 'shopify' and qv.inventory_quantity <= 0 -%}
+          window.MlOos[{{ product.handle | json }}] = true;
+        {%- endif -%}
+        {%- if product.tags contains 'no-backorder' -%}
+          window.MlNoBackorder[{{ product.handle | json }}] = true;
+        {%- endif -%}
+      {%- endfor -%}
+    </script>
     <script src="{{ 'ml-utils.js' | asset_url }}"></script>
     <script>
       (function () {
         'use strict';
         var U = window.MylabUtils;
+        function mlIsOos(h) { return !!(window.MlOos && window.MlOos[h]); }
+        function mlNoBackorder(h) { return !!(window.MlNoBackorder && window.MlNoBackorder[h]); }
         var table = document.getElementById('ml-qo-table');
         var totalEl = document.getElementById('ml-qo-total');
         var countEl = document.getElementById('ml-qo-count');
@@ -412,7 +498,7 @@
 
         function updateRow(tr) {
           var select = tr.querySelector('[data-qo-qty]');
-          var checkbox = tr.querySelector('input[type="checkbox"]');
+          var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
           var unitEl = tr.querySelector('[data-qo-unit]');
           var lineEl = tr.querySelector('[data-qo-line]');
           var qty = parseInt(select.value, 10);
@@ -434,21 +520,28 @@
         function updateTotal() {
           var rows = table.querySelectorAll('tbody tr[data-variant-id]:not([style*="display:none"])');
           var total = 0;
+          var pumpTotal = 0;
           var count = 0;
           rows.forEach(function (tr) {
             var select = tr.querySelector('[data-qo-qty]');
-            var checkbox = tr.querySelector('input[type="checkbox"]');
+            var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
             if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
               var opt = select.options[select.selectedIndex];
               var price = parseInt(opt.dataset.price, 10);
               var qty = parseInt(select.value, 10);
               total += price * qty;
               count++;
+              var pumpCheck = tr.querySelector('[data-pump]');
+              if (pumpCheck && pumpCheck.checked && tr.dataset.pumpUnit) {
+                pumpTotal += parseInt(tr.dataset.pumpUnit, 10) * qty;
+              }
             }
           });
-          totalEl.textContent = U.formatPriceRaw(total);
+          totalEl.textContent = U.formatPriceRaw(total + pumpTotal);
           countEl.textContent = count;
           submitBtn.disabled = count === 0;
+          var pumpNote = document.getElementById('ml-qo-pumpnote');
+          if (pumpNote) pumpNote.textContent = pumpTotal > 0 ? ('· dont ' + U.formatPriceRaw(pumpTotal) + ' € de pompes') : '';
         }
 
         /* Event delegation */
@@ -458,7 +551,7 @@
           if (e.target.matches('[data-qo-qty]')) {
             updateRow(tr);
           }
-          if (e.target.matches('input[type="checkbox"]')) {
+          if (e.target.matches('input[type="checkbox"]:not([data-pump])')) {
             var select = tr.querySelector('[data-qo-qty]');
             if (!e.target.checked) {
               select.value = '0';
@@ -469,19 +562,24 @@
             }
             updateTotal();
           }
+          if (e.target.matches('[data-pump]')) {
+            updateTotal();
+          }
         });
 
         /* Add to cart */
         submitBtn.addEventListener('click', function () {
           var items = [];
           table.querySelectorAll('tbody tr[data-variant-id]').forEach(function (tr) {
-            var checkbox = tr.querySelector('input[type="checkbox"]');
+            var checkbox = tr.querySelector('input[type="checkbox"]:not([data-pump])');
             var select = tr.querySelector('[data-qo-qty]');
             if (checkbox && checkbox.checked && parseInt(select.value, 10) > 0) {
-              items.push({
-                id: parseInt(tr.dataset.variantId, 10),
-                quantity: parseInt(select.value, 10)
-              });
+              var qty = parseInt(select.value, 10);
+              items.push({ id: parseInt(tr.dataset.variantId, 10), quantity: qty });
+              var pumpCheck = tr.querySelector('[data-pump]');
+              if (pumpCheck && pumpCheck.checked && tr.dataset.pumpVariant) {
+                items.push({ id: parseInt(tr.dataset.pumpVariant, 10), quantity: qty });
+              }
             }
           });
           if (!items.length) return;
@@ -517,7 +615,48 @@
         });
 
         /* ── CHARGEMENT DEPUIS ml-product-map.json ── */
+        function applyOosTreatment(tr) {
+          tr.dataset.oos = '1';
+          tr.classList.add('ml-qo__row--oos');
+          var checkbox = tr.querySelector('input[type="checkbox"]');
+          if (checkbox) {
+            checkbox.checked = false;
+            checkbox.disabled = true;
+            var lbl = checkbox.getAttribute('aria-label') || '';
+            checkbox.setAttribute('aria-label', lbl + ' \u2014 rupture de stock');
+          }
+          var selectCell = tr.querySelector('.ml-qo__select-wrap');
+          if (selectCell) {
+            selectCell.outerHTML = '<span class="ml-qo__oos-badge" role="status">Rupture de stock</span>';
+          }
+          var unitEl = tr.querySelector('[data-qo-unit]');
+          var lineEl = tr.querySelector('[data-qo-line]');
+          if (unitEl) unitEl.textContent = '\u2014';
+          if (lineEl) lineEl.textContent = '\u2014';
+        }
+
+        function appendBackorderTag(tr) {
+          var nameCell = tr.querySelector('.ml-qo__product-variant');
+          if (nameCell && !tr.querySelector('.ml-qo__backorder-tag')) {
+            nameCell.insertAdjacentHTML('afterend', '<span class="ml-qo__backorder-tag">sur commande</span>');
+          }
+        }
+        function appendNotifyLink(tr) {
+          if (!(window.MlNotify && window.MlNotify.webhook)) return;
+          var nameCell = tr.querySelector('.ml-qo__product-variant');
+          if (nameCell && !tr.querySelector('.ml-qo__notify-link')) {
+            nameCell.insertAdjacentHTML('afterend',
+              '<a class="ml-qo__notify-link" href="/products/' + tr.dataset.handle + '">Pr&eacute;venez-moi &rarr;</a>');
+          }
+        }
+
         function populateSelect(tr, tierStr) {
+          var handle = tr.dataset.handle;
+          if (mlIsOos(handle) && mlNoBackorder(handle)) {
+            applyOosTreatment(tr);
+            appendNotifyLink(tr);
+            return;
+          }
           var select = tr.querySelector('[data-qo-qty]');
           if (!select) return;
           /* Garder seulement l'option "—" */
@@ -532,23 +671,44 @@
             select.appendChild(opt);
           });
           tr.setAttribute('data-tier-data', tierStr);
+          if (mlIsOos(handle)) appendBackorderTag(tr);
         }
 
         function buildLinkedRow(product, tierStr, sizeLabel) {
+          var firstVar = product.variants && product.variants[0] ? product.variants[0] : null;
+          if (!firstVar) return '';
+          var handle = product.handle;
+          var isOosNoBack = mlIsOos(handle) && mlNoBackorder(handle);
+          var isBackorder = mlIsOos(handle) && !mlNoBackorder(handle);
+          var isOos = isOosNoBack; /* grisé/non-commandable uniquement si pas de backorder */
           var imgSrc = product.images && product.images[0] ? product.images[0] : '';
           if (imgSrc) imgSrc = imgSrc.replace(/\.([^.]+)$/, '_100x100.$1');
           var img = imgSrc ? '<img class="ml-qo__product-img" src="' + imgSrc + '" width="50" height="50" loading="lazy">' : '';
-          var tiers = tierStr.split(',');
-          var options = '<option value="0">\u2014</option>';
-          tiers.forEach(function (t) {
-            var p = t.split(':');
-            options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unit\u00e9s</option>';
-          });
-          return '<tr data-variant-id="' + product.variants[0].id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '">'
-            + '<td class="ml-qo__check"><input type="checkbox" aria-label="S\u00e9lectionner ' + product.title.replace(/"/g,'&quot;') + '"></td>'
+          var safeTitle = product.title.replace(/"/g,'&quot;');
+          var qtyCell;
+          if (isOos) {
+            qtyCell = '<span class="ml-qo__oos-badge" role="status">Rupture de stock</span>';
+          } else {
+            var options = '<option value="0">\u2014</option>';
+            tierStr.split(',').forEach(function (t) {
+              var p = t.split(':');
+              options += '<option value="' + p[0] + '" data-price="' + p[1] + '">' + p[0] + ' unit\u00e9s</option>';
+            });
+            qtyCell = '<div class="ml-qo__select-wrap"><select class="ml-qo__select" data-qo-qty>' + options + '</select></div>';
+          }
+          var rowClass = isOos ? ' class="ml-qo__row--oos"' : '';
+          var checkboxAttrs = isOos ? ' disabled' : '';
+          var oosAttr = isOos ? ' data-oos="1"' : '';
+          var oosLbl = isOos ? ' \u2014 rupture de stock' : '';
+          return '<tr' + rowClass + ' data-variant-id="' + firstVar.id + '" data-handle="' + product.handle + '" data-tier-data="' + tierStr + '" data-available="' + (isOos ? 'false' : 'true') + '"' + oosAttr + '>'
+            + '<td class="ml-qo__check"><input type="checkbox"' + checkboxAttrs + ' aria-label="S\u00e9lectionner ' + safeTitle + oosLbl + '"></td>'
             + '<td><div class="ml-qo__product">' + img + '<div><div class="ml-qo__product-name">' + product.title + '</div>'
-            + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div></div></div></td>'
-            + '<td><div class="ml-qo__select-wrap"><select class="ml-qo__select" data-qo-qty>' + options + '</select></div></td>'
+            + '<div class="ml-qo__product-variant">' + sizeLabel + 'ml</div>'
+            + (isBackorder ? '<span class="ml-qo__backorder-tag">sur commande</span>' : '')
+            + ((isOosNoBack && window.MlNotify && window.MlNotify.webhook) ? '<a class="ml-qo__notify-link" href="/products/' + handle + '">Pr&eacute;venez-moi &rarr;</a>' : '')
+            + '</div></div></td>'
+            + '<td>' + qtyCell + '</td>'
+            + '<td class="ml-qo__check ml-qo__pump-cell" data-pump-cell></td>'
             + '<td class="ml-qo__price"><span data-qo-unit>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '<td class="ml-qo__price"><span data-qo-line>\u2014</span><div class="ml-qo__price-unit">\u20ac HT</div></td>'
             + '</tr>';
@@ -558,6 +718,20 @@
           var tbody = table.querySelector('tbody');
           var rows = table.querySelectorAll('tbody tr[data-handle]');
           var gammeRows = {}; /* gamme → [tr, ...] */
+
+          function fillPumpCell(tr, format) {
+            var cell = tr.querySelector('[data-pump-cell]');
+            if (!cell) return;
+            var cfg = U.getPumpForFormat(format, map);
+            if (!cfg) { cell.innerHTML = '<span class="ml-qo__pump-na" title="Pas de pompe pour ce format">—</span>'; return; }
+            U.loadPumpProduct(cfg.handle).then(function (pump) {
+              if (!pump) { cell.innerHTML = '<span class="ml-qo__pump-na">—</span>'; return; }
+              tr.dataset.pumpVariant = pump.variantId;
+              tr.dataset.pumpUnit = pump.price;
+              cell.innerHTML = '<input type="checkbox" class="ml-qo__pump-check" data-pump aria-label="Ajouter une pompe">'
+                + '<span class="ml-qo__pump-price">+' + U.formatPriceRaw(pump.price) + ' €/u</span>';
+            });
+          }
 
           rows.forEach(function (tr) {
             var handle = tr.dataset.handle;
@@ -584,6 +758,16 @@
               }
             }
 
+            /* Colonne pompe (selon le format) */
+            var rowFormat = null;
+            if (entry.sizes) {
+              var fk = Object.keys(entry.sizes);
+              for (var fi = 0; fi < fk.length; fi++) {
+                if (entry.sizes[fk[fi]] === handle) { rowFormat = fk[fi]; break; }
+              }
+            }
+            fillPumpCell(tr, rowFormat);
+
             /* Grouper par gamme */
             var gamme = entry.type || 'autre';
             if (entry.prefix === 'homme') gamme = 'homme';
@@ -603,7 +787,7 @@
             /* En-tête de catégorie */
             var headerTr = document.createElement('tr');
             headerTr.className = 'ml-qo__category';
-            headerTr.innerHTML = '<td colspan="5">' + (GAMME_LABELS[gk] || gk) + '</td>';
+            headerTr.innerHTML = '<td colspan="6">' + (GAMME_LABELS[gk] || gk) + '</td>';
             tbody.appendChild(headerTr);
 
             group.forEach(function (item) {
@@ -622,7 +806,16 @@
                 var f = fetch('/products/' + linkedHandle + '.js')
                   .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
                   .then(function (product) {
-                    item.tr.insertAdjacentHTML('afterend', buildLinkedRow(product, linkedTierStr, size));
+                    /* Créer le nœud explicitement pour capturer une réf directe :
+                       2 fetches concurrents insèrent 'afterend' du même item.tr,
+                       donc nextElementSibling n'est pas fiable. */
+                    var tmp = document.createElement('tbody');
+                    tmp.innerHTML = buildLinkedRow(product, linkedTierStr, size);
+                    var newTr = tmp.firstElementChild;
+                    if (newTr) {
+                      item.tr.insertAdjacentElement('afterend', newTr);
+                      fillPumpCell(newTr, size);
+                    }
                   })
                   .catch(function () {});
                 allFetches.push(f);
@@ -637,7 +830,7 @@
             if (!group || !group.length) return;
             var headerTr = document.createElement('tr');
             headerTr.className = 'ml-qo__category';
-            headerTr.innerHTML = '<td colspan="5">Autres produits</td>';
+            headerTr.innerHTML = '<td colspan="6">Autres produits</td>';
             tbody.appendChild(headerTr);
             group.forEach(function (item) { tbody.appendChild(item.tr); });
           });

@@ -215,7 +215,21 @@
             return '<button type="button" class="bulk-bottle__swatch' + activeCls + '" data-color-pick="' + B.esc(c) + '" data-bottle-id="' + B.esc(b.id) + '" title="' + B.esc(B.COLOR_LABELS[c] || c) + '" style="background:' + bg + ';' + border + '"></button>';
           }).join('');
           var label = B.COLOR_LABELS[selectedColor] || selectedColor;
-          return '<div class="bulk-bottle__colors"><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label" data-color-label="' + B.esc(b.id) + '">' + B.esc(label) + '</span></div>';
+          return '<div class="bulk-bottle__colors"><span class="bulk-bottle__colors-label-prefix">Flacon&nbsp;:</span><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label" data-color-label="' + B.esc(b.id) + '">' + B.esc(label) + '</span></div>';
+        })() +
+        (function () {
+          var capCols = B.capColorOptions(b.id);
+          if (!capCols) return '';
+          var selectedCap = (B.bottleState.selectedCapColors && B.bottleState.selectedCapColors[b.id]) || capCols[0];
+          var dots = capCols.map(function (c) {
+            var bg = B.COLOR_DOTS[c] || '#ccc';
+            var border = (c === 'clear' || c === 'white') ? 'border:1px solid #ccc;' : '';
+            var isActive = c === selectedCap;
+            var activeCls = isActive ? ' bulk-bottle__swatch--active' : '';
+            return '<button type="button" class="bulk-bottle__swatch' + activeCls + '" data-cap-color-pick="' + B.esc(c) + '" data-bottle-id="' + B.esc(b.id) + '" title="' + B.esc(B.COLOR_LABELS[c] || c) + '" style="background:' + bg + ';' + border + '"></button>';
+          }).join('');
+          var label = B.COLOR_LABELS[selectedCap] || selectedCap;
+          return '<div class="bulk-bottle__colors bulk-bottle__colors--cap"><span class="bulk-bottle__colors-label-prefix">Capuchon&nbsp;:</span><span class="bulk-bottle__colors-dots">' + dots + '</span><span class="bulk-bottle__colors-label" data-cap-color-label="' + B.esc(b.id) + '">' + B.esc(label) + '</span></div>';
         })() +
         priceHtml +
         moqHtml +
@@ -253,7 +267,7 @@
     /* Bind card click */
     elBottlesGrid.querySelectorAll('.bulk-bottle').forEach(function (card) {
       card.addEventListener('click', function (e) {
-        // Swatch click: pick color, don't select card
+        // Bottle color swatch
         var swatch = e.target.closest('[data-color-pick]');
         if (swatch) {
           e.stopPropagation();
@@ -261,13 +275,28 @@
           var color = swatch.dataset.colorPick;
           if (!B.bottleState.selectedColors) B.bottleState.selectedColors = {};
           B.bottleState.selectedColors[bidSw] = color;
-          // Update sibling swatches + label locally (no full re-render)
           var container = swatch.parentElement;
           container.querySelectorAll('[data-color-pick]').forEach(function (s) {
             s.classList.toggle('bulk-bottle__swatch--active', s === swatch);
           });
           var labelEl = card.querySelector('[data-color-label="' + bidSw + '"]');
           if (labelEl) labelEl.textContent = B.COLOR_LABELS[color] || color;
+          return;
+        }
+        // Cap color swatch
+        var capSwatch = e.target.closest('[data-cap-color-pick]');
+        if (capSwatch) {
+          e.stopPropagation();
+          var bidCap = capSwatch.dataset.bottleId;
+          var capColor = capSwatch.dataset.capColorPick;
+          if (!B.bottleState.selectedCapColors) B.bottleState.selectedCapColors = {};
+          B.bottleState.selectedCapColors[bidCap] = capColor;
+          var capContainer = capSwatch.parentElement;
+          capContainer.querySelectorAll('[data-cap-color-pick]').forEach(function (s) {
+            s.classList.toggle('bulk-bottle__swatch--active', s === capSwatch);
+          });
+          var capLabelEl = card.querySelector('[data-cap-color-label="' + bidCap + '"]');
+          if (capLabelEl) capLabelEl.textContent = B.COLOR_LABELS[capColor] || capColor;
           return;
         }
         var bid = card.dataset.bottleId;
@@ -387,18 +416,7 @@
     var html = '';
     formulas.forEach(function (f) {
       var bid = B.bottleState.selections[f.id];
-      var bottleName = '';
-      if (bid === 'standard') {
-        bottleName = 'MY.LAB Standard';
-      } else if (bid && B.bottlesData) {
-        var b = B.bottlesData.bottles.find(function (x) { return x.id === bid; });
-        if (b) {
-          bottleName = b.name;
-          var pickedColor = B.bottleState.selectedColors && B.bottleState.selectedColors[bid];
-          var displayColor = pickedColor || (b.available_colors && b.available_colors[0]) || b.color;
-          if (displayColor) bottleName += ' — ' + (B.COLOR_LABELS[displayColor] || displayColor);
-        }
-      }
+      var bottleName = bid ? B.fmtBottleName(bid) : '';
       var icon = bid
         ? '<svg class="bulk-bottles__recap-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2.5"><path d="M5 12l5 5L19 7"/></svg>'
         : '<svg class="bulk-bottles__recap-pending" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>';

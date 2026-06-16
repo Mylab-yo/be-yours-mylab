@@ -215,7 +215,7 @@
 
 {{ 'component-rating.css' | asset_url | stylesheet_tag }}
 
-<div class="card-wrapper">
+<div class="card-wrapper" bss-b2b-product-qb-id="{{ card_product.id }}">
   <use-animate data-animate="zoom-fade-small" class="card card--product{% if card_product.featured_media == nil %} card--text{% endif %}" tabindex="-1">
     {%- if card_product.featured_media -%}
       {%- liquid

@@ -39,6 +39,21 @@
   }
 
   /* -------------------------------------------------------
+     BRIDGE — Be Yours <add-to-cart> → drawer auto-open
+     Le custom element <add-to-cart> de Be Yours (utilisé
+     par les card-product, donc boutique-testeurs, collections,
+     etc.) dispatch 'ajaxProduct:added' mais pas 'cart:refresh'.
+     Sans ce bridge, le drawer ne s'ouvre pas après un ajout
+     depuis une miniature. Sur les pages parcours, on n'ouvre
+     pas le drawer (l'user reste dans le flow de configuration).
+     ------------------------------------------------------- */
+  var SILENT_OPEN_REGEX = /\/pages\/(creons-ensemble-votre-marque|parcours-(dossier|etiquette|produits|recap))\/?$/i;
+  document.addEventListener('ajaxProduct:added', function () {
+    var silentOpen = SILENT_OPEN_REGEX.test(window.location.pathname);
+    document.dispatchEvent(new CustomEvent('cart:refresh', { detail: { open: !silentOpen } }));
+  });
+
+  /* -------------------------------------------------------
      API GLOBALE
      ------------------------------------------------------- */
   window.MylabCart = {

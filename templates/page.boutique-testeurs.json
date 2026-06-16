@@ -26,11 +26,25 @@
             "label": "Shampoings"
           }
         },
+        "f1b": {
+          "type": "filter",
+          "settings": {
+            "tag": "Coloristeur shampoing",
+            "label": "Shampoings repigmentants"
+          }
+        },
         "f2": {
           "type": "filter",
           "settings": {
             "tag": "masque",
             "label": "Masques"
+          }
+        },
+        "f2b": {
+          "type": "filter",
+          "settings": {
+            "tag": "Coloristeur masque",
+            "label": "Masques repigmentants"
           }
         },
         "f3": {
@@ -67,9 +81,75 @@
             "tag": "homme",
             "label": "Homme"
           }
+        },
+        "f8": {
+          "type": "filter",
+          "settings": {
+            "tag": "volume",
+            "label": "Volume"
+          }
+        },
+        "f9": {
+          "type": "filter",
+          "settings": {
+            "tag": "boucles",
+            "label": "Boucles"
+          }
+        },
+        "f10": {
+          "type": "filter",
+          "settings": {
+            "tag": "lissant",
+            "label": "Lissant"
+          }
+        },
+        "f11": {
+          "type": "filter",
+          "settings": {
+            "tag": "ha-repulpe",
+            "label": "Réparateur"
+          }
+        },
+        "f12": {
+          "type": "filter",
+          "settings": {
+            "tag": "nourrissant",
+            "label": "Nourrissant"
+          }
+        },
+        "f13": {
+          "type": "filter",
+          "settings": {
+            "tag": "protecteur-couleur",
+            "label": "Protecteur couleur"
+          }
+        },
+        "f14": {
+          "type": "filter",
+          "settings": {
+            "tag": "purifiant",
+            "label": "Purifiant"
+          }
         }
       },
-      "block_order": ["f1", "f2", "f3", "f4", "f5", "f6", "f7"],
+      "block_order": [
+        "f1",
+        "f1b",
+        "f2",
+        "f2b",
+        "f3",
+        "f4",
+        "f5",
+        "f6",
+        "f7",
+        "f8",
+        "f9",
+        "f10",
+        "f11",
+        "f12",
+        "f13",
+        "f14"
+      ],
       "settings": {
         "collection": "boutique-decouverte",
         "products_to_show": 50,
@@ -84,11 +164,22 @@
         "padding_top": 0,
         "padding_bottom": 72
       }
+    },
+    "intro_usps_testeurs": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<style>.ml-testeurs-intro{max-width:880px;margin:0 auto;padding:32px 20px 16px;text-align:center;font-family:'DM Sans',sans-serif;color:#1a1a1a}.ml-testeurs-intro__kicker{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#888;margin:0 0 12px}.ml-testeurs-intro__title{font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.15;margin:0 0 16px}.ml-testeurs-intro__title em{font-style:normal;background:linear-gradient(transparent 62%,#f5e7c6 62%);padding:0 .15em}.ml-testeurs-intro__text{font-size:17px;line-height:1.55;color:#333;margin:0 auto;max-width:680px}.ml-testeurs-usps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1180px;margin:32px auto 56px;padding:0 20px;font-family:'DM Sans',sans-serif}.ml-testeurs-usp{background:#fafaf8;border:1px solid #ececec;border-radius:14px;padding:24px 20px;text-align:center}.ml-testeurs-usp__title{font-size:16px;font-weight:600;color:#1a1a1a;margin:0 0 8px;letter-spacing:.01em}.ml-testeurs-usp__text{font-size:14px;line-height:1.5;color:#555;margin:0}@media (max-width:900px){.ml-testeurs-usps{grid-template-columns:repeat(2,1fr);gap:14px;margin:24px auto 40px}.ml-testeurs-usp{padding:18px 16px}}</style><div class=\"ml-testeurs-intro\"><p class=\"ml-testeurs-intro__kicker\">Testeurs 200 ml — sans engagement</p><h1 class=\"ml-testeurs-intro__title\">Goûtez nos formules <em>avant</em> de lancer votre marque</h1><p class=\"ml-testeurs-intro__text\">Recevez les shampoings, masques, crèmes, sérums et huiles MY.LAB en flacons de 200 ml. Validez la texture, le parfum et la performance avant de vous engager sur une commande en gros volume.</p></div><div class=\"ml-testeurs-usps\"><div class=\"ml-testeurs-usp\"><h3 class=\"ml-testeurs-usp__title\">200 ml par formule</h3><p class=\"ml-testeurs-usp__text\">Quantité suffisante pour tester texture, parfum et tenue sur plusieurs séances.</p></div><div class=\"ml-testeurs-usp\"><h3 class=\"ml-testeurs-usp__title\">Sans engagement</h3><p class=\"ml-testeurs-usp__text\">Aucun minimum, aucun dossier. Commandez à l'unité, autant de références que vous voulez.</p></div><div class=\"ml-testeurs-usp\"><h3 class=\"ml-testeurs-usp__title\">Expédition rapide</h3><p class=\"ml-testeurs-usp__text\">Préparation sous 48 h, livraison France 2 à 5 jours. Prêt à tester chez vous cette semaine.</p></div><div class=\"ml-testeurs-usp\"><h3 class=\"ml-testeurs-usp__title\">Made in France</h3><p class=\"ml-testeurs-usp__text\">Formules façonnées par MY.LAB à Cavaillon (84). 96 % naturel, vegan-friendly, sans tests animaux.</p></div></div>",
+        "full_width": false,
+        "show_divider": false,
+        "padding_top": 8,
+        "padding_bottom": 8
+      }
     }
   },
   "order": [
     "empty_space_RkfPad",
     "main",
+    "intro_usps_testeurs",
     "testeurs"
   ]
 }

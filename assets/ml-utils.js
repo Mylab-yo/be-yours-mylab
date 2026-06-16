@@ -55,6 +55,28 @@
     return tierStr || null;
   }
 
+  /** Retourne {handle} de la pompe pour un format ('200'/'500'/'1000'), ou null. */
+  function getPumpForFormat(format, map) {
+    if (!map || !map._pumps || !format) return null;
+    return map._pumps[String(format)] || null;
+  }
+
+  var PUMP_CACHE = {};
+  /** Fetch (mis en cache) le produit pompe Shopify -> { variantId, price, handle } ou null. */
+  function loadPumpProduct(handle) {
+    if (!handle) return Promise.resolve(null);
+    if (PUMP_CACHE[handle]) return PUMP_CACHE[handle];
+    PUMP_CACHE[handle] = fetch('/products/' + handle + '.js')
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (p) {
+        var v = p.variants && p.variants[0];
+        if (!v || v.available === false) return null;
+        return { variantId: v.id, price: v.price, handle: handle };
+      })
+      .catch(function () { return null; });
+    return PUMP_CACHE[handle];
+  }
+
   function formatPrice(centimes) {
     return (centimes / 100).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' \u20ac';
   }
@@ -75,6 +97,8 @@
     parseTierString: parseTierString,
     findProductEntry: findProductEntry,
     findTiers: findTiers,
+    getPumpForFormat: getPumpForFormat,
+    loadPumpProduct: loadPumpProduct,
     formatPrice: formatPrice,
     formatPriceCompact: formatPriceCompact,
     formatPriceRaw: formatPriceRaw

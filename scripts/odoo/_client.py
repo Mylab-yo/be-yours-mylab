@@ -16,17 +16,29 @@ DB = os.environ["ODOO_DB"].strip()
 LOGIN = os.environ.get("ODOO_LOGIN", "").strip() or os.environ["ODOO_USER"].strip()
 API_KEY = os.environ["ODOO_API_KEY"].strip()
 
-_common = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/common")
+_common = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/common", allow_none=True)
 UID = _common.authenticate(DB, LOGIN, API_KEY, {})
 if not UID:
     raise RuntimeError(f"Odoo authentication failed (login={LOGIN!r}, db={DB!r})")
 
-_models = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/object")
+_models = xmlrpc.client.ServerProxy(f"{URL}/xmlrpc/2/object", allow_none=True)
 
 
 def execute(model: str, method: str, args: list, kwargs: dict | None = None):
-    """Call any Odoo model method."""
-    return _models.execute_kw(DB, UID, API_KEY, model, method, args, kwargs or {})
+    """Call any Odoo model method.
+
+    Workaround Odoo 18 : OdooMarshaller(allow_none=False) cote serveur crash
+    quand la methode appelee retourne None (ex: mail.mail.send, mail.activity.unlink,
+    mail.activity.action_feedback, etc.). Le travail est bien fait cote Odoo,
+    seul le marshalling de la reponse foire. On catche ce Fault specifique et on
+    retourne None, ce qui correspond a la valeur reelle de retour.
+    """
+    try:
+        return _models.execute_kw(DB, UID, API_KEY, model, method, args, kwargs or {})
+    except xmlrpc.client.Fault as exc:
+        if "cannot marshal None" in str(exc):
+            return None
+        raise
 
 
 def search_read(model: str, domain: list, fields: list, limit: int = 0):

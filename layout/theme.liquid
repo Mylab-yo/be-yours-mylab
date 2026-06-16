@@ -11,9 +11,8 @@
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
+    <link rel="icon" type="image/png" href="{{ 'Logo-rond-noir-300x300.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'Logo-rond-noir-300x300.png' | asset_url }}">
 
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
@@ -108,7 +107,10 @@
 
     {%- comment -%} ML Product Map URL — source de vérité unique {%- endcomment -%}
     <script>window.MylabAssets = { productMapUrl: {{ 'ml-product-map.json' | asset_url | json }} };</script>
+    <script>window.MlNotify = { webhook: {{ settings.notify_webhook_url | default: '' | json }} };</script>
+    {{ 'ml-notify.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'ml-utils.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'ml-notify.js' | asset_url }}" defer="defer"></script>
 
     {%- comment -%} ML Dossier Gate — config pour auto-ajout du dossier cosmétologique {%- endcomment -%}
     {%- assign ml_is_dossier_valide = false -%}
@@ -265,5 +267,11 @@
         }, true);
       })();
     </script>
+
+    {%- comment -%} Bastien chat widget — bulle flottante en bas à droite {%- endcomment -%}
+    {% render 'bastien-widget' %}
+
+    {%- comment -%} Modale « Prévenez-moi du retour en stock » {%- endcomment -%}
+    {% render 'ml-notify-modal' %}
   </body>
 </html>

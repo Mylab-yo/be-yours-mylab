@@ -100,12 +100,33 @@
         {%- endunless -%}
       {%- endif -%}
       <style>
+        /* ── Fix items visibility on desktop: stepper + bubble were stuck in drawer
+             (portal JS not always firing) and squeezing mini-cart__main to 0px.
+             Keep main scrollable with a guaranteed visible area. ── */
+        .mini-cart__inner { justify-content: flex-start; }
+        .mini-cart__main { min-height: 200px; flex: 1 1 0; }
+
         /* ── Mini-cart footer compact (toujours appliqué) ── */
         .mini-cart__footer .mini-cart__subtotal { font-size: 1.2rem; }
         .mini-cart__footer .mini-cart__subtotal small { font-size: 1rem; }
         .mini-cart__footer .mini-cart__subtotal .price { font-size: 1.6rem; }
         .mini-cart__footer .tax-note,
         .mini-cart__footer .rte { font-size: 1rem; line-height: 1.3; }
+
+        /* B2B TVA breakdown — HT / TVA / TTC */
+        .cart-drawer .ml-tva-breakdown {
+          display: flex; flex-direction: column; gap: 0.3rem;
+          margin: 0.5rem 0 0.4rem; font-size: 1rem;
+        }
+        .cart-drawer .ml-tva-line { display: flex; justify-content: space-between; align-items: baseline; }
+        .cart-drawer .ml-tva-line .label { opacity: 0.75; }
+        .cart-drawer .ml-tva-line .value { font-variant-numeric: tabular-nums; }
+        .cart-drawer .ml-tva-line--total {
+          font-weight: 600; padding-top: 0.4rem; margin-top: 0.1rem;
+          border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        .cart-drawer .ml-tva-line--total .label { opacity: 1; }
+        .cart-drawer .ml-ht-label { opacity: 0.6; font-size: 0.7em; margin-left: 0.3em; letter-spacing: 0.02em; }
 
         .mini-cart__actions .button {
           font-family: 'DM Sans', var(--font-body-family), sans-serif;
@@ -589,6 +610,8 @@
               assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
             elsif ml_t == 'creme' and ml_f == '400'
               assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+            elsif ml_t == 'creme' and ml_f == '500'
+              assign ml_tier_data = '6:1790,14:1550,28:1440,42:1360'
             elsif ml_t == 'creme' and ml_f == '1000'
               assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
             elsif ml_t == 'serum'
@@ -630,7 +653,7 @@
               assign ml_has_non_tiered = true
             endif
           -%}
-          <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" data-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
+          <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" data-key="{{ item.key }}" data-cart-item-key="{{ item.key }}" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
             <div class="product-container{% unless item.image %} no-image{% endunless %}">
               {% if item.image %}
                 <div>
@@ -653,6 +676,8 @@
               <div class="product-description">
                 <div class="product-content">
                   <a href="{{ item.url }}" class="link product-title">{{ item.product.title }}</a>
+                  {%- comment -%} BSS B2B Volume Pricing table (rendu côté app) {%- endcomment -%}
+                  <div class="bss-b2b-qb-table"></div>
                   {%- if ml_tier_data != '' -%}
                     {%- assign ml_le = ml_lc | divided_by: 100 -%}
                     {%- assign ml_lr = ml_lc | modulo: 100 -%}
@@ -1140,7 +1165,7 @@
               endfor
               assign discount_codes = discount_codes | uniq
             -%}
-            <details class="mini-cart__action disclosure-has-popup">
+            <details class="mini-cart__action disclosure-has-popup"{% if discount_codes.size > 0 %} open{% endif %}>
               <summary>
                 <span>
                   {% render 'icon', icon: 'discount' %}
@@ -1185,20 +1210,40 @@
       {%- endif -%}
 
       {%- unless settings.disable_view_cart -%}
+        {%- if ml_ht_subtotal > 0 and ml_has_non_tiered == false -%}
+          {%- assign ml_ht_cents = ml_ht_subtotal | minus: cart.total_discount -%}
+          {%- if ml_ht_cents < 0 -%}{%- assign ml_ht_cents = 0 -%}{%- endif -%}
+        {%- else -%}
+          {%- assign ml_ht_cents = cart.total_price -%}
+        {%- endif -%}
+        {%- assign ml_tva_cents = ml_ht_cents | times: 20 | divided_by: 100 -%}
+        {%- assign ml_ttc_cents = ml_ht_cents | plus: ml_tva_cents -%}
+
         <div class="subtotal">
           <div class="label h3">{{ 'sections.cart.subtotal' | t }}</div>
           <div class="value price" id="mini-cart-subtotal">
             {%- if ml_ht_subtotal > 0 and ml_has_non_tiered == false -%}
-              {%- comment -%} Tous les produits ont des paliers → sous-total HT custom {%- endcomment -%}
-              {%- assign ml_se = ml_ht_subtotal | divided_by: 100 -%}
-              {%- assign ml_sr = ml_ht_subtotal | modulo: 100 -%}
+              {%- assign ml_se = ml_ht_cents | divided_by: 100 -%}
+              {%- assign ml_sr = ml_ht_cents | modulo: 100 -%}
               {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
             {%- else -%}
-              {%- comment -%} Mix ou pas de paliers → prix Shopify natif {%- endcomment -%}
-              {{ cart.total_price | money_with_currency }}
+              {{ cart.total_price | money_with_currency }}{%- if cart.taxes_included == false -%} <small class="ml-ht-label">HT</small>{%- endif -%}
             {%- endif -%}
           </div>
         </div>
+
+        {%- if cart.taxes_included == false and ml_ht_cents > 0 -%}
+          <div class="ml-tva-breakdown" aria-label="Détail TVA estimé">
+            <div class="ml-tva-line">
+              <span class="label">TVA 20%</span>
+              <span class="value">{{ ml_tva_cents | money }}</span>
+            </div>
+            <div class="ml-tva-line ml-tva-line--total">
+              <span class="label">Total estimé TTC</span>
+              <span class="value">{{ ml_ttc_cents | money }}</span>
+            </div>
+          </div>
+        {%- endif -%}
       {%- endunless -%}
 
       <div class="taxes-discounts">
@@ -1359,15 +1404,22 @@
         </style>
       {%- endif -%}
       <div class="button-container">
-        <button class="button{% if ml_checkout_blocked %} ml-checkout-disabled{% endif %}" name="checkout" type="submit"{% if ml_checkout_blocked %} disabled aria-disabled="true"{% endif %}>
-          {{ 'sections.cart.checkout' | t }}
+        {%- comment -%}
+          Pas de bouton Paiement direct dans le drawer : il faut passer par
+          /cart pour que BSS B2B Volume Pricing injecte ses cart attributes
+          (sans quoi la Function checkout ne sait pas quel tier appliquer).
+          Voir [[project-bss-b2b-tier-pricing]].
+        {%- endcomment -%}
+        <a
+          class="button{% if ml_checkout_blocked %} ml-checkout-disabled{% endif %}"
+          href="{{ routes.cart_url }}"
+          {% if ml_checkout_blocked %}aria-disabled="true" tabindex="-1"{% endif %}
+        >
+          {{ 'general.cart.view' | t }}
           {%- if settings.disable_view_cart -%}
             <span class="price" id="mini-cart-subtotal">{{ cart.total_price | money_with_currency }}</span>
           {%- endif -%}
-        </button>
-        {%- unless settings.disable_view_cart -%}
-          <a class="button button--secondary" href="{{ routes.cart_url }}">{{ 'general.cart.view' | t }}</a>
-        {%- endunless -%}
+        </a>
       </div>
     </div>
   </div>

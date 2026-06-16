@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyLab — Maquette pompes par format</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Shopify base : 1rem = 10px */
+  html { font-size: 62.5%; }
+  * { box-sizing: border-box; }
+  :root{
+    --ml-white:#fff; --ml-off:#F5F4F2; --ml-black:#111; --ml-mid:#555;
+    --ml-light:#AAA; --ml-muted:#888; --ml-line:#E5E5E5; --ml-green:#2D4A2D;
+  }
+  body{ font-family:'DM Sans',sans-serif; color:#111; background:#fafafa; margin:0; padding:40px 20px; }
+  .wrap{ max-width:1100px; margin:0 auto; }
+  .lead{ text-align:center; margin-bottom:36px; }
+  .lead h1{ font-size:2.6rem; font-weight:700; margin:0 0 6px; }
+  .lead p{ font-size:1.4rem; color:var(--ml-mid); margin:0; }
+  .panel{ background:#fff; border:1px solid #e8e8e8; border-radius:16px; padding:30px; margin-bottom:34px; }
+  .panel__tag{ display:inline-block; font-size:1.1rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ml-muted); margin-bottom:6px; }
+  .panel__h{ font-size:1.9rem; font-weight:700; margin:0 0 22px; }
+  .new-flag{ background:var(--ml-green); color:#fff; font-size:1rem; padding:2px 8px; border-radius:50px; vertical-align:middle; margin-left:8px; letter-spacing:.04em; }
+
+  /* ---- styles repris de mylab-product.css ---- */
+  .ml-option-label{ font-size:1.2rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ml-muted); margin-bottom:10px; }
+  .ml-option-group{ margin-bottom:24px; }
+  .ml-contenance-btns{ display:flex; gap:8px; flex-wrap:wrap; }
+  .ml-contenance-btn{ padding:9px 22px; border:1px solid var(--ml-line); background:transparent; font-size:1.3rem; font-weight:500; cursor:pointer; border-radius:50px; color:var(--ml-mid); transition:all .15s; }
+  .ml-contenance-btn.is-active{ border-color:var(--ml-black); background:var(--ml-black); color:#fff; }
+  #ml-qty-btns{ display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
+  .ml-qty-btn{ position:relative; padding:12px 6px; border:1px solid var(--ml-line); background:#fff; cursor:pointer; border-radius:1.2rem; text-align:center; transition:all .15s; }
+  .ml-qty-btn.is-active{ border-color:var(--ml-black); background:var(--ml-black); }
+  .ml-qty-btn.is-active .ml-qty-btn__num,.ml-qty-btn.is-active .ml-qty-btn__label{ color:#fff; }
+  .ml-qty-btn__num{ display:block; font-size:1.7rem; font-weight:700; color:var(--ml-black); line-height:1; }
+  .ml-qty-btn__label{ display:block; font-size:1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ml-muted); margin-top:3px; }
+  .ml-qty-btn__badge{ position:absolute; top:-7px; right:-7px; background:var(--ml-green); color:#fff; font-size:1.1rem; font-weight:700; padding:2px 6px; border-radius:50px; }
+  .ml-pricing-card{ margin:8px 0 20px; }
+  .ml-price-total{ display:flex; align-items:baseline; gap:8px; }
+  .ml-price-amount{ font-size:4.8rem; font-weight:700; color:var(--ml-black); line-height:1; }
+  .ml-price-currency{ font-size:2.2rem; font-weight:700; }
+  .ml-price-tax{ font-size:1.1rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ml-muted); }
+  .ml-price-unit{ font-size:1.3rem; color:var(--ml-mid); padding-bottom:16px; border-bottom:1px solid var(--ml-line); margin-bottom:12px; }
+  .ml-btn-cart{ width:100%; padding:16px 24px; background:var(--ml-black); color:#fff; border:none; font-size:1.5rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; border-radius:50px; display:flex; align-items:center; justify-content:space-between; }
+  .ml-btn-cart__pill{ font-size:1.1rem; opacity:.6; letter-spacing:.08em; font-weight:400; }
+
+  /* ============================================================
+     NOUVEAU — Add-on Pompe (fiche produit)
+     ============================================================ */
+  .ml-pump{ display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--ml-line); border-radius:12px; cursor:pointer; transition:all .15s; margin-bottom:20px; }
+  .ml-pump:hover{ border-color:#bbb; }
+  .ml-pump.is-checked{ border-color:var(--ml-black); background:var(--ml-off); }
+  .ml-pump__check{ width:20px; height:20px; accent-color:var(--ml-black); flex-shrink:0; cursor:pointer; }
+  .ml-pump__body{ flex:1; }
+  .ml-pump__title{ display:block; font-size:1.4rem; font-weight:600; color:var(--ml-black); line-height:1.25; }
+  .ml-pump__sub{ display:block; font-size:1.15rem; color:var(--ml-muted); margin-top:2px; }
+  .ml-pump__price{ font-size:1.5rem; font-weight:700; color:var(--ml-black); white-space:nowrap; }
+  .ml-pump__price small{ font-size:1rem; font-weight:600; color:var(--ml-muted); letter-spacing:.06em; }
+  .ml-pump-line{ display:none; font-size:1.25rem; color:var(--ml-mid); margin:-8px 0 16px; }
+  .ml-pump-line.is-visible{ display:block; }
+
+  .fiche{ max-width:440px; }
+
+  /* ============================================================
+     Commande Express (repris de ml-quick-order)
+     ============================================================ */
+  .ml-qo__table-wrap{ border:1px solid #e0e0e0; border-radius:12px; overflow:hidden; }
+  .ml-qo__table{ width:100%; border-collapse:collapse; font-size:1.3rem; }
+  .ml-qo__table thead{ background:#fafafa; border-bottom:1px solid #eee; }
+  .ml-qo__table th{ padding:1rem 1.2rem; font-size:1.1rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#888; text-align:left; white-space:nowrap; }
+  .ml-qo__table th.col-c{ text-align:center; }
+  .ml-qo__table td{ padding:1rem 1.2rem; border-bottom:1px solid #f0f0f0; vertical-align:middle; }
+  .ml-qo__category td{ background:#f8f8f8; font-weight:600; font-size:1.2rem; letter-spacing:.06em; text-transform:uppercase; color:#555; }
+  .ml-qo__product{ display:flex; align-items:center; gap:1rem; }
+  .ml-qo__product-img{ width:46px; height:46px; border-radius:8px; background:#eee; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.6rem; }
+  .ml-qo__product-name{ font-weight:500; font-size:1.3rem; }
+  .ml-qo__product-variant{ font-size:1.1rem; color:#888; }
+  .ml-qo__select{ padding:.7rem 2.4rem .7rem 1rem; font-family:inherit; font-size:1.2rem; border:1px solid #ddd; border-radius:8px; background:#fafafa; cursor:pointer; appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right .8rem center; }
+  .col-c{ text-align:center; }
+  .ml-qo__pump-check{ width:18px; height:18px; accent-color:var(--ml-black); cursor:pointer; }
+  .ml-qo__pump-na{ color:#ccc; font-size:1.2rem; }
+  .ml-qo__pump-price{ display:block; font-size:1rem; color:#888; margin-top:3px; }
+  .ml-qo__price{ font-weight:600; white-space:nowrap; }
+  .ml-qo__price small{ font-size:1.05rem; color:#888; font-weight:400; }
+  .ml-qo__foot{ display:flex; justify-content:space-between; align-items:center; margin-top:20px; flex-wrap:wrap; gap:14px; }
+  .ml-qo__totwrap{ font-size:1.3rem; color:#555; }
+  .ml-qo__tot{ font-size:1.8rem; font-weight:700; color:#111; }
+  .ml-qo__tot small{ font-size:1.1rem; color:#888; font-weight:400; }
+  .ml-qo__pumptot{ font-size:1.2rem; color:var(--ml-green); }
+  .ml-qo__submit{ padding:1.2rem 3rem; font-family:inherit; font-size:1.3rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#fff; background:#111; border:none; border-radius:50px; cursor:pointer; }
+
+  .note{ font-size:1.2rem; color:var(--ml-muted); margin-top:16px; line-height:1.5; }
+  .note code{ background:var(--ml-off); padding:1px 6px; border-radius:4px; font-size:1.1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lead">
+    <h1>Pompes par format — maquette</h1>
+    <p>Prix pompe = placeholder (à confirmer depuis Odoo). Clique sur les paliers et la case « pompe » : les totaux se recalculent.</p>
+  </div>
+
+  <!-- ===================== FICHE PRODUIT ===================== -->
+  <div class="panel">
+    <span class="panel__tag">Surface 1</span>
+    <h2 class="panel__h">Fiche produit<span class="new-flag">+ add-on pompe</span></h2>
+
+    <div class="fiche" data-fiche>
+      <div class="ml-option-group">
+        <div class="ml-option-label">Contenance</div>
+        <div class="ml-contenance-btns">
+          <button class="ml-contenance-btn is-active" data-fmt="200">200ml</button>
+          <button class="ml-contenance-btn" data-fmt="500">500ml</button>
+          <button class="ml-contenance-btn" data-fmt="1000">1000ml</button>
+        </div>
+      </div>
+
+      <div class="ml-option-group">
+        <div class="ml-option-label">Quantité — Sélectionnez un palier</div>
+        <div id="ml-qty-btns"></div>
+      </div>
+
+      <!-- NOUVEAU : add-on pompe -->
+      <label class="ml-pump" data-pump>
+        <input type="checkbox" class="ml-pump__check" data-pump-check>
+        <span class="ml-pump__body">
+          <span class="ml-pump__title">Ajouter une pompe doseuse <span data-pump-fmt>200&nbsp;ml</span></span>
+          <span class="ml-pump__sub">1 pompe par flacon · s'aligne sur votre quantité</span>
+        </span>
+        <span class="ml-pump__price">+<span data-pump-unit>0,90</span>&nbsp;€ <small>HT/u</small></span>
+      </label>
+
+      <div class="ml-pricing-card">
+        <div class="ml-price-total">
+          <span class="ml-price-amount" data-total>—</span>
+          <span class="ml-price-currency">€</span>
+          <span class="ml-price-tax">HT</span>
+        </div>
+        <div class="ml-price-unit">soit <span data-unit>—</span> / unité HT</div>
+      </div>
+      <div class="ml-pump-line" data-pump-line></div>
+
+      <button class="ml-btn-cart">
+        <span>Ajouter au panier</span>
+        <span class="ml-btn-cart__pill" data-pill>—</span>
+      </button>
+      <p class="note">Au panier : <strong>2 lignes</strong> distinctes → le flacon (prix palier) + la pompe (prix fixe, même quantité).</p>
+    </div>
+  </div>
+
+  <!-- ===================== COMMANDE EXPRESS ===================== -->
+  <div class="panel">
+    <span class="panel__tag">Surface 2</span>
+    <h2 class="panel__h">Commande Express<span class="new-flag">+ colonne pompe</span></h2>
+
+    <div class="ml-qo__table-wrap">
+      <table class="ml-qo__table" data-qo>
+        <thead>
+          <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th class="col-c">Pompe</th>
+            <th>Prix unit. HT</th>
+            <th>Total HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ml-qo__category"><td colspan="5">Shampoings</td></tr>
+          <tr data-row data-pump-unit="50">
+            <td><div class="ml-qo__product"><div class="ml-qo__product-img">🧴</div><div><div class="ml-qo__product-name">Shampoing Nourrissant</div><div class="ml-qo__product-variant">200ml</div></div></div></td>
+            <td><select class="ml-qo__select" data-qty><option value="0">—</option><option value="6" data-p="700">6 unités</option><option value="12" data-p="665">12 unités</option><option value="24" data-p="630" selected>24 unités</option><option value="48" data-p="560">48 unités</option><option value="96" data-p="500">96 unités</option></select></td>
+            <td class="col-c"><input type="checkbox" class="ml-qo__pump-check" data-pump><span class="ml-qo__pump-price">+0,50&nbsp;€/u</span></td>
+            <td class="ml-qo__price"><span data-u>—</span> <small>€ HT</small></td>
+            <td class="ml-qo__price"><span data-l>—</span> <small>€ HT</small></td>
+          </tr>
+          <tr data-row data-pump-unit="100">
+            <td><div class="ml-qo__product"><div class="ml-qo__product-img">🧴</div><div><div class="ml-qo__product-name">Shampoing Nourrissant</div><div class="ml-qo__product-variant">1000ml</div></div></div></td>
+            <td><select class="ml-qo__select" data-qty><option value="0">—</option><option value="1" data-p="2490">1 unité</option><option value="6" data-p="2100" selected>6 unités</option><option value="12" data-p="1865">12 unités</option></select></td>
+            <td class="col-c"><input type="checkbox" class="ml-qo__pump-check" data-pump><span class="ml-qo__pump-price">+1,00&nbsp;€/u</span></td>
+            <td class="ml-qo__price"><span data-u>—</span> <small>€ HT</small></td>
+            <td class="ml-qo__price"><span data-l>—</span> <small>€ HT</small></td>
+          </tr>
+          <tr class="ml-qo__category"><td colspan="5">Sérums</td></tr>
+          <tr data-row data-pump-unit="0">
+            <td><div class="ml-qo__product"><div class="ml-qo__product-img">💧</div><div><div class="ml-qo__product-name">Sérum Finition Ultime</div><div class="ml-qo__product-variant">50ml</div></div></div></td>
+            <td><select class="ml-qo__select" data-qty><option value="0">—</option><option value="6" data-p="950" selected>6 unités</option><option value="12" data-p="900">12 unités</option></select></td>
+            <td class="col-c"><span class="ml-qo__pump-na" title="Pas de pompe pour ce format">—</span></td>
+            <td class="ml-qo__price"><span data-u>—</span> <small>€ HT</small></td>
+            <td class="ml-qo__price"><span data-l>—</span> <small>€ HT</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ml-qo__foot">
+      <div class="ml-qo__totwrap">
+        Total : <span class="ml-qo__tot"><span data-grand>0,00</span> <small>€ HT</small></span>
+        <span class="ml-qo__pumptot" data-pumptot></span>
+      </div>
+      <button class="ml-qo__submit">Ajouter au panier</button>
+    </div>
+    <p class="note">Le format 50&nbsp;ml (sérums/huiles) n'a pas de pompe → la case affiche <code>—</code>. Pompe cochée = ligne pompe ajoutée au même palier que le produit.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var euro = function(c){ return (c/100).toFixed(2).replace('.',','); };
+
+  /* ---- Fiche produit ---- */
+  var TIERS = {
+    "200":  [[6,700],[12,665],[24,630],[48,560],[96,500]],
+    "500":  [[6,1490],[12,1340],[24,1265],[48,1190],[96,1065]],
+    "1000": [[1,2490],[3,2365],[6,2100],[12,1865]]
+  };
+  var PUMP = { "200":50, "500":50, "1000":100 }; // centimes HT (Odoo: Pompe 200/500ml=0,50€, 1000ml=1,00€)
+  var fiche = document.querySelector('[data-fiche]');
+  var fmt = "200", qty = TIERS["200"][0][0], unit = TIERS["200"][0][1];
+
+  function renderTiers(){
+    var box = fiche.querySelector('#ml-qty-btns'); box.innerHTML='';
+    var base = TIERS[fmt][0][1];
+    TIERS[fmt].forEach(function(t,i){
+      var pct = Math.round((1 - t[1]/base)*100);
+      var b = document.createElement('button');
+      b.className='ml-qty-btn'+(i===0?' is-active':'');
+      b.innerHTML='<span class="ml-qty-btn__num">'+t[0]+'</span><span class="ml-qty-btn__label">unité'+(t[0]>1?'s':'')+'</span>'+(pct>0?'<span class="ml-qty-btn__badge">-'+pct+'%</span>':'');
+      b.onclick=function(){ qty=t[0]; unit=t[1]; box.querySelectorAll('.ml-qty-btn').forEach(function(x){x.classList.remove('is-active');}); b.classList.add('is-active'); paint(); };
+      box.appendChild(b);
+    });
+    qty=TIERS[fmt][0][0]; unit=TIERS[fmt][0][1];
+  }
+  function paint(){
+    fiche.querySelector('[data-total]').textContent = euro(unit*qty);
+    fiche.querySelector('[data-unit]').textContent = euro(unit)+' €';
+    fiche.querySelector('[data-pill]').textContent = qty+' unité'+(qty>1?'s':'');
+    fiche.querySelector('[data-pump-fmt]').innerHTML = fmt+'&nbsp;ml';
+    fiche.querySelector('[data-pump-unit]').textContent = euro(PUMP[fmt]);
+    var checked = fiche.querySelector('[data-pump-check]').checked;
+    var line = fiche.querySelector('[data-pump-line]');
+    fiche.querySelector('[data-pump]').classList.toggle('is-checked', checked);
+    if(checked){ line.classList.add('is-visible'); line.innerHTML='+ '+euro(PUMP[fmt]*qty)+' € de pompes ('+qty+' × '+euro(PUMP[fmt])+' €)'; }
+    else { line.classList.remove('is-visible'); }
+  }
+  fiche.querySelectorAll('.ml-contenance-btn').forEach(function(c){
+    c.onclick=function(){ fiche.querySelectorAll('.ml-contenance-btn').forEach(function(x){x.classList.remove('is-active');}); c.classList.add('is-active'); fmt=c.dataset.fmt; renderTiers(); paint(); };
+  });
+  fiche.querySelector('[data-pump-check]').onchange=paint;
+  renderTiers(); paint();
+
+  /* ---- Commande express ---- */
+  var qo = document.querySelector('[data-qo]');
+  function paintQo(){
+    var grand=0, pumpTot=0;
+    qo.querySelectorAll('[data-row]').forEach(function(tr){
+      var sel=tr.querySelector('[data-qty]'); var q=parseInt(sel.value,10);
+      var u = tr.querySelector('[data-u]'); var l=tr.querySelector('[data-l]');
+      if(q>0){ var p=parseInt(sel.options[sel.selectedIndex].dataset.p,10); u.textContent=euro(p); l.textContent=euro(p*q); grand+=p*q;
+        var pc=tr.querySelector('[data-pump]'); var pu=parseInt(tr.dataset.pumpUnit,10);
+        if(pc && pc.checked && pu>0){ pumpTot+=pu*q; grand+=pu*q; }
+      } else { u.textContent='—'; l.textContent='—'; }
+    });
+    document.querySelector('[data-grand]').textContent=euro(grand);
+    document.querySelector('[data-pumptot]').textContent = pumpTot>0 ? ('· dont '+euro(pumpTot)+' € de pompes') : '';
+  }
+  qo.addEventListener('change', paintQo);
+  paintQo();
+})();
+</script>
+</body>
+</html>

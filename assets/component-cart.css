@@ -267,19 +267,34 @@ cart-items {
   margin-top: 1rem;
 }
 
-@media(min-width: 1024px) {
-  .cart__footer-left {
-    display: grid;
-    grid-template-columns: auto auto;
-  }
+.cart__footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.cart__note .field__input,
+.cart-discount-wrap,
+.cart-discount {
+  width: 100%;
 }
 
 .field-discount {
   gap: 1rem;
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+.field-discount .field__input {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .field-discount .button {
   min-height: 4.5rem;
+  min-width: auto;
+  padding-inline: 1.6rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }

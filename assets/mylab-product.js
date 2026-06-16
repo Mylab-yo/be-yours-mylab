@@ -93,6 +93,7 @@
     updatePriceDisplay(ctx, qty, unitPrice);
     updatePalierTable(ctx, qty);
     updateCartButton(ctx, qty);
+    updatePumpLine(ctx);
   }
 
   /* -------------------------------------------------------
@@ -163,6 +164,22 @@
   }
 
   /* -------------------------------------------------------
+     LIGNE RÉCAP POMPE
+     ------------------------------------------------------- */
+  function updatePumpLine(ctx) {
+    var lineEl = q(ctx.root, '#ml-pump-line');
+    if (!lineEl) return;
+    if (ctx.pumpChecked && ctx.pump && ctx.selectedQty) {
+      var total = ctx.pump.price * ctx.selectedQty;
+      lineEl.textContent = '+ ' + U.formatPrice(total) + ' de pompes ('
+        + ctx.selectedQty + ' × ' + U.formatPrice(ctx.pump.price) + ')';
+      lineEl.classList.add('is-visible');
+    } else {
+      lineEl.classList.remove('is-visible');
+    }
+  }
+
+  /* -------------------------------------------------------
      AJOUT AU PANIER
      ------------------------------------------------------- */
   function handleAddToCart(ctx) {
@@ -172,10 +189,15 @@
     btn.classList.add('is-loading');
     btn.disabled = true;
 
+    var items = [{ id: ctx.variantId, quantity: ctx.selectedQty }];
+    if (ctx.pumpChecked && ctx.pump) {
+      items.push({ id: ctx.pump.variantId, quantity: ctx.selectedQty });
+    }
+
     fetch('/cart/add.js', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      body: JSON.stringify({ items: [{ id: ctx.variantId, quantity: ctx.selectedQty }] })
+      body: JSON.stringify({ items: items })
     })
     .then(function (response) {
       if (!response.ok) throw new Error('Erreur ajout panier');
@@ -222,7 +244,9 @@
       root: root,
       tiers: [],
       variantId: null,
-      selectedQty: null
+      selectedQty: null,
+      pump: null,
+      pumpChecked: false
     };
 
     var cartBtn = q(root, '#ml-btn-cart');
@@ -253,6 +277,37 @@
 
         toggleNativeBlocks(root, false);
         ctx.tiers = tiers;
+
+        /* ── ADD-ON POMPE ── */
+        /* Déduire le format : findProductEntry renvoie size=null pour les clés
+           top-level (= handles 200ml), donc on scanne entry.sizes nous-mêmes. */
+        var foundEntry = U.findProductEntry(handle, map);
+        var format = null;
+        if (foundEntry && foundEntry.entry && foundEntry.entry.sizes) {
+          var szKeys = Object.keys(foundEntry.entry.sizes);
+          for (var zi = 0; zi < szKeys.length; zi++) {
+            if (foundEntry.entry.sizes[szKeys[zi]] === handle) { format = szKeys[zi]; break; }
+          }
+        }
+        var pumpCfg = U.getPumpForFormat(format, map);
+        if (pumpCfg) {
+          U.loadPumpProduct(pumpCfg.handle).then(function (pump) {
+            if (!pump) return;
+            ctx.pump = pump;
+            var label = q(root, '#ml-pump');
+            var fmtEl = q(root, '#ml-pump-fmt');
+            var unitEl = q(root, '#ml-pump-unit');
+            if (fmtEl) fmtEl.textContent = format + ' ml';
+            if (unitEl) unitEl.textContent = U.formatPriceCompact(pump.price);
+            if (label) label.hidden = false;
+            var check = q(root, '#ml-pump-check');
+            if (check) check.addEventListener('change', function () {
+              ctx.pumpChecked = check.checked;
+              if (label) label.classList.toggle('is-checked', check.checked);
+              updatePumpLine(ctx);
+            });
+          });
+        }
 
         if (!ctx.variantId && product.variants && product.variants.length > 0) {
           ctx.variantId = product.variants[0].id;

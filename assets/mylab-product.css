@@ -186,6 +186,26 @@
 .ml-price-savings.is-visible { display: flex; }
 
 /* ============================================================
+   ADD-ON POMPE
+   ============================================================ */
+.ml-pump {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; margin-bottom: 20px;
+  border: 1px solid var(--ml-line); border-radius: 12px;
+  cursor: pointer; transition: all .15s;
+}
+.ml-pump:hover { border-color: #bbb; }
+.ml-pump.is-checked { border-color: var(--ml-black); background: var(--ml-off); }
+.ml-pump__check { width: 20px; height: 20px; accent-color: var(--ml-black); flex-shrink: 0; cursor: pointer; }
+.ml-pump__body { flex: 1; }
+.ml-pump__title { display: block; font-size: 1.4rem; font-weight: 600; color: var(--ml-black); line-height: 1.25; }
+.ml-pump__sub { display: block; font-size: 1.15rem; color: var(--ml-muted); margin-top: 2px; }
+.ml-pump__price { font-size: 1.5rem; font-weight: 700; color: var(--ml-black); white-space: nowrap; }
+.ml-pump__price small { font-size: 1rem; font-weight: 600; color: var(--ml-muted); letter-spacing: .06em; }
+.ml-pump-line { display: none; font-size: 1.25rem; color: var(--ml-mid); margin: -8px 0 16px; }
+.ml-pump-line.is-visible { display: block; }
+
+/* ============================================================
    CTA — pill style
    ============================================================ */
 

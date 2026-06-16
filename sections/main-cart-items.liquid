@@ -153,6 +153,8 @@
                     assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
                   elsif ml_t == 'creme' and ml_f == '400'
                     assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+                  elsif ml_t == 'creme' and ml_f == '500'
+                    assign ml_tier_data = '6:1790,14:1550,28:1440,42:1360'
                   elsif ml_t == 'creme' and ml_f == '1000'
                     assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
                   elsif ml_t == 'serum'
@@ -183,7 +185,7 @@
                     assign ml_ht_subtotal_page = ml_ht_subtotal_page | plus: ml_lc
                   endif
                 -%}
-                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}" data-key="{{ item.key }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
+                <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}" data-key="{{ item.key }}" data-cart-item-key="{{ item.key }}"{% if ml_tier_data != '' %} data-ml-line-total="{{ ml_lc }}"{% endif %}>
                   <td class="cart-item__media">
                     {% if item.image %}
                       <span class="media-wrapper media-wrapper--small">
@@ -212,6 +214,9 @@
                     <div>
                       <a href="{{ item.product.url }}" class="cart-item__name link">{{ item.product.title | escape }}</a>
                     </div>
+
+                    {%- comment -%} BSS B2B Volume Pricing table (rendu côté app) {%- endcomment -%}
+                    <div class="bss-b2b-qb-table"></div>
 
                     {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
                       {%- if item.product.has_only_default_variant == false or item.properties.size != 0 -%}

@@ -14,9 +14,14 @@ class PredictiveSearch extends HTMLElement {
   }
 
   setupEventListeners() {
-    this.querySelector('form.search').addEventListener('submit', this.onFormSubmit.bind(this));
-    this.querySelector('button[type="button"]').addEventListener('click', this.close.bind(this));
-    this.querySelector('button[type="reset"]').addEventListener('click', this.clear.bind(this));
+    const form = this.querySelector('form.search');
+    if (form) form.addEventListener('submit', this.onFormSubmit.bind(this));
+
+    const closeButton = this.querySelector('button[type="button"]');
+    if (closeButton) closeButton.addEventListener('click', this.close.bind(this));
+
+    const resetButton = this.querySelector('button[type="reset"]');
+    if (resetButton) resetButton.addEventListener('click', this.clear.bind(this));
 
     this.input.addEventListener('input', debounce((event) => {
       this.onChange(event);

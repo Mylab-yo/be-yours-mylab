@@ -1012,6 +1012,304 @@ if (pickingModelId && activityTypeId) {
 return [{ json: { ...input, activity_id: activityId } }];
 `;
 
+const INVOICE_JS = `// Node type: Code — shared helper, not a standalone node.
+// This block of code is prepended to other Code nodes that need to talk to Odoo.
+// Exposes: odooExecute(model, method, args, kwargs) -> Promise<any>
+
+const ODOO_URL = $env.ODOO_URL || 'https://odoo.startec-paris.com';
+const ODOO_DB = $env.ODOO_DB || 'OdooYJ';
+const ODOO_LOGIN = $env.ODOO_LOGIN || 'yoann@mylab-shop.com';
+const ODOO_API_KEY = $env.ODOO_API_KEY;
+
+if (!ODOO_API_KEY) {
+  throw new Error('ODOO_API_KEY env variable not set');
+}
+
+// XML-RPC body builder for Odoo
+function xmlrpcBody(method, params) {
+  const escape = (s) => String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  function encode(v) {
+    if (v === null || v === undefined) return '<value><nil/></value>';
+    if (typeof v === 'boolean') return \`<value><boolean>\${v ? 1 : 0}</boolean></value>\`;
+    if (Number.isInteger(v)) return \`<value><int>\${v}</int></value>\`;
+    if (typeof v === 'number') return \`<value><double>\${v}</double></value>\`;
+    if (typeof v === 'string') return \`<value><string>\${escape(v)}</string></value>\`;
+    if (Array.isArray(v)) {
+      return \`<value><array><data>\${v.map(encode).join('')}</data></array></value>\`;
+    }
+    if (typeof v === 'object') {
+      const members = Object.entries(v)
+        .map(([k, val]) => \`<member><name>\${escape(k)}</name>\${encode(val)}</member>\`)
+        .join('');
+      return \`<value><struct>\${members}</struct></value>\`;
+    }
+    throw new Error(\`Unsupported type: \${typeof v}\`);
+  }
+  const paramsXml = params.map((p) => \`<param>\${encode(p)}</param>\`).join('');
+  return \`<?xml version="1.0"?><methodCall><methodName>\${method}</methodName><params>\${paramsXml}</params></methodCall>\`;
+}
+
+// Depth-aware XML-RPC response parser — handles nested arrays + structs, tolerates whitespace
+function parseXmlrpcResponse(xml) {
+  if (xml.includes('<fault>')) {
+    const faultMatch = xml.match(/<string>([\\s\\S]*?)<\\/string>/);
+    throw new Error(\`Odoo fault: \${faultMatch ? faultMatch[1] : xml.slice(0, 500)}\`);
+  }
+  const m = xml.match(/<params>\\s*<param>\\s*<value>([\\s\\S]*)<\\/value>\\s*<\\/param>\\s*<\\/params>/);
+  if (!m) return null;
+  return parseValue(m[1].trim());
+}
+
+function parseValue(frag) {
+  frag = frag.trim();
+  if (frag.startsWith('<nil/>')) return null;
+  const m = frag.match(/^<(int|i4|boolean|string|double|array|struct|dateTime\\.iso8601|base64)>([\\s\\S]*)<\\/\\1>$/);
+  if (!m) return frag; // implicit string
+  const tag = m[1];
+  const inner = m[2];
+  if (tag === 'int' || tag === 'i4') return parseInt(inner, 10);
+  if (tag === 'boolean') return inner === '1';
+  if (tag === 'string') return inner;
+  if (tag === 'double') return parseFloat(inner);
+  if (tag === 'dateTime.iso8601') return inner;
+  if (tag === 'base64') return inner;
+  if (tag === 'array') {
+    const dataMatch = inner.match(/<data>([\\s\\S]*)<\\/data>/);
+    if (!dataMatch) return [];
+    return splitValues(dataMatch[1]).map(parseValue);
+  }
+  if (tag === 'struct') {
+    const result = {};
+    let rest = inner;
+    while (true) {
+      const mem = rest.match(/^\\s*<member>\\s*<name>([^<]+)<\\/name>\\s*<value>([\\s\\S]*)/);
+      if (!mem) break;
+      const nameStr = mem[1];
+      const after = mem[2];
+      const endIdx = findMatchingValueEnd(after);
+      if (endIdx < 0) break;
+      result[nameStr] = parseValue(after.slice(0, endIdx));
+      const afterVal = after.slice(endIdx);
+      const memEnd = afterVal.match(/<\\/value>\\s*<\\/member>/);
+      if (!memEnd) break;
+      rest = afterVal.slice(memEnd.index + memEnd[0].length);
+    }
+    return result;
+  }
+  return null;
+}
+
+// Split <data> content into top-level <value>...</value> fragments (depth-aware)
+function splitValues(data) {
+  const out = [];
+  let i = 0;
+  while (i < data.length) {
+    const start = data.indexOf('<value>', i);
+    if (start < 0) break;
+    const end = findMatchingValueEnd(data.slice(start + 7));
+    if (end < 0) break;
+    out.push(data.slice(start + 7, start + 7 + end).trim());
+    i = start + 7 + end + '</value>'.length;
+  }
+  return out;
+}
+
+// Given a string starting just AFTER <value>, return index of matching </value>
+function findMatchingValueEnd(s) {
+  let depth = 1;
+  let i = 0;
+  while (i < s.length && depth > 0) {
+    const openIdx = s.indexOf('<value>', i);
+    const closeIdx = s.indexOf('</value>', i);
+    if (closeIdx < 0) return -1;
+    if (openIdx >= 0 && openIdx < closeIdx) {
+      depth++;
+      i = openIdx + 7;
+    } else {
+      depth--;
+      if (depth === 0) return closeIdx;
+      i = closeIdx + 8;
+    }
+  }
+  return -1;
+}
+
+// Authenticate once and cache UID for this execution
+let cachedUid = null;
+async function odooAuthenticate() {
+  if (cachedUid !== null) return cachedUid;
+  const body = xmlrpcBody('authenticate', [ODOO_DB, ODOO_LOGIN, ODOO_API_KEY, {}]);
+  const resp = await this.helpers.httpRequest({
+    method: 'POST',
+    url: \`\${ODOO_URL}/xmlrpc/2/common\`,
+    headers: { 'Content-Type': 'text/xml' },
+    body,
+    returnFullResponse: false,
+  });
+  const uid = parseXmlrpcResponse(resp);
+  if (!uid) throw new Error(\`Odoo authentication failed (resp=\${String(resp).slice(0, 300)})\`);
+  cachedUid = uid;
+  return uid;
+}
+
+async function odooExecute(model, method, args, kwargs = {}) {
+  const uid = await odooAuthenticate.call(this);
+  const body = xmlrpcBody('execute_kw', [ODOO_DB, uid, ODOO_API_KEY, model, method, args, kwargs]);
+  const resp = await this.helpers.httpRequest({
+    method: 'POST',
+    url: \`\${ODOO_URL}/xmlrpc/2/object\`,
+    headers: { 'Content-Type': 'text/xml' },
+    body,
+    returnFullResponse: false,
+  });
+  return parseXmlrpcResponse(resp);
+}
+
+// ATTENTION: this file is designed to be prepended to each Code node
+// that interacts with Odoo. odooExecute uses "this" (the node context) for
+// helpers.httpRequest, so call it as odooExecute.call(this, ...).
+
+
+// Node type: Code (Run Once for All Items)
+// Input: { sale_order_id, order_number, status, ... } (from 05_create_sale_order.js)
+// Output: passes through input + { invoice_ids, invoice_names, invoice_status }
+// Dependencies: 02_odoo_client.js prepended
+//
+// Flow:
+//   1. If sale_order_id missing or status === 'already_processed' → passthrough
+//   2. Idempotency: re-read SO, only proceed if invoice_status == 'to invoice'
+//   3. Create invoice via sale.advance.payment.inv wizard (tolerant of XML-RPC marshal None)
+//   4. Post each invoice (account.move.action_post)
+//   5. Send email per invoice with mail.template id=18 (Invoice: Sending)
+//
+// Failure of any step does NOT throw — the SO is already safe. We attach
+// invoice_status='failed' + error_reason for the log node downstream.
+
+const INVOICE_TEMPLATE_ID = 18;
+
+const input = $input.first().json;
+const sale_order_id = input.sale_order_id;
+
+// Passthrough if no SO or already processed earlier
+if (!sale_order_id || input.status === 'already_processed') {
+  return [{ json: { ...input, invoice_status: 'skipped' } }];
+}
+
+async function safeExecute(model, method, args, kwargs = {}) {
+  try {
+    return { ok: true, result: await odooExecute.call(this, model, method, args, kwargs) };
+  } catch (e) {
+    const msg = String(e && e.message || e);
+    // Odoo XML-RPC marshals \`None\` on some wizard returns — cosmetic, ignore
+    if (msg.includes('cannot marshal None') || msg.includes('marshal None')) {
+      return { ok: true, result: null, cosmetic: true };
+    }
+    return { ok: false, error: msg };
+  }
+}
+
+const out = { ...input };
+
+try {
+  // Step 1: Re-read SO to check idempotency
+  const soList = await odooExecute.call(this, 'sale.order', 'read',
+    [[sale_order_id]],
+    { fields: ['invoice_status', 'state', 'client_order_ref', 'invoice_ids'] });
+
+  if (!soList || !soList.length) {
+    out.invoice_status = 'skipped';
+    out.invoice_error = 'SO not found on re-read';
+    return [{ json: out }];
+  }
+  const so = soList[0];
+  if (so.state !== 'sale') {
+    out.invoice_status = 'skipped';
+    out.invoice_error = \`SO state=\${so.state} (expected 'sale')\`;
+    return [{ json: out }];
+  }
+  if (so.invoice_status !== 'to invoice') {
+    out.invoice_status = 'skipped';
+    out.invoice_error = \`SO invoice_status=\${so.invoice_status} (expected 'to invoice')\`;
+    return [{ json: out }];
+  }
+  if (!so.client_order_ref) {
+    out.invoice_status = 'skipped';
+    out.invoice_error = 'SO has no client_order_ref (not a Shopify order)';
+    return [{ json: out }];
+  }
+
+  // Step 2: Create invoice via wizard
+  const wizCtx = {
+    active_model: 'sale.order',
+    active_ids: [sale_order_id],
+    active_id: sale_order_id,
+  };
+  const wizard_id = await odooExecute.call(this, 'sale.advance.payment.inv', 'create',
+    [{ advance_payment_method: 'delivered' }], { context: wizCtx });
+
+  const createRes = await safeExecute.call(this, 'sale.advance.payment.inv', 'create_invoices',
+    [[wizard_id]], { context: wizCtx });
+  if (!createRes.ok) {
+    out.invoice_status = 'failed';
+    out.invoice_error = \`create_invoices failed: \${createRes.error}\`;
+    return [{ json: out }];
+  }
+
+  // Step 3: Re-read SO to get invoice_ids
+  const so2List = await odooExecute.call(this, 'sale.order', 'read',
+    [[sale_order_id]], { fields: ['invoice_ids'] });
+  const inv_ids = (so2List[0] && so2List[0].invoice_ids) || [];
+  if (!inv_ids.length) {
+    out.invoice_status = 'failed';
+    out.invoice_error = 'wizard ran but no invoice_ids on SO';
+    return [{ json: out }];
+  }
+
+  // Only operate on DRAFT invoices (the new ones we just created)
+  const invsRead = await odooExecute.call(this, 'account.move', 'read',
+    [inv_ids], { fields: ['id', 'name', 'state'] });
+  const draft_ids = invsRead.filter((i) => i.state === 'draft').map((i) => i.id);
+
+  if (!draft_ids.length) {
+    out.invoice_status = 'no_new_draft';
+    out.invoice_ids = inv_ids;
+    return [{ json: out }];
+  }
+
+  // Step 4: Post the draft invoices
+  await odooExecute.call(this, 'account.move', 'action_post', [draft_ids]);
+
+  // Step 5: Send email per posted invoice
+  const sent_for = [];
+  const send_errors = [];
+  for (const iid of draft_ids) {
+    const r = await safeExecute.call(this, 'mail.template', 'send_mail',
+      [INVOICE_TEMPLATE_ID, iid], { force_send: true });
+    if (r.ok) sent_for.push(iid);
+    else send_errors.push({ inv: iid, err: r.error });
+  }
+
+  // Re-read for final names
+  const final_invs = await odooExecute.call(this, 'account.move', 'read',
+    [draft_ids], { fields: ['id', 'name', 'state'] });
+
+  out.invoice_ids = draft_ids;
+  out.invoice_names = final_invs.map((i) => i.name);
+  out.invoice_status = send_errors.length ? 'partial' : 'invoiced_and_sent';
+  if (send_errors.length) out.invoice_send_errors = send_errors;
+
+  return [{ json: out }];
+} catch (e) {
+  // Last-resort catch: never block the workflow on invoice failure
+  out.invoice_status = 'failed';
+  out.invoice_error = String(e && e.message || e);
+  return [{ json: out }];
+}
+`;
+
 const LOG_ROW_JS = `// Node type: Code (Run Once for All Items)
 // Formats the final log payload for the Google Sheets node
 // Output: row to append
@@ -1106,6 +1404,20 @@ const saleOrderNode = node({
   },
 });
 
+const invoiceNode = node({
+  type: 'n8n-nodes-base.code',
+  version: 2,
+  config: {
+    name: 'Create Invoice',
+    position: [1230, 300],
+    parameters: {
+      mode: 'runOnceForAllItems',
+      language: 'javaScript',
+      jsCode: INVOICE_JS,
+    },
+  },
+});
+
 const activityNode = node({
   type: 'n8n-nodes-base.code',
   version: 2,
@@ -1140,5 +1452,6 @@ export default workflow('mylab-shopify-order', 'MY.LAB - Shopify → Commande Od
   .to(partnerNode)
   .to(productsNode)
   .to(saleOrderNode)
+  .to(invoiceNode)
   .to(activityNode)
   .to(logRowNode);
