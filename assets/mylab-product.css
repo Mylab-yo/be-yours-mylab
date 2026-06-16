@@ -291,31 +291,6 @@
 .ml-no-discount { color: var(--ml-light); }
 
 /* ============================================================
-   TRUST BADGES
-   ============================================================ */
-
-.ml-trust {
-  display: flex;
-  border-top: 1px solid var(--ml-line);
-  margin-top: 16px;
-  margin-bottom: 0;
-}
-
-.ml-trust__item {
-  flex: 1;
-  padding: 14px 0;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1.1rem;
-  color: var(--ml-mid);
-  border-right: 1px solid var(--ml-line);
-}
-.ml-trust__item:last-child { border-right: none; padding-left: 12px; }
-.ml-trust__item:not(:first-child) { padding-left: 12px; }
-.ml-trust__item svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.4; }
-
-/* ============================================================
    RESPONSIVE MOBILE
    ============================================================ */
 
@@ -328,25 +303,6 @@
 @media (max-width: 749px) {
   .ml-price-amount {
     font-size: 3.6rem;
-  }
-
-  .ml-trust {
-    flex-wrap: wrap;
-  }
-
-  .ml-trust .ml-trust__item,
-  .ml-trust__item:not(:first-child),
-  .ml-trust__item:last-child {
-    flex: 1 1 45%;
-    border-right: none;
-    padding-left: 0;
-    border-bottom: 1px solid var(--ml-line);
-  }
-
-  .ml-trust__item:last-child {
-    flex: 1 1 100%;
-    text-align: center;
-    justify-content: center;
   }
 }
 
