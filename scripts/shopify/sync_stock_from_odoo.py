@@ -69,6 +69,40 @@ for p in odoo_rows:
         odoo_by_sku[sku] = {"name": p["name"], "qty": int(p["qty_available"] // 1)}
 print(f"Odoo : {len(odoo_by_sku)} produits stockables avec SKU")
 
+# 1bis) Testeurs : ils piochent dans le MEME stock que le produit classique parent.
+# On mappe chaque SKU '...-testeur' vers son produit classique (par tokens), et on
+# fait porter au testeur le qty_available du parent. Match = tokens du testeur inclus
+# dans les tokens du parent (apres retrait de 'coloristeur' + contenance), on prefere
+# la contenance standard (200ml, sinon 50ml).
+_CONT = re.compile(r"-(\d+)-ml$")
+_PREF = [200, 50, 100, 250, 400, 500, 1000]
+
+
+def build_parent_map(by_sku):
+    classics = {}
+    for s in by_sku:
+        m = _CONT.search(s)
+        if m:
+            core = frozenset(_CONT.sub("", s).split("-")) - {"coloristeur"}
+            classics[s] = (core, int(m.group(1)))
+    pmap = {}
+    for s in by_sku:
+        if not s.endswith("-testeur"):
+            continue
+        tt = frozenset(s[: -len("-testeur")].split("-"))
+        cands = [(cs, core, cc) for cs, (core, cc) in classics.items() if tt <= core]
+        if not cands:
+            continue
+        cands.sort(key=lambda x: (len(x[1] - tt), _PREF.index(x[2]) if x[2] in _PREF else 99))
+        pmap[s] = cands[0][0]
+    return pmap
+
+
+parent_of = build_parent_map(odoo_by_sku)
+unmapped_testeurs = [s for s in odoo_by_sku if s.endswith("-testeur") and s not in parent_of]
+print(f"Testeurs mappes sur un parent : {len(parent_of)}" +
+      (f" | non mappes : {len(unmapped_testeurs)} ({', '.join(unmapped_testeurs)})" if unmapped_testeurs else ""))
+
 # 2) Shopify : SKU -> inventory_item_id (pagination cursor via header Link)
 sku_map = {}
 url = "/products.json?limit=250&fields=id,title,variants"
@@ -102,19 +136,23 @@ for i in range(0, len(invs), 50):
             level[l["inventory_item_id"]] = l.get("available") or 0
     time.sleep(0.4)
 
-# 5) Diff
+# 5) Diff — pour un testeur, la cible = qty_available du parent (meme stock)
 updates = []
 for sku, od, sh in matched:
     cur = level.get(sh["inv"], 0)
-    if cur != od["qty"]:
+    parent = parent_of.get(sku)
+    eff = odoo_by_sku[parent]["qty"] if parent and parent in odoo_by_sku else od["qty"]
+    if cur != eff:
         updates.append({"sku": sku, "name": od["name"], "inv": sh["inv"],
-                        "odoo": od["qty"], "shopify": cur, "diff": od["qty"] - cur})
+                        "odoo": eff, "shopify": cur, "diff": eff - cur,
+                        "src": f"<- {parent}" if parent else ""})
 
 updates.sort(key=lambda u: abs(u["diff"]), reverse=True)
 print(f"\n=== {len(updates)} ecarts a corriger (Shopify -> Odoo) ===")
-print(f"{'SKU':<38} {'Shopify':>8} {'Odoo':>8} {'Diff':>7}  Nom")
+print(f"{'SKU':<38} {'Shopify':>8} {'Odoo':>8} {'Diff':>7}  Source/Nom")
 for u in updates:
-    print(f"{u['sku']:<38} {u['shopify']:>8} {u['odoo']:>8} {u['diff']:>+7}  {u['name'][:40]}")
+    tag = u["src"] or u["name"][:40]
+    print(f"{u['sku']:<38} {u['shopify']:>8} {u['odoo']:>8} {u['diff']:>+7}  {tag}")
 
 if only_odoo:
     print(f"\n[INFO] {len(only_odoo)} SKU Odoo sans correspondance Shopify (ignores)")
