@@ -1,6 +1,8 @@
 // Node "Lire stocks Shopify et comparer" — mappe SKU->inventory_item_id, compare au stock Odoo.
-// Secrets via $env. HTTP via this.helpers.httpRequest. Appels inventory_levels BATCHES (50 ids/req)
-// + filtre location + retry 429 pour rester sous le rate limit Shopify (2 req/s).
+// Testeurs : miroir du stock du produit classique parent (ils sont a 0 en propre dans Odoo).
+// FILTRE odoo_qty>0 : ne met JAMAIS un produit a 0 (les ~72 produits a 0 dans Odoo = stock non
+// saisi, pas un vrai zero — voir sync_stock_from_odoo.py qui partage cette logique).
+// Secrets via $env. HTTP via this.helpers.httpRequest. inventory_levels en BATCHES (50 ids/req) + retry 429.
 const SHOPIFY_TOKEN = $env.SHOPIFY_ACCESS_TOKEN;
 const SHOPIFY_STORE = 'mylab-shop-3';
 const LOCATION_ID = 107265032526;
@@ -23,7 +25,38 @@ async function shopify(opts) {
 
 const odooProducts = $input.all().map((i) => i.json);
 
-// 1) Recuperer tous les produits Shopify (pagination via header Link)
+// SKU -> produit Odoo (pour resoudre le parent des testeurs)
+const odooBySku = {};
+for (const p of odooProducts) odooBySku[p.sku] = p;
+
+// Mapping testeur -> produit classique parent.
+// Match : tokens du testeur inclus dans ceux du classique (apres retrait 'coloristeur' + contenance),
+// on prefere la contenance 200ml (sinon 50ml pour huile/serum-barbe).
+const CONT = /-(\d+)-ml$/;
+const PREF = [200, 50, 100, 250, 400, 500, 1000];
+const classics = {};
+for (const sku of Object.keys(odooBySku)) {
+  const m = sku.match(CONT);
+  if (m) {
+    const core = new Set(sku.replace(CONT, '').split('-').filter((t) => t !== 'coloristeur'));
+    classics[sku] = { core, size: parseInt(m[1], 10) };
+  }
+}
+function parentOf(sku) {
+  if (!sku.endsWith('-testeur')) return null;
+  const tt = sku.slice(0, -('-testeur'.length)).split('-');
+  let best = null, bestScore = null;
+  for (const cs of Object.keys(classics)) {
+    const { core, size } = classics[cs];
+    if (!tt.every((t) => core.has(t))) continue;
+    const prefIdx = PREF.indexOf(size) === -1 ? 99 : PREF.indexOf(size);
+    const score = (core.size - tt.length) * 100 + prefIdx;
+    if (bestScore === null || score < bestScore) { bestScore = score; best = cs; }
+  }
+  return best;
+}
+
+// 1) Tous les produits Shopify (pagination via header Link)
 let allProducts = [];
 let url = BASE + '/products.json?limit=250&fields=id,title,variants';
 while (url) {
@@ -48,11 +81,14 @@ for (const p of allProducts) {
   }
 }
 
-// 3) Produits Odoo matches dans Shopify
+// 3) Produits Odoo matches + qty effective (testeur = stock du parent)
 const matched = [];
 for (const odoo of odooProducts) {
   const s = skuMap[odoo.sku];
-  if (s) matched.push({ odoo, inv: s.inventory_item_id });
+  if (!s) continue;
+  const parent = parentOf(odoo.sku);
+  const eff = (parent && odooBySku[parent]) ? odooBySku[parent].odoo_qty : odoo.odoo_qty;
+  matched.push({ sku: odoo.sku, name: odoo.name, inv: s.inventory_item_id, eff });
 }
 
 // 4) Stock Shopify actuel — BATCH de 50 inventory_item_ids, filtre location
@@ -71,20 +107,21 @@ for (let i = 0; i < matched.length; i += 50) {
   await sleep(400);
 }
 
-// 5) Comparer
+// 5) Comparer — FILTRE eff>0 : ne pousse que le stock reel, ne zerote jamais
 const updates = [];
-for (const { odoo, inv } of matched) {
-  const currentShopifyQty = levelByItem[String(inv)] ?? 0;
-  if (currentShopifyQty !== odoo.odoo_qty) {
+for (const m of matched) {
+  if (!(m.eff > 0)) continue;
+  const currentShopifyQty = levelByItem[String(m.inv)] ?? 0;
+  if (currentShopifyQty !== m.eff) {
     updates.push({
       json: {
-        sku: odoo.sku,
-        name: odoo.name,
-        inventory_item_id: inv,
+        sku: m.sku,
+        name: m.name,
+        inventory_item_id: m.inv,
         location_id: LOCATION_ID,
-        odoo_qty: odoo.odoo_qty,
+        odoo_qty: m.eff,
         shopify_qty: currentShopifyQty,
-        diff: odoo.odoo_qty - currentShopifyQty,
+        diff: m.eff - currentShopifyQty,
       },
     });
   }
