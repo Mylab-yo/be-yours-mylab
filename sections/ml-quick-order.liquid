@@ -780,9 +780,42 @@
           tbody.innerHTML = '';
           var allFetches = [];
 
+          /* ── DEDUP par produit ──
+             La collection peut contenir plusieurs formats du même produit
+             (200ml / 500ml / 1000ml = handles distincts) : chacun est rendu côté
+             serveur ET ré-injecte ses formats frères depuis le product map → doublons.
+             On ne garde qu'UNE ligne « pivot » par produit (le plus petit format
+             présent), les autres formats sont (ré)injectés une seule fois. */
+          function sizeOfHandle(entry, handle) {
+            var sizes = entry.sizes || {};
+            var keys = Object.keys(sizes);
+            for (var i = 0; i < keys.length; i++) {
+              if (sizes[keys[i]] === handle) return parseInt(keys[i], 10) || 0;
+            }
+            return 0;
+          }
+          function dedupGroup(group) {
+            var seenEntries = [];
+            var reps = [];
+            group.forEach(function (item) {
+              var idx = seenEntries.indexOf(item.entry);
+              if (idx === -1) {
+                seenEntries.push(item.entry);
+                reps.push(item);
+              } else if (sizeOfHandle(item.entry, item.handle) < sizeOfHandle(reps[idx].entry, reps[idx].handle)) {
+                reps[idx].tr.remove();
+                reps[idx] = item;
+              } else {
+                item.tr.remove();
+              }
+            });
+            return reps;
+          }
+
           GAMME_ORDER.forEach(function (gk) {
             var group = gammeRows[gk];
             if (!group || !group.length) return;
+            group = dedupGroup(group);
 
             /* En-tête de catégorie */
             var headerTr = document.createElement('tr');
@@ -828,6 +861,7 @@
             if (GAMME_ORDER.indexOf(gk) !== -1) return;
             var group = gammeRows[gk];
             if (!group || !group.length) return;
+            group = dedupGroup(group);
             var headerTr = document.createElement('tr');
             headerTr.className = 'ml-qo__category';
             headerTr.innerHTML = '<td colspan="6">Autres produits</td>';
