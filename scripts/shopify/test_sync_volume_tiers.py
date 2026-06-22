@@ -28,3 +28,19 @@ def test_build_metafield_payloads():
     assert by_handle["bain-miraculeux"]["base_price"] == 850
     assert by_handle["shampoing-nourrissant-500ml"]["base_price"] == 1490
     assert len(out) == 3
+
+
+def test_build_metafield_payloads_skips_meta_entries():
+    # Le vrai ml-product-map.json contient une clé "_doc" (chaîne) et "_pumps"
+    # (dict sans sizes/tiers). Ni l'une ni l'autre ne doit faire planter ni produire de payload.
+    product_map = {
+        "_doc": "Source de vérité unique — contenances liées + paliers.",
+        "_pumps": {"200": "pompe-200", "500": "pompe-500"},
+        "bain-miraculeux": {
+            "sizes": {"50": "bain-miraculeux"},
+            "tiers": {"50": "6:850,12:805"},
+        },
+    }
+    out = build_metafield_payloads(product_map)
+    assert len(out) == 1
+    assert out[0]["handle"] == "bain-miraculeux"

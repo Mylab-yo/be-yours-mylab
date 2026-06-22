@@ -37,6 +37,8 @@ def build_metafield_payloads(product_map):
     """Aplati le map en une liste de metafields à écrire, un par (handle, size)."""
     out = []
     for entry in product_map.values():
+        if not isinstance(entry, dict):
+            continue  # entrées méta du JSON (ex. clé "_doc" = chaîne de doc)
         sizes = entry.get("sizes", {})
         tiers = entry.get("tiers", {})
         for size, handle in sizes.items():
