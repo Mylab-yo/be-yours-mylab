@@ -1211,8 +1211,8 @@
 
       {%- unless settings.disable_view_cart -%}
         {%- if ml_ht_subtotal > 0 and ml_has_non_tiered == false -%}
-          {%- comment -%} ml_ht_subtotal reflète déjà le prix palier (= remise One Stop). Ne PAS re-soustraire cart.total_discount (double comptage). {%- endcomment -%}
-          {%- assign ml_ht_cents = ml_ht_subtotal -%}
+          {%- comment -%} Sous-total = vrai total panier Shopify (cart.total_price), qui inclut deja la remise One Stop. Source de verite = ce que facture le checkout. {%- endcomment -%}
+          {%- assign ml_ht_cents = cart.total_price -%}
         {%- else -%}
           {%- assign ml_ht_cents = cart.total_price -%}
         {%- endif -%}

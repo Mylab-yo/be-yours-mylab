@@ -279,8 +279,8 @@
                 <p class="totals__subtotal h3">{{ 'sections.cart.subtotal' | t }}</p>
                 <p class="totals__subtotal-value">
                   {%- if ml_ht_subtotal_footer > 0 -%}
-                    {%- comment -%} ml_ht_subtotal_footer reflète déjà le prix palier (= remise One Stop). Ne PAS re-soustraire cart.total_discount (double comptage). {%- endcomment -%}
-                    {%- assign ml_ht_final = ml_ht_subtotal_footer -%}
+                    {%- comment -%} Sous-total = vrai total panier Shopify (cart.total_price), qui inclut deja la remise One Stop. Source de verite = ce que facture le checkout. {%- endcomment -%}
+                    {%- assign ml_ht_final = cart.total_price -%}
                     {%- assign ml_se = ml_ht_final | divided_by: 100 -%}
                     {%- assign ml_sr = ml_ht_final | modulo: 100 -%}
                     {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
