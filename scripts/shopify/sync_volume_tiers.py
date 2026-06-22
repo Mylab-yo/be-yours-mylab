@@ -11,6 +11,8 @@ import json
 import os
 import sys
 
+import requests
+
 SHOP = "mylab-shop-3.myshopify.com"
 API_VERSION = "2025-10"
 NAMESPACE = "mylab"
@@ -26,7 +28,7 @@ def parse_tier_string(s):
         if not chunk:
             continue
         qty_str, price_str = chunk.split(":")
-        pairs.append([int(qty_str), int(price_str)])
+        pairs.append([int(qty_str.strip()), int(price_str.strip())])
     pairs.sort(key=lambda p: p[0])
     return pairs
 
@@ -50,8 +52,6 @@ def build_metafield_payloads(product_map):
             })
     return out
 
-
-import requests  # noqa: E402
 
 GRAPHQL_URL = f"https://{SHOP}/admin/api/{API_VERSION}/graphql.json"
 
@@ -152,7 +152,9 @@ def main():
             print(f"écrit {p['handle']}")
 
     print(f"\n--- Résumé ---")
-    print(f"metafields {'planifiés' if args.dry_run else 'écrits'}: {len(payloads) if args.dry_run else written}")
+    # In dry-run, missing handles are skipped, so actual count = total - missing
+    planned_count = len(payloads) - len(missing) if args.dry_run else written
+    print(f"metafields {'planifiés' if args.dry_run else 'écrits'}: {planned_count}")
     if missing:
         print(f"⚠️ handles introuvables ({len(missing)}): {missing}")
     if mismatches:
