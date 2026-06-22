@@ -1211,8 +1211,8 @@
 
       {%- unless settings.disable_view_cart -%}
         {%- if ml_ht_subtotal > 0 and ml_has_non_tiered == false -%}
-          {%- assign ml_ht_cents = ml_ht_subtotal | minus: cart.total_discount -%}
-          {%- if ml_ht_cents < 0 -%}{%- assign ml_ht_cents = 0 -%}{%- endif -%}
+          {%- comment -%} ml_ht_subtotal reflète déjà le prix palier (= remise One Stop). Ne PAS re-soustraire cart.total_discount (double comptage). {%- endcomment -%}
+          {%- assign ml_ht_cents = ml_ht_subtotal -%}
         {%- else -%}
           {%- assign ml_ht_cents = cart.total_price -%}
         {%- endif -%}
