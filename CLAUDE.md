@@ -66,7 +66,9 @@ Standard Be Yours theme components remain intact for all non-product pages. Key 
 
 ### Pricing logic (important)
 
-Volume pricing is **hardcoded in JS** (`assets/mylab-product.js`), not stored in Shopify metafields or variant prices. Prices are in centimes (e.g. `700` = 7.00 €). The displayed subtotal in the cart drawer is recalculated client-side from these tiers — it does **not** match what Shopify charges. This is a B2B display layer; actual checkout pricing must be managed separately.
+Volume pricing tier data lives in `assets/ml-product-map.json` (keyed by product handle, prices in centimes, e.g. `700` = 7.00 €), consumed by `assets/mylab-product.js` for the product-page display. The same tier strings are also **duplicated as hardcoded Liquid** in `sections/mini-cart.liquid`, `sections/main-cart-items.liquid`, `sections/main-cart-footer.liquid`.
+
+**Update (2026-06): tier prices are now actually charged at checkout** via the public app **One Stop Volume Discounts** (per-product "Remise fixe par unité" offers, prices aligned to the 2025 price sheet). The drawer/`/cart` subtotal reads `cart.total_price` (the real Shopify cart, which includes One Stop's discount) so it **matches the checkout**. A custom Shopify discount function (repo `D:\volume-discount`) was built but **abandoned**: custom-app Functions require Shopify **Plus** and this store is on **Grow** — only public-app Functions work. See memory `project_volume_pricing_migration_one_stop`. Tier source of truth = `ml-product-map.json` → regenerate the One Stop blueprint from it.
 
 The "contenance" selector (`200ml`, `500ml`, `1000ml`) links to **separate product handles** (`shampoing-nourrissant`, `shampoing-nourrissant-500ml`, `shampoing-nourrissant-1000-ml`) rather than variants of a single product — each navigates to a new URL.
 
