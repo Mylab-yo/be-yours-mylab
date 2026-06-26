@@ -5,6 +5,10 @@ class SearchModal extends HTMLElement {
     this.detailsContainer = this.querySelector('details');
     this.summaryToggle = this.querySelector('summary');
 
+    // Garde défensif : un <search-modal> sans <details>/<summary> (markup
+    // partiel selon le template) faisait planter le constructeur.
+    if (!this.detailsContainer || !this.summaryToggle) return;
+
     this.detailsContainer.addEventListener(
       'keyup',
       (event) => event.code && event.code.toUpperCase() === 'ESCAPE' && this.close()
