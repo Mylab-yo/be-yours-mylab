@@ -114,6 +114,7 @@
     var productFilter = category === 'creme_coiffage' ? 'creme' : category;
     if (category === 'spray') productFilter = 'shampoing-spray';
     var visibleBottles = [];
+    var prodMatchCount = 0;
     filteredBottles.forEach(function (b) {
       var prods = b.compatible_products || [];
 
@@ -126,6 +127,7 @@
         prodMatch = prods.indexOf(productFilter) !== -1;
       }
       if (!prodMatch) return;
+      prodMatchCount++;
 
       var matMatch = B.bottleState.filterMaterial === 'all' || b.material === B.bottleState.filterMaterial;
       var availableColors = b.available_colors || (b.color ? [b.color] : []);
@@ -251,7 +253,25 @@
     }
 
     elBottlesGrid.innerHTML = html;
-    elBottlesEmpty.style.display = visibleBottles.length === 0 ? '' : 'none';
+
+    /* Empty-state message — distinguish the real cause so the grid never
+       looks broken: 5L (packaging à charge) vs no Takemoto bottle for this
+       format (standard inclus) vs filters too restrictive. */
+    if (visibleBottles.length === 0) {
+      var fmtLbl = format >= 1000 ? (format / 1000) + ' L' : format + ' ml';
+      if (format > 1000) {
+        elBottlesEmpty.innerHTML = 'Le packaging ' + fmtLbl + ' est à votre charge. ' +
+          '<a href="/pages/contact" class="bulk-bottles__custom-link">Contactez-nous pour un flacon sur-mesure.</a>';
+      } else if (prodMatchCount === 0) {
+        elBottlesEmpty.innerHTML = 'Aucun flacon Takemoto personnalisé en <strong>' + fmtLbl + '</strong> pour cette gamme.<br>' +
+          'Le <strong>packaging standard MY.LAB</strong> ci-dessus est inclus dans votre prix — sélectionnez-le pour continuer.';
+      } else {
+        elBottlesEmpty.innerHTML = 'Aucun flacon ne correspond aux filtres sélectionnés.';
+      }
+      elBottlesEmpty.style.display = '';
+    } else {
+      elBottlesEmpty.style.display = 'none';
+    }
 
     /* Bind pagination */
     elBottlesGrid.querySelectorAll('.bulk-bottles__page-btn').forEach(function (btn) {

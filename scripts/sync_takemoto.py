@@ -237,9 +237,14 @@ def detect_compatible_products(closure_type, capacity):
     Compat permissive : une même fermeture peut convenir à plusieurs usages
     (un flip-top marche sur un shampoing comme sur un masque). Seules vraies
     restrictions : spray (≤300ml, liquide basse-visco) et dropper/nozzle (≤100ml).
+
+    Seuil shampoing/creme/masque à 100ml : le configurateur propose ces formats
+    dès 100ml (available_formats). Un seuil >=200 créait une zone morte 120/150ml
+    où les flacons sortaient avec compatible_products=[] et disparaissaient de
+    l'étape 3 (bug corrigé 2026-06-26).
     """
     compat = []
-    big = capacity >= 200
+    big = capacity >= 100
     small = capacity <= 100
 
     if big and closure_type in ("pump", "screw_cap", "flip_top", "disc", "nozzle", "twist_cap"):
