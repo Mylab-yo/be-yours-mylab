@@ -459,14 +459,19 @@
     <script>
       window.MlOos = {};
       window.MlNoBackorder = {};
+      {%- comment -%} Seuil de rupture configurable : backorder => SOUS le seuil ; no-backorder => <= 0. {%- endcomment -%}
       {%- for product in collection.products -%}
         {%- assign qv = product.variants.first -%}
-        {%- if qv.inventory_management == 'shopify' and qv.inventory_quantity <= 0 -%}
+        {%- assign qo_back = true -%}
+        {%- if product.tags contains 'no-backorder' -%}{%- assign qo_back = false -%}{%- endif -%}
+        {%- assign qo_thr = 1 -%}
+        {%- if qo_back -%}{%- assign qo_thr = settings.ml_rupture_threshold | default: 10 -%}{%- endif -%}
+        {%- if qv.inventory_management == 'shopify' and qv.inventory_quantity < qo_thr -%}
           window.MlOos[{{ product.handle | json }}] = true;
         {%- endif -%}
-        {%- if product.tags contains 'no-backorder' -%}
+        {%- unless qo_back -%}
           window.MlNoBackorder[{{ product.handle | json }}] = true;
-        {%- endif -%}
+        {%- endunless -%}
       {%- endfor -%}
     </script>
     <script src="{{ 'ml-utils.js' | asset_url }}"></script>
