@@ -996,6 +996,17 @@
         "id": "notify_webhook_url",
         "label": "Webhook n8n capture prévenez-moi",
         "info": "URL du webhook n8n qui enregistre les demandes « prévenez-moi du retour en stock »."
+      },
+      {
+        "type": "range",
+        "id": "ml_rupture_threshold",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "unit": "u",
+        "label": "Seuil de rupture (unités)",
+        "default": 10,
+        "info": "Un produit en backorder s'affiche « en rupture / sur commande » quand son stock descend SOUS ce nombre. Ex : 10 → rupture dès qu'il reste 9 unités ou moins. Mettre 1 pour ne déclencher qu'à 0. Les produits « no-backorder » (testeurs) restent en rupture uniquement à 0, quoi qu'il arrive."
       }
     ]
   }
