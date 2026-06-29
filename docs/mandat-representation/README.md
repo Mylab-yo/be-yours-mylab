@@ -1,34 +1,90 @@
-# Envoi automatisé du mandat de représentation
+# Envoi automatique du mandat de représentation
 
-Automatisation de l'envoi du **mandat de Personne Responsable (Règlement CE 1223/2009)** aux clients ayant acheté le service "Création du dossier cosmétologique" (product.product Odoo id=2313).
+Envoi du **mandat de Personne Responsable (Règlement CE 1223/2009)** aux clients ayant **payé** le service « Création du dossier cosmétologique » (`product.product` Odoo id=2313).
+
+> **État : 🟢 automatisé et LIVE depuis le 2026-06-29.** Un cron tourne sur le VPS toutes les 15 min. L'envoi manuel (CLI) reste disponible pour les renvois et cas particuliers.
 
 ## Architecture
 
 ```
-                                          ┌────────────────────────────────┐
-                                          │  Google Drive                  │
-                                          │  - Template Doc (modèle)       │
-                                          │  - Dossier "Mandats envoyés"   │
-                                          └─────────────┬──────────────────┘
-                                                        │ Docs/Drive API
-                                                        │ (service account)
-                                                        ▼
-  ┌──────────────────┐    bouton manuel   ┌────────────────────────────┐
-  │ Odoo (facture)   │ ─────────────────► │ scripts/odoo/              │
-  │ "Envoyer mandat" │                    │ send_mandat_representation │
-  └──────────────────┘                    └──────────────┬─────────────┘
-         ▲                                               │
-         │  pj PDF + log chatter                         │
-         └───────────────────────────────────────────────┤
-                                                         ▼
-                                          ┌────────────────────────────────┐
-                                          │  Email envoyé au client        │
-                                          │  via mail.template Odoo        │
-                                          │  (apparait dans le chatter)    │
-                                          └────────────────────────────────┘
+┌──────────────────────────────┐        ┌────────────────────────────┐
+│ VPS — cron */15 (flock)       │        │ CLI manuel (renvoi /        │
+│ auto_send_mandats.py  (poll)  │        │ cas particulier)            │
+│  chemin AUTO (LIVE)           │        │ send_mandat_representation   │
+└───────────────┬──────────────┘        └──────────────┬─────────────┘
+                │ factures éligibles                    │
+                │ (posted + paid + produit 2313 +       │
+                │  invoice_date >= cutoff +             │
+                │  x_mandat_sent_at vide)               │
+                └───────────────┬──────────────────────┘
+                                ▼
+                 send_mandat_representation.process_invoice()
+                                │  Docs/Drive API (service account)
+                                ▼
+                 ┌────────────────────────────────┐
+                 │  Google Drive                  │
+                 │  - Template Doc (id 1eCm…)     │ → copie + placeholders → PDF
+                 │  - Dossier "Mandats envoyés"   │
+                 └───────────────┬────────────────┘
+                                 ▼
+                 ┌────────────────────────────────┐
+                 │  Odoo (account.move)           │
+                 │  - PDF en pièce jointe          │
+                 │  - mail.mail → client           │
+                 │  - log chatter                  │
+                 │  - x_mandat_sent_at tamponné    │
+                 └───────────────┬────────────────┘
+                                 ▼
+                      Ping Telegram (bot Hermes)
 ```
 
-## Mapping des placeholders
+## Les deux chemins d'envoi
+
+Les deux appellent la même fonction `process_invoice()` ; elles partagent donc le même tampon d'idempotence.
+
+| | AUTO (LIVE) | MANUEL |
+|---|---|---|
+| Script | `auto_send_mandats.py` (poll) | `send_mandat_representation.py` (CLI) |
+| Déclenchement | cron VPS `*/15` | lancé à la main par Yoann/Claude |
+| Sélection | factures éligibles (voir ci-dessous) | `--invoice FAC/2026/00XXX` |
+| Usage | nominal, sur paiement | renvoi, cas particulier, backlog |
+
+**Manuel :**
+```bash
+python -m scripts.odoo.send_mandat_representation --invoice FAC/2026/00XXX [--force] [--to test@exemple.fr] [--dry-run]
+```
+- `--force` : bypass la vérification `payment_state=paid`
+- `--to` : redirige le mail vers une autre adresse (test)
+- `--dry-run` : affiche les placeholders + destinataire sans rien envoyer
+
+## Pipeline (`process_invoice`)
+
+1. Lit la facture + le partner depuis Odoo, **vérifie la présence du produit 2313**.
+2. Construit les placeholders depuis les données partner.
+3. Garde-fous : email présent ? `payment_state == paid` (sauf `--force`) ?
+4. **Copie le template Google Doc** → remplace les placeholders → nomme par **n° de facture**.
+5. **Exporte en PDF**.
+6. **Attache le PDF** à la facture Odoo (`ir.attachment`).
+7. **Envoie l'email** via `mail.mail` — corps HTML codé en dur dans `build_email_body()` (⚠️ **pas** un `mail.template` Odoo).
+8. **Log chatter** sur la facture.
+9. **Tamponne `x_mandat_sent_at`** (idempotence).
+
+## Idempotence & garde anti-rafale
+
+- **Idempotence** : champ custom `account.move.x_mandat_sent_at` (Datetime), créé une fois via `setup_mandat_field.py`. Tamponné **uniquement à l'envoi réussi** (auto **et** manuel). Vide = pas encore envoyé → jamais de double envoi.
+- **Cutoff** : `MANDAT_AUTO_SINCE` (défaut `2026-06-29`). L'auto n'envoie que les factures dont `invoice_date >= cutoff` → les factures pré-existantes sont **exclues de l'auto** (traitées à la main). Pour étendre l'auto à du plus ancien : baisser cette date.
+
+## Nommage des fichiers
+
+`Mandat Personne Responsable - {Raison sociale} - {FAC-2026-NNNNN}` (le `/` du n° de facture devient `-`). Le PDF suit la même règle. Le **n° de facture sert de clé unique** → deux mandats ne peuvent plus porter le même nom (même client / même jour / deux factures).
+
+## Le template Google Doc
+
+- Doc id `1eCmScLGtG1XS9B2v90srZRVoY--55iVDr35WwJ6oIYo`, nommé `MANDAT_Personne_Responsable_VEGETAL_ORIGIN`.
+- ⚠️ **Le corps est copié verbatim** par client ; seuls les placeholders `[...]` sont remplacés. **Aucun texte non-placeholder « brouillon » ne doit rester dans le corps** (un ancien marqueur « — MODÈLE — » fuyait dans les mandats clients ; retiré le 2026-06-29).
+- Le contenu juridique s'édite **directement dans le Google Doc**, pas dans le code.
+
+### Mapping des placeholders
 
 Champs **pré-remplis** depuis Odoo :
 
@@ -36,78 +92,48 @@ Champs **pré-remplis** depuis Odoo :
 |---|---|
 | `[Raison sociale du Client]` | `res.partner.commercial_company_name` (fallback `name`) |
 | `[ville]` (RCS) | `res.partner.city` |
-| `[SIREN]` | extrait du `res.partner.vat` (FR + 11 chiffres → 9 derniers) |
+| `[SIREN]` | extrait du `res.partner.vat` (9 derniers chiffres) |
 | `[le cas échéant]` (TVA intracom) | `res.partner.vat` |
 | `[adresse complète]` | `street, zip city, country` |
-| Date "29 mai 2026" → date du jour | `datetime.today()` formatée FR |
+| Date « 29 mai 2026 » → date du jour | `date.today()` formatée FR |
 
-Champs **laissés en blanc** (client remplit/signe) :
+Champs **laissés en blanc** (le client remplit / signe) :
 - `[Forme juridique]`, `[montant]` (capital), `[Civilité, Nom, Prénom]`, `[fonction]`
 - `[Nom de marque]`, `[Nom du représentant]`, `[Fonction]` (bloc signature)
-- Ville de signature ("Fait à ___")
+- Ville de signature (« Fait à ___ »)
 - Annexe 1 (liste des Produits)
 
-## Setup initial (à faire UNE FOIS par Yoann)
+## Setup initial (déjà fait — référence)
 
-### 1. Créer un service account Google Cloud
+### 1. Service account Google Cloud
+- Projet GCP : `api-relais-colis-dpd`
+- Compte de service : `mandat-representation-sender@api-relais-colis-dpd.iam.gserviceaccount.com`
+- Clé JSON téléchargée (Keys → ADD KEY → JSON). ⚠️ Le SA ne voit **que ce qui lui est partagé**.
 
-1. Aller sur https://console.cloud.google.com/iam-admin/serviceaccounts
-2. Choisir un projet (ou en créer un, ex : `mylab-mandat-automation`)
-3. **CREATE SERVICE ACCOUNT** :
-   - Name : `mandat-representation-sender`
-   - Description : "Service account pour générer + envoyer les mandats de représentation aux clients dossier cosméto"
-4. Donner le rôle **Editor** (ou plus restrictif si tu veux : juste les rôles Drive/Docs)
-5. **Keys → ADD KEY → Create new key → JSON** : télécharge un fichier `mandat-representation-XXXX.json`
-6. **Garder l'email du service account** (du genre `mandat-representation-sender@<project>.iam.gserviceaccount.com`) — affiché dans la liste des SA
+### 2. APIs Google activées
+- **Google Docs API** + **Google Drive API** sur le même projet.
 
-### 2. Activer les APIs Google nécessaires
+### 3. Partages Drive
+- Dossier **« Mandats envoyés »** partagé avec le SA en **Éditeur** (le script y dépose les copies).
+- Template Doc partagé avec le SA (**Lecteur** suffit, le script le copie).
 
-Dans le même projet Cloud, activer :
-- **Google Docs API** : https://console.cloud.google.com/apis/library/docs.googleapis.com
-- **Google Drive API** : https://console.cloud.google.com/apis/library/drive.googleapis.com
-
-### 3. Partager le template + créer le dossier "Mandats envoyés"
-
-1. Sur Google Drive, créer un dossier **"Mandats envoyés"** (ou choisir un dossier existant)
-2. Partager ce dossier avec l'email du service account → permission **Éditeur**
-3. Partager le template Doc (`1eCmScLGtG1XS9B2v90srZRVoY--55iVDr35WwJ6oIYo`) avec le service account → permission **Lecteur** suffit
-4. Noter l'**ID du dossier "Mandats envoyés"** (visible dans l'URL : `drive.google.com/drive/folders/<ID>`)
-
-### 4. Stocker les credentials
-
-Placer le JSON téléchargé dans :
+### 4. Credentials locaux (`.env.local`)
 ```
-d:\Configurateur Designs MyLab\mylab-configurateur\.env.local\..\secrets\google-service-account-mandat.json
-```
-
-Et ajouter dans `.env.local` :
-```
-GOOGLE_SA_JSON=d:\Configurateur Designs MyLab\mylab-configurateur\secrets\google-service-account-mandat.json
+GOOGLE_SA_JSON=<chemin du JSON service account>
 MANDAT_TEMPLATE_DOC_ID=1eCmScLGtG1XS9B2v90srZRVoY--55iVDr35WwJ6oIYo
-MANDAT_SENT_FOLDER_ID=<id du dossier Mandats envoyés>
+MANDAT_SENT_FOLDER_ID=<id du dossier "Mandats envoyés">
 ```
 
-### 5. Tester le script
+## Déploiement VPS (cron auto)
 
+Idempotent, via paramiko/SFTP :
 ```bash
-python -m scripts.odoo.send_mandat_representation --invoice INV/2026/XXXX --dry-run
+python -m scripts.odoo.vps_deploy_mandat_automation
 ```
+Crée `/root/mandat-automation/` : scripts + venv (`google-api-python-client`, `google-auth`, `python-dotenv`) + `.env` (Odoo + Google + Telegram) + `secrets/google-sa-mandat.json` (chmod 600) + `run.sh` + cron `*/15` avec `flock` + `logs/mandat.log`. Le token Telegram est **lu côté serveur** dans `/root/.hermes/.env` (jamais loggé). Notifications via le **bot Hermes** (chat_id `7760145552`).
 
-Le `--dry-run` affiche ce qui serait fait (placeholders fusionnés, destinataires) sans rien envoyer.
+> ⚠️ Tout changement de `send_mandat_representation.py` ou `auto_send_mandats.py` nécessite de **relancer ce déploiement** pour que le worker auto en bénéficie.
 
-Puis sans `--dry-run` pour envoyer pour de vrai.
+## Legacy (superseded)
 
-## Phase 2 : action serveur Odoo
-
-Une fois le script validé sur 2-3 factures réelles, on crée :
-1. Un `ir.actions.server` Python qui appelle le script via subprocess ou logique inline
-2. Visible comme bouton "Envoyer mandat de représentation" sur la fiche facture
-3. Filtré pour n'apparaître que sur les factures contenant le produit 2313
-
-## Phase 3 (futur) : automation sur paiement
-
-Un `base.automation` sur `account.move` :
-- Trigger : `payment_state` change to `paid`
-- Filtre : au moins une ligne avec `product_id == 2313`
-- Filtre : pas encore envoyé (champ custom `x_mandat_sent_at` à créer)
-- Action : appelle l'action serveur de l'étape 2
+L'ancienne approche — bouton serveur Odoo « Envoyer mandat » + `mail.activity.type` id=8 + worker local `process_mandat_queue.py` — ne faisait que **mettre en file** (aucun cron ne lançait le worker). **Abandonnée** au profit du poll cron VPS ci-dessus ; laissée en place mais plus branchée.

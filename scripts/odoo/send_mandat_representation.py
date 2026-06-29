@@ -12,12 +12,12 @@ import io
 import os
 import re
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-from scripts.odoo._client import search_read, execute, create
+from scripts.odoo._client import search_read, execute, create, write
 
 ENV_PATH = Path(r"d:\Configurateur Designs MyLab\mylab-configurateur\.env.local")
 if ENV_PATH.exists():
@@ -308,7 +308,10 @@ def process_invoice(target, to: str | None = None, force: bool = False,
 
     raison_sociale = placeholders["[Raison sociale du Client]"]
     safe_name = re.sub(r"[^A-Za-z0-9 _-]", "", raison_sociale).strip() or "Client"
-    doc_name = f"Mandat Personne Responsable - {safe_name} - {date.today():%Y-%m-%d}"
+    # Numero de facture = cle unique -> empeche deux mandats de porter le meme nom
+    # (ex. meme client le meme jour, ou deux factures). FAC/2026/00146 -> FAC-2026-00146
+    safe_invoice = re.sub(r"[^A-Za-z0-9_-]", "-", inv["name"])
+    doc_name = f"Mandat Personne Responsable - {safe_name} - {safe_invoice}"
     log(f"-> Copie du template vers '{doc_name}'...")
     new_doc_id = copy_and_fill_template(docs, drive, placeholders, doc_name)
     log(f"  Doc cree : https://docs.google.com/document/d/{new_doc_id}/edit")
@@ -318,7 +321,7 @@ def process_invoice(target, to: str | None = None, force: bool = False,
     pdf_bytes = export_pdf(drive, new_doc_id)
     log(f"  PDF genere : {len(pdf_bytes)} octets")
 
-    filename = f"Mandat_Personne_Responsable_{safe_name.replace(' ', '_')}.pdf"
+    filename = f"Mandat_Personne_Responsable_{safe_name.replace(' ', '_')}_{safe_invoice}.pdf"
     log("-> Attachement a la facture Odoo...")
     attachment_id = attach_to_invoice(inv["id"], pdf_bytes, filename)
     log(f"  ir.attachment id={attachment_id}")
@@ -331,6 +334,10 @@ def process_invoice(target, to: str | None = None, force: bool = False,
 
     log("-> Log chatter...")
     log_chatter(inv["id"], new_doc_id, mail_id, recipient)
+
+    # Idempotence : tampon x_mandat_sent_at (auto worker + CLI manuel partagent ce marqueur)
+    write("account.move", [inv["id"]], {"x_mandat_sent_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
+    log("-> x_mandat_sent_at tamponne")
 
     log()
     log(f"OK Mandat envoye a {recipient} pour {raison_sociale}")

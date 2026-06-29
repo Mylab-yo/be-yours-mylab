@@ -1,14 +1,28 @@
-"""Odoo XML-RPC client helper for MyLab scripts."""
+"""Odoo XML-RPC client helper for MyLab scripts.
+
+Portable Windows (poste Yoann) / VPS :
+- Si .env.local (poste) existe, on le charge (comportement historique inchange).
+- Sinon, si $ODOO_ENV_FILE pointe vers un fichier, on le charge (VPS).
+- Sinon, on s'appuie sur les variables d'env deja presentes dans l'environnement
+  (ex: exportees par le wrapper run.sh du cron VPS).
+"""
 import os
 import xmlrpc.client
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env.local from configurateur repo (source of truth per memory)
+# Source of truth historique : .env.local du repo configurateur (poste Windows)
 ENV_PATH = Path(r"d:\Configurateur Designs MyLab\mylab-configurateur\.env.local")
-if not ENV_PATH.exists():
-    raise FileNotFoundError(f"Missing env file: {ENV_PATH}")
-load_dotenv(ENV_PATH)
+if ENV_PATH.exists():
+    load_dotenv(ENV_PATH)
+elif os.environ.get("ODOO_ENV_FILE") and Path(os.environ["ODOO_ENV_FILE"]).exists():
+    load_dotenv(os.environ["ODOO_ENV_FILE"])
+elif not os.environ.get("ODOO_URL"):
+    # Ni fichier local, ni $ODOO_ENV_FILE, ni vars deja en environnement : on ne peut rien faire.
+    raise FileNotFoundError(
+        f"Aucune source de config Odoo : {ENV_PATH} introuvable, "
+        "$ODOO_ENV_FILE non defini, et $ODOO_URL absent de l'environnement."
+    )
 
 URL = os.environ["ODOO_URL"].strip()
 DB = os.environ["ODOO_DB"].strip()
