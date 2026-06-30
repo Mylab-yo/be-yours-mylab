@@ -1,8 +1,116 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8">
-<link rel="stylesheet" href="styles.css"></head>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
 <body>
-  <section class="page"><h1 style="padding:40px">PAGE 1 (stub)</h1></section>
-  <section class="page"><h1 style="padding:40px">PAGE 2 (stub)</h1></section>
-  <section class="page"><h1 style="padding:40px">PAGE 3 (stub)</h1></section>
-</body></html>
+
+  <!-- ============ PAGE 1 — DIVIDER ============ -->
+  <section class="page page--divider">
+    <div class="circle"></div>
+    <div class="divider__inner">
+      <p class="kicker">Coloristeur</p>
+      <h1 class="gamme-title">Les Repigmentants</h1>
+      <p class="product-types">Shampoing &middot; Masque</p>
+      <div class="shade-strip">
+        <img src="img/shampoing-blond-soleil.jpg" alt="Blond Soleil">
+        <img src="img/shampoing-blond-vanille.jpg" alt="Blond Vanille">
+        <img src="img/shampoing-chocolat.jpg" alt="Chocolat">
+        <img src="img/shampoing-cuivre.jpg" alt="Cuivre">
+        <img src="img/shampoing-marron-noisette.jpg" alt="Marron Noisette">
+        <img src="img/shampoing-platine.jpg" alt="Platine">
+      </div>
+      <div class="badge-row">
+        <span class="nat-badge">95&nbsp;%<small>d'origine naturelle</small></span>
+        <span class="claim-inline">Vegan &middot; Fabriqu&eacute; en France</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAGE 2 — PROPRIÉTÉS + NUANCIER ============ -->
+  <section class="page page--props">
+    <div class="props__head">
+      <h2 class="section-title">Propri&eacute;t&eacute;s &amp; actifs</h2>
+      <p class="props__text">Les soins <strong>repigmentants</strong> d&eacute;posent des pigments &agrave; chaque lavage pour raviver l'intensit&eacute; de la couleur, neutraliser les reflets ind&eacute;sirables et prolonger l'&eacute;clat entre deux colorations. Enrichis en <strong>Phytok&eacute;ratine</strong> et <strong>Prot&eacute;ine de Bl&eacute;</strong>, ils r&eacute;parent la fibre capillaire. Shampoing et masque s'utilisent en duo pour un r&eacute;sultat progressif, personnalisable selon la fr&eacute;quence d'application.</p>
+      <div class="props__meta">
+        <p class="actifs"><span class="actifs__label">Actifs principaux</span> Phytok&eacute;ratine &middot; Prot&eacute;ine de Bl&eacute; &middot; Provitamine B5</p>
+        <p class="claims">sans sulfate &middot; sans paraben &middot; sans silicone &middot; vegan</p>
+      </div>
+    </div>
+
+    <h3 class="nuancier-title">Le nuancier <span>&mdash; 6 teintes</span></h3>
+    <div class="nuancier">
+      <figure><img src="img/masque-blond-soleil.jpg" alt=""><figcaption>Blond Soleil</figcaption></figure>
+      <figure><img src="img/masque-blond-vanille.jpg" alt=""><figcaption>Blond Vanille</figcaption></figure>
+      <figure><img src="img/masque-chocolat.jpg" alt=""><figcaption>Chocolat</figcaption></figure>
+      <figure><img src="img/masque-cuivre.jpg" alt=""><figcaption>Cuivre</figcaption></figure>
+      <figure><img src="img/masque-marron-noisette.jpg" alt=""><figcaption>Marron Noisette</figcaption></figure>
+      <figure><img src="img/masque-platine.jpg" alt=""><figcaption>Platine</figcaption></figure>
+    </div>
+
+    <p class="gamme-badge">Gamme Repigmentants</p>
+  </section>
+
+  <!-- ============ PAGE 3 — TARIFS ============ -->
+  <section class="page page--tarifs">
+    <header class="tarifs__head">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <h2 class="tarifs__title">Tarifs<br>Repigmentants</h2>
+      <span class="tarifs__rule"></span>
+      <span class="tarifs__note">Prix HT et &agrave; l'unit&eacute;</span>
+    </header>
+
+    <div class="tarifs__grid">
+      <div class="tarif-block">
+        <h3>Shampoing</h3>
+        <p class="fmt">200 ml</p>
+        <ul class="tiers">
+          <li><span class="q">x 6</span><span class="leader"></span><span class="p">7,50 &euro;</span></li>
+          <li><span class="q">x 12</span><span class="leader"></span><span class="p">7,10 &euro;</span></li>
+          <li><span class="q">x 24</span><span class="leader"></span><span class="p">6,75 &euro;</span></li>
+          <li><span class="q">x 48</span><span class="leader"></span><span class="p">6,00 &euro;</span></li>
+          <li><span class="q">x 96</span><span class="leader"></span><span class="p">5,40 &euro;</span></li>
+        </ul>
+        <p class="fmt">1000 ml</p>
+        <ul class="tiers">
+          <li><span class="q">x 1</span><span class="leader"></span><span class="p">28,90 &euro;</span></li>
+          <li><span class="q">x 3</span><span class="leader"></span><span class="p">27,45 &euro;</span></li>
+          <li><span class="q">x 6</span><span class="leader"></span><span class="p">24,50 &euro;</span></li>
+          <li><span class="q">x 12</span><span class="leader"></span><span class="p">21,60 &euro;</span></li>
+        </ul>
+      </div>
+
+      <div class="tarif-block">
+        <h3>Masque</h3>
+        <p class="fmt">200 ml</p>
+        <ul class="tiers">
+          <li><span class="q">x 6</span><span class="leader"></span><span class="p">9,60 &euro;</span></li>
+          <li><span class="q">x 12</span><span class="leader"></span><span class="p">9,10 &euro;</span></li>
+          <li><span class="q">x 24</span><span class="leader"></span><span class="p">8,60 &euro;</span></li>
+          <li><span class="q">x 48</span><span class="leader"></span><span class="p">7,65 &euro;</span></li>
+          <li><span class="q">x 96</span><span class="leader"></span><span class="p">6,90 &euro;</span></li>
+        </ul>
+        <p class="fmt">400 ml</p>
+        <ul class="tiers">
+          <li><span class="q">x 4</span><span class="leader"></span><span class="p">16,90 &euro;</span></li>
+          <li><span class="q">x 8</span><span class="leader"></span><span class="p">15,90 &euro;</span></li>
+        </ul>
+        <p class="fmt">1000 ml</p>
+        <ul class="tiers">
+          <li><span class="q">x 1</span><span class="leader"></span><span class="p">34,90 &euro;</span></li>
+          <li><span class="q">x 3</span><span class="leader"></span><span class="p">33,15 &euro;</span></li>
+          <li><span class="q">x 6</span><span class="leader"></span><span class="p">29,65 &euro;</span></li>
+          <li><span class="q">x 12</span><span class="leader"></span><span class="p">26,15 &euro;</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <footer class="tarifs__foot"></footer>
+  </section>
+
+</body>
+</html>
