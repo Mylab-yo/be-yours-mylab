@@ -73,6 +73,36 @@ Pour garder le local à jour quand tu ajoutes des docs sur le VPS :
 
 ---
 
+## Bonus — Miroir skills + mémoires (au lieu de Google Drive)
+
+`mirror_skills_memory_from_vps.py` tire les **skills MyLab** et les **mémoires** du VPS vers ton
+Hermes maison, par **SFTP** (même canal pull-only que le miroir RAG). À utiliser **à la place de
+toute sync Google Drive** : Drive est le mauvais outil ici (OAuth par-machine, MCP qui corrompt les
+fichiers) ; les skills/mémoires sont du **texte** → SFTP est fiable et instantané. Hermes relit
+skills + mémoires **à chaud** (aucun redémarrage).
+
+```bash
+# aperçu (ne touche à rien)
+python mirror_skills_memory_from_vps.py --dry-run --verbose
+# miroir réel
+python mirror_skills_memory_from_vps.py --verbose
+# + retirer en local ce qui a été supprimé côté VPS (scopé aux skills MyLab uniquement)
+python mirror_skills_memory_from_vps.py --delete
+```
+
+- **Source VPS (hôte)** : `/root/.hermes/skills` et `/root/.hermes/memories` (⚠️ pas `/opt/data`,
+  qui n'existe que *dans* le conteneur). Override : `VPS_HERMES_DIR`.
+- **Cible maison** : `~/.hermes/skills` et `~/.hermes/memories` par défaut. Si ton install est
+  ailleurs (Docker, chemin Windows custom), pose `HERMES_SKILLS_DIR` / `HERMES_MEMORIES_DIR` dans `.env`.
+  Pour trouver le dossier : cherche où vit ton `SKILL.md` (`hermes skills list` ou un `dir/ls` du dossier Hermes).
+- **Skills bundlés Hermes** (creative, comfyui, github…) : **jamais touchés** — seule la liste MyLab
+  (`HERMES_SKILLS_INCLUDE`) est mirrorée, et `--delete` est scopé à cette liste.
+- **Mémoires** : `MEMORY.md` + `USER.md` + tout `mylab/` sont copiés → parité avec le VPS. Si tu
+  tiens à un `MEMORY.md` local distinct, exclus-le (ou pointe `HERMES_MEMORIES_DIR` ailleurs).
+- **Automatiser** : comme le miroir RAG (tâche planifiée Windows / cron).
+
+---
+
 ## Notes
 - **Sens du miroir** : VPS → maison (pull). Le VPS ne voit jamais le PC maison (NAT). La maison
   initie tout.
