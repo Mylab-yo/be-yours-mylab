@@ -55,10 +55,8 @@ shopify-functions/tier-discount/node_modules/
 scripts/odoo/_*.html
 tmp/
 # Google Drive desktop sync staging
-*.gdoc
 *.gsheet
 *.gslides
-desktop.ini
 # Node modules (notably shopify-functions/*/node_modules)
 node_modules/
 package-lock.json
