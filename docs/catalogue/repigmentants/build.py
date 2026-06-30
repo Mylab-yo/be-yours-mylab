@@ -32,6 +32,8 @@ def render():
     assert abs(float(b.width) - 841.9) < 3 and abs(float(b.height) - 595.3) < 3, "A4 paysage attendu"
 
 def merge():
+    # Compression sans perte uniquement (garbage collection + deflate + clean).
+    # NB: ne PAS recompresser les images via update_stream (casse colorspace/dims -> images noires).
     v1 = fitz.open(str(V1)); sec = fitz.open(str(SECTION)); out = fitz.open()
     out.insert_pdf(v1, from_page=KEEP_BEFORE[0], to_page=KEEP_BEFORE[1])
     out.insert_pdf(sec)
