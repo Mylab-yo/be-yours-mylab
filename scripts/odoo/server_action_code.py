@@ -11,7 +11,7 @@
 
 # === LABELS DES FAMILLES ===
 FAMILY_LABELS = {
-    50: "50ml sérum/huile",
+    63: "50ml sérum/huile",
     40: "200ml crème/shampoing",
     24: "200/400ml masque",
     23: "500ml crème/shampoing",
