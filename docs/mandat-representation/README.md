@@ -134,6 +134,14 @@ Crée `/root/mandat-automation/` : scripts + venv (`google-api-python-client`, `
 
 > ⚠️ Tout changement de `send_mandat_representation.py` ou `auto_send_mandats.py` nécessite de **relancer ce déploiement** pour que le worker auto en bénéficie.
 
-## Legacy (superseded)
+## Legacy — RETIRÉ (2026-06-30)
 
-L'ancienne approche — bouton serveur Odoo « Envoyer mandat » + `mail.activity.type` id=8 + worker local `process_mandat_queue.py` — ne faisait que **mettre en file** (aucun cron ne lançait le worker). **Abandonnée** au profit du poll cron VPS ci-dessus ; laissée en place mais plus branchée.
+L'ancienne approche — bouton serveur Odoo « Envoyer mandat » + `mail.activity.type` id=8 + worker local `process_mandat_queue.py` — ne faisait que **mettre en file** (aucun cron ne lançait le worker), d'où des mandats « en liste d'attente » jamais envoyés.
+
+**Supprimée définitivement le 2026-06-30** via :
+
+```bash
+python -m scripts.odoo.remove_mandat_button   # retire bouton + activity type + file fantôme d'Odoo
+```
+
+Les scripts `setup_phase2_action_mandat.py` (créait le bouton) et `process_mandat_queue.py` (drainait la file) ont été supprimés du repo. Envoi du mandat = **worker VPS auto** (factures ≥ `MANDAT_AUTO_SINCE`) + **CLI** `send_mandat_representation.py --invoice …` pour le backlog antérieur.
