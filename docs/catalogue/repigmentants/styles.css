@@ -47,12 +47,12 @@ body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
 /* =========================================================
    PAGE 2 — PROPRIÉTÉS + NUANCIER
    ========================================================= */
-.page--props { padding: 18mm 20mm 16mm; display: flex; flex-direction: column; }
+.page--props { padding: 15mm 20mm 12mm; display: flex; flex-direction: column; }
 .section-title {
   text-transform: uppercase; letter-spacing: .1em; color: var(--accent);
-  font-size: 26pt; font-weight: 800; margin: 0 0 6mm;
+  font-size: 23pt; font-weight: 800; margin: 0 0 4mm;
 }
-.props__text { max-width: 235mm; font-size: 12pt; line-height: 1.6; color: #333; margin: 0 0 6mm; }
+.props__text { max-width: 245mm; font-size: 11pt; line-height: 1.5; color: #333; margin: 0 0 4mm; }
 .props__text strong { color: var(--ink); font-weight: 700; }
 .props__meta { display: flex; gap: 14mm; align-items: baseline; flex-wrap: wrap; margin: 0 0 2mm; }
 .actifs { font-size: 11pt; color: #333; margin: 0; }
@@ -62,20 +62,21 @@ body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
 }
 .claims { text-transform: uppercase; letter-spacing: .16em; font-size: 9.5pt; color: var(--muted); margin: 0; }
 
+.nuancier-block { margin-top: 5mm; }
 .nuancier-title {
-  text-transform: uppercase; letter-spacing: .1em; font-size: 14pt; font-weight: 700;
-  margin: 8mm 0 5mm;
+  text-transform: uppercase; letter-spacing: .1em; font-size: 13pt; font-weight: 700;
+  margin: 0 0 4mm;
 }
 .nuancier-title span { color: var(--accent); font-weight: 600; }
-.nuancier { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6mm; flex: 1; align-content: center; }
-.nuancier figure { margin: 0; text-align: center; }
-.nuancier img { width: 100%; height: 60mm; object-fit: contain; }
+.nuancier { display: flex; gap: 5mm; }
+.nuancier figure { margin: 0; text-align: center; width: 37mm; flex: 0 0 37mm; }
+.nuancier img { width: 100%; height: 41mm; object-fit: contain; }
 .nuancier figcaption {
-  margin-top: 3mm; font-size: 10.5pt; font-weight: 600; letter-spacing: .03em; color: var(--ink);
+  margin-top: 2.5mm; font-size: 10pt; font-weight: 600; letter-spacing: .02em; color: var(--ink);
 }
 .gamme-badge {
   text-transform: uppercase; letter-spacing: .22em; color: var(--accent);
-  font-size: 11pt; font-weight: 700; margin: 6mm 0 0;
+  font-size: 11pt; font-weight: 700; margin: 7mm 0 0;
 }
 
 /* =========================================================
@@ -96,6 +97,9 @@ body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
 .tarif-block h3 {
   text-transform: uppercase; letter-spacing: .06em; font-size: 17pt; font-weight: 800;
   margin: 0 0 5mm; color: var(--ink);
+}
+.tarif-block .teinte-note {
+  font-size: 9.5pt; color: var(--muted); margin: 1mm 0 0; line-height: 1.35;
 }
 .tarif-block .fmt {
   text-transform: uppercase; letter-spacing: .12em; font-size: 11pt; font-weight: 700;
