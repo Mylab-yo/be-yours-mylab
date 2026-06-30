@@ -33,8 +33,10 @@ body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
   text-transform: uppercase; letter-spacing: .28em; font-size: 14pt; font-weight: 500;
   color: #555; margin: 0 0 12mm;
 }
-.shade-strip { display: flex; gap: 4mm; justify-content: center; align-items: flex-end; }
-.shade-strip img { width: 33mm; height: 72mm; object-fit: contain; }
+.shade-strip { display: flex; gap: 9mm; justify-content: center; align-items: center; }
+/* pastilles couleur (nuancier) */
+.swatch { display: block; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.10); }
+.swatch--lg { width: 30mm; height: 30mm; }
 .badge-row { display: flex; align-items: center; justify-content: center; gap: 8mm; margin-top: 11mm; padding-right: 40mm; }
 .nat-badge {
   display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
@@ -68,11 +70,11 @@ body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
   margin: 0 0 3mm;
 }
 .nuancier-title span { color: var(--accent); font-weight: 600; }
-.nuancier { display: flex; gap: 5mm; }
-.nuancier figure { margin: 0; text-align: center; width: 37mm; flex: 0 0 37mm; }
-.nuancier img { width: 100%; height: 35mm; object-fit: contain; }
+.nuancier { display: flex; gap: 7mm; }
+.nuancier figure { margin: 0; text-align: center; width: 34mm; flex: 0 0 34mm; }
+.nuancier .swatch { width: 26mm; height: 26mm; margin: 0 auto; }
 .nuancier figcaption {
-  margin-top: 2mm; font-size: 10pt; font-weight: 600; letter-spacing: .02em; color: var(--ink);
+  margin-top: 3mm; font-size: 10.5pt; font-weight: 600; letter-spacing: .02em; color: var(--ink);
 }
 .gamme-badge {
   text-transform: uppercase; letter-spacing: .22em; color: var(--accent);
