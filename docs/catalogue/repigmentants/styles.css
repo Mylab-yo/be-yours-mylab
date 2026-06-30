@@ -1,0 +1,9 @@
+@page { size: 297mm 210mm; margin: 0; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
+.page {
+  width: 297mm; height: 210mm; position: relative; overflow: hidden;
+  page-break-after: always; background: #fff;
+}
+.page:last-child { page-break-after: auto; }
