@@ -19,6 +19,7 @@ from dotenv import dotenv_values
 REPO = Path(r"d:\be-yours-mylab")
 ENV_VPS = dotenv_values(REPO / ".env.vps")
 STATION_LOCAL = Path(r"C:\ProgramData\Station.NET")
+LIVE_EXPORT = STATION_LOCAL / "common" / "Expeditions.txt"  # export live Station (nom fixe, ecrase a chaque export)
 REMOTE_DIR = "/root/mylab-tracking"
 
 
@@ -29,11 +30,18 @@ def main():
     args = ap.parse_args()
 
     stamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    files = sorted(STATION_LOCAL.glob("*_Expeditions.txt"))
-    if not files:
-        print(f"[{stamp}] Aucun export local — rien a faire.")
-        return
-    to_send = files[-args.last:]
+    # Source de verite = l'export live common\Expeditions.txt (nom fixe, ecrase a chaque
+    # export Station). On le renomme YYYYMMDD_Expeditions.txt (date = mtime) cote VPS pour
+    # que vps_notify_tracking.py prenne "le plus recent". Fallback = anciens exports dates.
+    if LIVE_EXPORT.exists():
+        d = datetime.fromtimestamp(LIVE_EXPORT.stat().st_mtime).strftime("%Y%m%d")
+        to_send = [(LIVE_EXPORT, f"{d}_Expeditions.txt")]
+    else:
+        files = sorted(STATION_LOCAL.glob("*_Expeditions.txt"))
+        if not files:
+            print(f"[{stamp}] Aucun export local (ni common\\Expeditions.txt ni *_Expeditions.txt) — rien a faire.")
+            return
+        to_send = [(f, f.name) for f in files[-args.last:]]
 
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -41,10 +49,10 @@ def main():
                 username=ENV_VPS["VPS_USER"], password=ENV_VPS["VPS_PASS"], timeout=20)
 
     sftp = ssh.open_sftp()
-    for f in to_send:
-        sftp.put(str(f), f"{REMOTE_DIR}/station/{f.name}")
+    for localf, remote_name in to_send:
+        sftp.put(str(localf), f"{REMOTE_DIR}/station/{remote_name}")
     sftp.close()
-    print(f"[{stamp}] Uploade : {', '.join(f.name for f in to_send)}")
+    print(f"[{stamp}] Uploade : {', '.join(rn for _, rn in to_send)}")
 
     flag = "" if args.dry_run else "--send"
     cmd = f"cd {REMOTE_DIR} && /usr/bin/python3 vps_notify_tracking.py {flag} 2>&1"
