@@ -1,0 +1,15 @@
+# INCI — Shampoings Pigments (fourni par Yoann, 2026-06-30)
+
+Base commune (≠ base masque) ; seuls les colorants finaux diffèrent.
+Base : AQUA, SODIUM LAUROYL METHYL ISETHIONATE, SODIUM METHYL OLEOYL TAURATE, COCAMIDOPROPYL BETAINE, GLYCERIN, SODIUM CHLORIDE, ACRYLATES COPOLYMER, PARFUM, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, LEVULINIC ACID, TRISODIUM ETHYLENEDIAMIDE DISUCCINATE, SODIUM LEVULINATE, SODIUM BENZOATE, HYDROLYZED WHEAT PROTEIN, HYDROLYZED VEGETABLE PROTEIN, MICA, CI 77891[, + colorants].
+
+| Teinte | % naturel | Colorants ajoutés |
+|---|---|---|
+| VANILLE | 94,36 % | BASIC BROWN 17, BASIC YELLOW 57 |
+| BLOND BLÉ | 94,33 % | BASIC RED 76, BASIC BROWN 17, BASIC BLUE 99, BASIC YELLOW 57, HC YELLOW NO. 2 |
+| CACAO | 94,21 % | BASIC RED 76, BASIC BROWN 16, BASIC BROWN 17, BASIC BLUE 99, BASIC YELLOW 57 |
+| CERISE | 94,34 % | BASIC RED 76, BASIC RED 51, BASIC BROWN 17, BASIC BLUE 99, BASIC YELLOW 57 |
+| LAVANDE *(= Déjaunisseur)* | 94,48 % | ACID VIOLET 43 |
+
+> LAVANDE (Acid Violet 43) = la teinte déjaunisseur/anti-jaune du shampoing.
+> Correspond au métachamp `custom.composition` de `shampoing-dejaunisseur-platine` sur Shopify (même base, Mica/Ci 77891/Acid Violet 43). ✓

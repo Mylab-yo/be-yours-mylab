@@ -1,0 +1,116 @@
+@page { size: 297mm 210mm; margin: 0; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+html, body { margin: 0; padding: 0; }
+body { font-family: "Montserrat", Arial, sans-serif; color: #1a1a1a; }
+
+:root { --accent: #7365AC; --ink: #1a1a1a; --muted: #777; }
+
+.page {
+  width: 297mm; height: 210mm; position: relative; overflow: hidden;
+  page-break-after: always; background: #fff;
+}
+.page:last-child { page-break-after: auto; }
+
+/* =========================================================
+   PAGE 1 — DIVIDER
+   ========================================================= */
+.page--divider { display: flex; align-items: center; justify-content: center; }
+.page--divider .circle {
+  position: absolute; width: 110mm; height: 110mm; border-radius: 50%;
+  background: var(--accent); right: -48mm; bottom: -48mm;
+  z-index: 0;
+}
+.divider__inner { position: relative; z-index: 1; text-align: center; width: 250mm; }
+.kicker {
+  text-transform: uppercase; letter-spacing: .42em; font-size: 12pt; font-weight: 600;
+  color: var(--accent); margin: 0 0 6mm;
+}
+.gamme-title {
+  text-transform: uppercase; letter-spacing: .06em; font-size: 50pt; font-weight: 800;
+  line-height: 1.02; margin: 0 0 5mm; color: var(--ink);
+}
+.product-types {
+  text-transform: uppercase; letter-spacing: .28em; font-size: 14pt; font-weight: 500;
+  color: #555; margin: 0 0 12mm;
+}
+.shade-strip { display: flex; gap: 9mm; justify-content: center; align-items: center; }
+/* pastilles couleur (nuancier) */
+.swatch { display: block; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,.10); }
+.swatch--lg { width: 30mm; height: 30mm; }
+.badge-row { display: flex; align-items: center; justify-content: center; gap: 8mm; margin-top: 11mm; padding-right: 40mm; }
+.nat-badge {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 32mm; height: 32mm; border-radius: 50%; border: 1.5px solid var(--accent);
+  color: var(--accent); font-weight: 700; font-size: 15pt; line-height: 1;
+}
+.nat-badge small { font-size: 6.5pt; font-weight: 500; margin-top: 1.5mm; letter-spacing: .04em; }
+.claim-inline { text-transform: uppercase; letter-spacing: .18em; font-size: 9.5pt; color: var(--muted); }
+
+/* =========================================================
+   PAGE 2 — PROPRIÉTÉS + NUANCIER
+   ========================================================= */
+.page--props { padding: 15mm 20mm 12mm; display: flex; flex-direction: column; }
+.section-title {
+  text-transform: uppercase; letter-spacing: .1em; color: var(--accent);
+  font-size: 23pt; font-weight: 800; margin: 0 0 4mm;
+}
+.props__text { max-width: 245mm; font-size: 11pt; line-height: 1.5; color: #333; margin: 0 0 4mm; }
+.props__text strong { color: var(--ink); font-weight: 700; }
+.props__meta { display: flex; gap: 14mm; align-items: baseline; flex-wrap: wrap; margin: 0 0 2mm; }
+.actifs { font-size: 11pt; color: #333; margin: 0; }
+.actifs__label {
+  text-transform: uppercase; letter-spacing: .12em; font-weight: 700; color: var(--accent);
+  font-size: 9.5pt; margin-right: 3mm;
+}
+.claims { text-transform: uppercase; letter-spacing: .16em; font-size: 9.5pt; color: var(--muted); margin: 0; }
+
+.nuancier-block { margin-top: 4mm; }
+.nuancier-title {
+  text-transform: uppercase; letter-spacing: .1em; font-size: 13pt; font-weight: 700;
+  margin: 0 0 3mm;
+}
+.nuancier-title span { color: var(--accent); font-weight: 600; }
+.nuancier { display: flex; gap: 7mm; }
+.nuancier figure { margin: 0; text-align: center; width: 34mm; flex: 0 0 34mm; }
+.nuancier .swatch { width: 26mm; height: 26mm; margin: 0 auto; }
+.nuancier figcaption {
+  margin-top: 3mm; font-size: 10.5pt; font-weight: 600; letter-spacing: .02em; color: var(--ink);
+}
+.gamme-badge {
+  text-transform: uppercase; letter-spacing: .22em; color: var(--accent);
+  font-size: 11pt; font-weight: 700; margin: 5mm 0 0;
+}
+
+/* =========================================================
+   PAGE 3 — TARIFS
+   ========================================================= */
+.page--tarifs { padding: 20mm 22mm; }
+.tarifs__head { display: flex; align-items: center; gap: 6mm; }
+.tarifs__head .dots { display: inline-flex; flex-direction: column; gap: 2.5mm; }
+.tarifs__head .dots i { width: 3.4mm; height: 3.4mm; border-radius: 50%; background: var(--accent); display: block; }
+.tarifs__title {
+  text-transform: uppercase; letter-spacing: .04em; font-size: 30pt; font-weight: 800;
+  line-height: 1.04; margin: 0; color: var(--ink);
+}
+.tarifs__rule { flex: 1; height: 2px; background: var(--ink); margin: 0 4mm; }
+.tarifs__note { font-weight: 600; font-size: 11pt; color: var(--ink); white-space: nowrap; }
+
+.tarifs__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26mm; margin-top: 11mm; }
+.tarif-block h3 {
+  text-transform: uppercase; letter-spacing: .06em; font-size: 17pt; font-weight: 800;
+  margin: 0 0 5mm; color: var(--ink);
+}
+.tarif-block .teinte-note {
+  font-size: 9.5pt; color: var(--muted); margin: 1mm 0 0; line-height: 1.35;
+}
+.tarif-block .fmt {
+  text-transform: uppercase; letter-spacing: .12em; font-size: 11pt; font-weight: 700;
+  color: var(--accent); margin: 5mm 0 2mm;
+}
+.tiers { list-style: none; margin: 0; padding: 0; }
+.tiers li { display: flex; align-items: baseline; font-size: 12.5pt; padding: 1mm 0; }
+.tiers .q { font-weight: 700; white-space: nowrap; color: var(--ink); }
+.tiers .leader { flex: 1; border-bottom: 1.6px dotted #b9b9b9; margin: 0 3mm; transform: translateY(-3px); }
+.tiers .p { white-space: nowrap; color: #555; font-weight: 500; }
+
+.tarifs__foot { position: absolute; left: 22mm; right: 22mm; bottom: 13mm; height: 2px; background: var(--ink); }
