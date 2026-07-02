@@ -142,6 +142,7 @@ for sku, od, sh in matched:
     cur = level.get(sh["inv"], 0)
     parent = parent_of.get(sku)
     eff = odoo_by_sku[parent]["qty"] if parent and parent in odoo_by_sku else od["qty"]
+    eff = max(0, eff)  # miroir exact : negatifs Odoo clamp a 0 (pas de stock negatif Shopify)
     if cur != eff:
         updates.append({"sku": sku, "name": od["name"], "inv": sh["inv"],
                         "odoo": eff, "shopify": cur, "diff": eff - cur,
@@ -164,11 +165,13 @@ if not APPLY:
     print("\nDRY RUN : aucune ecriture. Relancer avec --apply pour pousser.")
     sys.exit(0)
 
-# Strategie validee : ne corriger que les produits ayant un stock REEL dans Odoo (>0).
-# On ne met JAMAIS un produit a 0 (testeurs + variantes non initialisees dans Odoo).
-to_apply = [u for u in updates if u["odoo"] > 0]
-skipped = len(updates) - len(to_apply)
-print(f"\n=== APPLY : {len(to_apply)} niveaux pousses (Odoo>0) | {skipped} ignores (Odoo<=0) ===")
+# MIROIR EXACT (2026-07-02) : Shopify reflete Odoo a l'identique, 0 inclus.
+# Sûr depuis que le backorder est LIVE : policy=continue -> a 0 le produit reste
+# commandable ("sur commande") ; policy=deny (testeurs) -> "prevenez-moi" + email retour.
+# L'ancien filtre >0 ("ne jamais zeroter") n'a plus lieu d'etre. Voir memoire
+# project_stock_sync_odoo_shopify + project_rupture_backorder.
+to_apply = updates
+print(f"\n=== APPLY : {len(to_apply)} niveaux pousses (miroir exact Odoo, 0 inclus) ===")
 ok = err = 0
 for u in to_apply:
     try:

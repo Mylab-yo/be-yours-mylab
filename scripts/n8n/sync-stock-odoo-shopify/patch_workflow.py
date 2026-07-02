@@ -1,8 +1,9 @@
 """Patch le workflow n8n 'Sync Stock Odoo -> Shopify' (id 1AUxe9M9d9cNKz6W).
 
 Remplace le jsCode du node "Lire stocks Shopify et comparer" par le contenu de
-02-lire-shopify-comparer.js (ajout filtre odoo_qty>0 + miroir testeurs->parent),
-pour que la synchro auto (toutes les 5h) ne remette JAMAIS un produit a 0.
+02-lire-shopify-comparer.js (MIROIR EXACT Odoo->Shopify, 0 inclus, negatifs clamp a 0,
+miroir testeurs->parent), pour que la synchro auto (toutes les 5h) garde Shopify aligne
+sur Odoo. A 0 : le backorder (continue) ou le prevenez-moi (deny) prend le relais.
 
 Usage:
     python scripts/n8n/sync-stock-odoo-shopify/patch_workflow.py [--dry-run]
@@ -58,27 +59,51 @@ def main():
     old = node["parameters"].get("jsCode", "")
     node["parameters"]["jsCode"] = new_js
     print(f"  jsCode {NODE_NAME}: {len(old)} -> {len(new_js)} chars")
-    print(f"  contient filtre >0 : {'m.eff > 0' in new_js} | testeur : {'testeur' in new_js}")
+    print(f"  miroir exact (Math.max(0, m.eff)) : {'Math.max(0, m.eff)' in new_js} | testeur : {'testeur' in new_js}")
 
     if dry:
         print("DRY RUN : pas de PUT")
         return
 
-    body = {k: v for k, v in wf.items() if k not in READ_ONLY_FIELDS}
-    # n8n PUT refuse les settings additionnels (availableInMCP, binaryMode...) -> whitelist
+    # n8n PUT n'accepte QUE name/nodes/connections/settings. Whitelist stricte : un
+    # blacklist casse des que l'API renvoie un nouveau champ lecture seule (400
+    # "must NOT have additional properties"). settings aussi whiteliste (refuse
+    # availableInMCP, binaryMode...).
     allowed_settings = {"executionOrder", "callerPolicy", "saveManualExecutions",
                         "saveExecutionProgress", "saveDataErrorExecution",
                         "saveDataSuccessExecution", "executionTimeout", "errorWorkflow",
                         "timezone", "callerIds"}
-    body["settings"] = {k: v for k, v in (wf.get("settings") or {}).items() if k in allowed_settings}
+    # Nettoyer les connexions orphelines : une source qui ne reference plus un node
+    # existant (ici "Toutes les 5 minutes", vestige d'un renommage du trigger) fait
+    # echouer le PUT ("unknown_connection_source"). n8n l'ignore au runtime mais la
+    # validation PUT est stricte. On ne garde que les sources = node existant.
+    node_names = {n["name"] for n in wf["nodes"]}
+    clean_connections = {src: conns for src, conns in (wf.get("connections") or {}).items()
+                         if src in node_names}
+    dropped = set(wf.get("connections", {})) - set(clean_connections)
+    if dropped:
+        print(f"  connexions orphelines retirees : {sorted(dropped)}")
+    body = {
+        "name": wf["name"],
+        "nodes": wf["nodes"],
+        "connections": clean_connections,
+        "settings": {k: v for k, v in (wf.get("settings") or {}).items() if k in allowed_settings},
+    }
     updated = req("PUT", f"/api/v1/workflows/{WORKFLOW_ID}", key, body)
     print(f"PUT OK | versionId={updated.get('versionId')}")
+
+    # Republier : un PUT met a jour le brouillon (versionId) mais PAS forcement la
+    # version active (activeVersionId). deactivate+activate aligne l'active sur le neuf.
+    if wf.get("active"):
+        req("POST", f"/api/v1/workflows/{WORKFLOW_ID}/deactivate", key)
+        req("POST", f"/api/v1/workflows/{WORKFLOW_ID}/activate", key)
+        print("republie (deactivate + activate)")
 
     # re-verifier
     fresh = req("GET", f"/api/v1/workflows/{WORKFLOW_ID}", key)
     fnode = next(n for n in fresh["nodes"] if n["name"] == NODE_NAME)
     js = fnode["parameters"]["jsCode"]
-    print(f"VERIF : node a 'm.eff > 0' = {'m.eff > 0' in js} | 'parentOf' = {'parentOf' in js} | active={fresh['active']}")
+    print(f"VERIF : miroir 'Math.max(0, m.eff)' = {'Math.max(0, m.eff)' in js} | 'parentOf' = {'parentOf' in js} | active={fresh['active']}")
 
 
 if __name__ == "__main__":

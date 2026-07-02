@@ -1,7 +1,8 @@
 // Node "Lire stocks Shopify et comparer" — mappe SKU->inventory_item_id, compare au stock Odoo.
 // Testeurs : miroir du stock du produit classique parent (ils sont a 0 en propre dans Odoo).
-// FILTRE odoo_qty>0 : ne met JAMAIS un produit a 0 (les ~72 produits a 0 dans Odoo = stock non
-// saisi, pas un vrai zero — voir sync_stock_from_odoo.py qui partage cette logique).
+// MIROIR EXACT : Shopify reflete Odoo a l'identique, 0 inclus (negatifs clamp a 0). Sûr depuis
+// le backorder LIVE (a 0 : policy=continue -> "sur commande" ; deny/testeur -> "prevenez-moi").
+// Voir sync_stock_from_odoo.py qui partage cette logique + memoire project_rupture_backorder.
 // Secrets via $env. HTTP via this.helpers.httpRequest. inventory_levels en BATCHES (50 ids/req) + retry 429.
 const SHOPIFY_TOKEN = $env.SHOPIFY_ACCESS_TOKEN;
 const SHOPIFY_STORE = 'mylab-shop-3';
@@ -107,21 +108,22 @@ for (let i = 0; i < matched.length; i += 50) {
   await sleep(400);
 }
 
-// 5) Comparer — FILTRE eff>0 : ne pousse que le stock reel, ne zerote jamais
+// 5) Comparer — MIROIR EXACT : Shopify = Odoo (0 inclus), negatifs clamp a 0.
+// Plus de filtre >0 : a 0 le backorder (continue) ou le prevenez-moi (deny) prend le relais.
 const updates = [];
 for (const m of matched) {
-  if (!(m.eff > 0)) continue;
+  const target = Math.max(0, m.eff);
   const currentShopifyQty = levelByItem[String(m.inv)] ?? 0;
-  if (currentShopifyQty !== m.eff) {
+  if (currentShopifyQty !== target) {
     updates.push({
       json: {
         sku: m.sku,
         name: m.name,
         inventory_item_id: m.inv,
         location_id: LOCATION_ID,
-        odoo_qty: m.eff,
+        odoo_qty: target,
         shopify_qty: currentShopifyQty,
-        diff: m.eff - currentShopifyQty,
+        diff: target - currentShopifyQty,
       },
     });
   }
