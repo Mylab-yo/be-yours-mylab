@@ -77,3 +77,10 @@ docs/debug/shopify-webhooks.json
 .claude/scheduled_tasks.lock
 # Odoo scheduler toggle state (runtime, not to commit)
 scripts/odoo/.scheduler_ids
+
+# Google Drive desktop sync artifacts (dossiers docs/ synchronisés)
+desktop.ini
+*.gdoc
+*.gsheet
+*.gslides
+*.gdraw

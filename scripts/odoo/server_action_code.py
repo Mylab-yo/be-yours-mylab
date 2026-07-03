@@ -11,8 +11,9 @@
 
 # === LABELS DES FAMILLES ===
 FAMILY_LABELS = {
-    50: "50ml sérum/huile",
+    63: "50ml sérum/huile",
     40: "200ml crème/shampoing",
+    36: "masque 200ml (colis 36)",
     24: "200/400ml masque",
     23: "500ml crème/shampoing",
     12: "1L shampoing/masque",
@@ -22,6 +23,28 @@ FAMILY_LABELS = {
 def family_label(capacity):
     # Return human-readable label for a carton capacity
     return FAMILY_LABELS.get(capacity, f"Carton {capacity}u")
+
+
+# === OVERRIDES DE COLISAGE PAR CLIENT x PRODUIT ===
+# Certains clients ont un colisage negocie different du colisage produit par
+# defaut (x_carton_capacity). Cle = (id du client "commercial"/societe mere,
+# default_code produit) -> capacite carton. Prioritaire sur x_carton_capacity,
+# et applique automatiquement a toutes les livraisons (actuelles ET futures) du
+# client, sans toucher le colisage des autres clients.
+PARTNER_PRODUCT_CARTON = {
+    (1970, "masque-nourrissant-200-ml"): 36,   # CENDREE : masque nourrissant 200ml -> 36 u/carton
+}
+
+
+def carton_capacity(picking, product):
+    # Capacite carton effective : override client x produit s'il existe, sinon
+    # capacite carton du produit. commercial_partner_id = societe mere (couvre
+    # les sous-contacts qui commanderaient pour le meme compte).
+    partner = picking.partner_id.commercial_partner_id
+    key = (partner.id, product.default_code)
+    if key in PARTNER_PRODUCT_CARTON:
+        return PARTNER_PRODUCT_CARTON[key]
+    return product.x_carton_capacity or 0
 
 
 def purge_existing_packages(picking):
@@ -132,7 +155,7 @@ for picking in records:
 
     groups = {}
     for ml in picking.move_line_ids:
-        cap = ml.product_id.x_carton_capacity or 0
+        cap = carton_capacity(picking, ml.product_id)
         groups.setdefault(cap, []).append(ml)
 
     carton_counter = [1]
