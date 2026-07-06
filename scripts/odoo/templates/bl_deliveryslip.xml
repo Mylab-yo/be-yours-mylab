@@ -95,12 +95,20 @@
             </t>
 
             <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (demande non couverte sur CE bon) ========== -->
-            <!-- Reliquat calcule sur les lignes de ce picking (demande - livre), independant du backorder -->
+            <!-- Reliquat = demande non servie (demande - quantite reservee/faite).
+                 GARDE : on ne le calcule QUE si le picking est reserve (au moins une qte
+                 reservee/faite) ou deja valide. En Odoo 18, move.quantity vaut 0 tant que la
+                 dispo n'est pas verifiee ; sans cette garde, un BL non reserve listerait TOUS
+                 ses produits en reliquat a tort, alors qu'ils sont juste "pas encore reserves"
+                 et non reellement manquants. -->
+            <t t-set="total_reserve" t-value="sum(doc.move_ids.filtered(lambda m: m.state != 'cancel').mapped('quantity'))"/>
             <t t-set="reliquat_rows" t-value="[]"/>
-            <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
-                <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
-                <t t-if="reliq &gt; 0.001">
-                    <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+            <t t-if="total_reserve &gt; 0 or doc.state == 'done'">
+                <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
+                    <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
+                    <t t-if="reliq &gt; 0.001">
+                        <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+                    </t>
                 </t>
             </t>
             <t t-if="reliquat_rows">
