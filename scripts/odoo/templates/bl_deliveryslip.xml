@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <t t-name="mylab.report_deliveryslip_document">
     <t t-call="web.external_layout">
         <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang or 'fr_FR')"/>
@@ -63,7 +62,7 @@
                     <tr style="border-top: 1pt solid #1a1a1a; font-weight: bold;">
                         <td colspan="2" style="padding: 4pt;">Total</td>
                         <td style="padding: 4pt; text-align: right;"><t t-esc="int(sum(r['qty'] for r in agg.values()))"/></td>
-                        <td></td>
+                        <td/>
                         <td style="padding: 4pt; text-align: right;"><t t-esc="'%.2f' % total_weight"/> kg</td>
                     </tr>
                 </tfoot>
@@ -76,7 +75,7 @@
                 <t t-set="pkg_mls" t-value="doc.move_line_ids.filtered(lambda m: m.result_package_id.id == pkg.id)"/>
                 <t t-set="pkg_units" t-value="int(sum(ml.quantity for ml in pkg_mls))"/>
                 <t t-set="pkg_weight" t-value="sum(ml.quantity * (ml.product_id.weight or 0) for ml in pkg_mls)"/>
-                <t t-set="pkg_capacity" t-value="pkg_mls and (pkg_mls[0].product_id.x_carton_capacity or 0) or 0"/>
+                <t t-set="pkg_capacity" t-value="pkg.x_carton_capacity or (pkg_mls and (pkg_mls[0].product_id.x_carton_capacity or 0) or 0)"/>
                 <div style="border: 0.5pt solid #e0e0e0; border-radius: 4pt; margin-bottom: 5pt; page-break-inside: avoid; overflow: hidden;">
                     <div style="background: #f0f0f0; color: #1a1a1a; padding: 4pt 8pt; display: flex; justify-content: space-between; font-weight: bold; font-size: 10pt;">
                         <span>☐ <t t-esc="pkg.name"/></span>
@@ -95,12 +94,20 @@
             </t>
 
             <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (demande non couverte sur CE bon) ========== -->
-            <!-- Reliquat calcule sur les lignes de ce picking (demande - livre), independant du backorder -->
+            <!-- Reliquat = demande non servie (demande - quantite reservee/faite).
+                 GARDE : on ne le calcule QUE si le picking est reserve (au moins une qte
+                 reservee/faite) ou deja valide. En Odoo 18, move.quantity vaut 0 tant que la
+                 dispo n'est pas verifiee ; sans cette garde, un BL non reserve listerait TOUS
+                 ses produits en reliquat a tort, alors qu'ils sont juste "pas encore reserves"
+                 et non reellement manquants. -->
+            <t t-set="total_reserve" t-value="sum(doc.move_ids.filtered(lambda m: m.state != 'cancel').mapped('quantity'))"/>
             <t t-set="reliquat_rows" t-value="[]"/>
-            <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
-                <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
-                <t t-if="reliq &gt; 0.001">
-                    <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+            <t t-if="total_reserve &gt; 0 or doc.state == 'done'">
+                <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
+                    <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
+                    <t t-if="reliq &gt; 0.001">
+                        <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+                    </t>
                 </t>
             </t>
             <t t-if="reliquat_rows">
@@ -128,8 +135,8 @@
             <!-- ========== SIGNATURE ========== -->
             <div style="margin-top: 20pt; border: 0.5pt solid #1a1a1a; padding: 8pt; font-size: 9pt;">
                 <div><strong>Reçu en bon état par :</strong> ____________________________</div>
-                <div style="margin-top: 6pt;"><strong>Date :</strong> ________________ &#160;&#160;&#160; <strong>Signature :</strong></div>
-                <div style="height: 28pt;"></div>
+                <div style="margin-top: 6pt;"><strong>Date :</strong> ________________     <strong>Signature :</strong></div>
+                <div style="height: 28pt;"/>
             </div>
 
         </div>
