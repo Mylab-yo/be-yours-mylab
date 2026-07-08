@@ -64,7 +64,7 @@ Site Shopify (be-yours-mylab)                    App Studio (mylab-configurateur
 La landing `/pages/creons-ensemble-votre-marque` et l'auto-add du dossier (389,90 €) fonctionnent comme aujourd'hui. Seul le stepper change : il affiche désormais 4 étapes + « votre site », les étapes ③/④ pointant vers l'app.
 
 ### 4.1 Étape ① — Choix des produits (déplacée avant l'étiquette)
-`/pages/parcours-produits` passe en étape 01 du parcours (interversion avec l'étiquette). Fonctionnement inchangé (tabs catégories, paliers volume, add-to-cart). La gamme au panier définit les références que le graphiste devra décliner.
+`/pages/parcours-produits` passe en étape 02 du parcours (interversion avec l'étiquette). Fonctionnement inchangé (tabs catégories, paliers volume, add-to-cart). La gamme au panier définit les références que le graphiste devra décliner.
 
 ### 4.2 Étape ② — Choix du modèle d'étiquette
 `/pages/parcours-etiquette` passe en étape 02. Le configurateur Vercel reste en iframe/modale. Deux ajouts :
