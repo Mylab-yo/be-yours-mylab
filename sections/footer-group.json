@@ -121,7 +121,7 @@
         "contact_email": "",
         "copyright_text": "Tous droits réservés.",
         "payment_enable": true,
-        "mentions_legales_link": "",
+        "mentions_legales_link": "/pages/mentions-legales",
         "mentions_legales_text": "Mentions légales",
         "bg_color": "#f6f6f6",
         "text_color": "#000000",
