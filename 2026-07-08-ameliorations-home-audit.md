@@ -231,6 +231,8 @@ git commit -m "feat(home): grille best-sellers avec prix depuis la home"
 
 ### Task 3 : Extrait vidéo témoignage sur la home (module natif `video`)
 
+> **⚠️ ANNULÉE après revue visuelle de Yoann (08/07)** : la vidéo (format portrait, miniature démesurée) n'était pas esthétique sur la home — section retirée (commit `36c4b0d`). Le parcours témoignages reste couvert par la section `temoignages_video` (bouton « Découvrir les interviews »).
+
 Point d'audit traité : *« aucun extrait directement visible »* — on embarque la vidéo d'Aurélien (Bonhomme Paris), déjà hébergée dans les fichiers Shopify (`montage-bonhomme-v4_ygCa9teq.mp4`, utilisée sur `/pages/temoignages`), via la **section native `video` du thème** (`sections/video.liquid`) : poster + lecture au clic (`deferred-media`), aucun HTML custom. Le contexte texte (qui est Aurélien, bouton « Découvrir les interviews ») est déjà fourni par la section `temoignages_video` juste au-dessus — la section vidéo n'a donc pas besoin de titre propre.
 
 **Files:**
@@ -508,6 +510,14 @@ git status
 Attendu : arbre propre (chaque tâche a déjà son commit). Récapituler dans la réponse : les 5 commits, les actions admin restantes de Task 6 non faites, et le rappel que la mise en live du thème est une action manuelle de Yoann.
 
 ---
+
+## Retours QA visuels de Yoann (08/07, après premier push dev)
+
+1. ✅ Espace manquant entre le bandeau défilant et le bloc « Notre modèle » → bandeau passé sur fond blanc + padding 24/48 (les deux sections étaient le même beige `#f5f0eb` et fusionnaient, marge inter-sections globale = 0).
+2. ✅ Multicolonne périmètre : heading par défaut « Multicolumn » retiré (`"heading": ""`), bouton par défaut « Button label » remplacé par « Découvrir la boutique » → `/pages/la-boutique-my-lab` (style `button--tertiary`, le seul style bouton du module multicolumn, déjà utilisé partout ailleurs).
+3. ✅ Carte « Dès 50 kg » : bouton `button_style_secondary: true` (lien souligné noir sur noir) → `false` (bouton tertiaire clair, visible sur fond noir).
+4. ✅ Section vidéo témoignage supprimée (voir Task 3 annulée).
+5. ✅ Bascule Calendly → cal.com : embed inline officiel cal.com dans `sections/ml-rendez-vous.liquid` (l'id de setting `calendly_url` est conservé pour compatibilité) + `templates/page.prise-de-rendez-vous.json` pointe sur `https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire`.
 
 ## Hors périmètre (assumé)
 
