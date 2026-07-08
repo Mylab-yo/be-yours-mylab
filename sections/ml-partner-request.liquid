@@ -1,0 +1,785 @@
+{% comment %}
+  MyLab Shop — Projet sur-mesure (mise en relation labos partenaires)
+  sections/ml-partner-request.liquid
+
+  Formulaire stylé MY.LAB (même mécanique que la demande de doc pro).
+  Submit JS → POST JSON vers webhook n8n (setting webhook_url) + backup /contact Shopify.
+  n8n : Airtable « Leads sur-mesure » + notif Yoann + AR client. Transmission labos manuelle.
+{% endcomment %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-partner {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: #111;
+  }
+
+  /* ── HERO ── */
+  .ml-partner__hero {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+  }
+  .ml-partner__badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+  }
+  .ml-partner__title {
+    font-family: 'Cormorant Garamond', var(--font-heading-family), serif;
+    font-size: clamp(2.8rem, 5vw, 4.4rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.15;
+    margin: 0 0 1.2rem;
+    color: #111;
+  }
+  .ml-partner__subtitle {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #555;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ── GRID 2 COL ── */
+  .ml-partner__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* ── LEFT : CONTENU ── */
+  .ml-partner__content {
+    padding: 2.4rem;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #eee;
+  }
+  .ml-partner__content-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 1.4rem;
+    color: #111;
+  }
+  .ml-partner__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+  }
+  .ml-partner__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .ml-partner__features li:last-child {
+    border-bottom: none;
+  }
+  .ml-partner__features-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+  .ml-partner__why {
+    padding: 1.6rem;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+  .ml-partner__why-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+    color: #111;
+  }
+  .ml-partner__why-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
+  /* ── RIGHT : FORMULAIRE ── */
+  .ml-partner__form-wrap {
+    padding: 2.4rem;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .ml-partner__form-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+    color: #111;
+  }
+  .ml-partner__form-desc {
+    font-size: 1.2rem;
+    color: #888;
+    margin: 0 0 1.6rem;
+  }
+  .ml-partner__field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .ml-partner__field {
+    margin-bottom: 1.2rem;
+  }
+  .ml-partner__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 0.4rem;
+  }
+  .ml-partner__label span {
+    color: #c00;
+  }
+  .ml-partner__input {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+  }
+  .ml-partner__input:focus {
+    outline: none;
+    border-color: #111;
+    box-shadow: 0 0 0 2px rgba(17,17,17,0.08);
+    background: #fff;
+  }
+  .ml-partner__input::placeholder {
+    color: #bbb;
+  }
+  textarea.ml-partner__input {
+    resize: vertical;
+    min-height: 110px;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+  }
+  .ml-partner__select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    padding-right: 3rem;
+  }
+  .ml-partner__submit {
+    width: 100%;
+    padding: 1.2rem;
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 0.8rem;
+    min-height: 50px;
+  }
+  .ml-partner__submit:hover {
+    background: #333;
+  }
+  .ml-partner__submit:active {
+    transform: scale(0.98);
+  }
+  .ml-partner__privacy {
+    font-size: 1.1rem;
+    color: #999;
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.4;
+  }
+  .ml-partner__privacy a {
+    color: #888;
+    text-decoration: underline;
+  }
+
+  /* ── CHECKBOX ── */
+  .ml-partner__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #666;
+  }
+  .ml-partner__checkbox input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #111;
+    cursor: pointer;
+  }
+  .ml-partner__checkbox a {
+    color: #888;
+    text-decoration: underline;
+  }
+
+  /* ── SUCCESS MESSAGE ── */
+  .ml-partner__success {
+    text-align: center;
+    padding: 2rem;
+    background: #f0faf0;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    margin-bottom: 1.6rem;
+  }
+  .ml-partner__success svg {
+    margin-bottom: 0.6rem;
+  }
+  .ml-partner__success-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2d7a45;
+    margin: 0 0 0.4rem;
+  }
+  .ml-partner__success-text {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ── TRUST ROW ── */
+  .ml-partner__trust {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .ml-partner__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    color: #888;
+  }
+  .ml-partner__trust-item svg {
+    flex-shrink: 0;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 749px) {
+    .ml-partner__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .ml-partner__content,
+    .ml-partner__form-wrap {
+      padding: 1.6rem;
+    }
+    .ml-partner__title {
+      font-size: clamp(2.4rem, 7vw, 3.2rem);
+    }
+    .ml-partner__trust {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .ml-partner__field-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="ml-partner page-width">
+
+  {%- comment -%} ====== HERO ====== {%- endcomment -%}
+  <div class="ml-partner__hero">
+    <div class="ml-partner__badge">{{ section.settings.badge | default: 'MY.LAB & ses laboratoires partenaires' }}</div>
+    <h1 class="ml-partner__title">{{ section.settings.heading | default: 'Votre projet sur-mesure, avec nos laboratoires partenaires' }}</h1>
+    <p class="ml-partner__subtitle">{{ section.settings.subtitle | default: 'Formule sur-mesure, modification de formule, formulation à façon ou études cliniques : décrivez votre projet, nous vous mettons en relation avec le laboratoire français adapté. Gratuit et sans engagement.' }}</p>
+  </div>
+
+  {%- comment -%} ====== GRID ====== {%- endcomment -%}
+  <div class="ml-partner__grid">
+
+    {%- comment -%} ── LEFT : Contenu ── {%- endcomment -%}
+    <div class="ml-partner__content">
+      <h2 class="ml-partner__content-title">{{ section.settings.content_heading | default: 'Comment ça marche' }}</h2>
+      <ul class="ml-partner__features">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'feature' -%}
+            <li {{ block.shopify_attributes }}>
+              <svg class="ml-partner__features-icon" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12l3 3 5-5"/>
+              </svg>
+              <div>
+                <strong>{{ block.settings.title }}</strong>
+                {%- if block.settings.description != blank -%}
+                  <br><span style="color:#666;font-size:1.2rem;">{{ block.settings.description }}</span>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <div class="ml-partner__why">
+        <h3 class="ml-partner__why-title">{{ section.settings.why_heading | default: 'Pourquoi ces informations ?' }}</h3>
+        <p class="ml-partner__why-text">{{ section.settings.why_text | default: 'Votre description nous permet de sélectionner le laboratoire partenaire le plus pertinent pour votre projet. Vos informations ne sont transmises qu’au laboratoire retenu, avec votre accord.' }}</p>
+      </div>
+    </div>
+
+    {%- comment -%} ── RIGHT : Formulaire ── {%- endcomment -%}
+    <div class="ml-partner__form-wrap">
+      <h2 class="ml-partner__form-title">{{ section.settings.form_heading | default: 'Décrivez votre projet' }}</h2>
+      <p class="ml-partner__form-desc">{{ section.settings.form_desc | default: '2 minutes suffisent — nous nous chargeons du reste.' }}</p>
+
+      {%- assign form_id = 'PartnerForm-' | append: section.id -%}
+
+      <form id="{{ form_id }}">
+        <div class="ml-partner__success" id="{{ form_id }}-success" style="display:none;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2d7a45" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M8 12l3 3 5-5"/>
+          </svg>
+          <h3 class="ml-partner__success-title">{{ section.settings.success_title | default: 'Votre projet a bien été envoyé !' }}</h3>
+          <p class="ml-partner__success-text">{{ section.settings.success_text | default: 'Nous revenons vers vous sous 48 h ouvrées avec le laboratoire adapté à votre projet.' }}</p>
+        </div>
+
+        <div id="{{ form_id }}-fields">
+          <div class="ml-partner__field-row">
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-firstname">Prénom <span>*</span></label>
+              <input
+                class="ml-partner__input"
+                type="text"
+                id="{{ form_id }}-firstname"
+                name="prenom"
+                autocomplete="given-name"
+                required
+                placeholder="Jean"
+                value="{% if customer %}{{ customer.first_name }}{% endif %}"
+              >
+            </div>
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-lastname">Nom <span>*</span></label>
+              <input
+                class="ml-partner__input"
+                type="text"
+                id="{{ form_id }}-lastname"
+                name="nom"
+                autocomplete="family-name"
+                required
+                placeholder="Dupont"
+                value="{% if customer %}{{ customer.last_name }}{% endif %}"
+              >
+            </div>
+          </div>
+
+          <div class="ml-partner__field">
+            <label class="ml-partner__label" for="{{ form_id }}-email">Email <span>*</span></label>
+            <input
+              class="ml-partner__input"
+              type="email"
+              id="{{ form_id }}-email"
+              name="email"
+              autocomplete="email"
+              required
+              placeholder="contact@mamarque.fr"
+              value="{% if customer %}{{ customer.email }}{% endif %}"
+            >
+          </div>
+
+          <div class="ml-partner__field">
+            <label class="ml-partner__label" for="{{ form_id }}-phone">Téléphone</label>
+            <input
+              class="ml-partner__input"
+              type="tel"
+              id="{{ form_id }}-phone"
+              name="telephone"
+              autocomplete="tel"
+              placeholder="06 12 34 56 78"
+              value="{% if customer %}{{ customer.phone }}{% endif %}"
+            >
+          </div>
+
+          <div class="ml-partner__field">
+            <label class="ml-partner__label" for="{{ form_id }}-marque">Marque / société</label>
+            <input
+              class="ml-partner__input"
+              type="text"
+              id="{{ form_id }}-marque"
+              name="marque"
+              autocomplete="organization"
+              placeholder="Ma Marque"
+            >
+          </div>
+
+          <div class="ml-partner__field-row">
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-type">Type de projet <span>*</span></label>
+              <select class="ml-partner__input ml-partner__select" id="{{ form_id }}-type" name="type_projet" required>
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="Modification de formule existante">Modification de formule existante</option>
+                <option value="Création de formule sur-mesure">Création de formule sur-mesure</option>
+                <option value="Formulation à façon">Formulation à façon</option>
+                <option value="Études cliniques">Études cliniques</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-categorie">Catégorie produit <span>*</span></label>
+              <select class="ml-partner__input ml-partner__select" id="{{ form_id }}-categorie" name="categorie" required>
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="Capillaire">Capillaire</option>
+                <option value="Soin visage">Soin visage</option>
+                <option value="Corps">Corps</option>
+                <option value="Hygiène">Hygiène</option>
+                <option value="Autre">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ml-partner__field-row">
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-quantites">Quantités envisagées</label>
+              <select class="ml-partner__input ml-partner__select" id="{{ form_id }}-quantites" name="quantites">
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="< 500 u">Moins de 500 unités</option>
+                <option value="500 – 1 000 u">500 à 1 000 unités</option>
+                <option value="1 000 – 5 000 u">1 000 à 5 000 unités</option>
+                <option value="> 5 000 u">Plus de 5 000 unités</option>
+                <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="ml-partner__field">
+              <label class="ml-partner__label" for="{{ form_id }}-echeance">Échéance souhaitée</label>
+              <select class="ml-partner__input ml-partner__select" id="{{ form_id }}-echeance" name="echeance">
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="< 3 mois">Moins de 3 mois</option>
+                <option value="3 – 6 mois">3 à 6 mois</option>
+                <option value="6 – 12 mois">6 à 12 mois</option>
+                <option value="Pas de date">Pas de date précise</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ml-partner__field">
+            <label class="ml-partner__label" for="{{ form_id }}-description">Décrivez votre projet <span>*</span></label>
+            <textarea class="ml-partner__input" id="{{ form_id }}-description" name="description" rows="5" required
+                      placeholder="Type de produit, texture recherchée, actifs souhaités, contraintes, références existantes…"></textarea>
+          </div>
+
+
+
+
+
+          <div class="ml-partner__field" style="margin-top:0.4rem;">
+            <label class="ml-partner__checkbox">
+              <input type="checkbox" name="consent" value="oui" required>
+              <span>J'accepte que MY.LAB transmette ces informations à ses laboratoires partenaires pour l'étude de mon projet.
+                {%- if section.settings.privacy_url != blank -%}
+                  <a href="{{ section.settings.privacy_url }}" target="_blank">Politique de confidentialité</a>
+                {%- endif -%}
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="ml-partner__submit">
+            {{ section.settings.submit_label | default: 'Envoyer mon projet' }}
+          </button>
+        </div>
+      </form>
+
+      <script>
+        (function () {
+          var N8N_WEBHOOK_URL = {{ section.settings.webhook_url | default: '' | json }};
+
+          var form = document.getElementById('{{ form_id }}');
+          if (!form) return;
+
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            /* Collecte des champs */
+            var get = function () {
+              for (var i = 0; i < arguments.length; i++) {
+                var el = form.querySelector('[name="' + arguments[i] + '"]');
+                if (el && el.value && el.value.trim()) return el.value.trim();
+              }
+              return '';
+            };
+
+            var payload = {
+              prenom      : get('prenom'),
+              nom         : get('nom'),
+              email       : get('email'),
+              telephone   : get('telephone'),
+              marque      : get('marque'),
+              type_projet : get('type_projet'),
+              categorie   : get('categorie'),
+              quantites   : get('quantites'),
+              echeance    : get('echeance'),
+              description : get('description'),
+              consent     : get('consent'),
+              source      : 'Shopify — page projet sur-mesure',
+              page_url    : window.location.href
+            };
+
+            /* Envoi vers n8n (Airtable + notif Yoann + AR client) */
+            if (N8N_WEBHOOK_URL) {
+              fetch(N8N_WEBHOOK_URL, {
+                method    : 'POST',
+                headers   : { 'Content-Type': 'application/json' },
+                body      : JSON.stringify(payload),
+                keepalive : true
+              }).catch(function () {});
+            }
+
+            /* Backup : Shopify Customers > Formulaires de contact (filet de sécurité si n8n down) */
+            var backupBody =
+              'Projet sur-mesure — ' + payload.source + '\n' +
+              'Marque : '     + payload.marque + '\n' +
+              'Type : '       + payload.type_projet + '\n' +
+              'Catégorie : '  + payload.categorie + '\n' +
+              'Quantités : '  + payload.quantites + '\n' +
+              'Échéance : '   + payload.echeance + '\n' +
+              'Téléphone : '  + payload.telephone + '\n' +
+              'Description :\n' + payload.description + '\n' +
+              'Page : '       + payload.page_url;
+            var backupFD = new FormData();
+            backupFD.append('form_type', 'contact');
+            backupFD.append('utf8', '✓');
+            backupFD.append('contact[name]',  (payload.prenom + ' ' + payload.nom).trim());
+            backupFD.append('contact[email]', payload.email);
+            backupFD.append('contact[phone]', payload.telephone);
+            backupFD.append('contact[body]',  backupBody);
+            fetch('/contact', {
+              method    : 'POST',
+              body      : backupFD,
+              keepalive : true,
+              redirect  : 'manual'
+            }).catch(function () {});
+
+            /* Afficher le message de succès */
+            document.getElementById('{{ form_id }}-fields').style.display = 'none';
+            document.getElementById('{{ form_id }}-success').style.display = '';
+          });
+
+        })();
+      </script>
+    </div>
+  </div>
+
+  {%- comment -%} ====== TRUST ====== {%- endcomment -%}
+  <div class="ml-partner__trust">
+    <div class="ml-partner__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Données sécurisées
+    </div>
+    <div class="ml-partner__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Réponse sous 48 h
+    </div>
+    <div class="ml-partner__trust-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Accompagnement personnalisé
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "ML Projet sur-mesure",
+  "tag": "section",
+  "class": "ml-partner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "MY.LAB & ses laboratoires partenaires"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Votre projet sur-mesure, avec nos laboratoires partenaires"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Formule sur-mesure, modification de formule, formulation à façon ou études cliniques : décrivez votre projet, nous vous mettons en relation avec le laboratoire français adapté. Gratuit et sans engagement."
+    },
+    {
+      "type": "header",
+      "content": "Contenu"
+    },
+    {
+      "type": "text",
+      "id": "content_heading",
+      "label": "Titre du contenu",
+      "default": "Comment ça marche"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Titre encadré explicatif",
+      "default": "Pourquoi ces informations ?"
+    },
+    {
+      "type": "textarea",
+      "id": "why_text",
+      "label": "Texte explicatif",
+      "default": "Votre description nous permet de sélectionner le laboratoire partenaire le plus pertinent pour votre projet. Vos informations ne sont transmises qu’au laboratoire retenu, avec votre accord."
+    },
+    {
+      "type": "header",
+      "content": "Formulaire"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Titre du formulaire",
+      "default": "Décrivez votre projet"
+    },
+    {
+      "type": "text",
+      "id": "form_desc",
+      "label": "Description du formulaire",
+      "default": "2 minutes suffisent — nous nous chargeons du reste."
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Texte du bouton",
+      "default": "Envoyer mon projet"
+    },
+    {
+      "type": "header",
+      "content": "Message de succès"
+    },
+    {
+      "type": "text",
+      "id": "success_title",
+      "label": "Titre succès",
+      "default": "Votre projet a bien été envoyé !"
+    },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Texte succès",
+      "default": "Nous revenons vers vous sous 48 h ouvrées avec le laboratoire adapté à votre projet."
+    },
+    {
+      "type": "header",
+      "content": "Intégration n8n"
+    },
+    {
+      "type": "text",
+      "id": "webhook_url",
+      "label": "URL du webhook n8n",
+      "info": "Les données du formulaire seront envoyées à cette URL en plus de Shopify. Laissez vide pour désactiver."
+    },
+    {
+      "type": "header",
+      "content": "Liens"
+    },
+    {
+      "type": "url",
+      "id": "privacy_url",
+      "label": "Lien politique de confidentialité"
+    },
+    {
+      "type": "header",
+      "content": "Espacement"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacement haut",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacement bas",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Étape / argument",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Étape ou argument"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Décrivez cette étape en une phrase."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML Projet sur-mesure",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "1. Décrivez votre projet", "description": "Formule, texture, actifs, quantités : plus c'est précis, mieux c'est." } },
+        { "type": "feature", "settings": { "title": "2. MY.LAB sélectionne le bon laboratoire", "description": "Nous qualifions votre demande et identifions le partenaire français adapté." } },
+        { "type": "feature", "settings": { "title": "3. Mise en relation sous 48 h", "description": "Vous échangez directement avec le laboratoire, accompagné par MY.LAB." } },
+        { "type": "feature", "settings": { "title": "Laboratoires français", "description": "Partenaires sélectionnés pour leur expertise cosmétique." } },
+        { "type": "feature", "settings": { "title": "Gratuit et sans engagement", "description": "La mise en relation ne vous coûte rien." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
