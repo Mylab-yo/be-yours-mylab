@@ -441,6 +441,75 @@
         "padding_bottom": 40
       }
     },
+    "offres_segmentation": {
+      "type": "multicolumn",
+      "blocks": {
+        "offre_boutique": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "Dès 6 unités — La boutique pro",
+            "title_size": "h3",
+            "text": "<p>Commandez vos produits en marque blanche directement en ligne, à partir de 6 unités par référence. Étiquette à votre logo, réassort en autonomie, expédition rapide.</p>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Accéder à la boutique",
+            "button_link": "shopify://pages/la-boutique-my-lab",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "offre_volume": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "Dès 50 kg — Production en série",
+            "title_size": "h3",
+            "text": "<p>Lancez votre production en gros volume : packaging Takemoto, tarifs dégressifs, formules exclusives. Devis personnalisé sous 72 h.</p>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Configurer ma commande",
+            "button_link": "shopify://pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "offre_boutique",
+        "offre_volume"
+      ],
+      "settings": {
+        "image_ratio": "adapt",
+        "image_position": "center center",
+        "text_alignment": "center",
+        "show_divider": false,
+        "image_width": "full",
+        "columns_desktop": 2,
+        "open_in_new_tab": false,
+        "heading": "Deux façons de <strong>commander</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "mobile_text_alignment": "left",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
     "guarantees_section": {
       "type": "guarantees",
       "blocks": {
@@ -1098,6 +1167,7 @@
     "perimeter_intro",
     "perimeter_columns",
     "intro_text",
+    "offres_segmentation",
     "guarantees_section",
     "brand_story",
     "etapes_timeline",
