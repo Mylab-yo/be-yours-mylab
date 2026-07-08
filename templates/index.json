@@ -17,12 +17,38 @@
             "heading_tag": "h1",
             "text": "Déposez votre logo et commandez vos futurs produits capillaires en quelques clics.",
             "text_size": "typeset2",
-            "button_label": "Découvrir la boutique",
-            "button_link": "shopify://pages/la-boutique-my-lab",
+            "button_label": "Prendre rendez-vous",
+            "button_link": "shopify://pages/prise-de-rendez-vous",
             "button_size": "medium",
             "button_style_secondary": false,
-            "button_alt_label": "Les étapes de création",
-            "button_alt_link": "shopify://pages/etapes-creation",
+            "button_alt_label": "Découvrir la boutique",
+            "button_alt_link": "shopify://pages/la-boutique-my-lab",
+            "button_alt_size": "medium",
+            "button_alt_style_secondary": true,
+            "enable_highlight": false,
+            "highlight_style": "solid-color"
+          }
+        },
+        "slide_testeurs": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/photo-3-etiquette-mylab-scaled.jpg",
+            "image_mobile": "shopify://shop_images/photo-3-etiquette-mylab-scaled.jpg",
+            "image_position": "center center",
+            "text_box_position": "middle-left",
+            "subheading": "TESTEURS 200 ML — SANS ENGAGEMENT",
+            "subheading_size": "h5",
+            "heading": "Testez nos formules <strong>avant</strong> de lancer votre marque",
+            "heading_size": "h0",
+            "heading_tag": "h2",
+            "text": "Recevez les shampoings, masques, crèmes, sérums et huiles MY.LAB en flacons de 200 ml. Validez avant de vous engager.",
+            "text_size": "typeset2",
+            "button_label": "Commander mes testeurs",
+            "button_link": "shopify://pages/boutique-testeurs",
+            "button_size": "medium",
+            "button_style_secondary": false,
+            "button_alt_label": "Voir le catalogue",
+            "button_alt_link": "shopify://pages/catalogue-prix-et-formules-mylab",
             "button_alt_size": "medium",
             "button_alt_style_secondary": true,
             "enable_highlight": false,
@@ -80,30 +106,6 @@
             "enable_highlight": false,
             "highlight_style": "solid-color"
           }
-        },
-        "slide_testeurs": {
-          "type": "image",
-          "settings": {
-            "image_position": "center center",
-            "text_box_position": "middle-left",
-            "subheading": "TESTEURS 200 ML — SANS ENGAGEMENT",
-            "subheading_size": "h5",
-            "heading": "Goûtez nos formules <strong>avant</strong> de lancer votre marque",
-            "heading_size": "h0",
-            "heading_tag": "h2",
-            "text": "Recevez les shampoings, masques, crèmes, sérums et huiles MY.LAB en flacons de 200 ml. Validez avant de vous engager.",
-            "text_size": "typeset2",
-            "button_label": "Commander mes testeurs",
-            "button_link": "shopify://pages/boutique-testeurs",
-            "button_size": "medium",
-            "button_style_secondary": false,
-            "button_alt_label": "Voir le catalogue",
-            "button_alt_link": "shopify://pages/catalogue-prix-et-formules-mylab",
-            "button_alt_size": "medium",
-            "button_alt_style_secondary": true,
-            "enable_highlight": false,
-            "highlight_style": "solid-color"
-          }
         }
       },
       "block_order": [
@@ -136,112 +138,6 @@
         "padding_bottom": 0
       }
     },
-    "perimeter_intro": {
-      "type": "rich-text",
-      "blocks": {
-        "subheading": {
-          "type": "subheading",
-          "settings": {
-            "subheading": "NOTRE MODÈLE",
-            "subheading_size": "h5",
-            "secondary_color": true,
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Des formules <strong>expertes</strong>, prêtes à devenir vos produits",
-            "heading_size": "h1",
-            "heading_tag": "h2",
-            "enable_highlight": true,
-            "highlight_style": "solid-color"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Notre catalogue rassemble plus de 70 formules professionnelles développées par nos partenaires français. Vous choisissez, vous brandez, vous lancez sous 15 jours.</p>",
-            "text_size": "typeset2",
-            "secondary_color": false,
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        }
-      },
-      "block_order": ["subheading", "heading", "text"],
-      "settings": {
-        "text_alignment": "center",
-        "mobile_text_alignment": "center",
-        "horizontal_content": false,
-        "narrow": true,
-        "show_divider": false,
-        "use_custom_colors": true,
-        "colors_button_label": "#ffffff",
-        "colors_button_background": "#1a1a1a",
-        "colors_text": "#1a1a1a",
-        "colors_background": "#f5f0eb",
-        "colors_highlight": "#c5a467",
-        "gradient_background": "",
-        "padding_top": 60,
-        "padding_bottom": 20
-      }
-    },
-    "perimeter_columns": {
-      "type": "multicolumn",
-      "blocks": {
-        "col_include": {
-          "type": "column",
-          "settings": {
-            "title": "Notre métier",
-            "title_size": "h4",
-            "text": "<ul><li>Catalogue de 70+ formules 96% naturelles</li><li>Personnalisation marque (logo, étiquette)</li><li>Production de 6 à 1000+ unités</li><li>Lancement sous 15 jours</li></ul>",
-            "show_popup": false,
-            "justify_text": false,
-            "button_style_secondary": false,
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        },
-        "col_exclude": {
-          "type": "column",
-          "settings": {
-            "title": "Hors périmètre",
-            "title_size": "h4",
-            "text": "<ul><li>Modification de formule existante</li><li>Création de formule sur-mesure</li><li>Formulation à façon</li><li>Études cliniques personnalisées</li></ul>",
-            "show_popup": false,
-            "justify_text": false,
-            "button_label": "Voir le catalogue de formules",
-            "button_link": "shopify://pages/catalogue-prix-et-formules-mylab",
-            "button_style_secondary": false,
-            "enable_highlight": false,
-            "highlight_style": "marker"
-          }
-        }
-      },
-      "block_order": ["col_include", "col_exclude"],
-      "settings": {
-        "image_ratio": "adapt",
-        "image_position": "center center",
-        "text_alignment": "center",
-        "show_divider": true,
-        "image_width": "small",
-        "columns_desktop": 2,
-        "open_in_new_tab": false,
-        "heading_size": "h2",
-        "heading_alignment": "center",
-        "heading_tag": "h2",
-        "mobile_text_alignment": "center",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 20,
-        "padding_bottom": 72,
-        "card_border_radius": 16,
-        "enable_highlight": false,
-        "highlight_style": "marker"
-      }
-    },
     "stats_banner": {
       "type": "ml-stats-banner",
       "blocks": {
@@ -263,7 +159,7 @@
             "accent_prefix": "",
             "accent_suffix": "ans",
             "label_line_1": "D'EXPÉRIENCE",
-            "label_line_2": "CAPILLAIRE",
+            "label_line_2": "EN FORMULATION",
             "show_google_badge": false
           }
         },
@@ -374,15 +270,140 @@
       ],
       "settings": {
         "direction": "left",
-        "speed": 1.2,
-        "show_divider": true,
+        "speed": 2.2,
+        "show_divider": false,
         "use_custom_colors": true,
         "colors_icon": "#c5a467",
         "colors_text": "#1a1a1a",
-        "colors_background": "#f5f0eb",
+        "colors_background": "#ffffff",
         "gradient_background": "",
-        "padding_top": 16,
-        "padding_bottom": 16
+        "padding_top": 24,
+        "padding_bottom": 48
+      }
+    },
+    "perimeter_intro": {
+      "type": "rich-text",
+      "blocks": {
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "NOTRE MODÈLE",
+            "subheading_size": "h5",
+            "secondary_color": true,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Des formules <strong>expertes</strong>, prêtes à devenir vos produits",
+            "heading_size": "h1",
+            "heading_tag": "h2",
+            "enable_highlight": true,
+            "highlight_style": "solid-color"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Notre catalogue rassemble plus de 70 formules professionnelles développées par nos partenaires français. Vous choisissez, vous brandez, vous lancez sous 15 jours.</p>",
+            "text_size": "typeset2",
+            "secondary_color": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "subheading",
+        "heading",
+        "text"
+      ],
+      "settings": {
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "horizontal_content": false,
+        "narrow": true,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_button_label": "#ffffff",
+        "colors_button_background": "#1a1a1a",
+        "colors_text": "#1a1a1a",
+        "colors_background": "#f5f0eb",
+        "colors_highlight": "#c5a467",
+        "gradient_background": "",
+        "padding_top": 60,
+        "padding_bottom": 20
+      }
+    },
+    "perimeter_columns": {
+      "type": "multicolumn",
+      "blocks": {
+        "col_include": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f2f2f2",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "title": "<em>Notre métier</em>",
+            "title_size": "h4",
+            "text": "<ul><li>Catalogue de 70+ formules 96% naturelles</li><li>Personnalisation marque (logo, étiquette)</li><li>Production de 6 à 1000+ unités</li><li>Lancement sous 15 jours</li></ul>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Découvrez nos formules en marque blanche",
+            "button_link": "shopify://pages/testez-les-produits",
+            "button_style_secondary": false,
+            "enable_highlight": true,
+            "highlight_style": "marker"
+          }
+        },
+        "col_exclude": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f2f2f2",
+            "heading_color": "#000000",
+            "text_color": "#333333",
+            "title": "<em>Hors périmètre</em>",
+            "title_size": "h4",
+            "text": "<ul><li>Modification de formule existante</li><li>Création de formule sur-mesure</li><li>Formulation à façon</li><li>Études cliniques personnalisées</li></ul>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Voir le catalogue de formules",
+            "button_link": "shopify://pages/catalogue-prix-et-formules-mylab",
+            "button_style_secondary": false,
+            "enable_highlight": true,
+            "highlight_style": "circle"
+          }
+        }
+      },
+      "block_order": [
+        "col_include",
+        "col_exclude"
+      ],
+      "settings": {
+        "image_ratio": "adapt",
+        "image_position": "center center",
+        "text_alignment": "center",
+        "show_divider": false,
+        "image_width": "small",
+        "columns_desktop": 2,
+        "open_in_new_tab": false,
+        "heading": "",
+        "heading_size": "h2",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "mobile_text_alignment": "center",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "colors_highlight": "#ffb503",
+        "padding_top": 20,
+        "padding_bottom": 72,
+        "card_border_radius": 16,
+        "enable_highlight": true,
+        "highlight_style": "marker"
       }
     },
     "intro_text": {
@@ -438,6 +459,89 @@
         "colors_highlight": "#c5a467",
         "gradient_background": "",
         "padding_top": 60,
+        "padding_bottom": 40
+      }
+    },
+    "offres_segmentation": {
+      "type": "multicolumn",
+      "blocks": {
+        "offre_boutique": {
+          "type": "column",
+          "settings": {
+            "background_color": "#f5f0eb",
+            "heading_color": "#1a1a1a",
+            "text_color": "#333333",
+            "title": "Dès 6 unités — La boutique pro",
+            "title_size": "h3",
+            "text": "<p>Commandez vos produits en marque blanche directement en ligne, à partir de 6 unités par référence. Étiquette à votre logo, réassort en autonomie, expédition rapide.</p>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Accéder à la boutique",
+            "button_link": "shopify://pages/la-boutique-my-lab",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "offre_volume": {
+          "type": "column",
+          "settings": {
+            "background_color": "#1a1a1a",
+            "heading_color": "#c5a467",
+            "text_color": "#ffffff",
+            "title": "Dès 50 kg — Production en série",
+            "title_size": "h3",
+            "text": "<p>Lancez votre production en gros volume : packaging Takemoto, tarifs dégressifs, formules exclusives. Devis personnalisé sous 72 h.</p>",
+            "show_popup": false,
+            "popup_image_position": "top",
+            "justify_text": false,
+            "button_label": "Configurer ma commande",
+            "button_link": "shopify://pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "button_style_secondary": false,
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "offre_boutique",
+        "offre_volume"
+      ],
+      "settings": {
+        "image_ratio": "adapt",
+        "image_position": "center center",
+        "text_alignment": "center",
+        "show_divider": false,
+        "image_width": "full",
+        "columns_desktop": 2,
+        "open_in_new_tab": false,
+        "heading": "Deux façons de <strong>commander</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "mobile_text_alignment": "left",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "colors_highlight": "#c5a467",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "card_border_radius": 12,
+        "enable_highlight": true,
+        "highlight_style": "solid-color"
+      }
+    },
+    "featured_bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "heading": "Nos formules <strong>best-sellers</strong>",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "padding_top": 40,
         "padding_bottom": 40
       }
     },
@@ -809,8 +913,8 @@
           "type": "button",
           "settings": {
             "button_size": "medium",
-            "button_label": "Prendre un RDV",
-            "button_link": "shopify://pages/contact",
+            "button_label": "Prendre rendez-vous",
+            "button_link": "shopify://pages/prise-de-rendez-vous",
             "button_style_secondary": false,
             "button_alt_label": "Appeler maintenant",
             "button_alt_link": "",
@@ -1012,8 +1116,8 @@
           "type": "button",
           "settings": {
             "button_size": "medium",
-            "button_label": "Nous contacter",
-            "button_link": "shopify://pages/contact",
+            "button_label": "Prendre rendez-vous",
+            "button_link": "shopify://pages/prise-de-rendez-vous",
             "button_style_secondary": false,
             "button_alt_label": "Découvrir la boutique",
             "button_alt_link": "shopify://pages/la-boutique-my-lab",
@@ -1098,6 +1202,8 @@
     "perimeter_intro",
     "perimeter_columns",
     "intro_text",
+    "offres_segmentation",
+    "featured_bestsellers",
     "guarantees_section",
     "brand_story",
     "etapes_timeline",
