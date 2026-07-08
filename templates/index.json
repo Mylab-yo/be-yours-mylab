@@ -375,14 +375,14 @@
       "settings": {
         "direction": "left",
         "speed": 1.2,
-        "show_divider": true,
+        "show_divider": false,
         "use_custom_colors": true,
         "colors_icon": "#c5a467",
         "colors_text": "#1a1a1a",
-        "colors_background": "#f5f0eb",
+        "colors_background": "#ffffff",
         "gradient_background": "",
-        "padding_top": 16,
-        "padding_bottom": 16
+        "padding_top": 24,
+        "padding_bottom": 48
       }
     },
     "intro_text": {
