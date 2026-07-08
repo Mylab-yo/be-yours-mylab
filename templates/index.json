@@ -1058,6 +1058,18 @@
         "padding_bottom": 40
       }
     },
+    "temoignage_video_home": {
+      "type": "video",
+      "settings": {
+        "video": "shopify://files/videos/montage-bonhomme-v4_ygCa9teq.mp4",
+        "description": "Interview d'Aurélien, fondateur de Bonhomme Paris, client MY.LAB",
+        "enable_video_looping": false,
+        "full_width": false,
+        "heading": "",
+        "padding_top": 0,
+        "padding_bottom": 60
+      }
+    },
     "cta_final": {
       "type": "rich-text",
       "blocks": {
@@ -1190,6 +1202,7 @@
     "rdv_section",
     "testimonials_section",
     "temoignages_video",
+    "temoignage_video_home",
     "cta_final",
     "newsletter_section"
   ]
