@@ -519,6 +519,12 @@ Attendu : arbre propre (chaque tâche a déjà son commit). Récapituler dans la
 4. ✅ Section vidéo témoignage supprimée (voir Task 3 annulée).
 5. ✅ Bascule Calendly → cal.com : embed inline officiel cal.com dans `sections/ml-rendez-vous.liquid` (l'id de setting `calendly_url` est conservé pour compatibilité) + `templates/page.prise-de-rendez-vous.json` pointe sur `https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire`.
 
+## Mise en live (08/07, sur demande explicite de Yoann)
+
+- Le thème LIVE avait **dérivé** de master (retouches Theme Editor : 2 sections `empty-space` pour l'espacement, titres `<em>` + highlight sur la multicolonne périmètre, bouton « Découvrez nos formules en marque blanche », vitesse bandeau 2.2, « Testez » au lieu de « Goûtez »). Fusion faite : base = live + deltas validés du plan ; les `empty-space` sont remplacés par le bandeau restylé (validé sur le thème dev). Commit `8e280c6`.
+- Déploiement par PUT REST (CLI `--only` non fiable) : `templates/index.json` (fusionné), `sections/footer-group.json`, `templates/page.prise-de-rendez-vous.json`, `sections/ml-rendez-vous.liquid` → thème 184014340430. Rendu live vérifié par curl : 12/12 checks OK.
+- Décision Yoann : le menu « ACHETER » reste tel quel (Task 6 Step 1 abandonnée).
+
 ## Hors périmètre (assumé)
 
 - **Fourchettes de prix en dur sur les pages vitrine** : plutôt que d'inventer un « à partir de X € » statique (qui divergerait des tarifs dégressifs réels, gérés par produit), le plan rend les prix réels visibles via la grille best-sellers (Task 2) et le catalogue & prix accessible depuis le menu (Task 6). Si Yoann veut en plus un prix d'appel en dur dans le hero, c'est une décision business à prendre avec un montant précis.
