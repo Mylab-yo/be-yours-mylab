@@ -199,6 +199,8 @@
             "text": "<ul><li>Catalogue de 70+ formules 96% naturelles</li><li>Personnalisation marque (logo, étiquette)</li><li>Production de 6 à 1000+ unités</li><li>Lancement sous 15 jours</li></ul>",
             "show_popup": false,
             "justify_text": false,
+            "button_label": "Découvrir la boutique",
+            "button_link": "shopify://pages/la-boutique-my-lab",
             "button_style_secondary": false,
             "enable_highlight": false,
             "highlight_style": "marker"
@@ -229,6 +231,7 @@
         "image_width": "small",
         "columns_desktop": 2,
         "open_in_new_tab": false,
+        "heading": "",
         "heading_size": "h2",
         "heading_alignment": "center",
         "heading_tag": "h2",
