@@ -4,11 +4,11 @@
       "type": "ml-parcours-landing",
       "blocks": {
         "s1": { "type": "step_card", "settings": { "kicker": "Étape 01", "title": "Dossier cosmétologique", "desc": "DIP, CPNP et tests : la base réglementaire, prête à utiliser.", "chip": "Inclus d'office" } },
-        "s2": { "type": "step_card", "settings": { "kicker": "Étape 02", "title": "Étiquette & impression", "desc": "Standard, Modèles ou Sur-mesure. Forfait d'impression annuel.", "chip": "3 options" } },
-        "s3": { "type": "step_card", "settings": { "kicker": "Étape 03", "title": "Produits", "desc": "Shampoings, masques, soins. Quantités flexibles, paliers dégressifs.", "chip": "+50 références", "chip_invert": true } },
+        "s2": { "type": "step_card", "settings": { "kicker": "Étape 03", "title": "Étiquette & impression", "desc": "Standard, Modèles ou Sur-mesure. Forfait d'impression annuel.", "chip": "3 options" } },
+        "s3": { "type": "step_card", "settings": { "kicker": "Étape 02", "title": "Produits", "desc": "Shampoings, masques, soins. Quantités flexibles, paliers dégressifs.", "chip": "+50 références", "chip_invert": true } },
         "s4": { "type": "step_card", "settings": { "kicker": "Étape 04", "title": "Récap & validation", "desc": "Vue d'ensemble de votre projet, total HT, devis ou paiement.", "chip": "Engagement final" } }
       },
-      "block_order": ["s1", "s2", "s3", "s4"]
+      "block_order": ["s1", "s3", "s2", "s4"]
     }
   },
   "order": ["parcours_landing"]
