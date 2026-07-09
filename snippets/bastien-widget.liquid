@@ -346,7 +346,7 @@
     el.className = 'bastien-msg ' + role;
     // Linkify URLs
     const escaped = text.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    el.innerHTML = escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+    el.innerHTML = escaped.replace(/(https?:\/\/[^\s<]+?)([.,;:!?…»]*)(?=\s|<|$)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>$2');
     msgsEl.appendChild(el);
     msgsEl.scrollTop = msgsEl.scrollHeight;
   }
