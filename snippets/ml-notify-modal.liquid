@@ -1,0 +1,16 @@
+{%- comment -%} Modale « Prévenez-moi du retour en stock » — ouverte par ml-notify.js via [data-ml-notify-open] {%- endcomment -%}
+<div class="ml-notify" id="ml-notify" inert aria-hidden="true">
+  <div class="ml-notify__overlay" data-ml-notify-close></div>
+  <div class="ml-notify__dialog" role="dialog" aria-modal="true" aria-labelledby="ml-notify-title">
+    <button type="button" class="ml-notify__x" data-ml-notify-close aria-label="Fermer">&times;</button>
+    <h2 class="ml-notify__title" id="ml-notify-title">Prévenez-moi du retour en stock</h2>
+    <p class="ml-notify__sub" id="ml-notify-prod"></p>
+    <form class="ml-notify__form" id="ml-notify-form">
+      <input type="email" class="ml-notify__input" id="ml-notify-email" placeholder="votre@email.com" autocomplete="email" required>
+      <input type="hidden" id="ml-notify-handle">
+      <input type="hidden" id="ml-notify-variant">
+      <button type="submit" class="ml-notify__submit">Me prévenir</button>
+    </form>
+    <p class="ml-notify__msg" id="ml-notify-msg" role="status"></p>
+  </div>
+</div>

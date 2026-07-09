@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer-group.name",
   "type": "footer",
@@ -9,6 +18,7 @@
           "type": "link_column",
           "settings": {
             "heading": "Acheter",
+            "menu": "",
             "label_1": "La boutique pro",
             "url_1": "/pages/la-boutique-my-lab",
             "label_2": "Boutique testeurs",
@@ -18,13 +28,20 @@
             "label_4": "Commande express",
             "url_4": "/pages/commande-express",
             "label_5": "Commande gros volume",
-            "url_5": "/pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici"
+            "url_5": "/pages/vous-cherchez-a-commander-en-gros-volume-cest-par-ici",
+            "label_6": "",
+            "url_6": "",
+            "label_7": "",
+            "url_7": "",
+            "label_8": "",
+            "url_8": ""
           }
         },
         "col2": {
           "type": "link_column",
           "settings": {
             "heading": "Créer ma marque",
+            "menu": "",
             "label_1": "Étapes de création",
             "url_1": "/pages/etapes-creation",
             "label_2": "Personnalisation",
@@ -34,48 +51,84 @@
             "label_4": "Designs d'étiquettes",
             "url_4": "/pages/designs-etiquettes",
             "label_5": "Configurateur",
-            "url_5": "/pages/configurateur"
+            "url_5": "/pages/configurateur",
+            "label_6": "",
+            "url_6": "",
+            "label_7": "",
+            "url_7": "",
+            "label_8": "",
+            "url_8": ""
           }
         },
         "col3": {
           "type": "link_column",
           "settings": {
             "heading": "À propos",
+            "menu": "",
             "label_1": "FAQ",
             "url_1": "/pages/faq",
             "label_2": "Nos réalisations",
             "url_2": "/pages/nos-realisations",
             "label_3": "Témoignages",
-            "url_3": "/pages/temoignages"
+            "url_3": "/pages/temoignages",
+            "label_4": "",
+            "url_4": "",
+            "label_5": "",
+            "url_5": "",
+            "label_6": "",
+            "url_6": "",
+            "label_7": "",
+            "url_7": "",
+            "label_8": "",
+            "url_8": ""
           }
         },
         "col4": {
           "type": "link_column",
           "settings": {
             "heading": "Contact",
+            "menu": "",
             "label_1": "Nous contacter",
             "url_1": "/pages/contact",
             "label_2": "Prendre rendez-vous",
-            "url_2": "/pages/prise-de-rendez-vous",
-            "label_3": "contact@mylab-shop.com",
-            "url_3": "mailto:contact@mylab-shop.com"
+            "url_2": "https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire",
+            "label_3": "",
+            "url_3": "",
+            "label_4": "",
+            "url_4": "",
+            "label_5": "",
+            "url_5": "",
+            "label_6": "",
+            "url_6": "",
+            "label_7": "",
+            "url_7": "",
+            "label_8": "",
+            "url_8": ""
           }
         }
       },
-      "block_order": ["col1", "col2", "col3", "col4"],
+      "block_order": [
+        "col1",
+        "col2",
+        "col3",
+        "col4"
+      ],
       "settings": {
+        "logo": "shopify://shop_images/Logo-rond-noir-sans-fond.png",
         "logo_width": 120,
         "show_social": true,
         "contact_label": "Contactez-nous par email :",
-        "contact_email": "contact@mylab-shop.com",
+        "contact_email": "",
         "copyright_text": "Tous droits réservés.",
         "payment_enable": true,
-        "bg_color": "#1a1a2e",
-        "text_color": "#a0a0b0",
-        "heading_color": "#ffffff",
-        "link_color": "#d0d0e0",
-        "link_hover_color": "#ffffff",
-        "border_color": "#2a2a3e"
+        "mentions_legales_link": "",
+        "mentions_legales_text": "Mentions légales",
+        "bg_color": "#f6f6f6",
+        "text_color": "#000000",
+        "heading_color": "#000000",
+        "link_color": "#a4752a",
+        "link_hover_color": "#a4752a",
+        "border_color": "#d8d2c8"
       }
     }
   },

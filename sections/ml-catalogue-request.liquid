@@ -563,7 +563,7 @@
               page_url  : window.location.href
             };
 
-            /* Envoi vers n8n */
+            /* Envoi vers n8n (Airtable + email catalogue) */
             if (N8N_WEBHOOK_URL) {
               fetch(N8N_WEBHOOK_URL, {
                 method    : 'POST',
@@ -572,6 +572,28 @@
                 keepalive : true
               }).catch(function () {});
             }
+
+            /* Backup : Shopify Customers > Formulaires de contact (filet de sécurité si n8n down) */
+            var backupBody =
+              'Demande catalogue — ' + payload.source + '\n' +
+              'Enseigne : ' + payload.enseigne + '\n' +
+              'Ville : '    + payload.ville + '\n' +
+              'Activité : ' + payload.activite + '\n' +
+              'Téléphone : '+ payload.telephone + '\n' +
+              'Page : '     + payload.page_url;
+            var backupFD = new FormData();
+            backupFD.append('form_type', 'contact');
+            backupFD.append('utf8', '✓');
+            backupFD.append('contact[name]',  (payload.prenom + ' ' + payload.nom).trim());
+            backupFD.append('contact[email]', payload.email);
+            backupFD.append('contact[phone]', payload.telephone);
+            backupFD.append('contact[body]',  backupBody);
+            fetch('/contact', {
+              method    : 'POST',
+              body      : backupFD,
+              keepalive : true,
+              redirect  : 'manual'
+            }).catch(function () {});
 
             /* Afficher le message de succès */
             document.getElementById('{{ form_id }}-fields').style.display = 'none';

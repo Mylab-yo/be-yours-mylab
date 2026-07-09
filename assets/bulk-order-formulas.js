@@ -63,6 +63,7 @@
           available_formats: f.available_formats,
           pricing: f.pricing,
           pricing_mode: f.pricing_mode || null,
+          unit_tiers: f.unit_tiers || null,
           packaging_notes: f.packaging_notes
         };
         B.state.formulas.push(formula);

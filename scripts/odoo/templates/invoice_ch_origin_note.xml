@@ -1,0 +1,11 @@
+<xpath expr="//div[@name='comment']" position="after">
+    <div t-if="o.partner_shipping_id.country_id.code == 'CH'" name="ch_export_origin_note"
+         class="mt-3 p-2 border avoid-page-break-inside"
+         style="font-size:9px;line-height:1.45;">
+        <div><strong>Numéro EORI FR49950066800086</strong></div>
+        <div class="mt-1">L'exportateur des produits couverts par le présent document, déclare que sauf indication claire du contraire, ces produits ont l'origine préférentielle CE.</div>
+        <div class="mt-1">Fait à Cavaillon, le <span t-out="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')">12/06/2026</span></div>
+        <div class="mt-1"><strong>PRODUITS CERTIFIÉS SANS COV</strong> (composants organiques volatiles)</div>
+        <div class="mt-2">Joseph DURAND</div>
+    </div>
+</xpath>

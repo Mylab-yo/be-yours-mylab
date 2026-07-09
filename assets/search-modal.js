@@ -5,6 +5,10 @@ class SearchModal extends HTMLElement {
     this.detailsContainer = this.querySelector('details');
     this.summaryToggle = this.querySelector('summary');
 
+    // Garde défensif : un <search-modal> sans <details>/<summary> (markup
+    // partiel selon le template) faisait planter le constructeur.
+    if (!this.detailsContainer || !this.summaryToggle) return;
+
     this.detailsContainer.addEventListener(
       'keyup',
       (event) => event.code && event.code.toUpperCase() === 'ESCAPE' && this.close()
@@ -13,14 +17,11 @@ class SearchModal extends HTMLElement {
       'click',
       this.onSummaryClick.bind(this)
     );
-    this.querySelector('button[type="button"]').addEventListener(
-      'click',
-      this.close.bind(this)
-    );
-    this.querySelector('button[type="reset"]').addEventListener(
-      'click',
-      this.reset.bind(this)
-    );
+    const closeButton = this.querySelector('button[type="button"]');
+    if (closeButton) closeButton.addEventListener('click', this.close.bind(this));
+
+    const resetButton = this.querySelector('button[type="reset"]');
+    if (resetButton) resetButton.addEventListener('click', this.reset.bind(this));
 
     this.summaryToggle.setAttribute('role', 'button');
   }

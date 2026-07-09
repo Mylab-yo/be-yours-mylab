@@ -26,6 +26,29 @@ const partner_notes = input.partner_notes || [];
 const order_lines = [];
 const unmatched_log = [];
 
+// --- Detect "TTC-as-HT" case: orders from wc_migration (legacy WP) reach
+// Shopify with total_tax=0 even on French customers. The webhook's
+// item.price is what the customer actually paid (TTC), not HT. If we push
+// these prices to Odoo as HT and let Odoo add 20% VAT on top, the invoice
+// total exceeds what the client paid (double-VAT effect).
+// Fix: divide each Shopify price by (1 + tax_rate) so Odoo + VAT lands back
+// on the original Shopify total.
+const ship = order.shipping_address || order.billing_address || {};
+const shipCountryCode = (ship.country_code || '').toUpperCase();
+const customerTaxExempt = !!(order.customer && order.customer.tax_exempt);
+const shopifyTotalTax = parseFloat(order.total_tax || '0');
+const isWcMigration = (order.source_name || '') === 'wc_migration';
+const priceIsActuallyTtc = (
+  !customerTaxExempt &&
+  shipCountryCode === 'FR' &&
+  shopifyTotalTax === 0 &&
+  isWcMigration
+);
+const TVA_DIVISOR = priceIsActuallyTtc ? 1.20 : 1.0;
+if (priceIsActuallyTtc) {
+  partner_notes.push(`⚠ Commande WP-migration sans TVA Shopify (total_tax=0). Prix divisés par 1.20 pour reconstituer le HT — total facture = total Shopify.`);
+}
+
 // --- Helper: match one product line ---
 async function matchOneProduct(sku, title) {
   // 1. Exact SKU match on product.product.default_code
@@ -56,11 +79,26 @@ async function matchOneProduct(sku, title) {
 for (const item of order.line_items || []) {
   const productId = await matchOneProduct.call(this, item.sku, item.title);
   if (productId) {
-    order_lines.push([0, 0, {
+    // --- Discount: Shopify can emit per-line discount_allocations (one entry per
+    // promo applied). Sum them, convert to a % of the line gross amount, and feed
+    // Odoo's sale.order.line.discount (which Odoo applies before VAT).
+    const grossLine = parseFloat(item.price) * (item.quantity || 0);
+    let discountSum = 0;
+    for (const da of (item.discount_allocations || [])) {
+      discountSum += parseFloat(da.amount || 0);
+    }
+    const discountPct = (grossLine > 0 && discountSum > 0)
+      ? Math.round((discountSum / grossLine) * 10000) / 100   // 2-decimal %
+      : 0;
+    const lineVals = {
       product_id: productId,
       product_uom_qty: item.quantity,
-      price_unit: parseFloat(item.price),  // Shopify source of truth
-    }]);
+      price_unit: parseFloat(item.price) / TVA_DIVISOR,  // Shopify source of truth (÷ TVA if TTC)
+    };
+    if (discountPct > 0) {
+      lineVals.discount = discountPct;
+    }
+    order_lines.push([0, 0, lineVals]);
   } else {
     const note = `⚠ NON MATCHÉ — SKU: ${item.sku || 'N/A'} — ${item.title} × ${item.quantity} @ ${item.price} €`;
     order_lines.push([0, 0, {
@@ -79,7 +117,7 @@ if (shippingLine && parseFloat(shippingLine.price) > 0) {
   order_lines.push([0, 0, {
     product_id: SHIPPING_PRODUCT_ID,
     product_uom_qty: 1,
-    price_unit: parseFloat(shippingLine.price),
+    price_unit: parseFloat(shippingLine.price) / TVA_DIVISOR,
     name: `Frais de livraison — ${shippingLine.title || 'DPD'}`,
   }]);
 }

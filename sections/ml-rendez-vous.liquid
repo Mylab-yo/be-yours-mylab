@@ -79,7 +79,7 @@
     flex-shrink: 0;
   }
 
-  /* ── CALENDLY WRAPPER ── */
+  /* ── BOOKING EMBED WRAPPER (cal.com) ── */
   .ml-rdv__calendly-wrap {
     max-width: 900px;
     margin: 0 auto 3rem;
@@ -218,10 +218,20 @@
     </div>
   </div>
 
-  {%- comment -%} ── CALENDLY EMBED ── {%- endcomment -%}
+  {%- comment -%} ── CAL.COM EMBED ── {%- endcomment -%}
+  {%- assign ml_cal_link = section.settings.calendly_url | default: 'https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire' | remove: 'https://app.cal.com/' | remove: 'https://cal.com/' -%}
   <div class="ml-rdv__calendly-wrap">
-    <div class="calendly-inline-widget" data-url="{{ section.settings.calendly_url | default: 'https://calendly.com/yoann-mylab/premier-contact?text_color=000000&primary_color=1a1a1a' }}" style="min-width:280px;height:{{ section.settings.calendly_height | default: 660 }}px;"></div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <div id="ml-rdv-cal-inline" style="min-width:280px;width:100%;height:{{ section.settings.calendly_height | default: 660 }}px;overflow:auto;"></div>
+    <script type="text/javascript">
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#ml-rdv-cal-inline",
+        calLink: "{{ ml_cal_link }}",
+        layout: "month_view"
+      });
+      Cal("ui", { "hideEventTypeDetails": false, "layout": "month_view" });
+    </script>
   </div>
 
   {%- comment -%} ── INFO CARDS ── {%- endcomment -%}
@@ -318,13 +328,14 @@
     },
     {
       "type": "header",
-      "content": "Calendly"
+      "content": "Cal.com"
     },
     {
       "type": "text",
       "id": "calendly_url",
-      "label": "URL Calendly",
-      "default": "https://calendly.com/yoann-mylab/premier-contact?text_color=000000&primary_color=1a1a1a"
+      "label": "URL cal.com (lien de réservation)",
+      "info": "L'id du setting reste calendly_url pour compatibilité avec les templates existants.",
+      "default": "https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire"
     },
     {
       "type": "range",

@@ -94,6 +94,37 @@
                 </div>
             </t>
 
+            <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (demande non couverte sur CE bon) ========== -->
+            <!-- Reliquat calcule sur les lignes de ce picking (demande - livre), independant du backorder -->
+            <t t-set="reliquat_rows" t-value="[]"/>
+            <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
+                <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
+                <t t-if="reliq &gt; 0.001">
+                    <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+                </t>
+            </t>
+            <t t-if="reliquat_rows">
+                <h3 style="color: #1a1a1a; font-family: 'Cormorant Garamond', serif; margin-top: 14pt; margin-bottom: 4pt;">Produits en reliquat — expédiés dès réception du stock</h3>
+                <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+                    <thead>
+                        <tr style="background: #f0f0f0; border-bottom: 1pt solid #1a1a1a;">
+                            <th style="text-align: left; padding: 4pt;">Référence</th>
+                            <th style="text-align: left; padding: 4pt;">Désignation</th>
+                            <th style="text-align: right; padding: 4pt;">Qté à venir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="reliquat_rows" t-as="row">
+                            <tr style="border-bottom: 0.5pt solid #e5e0d0;">
+                                <td style="padding: 3pt 4pt;"><span t-esc="row['sku']"/></td>
+                                <td style="padding: 3pt 4pt;"><span t-esc="row['name']"/></td>
+                                <td style="padding: 3pt 4pt; text-align: right;"><span t-esc="int(row['qty'])"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </t>
+
             <!-- ========== SIGNATURE ========== -->
             <div style="margin-top: 20pt; border: 0.5pt solid #1a1a1a; padding: 8pt; font-size: 9pt;">
                 <div><strong>Reçu en bon état par :</strong> ____________________________</div>

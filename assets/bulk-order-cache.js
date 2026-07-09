@@ -40,6 +40,7 @@
         // BulkOrder.bottleState — choix flacons
         bottleSelections: bo.bottleState ? bo.bottleState.selections : {},
         bottleColors:     bo.bottleState ? bo.bottleState.selectedColors : {},
+        bottleCapColors:  bo.bottleState ? bo.bottleState.selectedCapColors : {},
         // BulkOrder.qtyState — quantités
         qtyState: bo.qtyState || {}
       };
@@ -74,8 +75,9 @@
       if (typeof snap.skipTakemoto === 'boolean') bo.state.skipTakemoto = snap.skipTakemoto;
     }
     if (bo.bottleState) {
-      if (snap.bottleSelections) bo.bottleState.selections      = snap.bottleSelections;
-      if (snap.bottleColors)     bo.bottleState.selectedColors  = snap.bottleColors;
+      if (snap.bottleSelections) bo.bottleState.selections         = snap.bottleSelections;
+      if (snap.bottleColors)     bo.bottleState.selectedColors     = snap.bottleColors;
+      if (snap.bottleCapColors)  bo.bottleState.selectedCapColors  = snap.bottleCapColors;
     }
     if (snap.qtyState) bo.qtyState = snap.qtyState;
   }

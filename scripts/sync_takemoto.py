@@ -237,9 +237,14 @@ def detect_compatible_products(closure_type, capacity):
     Compat permissive : une même fermeture peut convenir à plusieurs usages
     (un flip-top marche sur un shampoing comme sur un masque). Seules vraies
     restrictions : spray (≤300ml, liquide basse-visco) et dropper/nozzle (≤100ml).
+
+    Seuil shampoing/creme/masque à 100ml : le configurateur propose ces formats
+    dès 100ml (available_formats). Un seuil >=200 créait une zone morte 120/150ml
+    où les flacons sortaient avec compatible_products=[] et disparaissaient de
+    l'étape 3 (bug corrigé 2026-06-26).
     """
     compat = []
-    big = capacity >= 200
+    big = capacity >= 100
     small = capacity <= 100
 
     if big and closure_type in ("pump", "screw_cap", "flip_top", "disc", "nozzle", "twist_cap"):
@@ -319,7 +324,12 @@ async def enrich_with_playwright(product_urls, checkpoint):
         log.error("Playwright not installed. Run: pip install playwright && playwright install chromium")
         sys.exit(1)
 
-    results = dict(checkpoint)
+    # Invalider les entries cachées qui n'ont pas encore le nouveau champ
+    # `unit_price_total_centimes` (introduit avec le scrape prix par composant).
+    results = {k: v for k, v in checkpoint.items() if "unit_price_total_centimes" in (v or {})}
+    invalidated = len(checkpoint) - len(results)
+    if invalidated:
+        log.info(f"Checkpoint: invalidating {invalidated} entries without unit_price_total_centimes (forcing re-fetch)")
     stats = {"fetched": 0, "cached": 0, "errors": 0}
 
     async with async_playwright() as p:
@@ -338,7 +348,7 @@ async def enrich_with_playwright(product_urls, checkpoint):
                 await page.wait_for_timeout(1500)
 
                 data = await page.evaluate("""() => {
-                    const out = { groups: [], moq: null };
+                    const out = { groups: [], moq: null, unit_price_total: null, components: [] };
 
                     // MOQ
                     const qtyEl = document.querySelector('.product-quantity__count');
@@ -347,7 +357,7 @@ async def enrich_with_playwright(product_urls, checkpoint):
                         if (m) out.moq = parseInt(m[1].replace(/,/g, ''));
                     }
 
-                    // Swatch groups
+                    // Swatch groups (couleurs flacon + accessoires)
                     document.querySelectorAll('.product__swatches').forEach((container, idx) => {
                         const group = { label: '', colors: [] };
                         const accordion = container.closest('.accordion, [class*="accordion"]');
@@ -369,6 +379,23 @@ async def enrich_with_playwright(product_urls, checkpoint):
                         if (group.colors.length > 0) out.groups.push(group);
                     });
 
+                    // Prix total (bandeau "Unit price (total) €X,XX")
+                    const allText = document.body.innerText || '';
+                    const totalMatch = allText.match(/Unit price\\s*\\(?total\\)?\\s*\\u20AC\\s*(\\d+[,.]\\d{1,2})/i);
+                    if (totalMatch) out.unit_price_total = totalMatch[1].replace(',', '.');
+
+                    // Décomposition par composant (Bottle / Cap / Plug / Pump / etc.)
+                    // Chaque composant est dans un .accordion qui contient "€X,XX/unit".
+                    document.querySelectorAll('.accordion').forEach(el => {
+                        const text = (el.innerText || '').slice(0, 500);
+                        const pm = text.match(/\\u20AC\\s*(\\d+[,.]?\\d{0,2})\\s*\\/\\s*unit/i);
+                        if (!pm) return;
+                        const lines = text.split('\\n').map(l => l.trim()).filter(Boolean);
+                        const label = lines[0] || '';
+                        const partName = lines.length > 1 ? lines[1] : '';
+                        out.components.push({ label: label, part_name: partName, price_eur: pm[1].replace(',', '.') });
+                    });
+
                     return out;
                 }""")
 
@@ -377,11 +404,41 @@ async def enrich_with_playwright(product_urls, checkpoint):
                     {"label": g["label"], "colors": [normalize_color(c) for c in g["colors"]], "raw_colors": g["colors"]}
                     for g in data["groups"][1:]
                 ]
+                # Match per-component prices to accessory_options by index (groups[1:] = accessoires).
+                # Le premier component .accordion est le flacon (Bottle), les suivants sont les accessoires.
+                components = data.get("components", [])
+                bottle_price_eur = None
+                if components and components[0].get("label", "").lower() in ("bottle", "container"):
+                    try:
+                        bottle_price_eur = float(components[0]["price_eur"])
+                    except (TypeError, ValueError):
+                        pass
+                    accessory_components = components[1:]
+                else:
+                    accessory_components = components
+                # Inject per-accessory price into the parsed accessories (best-effort align by index)
+                for i, acc in enumerate(accessories):
+                    if i < len(accessory_components):
+                        try:
+                            acc["price_eur"] = float(accessory_components[i]["price_eur"])
+                            acc["raw_label"] = accessory_components[i].get("label")
+                        except (TypeError, ValueError):
+                            pass
+
+                # Total price in centimes : prefer "Unit price (total)" if present
+                total_centimes = None
+                try:
+                    if data.get("unit_price_total"):
+                        total_centimes = int(round(float(data["unit_price_total"]) * 100))
+                except (TypeError, ValueError):
+                    pass
 
                 results[handle] = {
                     "available_colors": available or ["clear"],
                     "accessory_options": accessories,
                     "moq": data.get("moq"),
+                    "unit_price_total_centimes": total_centimes,
+                    "bottle_price_eur": bottle_price_eur,
                 }
                 stats["fetched"] += 1
 
@@ -490,6 +547,13 @@ def build_bottles(products, enrichment_map, existing_index):
             {**ao, "colors": [normalize_color(c) for c in ao.get("colors", [])]}
             for ao in enriched.get("accessory_options", [])
         ]
+
+        # Prefer the page-rendered total price (Bottle + accessories) over the
+        # single-variant Shopify JSON price, which only quotes the bottle alone
+        # (e.g. 0,90 € on s-apin-300-pb-v35-cap, vs real total 1,30 €).
+        enriched_total = enriched.get("unit_price_total_centimes")
+        if enriched_total and enriched_total > 0:
+            price = enriched_total
 
         base_slug = re.sub(r"[^a-z0-9]+", "-", handle.lower()).strip("-")
         entry_id = f"tk-{base_slug}"

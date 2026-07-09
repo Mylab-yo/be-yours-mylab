@@ -1,0 +1,333 @@
+{% comment %}
+  MyLab Shop — Bandeau stats / satisfaction client (home)
+  sections/ml-stats-banner.liquid
+{% endcomment %}
+
+{%- liquid
+  assign bg = section.settings.background_color
+  assign text_color = section.settings.text_color
+  assign accent_color = section.settings.accent_color
+  assign divider_color = section.settings.divider_color
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ bg }};
+    padding-top: {{ section.settings.padding_top | times: 0.65 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.65 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .ml-stats {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    color: {{ text_color }};
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  .ml-stats__heading {
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: {{ text_color }};
+    opacity: 0.55;
+    margin: 0 0 1.5rem;
+  }
+  .ml-stats__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 0;
+  }
+  .ml-stats__item {
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    position: relative;
+  }
+  .ml-stats__item + .ml-stats__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 1px;
+    background: {{ divider_color }};
+    opacity: 0.45;
+  }
+  .ml-stats__number {
+    font-family: 'DM Sans', var(--font-body-family), sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 6vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: {{ text_color }};
+    margin: 0;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.05em;
+  }
+  .ml-stats__number .ml-stats__accent {
+    color: {{ accent_color }};
+    font-weight: 700;
+  }
+  .ml-stats__label {
+    margin-top: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    line-height: 1.4;
+    color: {{ text_color }};
+    opacity: 0.75;
+  }
+  .ml-stats__label span {
+    display: block;
+  }
+  .ml-stats__google {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    margin-top: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: {{ text_color }};
+    opacity: 0.75;
+  }
+  .ml-stats__google svg {
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ml-stats__heading {
+      font-size: 0.7rem;
+      margin-bottom: 1rem;
+    }
+    .ml-stats__number {
+      font-size: clamp(1.7rem, 9vw, 2.4rem);
+    }
+    .ml-stats__label,
+    .ml-stats__google {
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      margin-top: 0.5rem;
+    }
+    .ml-stats__item {
+      padding: 0.25rem 0.4rem;
+    }
+  }
+</style>
+
+<div class="ml-stats" data-section-id="{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <p class="ml-stats__heading">{{ section.settings.heading | escape }}</p>
+  {%- endif -%}
+
+  <div class="ml-stats__grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'stat' -%}
+        <div class="ml-stats__item" {{ block.shopify_attributes }}>
+          <p class="ml-stats__number">
+            {%- assign num = block.settings.number -%}
+            {%- if block.settings.accent_prefix != blank -%}
+              <span class="ml-stats__accent">{{ block.settings.accent_prefix | escape }}</span>
+            {%- endif -%}
+            {{ num | escape }}
+            {%- if block.settings.accent_suffix != blank -%}
+              <span class="ml-stats__accent">{{ block.settings.accent_suffix | escape }}</span>
+            {%- endif -%}
+          </p>
+
+          {%- if block.settings.show_google_badge -%}
+            <p class="ml-stats__google">
+              <span>{{ block.settings.label_line_1 | escape }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="14" height="14" aria-hidden="true" focusable="false">
+                <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+              </svg>
+              <span>{{ block.settings.label_line_2 | escape }}</span>
+            </p>
+          {%- else -%}
+            <p class="ml-stats__label">
+              {%- if block.settings.label_line_1 != blank -%}
+                <span>{{ block.settings.label_line_1 | escape }}</span>
+              {%- endif -%}
+              {%- if block.settings.label_line_2 != blank -%}
+                <span>{{ block.settings.label_line_2 | escape }}</span>
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ML — Bandeau stats",
+  "tag": "section",
+  "class": "ml-stats-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre (optionnel, en kicker au-dessus)",
+      "default": "Nos chiffres"
+    },
+    {
+      "type": "header",
+      "content": "Couleurs"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Fond",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texte / chiffres",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (préfixe/suffixe en or)",
+      "default": "#c5a467"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Séparateur vertical",
+      "default": "#c5a467"
+    },
+    {
+      "type": "header",
+      "content": "Espacements"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding haut (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bas (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Chiffre principal",
+          "default": "500",
+          "info": "Ex: 500, 25, 4.9, 96"
+        },
+        {
+          "type": "text",
+          "id": "accent_prefix",
+          "label": "Préfixe en or (avant le chiffre)",
+          "default": "+",
+          "info": "Ex: + ou ~. Laisser vide pour rien."
+        },
+        {
+          "type": "text",
+          "id": "accent_suffix",
+          "label": "Suffixe en or (après le chiffre)",
+          "default": "+",
+          "info": "Ex: %, /5, ans. Laisser vide pour rien."
+        },
+        {
+          "type": "text",
+          "id": "label_line_1",
+          "label": "Libellé — ligne 1",
+          "default": "MARQUES"
+        },
+        {
+          "type": "text",
+          "id": "label_line_2",
+          "label": "Libellé — ligne 2",
+          "default": "CRÉÉES"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_google_badge",
+          "label": "Afficher le badge Google",
+          "info": "Insère le logo G coloré entre les deux lignes du libellé. Utiliser pour la note Google.",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "ML — Bandeau stats",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "500",
+            "accent_prefix": "+",
+            "accent_suffix": "",
+            "label_line_1": "MARQUES",
+            "label_line_2": "CRÉÉES",
+            "show_google_badge": false
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "25",
+            "accent_prefix": "",
+            "accent_suffix": "ans",
+            "label_line_1": "D'EXPÉRIENCE",
+            "label_line_2": "CAPILLAIRE",
+            "show_google_badge": false
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "5",
+            "accent_prefix": "",
+            "accent_suffix": "/5",
+            "label_line_1": "SELON",
+            "label_line_2": "GOOGLE",
+            "show_google_badge": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

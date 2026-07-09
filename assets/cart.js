@@ -151,6 +151,13 @@ if (!customElements.get('cart-items')) {
           id: 'main-cart-footer',
           section: document.getElementById('main-cart-footer')?.dataset.id,
           selector: '.js-contents',
+        },
+        {
+          // Discount pill area lives outside .js-contents (cart__footer-left sibling).
+          // Without this entry, applying a code never injects the pill into the DOM.
+          id: 'main-cart-footer',
+          section: document.getElementById('main-cart-footer')?.dataset.id,
+          selector: '.cart-discount-wrap',
         }
       ];
       if (document.querySelector('#main-cart-footer .free-shipping')) {
@@ -398,7 +405,7 @@ if (!customElements.get('cart-discount')) {
       }
 
       const discountCode = event.currentTarget.getAttribute('data-discount');
-      
+
       if (!discountCode) return;
 
       const existingDiscounts = this.existingDiscounts();
@@ -413,16 +420,24 @@ if (!customElements.get('cart-discount')) {
       this.setDiscountError('');
       event.currentTarget.setAttribute('loading', '');
 
+      // The clicked pill lives in .cart-discount-wrap, which is OUTSIDE .js-contents — the
+      // cart-items.onCartUpdate re-render only refreshes .js-contents, so the pill would
+      // remain visible. Remove it from the DOM ourselves on AJAX success.
+      const pillElement = event.currentTarget.closest('li');
+
       const sections = this.getSectionsToRender().map((section) => section.section);
       const body = JSON.stringify({
         discount: existingDiscounts.join(','),
         sections: sections,
         sections_url: window.location.pathname
       });
-      
+
       fetch(theme.routes.cart_update_url, { ...fetchConfig(), ...{ body }, signal: this.abortController.signal })
         .then((response) => response.json())
         .then((parsedState) => {
+          if (pillElement && pillElement.parentNode) {
+            pillElement.remove();
+          }
           publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-discount', cart: parsedState });
         })
         .catch((error) => {

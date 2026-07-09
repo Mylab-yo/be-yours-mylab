@@ -55,6 +55,114 @@
     {% # theme-check-enable %}
 
     {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} MY.LAB grammar override — aligne la gift card sur le BL et les emails {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --ml-ink: #1a1a1a;
+        --ml-cream: #f5f0eb;
+        --ml-grey: #f0f0f0;
+        --ml-mid: #555555;
+        --ml-muted: #888888;
+        --ml-border: #e5e0d0;
+      }
+      body {
+        font-family: 'DM Sans', Helvetica, Arial, sans-serif !important;
+        background: var(--ml-cream) !important;
+        color: var(--ml-ink) !important;
+        -webkit-font-smoothing: antialiased;
+      }
+      .gift-card__title { text-align: center; padding-top: 32px; }
+      .gift-card__logo { display: block; margin: 0 auto 24px; max-height: 88px; width: auto; }
+      .gift-card__heading,
+      .h2,
+      h1, h2, h3 {
+        font-family: 'Cormorant Garamond', 'Georgia', serif !important;
+        color: var(--ml-ink) !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px;
+      }
+      .gift-card__heading { font-size: 32px; line-height: 1.2; margin: 0 0 16px; }
+      .gift-card__label {
+        font-family: 'DM Sans', Helvetica, Arial, sans-serif !important;
+        color: var(--ml-mid) !important;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .gift-card {
+        background: #ffffff !important;
+        border: 1px solid var(--ml-border) !important;
+        border-radius: 6px !important;
+        padding: 32px !important;
+        margin: 24px auto !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      }
+      .gift-card__information-wrapper { padding-top: 16px; }
+      .gift-card__number {
+        font-family: 'DM Sans', Helvetica, Arial, sans-serif !important;
+        background: var(--ml-grey) !important;
+        border: 1px solid var(--ml-border) !important;
+        color: var(--ml-ink) !important;
+        font-size: 18px !important;
+        font-weight: 600 !important;
+        letter-spacing: 2px;
+        padding: 14px 16px !important;
+        border-radius: 4px;
+        text-align: center;
+      }
+      .price,
+      .price--large,
+      price-money,
+      price-money bdi {
+        font-family: 'Cormorant Garamond', Georgia, serif !important;
+        color: var(--ml-ink) !important;
+        font-weight: 600 !important;
+      }
+      .price--large { font-size: 42px !important; line-height: 1.1; }
+      .button {
+        font-family: 'DM Sans', Helvetica, Arial, sans-serif !important;
+        background: var(--ml-ink) !important;
+        color: #ffffff !important;
+        border: 1px solid var(--ml-ink) !important;
+        border-radius: 2px !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 14px 28px;
+      }
+      .button--secondary {
+        background: transparent !important;
+        color: var(--ml-ink) !important;
+      }
+      .button--secondary:hover { background: var(--ml-grey) !important; }
+      .gift-card__buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      .gift-card__copy-link,
+      .link {
+        color: var(--ml-mid) !important;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-size: 14px;
+      }
+      .badge {
+        background: var(--ml-grey) !important;
+        color: var(--ml-ink) !important;
+        font-family: 'DM Sans', Helvetica, Arial, sans-serif !important;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 4px 10px;
+        border-radius: 3px;
+      }
+      @media print {
+        body { background: #ffffff !important; }
+        .no-print { display: none !important; }
+      }
+    </style>
   </head>
 
   <body>

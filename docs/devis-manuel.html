@@ -116,6 +116,105 @@
       transform: none;
     }
 
+    .mode-toggle {
+      display: flex;
+      gap: 20px;
+      padding: 12px 14px;
+      background: #fafafa;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+    }
+    .mode-toggle label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: #444;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 500;
+      margin: 0;
+    }
+    .mode-toggle input[type="radio"] {
+      accent-color: #1a1a1a;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px dashed #bbb;
+      border-radius: 8px;
+      background: #fafafa;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    input[type="file"]:hover { border-color: #1a1a1a; background: #fff; }
+
+    .file-preview {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: #f0ede8;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #444;
+      display: none;
+    }
+    .file-preview.visible { display: block; }
+    .file-preview .file-meta { display: flex; justify-content: space-between; align-items: center; }
+    .file-preview .file-name { font-weight: 500; }
+    .file-preview .file-size { color: #777; }
+    .file-preview img { display: block; margin-top: 10px; max-width: 120px; max-height: 120px; border-radius: 6px; }
+
+    .raw-ocr-block {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #fef3c7;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: #92400e;
+    }
+    .raw-ocr-block strong { display: block; margin-bottom: 8px; }
+    .raw-ocr-block pre {
+      background: #fff;
+      border: 1px solid #fde68a;
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 8px 0;
+      max-height: 300px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      color: #333;
+    }
+    .raw-ocr-block button.btn-copy-text {
+      display: inline-block;
+      padding: 8px 14px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .attach-warning {
+      margin: -8px 0 16px 0;
+      padding: 10px 14px;
+      background: #fef3c7;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #92400e;
+    }
+
     /* ── Loading ── */
     .loading { display: none; text-align: center; margin-top: 24px; }
     .loading.visible { display: block; }
@@ -269,10 +368,25 @@
         </div>
 
         <div class="field">
+          <label>Source de la commande</label>
+          <div class="mode-toggle">
+            <label><input type="radio" name="mode" value="text" checked> Saisir le texte</label>
+            <label><input type="radio" name="mode" value="file"> Deposer un document</label>
+          </div>
+        </div>
+
+        <div class="field" id="textMode">
           <label for="demande">Demande produits</label>
-          <textarea id="demande" name="demande" required
+          <textarea id="demande" name="demande"
             placeholder="Collez ici la demande du client, par exemple :&#10;&#10;12 shampoings nourrissants 200ml&#10;6 masques boucles 400ml&#10;24 cremes lissantes&#10;12 serums finition ultime"></textarea>
           <div class="hint">L'IA reconnait les noms de produits meme en langage naturel, avec ou sans accents.</div>
+        </div>
+
+        <div class="field" id="fileMode" style="display:none;">
+          <label for="file">Document de commande</label>
+          <input type="file" id="file" name="file" accept="application/pdf,image/jpeg,image/jpg">
+          <div class="hint">PDF (toutes pages lues) ou JPEG. Max 10 Mo.</div>
+          <div id="filePreview" class="file-preview"></div>
         </div>
 
         <button type="submit" id="submitBtn">Generer le devis</button>
@@ -296,19 +410,117 @@
     const resultDiv = document.getElementById('result');
     const submitBtn = document.getElementById('submitBtn');
 
+    const fileInput = document.getElementById('file');
+    const filePreview = document.getElementById('filePreview');
+    const textMode = document.getElementById('textMode');
+    const fileMode = document.getElementById('fileMode');
+    const demandeTextarea = document.getElementById('demande');
+
+    // Etat du fichier upload (base64 strippe)
+    let uploadedFile = null;  // { base64, mime, name, size }
+
+    // Toggle mode texte / fichier
+    document.querySelectorAll('input[name="mode"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'text') {
+          textMode.style.display = '';
+          fileMode.style.display = 'none';
+        } else {
+          textMode.style.display = 'none';
+          fileMode.style.display = '';
+        }
+      });
+    });
+
+    // File input : validation + base64
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      uploadedFile = null;
+      filePreview.classList.remove('visible');
+      filePreview.innerHTML = '';
+
+      if (!file) return;
+
+      const allowedMimes = ['application/pdf', 'image/jpeg', 'image/jpg'];
+      if (!allowedMimes.includes(file.type)) {
+        alert('Format non supporte. Utilisez PDF ou JPEG.');
+        fileInput.value = '';
+        return;
+      }
+
+      const MAX = 10 * 1024 * 1024;
+      if (file.size > MAX) {
+        alert('Fichier trop volumineux (max 10 Mo). Taille : ' + (file.size/1024/1024).toFixed(2) + ' Mo.');
+        fileInput.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        // ev.target.result = "data:application/pdf;base64,JVBERi..."
+        const base64 = ev.target.result.split(',')[1] || '';
+        uploadedFile = {
+          base64,
+          mime: file.type,
+          name: file.name,
+          size: file.size
+        };
+        renderFilePreview(file);
+      };
+      reader.onerror = () => {
+        alert('Erreur de lecture du fichier.');
+        fileInput.value = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function renderFilePreview(file) {
+      const sizeMb = (file.size / 1024 / 1024).toFixed(2);
+      let html = `
+        <div class="file-meta">
+          <span class="file-name">${esc(file.name)}</span>
+          <span class="file-size">${sizeMb} Mo</span>
+        </div>
+      `;
+      if (file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(file);
+        html += `<img src="${url}" alt="apercu">`;
+      }
+      filePreview.innerHTML = html;
+      filePreview.classList.add('visible');
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const email = document.getElementById('email').value.trim();
       const clientName = document.getElementById('clientName').value.trim();
-      const demande = document.getElementById('demande').value.trim();
+      const mode = document.querySelector('input[name="mode"]:checked').value;
 
-      if (!demande) {
-        alert('Veuillez saisir la demande produits.');
-        return;
+      let payload;
+      if (mode === 'text') {
+        const demande = demandeTextarea.value.trim();
+        if (!demande) {
+          alert('Veuillez saisir la demande produits.');
+          return;
+        }
+        payload = { email, client_name: clientName, demande };
+        loading.querySelector('p').textContent = 'Analyse de la demande et creation du devis dans Odoo...';
+      } else {
+        if (!uploadedFile) {
+          alert('Veuillez deposer un fichier PDF ou JPEG.');
+          return;
+        }
+        payload = {
+          email,
+          client_name: clientName,
+          file_base64: uploadedFile.base64,
+          file_mime: uploadedFile.mime,
+          file_name: uploadedFile.name
+        };
+        loading.querySelector('p').textContent = 'Lecture du document et creation du devis dans Odoo...';
       }
 
-      // UI: loading state
       submitBtn.disabled = true;
       loading.classList.add('visible');
       resultDiv.classList.remove('visible');
@@ -317,7 +529,7 @@
         const resp = await fetch(WEBHOOK_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, client_name: clientName, demande })
+          body: JSON.stringify(payload)
         });
 
         if (!resp.ok) {
@@ -340,6 +552,12 @@
         return;
       }
 
+      // Cas special : 0 produit extrait du fichier → afficher raw_ocr + bouton copier
+      if (!data.success && data.raw_ocr) {
+        renderRawOcrFallback(data.raw_ocr);
+        return;
+      }
+
       const isPartial = data.unmatched && data.unmatched.length > 0;
       const statusClass = data.success
         ? (isPartial ? 'result-partial' : 'result-success')
@@ -348,6 +566,12 @@
       let html = `<div class="result-card ${statusClass}">`;
 
       if (data.success) {
+        // Banner d'avertissement si attachement Odoo a echoue
+        if (data.source === 'file' && data.file_attached === false) {
+          const errMsg = data.attachment_error ? ` (${esc(data.attachment_error)})` : '';
+          html += `<div class="attach-warning">Devis cree, mais l'attachement du fichier source a echoue${errMsg}. Le devis est valide ; verifie l'Odoo si besoin.</div>`;
+        }
+
         html += `
           <div class="devis-number">${esc(data.devis)}</div>
           <div class="devis-client">Client : ${esc(data.client)}</div>
@@ -402,7 +626,6 @@
         `;
       }
 
-      // Produits non trouves
       if (data.unmatched && data.unmatched.length > 0) {
         html += `
           <div class="warnings">
@@ -423,6 +646,38 @@
       resultDiv.classList.add('visible');
     }
 
+    function renderRawOcrFallback(rawOcr) {
+      const safeOcr = esc(rawOcr);
+      const html = `
+        <div class="result-card result-error">
+          <h3>Document illisible par l'IA</h3>
+          <p class="error-msg">Aucun produit n'a pu etre extrait du document. Voici la transcription brute :</p>
+          <div class="raw-ocr-block">
+            <strong>Transcription :</strong>
+            <pre>${safeOcr}</pre>
+            <button class="btn-copy-text" id="btnCopyToText">Copier vers mode texte</button>
+          </div>
+          <button class="btn-reset" onclick="resetForm()" style="margin-left:8px;">Nouveau devis</button>
+        </div>
+      `;
+      resultDiv.innerHTML = html;
+      resultDiv.classList.add('visible');
+
+      document.getElementById('btnCopyToText').addEventListener('click', () => {
+        // Basculer en mode texte
+        document.querySelector('input[name="mode"][value="text"]').checked = true;
+        textMode.style.display = '';
+        fileMode.style.display = 'none';
+        // Pre-remplir le textarea
+        demandeTextarea.value = rawOcr;
+        // Reset resultat + focus
+        resultDiv.classList.remove('visible');
+        resultDiv.innerHTML = '';
+        demandeTextarea.focus();
+        demandeTextarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+
     function renderError(message) {
       resultDiv.innerHTML = `
         <div class="result-card result-error">
@@ -437,8 +692,19 @@
     function resetForm() {
       resultDiv.classList.remove('visible');
       resultDiv.innerHTML = '';
-      document.getElementById('demande').value = '';
-      document.getElementById('demande').focus();
+      // Clear text mode
+      demandeTextarea.value = '';
+      // Clear file mode state
+      uploadedFile = null;
+      fileInput.value = '';
+      filePreview.classList.remove('visible');
+      filePreview.innerHTML = '';
+      // Restore default mode (text)
+      document.querySelector('input[name="mode"][value="text"]').checked = true;
+      textMode.style.display = '';
+      fileMode.style.display = 'none';
+      // Focus
+      demandeTextarea.focus();
     }
 
     function esc(str) {

@@ -1,0 +1,17 @@
+client_id = ""
+name = "mylab-tier-discount"
+handle = "mylab-tier-discount"
+application_url = "https://mylab-shop.com"
+embedded = false
+
+[build]
+include_config_on_deploy = true
+
+[webhooks]
+api_version = "2025-04"
+
+[access_scopes]
+scopes = ""
+
+[auth]
+redirect_urls = ["https://mylab-shop.com"]

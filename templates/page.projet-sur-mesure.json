@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "ml-partner-request",
+      "blocks": {
+        "step_1": {
+          "type": "feature",
+          "settings": {
+            "title": "1. Décrivez votre projet",
+            "description": "Formule, texture, actifs, quantités : plus c'est précis, mieux c'est."
+          }
+        },
+        "step_2": {
+          "type": "feature",
+          "settings": {
+            "title": "2. MY.LAB sélectionne le bon laboratoire",
+            "description": "Nous qualifions votre demande et identifions le partenaire français adapté."
+          }
+        },
+        "step_3": {
+          "type": "feature",
+          "settings": {
+            "title": "3. Mise en relation sous 48 h",
+            "description": "Vous échangez directement avec le laboratoire, accompagné par MY.LAB."
+          }
+        },
+        "arg_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Laboratoires français",
+            "description": "Partenaires sélectionnés pour leur expertise cosmétique."
+          }
+        },
+        "arg_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Gratuit et sans engagement",
+            "description": "La mise en relation ne vous coûte rien."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3", "arg_1", "arg_2"],
+      "settings": {
+        "content_heading": "Comment ça marche",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "webhook_url": "https://n8n.startec-paris.com/webhook/projet-sur-mesure",
+        "privacy_url": "shopify://policies/privacy-policy"
+      }
+    }
+  },
+  "order": ["main"]
+}

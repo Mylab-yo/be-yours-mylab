@@ -1,1 +1,360 @@
-{"sections":{"content_scrollspy_KjGLRV":{"type":"content-scrollspy","name":"t:sections.content_scrollspy.presets.name","settings":{"heading_selector":".product__heading, h2.title","background_color":"#ffffff","text_color":"#000000","active_color":"#ffb503","border_color":"#ffb503","enable_animations":true,"animation_threshold":0.6,"hide_on_scroll_up":true,"show_scroll_indicator":true}},"empty-space":{"type":"empty-space","settings":{"desktop_height":36,"mobile_height":16}},"main":{"type":"main-product","blocks":{"c3859847-75da-421a-8890-a0b32e290e91":{"type":"breadcrumb","settings":{"text_style":"uppercase","show_divider":true}},"subtitle":{"type":"text","settings":{"icon":"none","text":"{{ product.vendor }}","text_style":"uppercase"}},"title":{"type":"title","settings":{"title_size":"h2","show_price":false,"price_size":"medium"}},"rating":{"type":"rating","settings":{}},"mylab_pricing_block":{"type":"mylab_pricing","settings":{}},"b6e55313-9929-4132-a01e-2fdd52057e32":{"type":"description","settings":{}},"collapsible_tab-shipping":{"type":"collapsible_tab","settings":{"icon":"plane","heading":"Informations de livraison","content":"<p>- Préparation à la commande.<br\/>- Durée de préparation 10 à 15 jours.<br\/>- Livraison 24\/48H.<\/p>","page":"","custom_liquid":"","keep_open":true}},"inventory_status":{"type":"inventory_status","settings":{"inventory_threshold":20,"show_inventory_transfer":true,"color_scheme":"accent-3"}},"share":{"type":"share","settings":{"share_label":"Partager"}},"sticky_cart":{"type":"sticky_cart","settings":{"show_quantity_selector":false}}},"block_order":["c3859847-75da-421a-8890-a0b32e290e91","subtitle","title","rating","mylab_pricing_block","b6e55313-9929-4132-a01e-2fdd52057e32","collapsible_tab-shipping","inventory_status","share","sticky_cart"],"settings":{"enable_sticky_info":true,"media_position":"left","media_size":"medium","gallery_layout":"thumbnail_slider","image_ratio":"adapt","show_featured_media":false,"show_thumbnails":true,"hide_variants":true,"enable_image_zoom":true,"enable_video_looping":false,"mobile_image_ratio":"adapt_first","show_mobile_thumbnails":true,"padding_top":0,"padding_bottom":36}},"16537254363843e2bc":{"type":"apps","settings":{"include_margins":true,"show_divider":false,"padding_top":36,"padding_bottom":72}},"faddcad3-5a02-4a7c-819e-d0e9266565dc":{"type":"scrolling-promotion","blocks":{"86038a85-b99c-4a02-905f-b6c0203177ea":{"type":"announcement","settings":{"icon":"none","icon_size":"medium","custom_icon":"","text":"LIVRAISON 24\/48H sur toutes vos commandes","text_size":16,"link":""}},"d54f5183-156e-42e6-ac8c-fc7196c16e1a":{"type":"announcement","settings":{"icon":"none","icon_size":"medium","custom_icon":"","text":"FORMULES PROFESSIONNELLES personnalisées à votre marque","text_size":16,"link":""}},"155152a4-0688-4c66-b6b2-53bd42133837":{"type":"announcement","settings":{"icon":"none","icon_size":"medium","custom_icon":"","text":"96% D'INGRÉDIENTS D'ORIGINE NATURELLE","text_size":16,"link":""}}},"block_order":["86038a85-b99c-4a02-905f-b6c0203177ea","d54f5183-156e-42e6-ac8c-fc7196c16e1a","155152a4-0688-4c66-b6b2-53bd42133837"],"settings":{"direction":"left","speed":1.6,"show_divider":false,"use_custom_colors":true,"colors_icon":"#f1ff34","colors_text":"#212326","colors_background":"#f1ff34","gradient_background":"","padding_top":28,"padding_bottom":28}},"1653722143884a90ea":{"type":"guarantees","blocks":{"16537221439f2cd929-0":{"type":"guarantee","settings":{"icon":"leaf","icon_size":"medium","custom_icon":"","title":"Formules naturelles","title_size":"h4","text":"<p>Des ingrédients naturels, sans sulfates, silicones ni parabènes<\/p>"}},"16537221439f2cd929-1":{"type":"guarantee","settings":{"icon":"globe","icon_size":"medium","custom_icon":"","title":"Livraison rapide","title_size":"h4","text":"<p>Expédition sous 24\/48h<br\/>Suivi de commande inclus<\/p>"}},"41d9f7be-7316-4bd4-969e-72810a04584a":{"type":"guarantee","settings":{"icon":"recycle","icon_size":"medium","custom_icon":"","title":"Éco-responsable","title_size":"h4","text":"<p>Emballages recyclables et biodégradables<\/p>"}},"2f066833-7abc-4a6e-a507-515b82f94d13":{"type":"guarantee","settings":{"icon":"shield","icon_size":"medium","custom_icon":"","title":"Fabrication française","title_size":"h4","text":"<p>Produits fabriqués en France, certifiés et contrôlés<\/p>"}}},"block_order":["16537221439f2cd929-0","16537221439f2cd929-1","41d9f7be-7316-4bd4-969e-72810a04584a","2f066833-7abc-4a6e-a507-515b82f94d13"],"settings":{"layout":"default","column_alignment":"center","horizontal_content":false,"full_width":true,"show_divider":false,"columns_desktop":4,"heading":"Pourquoi choisir MyLab ?","heading_size":"h1","heading_tag":"h2","columns_mobile":"1","swipe_on_mobile":true,"use_custom_colors":false,"colors_icon":"#ffffff","colors_text":"#1a1b18","colors_background":"#ffffff","gradient_background":"","padding_top":60,"padding_bottom":36}},"product-recommendations":{"type":"product-recommendations","settings":{"product_list_limit":4,"show_divider":false,"heading":"Vous aimerez aussi","heading_size":"h1","heading_alignment":"center","heading_tag":"h2","columns_mobile":"1","swipe_on_mobile":true,"image_ratio":"portrait","image_position":"center center","enable_image_fill":true,"show_secondary_image":true,"show_vendor":true,"show_rating":true,"show_quick_buy":true,"enable_quick_view":true,"enable_color_swatches":true,"enable_countdown":true,"padding_top":36,"padding_bottom":36}},"recently-viewed-products":{"type":"recently-viewed-products","settings":{"show_divider":false,"heading":"Vus récemment","heading_size":"h1","heading_alignment":"center","heading_tag":"h2","columns_mobile":"1","swipe_on_mobile":true,"image_ratio":"portrait","image_position":"center center","enable_image_fill":true,"show_secondary_image":true,"show_vendor":true,"show_rating":true,"show_quick_buy":true,"enable_quick_view":true,"enable_color_swatches":true,"enable_countdown":true,"padding_top":36,"padding_bottom":36}}},"order":["content_scrollspy_KjGLRV","empty-space","main","16537254363843e2bc","faddcad3-5a02-4a7c-819e-d0e9266565dc","1653722143884a90ea","product-recommendations","recently-viewed-products"]}
+{
+  "sections": {
+    "content_scrollspy_KjGLRV": {
+      "type": "content-scrollspy",
+      "disabled": true,
+      "name": "t:sections.content_scrollspy.presets.name",
+      "settings": {
+        "heading_selector": ".product__heading, h2.title",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "active_color": "#ffb503",
+        "border_color": "#ffb503",
+        "enable_animations": true,
+        "animation_threshold": 0.6,
+        "hide_on_scroll_up": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "empty-space": {
+      "type": "empty-space",
+      "settings": {
+        "desktop_height": 100,
+        "mobile_height": 60
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "separator_HdwiLc": {
+          "type": "separator",
+          "settings": {}
+        },
+        "c3859847-75da-421a-8890-a0b32e290e91": {
+          "type": "breadcrumb",
+          "disabled": true,
+          "settings": {
+            "text_style": "uppercase",
+            "show_divider": true
+          }
+        },
+        "subtitle": {
+          "type": "text",
+          "settings": {
+            "icon": "none",
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "h2",
+            "show_price": false,
+            "price_size": "medium"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "mylab_pricing_block": {
+          "type": "mylab_pricing",
+          "settings": {}
+        },
+        "b6e55313-9929-4132-a01e-2fdd52057e32": {
+          "type": "description",
+          "settings": {}
+        },
+        "collapsible_tab-shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "plane",
+            "heading": "Informations de livraison",
+            "content": "<p>- Préparation à la commande.<br/>- Durée de préparation 10 à 15 jours.<br/>- Livraison 24/48H.</p>",
+            "page": "",
+            "custom_liquid": "",
+            "keep_open": true
+          }
+        },
+        "inventory_status": {
+          "type": "inventory_status",
+          "settings": {
+            "inventory_threshold": 20,
+            "show_inventory_transfer": true,
+            "color_scheme": "accent-3"
+          }
+        },
+        "share": {
+          "type": "share",
+          "disabled": true,
+          "settings": {
+            "share_label": "Partager"
+          }
+        },
+        "sticky_cart": {
+          "type": "sticky_cart",
+          "disabled": true,
+          "settings": {
+            "show_quantity_selector": false
+          }
+        },
+        "composition": {
+          "type": "composition",
+          "settings": {
+            "heading": "Composition / INCI",
+            "icon": "bottle",
+            "keep_open": false
+          }
+        }
+      },
+      "block_order": [
+        "separator_HdwiLc",
+        "c3859847-75da-421a-8890-a0b32e290e91",
+        "subtitle",
+        "title",
+        "rating",
+        "mylab_pricing_block",
+        "b6e55313-9929-4132-a01e-2fdd52057e32",
+        "composition",
+        "collapsible_tab-shipping",
+        "inventory_status",
+        "share",
+        "sticky_cart"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "media_position": "left",
+        "media_size": "medium",
+        "gallery_layout": "thumbnail_slider",
+        "image_ratio": "adapt",
+        "show_featured_media": false,
+        "show_thumbnails": true,
+        "hide_variants": true,
+        "enable_image_zoom": true,
+        "enable_video_looping": false,
+        "mobile_image_ratio": "adapt_first",
+        "show_mobile_thumbnails": true,
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
+    },
+    "16537254363843e2bc": {
+      "type": "apps",
+      "disabled": true,
+      "settings": {
+        "include_margins": true,
+        "show_divider": false,
+        "padding_top": 36,
+        "padding_bottom": 72
+      }
+    },
+    "faddcad3-5a02-4a7c-819e-d0e9266565dc": {
+      "type": "scrolling-promotion",
+      "blocks": {
+        "86038a85-b99c-4a02-905f-b6c0203177ea": {
+          "type": "announcement",
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "LIVRAISON 24/48H sur toutes vos commandes",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "d54f5183-156e-42e6-ac8c-fc7196c16e1a": {
+          "type": "announcement",
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "FORMULES PROFESSIONNELLES personnalisées à votre marque",
+            "text_size": 16,
+            "link": ""
+          }
+        },
+        "155152a4-0688-4c66-b6b2-53bd42133837": {
+          "type": "announcement",
+          "settings": {
+            "icon": "none",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "text": "96% D'INGRÉDIENTS D'ORIGINE NATURELLE",
+            "text_size": 16,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "86038a85-b99c-4a02-905f-b6c0203177ea",
+        "d54f5183-156e-42e6-ac8c-fc7196c16e1a",
+        "155152a4-0688-4c66-b6b2-53bd42133837"
+      ],
+      "disabled": true,
+      "settings": {
+        "direction": "left",
+        "speed": 1.6,
+        "show_divider": false,
+        "use_custom_colors": true,
+        "colors_icon": "#f1ff34",
+        "colors_text": "#212326",
+        "colors_background": "#f1ff34",
+        "gradient_background": "",
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "1653722143884a90ea": {
+      "type": "guarantees",
+      "blocks": {
+        "16537221439f2cd929-0": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "leaf",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Formules naturelles",
+            "title_size": "h4",
+            "text": "<p>Des ingrédients naturels, sans sulfates, silicones ni parabènes</p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "16537221439f2cd929-1": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "globe",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Livraison rapide",
+            "title_size": "h4",
+            "text": "<p>Expédition sous 24/48h<br/>Suivi de commande inclus</p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "41d9f7be-7316-4bd4-969e-72810a04584a": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "recycle",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Éco-responsable",
+            "title_size": "h4",
+            "text": "<p>Emballages recyclables et biodégradables</p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        },
+        "2f066833-7abc-4a6e-a507-515b82f94d13": {
+          "type": "guarantee",
+          "settings": {
+            "icon": "shield",
+            "icon_size": "medium",
+            "custom_icon": "",
+            "title": "Fabrication française",
+            "title_size": "h4",
+            "text": "<p>Produits fabriqués en France, certifiés et contrôlés</p>",
+            "enable_highlight": false,
+            "highlight_style": "marker"
+          }
+        }
+      },
+      "block_order": [
+        "16537221439f2cd929-0",
+        "16537221439f2cd929-1",
+        "41d9f7be-7316-4bd4-969e-72810a04584a",
+        "2f066833-7abc-4a6e-a507-515b82f94d13"
+      ],
+      "disabled": true,
+      "settings": {
+        "layout": "default",
+        "column_alignment": "center",
+        "horizontal_content": false,
+        "full_width": true,
+        "show_divider": false,
+        "columns_desktop": 4,
+        "heading": "Pourquoi choisir MyLab ?",
+        "heading_size": "h1",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "use_custom_colors": false,
+        "colors_icon": "#ffffff",
+        "colors_text": "#1a1b18",
+        "colors_background": "#ffffff",
+        "gradient_background": "",
+        "colors_highlight": "#ffb503",
+        "padding_top": 60,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "disabled": true,
+      "settings": {
+        "product_list_limit": 4,
+        "show_divider": false,
+        "heading": "Vous aimerez aussi",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": true,
+        "enable_countdown": true,
+        "colors_highlight": "#ffb503",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "enable_highlight": false,
+        "highlight_style": "marker"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "disabled": true,
+      "settings": {
+        "show_divider": false,
+        "heading": "Vus récemment",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "heading_tag": "h2",
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "image_ratio": "portrait",
+        "image_position": "center center",
+        "enable_image_fill": true,
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_buy": true,
+        "enable_quick_view": true,
+        "enable_color_swatches": true,
+        "enable_countdown": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "content_scrollspy_KjGLRV",
+    "empty-space",
+    "main",
+    "16537254363843e2bc",
+    "faddcad3-5a02-4a7c-819e-d0e9266565dc",
+    "1653722143884a90ea",
+    "product-recommendations",
+    "recently-viewed-products"
+  ]
+}

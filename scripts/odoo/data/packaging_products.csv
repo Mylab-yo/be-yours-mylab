@@ -1,0 +1,17 @@
+sku,name,vendor_code,uom,min_qty,max_qty,notes
+FLACON-PLA-200,Flacon plastique blanc 200ml,PLAS-FLAC,Units,1000,10000,Shampoings/crèmes/après-sham 200ml
+FLACON-PLA-500,Flacon plastique blanc 500ml,PLAS-FLAC,Units,100,1000,Shampoings/crèmes/après-sham 500ml
+FLACON-PLA-1000,Flacon plastique blanc 1000ml,PLAS-FLAC,Units,50,500,Shampoings/crèmes/après-sham 1000ml
+FLACON-AMBRE-200,Flacon ambré 200ml,PLAS-FLAC,Units,100,1000,Spray texturisant (TBD)
+POT-200,Pot 200ml,POT-MASQUE,Units,200,2000,Masques 200ml (jumelé CAPOT-200)
+CAPOT-200,Capot 200ml,POT-MASQUE,Units,200,2000,Masques 200ml (jumelé POT-200)
+POT-400,Pot 400ml,POT-MASQUE,Units,100,1000,Masques 400ml (TBD si distinct)
+CAPOT-400,Capot 400ml,POT-MASQUE,Units,100,1000,Masques 400ml (TBD si distinct)
+BOUTEILLE-VERRE-AMBRE-50,Bouteille verre ambré 50ml,VERR-AMBR,Units,200,2000,Sérums + huile barbe + bain miraculeux
+BOUCHON-24-410,Bouchon 24/410,PUMP-DISP,Units,500,5000,Flacons 200/500ml
+BOUCHON-28-410,Bouchon 28/410,PUMP-DISP,Units,50,500,Flacons 1000ml
+POMPE-200-500,Pompe 200/500ml,PUMP-DISP,Units,200,2000,Option crèmes/masques (mix 90/10)
+POMPE-1000,Pompe 1000ml,PUMP-DISP,Units,100,1000,Option 1000ml — aussi vendue seule (produit fini)
+DISPENSER-SERUM,Dispenser pompe sérum,PUMP-DISP,Units,100,1000,Sérum 50ml uniquement
+PIPETTE,Pipette compte-gouttes,PUMP-DISP,Units,100,1000,Huile barbe 50ml
+PULVERISATEUR-SPRAY,Pulvérisateur spray,SPRAY-FR,Units,100,1000,Spray texturisant (TBD)

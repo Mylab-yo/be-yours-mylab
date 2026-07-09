@@ -34,12 +34,43 @@ if (existingIds && existingIds.length > 0) {
   partnerId = existingIds[0];
   // Compare Shopify shipping address to Odoo partner to flag differences
   const partners = await odooExecute.call(this, 'res.partner', 'read',
-    [[partnerId]], { fields: ['street', 'zip', 'city', 'country_id'] });
+    [[partnerId]], { fields: ['street', 'zip', 'city', 'country_id', 'property_account_position_id'] });
   const odooPartner = (partners && partners[0]) || {};
   const odooStreet = odooPartner.street || '';
   const shopStreet = ship.address1 || '';
   if (odooStreet && shopStreet && odooStreet.trim().toLowerCase() !== shopStreet.trim().toLowerCase()) {
     partner_notes.push(`ℹ Adresse livraison Shopify (${shopStreet}, ${ship.zip} ${ship.city}) diffère de l'adresse Odoo (${odooStreet}, ${odooPartner.zip} ${odooPartner.city})`);
+  }
+
+  // Sanity check country: if Shopify says France but Odoo partner is missing country
+  // or has country=Aruba (a known leftover from a previous broken import),
+  // fix the Odoo partner so fiscal position auto-detection works correctly on
+  // the new SO. Without this, TVA can end up at 0% on French sales (Outside-EU FP).
+  const shipCountryCode = (ship.country_code || '').toUpperCase();
+  const odooCountryCode = odooPartner.country_id && Array.isArray(odooPartner.country_id)
+    ? odooPartner.country_id[1]
+    : null;
+  const odooCountryId = odooPartner.country_id && Array.isArray(odooPartner.country_id)
+    ? odooPartner.country_id[0]
+    : null;
+  const KNOWN_BAD_COUNTRY_IDS = new Set([14]); // 14 = Aruba (legacy default-leak)
+  const shouldFixCountry = (
+    shipCountryCode === 'FR' &&
+    (
+      !odooCountryId ||
+      KNOWN_BAD_COUNTRY_IDS.has(odooCountryId) ||
+      (odooCountryCode && odooCountryCode.toLowerCase() === 'aruba')
+    )
+  );
+  if (shouldFixCountry) {
+    const frIds = await odooExecute.call(this, 'res.country', 'search',
+      [[['code', '=', 'FR']]], { limit: 1 });
+    const frId = frIds && frIds[0];
+    if (frId) {
+      await odooExecute.call(this, 'res.partner', 'write',
+        [[partnerId], { country_id: frId, property_account_position_id: false }]);
+      partner_notes.push(`⚠ Partner ${partnerId} corrigé country_id → France (était ${odooCountryCode || 'vide'}). Fiscal position remise à auto-détect.`);
+    }
   }
 } else {
   // 2. Lookup country_id by ISO code

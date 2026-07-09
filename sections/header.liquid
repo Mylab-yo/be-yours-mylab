@@ -144,6 +144,43 @@
     visibility: hidden;
     pointer-events: none;
   }
+
+  /* MyLab: CTA "Catalogue" à côté de l'icône compte */
+  .header__catalogue-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.4rem;
+    margin: 0 0.6rem;
+    background: rgb(var(--color-header-foreground));
+    color: rgb(var(--color-header-background));
+    border-radius: 999px;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .header__catalogue-cta:hover,
+  .header__catalogue-cta:focus-visible {
+    opacity: 0.88;
+    transform: translateY(-1px);
+    color: rgb(var(--color-header-background));
+    text-decoration: none;
+  }
+  .header__catalogue-cta svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+  }
+  @media screen and (max-width: 1199px) {
+    /* Cache le label, garde l'icône + tooltip sur tablette pour ne pas surcharger */
+    .header__catalogue-cta span { display: none; }
+    .header__catalogue-cta { padding: 0.8rem; gap: 0; }
+  }
 </style>
 
 <link rel="stylesheet" href="{{ 'component-sticky-header.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -480,6 +517,13 @@
         {%- assign seasonal_deals = section.blocks | where: 'type', 'seasonal_deal' -%}
         {%- render 'seasonal-deals', deals: seasonal_deals, heading: section.settings.sidebar_heading -%}
       {%- endif -%}
+
+      <a href="/pages/catalogue-prix-et-formules-mylab" class="header__catalogue-cta small-hide" aria-label="Télécharger le catalogue MY.LAB">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/>
+        </svg>
+        <span>Catalogue</span>
+      </a>
 
       {%- if shop.customer_accounts_enabled -%}
         <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="header__icon header__icon--account focus-inset small-hide" aria-label="{{ 'accessibility.account_link' | t }}">

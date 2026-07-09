@@ -119,6 +119,8 @@
       assign ml_tier_data = '6:850,12:805,24:765,48:680,96:610'
     elsif ml_t == 'creme' and ml_f == '400'
       assign ml_tier_data = '6:1690,12:1590,24:1520,48:1350,96:1210'
+    elsif ml_t == 'creme' and ml_f == '500'
+      assign ml_tier_data = '6:1790,14:1550,28:1440,42:1360'
     elsif ml_t == 'creme' and ml_f == '1000'
       assign ml_tier_data = '1:3290,3:3125,6:2790,12:2465'
     elsif ml_t == 'serum'
@@ -277,8 +279,10 @@
                 <p class="totals__subtotal h3">{{ 'sections.cart.subtotal' | t }}</p>
                 <p class="totals__subtotal-value">
                   {%- if ml_ht_subtotal_footer > 0 -%}
-                    {%- assign ml_se = ml_ht_subtotal_footer | divided_by: 100 -%}
-                    {%- assign ml_sr = ml_ht_subtotal_footer | modulo: 100 -%}
+                    {%- assign ml_ht_final = ml_ht_subtotal_footer | minus: cart.total_discount -%}
+                    {%- if ml_ht_final < 0 -%}{%- assign ml_ht_final = 0 -%}{%- endif -%}
+                    {%- assign ml_se = ml_ht_final | divided_by: 100 -%}
+                    {%- assign ml_sr = ml_ht_final | modulo: 100 -%}
                     {{ ml_se }},{%- if ml_sr < 10 -%}0{%- endif -%}{{ ml_sr }}&nbsp;&euro; <small class="ml-ht-label">HT</small>
                   {%- else -%}
                     {{ cart.total_price | money_with_currency }}
@@ -393,6 +397,8 @@
                 {{ 'sections.cart.checkout' | t }}
               </button>
             </div>
+
+            {%- render 'ml-sample-exit', blocked: ml_checkout_blocked -%}
 
             {%- if additional_checkout_buttons and block.settings.show_dynamic_checkout and ml_checkout_blocked == false -%}
               <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">

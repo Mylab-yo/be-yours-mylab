@@ -42,3 +42,44 @@ scripts/audit_fixes/*.html
 
 # Superpowers local artifacts (brainstorm mockups, SDD progress)
 .superpowers/
+
+.tmp.driveupload/
+
+.tmp.drivedownload/
+bottle_images/
+Catalogue mylab/
+mockups/
+*.csv
+shopify-functions/tier-discount/node_modules/
+
+# Dumps de templates Odoo + scratch (artefacts régénérables)
+scripts/odoo/_*.html
+tmp/
+# Google Drive desktop sync staging
+# Node modules (notably shopify-functions/*/node_modules)
+node_modules/
+package-lock.json
+# Customer PII / Secrets — DO NOT COMMIT
+import clients shopify vers dpd/
+# Tout le dossier docs/debug/ — historiquement scripts d'inspection ad-hoc
+# avec clés API en dur (ODOO_API_KEY, shpat_ tokens). Ne jamais commiter quoi
+# que ce soit ici (sauf si explicitement reviewed pour absence de secrets).
+docs/debug/
+# Liste explicite des patterns connus pour rappel (couverts par docs/debug/) :
+docs/debug/exec-*.json
+docs/debug/wf-*.json
+docs/debug/wh-*.json
+docs/debug/verify-*.json
+docs/debug/patch-*-response.json
+docs/debug/patch-response.json
+docs/debug/put-*-response.json
+docs/debug/backup_*.json
+docs/debug/shop-orders.json
+docs/debug/shopify-webhooks.json
+# Claude / internal
+.claude/scheduled_tasks.lock
+# Odoo scheduler toggle state (runtime, not to commit)
+scripts/odoo/.scheduler_ids
+# Google Drive sync artifacts (Drive pour ordinateur)
+desktop.ini
+*.gdoc

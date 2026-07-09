@@ -135,6 +135,49 @@
               <use href="#icon-close"></use>
             </svg>
           </drawer-close-button>
+
+          <a href="/pages/catalogue-prix-et-formules-mylab" class="menu-drawer__catalogue-cta" data-animate data-animate-delay-{{ animate_count }} aria-label="Télécharger le catalogue MY.LAB">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 1 1 1.4-1.42L11 13.59V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/>
+            </svg>
+            <span>Télécharger le catalogue</span>
+          </a>
+          <style>
+            .menu-drawer__catalogue-cta {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 0.8rem;
+              margin: 0 1.5rem 0.4rem;
+              padding: 1.2rem 1.8rem;
+              background: rgb(var(--color-foreground, 26, 26, 26));
+              color: rgb(var(--color-background, 250, 246, 240));
+              border-radius: 999px;
+              font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+              font-size: 1.4rem;
+              font-weight: 500;
+              letter-spacing: 0.02em;
+              line-height: 1;
+              text-decoration: none;
+              white-space: nowrap;
+            }
+            .menu-drawer__catalogue-cta:hover,
+            .menu-drawer__catalogue-cta:focus-visible {
+              color: rgb(var(--color-background, 250, 246, 240));
+              text-decoration: none;
+              opacity: 0.9;
+            }
+            .menu-drawer__catalogue-cta svg {
+              width: 1.8rem;
+              height: 1.8rem;
+              flex-shrink: 0;
+            }
+            /* Compense le margin-top: 6rem natif de la nav (espace réservé au close btn) */
+            .menu-drawer .menu-drawer__navigation {
+              margin-top: 1rem;
+            }
+          </style>
+
           <nav class="menu-drawer__navigation" data-animate data-animate-delay-{{ animate_count }}>
             <ul class="menu-drawer__menu list-menu" role="list">
               {%- for link in main_menu.links -%}
