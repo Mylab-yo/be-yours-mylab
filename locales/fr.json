@@ -190,7 +190,7 @@
     }
   },
   "date_formats": {
-    "month_day_year": "%B %d, %Y",
+    "month_day_year": "%d %B %Y",
     "month_year": "%B %Y"
   },
   "general": {
@@ -240,9 +240,9 @@
       "hour": "Heure",
       "hours": "Heures",
       "minute": "Min",
-      "minutes": "Mins",
+      "minutes": "Min",
       "second": "Sec",
-      "seconds": "Secs"
+      "seconds": "Sec"
     },
     "pagination": {
       "label": "Pagination",
@@ -440,7 +440,7 @@
       "unavailable": "Indisponible",
       "value_unavailable": "{{ option_value }} – indisponible",
       "variant_sold_out_or_unavailable": "Variante épuisée ou indisponible",
-      "vendor": "Vendor",
+      "vendor": "Marque",
       "video_exit_message": "{{ title }} ouvre la vidéo en plein écran dans la même fenêtre.",
       "view": "Voir le produit",
       "view_full_details": "Afficher tous les détails",
@@ -519,7 +519,7 @@
     },
     "featured_blog": {
       "onboarding_content": "Donnez à vos clients un résumé de votre blog post",
-      "onboarding_title": "Blog post",
+      "onboarding_title": "Article de blog",
       "view_all": "Voir tout"
     },
     "featured_collection": {
