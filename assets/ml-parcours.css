@@ -826,7 +826,7 @@ body.is-parcours {
   .ml-parcours__landing-cta{padding:60px 20px 80px}
 }
 
-/* ============ CONFIGURATEUR MODAL (Étape 02) ============ */
+/* ============ CONFIGURATEUR MODAL (Étape 03) ============ */
 .ml-parcours__modal {
   position: fixed;
   inset: 0;
@@ -965,4 +965,29 @@ body.is-parcours [aria-controls="cart-drawer"] {
 @media (max-width:880px){
   .ml-parcours__quote-modal-body{padding:36px 24px}
   .ml-parcours__quote-modal-title{font-size:22px}
+}
+
+/* ============ CHIP "VOTRE PROJET" ============ */
+.ml-parcours__step-ext {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: 1rem;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(26, 26, 26, 0.25);
+  border-radius: 999px;
+  text-decoration: none;
+  color: #1a1a1a;
+}
+.ml-parcours__step-ext-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.6;
+}
+.ml-parcours__step-ext-name { font-size: 1.2rem; font-weight: 600; }
+@media screen and (max-width: 749px) {
+  .ml-parcours__step-ext { display: none; }
 }

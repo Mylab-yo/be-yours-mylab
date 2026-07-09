@@ -75,7 +75,7 @@
   // Sync the stepper UI
   function syncStepper(state) {
     const cur = currentStep();
-    const stepOrder = ['dossier', 'etiquette', 'produits', 'recap'];
+    const stepOrder = ['dossier', 'produits', 'etiquette', 'recap'];
     const validated = {
       dossier: state.hasDossier,
       etiquette: state.hasEtiquette,
@@ -239,7 +239,7 @@
         const ok = window.confirm(
           'Voulez-vous abandonner votre projet ?\n\n' +
           'Le dossier cosmétologique (' + dossierPrice + '), l\'étiquette et le forfait d\'impression seront retirés du panier. ' +
-          'Les produits ajoutés à l\'étape 03 restent dans votre panier.'
+          'Les produits ajoutés à l\'étape 02 restent dans votre panier.'
         );
         if (!ok) return;
         try {

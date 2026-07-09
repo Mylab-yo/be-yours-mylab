@@ -39,3 +39,6 @@ scripts/audit_fixes/*.html
 
 # Backup files
 *.bak
+
+# Superpowers local artifacts (brainstorm mockups, SDD progress)
+.superpowers/

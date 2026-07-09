@@ -45,25 +45,25 @@
       </span>
     </button>
     <span class="ml-parcours__step-line"></span>
-    <button type="button" class="ml-parcours__step" data-go="etiquette">
+    <button type="button" class="ml-parcours__step" data-go="produits">
       <span class="ml-parcours__step-num">
         <span class="ml-parcours__step-digit">2</span>
         <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
       <span class="ml-parcours__step-label">
         <span class="ml-parcours__step-kicker">Étape 02</span>
-        <span class="ml-parcours__step-name">Étiquette</span>
+        <span class="ml-parcours__step-name">Produits</span>
       </span>
     </button>
     <span class="ml-parcours__step-line"></span>
-    <button type="button" class="ml-parcours__step" data-go="produits">
+    <button type="button" class="ml-parcours__step" data-go="etiquette">
       <span class="ml-parcours__step-num">
         <span class="ml-parcours__step-digit">3</span>
         <svg class="ml-parcours__step-check" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7l3 3 5-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
       <span class="ml-parcours__step-label">
         <span class="ml-parcours__step-kicker">Étape 03</span>
-        <span class="ml-parcours__step-name">Produits</span>
+        <span class="ml-parcours__step-name">Étiquette</span>
       </span>
     </button>
     <span class="ml-parcours__step-line"></span>
@@ -77,6 +77,10 @@
         <span class="ml-parcours__step-name">Récap</span>
       </span>
     </button>
+    <a class="ml-parcours__step-ext" href="https://mylab-configurateur.vercel.app/projet" target="_blank" rel="noopener">
+      <span class="ml-parcours__step-ext-kicker">Suivi</span>
+      <span class="ml-parcours__step-ext-name">Votre projet ↗</span>
+    </a>
   </div>
   <div class="ml-parcours__stepper-toggle-wrap">
     <button type="button" class="ml-parcours__stepper-toggle" data-ml-recap-toggle aria-expanded="false" aria-controls="ml-parcours-recap-drawer">
@@ -105,8 +109,8 @@
 <div class="ml-parcours__mobile-cta">
   <div class="ml-parcours__mobile-cta-inner">
     <div class="ml-parcours__mobile-cta-progress">
-      <span>{% case page.handle %}{% when 'parcours-dossier' %}Étape 01 / 04{% when 'parcours-etiquette' %}Étape 02 / 04{% when 'parcours-produits' %}Étape 03 / 04{% when 'parcours-recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
-      <b>{% case page.handle %}{% when 'parcours-dossier' %}Dossier cosmétologique{% when 'parcours-etiquette' %}Étiquette & impression{% when 'parcours-produits' %}Produits{% when 'parcours-recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
+      <span>{% case page.handle %}{% when 'parcours-dossier' %}Étape 01 / 04{% when 'parcours-produits' %}Étape 02 / 04{% when 'parcours-etiquette' %}Étape 03 / 04{% when 'parcours-recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
+      <b>{% case page.handle %}{% when 'parcours-dossier' %}Dossier cosmétologique{% when 'parcours-produits' %}Produits{% when 'parcours-etiquette' %}Étiquette & impression{% when 'parcours-recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
     </div>
     <button type="button" class="ml-parcours__mobile-cta-btn" data-ml-recap-toggle>Voir récap</button>
   </div>
