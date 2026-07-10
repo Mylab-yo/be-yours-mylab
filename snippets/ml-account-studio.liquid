@@ -1,0 +1,71 @@
+{% comment %}
+  ml-account-studio.liquid — Bloc « Mes étiquettes sur-mesure » du compte client.
+  Visible seulement si le client a une commande payée contenant l'étiquette
+  sur-mesure ET une contenant le forfait d'impression (drapeaux indépendants,
+  commandes possiblement distinctes). Gating d'affichage uniquement : l'accès
+  réel à l'espace projet est contrôlé côté configurateur (email de commande).
+{% endcomment %}
+
+{% liquid
+  assign has_surmesure = false
+  assign has_forfait = false
+  for order in customer.orders
+    unless order.financial_status == 'paid'
+      continue
+    endunless
+    for line in order.line_items
+      if line.variant_id == 55418346242382
+        assign has_surmesure = true
+      endif
+      if line.product.handle == 'forfait-dimpression-standard' or line.product.handle == 'forfait-dimpression'
+        assign has_forfait = true
+      endif
+    endfor
+  endfor
+%}
+
+{% if has_surmesure and has_forfait %}
+  <div class="ml-account-studio">
+    <div class="ml-account-studio__text">
+      <span class="ml-account-studio__eyebrow">MyLab Studio</span>
+      <h2 class="ml-account-studio__title">Mes étiquettes sur-mesure</h2>
+      <p>Retrouvez les échanges avec votre graphiste, vos BAT et vos validations dans votre espace projet — connectez-vous avec l'email de votre commande.</p>
+    </div>
+    <a class="button ml-account-studio__cta" href="https://mylab-configurateur.vercel.app/projet" target="_blank" rel="noopener">
+      Ouvrir mon espace étiquettes
+    </a>
+  </div>
+
+  {% style %}
+    .ml-account-studio {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 32px 0 8px;
+      padding: 24px 28px;
+      border: 1px solid rgba(var(--color-foreground), 0.12);
+      border-radius: 12px;
+      background: rgba(var(--color-foreground), 0.03);
+    }
+    .ml-account-studio__eyebrow {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 4px;
+    }
+    .ml-account-studio__title {
+      margin: 0 0 6px;
+    }
+    .ml-account-studio__text p {
+      margin: 0;
+      max-width: 52ch;
+    }
+    .ml-account-studio__cta {
+      flex-shrink: 0;
+    }
+  {% endstyle %}
+{% endif %}

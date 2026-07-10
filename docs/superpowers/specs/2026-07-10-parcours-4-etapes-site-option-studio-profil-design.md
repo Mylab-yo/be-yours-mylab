@@ -25,7 +25,7 @@ Deux clarifications produit de Yoann :
 - Nouveau snippet `snippets/ml-account-studio.liquid`, rendu depuis la section `main-account` (modification minimale de la section Be Yours, ou section dédiée ajoutée au template `customers/account.json` — choisir la voie la plus propre au moment du plan).
 - **Gating (option 1 retenue — Liquid pur)** : parcourir `customer.orders` ; le bloc s'affiche si au moins une commande avec `financial_status == 'paid'` contient :
   - le produit étiquette sur-mesure (variant 55418346242382), ET
-  - le produit forfait d'impression (handle `frais-dimpression-etiquettes`).
+  - un forfait d'impression (handle `forfait-dimpression-standard` ou `forfait-dimpression`).
   Les deux peuvent être dans des commandes différentes (deux drapeaux indépendants).
 - **Contenu du bloc** : titre « Mes étiquettes sur-mesure », texte « Retrouvez les échanges avec votre graphiste, vos BAT et vos validations », bouton vers `https://mylab-configurateur.vercel.app/projet` (connexion par email de commande, mécanisme existant).
 - **Limites assumées** : gating d'affichage seulement (la sécurité réelle reste côté configurateur) ; un achat en invité avec un email différent du compte ne matchera pas. Si ce cas devient fréquent, bascule prévue vers un metafield client posé par le webhook `orders/paid` (option 2, hors scope ici).

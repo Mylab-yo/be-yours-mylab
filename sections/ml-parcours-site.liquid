@@ -1,8 +1,10 @@
-{% comment %} ml-parcours-site.liquid — Étape 05 — Votre site internet (livré par MY.LAB Studio après la commande) {% endcomment %}
+{% comment %} ml-parcours-site.liquid — Option site internet clé en main (page standalone, indépendante du parcours) {% endcomment %}
+
+{{ 'ml-parcours.css' | asset_url | stylesheet_tag }}
 
 <section class="ml-parcours__page">
   <div class="ml-parcours__container">
-    <div class="ml-parcours__kicker">Étape 05 / 05 — Votre site internet</div>
+    <div class="ml-parcours__kicker">Option · Site clé en main</div>
     <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
     <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
 
@@ -61,13 +63,13 @@
   "name": "Parcours · Site internet",
   "settings": [
     { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Votre marque mérite <em>sa boutique en ligne</em>.</p>" },
-    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Après votre commande, nous créons votre site e-commerce Shopify clé en main : votre gamme, votre identité, vos textes. Vous vendez, on s'occupe du reste." },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "En option, indépendamment de votre commande : nous créons votre site e-commerce Shopify clé en main — votre gamme, votre identité, vos textes. Vous vendez, on s'occupe du reste." },
     { "type": "text", "id": "included_heading", "label": "Titre bloc inclus", "default": "Ce qui est inclus" },
     { "type": "text", "id": "included_chip", "label": "Chip bloc inclus", "default": "Livré clé en main · sur devis" },
     { "type": "text", "id": "timeline_heading", "label": "Titre déroulé", "default": "Comment ça se passe" },
     { "type": "text", "id": "cta_label", "label": "Libellé CTA", "default": "Suivre mon projet" },
     { "type": "text", "id": "cta_url", "label": "Lien CTA", "default": "https://mylab-configurateur.vercel.app/projet" },
-    { "type": "textarea", "id": "cta_note", "label": "Note sous CTA", "default": "Cette étape démarre automatiquement après votre commande : vous suivez la création de vos étiquettes puis de votre site depuis votre espace projet, avec le même email que votre commande." }
+    { "type": "textarea", "id": "cta_note", "label": "Note sous CTA", "default": "Option facultative et indépendante de votre commande, sur devis : activez-la quand vous voulez. Si vous la choisissez, vous suivez la création de votre site depuis votre espace projet, avec le même email que votre commande." }
   ],
   "blocks": [
     {
