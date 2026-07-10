@@ -121,8 +121,8 @@
 <div class="ml-parcours__mobile-cta">
   <div class="ml-parcours__mobile-cta-inner">
     <div class="ml-parcours__mobile-cta-progress">
-      <span>{% case page.handle %}{% when 'parcours-dossier' %}Étape 01 / 04{% when 'parcours-produits' %}Étape 02 / 04{% when 'parcours-etiquette' %}Étape 03 / 04{% when 'parcours-recap' %}Étape 04 / 04{% else %}Démarrage{% endcase %}</span>
-      <b>{% case page.handle %}{% when 'parcours-dossier' %}Dossier cosmétologique{% when 'parcours-produits' %}Produits{% when 'parcours-etiquette' %}Étiquette & impression{% when 'parcours-recap' %}Récapitulatif{% else %}Bienvenue{% endcase %}</b>
+      <span>{% case page.handle %}{% when 'parcours-dossier' %}Étape 01 / 05{% when 'parcours-produits' %}Étape 02 / 05{% when 'parcours-etiquette' %}Étape 03 / 05{% when 'parcours-recap' %}Étape 04 / 05{% when 'votre-site-internet' %}Étape 05 / 05{% else %}Démarrage{% endcase %}</span>
+      <b>{% case page.handle %}{% when 'parcours-dossier' %}Dossier cosmétologique{% when 'parcours-produits' %}Produits{% when 'parcours-etiquette' %}Étiquette & impression{% when 'parcours-recap' %}Récapitulatif{% when 'votre-site-internet' %}Votre site internet{% else %}Bienvenue{% endcase %}</b>
     </div>
     <button type="button" class="ml-parcours__mobile-cta-btn" data-ml-recap-toggle>Voir récap</button>
   </div>
