@@ -69,7 +69,7 @@
           {%- if section.settings.card_import_image != blank -%}
             {{ section.settings.card_import_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Aperçu Import', class: 'ml-parcours__label-card-img' }}
           {%- else -%}
-            Aperçu Import
+            <img src="{{ 'ml-carte-import.jpg' | asset_url }}" alt="Aperçu Import" loading="lazy" width="600" height="600" class="ml-parcours__label-card-img">
           {%- endif -%}
         </div>
         <div class="ml-parcours__label-card-title">J'ai mes étiquettes</div>
