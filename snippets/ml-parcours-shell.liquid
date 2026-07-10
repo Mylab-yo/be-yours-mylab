@@ -22,9 +22,9 @@
   if customer
     assign now_s = 'now' | date: '%s' | plus: 0
     for order in customer.orders
-      unless order.financial_status == 'paid'
+      if order.cancelled or order.financial_status != 'paid'
         continue
-      endunless
+      endif
       assign order_s = order.created_at | date: '%s' | plus: 0
       assign order_age = now_s | minus: order_s
       for line in order.line_items

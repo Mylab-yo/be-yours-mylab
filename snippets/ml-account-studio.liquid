@@ -10,9 +10,9 @@
   assign has_surmesure = false
   assign has_forfait = false
   for order in customer.orders
-    unless order.financial_status == 'paid'
+    if order.cancelled or order.financial_status != 'paid'
       continue
-    endunless
+    endif
     for line in order.line_items
       if line.variant_id == 55418346242382
         assign has_surmesure = true
