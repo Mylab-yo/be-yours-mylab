@@ -64,6 +64,22 @@
           <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
         </div>
       </div>
+      <div class="ml-parcours__label-card" data-mode="import">
+        <div class="ml-parcours__label-card-visual">
+          {%- if section.settings.card_import_image != blank -%}
+            {{ section.settings.card_import_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Aperçu Import', class: 'ml-parcours__label-card-img' }}
+          {%- else -%}
+            Aperçu Import
+          {%- endif -%}
+        </div>
+        <div class="ml-parcours__label-card-title">J'ai mes étiquettes</div>
+        <div class="ml-parcours__label-card-price">Gratuit</div>
+        <div class="ml-parcours__label-card-desc">Votre design est déjà prêt (graphiste, Canva, Photoshop) ? Importez-le tel quel, on s'occupe de l'impression.</div>
+        <div class="ml-parcours__label-card-actions">
+          <button type="button" class="ml-parcours__label-card-btn" data-open-config="import" data-default-variant="">Importer mon design</button>
+          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+        </div>
+      </div>
     </div>
 
     <div class="ml-parcours__forfait">
@@ -180,12 +196,13 @@
   "name": "Parcours · Étiquette",
   "settings": [
     { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>L'identité de votre <em>flacon</em>.</p>" },
-    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Trois options selon votre niveau d'investissement créatif. Le forfait d'impression annuel est inclus dans le choix de votre étiquette." },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Quatre options selon votre niveau d'investissement créatif. Le forfait d'impression annuel est inclus dans le choix de votre étiquette." },
     { "type": "product", "id": "modele_default_product", "label": "Produit modèle par défaut (Modèles card)" },
-    { "type": "header", "content": "Miniatures aperçu (3 cards)" },
+    { "type": "header", "content": "Miniatures aperçu (4 cards)" },
     { "type": "image_picker", "id": "card_standard_image", "label": "Image Aperçu Standard" },
     { "type": "image_picker", "id": "card_template_image", "label": "Image Aperçu Modèles" },
-    { "type": "image_picker", "id": "card_studio_image", "label": "Image Aperçu Sur-mesure" }
+    { "type": "image_picker", "id": "card_studio_image", "label": "Image Aperçu Sur-mesure" },
+    { "type": "image_picker", "id": "card_import_image", "label": "Image Aperçu Import (J'ai mes étiquettes)" }
   ],
   "presets": [{ "name": "Parcours · Étiquette" }]
 }

@@ -457,7 +457,8 @@ body.is-parcours {
 
 /* ============ STEP 2 — ÉTIQUETTE + FORFAIT ============ */
 .ml-parcours__label-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  /* auto-fit : 4 cartes de front sur desktop large, repli 2x2 sur laptop étroit */
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;
   margin-bottom:80px;
 }
 .ml-parcours__label-card{
