@@ -112,14 +112,30 @@ for (const item of order.line_items || []) {
 }
 
 // --- Shipping line ---
+// Shipping discounts (e.g. free-shipping promo codes) arrive as
+// discount_allocations on the shipping_line, same as product lines.
+// Without them, Odoo invoices the gross shipping price even when the
+// customer paid 0 (discounted_price is the net the customer actually paid).
 const shippingLine = (order.shipping_lines || [])[0];
 if (shippingLine && parseFloat(shippingLine.price) > 0) {
-  order_lines.push([0, 0, {
+  const shipGross = parseFloat(shippingLine.price);
+  let shipDiscountSum = 0;
+  for (const da of (shippingLine.discount_allocations || [])) {
+    shipDiscountSum += parseFloat(da.amount || 0);
+  }
+  const shipDiscountPct = (shipDiscountSum > 0)
+    ? Math.round((shipDiscountSum / shipGross) * 10000) / 100   // 2-decimal %
+    : 0;
+  const shipVals = {
     product_id: SHIPPING_PRODUCT_ID,
     product_uom_qty: 1,
-    price_unit: parseFloat(shippingLine.price) / TVA_DIVISOR,
+    price_unit: shipGross / TVA_DIVISOR,
     name: `Frais de livraison — ${shippingLine.title || 'DPD'}`,
-  }]);
+  };
+  if (shipDiscountPct > 0) {
+    shipVals.discount = shipDiscountPct;
+  }
+  order_lines.push([0, 0, shipVals]);
 }
 
 const has_unmatched = unmatched_log.length > 0;
