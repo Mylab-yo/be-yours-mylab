@@ -14,7 +14,8 @@
       dossier: '/pages/parcours-dossier',
       etiquette: '/pages/parcours-etiquette',
       produits: '/pages/parcours-produits',
-      recap: '/pages/parcours-recap'
+      recap: '/pages/parcours-recap',
+      site: '/pages/votre-site-internet'
     },
     handles: {
       dossier: 'creation-du-dossier-cosmetologique',
@@ -35,6 +36,7 @@
     if (p === CONFIG.paths.etiquette) return 'etiquette';
     if (p === CONFIG.paths.produits) return 'produits';
     if (p === CONFIG.paths.recap) return 'recap';
+    if (p === CONFIG.paths.site) return 'site';
     return null;
   }
 
@@ -75,12 +77,13 @@
   // Sync the stepper UI
   function syncStepper(state) {
     const cur = currentStep();
-    const stepOrder = ['dossier', 'produits', 'etiquette', 'recap'];
+    const stepOrder = ['dossier', 'produits', 'etiquette', 'recap', 'site'];
     const validated = {
       dossier: state.hasDossier,
       etiquette: state.hasEtiquette,
       produits: state.hasProduits,
-      recap: false
+      recap: false,
+      site: false
     };
     document.querySelectorAll('.ml-parcours__step').forEach((el, i) => {
       const name = stepOrder[i];

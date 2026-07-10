@@ -1,8 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "parcours_etiquette": {
-      "type": "ml-parcours-etiquette"
+      "type": "ml-parcours-etiquette",
+      "settings": {
+        "heading": "<p>L'identité de votre <em>flacon</em>.</p>",
+        "lede": "Quatre façons d'habiller vos flacons, de la plus rapide à la plus accompagnée. Quel que soit votre choix, l'impression est couverte par le forfait annuel.",
+        "modele_default_product": "",
+        "card_standard_image": "shopify://shop_images/photo-3-etiquette-mylab-scaled.jpg",
+        "card_template_image": "shopify://shop_images/IMG_4141-scaled.jpg",
+        "card_studio_image": "shopify://shop_images/photo-2-etiquettes-personnalisees-scaled.jpg",
+        "card_import_image": "shopify://shop_images/generation_nature.jpg"
+      }
     }
   },
-  "order": ["parcours_etiquette"]
+  "order": [
+    "parcours_etiquette"
+  ]
 }

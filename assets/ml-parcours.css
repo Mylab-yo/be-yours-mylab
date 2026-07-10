@@ -461,6 +461,10 @@ body.is-parcours {
   display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;
   margin-bottom:80px;
 }
+.ml-parcours__label-card-for{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.6;margin:-6px 0 12px;
+}
 .ml-parcours__label-card{
   background:var(--mlp-cream-2);
   border:1px solid var(--mlp-line);
