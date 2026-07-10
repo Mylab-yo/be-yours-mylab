@@ -20,7 +20,11 @@ Deux clarifications produit de Yoann :
   - lien retour « Retour au récap » conservé.
 - **Récap** (`sections/ml-parcours-recap.liquid`) : le CTA/lien vers `/pages/votre-site-internet` n'est plus présenté comme étape suivante mais comme bloc optionnel en fin de page : « Envie d'une boutique en ligne pour votre marque ? Option indépendante, sur devis. »
 
-## Lot B — Bloc « Mes étiquettes sur-mesure » dans le compte client
+## Lot B — Bloc « Mon projet MY.LAB » dans le compte client
+
+**Révision 10/07 (demande Yoann)** : le suivi de projet (BAT, échanges graphiste, validations) doit vivre dans le compte client, pas dans le parcours — et pour **tout** client ayant un projet, pas seulement le sur-mesure. Gating final : commande payée **non annulée** contenant le dossier cosmétologique (= un projet existe côté configurateur). Le texte mentionne le Studio si le client a aussi acheté le sur-mesure. La version initiale ci-dessous (gating sur-mesure + forfait) est remplacée.
+
+### Version initiale (remplacée)
 
 - Nouveau snippet `snippets/ml-account-studio.liquid`, rendu depuis la section `main-account` (modification minimale de la section Be Yours, ou section dédiée ajoutée au template `customers/account.json` — choisir la voie la plus propre au moment du plan).
 - **Gating (option 1 retenue — Liquid pur)** : parcourir `customer.orders` ; le bloc s'affiche si au moins une commande avec `financial_status == 'paid'` contient :
