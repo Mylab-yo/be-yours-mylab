@@ -463,6 +463,15 @@ body.is-parcours {
 .ml-parcours__label-card.is-selected .ml-parcours__label-card-btn{
   background:var(--mlp-cream-3);color:var(--mlp-ink);
 }
+.ml-parcours__label-feedback{
+  display:none;
+  /* -48px absorbe la marge de la grille au-dessus ; 88px pour que le -48px de la note suivante retombe sur 40px */
+  margin:-48px 0 88px;padding:14px 18px;
+  background:#fdf0ef;border:1px solid #e2b4ae;
+  border-radius:var(--mlp-radius);
+  font-size:14px;line-height:1.5;color:#8c3327;
+}
+.ml-parcours__label-feedback.is-visible{display:block;}
 .ml-parcours__label-note{
   margin:-48px 0 40px;padding:18px 22px;
   background:var(--mlp-cream-2);border:1px solid var(--mlp-line);

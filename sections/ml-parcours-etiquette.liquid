@@ -82,6 +82,8 @@
       </div>
     </div>
 
+    <div class="ml-parcours__label-feedback" data-etiquette-feedback role="alert"></div>
+
     <div class="ml-parcours__label-note">
       <strong>Et ensuite ?</strong> Après votre commande, votre espace projet s'ouvre : vous y transmettez logo, moodboard et inspirations à nos graphistes, qui créent vos étiquettes. Rien ne part à l'impression sans votre bon à tirer.
     </div>
@@ -160,10 +162,18 @@
     });
   }
 
+  function showFeedback(msg) {
+    const el = document.querySelector('[data-etiquette-feedback]');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.classList.toggle('is-visible', !!msg);
+  }
+
   function selectEtiquette(btn) {
     const id = parseInt(btn.dataset.variant, 10);
     if (!id) return;
     btn.disabled = true;
+    showFeedback('');
     readCart().then(function(cart){
       const items = (cart && cart.items) || [];
       const updates = {};
@@ -181,7 +191,13 @@
           headers: { 'Content-Type': 'application/json' },
           credentials: 'same-origin',
           body: JSON.stringify({ items: [{ id: id, quantity: 1, properties: { 'Type étiquette': btn.dataset.type || '' } }] })
-        }).then(function(res){ if (!res.ok) throw new Error('cart add failed: ' + res.status); });
+        }).then(function(res){
+          if (res.ok) return;
+          // Surface Shopify's own message (e.g. rupture de stock) instead of failing silently.
+          return res.json().catch(function(){ return null; }).then(function(body){
+            throw new Error((body && (body.description || body.message)) || ('Ajout au panier impossible (' + res.status + ')'));
+          });
+        });
       });
     }).then(function(){
       return readCart();
@@ -190,6 +206,7 @@
       document.dispatchEvent(new CustomEvent('cart:refresh'));
     }).catch(function(err){
       console.error('[ml-parcours-etiquette] selection error', err);
+      showFeedback((err && err.message) || 'Une erreur est survenue. Réessayez ou contactez-nous.');
     }).then(function(){
       btn.disabled = false;
     });
