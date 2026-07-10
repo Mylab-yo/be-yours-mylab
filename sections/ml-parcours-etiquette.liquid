@@ -28,7 +28,7 @@
         <div class="ml-parcours__label-card-for">Pour lancer vite, sans travailler le design</div>
         <div class="ml-parcours__label-card-desc">Étiquette neutre noire, votre logo en bichromie. Idéal pour démarrer rapidement.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="59231350554958" data-type="Standard">Choisir Standard</button>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="59231350554958" data-type="Standard" data-forfait="standard">Choisir Standard</button>
         </div>
       </div>
       <div class="ml-parcours__label-card ml-parcours__label-card--featured" data-mode="template">
@@ -45,7 +45,7 @@
         <div class="ml-parcours__label-card-for">Pour un rendu pro en quelques minutes</div>
         <div class="ml-parcours__label-card-desc">11 designs professionnels prêts à porter vos couleurs. Vous affinez le choix avec nos graphistes après la commande.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="{{ default_modele_variant_id }}" data-type="Modèles">Choisir Modèles</button>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="{{ default_modele_variant_id }}" data-type="Modèles" data-forfait="couleur">Choisir Modèles</button>
         </div>
       </div>
       <div class="ml-parcours__label-card" data-mode="studio">
@@ -61,7 +61,7 @@
         <div class="ml-parcours__label-card-for">Pour une identité unique, créée avec nos designers</div>
         <div class="ml-parcours__label-card-desc">Création exclusive avec notre équipe : après la commande, vous transmettez brief, logo, moodboard et inspirations. Allers-retours jusqu'à validation.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418346242382" data-type="Sur-mesure">Choisir Sur-mesure</button>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418346242382" data-type="Sur-mesure" data-forfait="couleur">Choisir Sur-mesure</button>
         </div>
       </div>
       <div class="ml-parcours__label-card" data-mode="import">
@@ -77,7 +77,7 @@
         <div class="ml-parcours__label-card-for">Pour celles et ceux qui ont déjà leur design</div>
         <div class="ml-parcours__label-card-desc">Votre design est déjà prêt ? Transmettez vos fichiers (JPEG, PDF ou PNG) après la commande et obtenez un shooting photo pour vos réseaux sociaux et votre site internet !</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418312622414" data-type="J'ai mes étiquettes">Choisir cette option</button>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418312622414" data-type="J'ai mes étiquettes" data-forfait="couleur">Choisir cette option</button>
         </div>
       </div>
     </div>
@@ -144,18 +144,47 @@
 
   /* ---- Sélection directe du type d'étiquette (remplace toute étiquette déjà au panier) ---- */
   const selectBtns = Array.prototype.slice.call(document.querySelectorAll('[data-select-etiquette]'));
+  const CUSTOMER = (window.MylabParcours && window.MylabParcours.customerState) || {};
+  const FORFAITS = (window.MylabParcours && window.MylabParcours.forfaitVariants) || {};
+  const forfaitVariantIds = [FORFAITS.standard, FORFAITS.couleur].filter(Boolean);
+
+  /* Sur-mesure déjà payé sur le compte : la carte reste sélectionnable mais ne
+     refacture pas les 390 € — elle pose le marqueur 0 € avec un type dédié. */
+  if (CUSTOMER.ownsSurMesure) {
+    const surBtn = selectBtns.find(function(b){ return b.dataset.type === 'Sur-mesure'; });
+    if (surBtn) {
+      surBtn.dataset.variant = '55418312622414';
+      surBtn.dataset.type = 'Sur-mesure (design existant)';
+      surBtn.textContent = 'Déjà acquis — sélectionner';
+      const card = surBtn.closest('.ml-parcours__label-card');
+      if (card) {
+        card.classList.add('is-owned');
+        const price = card.querySelector('.ml-parcours__label-card-price');
+        if (price) price.textContent = 'Déjà réglé ✓';
+      }
+    }
+  }
   const allVariants = selectBtns.map(function(b){ return parseInt(b.dataset.variant, 10); }).filter(Boolean);
 
   function readCart() {
     return fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.ok ? r.json() : null; });
   }
 
+  /* Le marqueur 0 € peut servir à deux cartes (Import / Sur-mesure acquis) :
+     on distingue par la propriété « Type étiquette » posée à l'ajout. */
+  function cardSelected(items, b) {
+    const v = parseInt(b.dataset.variant, 10);
+    return items.some(function(it){
+      if (it.variant_id !== v) return false;
+      const t = it.properties && it.properties['Type étiquette'];
+      return !t || t === b.dataset.type;
+    });
+  }
+
   function syncSelected(cart) {
-    const inCart = {};
-    ((cart && cart.items) || []).forEach(function(it){ inCart[it.variant_id] = true; });
+    const items = (cart && cart.items) || [];
     selectBtns.forEach(function(b){
-      const v = parseInt(b.dataset.variant, 10);
-      const selected = !!inCart[v];
+      const selected = cardSelected(items, b);
       const card = b.closest('.ml-parcours__label-card');
       if (card) card.classList.toggle('is-selected', selected);
       b.textContent = selected ? 'Sélectionné ✓' : b.dataset.label;
@@ -174,23 +203,34 @@
     if (!id) return;
     btn.disabled = true;
     showFeedback('');
+    /* Forfait d'impression d'office : mappé sur la carte (standard 99 € / couleur
+       250 €), sauf si un forfait est déjà actif sur le compte connecté. */
+    const wantedForfait = CUSTOMER.forfaitActive ? null : (FORFAITS[btn.dataset.forfait] || null);
     readCart().then(function(cart){
       const items = (cart && cart.items) || [];
       const updates = {};
       items.forEach(function(it){
         if (allVariants.indexOf(it.variant_id) !== -1 && it.variant_id !== id) updates[it.variant_id] = 0;
+        if (forfaitVariantIds.indexOf(it.variant_id) !== -1 && it.variant_id !== wantedForfait) updates[it.variant_id] = 0;
       });
       const clear = Object.keys(updates).length
         ? fetch('/cart/update.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ updates: updates }) })
         : Promise.resolve();
       return clear.then(function(){
-        const already = items.some(function(it){ return it.variant_id === id; });
-        if (already) return null;
+        const toAdd = [];
+        if (!cardSelected(items, btn)) {
+          toAdd.push({ id: id, quantity: 1, properties: { 'Type étiquette': btn.dataset.type || '' } });
+        }
+        const forfaitInCart = wantedForfait && items.some(function(it){ return it.variant_id === wantedForfait; });
+        if (wantedForfait && !forfaitInCart) {
+          toAdd.push({ id: wantedForfait, quantity: 1 });
+        }
+        if (!toAdd.length) return null;
         return fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'same-origin',
-          body: JSON.stringify({ items: [{ id: id, quantity: 1, properties: { 'Type étiquette': btn.dataset.type || '' } }] })
+          body: JSON.stringify({ items: toAdd })
         }).then(function(res){
           if (res.ok) return;
           // Surface Shopify's own message (e.g. rupture de stock) instead of failing silently.

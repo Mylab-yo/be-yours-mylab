@@ -472,6 +472,7 @@ body.is-parcours {
   font-size:14px;line-height:1.5;color:#8c3327;
 }
 .ml-parcours__label-feedback.is-visible{display:block;}
+.ml-parcours__label-card.is-owned .ml-parcours__label-card-price{color:var(--mlp-ink-soft);}
 .ml-parcours__label-note{
   margin:-48px 0 40px;padding:18px 22px;
   background:var(--mlp-cream-2);border:1px solid var(--mlp-line);

@@ -250,7 +250,9 @@
     });
     totalEl.textContent = fmtMoney(cart.total_price);
 
-    const hasDossier = items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
+    // Un dossier déjà payé sur le compte connecté satisfait l'exigence sans repasser au panier.
+    const ownsDossier = !!(window.MylabParcours && window.MylabParcours.customerState && window.MylabParcours.customerState.ownsDossier);
+    const hasDossier = ownsDossier || items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
     const etiquetteHandles = (window.MylabParcours && window.MylabParcours.etiquetteHandles) || [];
     const hasEtiquette = items.some(it => etiquetteHandles.indexOf(it.handle) !== -1);
     const hasProduits = items.some(it => produitHandles.indexOf(it.handle) !== -1);

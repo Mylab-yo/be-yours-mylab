@@ -30,6 +30,15 @@ Deux clarifications produit de Yoann :
 - **Contenu du bloc** : titre « Mes étiquettes sur-mesure », texte « Retrouvez les échanges avec votre graphiste, vos BAT et vos validations », bouton vers `https://mylab-configurateur.vercel.app/projet` (connexion par email de commande, mécanisme existant).
 - **Limites assumées** : gating d'affichage seulement (la sécurité réelle reste côté configurateur) ; un achat en invité avec un email différent du compte ne matchera pas. Si ce cas devient fréquent, bascule prévue vers un metafield client posé par le webhook `orders/paid` (option 2, hors scope ici).
 
+## Lot C — Parcours conscient de l'état du client connecté (ajout 10/07)
+
+Pour un client **connecté**, le parcours s'adapte à ses achats passés (commandes payées) :
+
+- **Dossier cosmétologique déjà acheté** (commande payée contenant `creation-du-dossier-cosmetologique`, toute date) : le parcours ne l'auto-ajoute plus au panier ; la validation du récap considère l'exigence dossier satisfaite ; le drawer récap affiche « Déjà réglé ✓ ».
+- **Étiquette sur-mesure déjà achetée** (commande payée contenant le variant 55418346242382) : la carte Sur-mesure affiche « Déjà acquis ✓ » et sa sélection ajoute le marqueur 0 € (`frais-dimpression-etiquettes`) avec la propriété `Type étiquette: Sur-mesure (design existant)` au lieu de refacturer 390 €. La distinction de carte sélectionnée se fait par la propriété `Type étiquette` (le marqueur est partagé avec la carte Import).
+- **Forfait d'impression ajouté d'office** : à la sélection d'une carte étiquette, si aucun forfait n'est « actif » sur le compte (= commande payée contenant un forfait datant de **moins de 12 mois**), le forfait correspondant est ajouté automatiquement au panier — Standard → `forfait-dimpression-standard` (99 €/an), Modèles / Sur-mesure / J'ai mes étiquettes → `forfait-dimpression` (250 €/an couleur). Changer de carte permute le forfait. Si un forfait est actif, rien n'est ajouté.
+- **Invité (non connecté)** : comportement actuel inchangé (tout est facturé). Les drapeaux sont calculés en Liquid dans `ml-parcours-shell.liquid` et exposés via `window.MylabParcours.customerState` + `forfaitVariants`.
+
 ## Hors scope
 
 - Aucune modification du configurateur (l'espace projet /projet montre déjà les retours graphiste↔client).
