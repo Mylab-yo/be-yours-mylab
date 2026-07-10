@@ -529,6 +529,8 @@ body.is-parcours {
 }
 .ml-parcours__label-card--featured .ml-parcours__label-card-btn{background:var(--mlp-ink)}
 .ml-parcours__label-card-btn:hover{background:var(--mlp-ink)}
+.ml-parcours__label-card-btn--ghost{background:var(--mlp-cream-3);color:var(--mlp-ink)}
+.ml-parcours__label-card-btn--ghost:hover{background:var(--mlp-line-strong);color:var(--mlp-ink)}
 .ml-parcours__label-card-link{
   font-size:12px;color:var(--mlp-muted);text-align:center;
   text-decoration:none;border-bottom:1px solid var(--mlp-line);padding-bottom:2px;
