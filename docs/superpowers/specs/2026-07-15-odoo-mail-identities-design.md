@@ -180,3 +180,63 @@ invalide le déploiement et impose de traiter l'alias côté Gmail avant de cont
 | Le wizard `account.move.send` (envoi manuel UI) recalcule le From | Canari sur ce chemin spécifique |
 | Corruption d'un `body_html` par l'injection | Backup JSON préalable + échec explicite si le point d'ancrage est introuvable |
 | Perte d'une réponse client sur le nouveau `reply_to` | Nul : les deux alias arrivent dans la boîte `yoann@` |
+
+## Résultat du canari (2026-07-15)
+
+**Verdict : ✅ Gmail n'a pas réécrit le From.** Les deux alias sont bien des « send as »
+valides pour le chemin SMTP, et pas seulement pour l'interface web.
+
+Protocole : partenaire de test dédié (`ZZ Canari Identites Mail`, email `yoann@mylab-shop.com`),
+devis + facture laissée en **brouillon** (aucun numéro de séquence consommé), envoi via
+`mail.template.send_mail(force_send=True)`, puis suppression des trois enregistrements.
+Un garde-fou a confirmé avant envoi que les 3 templates adressent `{{ object.partner_id.id }}` —
+donc le partenaire de test, jamais un tiers.
+
+| Template | `From` **reçu** (en-tête brut) | Attendu | |
+|----------|-------------------------------|---------|---|
+| 34 — Devis (`Votre devis MY.LAB n°S00652`) | `contact@mylab-shop.com` | `contact@mylab-shop.com` | ✅ |
+| 18 — Facture (`SARL STARTEC Facture`) | `comptabilite@mylab-shop.com` | `comptabilite@mylab-shop.com` | ✅ |
+| 37 — Relance L1 (`Facture — petit rappel`) | `comptabilite@mylab-shop.com` | `comptabilite@mylab-shop.com` | ✅ |
+
+`reply_to` vérifié séparément sur un `mail.mail` créé avec `force_send=False` puis supprimé
+avant envoi : Odoo pose bien `reply_to='comptabilite@mylab-shop.com'` et **ne l'écrase pas**
+par le catchall. Le volet `reply_to` de la bascule fonctionne donc aussi.
+
+### État live après bascule
+
+- `verify_mail_identities.py` → exit 0, les 8 templates conformes.
+- Balises équilibrées sur les 8 (table 1/1, div 1/1, marqueurs 1/1, une seule table dans la
+  signature), aucun `</table>` orphelin, aucun résidu `is_html_empty`.
+- Backup vierge : `scripts/odoo/backups/mail_templates_pre-identity-split_2026-07-15.json`
+  (23 Ko, 8 templates, `email_from` pré-bascule confirmé).
+
+### Correction au design : « idempotent » était imprécis
+
+Odoo **décode les entités HTML au stockage** (`&eacute;` → `é`, `&rsquo;` → `’`,
+`&mdash;` → `—`, `&middot;` → `·`), soit ~41 caractères de moins que ce que le script envoie.
+Le script relit donc une version normalisée et se croit toujours obligé de réécrire.
+
+La formulation exacte : il **converge** (l'état stocké est un point fixe — réécrire produit le
+même résultat) sans être **inerte** (8 écritures RPC à chaque rejeu). Sans conséquence : le
+rendu est identique et les marqueurs survivent au décodage — les 8 templates repassent bien
+`via marqueurs` au second passage. Ne pas tenter de normaliser les entités côté client.
+
+## Découverte hors périmètre : le catchall bounce (à trancher)
+
+Repéré dans la boîte pendant la vérification du canari, **sans rapport avec cette bascule et
+antérieur à elle** : un `mailer-daemon` du 2026-07-15 15:18 —
+`550 5.1.1 … catchall@mylab-shop.com … l'adresse est introuvable`.
+
+`res.company(3).catchall_email = catchall@mylab-shop.com`, adresse qu'Odoo présente comme
+adresse de retour, **mais qui n'existe pas dans Gmail**. Un client (facture FAC/2026/00170,
+envoyée à 08:39, soit avant la bascule) a répondu à `catchall@mylab-shop.com` + `contact@` :
+seule la copie vers `contact@` est arrivée. Un client qui répondrait **uniquement** au
+catchall verrait sa réponse rebondir — réponse perdue, silencieusement côté MY.LAB.
+
+Un serveur `fetchmail` existe (id=1 « ITHOUSE », imap, state=done) mais pointe sur
+`ithouse.fr`, pas sur le domaine du catchall.
+
+Les 8 templates de cette spec ne sont **pas** concernés : leur `reply_to` est désormais
+explicite (vérifié ci-dessus). Le risque porte sur les autres chemins — notamment l'envoi
+manuel via le wizard `account.move.send`, qui passe par `message_post` et peut recalculer le
+Reply-To vers le catchall. C'est l'objet de la vérification du chemin manuel.
