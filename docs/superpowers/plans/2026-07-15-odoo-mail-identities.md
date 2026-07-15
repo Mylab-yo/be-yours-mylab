@@ -332,9 +332,9 @@ ROUTING = {
 
 # 1. deja marque (passages >= 2)
 RE_MARKED = re.compile(re.escape(MARK_START) + r".*?" + re.escape(MARK_END), re.S)
-# 2. bloc signature dynamique Odoo (tpl 34, 20)
+# 2. bloc signature dynamique Odoo (tpl 34, 20) ; groupe 1 = nom du champ (user_id, invoice_user_id...)
 RE_USER_SIG = re.compile(
-    r'<t t-if="not is_html_empty\(object\.\w+\.signature\)".*?</t>\s*</t>', re.S
+    r'<t t-if="not is_html_empty\(object\.(\w+)\.signature\)".*?</t>\s*</t>', re.S
 )
 # 3. signature en dur (tpl 18, 35-39) : table contenant l'adresse, sans table imbriquee
 RE_HARD_SIG = re.compile(
@@ -351,8 +351,11 @@ def inject(body, sig_html):
     block = wrap(sig_html)
     if RE_MARKED.search(body):
         return RE_MARKED.sub(lambda _: block, body, count=1), "marqueurs"
-    if RE_USER_SIG.search(body):
-        return RE_USER_SIG.sub(lambda _: block, body, count=1), "user_id.signature"
+    m = RE_USER_SIG.search(body)
+    if m:
+        field = m.group(1)
+        new_body = body[:m.start()] + block + body[m.end():]
+        return new_body, f"{field}.signature"
     if RE_HARD_SIG.search(body):
         return RE_HARD_SIG.sub(lambda _: block, body, count=1), "signature en dur"
     raise ValueError("aucun point d'ancrage signature trouve")
@@ -380,14 +383,9 @@ def main():
         print(f"ABANDON — templates introuvables : {missing}")
         return 1
 
-    # Backup AVANT toute ecriture. Un backup rate annule tout.
-    if not args.dry_run:
-        BACKUP.parent.mkdir(parents=True, exist_ok=True)
-        BACKUP.write_text(
-            json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        print(f"Backup ecrit : {BACKUP} ({len(rows)} templates)")
-
+    # Plan construit AVANT tout backup : un ancrage introuvable doit sortir sans
+    # avoir touche au backup (rows est deja fige, deplacer le backup plus loin
+    # ne change rien a sa fidelite).
     plan = []
     for tpl_id in sorted(ROUTING):
         identite, want_from, want_reply = ROUTING[tpl_id]
@@ -411,7 +409,24 @@ def main():
         print(f"\n--dry-run : aucune ecriture. {len(plan)} templates seraient modifies.")
         return 0
 
-    for tpl_id, t, identite, want_from, want_reply, new_body, strategie in plan:
+    # Backup APRES validation du plan, juste AVANT la boucle d'ecriture. Le backup
+    # a une semantique "etat pre-bascule" : il ne doit etre ecrit qu'une seule fois,
+    # au tout premier run reel — un rejeu ne doit jamais l'ecraser avec l'etat deja
+    # splitte, sinon le seul chemin de rollback disparait.
+    if BACKUP.exists():
+        print(f"Backup deja present, conserve tel quel (etat vierge pre-bascule) : {BACKUP}")
+    else:
+        try:
+            BACKUP.parent.mkdir(parents=True, exist_ok=True)
+            BACKUP.write_text(
+                json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+            print(f"Backup ecrit : {BACKUP} ({len(rows)} templates)")
+        except Exception as exc:
+            print(f"ABANDON — backup impossible : {exc}. Aucune ecriture effectuee.")
+            return 1
+
+    for tpl_id, _t, _identite, want_from, want_reply, new_body, _strategie in plan:
         write("mail.template", [tpl_id], {
             "email_from": want_from,
             "reply_to": want_reply,
@@ -436,7 +451,7 @@ cd d:/be-yours-mylab/scripts/odoo && python step41_split_mail_identities.py --dr
 Attendu : exit 0, aucune écriture, et un plan à 8 lignes. Contrôler point par point :
 
 - tpl 34 → `[contact] via user_id.signature`
-- tpl 20 → `[compta] via user_id.signature`
+- tpl 20 → `[compta] via invoice_user_id.signature`
 - tpl 18, 35, 36, 37, 38, 39 → `[compta] via signature en dur`
 - Aucune ligne `ABANDON`.
 - Les longueurs de corps varient de quelques centaines de caractères, pas d'un facteur 2 (un
