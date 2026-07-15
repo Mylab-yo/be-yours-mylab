@@ -870,9 +870,16 @@ Ajouter la ligne correspondante dans `MEMORY.md`.
 
 - [ ] **Step 4: Commit**
 
+**Ne jamais faire `git add -A` dans ce repo.** Le working tree contient régulièrement du
+travail en cours d'autres sessions (observé le 2026-07-15 :
+`scripts/n8n/projet_sur_mesure/README.md` et `create_workflow.py`) — un `add -A` les
+embarquerait dans un commit qui n'a rien à voir. Lister les fichiers explicitement :
+
 ```bash
 cd d:/be-yours-mylab
-git add -A && git commit -m "docs(mail): procédure Gmail et mémoire des identités d'envoi
+git add docs/superpowers/plans/2026-07-15-odoo-mail-identities.md \
+        docs/superpowers/specs/2026-07-15-odoo-mail-identities-design.md
+git commit -m "docs(mail): procédure Gmail et mémoire des identités d'envoi
 
 Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 ```
