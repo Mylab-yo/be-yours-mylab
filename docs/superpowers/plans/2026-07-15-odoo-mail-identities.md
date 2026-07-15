@@ -528,8 +528,19 @@ Attendu : `OK — les 8 templates sont conformes`, exit 0.
 cd d:/be-yours-mylab/scripts/odoo && python step41_split_mail_identities.py --dry-run
 ```
 
-Attendu : les 8 templates sortent maintenant `via marqueurs`, et les longueurs de corps sont
-identiques avant/après (`body  N -> N car.`). C'est la preuve qu'un second passage est inerte.
+Attendu : les 8 templates sortent maintenant `via marqueurs` — c'est ce qui prouve que
+l'ancrage est stable et qu'un rejeu ne peut plus toucher qu'au contenu entre marqueurs.
+
+En revanche, **les longueurs ne seront pas identiques** (`body  2880 -> 2921 car.`), et c'est
+normal : Odoo décode les entités HTML au stockage (`&eacute;` → `é`, `&rsquo;` → `’`,
+`&mdash;` → `—`, `&middot;` → `·`), soit ~41 caractères de moins que ce qu'on envoie. Le
+script relit donc une version normalisée et se croit toujours obligé de réécrire.
+
+La bonne formulation : le script **converge** (l'état stocké est un point fixe — réécrire
+produit exactement le même résultat) sans être **inerte** (il refait 8 écritures RPC à chaque
+rejeu). C'est sans conséquence : le mail rendu est identique et les marqueurs survivent au
+décodage. Ne pas « corriger » ce comportement en normalisant les entités côté client — ce
+serait fragile pour un gain nul.
 
 - [ ] **Step 5: Commit du backup**
 
