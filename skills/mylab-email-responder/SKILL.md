@@ -364,7 +364,7 @@ Principe de la dégressivité : plus le client commande de quantités par réfé
 
 **Conversion / RDV**
 - Commande d'échantillons : `<a href="https://www.mylab-shop.com/testez-les-produits/">Tester les produits ✨</a>`
-- Prise de RDV (générique) : `<a href="https://www.mylab-shop.com/prise-de-rendez-vous/">Prendre rendez-vous 📅</a>`
+- Prise de RDV (générique) : `<a href="https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire">Prendre rendez-vous 📅</a>`
 - Étude projet extension de gamme (Cal.com, créneaux directs Yoann) : `<a href="https://cal.com/yoann-durand-ry0bng/etude-projet-marque-capillaire">Réserver un créneau étude projet 🎯</a>`
 
 **Pages parcours / création de marque**
@@ -446,6 +446,15 @@ Principe de la dégressivité : plus le client commande de quantités par réfé
 
 **Demande de stage / alternance (chimie, formulation, cosmétologie)** :
 → Remercier chaleureusement le candidat pour son intérêt et son démarchage, puis expliquer avec transparence que **MY.LAB ne dispose pas en interne d'un site de production ni d'un laboratoire de formulation** : nous coordonnons un réseau de façonniers partenaires français qui assurent la fabrication, le conditionnement et la R&D. De ce fait, **nous n'avons pas de poste de stagiaire ni d'alternant à pourvoir dans le domaine chimie / formulation / production**. Suggérer au candidat de se tourner directement vers des laboratoires cosmétiques, des sous-traitants façonniers ou des écoles spécialisées (ISIPCA, ENSCBP, etc.) qui ont des postes correspondant à son profil. Souhaiter bonne continuation. Ton bienveillant, jamais condescendant — beaucoup de ces candidats sont jeunes et il est important de ne pas casser leur élan.
+Projet sur-mesure ?
+
+Ces projets dépassent notre catalogue — nos laboratoires partenaires les réalisent. Nous vous mettons en relation :
+
+Modification de formule existante
+Création de formule sur-mesure
+Formulation à façon
+lien pour remplir les informations de formulation sur mesure : https://mylab-shop.com/pages/projet-sur-mesure
+
 
 **Question sur les frais de port** :
 → Mentionner que les **frais de port sont offerts dès 500€ HT de commande**, sinon donner les tranches DPD France (Classic 10.90€ pour 0-10kg, Predict 14.50€). Pour Europe : renvoyer vers le panier qui calcule selon la zone, ou donner l'estimation (Euro 1 BE/DE/LU/NL = 22.50€/10kg, etc.).
