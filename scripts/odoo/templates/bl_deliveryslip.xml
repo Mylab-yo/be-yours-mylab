@@ -94,13 +94,19 @@
                 </div>
             </t>
 
-            <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (demande non couverte sur CE bon) ========== -->
-            <!-- Reliquat calcule sur les lignes de ce picking (demande - livre), independant du backorder -->
+            <!-- ========== SECTION 3: PRODUITS EN RELIQUAT (reste dû sur la commande) ========== -->
+            <!-- Calcul au NIVEAU COMMANDE (commandé - livré, tous BL confondus), hors services. -->
+            <!-- NB: le calcul par-picking ne marche pas — Odoo réduit la demande du move au moment -->
+            <!-- du backorder, donc demande-fait=0 sur tout BL validé. Voir doc.sale_id.order_line. -->
             <t t-set="reliquat_rows" t-value="[]"/>
-            <t t-foreach="doc.move_ids.filtered(lambda m: m.state != 'cancel')" t-as="rm">
-                <t t-set="reliq" t-value="rm.product_uom_qty - rm.quantity"/>
-                <t t-if="reliq &gt; 0.001">
-                    <t t-set="ignored" t-value="reliquat_rows.append({'sku': rm.product_id.default_code or '', 'name': rm.product_id.name, 'qty': reliq})"/>
+            <t t-if="doc.sale_id">
+                <t t-foreach="doc.sale_id.order_line" t-as="sol">
+                    <t t-if="not sol.display_type and sol.product_id and sol.product_type != 'service'">
+                        <t t-set="reliq" t-value="sol.product_uom_qty - sol.qty_delivered"/>
+                        <t t-if="reliq &gt; 0.001">
+                            <t t-set="ignored" t-value="reliquat_rows.append({'sku': sol.product_id.default_code or '', 'name': sol.product_id.name, 'qty': reliq})"/>
+                        </t>
+                    </t>
                 </t>
             </t>
             <t t-if="reliquat_rows">

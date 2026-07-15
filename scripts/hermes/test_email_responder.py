@@ -41,6 +41,14 @@ def test_append_signature():
     assert er.append_signature("<p>Bonjour</p>", "<table>SIG</table>") == \
         "<p>Bonjour</p><br><br><table>SIG</table>"
 
+def test_strip_think():
+    # Bloc de raisonnement Qwen3 retiré, corps conservé
+    assert er._strip_think("<think>je réfléchis</think><p>Bonjour</p>") == "<p>Bonjour</p>"
+    # Multi-lignes
+    assert er._strip_think("<think>a\nb\nc</think>\n<p>x</p>") == "<p>x</p>"
+    # Pas de think → inchangé (juste trim)
+    assert er._strip_think("  <p>x</p>  ") == "<p>x</p>"
+
 def test_summary_empty():
     out = er.format_telegram_summary([], 0)
     assert "aucun nouveau mail" in out
@@ -143,6 +151,7 @@ if __name__ == "__main__":
     test_should_skip_thread()
     test_thread_has_draft()
     test_append_signature()
+    test_strip_think()
     test_summary_empty()
     test_summary_drafted_and_error()
     test_summary_capped()

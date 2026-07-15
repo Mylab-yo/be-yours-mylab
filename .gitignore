@@ -2,6 +2,8 @@
 *.zip
 .DS_Store
 Thumbs.db
+desktop.ini
+*.gdoc
 bottle_images/
 takemoto_raw_data.json
 scrape_checkpoint.json

@@ -1,7 +1,7 @@
 """Initialize x_carton_capacity on all products from name parsing.
 
 Mapping:
-- 50ml sérum/huile           -> 50
+- 50ml sérum/huile           -> 63
 - 200ml masque               -> 24
 - 400ml masque               -> 24
 - 200ml shampoing/crème      -> 40
@@ -43,7 +43,7 @@ def detect_capacity(name: str) -> tuple[int, str]:
         return (0, "exclusion: pack/coffret/testeur/duo/trio")
 
     if has_50ml and is_serum_huile:
-        return (50, "50ml serum/huile")
+        return (63, "50ml serum/huile")
     # Masque sans rinçage 200ml -> famille 40 (avant la règle masque générique)
     if has_200ml and is_masque and is_sans_rincage:
         return (40, "200ml masque sans rinçage (famille shampoing)")

@@ -2,7 +2,7 @@
 const ODOO_URL = 'https://odoo.startec-paris.com';
 const ODOO_DB = 'OdooYJ';
 const ODOO_UID = 8;
-const ODOO_KEY = 'e6d35b4261b948664841075e8fffc3510c8db437';
+const ODOO_KEY = $env.ODOO_API_KEY;  // secret hors-source : variable d'env du conteneur n8n (cf. feedback_n8n_odoo_secrets_via_env)
 const COMPANY_ID = 3;
 const PRICELIST_ID = 3;
 

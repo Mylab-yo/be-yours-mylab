@@ -2,7 +2,8 @@
 """MyLab Email Responder — worker du cron Hermes.
 
 Scanne les threads Gmail non-lus des labels URGENT + Commandes & Devis,
-rédige une réponse HTML avec Claude (KB MY.LAB), l'enregistre en BROUILLON
+rédige une réponse HTML avec Claude (VPS) ou un LLM local (llama.cpp, sur le 3090),
+selon DRAFT_BACKEND, l'enregistre en BROUILLON
 (jamais d'envoi), tague le thread Hermes-Drafted (idempotence), et imprime
 un résumé Telegram sur stdout.
 
@@ -32,6 +33,18 @@ DRAFTED_LABEL = "Hermes-Drafted"
 PROMPT_PATH = "/opt/data/scripts/email_responder_prompt.md"
 SIGNATURE_PATH = "/opt/data/scripts/email_responder_signature.html"
 
+# --- Backend de rédaction : "anthropic" (VPS, défaut) ou "local" (llama.cpp via llama-swap) ---
+# Sur le 3090, mettre dans l'env Hermes : DRAFT_BACKEND=local + LOCAL_LLM_BASE + LOCAL_LLM_MODEL.
+# Le reste du worker (Gmail, signature déterministe, brouillon) est strictement identique.
+DRAFT_BACKEND = os.environ.get("DRAFT_BACKEND", "anthropic")
+LOCAL_LLM_BASE = os.environ.get("LOCAL_LLM_BASE", "http://localhost:8080")
+LOCAL_LLM_MODEL = os.environ.get("LOCAL_LLM_MODEL", "qwen3-30b-a3b")
+LOCAL_LLM_API_KEY = os.environ.get("LOCAL_LLM_API_KEY", "")  # llama.cpp ignore la clé
+# Sampling bas = mail reproductible (écriture contrainte, pas créative). Qwen3 non-thinking.
+LOCAL_LLM_TEMPERATURE = float(os.environ.get("LOCAL_LLM_TEMPERATURE", "0.3"))
+LOCAL_LLM_TOP_P = float(os.environ.get("LOCAL_LLM_TOP_P", "0.8"))
+LOCAL_LLM_TOP_K = int(os.environ.get("LOCAL_LLM_TOP_K", "20"))
+
 # Nos propres adresses : un thread dont le dernier message vient de nous n'a rien à répondre.
 OWN_ADDRESSES = {"yoann@mylab-shop.com", "contact@mylab-shop.com", "fabien@mylab-shop.com"}
 # Expéditeurs automatiques / no-reply / plateformes : pas de réponse à drafter.
@@ -58,6 +71,12 @@ LABEL_QUERIES = [
 GMAIL_API = "https://gmail.googleapis.com/gmail/v1/users/me"
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 ANTHROPIC_API = "https://api.anthropic.com/v1/messages"
+
+# Consigne user partagée par les deux backends de rédaction (source de vérité unique).
+USER_INSTRUCTION = (
+    "Voici le fil d'emails reçu. Rédige UNIQUEMENT le corps HTML de la réponse "
+    "(sans signature, sans balise <html>/<body>), en suivant les règles MY.LAB.\n\n"
+)
 
 
 # --- Helpers purs (testables hors-ligne) ---
@@ -272,15 +291,52 @@ def claude_draft(system_prompt, conversation_text):
         "model": MODEL,
         "max_tokens": 1500,
         "system": system_prompt,
-        "messages": [{"role": "user", "content":
-            "Voici le fil d'emails reçu. Rédige UNIQUEMENT le corps HTML de la réponse "
-            "(sans signature, sans balise <html>/<body>), en suivant les règles MY.LAB.\n\n"
-            + conversation_text}],
+        "messages": [{"role": "user", "content": USER_INSTRUCTION + conversation_text}],
     }
     r = requests.post(ANTHROPIC_API, headers=headers, json=body, timeout=120)
     r.raise_for_status()
     blocks = r.json().get("content", [])
     return "".join(b.get("text", "") for b in blocks if b.get("type") == "text").strip()
+
+
+def _strip_think(text):
+    """Retire les blocs <think>...</think> émis par un modèle de raisonnement (Qwen3 & co)."""
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
+
+def local_draft(system_prompt, conversation_text):
+    """Rédige via un endpoint OpenAI-compatible local (llama.cpp servi par llama-swap)."""
+    import requests
+    headers = {"Content-Type": "application/json"}
+    if LOCAL_LLM_API_KEY:
+        headers["Authorization"] = f"Bearer {LOCAL_LLM_API_KEY}"
+    body = {
+        "model": LOCAL_LLM_MODEL,  # nom de modèle déclaré dans la config llama-swap
+        "max_tokens": 1500,
+        "temperature": LOCAL_LLM_TEMPERATURE,
+        "top_p": LOCAL_LLM_TOP_P,
+        "top_k": LOCAL_LLM_TOP_K,  # extension llama.cpp (hors spec OpenAI, ignorée ailleurs)
+        # Qwen3 : coupe le raisonnement en chaîne (mail = écriture contrainte, pas créative).
+        # Requiert llama.cpp lancé avec --jinja ; fallback si non supporté : ajouter
+        # "/no_think" en tête du system_prompt. _strip_think nettoie dans tous les cas.
+        "chat_template_kwargs": {"enable_thinking": False},
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": USER_INSTRUCTION + conversation_text},
+        ],
+    }
+    r = requests.post(f"{LOCAL_LLM_BASE}/v1/chat/completions",
+                      headers=headers, json=body, timeout=180)
+    r.raise_for_status()
+    content = r.json()["choices"][0]["message"]["content"]
+    return _strip_think(content)
+
+
+def draft_reply(system_prompt, conversation_text):
+    """Dispatche vers le backend de rédaction configuré (DRAFT_BACKEND)."""
+    if DRAFT_BACKEND == "local":
+        return local_draft(system_prompt, conversation_text)
+    return claude_draft(system_prompt, conversation_text)
 
 
 def _load_text(path):
@@ -333,10 +389,10 @@ def main():
             from_email_ctx = parsed["from_email"]
             if should_skip_thread(parsed):
                 continue  # bounce/no-reply, ou dernier message déjà de nous : rien à répondre
-            html_body = claude_draft(system_prompt, parsed["conversation"])
+            html_body = draft_reply(system_prompt, parsed["conversation"])
             if not html_body:
                 results.append({"status": "error", "from_email": parsed["from_email"],
-                                "error": "réponse Claude vide"})
+                                "error": "réponse LLM vide"})
                 continue
             full_body = append_signature(html_body, signature)
             summary = _short_summary(html_body)
