@@ -10,10 +10,15 @@
 # Odoo l'exécute avec safe_eval() — pas de docstrings (interdits), pas d'imports.
 
 # === LABELS DES FAMILLES ===
+# La capacite est une propriete du FLACON, pas de la gamme : deux produits qui
+# partagent le meme contenant partagent le meme carton (et donc la meme famille,
+# quitte a se melanger dans un carton de bord de famille).
 FAMILY_LABELS = {
-    63: "50ml sérum/huile",
+    69: "50ml sérum/huile",
+    63: "100ml shampoing/masque",
     40: "200ml crème/shampoing",
     36: "masque 200ml (colis 36)",
+    35: "200ml coloristeur/gloss (flacon pompe)",
     24: "200/400ml masque",
     23: "500ml crème/shampoing",
     12: "1L shampoing/masque",
