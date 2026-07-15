@@ -105,6 +105,6 @@ Palette :
 
 ## Voir aussi
 
-- [`docs/signature-email.html`](../signature-email.html) — signature email Yoann (à coller en bas des Gmail draft)
+- [`docs/signature-email-contact.html`](../signature-email-contact.html) — signature email Yoann (à coller en bas des Gmail draft)
 - [`docs/shopify-packing-slip.liquid`](../shopify-packing-slip.liquid) — packing slip (BL)
 - [`scripts/odoo/templates/bl_deliveryslip.xml`](../../scripts/odoo/templates/bl_deliveryslip.xml) — BL Odoo (référence visuelle)

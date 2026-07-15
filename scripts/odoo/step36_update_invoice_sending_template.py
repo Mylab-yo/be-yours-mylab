@@ -1,6 +1,22 @@
 """Update the standard 'Invoice: Sending' (id=18) template to use the
 Service Comptabilité signature instead of Yoann's personal user.signature.
 
+⚠️ OBSOLETE depuis le 2026-07-15 — NE PAS REJOUER TEL QUEL.
+
+scripts/odoo/step41_split_mail_identities.py fait desormais autorite sur
+email_from / reply_to / signature du template 18 (Invoice: Sending). Rejouer
+ce script le RAMENERAIT sur yoann@mylab-shop.com et DETRUIRAIT le marqueur
+<!-- ML_SIG_START/END --> — silencieusement, sur des mails clients.
+
+Pire : le garde d'idempotence ligne 69 (`if t["email_from"] != NEW_EMAIL_FROM`)
+comparait avant la bascule contre l'ANCIENNE valeur cible (yoann@). Depuis la
+bascule, email_from vaut la NOUVELLE valeur (comptabilite@) — donc cette
+condition est desormais TOUJOURS vraie et ne protege plus de rien : le bloc
+d'ecriture s'execute a chaque rejeu au lieu d'etre saute.
+
+Si tu dois vraiment le rejouer : relance step41_split_mail_identities.py puis
+verify_mail_identities.py (doit sortir exit 0) juste apres.
+
 Also switches email_from from the dynamic invoice_user_id pattern to a
 fixed "Service Comptabilité MY.LAB" sender, consistent with the relance
 templates from step33.

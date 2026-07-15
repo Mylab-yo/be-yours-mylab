@@ -1,5 +1,17 @@
 """Create 5 mail templates for the follow-up cron.
 
+⚠️ OBSOLETE depuis le 2026-07-15 — NE PAS REJOUER TEL QUEL.
+
+scripts/odoo/step41_split_mail_identities.py fait desormais autorite sur
+email_from / reply_to / signature des templates 35-39 (mylab_devis_relance_l1/l2,
+mylab_facture_relance_l1/l2/l3). Rejouer ce script les RAMENERAIT sur
+yoann@mylab-shop.com (upsert_template() ecrase email_from/reply_to/body_html
+sans condition) et DETRUIRAIT les marqueurs <!-- ML_SIG_START/END --> —
+silencieusement, sur des mails clients.
+
+Si tu dois vraiment le rejouer : relance step41_split_mail_identities.py puis
+verify_mail_identities.py (doit sortir exit 0) juste apres.
+
   - mylab_devis_relance_l1   (devis +7j, doux)
   - mylab_devis_relance_l2   (devis +14j, direct)
   - mylab_facture_relance_l1 (facture +3j post-échéance, courtois)

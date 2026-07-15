@@ -65,7 +65,8 @@ donc ils héritent de la valeur posée sur le template :
   (cf. `scripts/odoo/fix_followup_recipients_and_harden.py:92,131`)
 
 **Chemin non couvert** : l'envoi manuel d'une facture depuis l'UI Odoo (« Envoyer & Imprimer »)
-passe par le wizard `account.move.send`, qui peut recalculer le From. À vérifier au canari.
+passe par le wizard `account.move.send`, qui peut recalculer le From. À vérifier au canari
+— finalement tranché par inspection de la source, cf. § *Chemin manuel « Envoyer & Imprimer »*.
 
 ## Décisions
 
@@ -157,7 +158,8 @@ Protocole, **avant tout envoi client** :
 2. Relire l'en-tête `From` **réellement reçu** (via Gmail, pas via `mail.mail.email_from`
    dans Odoo, qui reflète l'intention et non le résultat).
 3. Vérifier le chemin manuel : « Envoyer & Imprimer » sur une facture de test depuis l'UI,
-   puis même contrôle d'en-tête.
+   puis même contrôle d'en-tête — finalement tranché par inspection de la source, cf. § *Chemin
+   manuel « Envoyer & Imprimer »*.
 
 Critère de succès : les en-têtes reçus portent `contact@mylab-shop.com` pour le devis et
 `comptabilite@mylab-shop.com` pour la facture et la relance. Toute réécriture en `yoann@`
@@ -177,7 +179,7 @@ invalide le déploiement et impose de traiter l'alias côté Gmail avant de cont
 | Risque | Mitigation |
 |--------|------------|
 | Gmail réécrit le From en `yoann@` | Canari avant tout envoi client, contrôle d'en-tête reçu |
-| Le wizard `account.move.send` (envoi manuel UI) recalcule le From | Canari sur ce chemin spécifique |
+| Le wizard `account.move.send` (envoi manuel UI) recalcule le From | Canari sur ce chemin spécifique — finalement tranché par inspection de la source, cf. § *Chemin manuel « Envoyer & Imprimer »* |
 | Corruption d'un `body_html` par l'injection | Backup JSON préalable + échec explicite si le point d'ancrage est introuvable |
 | Perte d'une réponse client sur le nouveau `reply_to` | Nul : les deux alias arrivent dans la boîte `yoann@` |
 

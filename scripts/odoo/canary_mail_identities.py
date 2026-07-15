@@ -70,10 +70,14 @@ def main():
         created["move"].append(move_id)
         print(f"Facture de test (brouillon) : {move_id}")
 
-        # Garde-fou : ces 3 templates adressent le partenaire du document. Si l'un d'eux
-        # resolvait vers une autre adresse, on enverrait a un tiers -> on refuse.
-        for tpl_id, libelle, _ in SENDS:
-            res_id = {34: order_id, 18: move_id, 37: move_id}[tpl_id]
+        # Affichage de controle humain (PAS un garde-fou automatique) : ces 3 templates
+        # adressent en principe le partenaire du document. On imprime le champ BRUT
+        # partner_to/email_to du template (ex. "{{ object.partner_id.id }}") pour verification
+        # a l'oeil avant envoi -- le code ne refuse rien, il poursuit vers l'envoi quoi qu'il
+        # arrive. Et `read()` renvoie ce champ brut, jamais la valeur RENDUE pour ce document :
+        # il ne peut donc pas detecter une resolution vers un tiers. Le controle qui compte est
+        # celui de l'en-tete From/To RECU dans Gmail apres envoi (cf. docstring du module).
+        for tpl_id, _, _ in SENDS:
             rendered = execute("mail.template", "read", [[tpl_id], ["partner_to", "email_to"]])
             print(f"  garde tpl {tpl_id:>2} partner_to={rendered[0].get('partner_to')!r} "
                   f"email_to={rendered[0].get('email_to')!r}")

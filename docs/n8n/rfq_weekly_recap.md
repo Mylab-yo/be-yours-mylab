@@ -41,7 +41,7 @@
 - Si `rfq_list.length === 0` : sujet = `[MyLab] Pas de réappro à faire cette semaine`
 - Sinon : sujet = `[MyLab] N RFQ à valider — récap lundi`
 - Corps HTML : liste des RFQs groupées par fournisseur, liens cliquables vers Odoo
-- Signature MY.LAB (depuis `docs/signature-email.html`) toujours appendée
+- Signature MY.LAB (depuis `docs/signature-email-contact.html`) toujours appendée
 
 ### Nœud 4 — Gmail Send
 
