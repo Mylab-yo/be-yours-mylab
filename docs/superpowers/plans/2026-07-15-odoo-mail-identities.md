@@ -174,7 +174,7 @@ EXPECTED = {
 # Marqueurs d'identite attendus DANS le bloc signature injecte
 SIG_MARKERS = {
     "contact": ("Yoann DURAND", "contact@mylab-shop.com", "comptabilite@mylab-shop.com"),
-    "compta": ("MY.LAB", "comptabilite@mylab-shop.com", None),
+    "compta": ("MY.LAB", "comptabilite@mylab-shop.com", "contact@mylab-shop.com"),
 }
 
 
