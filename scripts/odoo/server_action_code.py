@@ -10,9 +10,15 @@
 # Odoo l'exécute avec safe_eval() — pas de docstrings (interdits), pas d'imports.
 
 # === LABELS DES FAMILLES ===
+# La capacite est une propriete du FLACON, pas de la gamme : deux produits qui
+# partagent le meme contenant partagent le meme carton (et donc la meme famille,
+# quitte a se melanger dans un carton de bord de famille).
 FAMILY_LABELS = {
-    50: "50ml sérum/huile",
+    69: "50ml sérum/huile",
+    63: "100ml shampoing/masque",
     40: "200ml crème/shampoing",
+    36: "masque 200ml (colis 36)",
+    35: "200ml coloristeur/gloss (flacon pompe)",
     24: "200/400ml masque",
     23: "500ml crème/shampoing",
     12: "1L shampoing/masque",
@@ -22,6 +28,28 @@ FAMILY_LABELS = {
 def family_label(capacity):
     # Return human-readable label for a carton capacity
     return FAMILY_LABELS.get(capacity, f"Carton {capacity}u")
+
+
+# === OVERRIDES DE COLISAGE PAR CLIENT x PRODUIT ===
+# Certains clients ont un colisage negocie different du colisage produit par
+# defaut (x_carton_capacity). Cle = (id du client "commercial"/societe mere,
+# default_code produit) -> capacite carton. Prioritaire sur x_carton_capacity,
+# et applique automatiquement a toutes les livraisons (actuelles ET futures) du
+# client, sans toucher le colisage des autres clients.
+PARTNER_PRODUCT_CARTON = {
+    (1970, "masque-nourrissant-200-ml"): 36,   # CENDREE : masque nourrissant 200ml -> 36 u/carton
+}
+
+
+def carton_capacity(picking, product):
+    # Capacite carton effective : override client x produit s'il existe, sinon
+    # capacite carton du produit. commercial_partner_id = societe mere (couvre
+    # les sous-contacts qui commanderaient pour le meme compte).
+    partner = picking.partner_id.commercial_partner_id
+    key = (partner.id, product.default_code)
+    if key in PARTNER_PRODUCT_CARTON:
+        return PARTNER_PRODUCT_CARTON[key]
+    return product.x_carton_capacity or 0
 
 
 def purge_existing_packages(picking):
@@ -78,6 +106,7 @@ def allocate_family(picking, capacity, move_lines, carton_counter):
     if capacity == 0:
         pkg = env["stock.quant.package"].create({
             "name": f"Carton {carton_counter[0]} - Divers",
+            "x_carton_capacity": 0,
         })
         for ml in move_lines:
             ml.write({"result_package_id": pkg.id})
@@ -99,6 +128,7 @@ def allocate_family(picking, capacity, move_lines, carton_counter):
         if current_pkg is None or current_pkg_units >= capacity:
             current_pkg = env["stock.quant.package"].create({
                 "name": f"Carton {carton_counter[0]} - {label}",
+                "x_carton_capacity": capacity,
             })
             created_pkgs.append(current_pkg.id)
             current_pkg_units = 0
@@ -132,14 +162,17 @@ for picking in records:
 
     groups = {}
     for ml in picking.move_line_ids:
-        cap = ml.product_id.x_carton_capacity or 0
+        cap = carton_capacity(picking, ml.product_id)
         groups.setdefault(cap, []).append(ml)
 
     carton_counter = [1]
     all_created_pkgs = []
     sorted_caps = sorted(groups.keys(), key=lambda c: (c == 0, c))
     for cap in sorted_caps:
-        pkgs = allocate_family(picking, cap, groups[cap], carton_counter)
+        # Regrouper les lignes par produit avant remplissage : chaque produit
+        # remplit ses cartons en continu, pas de melange en milieu de famille.
+        fam_lines = sorted(groups[cap], key=lambda l: (l.product_id.default_code or l.product_id.name or "", l.id))
+        pkgs = allocate_family(picking, cap, fam_lines, carton_counter)
         all_created_pkgs.extend(pkgs)
 
     rename_packages_with_total(all_created_pkgs, carton_counter)

@@ -14,9 +14,9 @@ Scripts Python XML-RPC pour customisations Odoo (déploiement de champs, actions
 python -m scripts.odoo.step01_create_carton_field
 
 # 2. Initialiser les valeurs depuis les noms produits
+#    ⚠️ PÉRIMÉ — exige --force, et le rejouer casserait le colisage actuel.
+#    Ne fait plus partie du parcours normal. Voir la section "Colisage" ci-dessous.
 python -m scripts.odoo.step02_init_carton_capacity
-# → ouvrir scripts/odoo/init_carton_capacity.csv pour vérif manuelle
-# → corriger exceptions dans l'UI Odoo
 
 # 3. Déployer l'action serveur
 python -m scripts.odoo.step03_create_server_action
@@ -30,6 +30,40 @@ python -m scripts.odoo.step05_add_picking_button
 
 Tous les scripts sont **idempotents** : relançables sans effet de bord.
 
+## Colisage (x_carton_capacity)
+
+**La capacité carton est une propriété du FLACON, pas de la gamme commerciale.** Deux produits
+qui partagent le même contenant partagent le même carton — et donc la même famille dans
+l'action « Répartir en cartons », quitte à se mélanger dans un carton de bord de famille.
+C'est voulu.
+
+Trois sources, par ordre de priorité :
+
+| Source | Portée |
+| ------ | ------ |
+| `PARTNER_PRODUCT_CARTON` dans `server_action_code.py` | Colisage négocié pour **un client × un produit** (prioritaire) |
+| `x_carton_capacity` sur `product.template` | Colisage par défaut, **tous clients** |
+| — (0) | Produit non colisé → carton « Divers » |
+
+Familles actuelles : 69 (verre ambré 50ml) · 63 (100ml) · 40 (crème/shampoing 200ml) ·
+35 (coloristeur/gloss 200ml, flacon pompe) · 24 (masque 200/400ml) · 23 (500ml) · 12 (1L).
+Les libellés vivent dans `FAMILY_LABELS` — **ajouter une capacité sans son libellé** produit
+un carton « Carton 35u » au lieu d'un nom lisible.
+
+```bash
+# Rejouer le colisage flacons pompe 35 / verre ambré 69 (idempotent, --dry-run dispo)
+python -m scripts.odoo.set_carton_capacity_flacons_pompes --dry-run
+
+# Répartir en cartons sur un BL précis (rejouable, purge + reconstruit, ne valide rien)
+# execute("ir.actions.server", "run", [[774]],
+#         {"context": {"active_model": "stock.picking", "active_ids": [pid], "active_id": pid}})
+```
+
+⚠️ `step02_init_carton_capacity` déduit la capacité du **nom** du produit. Ce modèle est faux
+(il ne voit pas le flacon) et le script est désormais bloqué derrière `--force`. Les gammes
+marque blanche (silver care 54, hydratant/silver glow 80) et les 100ml n'ont aucune règle qui
+les couvre : il les écraserait.
+
 ## Fichiers de code
 
 - `_client.py` : helper XML-RPC partagé
@@ -37,6 +71,10 @@ Tous les scripts sont **idempotents** : relançables sans effet de bord.
 - `templates/bl_deliveryslip.xml` : source QWeb du BL (lu par step04_)
 
 Pour modifier l'action ou le template, éditer le fichier source puis relancer le script de déploiement correspondant.
+
+⚠️ **Le champ `code` de l'action serveur est éditable depuis l'UI Odoo et dérive.** Avant tout
+redéploiement, rapatrier le LIVE et differ contre le repo, sinon on clobbere une édition UI
+(c'est arrivé : l'override CENDREE et le tri par produit ont vécu 8 jours en LIVE seulement).
 
 ## Paiement en ligne devis (step20-step24)
 

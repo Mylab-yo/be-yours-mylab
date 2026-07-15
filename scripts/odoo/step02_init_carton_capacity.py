@@ -1,6 +1,23 @@
-"""Initialize x_carton_capacity on all products from name parsing.
+"""Bootstrap historique (avril 2026) : init x_carton_capacity par parsing des noms.
 
-Mapping:
+!!! PERIME — NE PAS REJOUER SANS RELIRE CE BLOC. Exige --force depuis le 15/07/2026.
+
+Ce script etait le seed initial. Le colisage a depuis diverge en LIVE parce que la
+capacite carton depend du FLACON, pas du nom du produit — ce que le parsing de nom
+ne peut pas savoir. Le rejouer tel quel DETRUIRAIT silencieusement :
+
+- 50ml serum/huile : LIVE=69, ce script=50        (cf. set_carton_capacity_flacons_pompes.py)
+- coloristeur/gloss/dejaunisseur platine 200ml : LIVE=35, ce script=24 (masques) ou 40 (shampoings)
+- les 8 references 100ml (LIVE=63) : aucune regle ne matche -> ce script les mettrait a 0
+- masque silver care 200ml (LIVE=54) -> 24 ; shampoing hydratant / silver glow 200ml (LIVE=80) -> 40
+- masque nourrissant 100ml (LIVE=80) -> 0
+
+La source de verite du colisage est desormais :
+- set_carton_capacity_flacons_pompes.py  (flacons pompe 200ml = 35, verre ambre 50ml = 69)
+- les valeurs saisies a la main dans Odoo pour les gammes marque blanche
+- PARTNER_PRODUCT_CARTON dans server_action_code.py pour les colisages negocies par client
+
+Mapping d'origine (conserve pour memoire, PLUS a jour) :
 - 50ml sérum/huile           -> 50
 - 200ml masque               -> 24
 - 400ml masque               -> 24
@@ -13,6 +30,7 @@ Writes a CSV log for manual review.
 """
 import csv
 import re
+import sys
 from pathlib import Path
 from scripts.odoo._client import search_read, write
 
@@ -110,4 +128,9 @@ def main():
 
 
 if __name__ == "__main__":
+    if "--force" not in sys.argv:
+        print(__doc__)
+        print("ABANDON : script perime. Relire le bloc ci-dessus, puis --force si "
+              "tu es certain de vouloir re-seeder par parsing de nom.")
+        sys.exit(1)
     main()
