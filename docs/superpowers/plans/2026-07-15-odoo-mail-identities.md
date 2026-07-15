@@ -631,18 +631,20 @@ def main():
         print("PAS mail.mail.email_from cote Odoo (qui ne reflete que l'intention).")
         return 0
     finally:
+        # Aucun `return` dans ce finally : il avalerait l'exception en cours et
+        # ferait sortir le script en code 0 alors que l'envoi a echoue.
         if args.keep:
             print(f"\n--keep : enregistrements conserves {created}")
-            return
-        for model, ids in (("account.move", created["move"]),
-                           ("sale.order", created["order"]),
-                           ("res.partner", created["partner"])):
-            for rid in ids:
-                try:
-                    unlink(model, [rid])
-                    print(f"  supprime {model} {rid}")
-                except Exception as exc:
-                    print(f"  ATTENTION — {model} {rid} non supprime : {exc}")
+        else:
+            for model, ids in (("account.move", created["move"]),
+                               ("sale.order", created["order"]),
+                               ("res.partner", created["partner"])):
+                for rid in ids:
+                    try:
+                        unlink(model, [rid])
+                        print(f"  supprime {model} {rid}")
+                    except Exception as exc:
+                        print(f"  ATTENTION — {model} {rid} non supprime : {exc}")
 
 
 if __name__ == "__main__":
