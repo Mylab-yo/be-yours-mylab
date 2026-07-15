@@ -72,9 +72,23 @@ les couvre : il les écraserait.
 
 Pour modifier l'action ou le template, éditer le fichier source puis relancer le script de déploiement correspondant.
 
-⚠️ **Le champ `code` de l'action serveur est éditable depuis l'UI Odoo et dérive.** Avant tout
-redéploiement, rapatrier le LIVE et differ contre le repo, sinon on clobbere une édition UI
-(c'est arrivé : l'override CENDREE et le tri par produit ont vécu 8 jours en LIVE seulement).
+⚠️ **Le code de l'action ET l'arch des vues QWeb sont éditables depuis l'UI Odoo, et dérivent.**
+Avant tout redéploiement (`step03_`, `step04_`), rapatrier le LIVE et differ contre le repo,
+sinon on clobbere une édition UI. Les deux sont arrivés :
+
+- `server_action_code.py` : l'override CENDREE, le tri par produit et `x_carton_capacity` sur le
+  paquet ont vécu 8 jours en LIVE seulement (resync le 15/07).
+- `templates/bl_deliveryslip.xml` : il manquait la lecture de `pkg.x_carton_capacity` **et** la
+  garde `total_reserve` du reliquat — un `step04_` lancé depuis le repo aurait fait réafficher
+  36/24 chez CENDREE et remis tous les produits d'un BL non réservé en reliquat (resync le 15/07).
+
+Pour differ une vue QWeb sans rien écrire, comparer en canonique (Odoo normalise `<td></td>` en
+`<td/>` et strippe la déclaration XML au stockage — ces écarts-là sont du bruit) :
+
+```python
+import xml.etree.ElementTree as ET
+ET.canonicalize(repo_arch, strip_text=True) == ET.canonicalize(live_arch, strip_text=True)
+```
 
 ## Paiement en ligne devis (step20-step24)
 
