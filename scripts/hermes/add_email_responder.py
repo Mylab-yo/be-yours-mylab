@@ -1,7 +1,7 @@
 """Déploie le cron email-responder sur le VPS Hermes.
 
 1. Build le system prompt depuis SKILL.md (build_email_prompt.extract_kb_prompt)
-2. Lit la signature depuis docs/signature-email.html
+2. Lit la signature depuis docs/signature-email-contact.html
 3. Upsert GMAIL_* dans /root/.hermes/.env
 4. SFTP upload : email_responder.py, email_responder_prompt.md, email_responder_signature.html
 5. Crée/maj le cron (idempotent : remove puis create)
@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(ROOT / ".env.vps")
 
 SKILL_MD = ROOT / "skills" / "mylab-email-responder" / "SKILL.md"
-SIGNATURE_HTML = ROOT / "docs" / "signature-email.html"
+SIGNATURE_HTML = ROOT / "docs" / "signature-email-contact.html"
 WORKER_PY = Path(__file__).resolve().parent / "email_responder.py"
 
 REMOTE_DIR = "/root/.hermes/scripts"
