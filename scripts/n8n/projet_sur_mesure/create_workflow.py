@@ -56,7 +56,7 @@ nodes = [
   {"name": "Notif Yoann", "type": "n8n-nodes-base.gmail", "typeVersion": 2.1,
    "position": [660, 0], "credentials": {"gmailOAuth2": creds['gmailOAuth2']},
    "parameters": {
-     "sendTo": "yoann@mylab-shop.com",
+     "sendTo": "yoann@mylab-shop.com, contact@homecosmetiques.com",
      "subject": "=🧪 Nouveau projet sur-mesure — {{ $('Webhook').item.json.body.marque || $('Webhook').item.json.body.nom }}",
      "message": "=<p><strong>Nouveau lead mise en relation labos</strong></p><ul><li>Nom : {{ $('Webhook').item.json.body.prenom }} {{ $('Webhook').item.json.body.nom }}</li><li>Email : {{ $('Webhook').item.json.body.email }}</li><li>Téléphone : {{ $('Webhook').item.json.body.telephone }}</li><li>Marque : {{ $('Webhook').item.json.body.marque }}</li><li>Type : {{ $('Webhook').item.json.body.type_projet }}</li><li>Catégorie : {{ $('Webhook').item.json.body.categorie }}</li><li>Quantités : {{ $('Webhook').item.json.body.quantites }}</li><li>Échéance : {{ $('Webhook').item.json.body.echeance }}</li></ul><p><strong>Projet :</strong><br>{{ $('Webhook').item.json.body.description }}</p><p>→ Ligne créée dans Airtable « Leads sur-mesure » (statut Nouveau). À qualifier puis transmettre au labo.</p>",
      "options": {}}},

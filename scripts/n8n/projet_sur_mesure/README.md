@@ -14,7 +14,7 @@ Reçoit les soumissions du formulaire `/pages/projet-sur-mesure` (section `ml-pa
 
 ## Chaîne
 
-Webhook → Répondre 200 → Créer lead Airtable (statut « Nouveau ») → Notif Yoann (yoann@mylab-shop.com) → AR client (48 h ouvrées).
+Webhook → Répondre 200 → Créer lead Airtable (statut « Nouveau ») → Notif Yoann (`yoann@mylab-shop.com` + `contact@homecosmetiques.com` — Cindy Granier) → AR client (48 h ouvrées).
 
 La transmission aux labos partenaires est **manuelle** (Yoann qualifie puis transmet) — le workflow ne contacte aucun tiers.
 
