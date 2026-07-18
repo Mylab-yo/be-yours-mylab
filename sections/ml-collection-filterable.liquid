@@ -126,13 +126,17 @@
           {%- endcapture -%}
           {%- liquid
             assign cv = product.variants.first
-            assign card_oos = false
-            if cv.inventory_management == 'shopify' and cv.inventory_quantity <= 0
-              assign card_oos = true
-            endif
             assign card_backorder = true
             if product.tags contains 'no-backorder'
               assign card_backorder = false
+            endif
+            assign card_thr = 1
+            if card_backorder
+              assign card_thr = settings.ml_rupture_threshold | default: 10
+            endif
+            assign card_oos = false
+            if cv.inventory_management == 'shopify' and cv.inventory_quantity < card_thr
+              assign card_oos = true
             endif
           -%}
           <li class="flex-grid__item{% if card_oos %} ml-card-oos{% endif %}" data-tags="{{ product_tags_handleized }}">

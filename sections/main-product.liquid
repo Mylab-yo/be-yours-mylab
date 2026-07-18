@@ -704,13 +704,22 @@
             {{ 'mylab-product.css' | asset_url | stylesheet_tag }}
             {%- liquid
               assign ml_v = product.variants.first
-              assign ml_oos = false
-              if ml_v.inventory_management == 'shopify' and ml_v.inventory_quantity <= 0
-                assign ml_oos = true
-              endif
               assign ml_backorder = true
               if product.tags contains 'no-backorder'
                 assign ml_backorder = false
+              endif
+              comment
+                Seuil de rupture configurable (settings.ml_rupture_threshold, defaut 10).
+                Backorder : rupture des que le stock passe SOUS le seuil.
+                No-backorder (testeurs) : rupture dure a <= 0 uniquement.
+              endcomment
+              assign ml_thr = 1
+              if ml_backorder
+                assign ml_thr = settings.ml_rupture_threshold | default: 10
+              endif
+              assign ml_oos = false
+              if ml_v.inventory_management == 'shopify' and ml_v.inventory_quantity < ml_thr
+                assign ml_oos = true
               endif
             -%}
             <div data-mylab-pricing data-product-handle="{{ product.handle }}" data-oos="{{ ml_oos }}" data-backorder="{{ ml_backorder }}" {{ block.shopify_attributes }}>
