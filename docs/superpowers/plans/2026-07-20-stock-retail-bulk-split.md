@@ -522,6 +522,48 @@ Et dans la boucle de comparaison, remplacer `if (!(m.eff > 0)) continue;` par :
 
 Le reste (`currentShopifyQty`, push si `currentShopifyQty !== m.eff`, objet `odoo_qty: m.eff`) reste identique.
 
+- [ ] **Step 1b: Garde-fou testeurs (exigence Yoann 20/07)**
+
+Un testeur DOIT s'indexer sur le **200ml**, ou le **50ml** pour les produits de finition
+(sérum finition, sérum barbe, huile à barbe, bain miraculeux). Trois ajouts au node 02 :
+
+1. Élargir le regex de contenance pour accepter `-200ml` (collé) en plus de `-200-ml` :
+```javascript
+const CONT = /-(\d+)-?ml$/;
+```
+Sans ça, 4 SKU réels ne sont jamais reconnus comme « classiques » :
+`shampoing-hydratant-200ml`, `masque-silver-care-200ml`, `shampoing-silver-glow-200ml`, `repair-oil-50ml`.
+
+2. Table d'alias pour les 3 testeurs dont le SKU diverge du classique (incohérences de
+nommage constatées dans Odoo le 20/07) :
+```javascript
+// Cle = SKU testeur, valeur = SKU du classique parent a utiliser.
+const TESTEUR_ALIAS = {
+  'creme-protectrice-de-couleur-testeur': 'creme-protecteur-de-couleur-200-ml',
+  'shampoing-cuivre-intense-testeur': 'shampoing-coloristeur-cuivre-200-ml',
+  'masque-cuivre-intense-testeur': 'masque-coloristeur-cuivre-200-ml',
+};
+// dans parentOf(), tout en haut :
+if (TESTEUR_ALIAS[sku]) return TESTEUR_ALIAS[sku];
+```
+(On ne renomme PAS les SKU dans Odoo : le matching Odoo↔Shopify se fait par SKU,
+renommer d'un seul côté casserait le lien.)
+
+3. Garde-fou : refuser un parent qui n'est ni 200ml ni 50ml, plutôt que de mirroir
+silencieusement un mauvais format (cas réel : `masque-cuivre-intense-testeur` tombait
+sur le 1000ml) :
+```javascript
+  const psize = classics[parent] && classics[parent].size;
+  if (psize !== 200 && psize !== 50) {
+    console.log(`ALERTE testeur ${odoo.sku}: parent ${parent} en ${psize}ml (attendu 200/50) -> ignore`);
+    continue;
+  }
+```
+
+**Vérification attendue** : les 39 testeurs résolvent tous sur un parent 200ml ou 50ml,
+zéro « AUCUN PARENT », zéro alerte. Script de contrôle réutilisable :
+rejouer la logique `parentOf` sur les SKU Odoo réels avant/après modif.
+
 - [ ] **Step 2: Vérifier la mise à jour de `odooBySku`**
 
 En haut du node, `odooBySku[p.sku] = p` stocke maintenant des items avec `fini_available`/`has_fini_quant`. Confirmer qu'aucune référence à l'ancien `odoo_qty` ne subsiste dans le fichier (recherche `odoo_qty` → ne doit rester que dans l'objet `updates` poussé, = `m.eff`).
