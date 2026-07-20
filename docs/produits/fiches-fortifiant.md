@@ -73,4 +73,13 @@ Chaque point ci-dessous est actuellement **absent des descriptions** faute de co
 
 - **Nom de gamme** — « Les Fortifiants » : **validé** (20/07/2026).
 - **1000 ml** — pas de paliers dégressifs définis dans Odoo pour ce format ([create_fortifiant.py](../../scripts/odoo/create_fortifiant.py#L19-L21)).
-- **Création Shopify** — script prêt : [create_fortifiant_products.py](../../scripts/shopify/create_fortifiant_products.py). Bloqué sur le scope `write_products` (le token Theme sync n'a que `read/write_themes` et `read/write_files`).
+- **Création Shopify** — **faite le 20/07/2026**, les 4 fiches sont en **brouillon** via [create_fortifiant_products.py](../../scripts/shopify/create_fortifiant_products.py) :
+
+  | Handle | ID | SKU | Prix HT |
+  | --- | --- | --- | --- |
+  | `shampoing-fortifiant` | 15942591971662 | shampoing-fortifiant-200-ml | 8,00 € |
+  | `shampoing-fortifiant-500ml` | 15942592004430 | shampoing-fortifiant-500-ml | 16,90 € |
+  | `shampoing-fortifiant-1000-ml` | 15942592069966 | shampoing-fortifiant-1000-ml | 27,90 € |
+  | `serum-fortifiant` | 15942592135502 | serum-fortifiant-50-ml | 12,50 € |
+
+  Restent à faire avant passage en `active` : visuels produits, rattachement aux collections, paliers de volume (One Stop), et vérification du stock (la sync Odoo→Shopify est un miroir exact, 0 inclus).
