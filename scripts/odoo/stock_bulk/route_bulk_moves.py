@@ -80,7 +80,25 @@ def main():
     if not args.apply:
         print("\n(DRY-RUN — aucun write. Relancer avec --apply apres canari.)")
         return
-    raise SystemExit("--apply pas encore implemente (Task 3)")
+
+    # Grouper par picking pour unreserve/assign une seule fois par bon
+    from collections import defaultdict
+    moves_by_pick = defaultdict(list)
+    mv_full = search_read("stock.move",
+        [("id", "in", [r["move_id"] for r in to_route])],
+        ["id", "picking_id"])
+    for m in mv_full:
+        moves_by_pick[m["picking_id"][0]].append(m["id"])
+
+    for pick_id, move_ids in moves_by_pick.items():
+        # 1) liberer les reservations du bon
+        execute("stock.picking", "do_unreserve", [[pick_id]])
+        # 2) repointer les moves bulk vers Bulk(45)
+        execute("stock.move", "write", [move_ids, {"location_id": LOC_BULK}])
+        # 3) re-reserver (depuis les bons emplacements)
+        execute("stock.picking", "action_assign", [[pick_id]])
+        print(f"  picking {pick_id} : {len(move_ids)} move(s) repointe(s) sur Bulk(45)")
+    print(f"\n=== {len(to_route)} move(s) repointe(s). ===")
 
 
 if __name__ == "__main__":
