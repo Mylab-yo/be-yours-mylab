@@ -1,0 +1,76 @@
+{% comment %}
+  ml-account-studio.liquid — Bloc « Mon projet MY.LAB » du compte client.
+  Visible dès que le client a un projet en cours (= commande payée non annulée
+  contenant le dossier cosmétologique) : c'est depuis le compte qu'il suit ses
+  BAT, ses échanges graphiste et ses validations — pas depuis le parcours.
+  Gating d'affichage uniquement : l'accès réel à l'espace projet est contrôlé
+  côté configurateur (email de commande).
+{% endcomment %}
+
+{% liquid
+  assign has_project = false
+  assign has_surmesure = false
+  for order in customer.orders
+    if order.cancelled or order.financial_status != 'paid'
+      continue
+    endif
+    for line in order.line_items
+      if line.product.handle == 'creation-du-dossier-cosmetologique'
+        assign has_project = true
+      endif
+      if line.variant_id == 55418346242382
+        assign has_surmesure = true
+      endif
+    endfor
+  endfor
+%}
+
+{% if has_project %}
+  <div class="ml-account-studio">
+    <div class="ml-account-studio__text">
+      <span class="ml-account-studio__eyebrow">Mon projet MY.LAB</span>
+      <h2 class="ml-account-studio__title">Suivi de votre marque & BAT</h2>
+      <p>
+        Suivez la création de vos étiquettes : bons à tirer, échanges avec votre graphiste et validations,
+        {%- if has_surmesure %} y compris vos designs sur-mesure MyLab Studio,{% endif %}
+        depuis votre espace projet. Connectez-vous avec l'email utilisé pour votre commande.
+      </p>
+    </div>
+    <a class="button ml-account-studio__cta" href="https://mylab-configurateur.vercel.app/projet" target="_blank" rel="noopener">
+      Ouvrir mon espace projet
+    </a>
+  </div>
+
+  {% style %}
+    .ml-account-studio {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin: 32px 0 8px;
+      padding: 24px 28px;
+      border: 1px solid rgba(var(--color-foreground), 0.12);
+      border-radius: 12px;
+      background: rgba(var(--color-foreground), 0.03);
+    }
+    .ml-account-studio__eyebrow {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 4px;
+    }
+    .ml-account-studio__title {
+      margin: 0 0 6px;
+    }
+    .ml-account-studio__text p {
+      margin: 0;
+      max-width: 52ch;
+    }
+    .ml-account-studio__cta {
+      flex-shrink: 0;
+    }
+  {% endstyle %}
+{% endif %}

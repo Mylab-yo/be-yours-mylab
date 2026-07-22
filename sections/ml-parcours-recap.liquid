@@ -41,6 +41,18 @@
       </div>
     </div>
 
+    <div class="ml-parcours__forfait" style="margin-top:32px;">
+      <div class="ml-parcours__forfait-head">
+        <h3>Envie d'une boutique en ligne pour votre marque ?</h3>
+        <span class="ml-parcours__forfait-chip">Option · sur devis</span>
+      </div>
+      <p class="ml-parcours__lede" style="margin:0;font-size:15px;">Nous créons votre site e-commerce clé en main. Option facultative, indépendante de votre commande — activable quand vous voulez.</p>
+      <a href="/pages/votre-site-internet" class="ml-parcours__btn ml-parcours__btn--ghost" style="margin-top:14px;">
+        Découvrir l'option site internet
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
     <div class="ml-parcours__page-footer">
       <a href="/pages/parcours-etiquette" class="ml-parcours__page-footer-back">
         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -238,7 +250,9 @@
     });
     totalEl.textContent = fmtMoney(cart.total_price);
 
-    const hasDossier = items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
+    // Un dossier déjà payé sur le compte connecté satisfait l'exigence sans repasser au panier.
+    const ownsDossier = !!(window.MylabParcours && window.MylabParcours.customerState && window.MylabParcours.customerState.ownsDossier);
+    const hasDossier = ownsDossier || items.some(it => it.handle === 'creation-du-dossier-cosmetologique');
     const etiquetteHandles = (window.MylabParcours && window.MylabParcours.etiquetteHandles) || [];
     const hasEtiquette = items.some(it => etiquetteHandles.indexOf(it.handle) !== -1);
     const hasProduits = items.some(it => produitHandles.indexOf(it.handle) !== -1);

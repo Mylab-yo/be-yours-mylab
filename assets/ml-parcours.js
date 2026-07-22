@@ -77,7 +77,7 @@
     const cur = currentStep();
     const stepOrder = ['dossier', 'produits', 'etiquette', 'recap'];
     const validated = {
-      dossier: state.hasDossier,
+      dossier: state.hasDossier || !!window.MylabParcours?.customerState?.ownsDossier,
       etiquette: state.hasEtiquette,
       produits: state.hasProduits,
       recap: false
@@ -111,8 +111,9 @@
     const produitItems = items.filter(it => isProduit(it));
     const sumPrice = arr => arr.reduce((sum, it) => sum + it.line_price, 0);
 
+    const ownsDossier = !state.hasDossier && !!window.MylabParcours?.customerState?.ownsDossier;
     const lines = [
-      { name: 'Dossier cosmétologique', done: state.hasDossier, value: dossierItem ? fmt(dossierItem.line_price) : '—' },
+      { name: 'Dossier cosmétologique', done: state.hasDossier || ownsDossier, value: dossierItem ? fmt(dossierItem.line_price) : ownsDossier ? 'Déjà réglé ✓' : '—' },
       { name: 'Étiquette & impression', done: state.hasEtiquette, value: etiquetteItems.length ? fmt(sumPrice(etiquetteItems)) : '—' },
       { name: 'Produits sélectionnés', done: state.hasProduits, value: produitItems.length ? fmt(sumPrice(produitItems)) : '—' }
     ];
@@ -199,7 +200,8 @@
         btn.disabled = true;
         try {
           const state = await readState();
-          if (!state.hasDossier && window.MylabParcours?.dossierVariantId) {
+          const ownsDossier = window.MylabParcours?.customerState?.ownsDossier;
+          if (!state.hasDossier && !ownsDossier && window.MylabParcours?.dossierVariantId) {
             const res = await fetch('/cart/add.js', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },

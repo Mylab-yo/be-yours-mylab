@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "parcours_site": {
+      "type": "ml-parcours-site",
+      "blocks": {
+        "p1": { "type": "pillar", "settings": { "title": "Un thème à vos couleurs", "desc": "Votre identité visuelle (couleurs, typographies, logo) appliquée à un thème Shopify premium." } },
+        "p2": { "type": "pillar", "settings": { "title": "Votre boutique prête à vendre", "desc": "Vos produits en ligne avec prix publics, descriptions rédigées et vos photos." } },
+        "p3": { "type": "pillar", "settings": { "title": "Une home qui raconte votre marque", "desc": "Hero, histoire de marque, mise en avant de la gamme et réassurance — textes écrits pour vous." } },
+        "p4": { "type": "pillar", "settings": { "title": "Le juridique en ordre", "desc": "Mentions légales, CGV, confidentialité et retours : pages françaises pré-rédigées avec vos informations." } },
+        "p5": { "type": "pillar", "settings": { "title": "Livraison et emails configurés", "desc": "Zones et tarifs d'expédition, emails transactionnels aux couleurs de votre marque." } },
+        "p6": { "type": "pillar", "settings": { "title": "Votre domaine branché", "desc": "Connexion de votre nom de domaine, ou conseils pour bien le choisir." } },
+        "t1": { "type": "timeline_step", "settings": { "label": "Pendant vos étiquettes", "desc": "Votre espace projet suit le BAT, puis un court onboarding recueille votre univers de marque." } },
+        "t2": { "type": "timeline_step", "settings": { "label": "Création du site", "desc": "Nous montons votre boutique : thème, produits, textes, pages légales. Vous validez tout." } },
+        "t3": { "type": "timeline_step", "settings": { "label": "Remise des clés", "desc": "Visio de livraison : le site passe à votre nom, votre domaine est branché. Vous êtes en ligne." } }
+      },
+      "block_order": ["p1", "p2", "p3", "p4", "p5", "p6", "t1", "t2", "t3"]
+    }
+  },
+  "order": ["parcours_site"]
+}

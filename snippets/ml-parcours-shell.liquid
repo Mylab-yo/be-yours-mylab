@@ -8,6 +8,40 @@
   assign etiquettes_col = collections['modeles-detiquettes']
   assign produits_col = collections['boutique-adherents']
   assign dossier_product = all_products['creation-du-dossier-cosmetologique']
+  assign forfait_standard = all_products['forfait-dimpression-standard']
+  assign forfait_couleur = all_products['forfait-dimpression']
+
+  comment
+    État du client connecté : ne pas refacturer le dossier ou le sur-mesure déjà
+    payés, et savoir si un forfait d'impression est actif (commande payée < 12 mois).
+    Invité : tous les drapeaux restent false → comportement standard.
+  endcomment
+  assign owns_dossier = false
+  assign owns_surmesure = false
+  assign forfait_active = false
+  if customer
+    assign now_s = 'now' | date: '%s' | plus: 0
+    for order in customer.orders
+      if order.cancelled or order.financial_status != 'paid'
+        continue
+      endif
+      assign order_s = order.created_at | date: '%s' | plus: 0
+      assign order_age = now_s | minus: order_s
+      for line in order.line_items
+        case line.product.handle
+          when 'creation-du-dossier-cosmetologique'
+            assign owns_dossier = true
+          when 'forfait-dimpression-standard', 'forfait-dimpression'
+            if order_age < 31536000
+              assign forfait_active = true
+            endif
+        endcase
+        if line.variant_id == 55418346242382
+          assign owns_surmesure = true
+        endif
+      endfor
+    endfor
+  endif
 %}
 
 {{ 'ml-parcours.css' | asset_url | stylesheet_tag }}
@@ -16,11 +50,21 @@
   window.MylabParcours = {
     dossierVariantId: {{ dossier_product.variants.first.id | default: 'null' }},
     dossierPrice: {{ dossier_product.variants.first.price | default: 38990 }},
+    forfaitVariants: {
+      standard: {{ forfait_standard.variants.first.id | default: 'null' }},
+      couleur: {{ forfait_couleur.variants.first.id | default: 'null' }}
+    },
+    customerState: {
+      ownsDossier: {{ owns_dossier }},
+      ownsSurMesure: {{ owns_surmesure }},
+      forfaitActive: {{ forfait_active }}
+    },
     quoteWebhookUrl: "https://n8n.startec-paris.com/webhook/parcours-quote",
     etiquetteHandles: [
       {%- for p in etiquettes_col.products -%}
-        "{{ p.handle }}"{%- unless forloop.last -%},{%- endunless -%}
+        "{{ p.handle }}",
       {%- endfor -%}
+      "frais-dimpression-etiquettes"
     ],
     produitHandles: [
       {%- for p in produits_col.products -%}

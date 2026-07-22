@@ -1,4 +1,4 @@
-{% comment %} ml-parcours-etiquette.liquid — Étape 03 — Étiquette & forfait + configurateur Vercel iframe {% endcomment %}
+{% comment %} ml-parcours-etiquette.liquid — Étape 03 — Choix du type d'étiquette (sélection directe panier) + MyLab Studio en inspiration {% endcomment %}
 
 {% liquid
   assign default_modele = section.settings.modele_default_product
@@ -25,10 +25,10 @@
         </div>
         <div class="ml-parcours__label-card-title">Standard</div>
         <div class="ml-parcours__label-card-price">Gratuit</div>
+        <div class="ml-parcours__label-card-for">Pour lancer vite, sans travailler le design</div>
         <div class="ml-parcours__label-card-desc">Étiquette neutre noire, votre logo en bichromie. Idéal pour démarrer rapidement.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-open-config="standard" data-default-variant="55418362003790">Choisir Standard</button>
-          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="59231350554958" data-type="Standard" data-forfait="standard">Choisir Standard</button>
         </div>
       </div>
       <div class="ml-parcours__label-card ml-parcours__label-card--featured" data-mode="template">
@@ -42,10 +42,10 @@
         </div>
         <div class="ml-parcours__label-card-title">Modèles</div>
         <div class="ml-parcours__label-card-price">99 €</div>
-        <div class="ml-parcours__label-card-desc">11 designs prêts à personnaliser dans le configurateur. Couleurs, typographies, finitions.</div>
+        <div class="ml-parcours__label-card-for">Pour un rendu pro en quelques minutes</div>
+        <div class="ml-parcours__label-card-desc">11 designs professionnels prêts à porter vos couleurs. Vous affinez le choix avec nos graphistes après la commande.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-open-config="template" data-default-variant="{{ default_modele_variant_id }}">Ouvrir le configurateur</button>
-          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="{{ default_modele_variant_id }}" data-type="Modèles" data-forfait="couleur">Choisir Modèles</button>
         </div>
       </div>
       <div class="ml-parcours__label-card" data-mode="studio">
@@ -58,12 +58,42 @@
         </div>
         <div class="ml-parcours__label-card-title">Sur-mesure</div>
         <div class="ml-parcours__label-card-price">390 €</div>
-        <div class="ml-parcours__label-card-desc">Création unique avec notre studio. Brief, allers-retours, design exclusif.</div>
+        <div class="ml-parcours__label-card-for">Pour une identité unique, créée avec nos designers</div>
+        <div class="ml-parcours__label-card-desc">Création exclusive avec notre équipe : après la commande, vous transmettez brief, logo, moodboard et inspirations. Allers-retours jusqu'à validation.</div>
         <div class="ml-parcours__label-card-actions">
-          <button type="button" class="ml-parcours__label-card-btn" data-open-config="studio" data-default-variant="">Démarrer le brief</button>
-          <a href="#" class="ml-parcours__label-card-link">En savoir plus</a>
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418346242382" data-type="Sur-mesure" data-forfait="couleur">Choisir Sur-mesure</button>
         </div>
       </div>
+      <div class="ml-parcours__label-card" data-mode="import">
+        <div class="ml-parcours__label-card-visual">
+          {%- if section.settings.card_import_image != blank -%}
+            {{ section.settings.card_import_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: 'Aperçu Import', class: 'ml-parcours__label-card-img' }}
+          {%- else -%}
+            <img src="{{ 'ml-carte-import.jpg' | asset_url }}" alt="Aperçu Import" loading="lazy" width="600" height="600" class="ml-parcours__label-card-img">
+          {%- endif -%}
+        </div>
+        <div class="ml-parcours__label-card-title">J'ai mes étiquettes</div>
+        <div class="ml-parcours__label-card-price">Gratuit</div>
+        <div class="ml-parcours__label-card-for">Pour celles et ceux qui ont déjà leur design</div>
+        <div class="ml-parcours__label-card-desc">Votre design est déjà prêt ? Transmettez vos fichiers (JPEG, PDF ou PNG) après la commande et obtenez un shooting photo pour vos réseaux sociaux et votre site internet !</div>
+        <div class="ml-parcours__label-card-actions">
+          <button type="button" class="ml-parcours__label-card-btn" data-select-etiquette data-variant="55418312622414" data-type="J'ai mes étiquettes" data-forfait="couleur">Choisir cette option</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ml-parcours__label-feedback" data-etiquette-feedback role="alert"></div>
+
+    <div class="ml-parcours__label-note">
+      <strong>Et ensuite ?</strong> Après votre commande, votre espace projet s'ouvre : vous y transmettez logo, moodboard et inspirations à nos graphistes, qui créent vos étiquettes. Rien ne part à l'impression sans votre bon à tirer.
+    </div>
+
+    <div class="ml-parcours__studio-invite">
+      <div class="ml-parcours__studio-invite-text">
+        <h3>Envie d'explorer des pistes ?</h3>
+        <p>Essayez le MyLab Studio : générez des idées d'étiquettes par IA, librement, pour vous inspirer avant de choisir. Sans engagement — fermez quand vous voulez.</p>
+      </div>
+      <button type="button" class="ml-parcours__btn ml-parcours__btn--primary" data-open-config="studio">Essayer le MyLab Studio</button>
     </div>
 
     <div class="ml-parcours__forfait">
@@ -100,17 +130,135 @@
   </div>
 </section>
 
-<div class="ml-parcours__modal" id="ml-parcours-config-modal" inert aria-modal="true" aria-label="Configurateur d'étiquette">
+<div class="ml-parcours__modal" id="ml-parcours-config-modal" inert aria-modal="true" aria-label="MyLab Studio">
   <div class="ml-parcours__modal-backdrop" data-close-config></div>
   <div class="ml-parcours__modal-panel">
-    <button type="button" class="ml-parcours__modal-close" data-close-config aria-label="Fermer le configurateur">×</button>
-    <iframe class="ml-parcours__modal-iframe" data-config-iframe title="Configurateur"></iframe>
+    <button type="button" class="ml-parcours__modal-close" data-close-config aria-label="Fermer le studio">×</button>
+    <iframe class="ml-parcours__modal-iframe" data-config-iframe title="MyLab Studio"></iframe>
   </div>
 </div>
 
 <script>
 (function(){
   'use strict';
+
+  /* ---- Sélection directe du type d'étiquette (remplace toute étiquette déjà au panier) ---- */
+  const selectBtns = Array.prototype.slice.call(document.querySelectorAll('[data-select-etiquette]'));
+  const CUSTOMER = (window.MylabParcours && window.MylabParcours.customerState) || {};
+  const FORFAITS = (window.MylabParcours && window.MylabParcours.forfaitVariants) || {};
+  const forfaitVariantIds = [FORFAITS.standard, FORFAITS.couleur].filter(Boolean);
+
+  /* Sur-mesure déjà payé sur le compte : la carte reste sélectionnable mais ne
+     refacture pas les 390 € — elle pose le marqueur 0 € avec un type dédié. */
+  if (CUSTOMER.ownsSurMesure) {
+    const surBtn = selectBtns.find(function(b){ return b.dataset.type === 'Sur-mesure'; });
+    if (surBtn) {
+      surBtn.dataset.variant = '55418312622414';
+      surBtn.dataset.type = 'Sur-mesure (design existant)';
+      surBtn.textContent = 'Déjà acquis — sélectionner';
+      const card = surBtn.closest('.ml-parcours__label-card');
+      if (card) {
+        card.classList.add('is-owned');
+        const price = card.querySelector('.ml-parcours__label-card-price');
+        if (price) price.textContent = 'Déjà réglé ✓';
+      }
+    }
+  }
+  const allVariants = selectBtns.map(function(b){ return parseInt(b.dataset.variant, 10); }).filter(Boolean);
+
+  function readCart() {
+    return fetch('/cart.js', { credentials: 'same-origin' }).then(function(r){ return r.ok ? r.json() : null; });
+  }
+
+  /* Le marqueur 0 € peut servir à deux cartes (Import / Sur-mesure acquis) :
+     on distingue par la propriété « Type étiquette » posée à l'ajout. */
+  function cardSelected(items, b) {
+    const v = parseInt(b.dataset.variant, 10);
+    return items.some(function(it){
+      if (it.variant_id !== v) return false;
+      const t = it.properties && it.properties['Type étiquette'];
+      return !t || t === b.dataset.type;
+    });
+  }
+
+  function syncSelected(cart) {
+    const items = (cart && cart.items) || [];
+    selectBtns.forEach(function(b){
+      const selected = cardSelected(items, b);
+      const card = b.closest('.ml-parcours__label-card');
+      if (card) card.classList.toggle('is-selected', selected);
+      b.textContent = selected ? 'Sélectionné ✓' : b.dataset.label;
+    });
+  }
+
+  function showFeedback(msg) {
+    const el = document.querySelector('[data-etiquette-feedback]');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.classList.toggle('is-visible', !!msg);
+  }
+
+  function selectEtiquette(btn) {
+    const id = parseInt(btn.dataset.variant, 10);
+    if (!id) return;
+    btn.disabled = true;
+    showFeedback('');
+    /* Forfait d'impression d'office : mappé sur la carte (standard 99 € / couleur
+       250 €), sauf si un forfait est déjà actif sur le compte connecté. */
+    const wantedForfait = CUSTOMER.forfaitActive ? null : (FORFAITS[btn.dataset.forfait] || null);
+    readCart().then(function(cart){
+      const items = (cart && cart.items) || [];
+      const updates = {};
+      items.forEach(function(it){
+        if (allVariants.indexOf(it.variant_id) !== -1 && it.variant_id !== id) updates[it.variant_id] = 0;
+        if (forfaitVariantIds.indexOf(it.variant_id) !== -1 && it.variant_id !== wantedForfait) updates[it.variant_id] = 0;
+      });
+      const clear = Object.keys(updates).length
+        ? fetch('/cart/update.js', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ updates: updates }) })
+        : Promise.resolve();
+      return clear.then(function(){
+        const toAdd = [];
+        if (!cardSelected(items, btn)) {
+          toAdd.push({ id: id, quantity: 1, properties: { 'Type étiquette': btn.dataset.type || '' } });
+        }
+        const forfaitInCart = wantedForfait && items.some(function(it){ return it.variant_id === wantedForfait; });
+        if (wantedForfait && !forfaitInCart) {
+          toAdd.push({ id: wantedForfait, quantity: 1 });
+        }
+        if (!toAdd.length) return null;
+        return fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'same-origin',
+          body: JSON.stringify({ items: toAdd })
+        }).then(function(res){
+          if (res.ok) return;
+          // Surface Shopify's own message (e.g. rupture de stock) instead of failing silently.
+          return res.json().catch(function(){ return null; }).then(function(body){
+            throw new Error((body && (body.description || body.message)) || ('Ajout au panier impossible (' + res.status + ')'));
+          });
+        });
+      });
+    }).then(function(){
+      return readCart();
+    }).then(function(cart){
+      syncSelected(cart);
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+    }).catch(function(err){
+      console.error('[ml-parcours-etiquette] selection error', err);
+      showFeedback((err && err.message) || 'Une erreur est survenue. Réessayez ou contactez-nous.');
+    }).then(function(){
+      btn.disabled = false;
+    });
+  }
+
+  selectBtns.forEach(function(b){
+    b.dataset.label = b.textContent.trim();
+    b.addEventListener('click', function(){ selectEtiquette(b); });
+  });
+  readCart().then(syncSelected).catch(function(){});
+
+  /* ---- Modale MyLab Studio (inspiration facultative) ---- */
   const modal = document.getElementById('ml-parcours-config-modal');
   if (!modal) return;
   const iframe = modal.querySelector('[data-config-iframe]');
@@ -131,46 +279,49 @@
     document.body.style.overflow = '';
   }
 
-  document.querySelectorAll('[data-open-config]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      openConfig(btn.dataset.openConfig);
-    });
+  document.querySelectorAll('[data-open-config]').forEach(function(btn){
+    btn.addEventListener('click', function(){ openConfig(btn.dataset.openConfig); });
   });
 
-  document.querySelectorAll('[data-close-config]').forEach(el => {
+  document.querySelectorAll('[data-close-config]').forEach(function(el){
     el.addEventListener('click', closeConfig);
   });
 
-  window.addEventListener('message', async (event) => {
+  /* Un design finalisé dans le Studio reste possible : il rejoint le panier comme étiquette. */
+  window.addEventListener('message', function(event){
     if (event.origin !== allowedOrigin) return;
     if (!event.data || event.data.type !== 'design:ready') return;
-    const { variantId, reference, templateName, previewImageUrl, logoUrl, rangeNames } = event.data;
+    const variantId = event.data.variantId;
+    const reference = event.data.reference;
+    const templateName = event.data.templateName;
+    const previewImageUrl = event.data.previewImageUrl;
+    const logoUrl = event.data.logoUrl;
+    const rangeNames = event.data.rangeNames;
     if (!variantId) return;
-    try {
-      const res = await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'same-origin',
-        body: JSON.stringify({
-          items: [{
-            id: parseInt(variantId, 10),
-            quantity: 1,
-            properties: {
-              'Référence design': reference || '',
-              'Modèle': templateName || '',
-              'Aperçu': previewImageUrl || '',
-              'Logo': logoUrl || '',
-              'Gammes': (rangeNames || []).join(', ')
-            }
-          }]
-        })
-      });
-      if (!res.ok) throw new Error('cart add failed: ' + res.status);
-    } catch (err) {
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        items: [{
+          id: parseInt(variantId, 10),
+          quantity: 1,
+          properties: {
+            'Référence design': reference || '',
+            'Modèle': templateName || '',
+            'Aperçu': previewImageUrl || '',
+            'Logo': logoUrl || '',
+            'Gammes': (rangeNames || []).join(', ')
+          }
+        }]
+      })
+    }).catch(function(err){
       console.error('[ml-parcours-etiquette] design:ready add error', err);
-    }
-    closeConfig();
-    document.dispatchEvent(new CustomEvent('cart:refresh'));
+    }).then(function(){
+      closeConfig();
+      document.dispatchEvent(new CustomEvent('cart:refresh'));
+      readCart().then(syncSelected).catch(function(){});
+    });
   });
 })();
 </script>
@@ -180,12 +331,13 @@
   "name": "Parcours · Étiquette",
   "settings": [
     { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>L'identité de votre <em>flacon</em>.</p>" },
-    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Trois options selon votre niveau d'investissement créatif. Le forfait d'impression annuel est inclus dans le choix de votre étiquette." },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "Choisissez comment naîtront vos étiquettes — un clic suffit, votre panier se remplit. Le design se crée ensuite avec nos graphistes, après votre commande." },
     { "type": "product", "id": "modele_default_product", "label": "Produit modèle par défaut (Modèles card)" },
-    { "type": "header", "content": "Miniatures aperçu (3 cards)" },
+    { "type": "header", "content": "Miniatures aperçu (4 cards)" },
     { "type": "image_picker", "id": "card_standard_image", "label": "Image Aperçu Standard" },
     { "type": "image_picker", "id": "card_template_image", "label": "Image Aperçu Modèles" },
-    { "type": "image_picker", "id": "card_studio_image", "label": "Image Aperçu Sur-mesure" }
+    { "type": "image_picker", "id": "card_studio_image", "label": "Image Aperçu Sur-mesure" },
+    { "type": "image_picker", "id": "card_import_image", "label": "Image Aperçu Import (J'ai mes étiquettes)" }
   ],
   "presets": [{ "name": "Parcours · Étiquette" }]
 }

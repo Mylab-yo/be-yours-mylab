@@ -1,0 +1,109 @@
+{% comment %} ml-parcours-site.liquid — Option site internet clé en main (page standalone, indépendante du parcours) {% endcomment %}
+
+{{ 'ml-parcours.css' | asset_url | stylesheet_tag }}
+
+<section class="ml-parcours__page">
+  <div class="ml-parcours__container">
+    <div class="ml-parcours__kicker">Option · Site clé en main</div>
+    <h1 class="ml-parcours__display">{{ section.settings.heading }}</h1>
+    <p class="ml-parcours__lede">{{ section.settings.lede }}</p>
+
+    <div class="ml-parcours__forfait">
+      <div class="ml-parcours__forfait-head">
+        <h3>{{ section.settings.included_heading }}</h3>
+        <span class="ml-parcours__forfait-chip">{{ section.settings.included_chip }}</span>
+      </div>
+      <div class="ml-parcours__forfait-pillars">
+        {% for block in section.blocks %}
+          {% if block.type == 'pillar' %}
+            <div class="ml-parcours__forfait-pillar" {{ block.shopify_attributes }}>
+              <h4>{{ block.settings.title }}</h4>
+              <p>{{ block.settings.desc }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="ml-parcours__recap-final">
+      <h2>{{ section.settings.timeline_heading }}</h2>
+      <div class="ml-parcours__timeline">
+        {% for block in section.blocks %}
+          {% if block.type == 'timeline_step' %}
+            <div class="ml-parcours__timeline-item" {{ block.shopify_attributes }}>
+              <div class="ml-parcours__timeline-item-dot"></div>
+              <h4>{{ block.settings.label }}</h4>
+              <p>{{ block.settings.desc }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="ml-parcours__recap-actions">
+        <a href="{{ section.settings.cta_url }}" class="ml-parcours__btn ml-parcours__btn--primary ml-parcours__btn--big">
+          {{ section.settings.cta_label }}
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6h14m0 0L10 1m5 5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <p class="ml-parcours__lede" style="margin-top:16px;font-size:14px;">{{ section.settings.cta_note }}</p>
+    </div>
+
+    <div class="ml-parcours__page-footer">
+      <a href="/pages/parcours-recap" class="ml-parcours__page-footer-back">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true"><path d="M13 5H1m0 0l4-4M1 5l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Retour au récap
+      </a>
+      <a href="/pages/contact" class="ml-parcours__contact-link">Une question ? Prendre RDV</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Parcours · Site internet",
+  "settings": [
+    { "type": "richtext", "id": "heading", "label": "Titre", "default": "<p>Votre marque mérite <em>sa boutique en ligne</em>.</p>" },
+    { "type": "textarea", "id": "lede", "label": "Sous-titre", "default": "En option, indépendamment de votre commande : nous créons votre site e-commerce Shopify clé en main — votre gamme, votre identité, vos textes. Vous vendez, on s'occupe du reste." },
+    { "type": "text", "id": "included_heading", "label": "Titre bloc inclus", "default": "Ce qui est inclus" },
+    { "type": "text", "id": "included_chip", "label": "Chip bloc inclus", "default": "Livré clé en main · sur devis" },
+    { "type": "text", "id": "timeline_heading", "label": "Titre déroulé", "default": "Comment ça se passe" },
+    { "type": "text", "id": "cta_label", "label": "Libellé CTA", "default": "Suivre mon projet" },
+    { "type": "text", "id": "cta_url", "label": "Lien CTA", "default": "https://mylab-configurateur.vercel.app/projet" },
+    { "type": "textarea", "id": "cta_note", "label": "Note sous CTA", "default": "Option facultative et indépendante de votre commande, sur devis : activez-la quand vous voulez. Si vous la choisissez, vous suivez la création de votre site depuis votre espace projet, avec le même email que votre commande." }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Inclus",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "textarea", "id": "desc", "label": "Description" }
+      ]
+    },
+    {
+      "type": "timeline_step",
+      "name": "Étape du déroulé",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "textarea", "id": "desc", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parcours · Site internet",
+      "blocks": [
+        { "type": "pillar", "settings": { "title": "Un thème à vos couleurs", "desc": "Votre identité visuelle (couleurs, typographies, logo) appliquée à un thème Shopify premium." } },
+        { "type": "pillar", "settings": { "title": "Votre boutique prête à vendre", "desc": "Vos produits en ligne avec prix publics, descriptions rédigées et vos photos." } },
+        { "type": "pillar", "settings": { "title": "Une home qui raconte votre marque", "desc": "Hero, histoire de marque, mise en avant de la gamme et réassurance — textes écrits pour vous." } },
+        { "type": "pillar", "settings": { "title": "Le juridique en ordre", "desc": "Mentions légales, CGV, confidentialité et retours : pages françaises pré-rédigées avec vos informations." } },
+        { "type": "pillar", "settings": { "title": "Livraison et emails configurés", "desc": "Zones et tarifs d'expédition, emails transactionnels aux couleurs de votre marque." } },
+        { "type": "pillar", "settings": { "title": "Votre domaine branché", "desc": "Connexion de votre nom de domaine, ou conseils pour bien le choisir." } },
+        { "type": "timeline_step", "settings": { "label": "Pendant vos étiquettes", "desc": "Votre espace projet suit le BAT, puis un court onboarding recueille votre univers de marque." } },
+        { "type": "timeline_step", "settings": { "label": "Création du site", "desc": "Nous montons votre boutique : thème, produits, textes, pages légales. Vous validez tout." } },
+        { "type": "timeline_step", "settings": { "label": "Remise des clés", "desc": "Visio de livraison : le site passe à votre nom, votre domaine est branché. Vous êtes en ligne." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

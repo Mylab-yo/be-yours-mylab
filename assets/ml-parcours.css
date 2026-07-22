@@ -456,9 +456,51 @@ body.is-parcours {
 .ml-parcours__accordion-item.is-open .ml-parcours__accordion-body{max-height:200px}
 
 /* ============ STEP 2 — ÉTIQUETTE + FORFAIT ============ */
+.ml-parcours__label-card.is-selected{
+  outline:2px solid var(--mlp-ink);outline-offset:-2px;
+  box-shadow:var(--mlp-shadow-md);
+}
+.ml-parcours__label-card.is-selected .ml-parcours__label-card-btn{
+  background:var(--mlp-cream-3);color:var(--mlp-ink);
+}
+.ml-parcours__label-feedback{
+  display:none;
+  /* -48px absorbe la marge de la grille au-dessus ; 88px pour que le -48px de la note suivante retombe sur 40px */
+  margin:-48px 0 88px;padding:14px 18px;
+  background:#fdf0ef;border:1px solid #e2b4ae;
+  border-radius:var(--mlp-radius);
+  font-size:14px;line-height:1.5;color:#8c3327;
+}
+.ml-parcours__label-feedback.is-visible{display:block;}
+.ml-parcours__label-card.is-owned .ml-parcours__label-card-price{color:var(--mlp-ink-soft);}
+.ml-parcours__label-note{
+  margin:-48px 0 40px;padding:18px 22px;
+  background:var(--mlp-cream-2);border:1px solid var(--mlp-line);
+  border-radius:var(--mlp-radius);
+  font-size:14px;line-height:1.55;color:var(--mlp-ink-soft);
+}
+.ml-parcours__studio-invite{
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  flex-wrap:wrap;
+  margin-bottom:40px;padding:26px 30px;
+  background:var(--mlp-ink);color:#fff;
+  border-radius:var(--mlp-radius-lg);
+}
+.ml-parcours__studio-invite-text h3{font-size:19px;margin:0 0 6px;color:#fff}
+.ml-parcours__studio-invite-text p{font-size:14px;margin:0;color:rgba(255,255,255,.75);max-width:560px}
+.ml-parcours__studio-invite .ml-parcours__btn--primary{
+  background:#fff !important;color:var(--mlp-ink);
+  flex-shrink:0;
+}
+
 .ml-parcours__label-cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  /* auto-fit : 4 cartes de front sur desktop large, repli 2x2 sur laptop étroit */
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;
   margin-bottom:80px;
+}
+.ml-parcours__label-card-for{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  opacity:.6;margin:-6px 0 12px;
 }
 .ml-parcours__label-card{
   background:var(--mlp-cream-2);
@@ -524,6 +566,8 @@ body.is-parcours {
 }
 .ml-parcours__label-card--featured .ml-parcours__label-card-btn{background:var(--mlp-ink)}
 .ml-parcours__label-card-btn:hover{background:var(--mlp-ink)}
+.ml-parcours__label-card-btn--ghost{background:var(--mlp-cream-3);color:var(--mlp-ink)}
+.ml-parcours__label-card-btn--ghost:hover{background:var(--mlp-line-strong);color:var(--mlp-ink)}
 .ml-parcours__label-card-link{
   font-size:12px;color:var(--mlp-muted);text-align:center;
   text-decoration:none;border-bottom:1px solid var(--mlp-line);padding-bottom:2px;
