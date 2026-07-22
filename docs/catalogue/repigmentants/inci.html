@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .inci-page { padding: 16mm 16mm 14mm; }
+
+  /* --- Index (LISTE INCI) --- */
+  .inci-index { display: flex; padding: 0; }
+  .inci-index__left { flex: 1; padding: 24mm 18mm; }
+  .inci-index__photo { width: 105mm; height: 210mm; object-fit: cover; }
+  .inci-index .dots { display: inline-flex; flex-direction: column; gap: 2.5mm; margin-bottom: 7mm; }
+  .inci-index .dots i { width: 3.4mm; height: 3.4mm; border-radius: 50%; background: var(--accent); display: block; }
+  .inci-index__title {
+    display: inline-block; text-transform: uppercase; letter-spacing: .06em; font-size: 24pt;
+    font-weight: 800; color: var(--ink); border: 2px solid var(--accent); padding: 3mm 7mm; margin: 0 0 12mm;
+  }
+  .inci-index__list { list-style: none; margin: 0; padding: 0; }
+  .inci-index__list li { font-size: 13pt; font-weight: 600; color: var(--ink); padding: 3.2mm 0; border-bottom: 1px solid #eee; }
+  .inci-index__list li:last-child { border-bottom: none; }
+
+  /* --- Pages INCI 2 colonnes --- */
+  .inci-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14mm; }
+  .inci-col__head { display: flex; align-items: flex-start; gap: 4mm; margin-bottom: 7mm; }
+  .inci-col__head .dots { display: inline-flex; flex-direction: column; gap: 2mm; margin-top: 1mm; }
+  .inci-col__head .dots i { width: 3mm; height: 3mm; border-radius: 50%; background: var(--accent); display: block; }
+  .inci-eyebrow { font-size: 15pt; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--ink); line-height: 1.05; }
+  .inci-gamme { font-size: 12.5pt; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: #777; }
+  .inci-product { margin: 0 0 5mm; }
+  .inci-product h4 { font-size: 8.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: var(--ink); margin: 0 0 1.2mm; }
+  .inci-list { font-size: 7pt; line-height: 1.35; color: #555; margin: 0; }
+  .inci-list .base-label, .inci-list .teinte { font-weight: 700; color: var(--ink); }
+  .inci-nat { font-size: 7pt; color: #999; margin: 1mm 0 0; }
+  .inci-teintes { list-style: none; margin: 1mm 0 0; padding: 0; }
+  .inci-teintes li { font-size: 7pt; line-height: 1.4; color: #555; margin: 0; }
+</style>
+</head>
+<body>
+
+  <!-- ===== INDEX — LISTE INCI ===== -->
+  <section class="page inci-index">
+    <div class="inci-index__left">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <h1 class="inci-index__title">Liste INCI</h1>
+      <ul class="inci-index__list">
+        <li>Nourrissants &amp; Volumes</li>
+        <li>Lissants &amp; HA Repulpe</li>
+        <li>Purifiants &amp; Boucles</li>
+        <li>Protecteurs de couleur</li>
+        <li>Repigmentants / Coloristeur</li>
+        <li>Masque R&eacute;parateur sans rin&ccedil;age</li>
+        <li>Gamme Homme</li>
+      </ul>
+    </div>
+    <img class="inci-index__photo" src="img/inci-index-photo.jpeg" alt="">
+  </section>
+
+  <!-- ===== PROTECTEURS DE COULEUR | MASQUE RÉPARATEUR ===== -->
+  <section class="page inci-page">
+    <div class="inci-cols">
+      <div class="inci-col">
+        <div class="inci-col__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <div><div class="inci-eyebrow">Ingr&eacute;dients</div><div class="inci-gamme">Les Protecteurs de couleur</div></div>
+        </div>
+        <div class="inci-product">
+          <h4>Shampoing Protecteur de couleur</h4>
+          <p class="inci-list">Aqua, Sodium Cocoyl Glutamate, Glycerin, Decyl Glucoside, Lauryl Glucoside, Propylene Glycol, Sodium Chloride, Tamarindus Indica Seed Gum, Parfum (Fragrance), Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Potassium Sorbate, Xanthan Gum, Inulin, Aloe Barbadensis Leaf Juice Powder, Linalool, Limonene, Benzyl Salicylate, Camellia Oleifera Seed Oil, Pongamia Glabra Seed Oil</p>
+          <p class="inci-nat">98,6 % des ingr&eacute;dients sont d'origine naturelle.</p>
+        </div>
+        <div class="inci-product">
+          <h4>Masque Protecteur de couleur</h4>
+          <p class="inci-list">Aqua, Cetearyl Alcohol, Glycerin, Betaine, Glyceryl Stearate, Behentrimonium Chloride, Butyrospermum Parkii Butter, Neopentyl Glycol Diheptanoate, Parfum, Polyquaternium-10, Isododecane, Camellia Oleifera Seed Oil, Inulin, Pongamia Glabra Seed Oil, Ricinus Communis Seed Oil, Guar Hydroxypropyltrimonium Chloride, Levulinic Acid, Sodium Benzoate, Potassium Sorbate, Xanthan Gum, Sodium Levulinate, Helianthus Annuus Seed Oil, Tocopherol, Aloe Barbadensis Leaf Juice Powder, Linalool, Limonene, Benzyl Salicylate</p>
+          <p class="inci-nat">95 % des ingr&eacute;dients sont d'origine naturelle.</p>
+        </div>
+        <div class="inci-product">
+          <h4>Cr&egrave;me Protectrice de couleur</h4>
+          <p class="inci-list">Aqua, Cetearyl Alcohol, Glycerin, Betaine, Behentrimonium Chloride, Butyrospermum Parkii Butter, Parfum, Neopentyl Glycol Diheptanoate, Camellia Oleifera Seed Oil, Pongamia Glabra Seed Oil, Ricinus Communis Seed Oil, Levulinic Acid, Sodium Benzoate, Isododecane, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride, Xanthan Gum, Polyquaternium-10, Sodium Levulinate, Helianthus Annuus Seed Oil, Tocopherol, Aloe Barbadensis Leaf Juice Powder, Linalool, Limonene, Benzyl Salicylate, Alpha-Isomethyl Ionone, Citronellol, Coumarin, Citral</p>
+          <p class="inci-nat">96,2 % des ingr&eacute;dients sont d'origine naturelle.</p>
+        </div>
+      </div>
+
+      <div class="inci-col">
+        <div class="inci-col__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <div><div class="inci-eyebrow">Ingr&eacute;dients</div><div class="inci-gamme">Le Masque R&eacute;parateur sans rin&ccedil;age</div></div>
+        </div>
+        <div class="inci-product">
+          <h4>Masque R&eacute;parateur sans rin&ccedil;age</h4>
+          <p class="inci-list">Aqua, Sodium Cocoyl Glutamate, Glycerin, Decyl Glucoside, Lauryl Glucoside, Propylene Glycol, Sodium Chloride, Tamarindus Indica Seed Gum, Parfum (Fragrance), Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Potassium Sorbate, Xanthan Gum, Inulin, Aloe Barbadensis Leaf Juice Powder, Linalool, Limonene, Benzyl Salicylate, Camellia Oleifera Seed Oil, Pongamia Glabra Seed Oil</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REPIGMENTANTS / COLORISTEUR ===== -->
+  <section class="page inci-page">
+    <div class="inci-cols">
+      <div class="inci-col">
+        <div class="inci-col__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <div><div class="inci-eyebrow">Ingr&eacute;dients</div><div class="inci-gamme">Shampoing Repigmentant</div></div>
+        </div>
+        <div class="inci-product">
+          <p class="inci-list"><span class="base-label">Base commune :</span> Aqua, Sodium Lauroyl Methyl Isethionate, Sodium Methyl Oleoyl Taurate, Cocamidopropyl Betaine, Glycerin, Sodium Chloride, Acrylates Copolymer, Parfum, Guar Hydroxypropyltrimonium Chloride, Levulinic Acid, Trisodium Ethylenediamide Disuccinate, Sodium Levulinate, Sodium Benzoate, Hydrolyzed Wheat Protein, Hydrolyzed Vegetable Protein, Mica, Ci 77891.</p>
+          <p class="inci-nat" style="margin-top:2.5mm;font-weight:600;color:#555;">Colorants ajout&eacute;s selon la teinte :</p>
+          <ul class="inci-teintes">
+            <li><span class="teinte">D&eacute;jaunisseur</span> &mdash; Acid Violet 43. <em>(94,48 %)</em></li>
+            <li><span class="teinte">Vanille</span> &mdash; Basic Brown 17, Basic Yellow 57. <em>(94,36 %)</em></li>
+            <li><span class="teinte">Blond Dor&eacute;</span> &mdash; Basic Red 76, Basic Brown 17, Basic Blue 99, Basic Yellow 57, HC Yellow No. 2. <em>(94,33 %)</em></li>
+          </ul>
+          <p class="inci-nat">% d'ingr&eacute;dients d'origine naturelle indiqu&eacute; par teinte.</p>
+        </div>
+      </div>
+
+      <div class="inci-col">
+        <div class="inci-col__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <div><div class="inci-eyebrow">Ingr&eacute;dients</div><div class="inci-gamme">Masque Repigmentant</div></div>
+        </div>
+        <div class="inci-product">
+          <p class="inci-list"><span class="base-label">Base commune :</span> Aqua, Glycerin, Cetyl Alcohol, Cetearyl Alcohol, Butyrospermum Parkii Butter*, Betaine, Neopentyl Glycol Diheptanoate, Cetrimonium Chloride, Isododecane, Benzyl Alcohol, Ricinus Communis Seed Oil, Parfum, Polyquaternium-10, Dicaprylyl Ether, Lauryl Alcohol, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Dehydroacetic Acid, Hydrolyzed Vegetable Protein, Hydrolyzed Wheat Protein, Sodium Benzoate, Tocopherol.</p>
+          <p class="inci-nat" style="margin-top:2.5mm;font-weight:600;color:#555;">Colorants ajout&eacute;s selon la teinte :</p>
+          <ul class="inci-teintes">
+            <li><span class="teinte">D&eacute;jaunisseur</span> &mdash; Acid Violet 43.</li>
+            <li><span class="teinte">Vanille</span> &mdash; Basic Yellow 57, Basic Brown 17.</li>
+            <li><span class="teinte">Blond Dor&eacute;</span> &mdash; Basic Yellow 57, Basic Brown 17, HC Yellow 2, Basic Red 76, Basic Blue 99.</li>
+            <li><span class="teinte">Noisette</span> &mdash; Basic Yellow 57, Basic Blue 99, Basic Brown 16, Basic Red 76, Basic Brown 17.</li>
+            <li><span class="teinte">Cuivre</span> &mdash; Basic Red 76, Basic Brown 17, Basic Yellow 57, Basic Brown 16, Basic Blue 99, Acid Violet 43.</li>
+            <li><span class="teinte">Marron</span> &mdash; Basic Brown 16, Basic Brown 17, Basic Yellow 57, Basic Red 76, Basic Blue 99.</li>
+          </ul>
+          <p class="inci-nat">&asymp; 93 &ndash; 95 % des ingr&eacute;dients sont d'origine naturelle selon la teinte.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
