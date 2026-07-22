@@ -399,7 +399,7 @@ Principe de la dégressivité : plus le client commande de quantités par réfé
 3. **Réponse structurée** : point par point, paragraphes courts
 4. **Proposition d'aide complémentaire** : "N'hésitez pas à revenir vers nous si besoin."
 5. **Formule de fin** : "Belle journée," ou "Bien cordialement,"
-6. **Signature OBLIGATOIRE** : coller le bloc HTML de signature MY.LAB à la fin du body, après un `<br><br>` de séparation. La signature configurée dans Gmail n'est PAS ajoutée automatiquement aux brouillons créés via l'API Gmail — il faut donc l'inclure dans le body. Source de vérité : `d:\be-yours-mylab\docs\signature-email.html`. Lire ce fichier avant chaque session de drafting et coller le contenu tel quel.
+6. **Signature OBLIGATOIRE** : coller le bloc HTML de signature MY.LAB à la fin du body, après un `<br><br>` de séparation. La signature configurée dans Gmail n'est PAS ajoutée automatiquement aux brouillons créés via l'API Gmail — il faut donc l'inclure dans le body. Source de vérité : `d:\be-yours-mylab\docs\signature-email-contact.html`. Lire ce fichier avant chaque session de drafting et coller le contenu tel quel.
 
 ### Format
 - **HTML simple** : pas de Markdown (pas de **gras** markdown, pas de titres ##)
